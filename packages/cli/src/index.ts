@@ -1,39 +1,43 @@
 #!/usr/bin/env node
-import chalk from "chalk"
+import { add } from "@/src/commands/add"
+import { build } from "@/src/commands/build"
+import { diff } from "@/src/commands/diff"
+import { info } from "@/src/commands/info"
+import { init } from "@/src/commands/init"
+import { migrate } from "@/src/commands/migrate"
+import { build as registryBuild } from "@/src/commands/registry/build"
+import { mcp as registryMcp } from "@/src/commands/registry/mcp"
+import { Command } from "commander"
 
-function getInvoker() {
-  const args = process.argv.slice(2)
-  const env = process.env
-  const npmExecPath = env.npm_execpath || ""
-  const packageName = "shadcn@latest"
+import packageJson from "../package.json"
 
-  if (npmExecPath.includes("pnpm")) {
-    return `pnpm dlx ${packageName}${args.length ? ` ${args.join(" ")}` : ""}`
-  } else if (npmExecPath.includes("yarn")) {
-    return `yarn dlx ${packageName}${args.length ? ` ${args.join(" ")}` : ""}`
-  } else if (npmExecPath.includes("bun")) {
-    return `bunx ${packageName}${args.length ? ` ${args.join(" ")}` : ""}`
-  } else {
-    return `npx ${packageName}${args.length ? ` ${args.join(" ")}` : ""}`
-  }
-}
+process.on("SIGINT", () => process.exit(0))
+process.on("SIGTERM", () => process.exit(0))
 
-const main = async () => {
-  console.log(
-    chalk.yellow(
-      "The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead:"
+async function main() {
+  const program = new Command()
+    .name("shadcn")
+    .description("add components and dependencies to your project")
+    .version(
+      packageJson.version || "1.0.0",
+      "-v, --version",
+      "display the version number"
     )
-  )
-  console.log("")
-  console.log(chalk.green(`  ${getInvoker()}`))
-  console.log("")
-  console.log(
-    chalk.yellow("For more information, visit: https://ui.shadcn.com/docs/cli")
-  )
-  console.log("")
+
+  program
+    .addCommand(init)
+    .addCommand(add)
+    .addCommand(diff)
+    .addCommand(migrate)
+    .addCommand(info)
+    .addCommand(build)
+
+  // Registry commands
+  program.addCommand(registryBuild).addCommand(registryMcp)
+
+  program.parse()
 }
 
-main().catch((error) => {
-  console.error(chalk.red("Error:"), error.message)
-  process.exit(1)
-})
+main()
+
+export * from "./registry/api"
