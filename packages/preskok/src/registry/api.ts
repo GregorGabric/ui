@@ -19,7 +19,8 @@ import {
   stylesSchema,
 } from "./schema"
 
-const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://ui.shadcn.com/r"
+const REGISTRY_URL =
+  process.env.REGISTRY_URL ?? "https://ui-three-mu.vercel.app/r"
 
 const agent = process.env.https_proxy
   ? new HttpsProxyAgent(process.env.https_proxy)

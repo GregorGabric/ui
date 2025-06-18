@@ -1,6 +1,6 @@
 {
-  "name": "shadcn/ui",
-  "homepage": "https://ui.shadcn.com",
+  "name": "preskok/ui",
+  "homepage": "https://ui-three-mu.vercel.app",
   "items": [
     {
       "name": "index",
@@ -677,6 +677,20 @@
       "files": [
         {
           "path": "registry/new-york-v4/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "awesome-card",
+      "type": "registry:ui",
+      "description": "A beautiful, animated card component with variants and gradient backgrounds",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/awesome-card.tsx",
           "type": "registry:ui"
         }
       ]
