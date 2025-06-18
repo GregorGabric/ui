@@ -46,6 +46,7 @@
     "release": "changeset version",
     "pub:beta": "cd packages/shadcn && pnpm pub:beta",
     "pub:release": "cd packages/shadcn && pnpm pub:release",
+    "pub:release:preskok": "cd packages/preskok && pnpm pub:release",
     "test": "turbo run test --filter=!shadcn-ui --force"
   },
   "packageManager": "pnpm@9.0.6",
