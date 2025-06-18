@@ -23,7 +23,7 @@ const DEPRECATED_ITEMS = [
 export const registry = {
   name: "preskok/ui",
   // TODO: change this
-  homepage: "https://ui.shadcn.com",
+  homepage: "https://ui-three-mu.vercel.app",
   items: z.array(registryItemSchema).parse(
     [
       {
