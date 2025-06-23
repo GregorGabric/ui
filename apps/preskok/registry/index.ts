@@ -7,6 +7,7 @@ import { examples } from "@/registry/registry-examples"
 import { hooks } from "@/registry/registry-hooks"
 import { internal } from "@/registry/registry-internal"
 import { lib } from "@/registry/registry-lib"
+import { libPreskok } from "@/registry/registry-lib-preskok"
 import { preskokUi } from "@/registry/registry-preskok"
 import { themes } from "@/registry/registry-themes"
 import { ui } from "@/registry/registry-ui"
@@ -40,6 +41,7 @@ export const registry = {
       ...blocks,
       ...charts,
       ...lib,
+      ...libPreskok,
       ...hooks,
       ...themes,
       ...examples,

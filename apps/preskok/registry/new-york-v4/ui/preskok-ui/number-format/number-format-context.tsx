@@ -1,3 +1,5 @@
+"use client"
+
 import type { PropsWithChildren } from "react"
 import React, { useCallback, useMemo } from "react"
 import type { NumericFormatProps } from "react-number-format"

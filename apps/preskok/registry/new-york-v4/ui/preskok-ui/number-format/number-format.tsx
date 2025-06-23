@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useRef } from "react"
 import type { NumericFormatProps } from "react-number-format"
 import { NumericFormat } from "react-number-format"

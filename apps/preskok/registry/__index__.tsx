@@ -862,6 +862,44 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "number-format": {
+    name: "number-format",
+    description: "A number format component that allows you to format numbers in a variety of ways",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format-context.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format-helpers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/preskok-ui/number-format/currency-helpers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/preskok-ui/locale-context/locale-context.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/preskok-ui/locale-context/locale-helpers.ts",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "dashboard-01": {
     name: "dashboard-01",
     description: "A dashboard with sidebar, charts and data table.",
@@ -3390,6 +3428,24 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/new-york-v4/lib/utils.ts")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "utils": {
+    name: "utils",
+    description: "",
+    type: "registry:lib",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/lib/create-ctx.ts",
+      type: "registry:lib",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/lib/create-ctx.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

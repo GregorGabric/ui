@@ -696,6 +696,40 @@
       ]
     },
     {
+      "name": "number-format",
+      "type": "registry:ui",
+      "description": "A number format component that allows you to format numbers in a variety of ways",
+      "dependencies": [
+        "react-number-format"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/preskok-ui/number-format/number-format-context.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/preskok-ui/number-format/number-format-helpers.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/preskok-ui/number-format/currency-helpers.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/preskok-ui/locale-context/locale-context.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/preskok-ui/locale-context/locale-helpers.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dashboard-01",
       "type": "registry:block",
       "description": "A dashboard with sidebar, charts and data table.",
@@ -3576,6 +3610,19 @@
       "files": [
         {
           "path": "registry/new-york-v4/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "dependencies": [
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/lib/create-ctx.ts",
           "type": "registry:lib"
         }
       ]
