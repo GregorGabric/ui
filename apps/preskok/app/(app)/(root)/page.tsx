@@ -13,6 +13,7 @@ import {
 } from "@/components/page-header"
 import { PageNav } from "@/components/page-nav"
 import { ThemeSelector } from "@/components/theme-selector"
+import { Badge } from "@/registry/new-york-v4/ui/badge"
 import { Button } from "@/registry/new-york-v4/ui/button"
 
 const title = "Build your Component Library"
@@ -50,6 +51,7 @@ export default function IndexPage() {
   return (
     <div className="flex flex-1 flex-col">
       <PageHeader>
+        <Badge>Preskok</Badge>
         <Announcement />
         <PageHeaderHeading>{title}</PageHeaderHeading>
         <PageHeaderDescription>{description}</PageHeaderDescription>
