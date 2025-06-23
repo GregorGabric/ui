@@ -60,4 +60,16 @@ export const preskokUi: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "file-upload",
+    type: "registry:ui",
+    description: "A file upload component that allows you to upload files",
+    dependencies: ["react-number-format"],
+    files: [
+      {
+        path: "ui/file-upload.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]
