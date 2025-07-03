@@ -3,7 +3,7 @@
 import type { HTMLAttributes } from "react"
 import { use } from "react"
 import { getLocalTimeZone, today } from "@internationalized/date"
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import type {
   CalendarCellProps as AriaCalendarCellProps,
   CalendarGridBodyProps as AriaCalendarGridBodyProps,

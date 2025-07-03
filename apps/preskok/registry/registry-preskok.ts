@@ -76,7 +76,7 @@ export const preskokUi: Registry["items"] = [
     description: "A calendar component with single and range selection support",
     dependencies: [
       "@internationalized/date",
-      "@radix-ui/react-icons",
+      "lucide-react",
       "react-aria-components",
     ],
     files: [
