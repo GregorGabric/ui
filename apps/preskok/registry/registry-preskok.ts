@@ -104,7 +104,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A date picker component with calendar popup for date selection",
-    dependencies: ["@radix-ui/react-icons", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components"],
     registryDependencies: ["calendar", "date-field"],
     files: [
       {

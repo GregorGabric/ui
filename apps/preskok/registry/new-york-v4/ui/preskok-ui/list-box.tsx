@@ -1,6 +1,6 @@
 "use client"
 
-import { CheckIcon } from "@radix-ui/react-icons"
+import { CheckIcon } from "lucide-react"
 import type {
   ListBoxItemProps as AriaListBoxItemProps,
   ListBoxProps as AriaListBoxProps,

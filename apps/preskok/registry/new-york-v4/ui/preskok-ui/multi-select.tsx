@@ -1,6 +1,6 @@
 "use client"
 
-import { CaretSortIcon } from "@radix-ui/react-icons"
+import { ChevronsUpDownIcon } from "lucide-react"
 import type {
   ComboBoxProps as AriaComboBoxProps,
   InputProps as AriaInputProps,
@@ -106,7 +106,10 @@ function Combobox<T extends object>({
       <FieldGroup className="p-0">
         <ComboboxInput />
         <Button variant="ghost" size="icon" className="mr-1 size-6 p-1">
-          <CaretSortIcon aria-hidden="true" className="size-4 opacity-50" />
+          <ChevronsUpDownIcon
+            aria-hidden="true"
+            className="size-4 opacity-50"
+          />
         </Button>
       </FieldGroup>
       {description && (
