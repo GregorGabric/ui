@@ -31,7 +31,7 @@ import {
 } from "@/registry/new-york-v4/ui/preskok-ui/list-box"
 import { Popover } from "@/registry/new-york-v4/ui/preskok-ui/popover"
 
-const Combobox = AriaComboBox
+const ComboboxPrimitive = AriaComboBox
 
 const ComboboxItem = ListBoxItem
 
@@ -79,7 +79,7 @@ const ComboboxListBox = <T extends object>({
   />
 )
 
-interface JollyComboBoxProps<T extends object>
+interface ComboboxProps<T extends object>
   extends Omit<AriaComboBoxProps<T>, "children"> {
   label?: string
   description?: string | null
@@ -87,16 +87,16 @@ interface JollyComboBoxProps<T extends object>
   children: React.ReactNode | ((item: T) => React.ReactNode)
 }
 
-function JollyComboBox<T extends object>({
+function Combobox<T extends object>({
   label,
   description,
   errorMessage,
   className,
   children,
   ...props
-}: JollyComboBoxProps<T>) {
+}: ComboboxProps<T>) {
   return (
-    <Combobox
+    <ComboboxPrimitive
       className={composeRenderProps(className, (className) =>
         cn("group flex flex-col gap-2", className)
       )}
@@ -118,7 +118,7 @@ function JollyComboBox<T extends object>({
       <ComboboxPopover>
         <ComboboxListBox>{children}</ComboboxListBox>
       </ComboboxPopover>
-    </Combobox>
+    </ComboboxPrimitive>
   )
 }
 
@@ -130,7 +130,7 @@ export {
   ComboboxItem,
   ComboboxListBox,
   ComboboxPopover,
+  ComboboxPrimitive,
   ComboboxSection,
-  JollyComboBox,
 }
-export type { JollyComboBoxProps }
+export type { ComboboxProps }
