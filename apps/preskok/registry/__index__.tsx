@@ -1078,24 +1078,6 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  "visually-hidden": {
-    name: "visually-hidden",
-    description: "A component for hiding content visually while keeping it accessible to screen readers",
-    type: "registry:ui",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/ui/preskok-ui/visually-hidden.tsx",
-      type: "registry:ui",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/visually-hidden.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "tooltip": {
     name: "tooltip",
     description: "A tooltip component with arrow and multiple styling options",

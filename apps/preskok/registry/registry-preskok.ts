@@ -164,18 +164,6 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
-    name: "visually-hidden",
-    type: "registry:ui",
-    description:
-      "A component for hiding content visually while keeping it accessible to screen readers",
-    files: [
-      {
-        path: "ui/preskok-ui/visually-hidden.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-  {
     name: "tooltip",
     type: "registry:ui",
     description: "A tooltip component with arrow and multiple styling options",

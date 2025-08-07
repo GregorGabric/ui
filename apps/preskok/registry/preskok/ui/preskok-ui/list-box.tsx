@@ -8,6 +8,8 @@ import type {
 } from "react-aria-components"
 import {
   composeRenderProps,
+  Collection as ListBoxCollection,
+  Header as ListBoxHeader,
   ListBoxItem as ListBoxItemPrimitive,
   ListBox as ListBoxPrimitive,
 } from "react-aria-components"
@@ -116,7 +118,9 @@ ListBox.Item = ListBoxItem
 
 export {
   ListBox,
+  ListBoxCollection,
   ListBoxDescription,
+  ListBoxHeader,
   ListBoxItem,
   ListBoxLabel,
   ListBoxSection,
