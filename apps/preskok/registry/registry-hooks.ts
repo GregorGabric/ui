@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/registry"
+import { type Registry } from "@preskok-org/ui/registry"
 
 export const hooks: Registry["items"] = [
   {

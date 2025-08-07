@@ -135,6 +135,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.8.2
         version: 3.8.2
+      '@preskok-org/ui':
+        specifier: workspace:*
+        version: link:../../packages/preskok
       '@radix-ui/react-accessible-icon':
         specifier: ^1.1.1
         version: 1.1.7(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)

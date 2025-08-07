@@ -16,8 +16,8 @@ import {
   Tablet,
   Terminal,
 } from "lucide-react"
+import { registryItemFileSchema, registryItemSchema } from "@preskok-org/ui/registry"
 import { ImperativePanelHandle } from "react-resizable-panels"
-import { registryItemFileSchema, registryItemSchema } from "shadcn/registry"
 import { z } from "zod"
 
 import { trackEvent } from "@/lib/events"

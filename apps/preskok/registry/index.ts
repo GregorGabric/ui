@@ -1,4 +1,4 @@
-import { registryItemSchema, type Registry } from "shadcn/registry"
+import { registryItemSchema, type Registry } from "@preskok-org/ui/registry"
 import { z } from "zod"
 
 import { blocks } from "@/registry/registry-blocks"
