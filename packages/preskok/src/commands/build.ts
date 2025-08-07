@@ -17,7 +17,7 @@ export const buildOptionsSchema = z.object({
 
 export const build = new Command()
   .name("build")
-  .description("build components for a shadcn registry")
+  .description("build components for a preskok registry")
   .argument("[registry]", "path to registry.json file", "./registry.json")
   .option(
     "-o, --output <path>",
@@ -61,7 +61,7 @@ export const build = new Command()
 
         // Add the schema to the registry item.
         registryItem["$schema"] =
-          "https://ui.shadcn.com/schema/registry-item.json"
+          "https://ui-three-mu.vercel.app/schema/registry-item.json"
 
         // Loop through each file in the files array.
         for (const file of registryItem.files) {

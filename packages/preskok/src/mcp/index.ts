@@ -10,7 +10,7 @@ import { zodToJsonSchema } from "zod-to-json-schema"
 
 export const server = new Server(
   {
-    name: "shadcn",
+    name: "preskok",
     version: "0.0.1",
   },
   {
@@ -86,7 +86,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
         let text = `To initialize a new project, run the following command:
                 \`\`\`bash
-                npx shadcn@canary init
+                npx preskok init
                 \`\`\`
                 - This will install all the dependencies and theme for the project.
                 - If running the init command installs a rules i.e registry.mdc file, you should follow the instructions in the file to configure the project.
@@ -100,10 +100,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           text += `
                 You should also install the rules for the project.
                 \`\`\`bash
-                npx shadcn@canary add ${getRegistryItemUrl(
-                  rules.name,
-                  REGISTRY_URL
-                )}
+                npx preskok add ${getRegistryItemUrl(rules.name, REGISTRY_URL)}
                 \`\`\`
                 `
         }
@@ -127,10 +124,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 style.name
               } style, run the following command:
               \`\`\`bash
-              npx shadcn@canary init ${getRegistryItemUrl(
-                style.name,
-                REGISTRY_URL
-              )}
+              npx preskok init ${getRegistryItemUrl(style.name, REGISTRY_URL)}
               \`\`\`
               `,
             },
@@ -165,18 +159,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
               )}.
               - To install and use an item in your project, you run the following command:
               \`\`\`bash
-              npx shadcn@canary add ${getRegistryItemUrl(
+              npx preskok add ${getRegistryItemUrl(
                 "NAME_OF_THE_ITEM",
                 REGISTRY_URL
               )}
               \`\`\`
-                - Example: npx shadcn@canary add ${getRegistryItemUrl(
+                - Example: npx preskok add ${getRegistryItemUrl(
                   registry.items[0].name,
                   REGISTRY_URL
                 )} to install the ${registry.items[0].name} item.
                 - To install multiple registry.items, you can do the following:
                 \`\`\`bash
-                npx shadcn@canary add ${getRegistryItemUrl(
+                npx preskok add ${getRegistryItemUrl(
                   "NAME_OF_THE_ITEM_1",
                   REGISTRY_URL
                 )} ${getRegistryItemUrl("NAME_OF_THE_ITEM_2", REGISTRY_URL)}
@@ -231,7 +225,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
               type: "text",
               text: `To install the ${name} item, run the following command:
               \`\`\`bash
-              npx shadcn@canary add ${itemUrl}
+              npx preskok add ${itemUrl}
               \`\`\``,
             },
           ],

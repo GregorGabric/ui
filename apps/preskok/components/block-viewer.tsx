@@ -4,6 +4,10 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
+  registryItemFileSchema,
+  registryItemSchema,
+} from "@preskok-org/ui/registry"
+import {
   Check,
   ChevronRight,
   Clipboard,
@@ -16,7 +20,6 @@ import {
   Tablet,
   Terminal,
 } from "lucide-react"
-import { registryItemFileSchema, registryItemSchema } from "@preskok-org/ui/registry"
 import { ImperativePanelHandle } from "react-resizable-panels"
 import { z } from "zod"
 

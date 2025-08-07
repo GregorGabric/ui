@@ -1,10 +1,25 @@
-# @shadcn/ui
+# @preskok-org/ui
 
-## 2.6.3
+## 0.1.0
 
-### Patch Changes
+### Minor Changes
 
-- [#7594](https://github.com/shadcn-ui/ui/pull/7594) [`431af4f7ff294af032c0687b8b655ed6db2e690f`](https://github.com/shadcn-ui/ui/commit/431af4f7ff294af032c0687b8b655ed6db2e690f) Thanks [@shadcn](https://github.com/shadcn)! - fix: semicolon in code style
+- **BREAKING**: Renamed from `shadcn` to `preskok` CLI
+- Updated all registry URLs to point to preskok registry
+- Updated package name from `@shadcn/ui` to `@preskok-org/ui`
+- Renamed directory structure from `@new-york-v4` to `preskok`
+- Updated all import statements to use `@preskok-org/ui/registry`
+- Updated CLI commands and help text to use `preskok` branding
+- Updated schema URLs to point to preskok registry
+- Updated MCP tool references to use preskok
+
+### Migration Guide
+
+If you're migrating from `shadcn` CLI:
+1. Uninstall old CLI: `npm uninstall -g shadcn`
+2. Install new CLI: `npm install -g @preskok-org/ui`
+3. Use `preskok` instead of `shadcn` in all commands
+4. Update your `components.json` to use the new registry URL
 
 ## 2.6.2
 

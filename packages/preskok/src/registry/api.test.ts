@@ -4,7 +4,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest"
 
 import { clearRegistryCache, fetchRegistry } from "./api"
 
-const REGISTRY_URL = "https://ui.shadcn.com/r"
+const REGISTRY_URL = "https://ui-three-mu.vercel.app/r"
 
 const server = setupServer(
   http.get(`${REGISTRY_URL}/styles/new-york/button.json`, () => {

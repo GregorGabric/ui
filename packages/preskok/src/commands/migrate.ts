@@ -30,7 +30,7 @@ export const migrateOptionsSchema = z.object({
         value && migrations.some((migration) => migration.name === value),
       {
         message:
-          "You must specify a valid migration. Run `shadcn migrate --list` to see available migrations.",
+          "You must specify a valid migration. Run `preskok migrate --list` to see available migrations.",
       }
     )
     .optional(),
@@ -66,7 +66,7 @@ export const migrate = new Command()
 
       if (!options.migration) {
         throw new Error(
-          "You must specify a migration. Run `shadcn migrate --list` to see available migrations."
+          "You must specify a migration. Run `preskok migrate --list` to see available migrations."
         )
       }
 
