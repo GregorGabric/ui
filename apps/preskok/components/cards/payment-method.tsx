@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
@@ -8,20 +8,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
+} from "@/registry/preskok/ui/card"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/registry/preskok/ui/radio-group"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/preskok/ui/select"
 
 const plans = [
   {

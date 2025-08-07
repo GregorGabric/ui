@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { useThemeConfig } from "@/components/active-theme"
 import { copyToClipboardWithMeta } from "@/components/copy-button"
 import { Icons } from "@/components/icons"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/new-york-v4/ui/dialog"
+} from "@/registry/preskok/ui/dialog"
 import {
   Drawer,
   DrawerContent,
@@ -24,9 +24,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/registry/new-york-v4/ui/drawer"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { ScrollArea, ScrollBar } from "@/registry/new-york-v4/ui/scroll-area"
+} from "@/registry/preskok/ui/drawer"
+import { Label } from "@/registry/preskok/ui/label"
+import { ScrollArea, ScrollBar } from "@/registry/preskok/ui/scroll-area"
 import {
   Select,
   SelectContent,
@@ -34,13 +34,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/preskok/ui/select"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/new-york-v4/ui/tabs"
+} from "@/registry/preskok/ui/tabs"
 import {
   BaseColor,
   baseColors,

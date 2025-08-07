@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-field",
+  "type": "registry:ui",
+  "description": "A search input field with loading state and clear functionality",
+  "dependencies": [
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "field",
+    "loader"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/search-field.tsx",
+      "content": "\"use client\"\n\nimport { SearchIcon, XIcon } from \"lucide-react\"\nimport type { SearchFieldProps as SearchFieldPrimitiveProps } from \"react-aria-components\"\nimport {\n  Button,\n  SearchField as SearchFieldPrimitive,\n} from \"react-aria-components\"\n\nimport { composeTailwindRenderProps } from \"@/registry/preskok/lib/primitive\"\n\nimport {\n  Description,\n  FieldError,\n  FieldGroup,\n  Input,\n  Label,\n  type FieldProps,\n} from \"./field\"\nimport { Loader } from \"./loader\"\n\ninterface SearchFieldProps extends SearchFieldPrimitiveProps, FieldProps {\n  isPending?: boolean\n}\n\nconst SearchField = ({\n  children,\n  className,\n  placeholder,\n  label,\n  description,\n  errorMessage,\n  isPending,\n  ...props\n}: SearchFieldProps) => {\n  return (\n    <SearchFieldPrimitive\n      aria-label={placeholder ?? props[\"aria-label\"] ?? \"Search...\"}\n      {...props}\n      className={composeTailwindRenderProps(\n        className,\n        \"group/search-field relative flex flex-col gap-y-1 *:data-[slot=label]:font-medium\"\n      )}\n    >\n      {(values) => (\n        <>\n          {label && <Label>{label}</Label>}\n          {typeof children === \"function\" ? (\n            children(values)\n          ) : children ? (\n            children\n          ) : (\n            <FieldGroup>\n              {isPending ? <Loader variant=\"spin\" /> : <SearchIcon />}\n              <Input placeholder={placeholder ?? \"Search...\"} />\n\n              <Button className=\"pressed:text-fg text-muted-fg hover:text-fg grid place-content-center group-empty/search-field:invisible\">\n                <XIcon />\n              </Button>\n            </FieldGroup>\n          )}\n\n          {description && <Description>{description}</Description>}\n          <FieldError>{errorMessage}</FieldError>\n        </>\n      )}\n    </SearchFieldPrimitive>\n  )\n}\n\nexport { SearchField }\nexport type { SearchFieldProps }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

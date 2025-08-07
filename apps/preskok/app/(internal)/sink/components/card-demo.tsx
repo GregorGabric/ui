@@ -5,9 +5,9 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/registry/new-york-v4/ui/avatar"
-import { Badge } from "@/registry/new-york-v4/ui/badge"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/avatar"
+import { Badge } from "@/registry/preskok/ui/badge"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
@@ -15,9 +15,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
+} from "@/registry/preskok/ui/card"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
 
 export function CardDemo() {
   return (

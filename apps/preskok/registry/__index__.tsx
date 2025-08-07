@@ -22,12 +22,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/accordion.tsx",
+      path: "registry/preskok/ui/accordion.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/accordion.tsx")
+      const mod = await import("@/registry/preskok/ui/accordion.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -40,12 +40,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/alert.tsx",
+      path: "registry/preskok/ui/alert.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/alert.tsx")
+      const mod = await import("@/registry/preskok/ui/alert.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -58,12 +58,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/alert-dialog.tsx",
+      path: "registry/preskok/ui/alert-dialog.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/alert-dialog.tsx")
+      const mod = await import("@/registry/preskok/ui/alert-dialog.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -76,12 +76,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/aspect-ratio.tsx",
+      path: "registry/preskok/ui/aspect-ratio.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/aspect-ratio.tsx")
+      const mod = await import("@/registry/preskok/ui/aspect-ratio.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -94,12 +94,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/avatar.tsx",
+      path: "registry/preskok/ui/avatar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/avatar.tsx")
+      const mod = await import("@/registry/preskok/ui/avatar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -112,12 +112,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/badge.tsx",
+      path: "registry/preskok/ui/badge.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/badge.tsx")
+      const mod = await import("@/registry/preskok/ui/badge.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -130,12 +130,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/breadcrumb.tsx",
+      path: "registry/preskok/ui/breadcrumb.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/breadcrumb.tsx")
+      const mod = await import("@/registry/preskok/ui/breadcrumb.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -148,12 +148,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/button.tsx",
+      path: "registry/preskok/ui/button.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/button.tsx")
+      const mod = await import("@/registry/preskok/ui/button.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -166,12 +166,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/calendar.tsx",
+      path: "registry/preskok/ui/calendar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/calendar.tsx")
+      const mod = await import("@/registry/preskok/ui/calendar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -184,12 +184,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/card.tsx",
+      path: "registry/preskok/ui/card.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/card.tsx")
+      const mod = await import("@/registry/preskok/ui/card.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -202,12 +202,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/carousel.tsx",
+      path: "registry/preskok/ui/carousel.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/carousel.tsx")
+      const mod = await import("@/registry/preskok/ui/carousel.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -220,12 +220,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["card"],
     files: [{
-      path: "registry/new-york-v4/ui/chart.tsx",
+      path: "registry/preskok/ui/chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/chart.tsx")
+      const mod = await import("@/registry/preskok/ui/chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -238,12 +238,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/checkbox.tsx",
+      path: "registry/preskok/ui/checkbox.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/checkbox.tsx")
+      const mod = await import("@/registry/preskok/ui/checkbox.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -256,12 +256,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/collapsible.tsx",
+      path: "registry/preskok/ui/collapsible.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/collapsible.tsx")
+      const mod = await import("@/registry/preskok/ui/collapsible.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -274,12 +274,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["dialog"],
     files: [{
-      path: "registry/new-york-v4/ui/command.tsx",
+      path: "registry/preskok/ui/command.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/command.tsx")
+      const mod = await import("@/registry/preskok/ui/command.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -292,12 +292,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/context-menu.tsx",
+      path: "registry/preskok/ui/context-menu.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/context-menu.tsx")
+      const mod = await import("@/registry/preskok/ui/context-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -310,12 +310,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/dialog.tsx",
+      path: "registry/preskok/ui/dialog.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/dialog.tsx")
+      const mod = await import("@/registry/preskok/ui/dialog.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -328,12 +328,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/drawer.tsx",
+      path: "registry/preskok/ui/drawer.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/drawer.tsx")
+      const mod = await import("@/registry/preskok/ui/drawer.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -346,12 +346,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/dropdown-menu.tsx",
+      path: "registry/preskok/ui/dropdown-menu.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/dropdown-menu.tsx")
+      const mod = await import("@/registry/preskok/ui/dropdown-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -364,12 +364,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","label"],
     files: [{
-      path: "registry/new-york-v4/ui/form.tsx",
+      path: "registry/preskok/ui/form.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/form.tsx")
+      const mod = await import("@/registry/preskok/ui/form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -382,12 +382,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/hover-card.tsx",
+      path: "registry/preskok/ui/hover-card.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/hover-card.tsx")
+      const mod = await import("@/registry/preskok/ui/hover-card.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -400,12 +400,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/input.tsx",
+      path: "registry/preskok/ui/input.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/input.tsx")
+      const mod = await import("@/registry/preskok/ui/input.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -418,12 +418,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/input-otp.tsx",
+      path: "registry/preskok/ui/input-otp.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/input-otp.tsx")
+      const mod = await import("@/registry/preskok/ui/input-otp.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -436,12 +436,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/label.tsx",
+      path: "registry/preskok/ui/label.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/label.tsx")
+      const mod = await import("@/registry/preskok/ui/label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -454,12 +454,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/menubar.tsx",
+      path: "registry/preskok/ui/menubar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/menubar.tsx")
+      const mod = await import("@/registry/preskok/ui/menubar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -472,12 +472,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/navigation-menu.tsx",
+      path: "registry/preskok/ui/navigation-menu.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/navigation-menu.tsx")
+      const mod = await import("@/registry/preskok/ui/navigation-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -490,12 +490,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/pagination.tsx",
+      path: "registry/preskok/ui/pagination.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/pagination.tsx")
+      const mod = await import("@/registry/preskok/ui/pagination.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -508,12 +508,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/popover.tsx",
+      path: "registry/preskok/ui/popover.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/popover.tsx")
+      const mod = await import("@/registry/preskok/ui/popover.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -526,12 +526,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/progress.tsx",
+      path: "registry/preskok/ui/progress.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/progress.tsx")
+      const mod = await import("@/registry/preskok/ui/progress.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -544,12 +544,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/radio-group.tsx",
+      path: "registry/preskok/ui/radio-group.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/radio-group.tsx")
+      const mod = await import("@/registry/preskok/ui/radio-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -562,12 +562,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/resizable.tsx",
+      path: "registry/preskok/ui/resizable.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/resizable.tsx")
+      const mod = await import("@/registry/preskok/ui/resizable.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -580,12 +580,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/scroll-area.tsx",
+      path: "registry/preskok/ui/scroll-area.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/scroll-area.tsx")
+      const mod = await import("@/registry/preskok/ui/scroll-area.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -598,12 +598,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/select.tsx",
+      path: "registry/preskok/ui/select.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/select.tsx")
+      const mod = await import("@/registry/preskok/ui/select.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -616,12 +616,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/separator.tsx",
+      path: "registry/preskok/ui/separator.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/separator.tsx")
+      const mod = await import("@/registry/preskok/ui/separator.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -634,12 +634,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/sheet.tsx",
+      path: "registry/preskok/ui/sheet.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/sheet.tsx")
+      const mod = await import("@/registry/preskok/ui/sheet.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -652,12 +652,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","separator","sheet","tooltip","input","use-mobile","skeleton"],
     files: [{
-      path: "registry/new-york-v4/ui/sidebar.tsx",
+      path: "registry/preskok/ui/sidebar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/sidebar.tsx")
+      const mod = await import("@/registry/preskok/ui/sidebar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -670,12 +670,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/skeleton.tsx",
+      path: "registry/preskok/ui/skeleton.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/skeleton.tsx")
+      const mod = await import("@/registry/preskok/ui/skeleton.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -688,12 +688,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/slider.tsx",
+      path: "registry/preskok/ui/slider.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/slider.tsx")
+      const mod = await import("@/registry/preskok/ui/slider.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -706,12 +706,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/sonner.tsx",
+      path: "registry/preskok/ui/sonner.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/sonner.tsx")
+      const mod = await import("@/registry/preskok/ui/sonner.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -724,12 +724,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/switch.tsx",
+      path: "registry/preskok/ui/switch.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/switch.tsx")
+      const mod = await import("@/registry/preskok/ui/switch.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -742,12 +742,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/table.tsx",
+      path: "registry/preskok/ui/table.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/table.tsx")
+      const mod = await import("@/registry/preskok/ui/table.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -760,12 +760,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/tabs.tsx",
+      path: "registry/preskok/ui/tabs.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/tabs.tsx")
+      const mod = await import("@/registry/preskok/ui/tabs.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -778,12 +778,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/textarea.tsx",
+      path: "registry/preskok/ui/textarea.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/textarea.tsx")
+      const mod = await import("@/registry/preskok/ui/textarea.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -796,12 +796,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/toggle.tsx",
+      path: "registry/preskok/ui/toggle.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/toggle.tsx")
+      const mod = await import("@/registry/preskok/ui/toggle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -814,12 +814,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/ui/toggle-group.tsx",
+      path: "registry/preskok/ui/toggle-group.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/toggle-group.tsx")
+      const mod = await import("@/registry/preskok/ui/toggle-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -832,12 +832,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/tooltip.tsx",
+      path: "registry/preskok/ui/tooltip.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/tooltip.tsx")
+      const mod = await import("@/registry/preskok/ui/tooltip.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -850,12 +850,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/avatar.tsx",
+      path: "registry/preskok/ui/preskok-ui/avatar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/avatar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/avatar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -868,12 +868,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/badge.tsx",
+      path: "registry/preskok/ui/preskok-ui/badge.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/badge.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/badge.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -886,12 +886,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/button.tsx",
+      path: "registry/preskok/ui/preskok-ui/button.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/button.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/button.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -904,12 +904,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/card.tsx",
+      path: "registry/preskok/ui/preskok-ui/card.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/card.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/card.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -922,12 +922,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/container.tsx",
+      path: "registry/preskok/ui/preskok-ui/container.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/container.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/container.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -940,12 +940,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/heading.tsx",
+      path: "registry/preskok/ui/preskok-ui/heading.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/heading.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/heading.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -958,12 +958,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/keyboard.tsx",
+      path: "registry/preskok/ui/preskok-ui/keyboard.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/keyboard.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/keyboard.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -976,12 +976,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/link.tsx",
+      path: "registry/preskok/ui/preskok-ui/link.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/link.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/link.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -994,12 +994,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/loader.tsx",
+      path: "registry/preskok/ui/preskok-ui/loader.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/loader.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/loader.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1012,12 +1012,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/note.tsx",
+      path: "registry/preskok/ui/preskok-ui/note.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/note.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/note.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1030,12 +1030,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/separator.tsx",
+      path: "registry/preskok/ui/preskok-ui/separator.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/separator.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/separator.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1048,12 +1048,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/skeleton.tsx",
+      path: "registry/preskok/ui/preskok-ui/skeleton.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/skeleton.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/skeleton.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1066,12 +1066,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/switch.tsx",
+      path: "registry/preskok/ui/preskok-ui/switch.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/switch.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/switch.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1084,12 +1084,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/visually-hidden.tsx",
+      path: "registry/preskok/ui/preskok-ui/visually-hidden.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/visually-hidden.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/visually-hidden.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1102,12 +1102,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/tooltip.tsx",
+      path: "registry/preskok/ui/preskok-ui/tooltip.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tooltip.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/tooltip.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1120,12 +1120,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/field.tsx",
+      path: "registry/preskok/ui/preskok-ui/field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1138,12 +1138,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/form.tsx",
+      path: "registry/preskok/ui/preskok-ui/form.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/form.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1156,12 +1156,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/checkbox.tsx",
+      path: "registry/preskok/ui/preskok-ui/checkbox.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/checkbox.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/checkbox.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1174,12 +1174,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/input-otp.tsx",
+      path: "registry/preskok/ui/preskok-ui/input-otp.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/input-otp.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/input-otp.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1192,12 +1192,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/number-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/number-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/number-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/number-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1210,12 +1210,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/radio.tsx",
+      path: "registry/preskok/ui/preskok-ui/radio.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/radio.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/radio.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1228,12 +1228,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field","loader"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/search-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/search-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/search-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/search-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1246,12 +1246,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field","tooltip"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/slider.tsx",
+      path: "registry/preskok/ui/preskok-ui/slider.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/slider.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/slider.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1264,12 +1264,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field","loader"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/text-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/text-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/text-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/text-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1282,12 +1282,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/textarea.tsx",
+      path: "registry/preskok/ui/preskok-ui/textarea.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/textarea.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/textarea.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1300,12 +1300,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/time-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/time-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/time-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/time-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1318,12 +1318,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/popover.tsx",
+      path: "registry/preskok/ui/preskok-ui/popover.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/popover.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/popover.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1336,12 +1336,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/dialog.tsx",
+      path: "registry/preskok/ui/preskok-ui/dialog.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/dialog.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/dialog.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1354,12 +1354,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["dialog"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/modal.tsx",
+      path: "registry/preskok/ui/preskok-ui/modal.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/modal.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/modal.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1372,12 +1372,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","dialog"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/drawer.tsx",
+      path: "registry/preskok/ui/preskok-ui/drawer.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/drawer.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/drawer.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1390,12 +1390,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["dialog"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/sheet.tsx",
+      path: "registry/preskok/ui/preskok-ui/sheet.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/sheet.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/sheet.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1408,12 +1408,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["keyboard","separator"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/dropdown.tsx",
+      path: "registry/preskok/ui/preskok-ui/dropdown.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/dropdown.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/dropdown.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1426,12 +1426,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","dropdown","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/menu.tsx",
+      path: "registry/preskok/ui/preskok-ui/menu.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/menu.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1444,12 +1444,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["menu"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/context-menu.tsx",
+      path: "registry/preskok/ui/preskok-ui/context-menu.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/context-menu.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/context-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1462,12 +1462,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/list-box.tsx",
+      path: "registry/preskok/ui/preskok-ui/list-box.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/list-box.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/list-box.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1480,12 +1480,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","field","list-box","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/select.tsx",
+      path: "registry/preskok/ui/preskok-ui/select.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/select.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/select.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1498,12 +1498,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field","list-box","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/combo-box.tsx",
+      path: "registry/preskok/ui/preskok-ui/combo-box.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/combo-box.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/combo-box.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1516,12 +1516,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["link"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/breadcrumbs.tsx",
+      path: "registry/preskok/ui/preskok-ui/breadcrumbs.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/breadcrumbs.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/breadcrumbs.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1534,12 +1534,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/description-list.tsx",
+      path: "registry/preskok/ui/preskok-ui/description-list.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/description-list.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/description-list.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1552,12 +1552,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/disclosure.tsx",
+      path: "registry/preskok/ui/preskok-ui/disclosure.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/disclosure.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/disclosure.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1570,12 +1570,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/grid-list.tsx",
+      path: "registry/preskok/ui/preskok-ui/grid-list.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/grid-list.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/grid-list.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1588,12 +1588,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/tabs.tsx",
+      path: "registry/preskok/ui/preskok-ui/tabs.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tabs.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/tabs.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1606,12 +1606,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["checkbox"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/tree.tsx",
+      path: "registry/preskok/ui/preskok-ui/tree.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tree.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/tree.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1624,12 +1624,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/awesome-card.tsx",
+      path: "registry/preskok/ui/awesome-card.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/awesome-card.tsx")
+      const mod = await import("@/registry/preskok/ui/awesome-card.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1642,12 +1642,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/video-player.tsx",
+      path: "registry/preskok/ui/video-player.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/video-player.tsx")
+      const mod = await import("@/registry/preskok/ui/video-player.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1660,12 +1660,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/file-upload.tsx",
+      path: "registry/preskok/ui/file-upload.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/file-upload.tsx")
+      const mod = await import("@/registry/preskok/ui/file-upload.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1678,12 +1678,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/calendar.tsx",
+      path: "registry/preskok/ui/preskok-ui/calendar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/calendar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/calendar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1696,12 +1696,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/date-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/date-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/date-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/date-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1714,12 +1714,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["calendar","date-field","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/date-picker.tsx",
+      path: "registry/preskok/ui/preskok-ui/date-picker.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/date-picker.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/date-picker.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1732,12 +1732,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["calendar","date-field","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/date-range-picker.tsx",
+      path: "registry/preskok/ui/preskok-ui/date-range-picker.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/date-range-picker.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/date-range-picker.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1750,12 +1750,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/range-calendar.tsx",
+      path: "registry/preskok/ui/preskok-ui/range-calendar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/range-calendar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/range-calendar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1768,12 +1768,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/tag-group.tsx",
+      path: "registry/preskok/ui/preskok-ui/tag-group.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tag-group.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/tag-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1786,12 +1786,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field","list-box","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/multi-select.tsx",
+      path: "registry/preskok/ui/preskok-ui/multi-select.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/multi-select.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/multi-select.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1804,12 +1804,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["dropdown","field","popover","tag-group"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/multiple-select.tsx",
+      path: "registry/preskok/ui/preskok-ui/multiple-select.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/multiple-select.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/multiple-select.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1822,12 +1822,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["field","tag-group"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/tag-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/tag-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tag-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/tag-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1840,12 +1840,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/toggle.tsx",
+      path: "registry/preskok/ui/preskok-ui/toggle.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toggle.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/toggle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1858,12 +1858,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/toggle-group.tsx",
+      path: "registry/preskok/ui/preskok-ui/toggle-group.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toggle-group.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/toggle-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1876,12 +1876,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["checkbox"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/choicebox.tsx",
+      path: "registry/preskok/ui/preskok-ui/choicebox.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/choicebox.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/choicebox.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1894,12 +1894,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/carousel.tsx",
+      path: "registry/preskok/ui/preskok-ui/carousel.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/carousel.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/carousel.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1912,12 +1912,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","link","separator"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/navbar.tsx",
+      path: "registry/preskok/ui/preskok-ui/navbar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/navbar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/navbar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1930,12 +1930,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","disclosure","link","sheet","tooltip"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/sidebar.tsx",
+      path: "registry/preskok/ui/preskok-ui/sidebar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/sidebar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/sidebar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1948,12 +1948,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","list-box"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/pagination.tsx",
+      path: "registry/preskok/ui/preskok-ui/pagination.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/pagination.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/pagination.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1966,12 +1966,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["separator","toggle"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/toolbar.tsx",
+      path: "registry/preskok/ui/preskok-ui/toolbar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toolbar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/toolbar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -1984,12 +1984,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/meter.tsx",
+      path: "registry/preskok/ui/preskok-ui/meter.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/meter.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/meter.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2002,12 +2002,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/progress-bar.tsx",
+      path: "registry/preskok/ui/preskok-ui/progress-bar.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/progress-bar.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/progress-bar.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2020,12 +2020,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["progress-bar"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/progress-circle.tsx",
+      path: "registry/preskok/ui/preskok-ui/progress-circle.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/progress-circle.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/progress-circle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2038,12 +2038,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["tooltip"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/tracker.tsx",
+      path: "registry/preskok/ui/preskok-ui/tracker.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tracker.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/tracker.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2056,12 +2056,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/toast.tsx",
+      path: "registry/preskok/ui/preskok-ui/toast.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toast.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/toast.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2074,12 +2074,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2092,12 +2092,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/area-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/area-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/area-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/area-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2110,12 +2110,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/bar-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/bar-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/bar-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/bar-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2128,12 +2128,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/line-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/line-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/line-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/line-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2146,12 +2146,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/pie-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/pie-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/pie-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/pie-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2164,12 +2164,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["link"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/bar-list.tsx",
+      path: "registry/preskok/ui/preskok-ui/bar-list.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/bar-list.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/bar-list.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2182,12 +2182,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["color-thumb"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-area.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-area.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-area.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-area.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2200,12 +2200,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["color-picker","field","loader"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-field.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-field.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-field.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-field.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2218,12 +2218,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["color-thumb","field"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-slider.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-slider.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-slider.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-slider.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2236,12 +2236,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-swatch.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-swatch.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-swatch.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-swatch.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2254,12 +2254,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["color-swatch"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-swatch-picker.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-swatch-picker.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-swatch-picker.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-swatch-picker.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2272,12 +2272,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-thumb.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-thumb.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-thumb.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-thumb.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2290,12 +2290,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["color-thumb"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-wheel.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-wheel.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-wheel.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-wheel.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2308,12 +2308,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","color-area","color-field","color-slider","color-swatch","field","popover"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/color-picker.tsx",
+      path: "registry/preskok/ui/preskok-ui/color-picker.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-picker.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/color-picker.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2326,12 +2326,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/drop-zone.tsx",
+      path: "registry/preskok/ui/preskok-ui/drop-zone.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/drop-zone.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/drop-zone.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2344,12 +2344,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/file-trigger.tsx",
+      path: "registry/preskok/ui/preskok-ui/file-trigger.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/file-trigger.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/file-trigger.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2362,12 +2362,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/scroll-area.tsx",
+      path: "registry/preskok/ui/preskok-ui/scroll-area.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/scroll-area.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/scroll-area.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2380,12 +2380,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/show-more.tsx",
+      path: "registry/preskok/ui/preskok-ui/show-more.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/show-more.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/show-more.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2398,12 +2398,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["dropdown","loader","menu"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/command-menu.tsx",
+      path: "registry/preskok/ui/preskok-ui/command-menu.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/command-menu.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/command-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2416,12 +2416,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["checkbox"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/table.tsx",
+      path: "registry/preskok/ui/preskok-ui/table.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/table.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/table.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2434,24 +2434,24 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["locale-context"],
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx",
+      path: "registry/preskok/ui/preskok-ui/number-format/number-format.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format-context.tsx",
+      path: "registry/preskok/ui/preskok-ui/number-format/number-format-context.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format-helpers.ts",
+      path: "registry/preskok/ui/preskok-ui/number-format/number-format-helpers.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/preskok-ui/number-format/currency-helpers.ts",
+      path: "registry/preskok/ui/preskok-ui/number-format/currency-helpers.ts",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/number-format/number-format.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2464,16 +2464,16 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/ui/preskok-ui/locale-context/locale-context.tsx",
+      path: "registry/preskok/ui/preskok-ui/locale-context/locale-context.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/preskok-ui/locale-context/locale-helpers.ts",
+      path: "registry/preskok/ui/preskok-ui/locale-context/locale-helpers.ts",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/locale-context/locale-context.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/locale-context/locale-context.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2486,52 +2486,52 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","label","chart","card","select","tabs","table","toggle-group","badge","button","checkbox","dropdown-menu","drawer","input","avatar","sheet","sonner"],
     files: [{
-      path: "registry/new-york-v4/blocks/dashboard-01/page.tsx",
+      path: "registry/preskok/blocks/dashboard-01/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/data.json",
+      path: "registry/preskok/blocks/dashboard-01/data.json",
       type: "registry:file",
       target: "app/dashboard/data.json"
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/chart-area-interactive.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/chart-area-interactive.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/data-table.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/data-table.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/nav-documents.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/nav-documents.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/nav-main.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/nav-secondary.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/nav-secondary.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/nav-user.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/section-cards.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/section-cards.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/dashboard-01/components/site-header.tsx",
+      path: "registry/preskok/blocks/dashboard-01/components/site-header.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/dashboard-01/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/dashboard-01/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2544,24 +2544,24 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","label","dropdown-menu"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-01/page.tsx",
+      path: "registry/preskok/blocks/sidebar-01/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-01/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-01/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-01/components/search-form.tsx",
+      path: "registry/preskok/blocks/sidebar-01/components/search-form.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-01/components/version-switcher.tsx",
+      path: "registry/preskok/blocks/sidebar-01/components/version-switcher.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-01/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-01/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2574,24 +2574,24 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","label","dropdown-menu"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-02/page.tsx",
+      path: "registry/preskok/blocks/sidebar-02/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-02/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-02/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-02/components/search-form.tsx",
+      path: "registry/preskok/blocks/sidebar-02/components/search-form.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-02/components/version-switcher.tsx",
+      path: "registry/preskok/blocks/sidebar-02/components/version-switcher.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-02/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-02/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2604,16 +2604,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-03/page.tsx",
+      path: "registry/preskok/blocks/sidebar-03/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-03/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-03/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-03/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-03/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2626,16 +2626,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-04/page.tsx",
+      path: "registry/preskok/blocks/sidebar-04/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-04/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-04/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-04/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-04/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2648,20 +2648,20 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","label","collapsible"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-05/page.tsx",
+      path: "registry/preskok/blocks/sidebar-05/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-05/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-05/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-05/components/search-form.tsx",
+      path: "registry/preskok/blocks/sidebar-05/components/search-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-05/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-05/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2674,24 +2674,24 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","card","dropdown-menu"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-06/page.tsx",
+      path: "registry/preskok/blocks/sidebar-06/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-06/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-06/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-06/components/nav-main.tsx",
+      path: "registry/preskok/blocks/sidebar-06/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-06/components/sidebar-opt-in-form.tsx",
+      path: "registry/preskok/blocks/sidebar-06/components/sidebar-opt-in-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-06/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-06/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2704,32 +2704,32 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","collapsible","dropdown-menu","avatar"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-07/page.tsx",
+      path: "registry/preskok/blocks/sidebar-07/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-07/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-07/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-07/components/nav-main.tsx",
+      path: "registry/preskok/blocks/sidebar-07/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-07/components/nav-projects.tsx",
+      path: "registry/preskok/blocks/sidebar-07/components/nav-projects.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-07/components/nav-user.tsx",
+      path: "registry/preskok/blocks/sidebar-07/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-07/components/team-switcher.tsx",
+      path: "registry/preskok/blocks/sidebar-07/components/team-switcher.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-07/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-07/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2742,32 +2742,32 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","collapsible","dropdown-menu","avatar"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-08/page.tsx",
+      path: "registry/preskok/blocks/sidebar-08/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-08/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-08/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-08/components/nav-main.tsx",
+      path: "registry/preskok/blocks/sidebar-08/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-08/components/nav-projects.tsx",
+      path: "registry/preskok/blocks/sidebar-08/components/nav-projects.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-08/components/nav-secondary.tsx",
+      path: "registry/preskok/blocks/sidebar-08/components/nav-secondary.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-08/components/nav-user.tsx",
+      path: "registry/preskok/blocks/sidebar-08/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-08/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-08/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2780,20 +2780,20 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","collapsible","dropdown-menu","avatar","switch","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-09/page.tsx",
+      path: "registry/preskok/blocks/sidebar-09/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-09/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-09/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-09/components/nav-user.tsx",
+      path: "registry/preskok/blocks/sidebar-09/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-09/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-09/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2806,40 +2806,40 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","popover","collapsible","dropdown-menu"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-10/page.tsx",
+      path: "registry/preskok/blocks/sidebar-10/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/nav-actions.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/nav-actions.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/nav-favorites.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/nav-favorites.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/nav-main.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/nav-secondary.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/nav-secondary.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/nav-workspaces.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/nav-workspaces.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-10/components/team-switcher.tsx",
+      path: "registry/preskok/blocks/sidebar-10/components/team-switcher.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-10/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-10/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2852,16 +2852,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","collapsible"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-11/page.tsx",
+      path: "registry/preskok/blocks/sidebar-11/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-11/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-11/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-11/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-11/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2874,28 +2874,28 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","collapsible","calendar","dropdown-menu","avatar"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-12/page.tsx",
+      path: "registry/preskok/blocks/sidebar-12/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-12/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-12/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-12/components/calendars.tsx",
+      path: "registry/preskok/blocks/sidebar-12/components/calendars.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-12/components/date-picker.tsx",
+      path: "registry/preskok/blocks/sidebar-12/components/date-picker.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-12/components/nav-user.tsx",
+      path: "registry/preskok/blocks/sidebar-12/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-12/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-12/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2908,16 +2908,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","button","dialog"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-13/page.tsx",
+      path: "registry/preskok/blocks/sidebar-13/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-13/components/settings-dialog.tsx",
+      path: "registry/preskok/blocks/sidebar-13/components/settings-dialog.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-13/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-13/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2930,16 +2930,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-14/page.tsx",
+      path: "registry/preskok/blocks/sidebar-14/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-14/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-14/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-14/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-14/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2952,52 +2952,52 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","popover","collapsible","dropdown-menu","calendar","avatar"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-15/page.tsx",
+      path: "registry/preskok/blocks/sidebar-15/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/calendars.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/calendars.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/date-picker.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/date-picker.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/nav-favorites.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/nav-favorites.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/nav-main.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/nav-secondary.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/nav-secondary.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/nav-user.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/nav-workspaces.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/nav-workspaces.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/sidebar-left.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/sidebar-left.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/sidebar-right.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/sidebar-right.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-15/components/team-switcher.tsx",
+      path: "registry/preskok/blocks/sidebar-15/components/team-switcher.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-15/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-15/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3010,40 +3010,40 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["sidebar","breadcrumb","separator","collapsible","dropdown-menu","avatar","button","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/sidebar-16/page.tsx",
+      path: "registry/preskok/blocks/sidebar-16/page.tsx",
       type: "registry:page",
       target: "app/dashboard/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/app-sidebar.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/nav-main.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/nav-main.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/nav-projects.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/nav-projects.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/nav-secondary.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/nav-secondary.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/nav-user.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/nav-user.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/search-form.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/search-form.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/new-york-v4/blocks/sidebar-16/components/site-header.tsx",
+      path: "registry/preskok/blocks/sidebar-16/components/site-header.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/sidebar-16/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/sidebar-16/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3056,16 +3056,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["button","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/login-01/page.tsx",
+      path: "registry/preskok/blocks/login-01/page.tsx",
       type: "registry:page",
       target: "app/login/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/login-01/components/login-form.tsx",
+      path: "registry/preskok/blocks/login-01/components/login-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/login-01/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/login-01/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3078,16 +3078,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["button","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/login-02/page.tsx",
+      path: "registry/preskok/blocks/login-02/page.tsx",
       type: "registry:page",
       target: "app/login/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/login-02/components/login-form.tsx",
+      path: "registry/preskok/blocks/login-02/components/login-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/login-02/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/login-02/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3100,16 +3100,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["button","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/login-03/page.tsx",
+      path: "registry/preskok/blocks/login-03/page.tsx",
       type: "registry:page",
       target: "app/login/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/login-03/components/login-form.tsx",
+      path: "registry/preskok/blocks/login-03/components/login-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/login-03/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/login-03/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3122,16 +3122,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["button","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/login-04/page.tsx",
+      path: "registry/preskok/blocks/login-04/page.tsx",
       type: "registry:page",
       target: "app/login/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/login-04/components/login-form.tsx",
+      path: "registry/preskok/blocks/login-04/components/login-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/login-04/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/login-04/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3144,16 +3144,16 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["button","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/login-05/page.tsx",
+      path: "registry/preskok/blocks/login-05/page.tsx",
       type: "registry:page",
       target: "app/login/page.tsx"
     },{
-      path: "registry/new-york-v4/blocks/login-05/components/login-form.tsx",
+      path: "registry/preskok/blocks/login-05/components/login-form.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/login-05/page.tsx")
+      const mod = await import("@/registry/preskok/blocks/login-05/page.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3166,12 +3166,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-01.tsx",
+      path: "registry/preskok/blocks/calendar-01.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-01.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-01.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3184,12 +3184,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-02.tsx",
+      path: "registry/preskok/blocks/calendar-02.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-02.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-02.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3202,12 +3202,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-03.tsx",
+      path: "registry/preskok/blocks/calendar-03.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-03.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-03.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3220,12 +3220,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-04.tsx",
+      path: "registry/preskok/blocks/calendar-04.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-04.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-04.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3238,12 +3238,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-05.tsx",
+      path: "registry/preskok/blocks/calendar-05.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-05.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-05.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3256,12 +3256,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-06.tsx",
+      path: "registry/preskok/blocks/calendar-06.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-06.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-06.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3274,12 +3274,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-07.tsx",
+      path: "registry/preskok/blocks/calendar-07.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-07.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-07.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3292,12 +3292,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-08.tsx",
+      path: "registry/preskok/blocks/calendar-08.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-08.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-08.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3310,12 +3310,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-09.tsx",
+      path: "registry/preskok/blocks/calendar-09.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-09.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-09.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3328,12 +3328,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-10.tsx",
+      path: "registry/preskok/blocks/calendar-10.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-10.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-10.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3346,12 +3346,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-11.tsx",
+      path: "registry/preskok/blocks/calendar-11.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-11.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-11.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3364,12 +3364,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","select"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-12.tsx",
+      path: "registry/preskok/blocks/calendar-12.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-12.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-12.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3382,12 +3382,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","label","select"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-13.tsx",
+      path: "registry/preskok/blocks/calendar-13.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-13.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-13.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3400,12 +3400,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-14.tsx",
+      path: "registry/preskok/blocks/calendar-14.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-14.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-14.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3418,12 +3418,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-15.tsx",
+      path: "registry/preskok/blocks/calendar-15.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-15.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-15.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3436,12 +3436,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-16.tsx",
+      path: "registry/preskok/blocks/calendar-16.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-16.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-16.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3454,12 +3454,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-17.tsx",
+      path: "registry/preskok/blocks/calendar-17.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-17.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-17.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3472,12 +3472,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-18.tsx",
+      path: "registry/preskok/blocks/calendar-18.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-18.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-18.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3490,12 +3490,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-19.tsx",
+      path: "registry/preskok/blocks/calendar-19.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-19.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-19.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3508,12 +3508,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-20.tsx",
+      path: "registry/preskok/blocks/calendar-20.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-20.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-20.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3526,12 +3526,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-21.tsx",
+      path: "registry/preskok/blocks/calendar-21.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-21.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-21.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3544,12 +3544,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","popover","button","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-22.tsx",
+      path: "registry/preskok/blocks/calendar-22.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-22.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-22.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3562,12 +3562,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","popover","button","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-23.tsx",
+      path: "registry/preskok/blocks/calendar-23.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-23.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-23.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3580,12 +3580,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","popover","button","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-24.tsx",
+      path: "registry/preskok/blocks/calendar-24.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-24.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-24.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3598,12 +3598,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","popover","button","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-25.tsx",
+      path: "registry/preskok/blocks/calendar-25.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-25.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-25.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3616,12 +3616,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","popover","button","input","label"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-26.tsx",
+      path: "registry/preskok/blocks/calendar-26.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-26.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-26.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3634,12 +3634,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","chart","card","popover","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-27.tsx",
+      path: "registry/preskok/blocks/calendar-27.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-27.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-27.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3652,12 +3652,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","input","label","popover","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-28.tsx",
+      path: "registry/preskok/blocks/calendar-28.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-28.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-28.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3670,12 +3670,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","input","label","popover","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-29.tsx",
+      path: "registry/preskok/blocks/calendar-29.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-29.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-29.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3688,12 +3688,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","input","label","popover","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-30.tsx",
+      path: "registry/preskok/blocks/calendar-30.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-30.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-30.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3706,12 +3706,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","card","button"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-31.tsx",
+      path: "registry/preskok/blocks/calendar-31.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-31.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-31.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3724,12 +3724,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["calendar","button","drawer"],
     files: [{
-      path: "registry/new-york-v4/blocks/calendar-32.tsx",
+      path: "registry/preskok/blocks/calendar-32.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/blocks/calendar-32.tsx")
+      const mod = await import("@/registry/preskok/blocks/calendar-32.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3742,12 +3742,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-axes.tsx",
+      path: "registry/preskok/charts/chart-area-axes.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-axes.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-axes.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3760,12 +3760,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-default.tsx",
+      path: "registry/preskok/charts/chart-area-default.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-default.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-default.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3778,12 +3778,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-gradient.tsx",
+      path: "registry/preskok/charts/chart-area-gradient.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-gradient.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-gradient.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3796,12 +3796,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-icons.tsx",
+      path: "registry/preskok/charts/chart-area-icons.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-icons.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-icons.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3814,12 +3814,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart","select"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-interactive.tsx",
+      path: "registry/preskok/charts/chart-area-interactive.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-interactive.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-interactive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3832,12 +3832,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-legend.tsx",
+      path: "registry/preskok/charts/chart-area-legend.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-legend.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-legend.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3850,12 +3850,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-linear.tsx",
+      path: "registry/preskok/charts/chart-area-linear.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-linear.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-linear.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3868,12 +3868,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-stacked-expand.tsx",
+      path: "registry/preskok/charts/chart-area-stacked-expand.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-stacked-expand.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-stacked-expand.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3886,12 +3886,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-stacked.tsx",
+      path: "registry/preskok/charts/chart-area-stacked.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-stacked.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-stacked.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3904,12 +3904,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-area-step.tsx",
+      path: "registry/preskok/charts/chart-area-step.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-area-step.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-area-step.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3922,12 +3922,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-active.tsx",
+      path: "registry/preskok/charts/chart-bar-active.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-active.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-active.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3940,12 +3940,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-default.tsx",
+      path: "registry/preskok/charts/chart-bar-default.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-default.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-default.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3958,12 +3958,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-horizontal.tsx",
+      path: "registry/preskok/charts/chart-bar-horizontal.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-horizontal.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-horizontal.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3976,12 +3976,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-interactive.tsx",
+      path: "registry/preskok/charts/chart-bar-interactive.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-interactive.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-interactive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3994,12 +3994,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-label-custom.tsx",
+      path: "registry/preskok/charts/chart-bar-label-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-label-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-label-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4012,12 +4012,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-label.tsx",
+      path: "registry/preskok/charts/chart-bar-label.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-label.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4030,12 +4030,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-mixed.tsx",
+      path: "registry/preskok/charts/chart-bar-mixed.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-mixed.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-mixed.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4048,12 +4048,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-multiple.tsx",
+      path: "registry/preskok/charts/chart-bar-multiple.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-multiple.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-multiple.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4066,12 +4066,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-negative.tsx",
+      path: "registry/preskok/charts/chart-bar-negative.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-negative.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-negative.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4084,12 +4084,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-bar-stacked.tsx",
+      path: "registry/preskok/charts/chart-bar-stacked.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-bar-stacked.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-bar-stacked.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4102,12 +4102,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-default.tsx",
+      path: "registry/preskok/charts/chart-line-default.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-default.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-default.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4120,12 +4120,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-dots-colors.tsx",
+      path: "registry/preskok/charts/chart-line-dots-colors.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-dots-colors.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-dots-colors.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4138,12 +4138,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-dots-custom.tsx",
+      path: "registry/preskok/charts/chart-line-dots-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-dots-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-dots-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4156,12 +4156,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-dots.tsx",
+      path: "registry/preskok/charts/chart-line-dots.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-dots.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-dots.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4174,12 +4174,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-interactive.tsx",
+      path: "registry/preskok/charts/chart-line-interactive.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-interactive.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-interactive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4192,12 +4192,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-label-custom.tsx",
+      path: "registry/preskok/charts/chart-line-label-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-label-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-label-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4210,12 +4210,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-label.tsx",
+      path: "registry/preskok/charts/chart-line-label.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-label.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4228,12 +4228,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-linear.tsx",
+      path: "registry/preskok/charts/chart-line-linear.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-linear.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-linear.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4246,12 +4246,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-multiple.tsx",
+      path: "registry/preskok/charts/chart-line-multiple.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-multiple.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-multiple.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4264,12 +4264,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-line-step.tsx",
+      path: "registry/preskok/charts/chart-line-step.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-line-step.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-line-step.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4282,12 +4282,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-donut-active.tsx",
+      path: "registry/preskok/charts/chart-pie-donut-active.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-donut-active.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-donut-active.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4300,12 +4300,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-donut-text.tsx",
+      path: "registry/preskok/charts/chart-pie-donut-text.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-donut-text.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-donut-text.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4318,12 +4318,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-donut.tsx",
+      path: "registry/preskok/charts/chart-pie-donut.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-donut.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-donut.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4336,12 +4336,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-interactive.tsx",
+      path: "registry/preskok/charts/chart-pie-interactive.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-interactive.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-interactive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4354,12 +4354,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-label-custom.tsx",
+      path: "registry/preskok/charts/chart-pie-label-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-label-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-label-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4372,12 +4372,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-label-list.tsx",
+      path: "registry/preskok/charts/chart-pie-label-list.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-label-list.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-label-list.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4390,12 +4390,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-label.tsx",
+      path: "registry/preskok/charts/chart-pie-label.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-label.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4408,12 +4408,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-legend.tsx",
+      path: "registry/preskok/charts/chart-pie-legend.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-legend.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-legend.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4426,12 +4426,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-separator-none.tsx",
+      path: "registry/preskok/charts/chart-pie-separator-none.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-separator-none.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-separator-none.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4444,12 +4444,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-simple.tsx",
+      path: "registry/preskok/charts/chart-pie-simple.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-simple.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-simple.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4462,12 +4462,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-pie-stacked.tsx",
+      path: "registry/preskok/charts/chart-pie-stacked.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-pie-stacked.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-pie-stacked.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4480,12 +4480,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-default.tsx",
+      path: "registry/preskok/charts/chart-radar-default.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-default.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-default.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4498,12 +4498,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-dots.tsx",
+      path: "registry/preskok/charts/chart-radar-dots.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-dots.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-dots.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4516,12 +4516,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-grid-circle-fill.tsx",
+      path: "registry/preskok/charts/chart-radar-grid-circle-fill.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-grid-circle-fill.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-grid-circle-fill.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4534,12 +4534,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-grid-circle-no-lines.tsx",
+      path: "registry/preskok/charts/chart-radar-grid-circle-no-lines.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-grid-circle-no-lines.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-grid-circle-no-lines.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4552,12 +4552,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-grid-circle.tsx",
+      path: "registry/preskok/charts/chart-radar-grid-circle.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-grid-circle.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-grid-circle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4570,12 +4570,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-grid-custom.tsx",
+      path: "registry/preskok/charts/chart-radar-grid-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-grid-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-grid-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4588,12 +4588,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-grid-fill.tsx",
+      path: "registry/preskok/charts/chart-radar-grid-fill.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-grid-fill.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-grid-fill.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4606,12 +4606,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-grid-none.tsx",
+      path: "registry/preskok/charts/chart-radar-grid-none.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-grid-none.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-grid-none.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4624,12 +4624,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-icons.tsx",
+      path: "registry/preskok/charts/chart-radar-icons.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-icons.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-icons.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4642,12 +4642,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-label-custom.tsx",
+      path: "registry/preskok/charts/chart-radar-label-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-label-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-label-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4660,12 +4660,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-legend.tsx",
+      path: "registry/preskok/charts/chart-radar-legend.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-legend.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-legend.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4678,12 +4678,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-lines-only.tsx",
+      path: "registry/preskok/charts/chart-radar-lines-only.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-lines-only.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-lines-only.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4696,12 +4696,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-multiple.tsx",
+      path: "registry/preskok/charts/chart-radar-multiple.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-multiple.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-multiple.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4714,12 +4714,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radar-radius.tsx",
+      path: "registry/preskok/charts/chart-radar-radius.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radar-radius.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radar-radius.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4732,12 +4732,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radial-grid.tsx",
+      path: "registry/preskok/charts/chart-radial-grid.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radial-grid.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radial-grid.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4750,12 +4750,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radial-label.tsx",
+      path: "registry/preskok/charts/chart-radial-label.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radial-label.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radial-label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4768,12 +4768,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radial-shape.tsx",
+      path: "registry/preskok/charts/chart-radial-shape.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radial-shape.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radial-shape.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4786,12 +4786,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radial-simple.tsx",
+      path: "registry/preskok/charts/chart-radial-simple.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radial-simple.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radial-simple.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4804,12 +4804,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radial-stacked.tsx",
+      path: "registry/preskok/charts/chart-radial-stacked.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radial-stacked.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radial-stacked.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4822,12 +4822,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-radial-text.tsx",
+      path: "registry/preskok/charts/chart-radial-text.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-radial-text.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-radial-text.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4840,12 +4840,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-default.tsx",
+      path: "registry/preskok/charts/chart-tooltip-default.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-default.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-default.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4858,12 +4858,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-indicator-line.tsx",
+      path: "registry/preskok/charts/chart-tooltip-indicator-line.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-indicator-line.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-indicator-line.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4876,12 +4876,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-indicator-none.tsx",
+      path: "registry/preskok/charts/chart-tooltip-indicator-none.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-indicator-none.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-indicator-none.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4894,12 +4894,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-label-none.tsx",
+      path: "registry/preskok/charts/chart-tooltip-label-none.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-label-none.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-label-none.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4912,12 +4912,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-label-custom.tsx",
+      path: "registry/preskok/charts/chart-tooltip-label-custom.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-label-custom.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-label-custom.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4930,12 +4930,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-label-formatter.tsx",
+      path: "registry/preskok/charts/chart-tooltip-label-formatter.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-label-formatter.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-label-formatter.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4948,12 +4948,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-formatter.tsx",
+      path: "registry/preskok/charts/chart-tooltip-formatter.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-formatter.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-formatter.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4966,12 +4966,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-icons.tsx",
+      path: "registry/preskok/charts/chart-tooltip-icons.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-icons.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-icons.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4984,12 +4984,12 @@ export const Index: Record<string, any> = {
     type: "registry:block",
     registryDependencies: ["card","chart"],
     files: [{
-      path: "registry/new-york-v4/charts/chart-tooltip-advanced.tsx",
+      path: "registry/preskok/charts/chart-tooltip-advanced.tsx",
       type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/charts/chart-tooltip-advanced.tsx")
+      const mod = await import("@/registry/preskok/charts/chart-tooltip-advanced.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5002,12 +5002,12 @@ export const Index: Record<string, any> = {
     type: "registry:lib",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/lib/utils.ts",
+      path: "registry/preskok/lib/utils.ts",
       type: "registry:lib",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/lib/utils.ts")
+      const mod = await import("@/registry/preskok/lib/utils.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5020,12 +5020,12 @@ export const Index: Record<string, any> = {
     type: "registry:lib",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/lib/create-ctx.ts",
+      path: "registry/preskok/lib/create-ctx.ts",
       type: "registry:lib",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/lib/create-ctx.ts")
+      const mod = await import("@/registry/preskok/lib/create-ctx.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5038,12 +5038,12 @@ export const Index: Record<string, any> = {
     type: "registry:lib",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/lib/utils.ts",
+      path: "registry/preskok/lib/utils.ts",
       type: "registry:lib",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/lib/utils.ts")
+      const mod = await import("@/registry/preskok/lib/utils.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5056,12 +5056,12 @@ export const Index: Record<string, any> = {
     type: "registry:lib",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/lib/primitive.ts",
+      path: "registry/preskok/lib/primitive.ts",
       type: "registry:lib",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/lib/primitive.ts")
+      const mod = await import("@/registry/preskok/lib/primitive.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5074,12 +5074,12 @@ export const Index: Record<string, any> = {
     type: "registry:hook",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/hooks/use-mobile.ts",
+      path: "registry/preskok/hooks/use-mobile.ts",
       type: "registry:hook",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/hooks/use-mobile.ts")
+      const mod = await import("@/registry/preskok/hooks/use-mobile.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5092,12 +5092,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["accordion"],
     files: [{
-      path: "registry/new-york-v4/examples/accordion-demo.tsx",
+      path: "registry/preskok/examples/accordion-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/accordion-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/accordion-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5110,12 +5110,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["alert"],
     files: [{
-      path: "registry/new-york-v4/examples/alert-demo.tsx",
+      path: "registry/preskok/examples/alert-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/alert-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/alert-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5128,12 +5128,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["alert"],
     files: [{
-      path: "registry/new-york-v4/examples/alert-destructive.tsx",
+      path: "registry/preskok/examples/alert-destructive.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/alert-destructive.tsx")
+      const mod = await import("@/registry/preskok/examples/alert-destructive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5146,12 +5146,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["alert-dialog","button"],
     files: [{
-      path: "registry/new-york-v4/examples/alert-dialog-demo.tsx",
+      path: "registry/preskok/examples/alert-dialog-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/alert-dialog-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/alert-dialog-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5164,12 +5164,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["aspect-ratio"],
     files: [{
-      path: "registry/new-york-v4/examples/aspect-ratio-demo.tsx",
+      path: "registry/preskok/examples/aspect-ratio-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/aspect-ratio-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/aspect-ratio-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5182,12 +5182,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["avatar"],
     files: [{
-      path: "registry/new-york-v4/examples/avatar-demo.tsx",
+      path: "registry/preskok/examples/avatar-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/avatar-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/avatar-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5200,12 +5200,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["badge"],
     files: [{
-      path: "registry/new-york-v4/examples/badge-demo.tsx",
+      path: "registry/preskok/examples/badge-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/badge-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/badge-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5218,12 +5218,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["badge"],
     files: [{
-      path: "registry/new-york-v4/examples/badge-destructive.tsx",
+      path: "registry/preskok/examples/badge-destructive.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/badge-destructive.tsx")
+      const mod = await import("@/registry/preskok/examples/badge-destructive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5236,12 +5236,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["badge"],
     files: [{
-      path: "registry/new-york-v4/examples/badge-outline.tsx",
+      path: "registry/preskok/examples/badge-outline.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/badge-outline.tsx")
+      const mod = await import("@/registry/preskok/examples/badge-outline.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5254,12 +5254,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["badge"],
     files: [{
-      path: "registry/new-york-v4/examples/badge-secondary.tsx",
+      path: "registry/preskok/examples/badge-secondary.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/badge-secondary.tsx")
+      const mod = await import("@/registry/preskok/examples/badge-secondary.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5272,12 +5272,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/examples/breadcrumb-demo.tsx",
+      path: "registry/preskok/examples/breadcrumb-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/breadcrumb-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/breadcrumb-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5290,12 +5290,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/examples/breadcrumb-separator.tsx",
+      path: "registry/preskok/examples/breadcrumb-separator.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/breadcrumb-separator.tsx")
+      const mod = await import("@/registry/preskok/examples/breadcrumb-separator.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5308,12 +5308,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/examples/breadcrumb-dropdown.tsx",
+      path: "registry/preskok/examples/breadcrumb-dropdown.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/breadcrumb-dropdown.tsx")
+      const mod = await import("@/registry/preskok/examples/breadcrumb-dropdown.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5326,12 +5326,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/examples/breadcrumb-ellipsis.tsx",
+      path: "registry/preskok/examples/breadcrumb-ellipsis.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/breadcrumb-ellipsis.tsx")
+      const mod = await import("@/registry/preskok/examples/breadcrumb-ellipsis.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5344,12 +5344,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/examples/breadcrumb-link.tsx",
+      path: "registry/preskok/examples/breadcrumb-link.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/breadcrumb-link.tsx")
+      const mod = await import("@/registry/preskok/examples/breadcrumb-link.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5362,12 +5362,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["breadcrumb"],
     files: [{
-      path: "registry/new-york-v4/examples/breadcrumb-responsive.tsx",
+      path: "registry/preskok/examples/breadcrumb-responsive.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/breadcrumb-responsive.tsx")
+      const mod = await import("@/registry/preskok/examples/breadcrumb-responsive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5380,12 +5380,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-demo.tsx",
+      path: "registry/preskok/examples/button-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/button-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5398,12 +5398,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-secondary.tsx",
+      path: "registry/preskok/examples/button-secondary.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-secondary.tsx")
+      const mod = await import("@/registry/preskok/examples/button-secondary.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5416,12 +5416,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-destructive.tsx",
+      path: "registry/preskok/examples/button-destructive.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-destructive.tsx")
+      const mod = await import("@/registry/preskok/examples/button-destructive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5434,12 +5434,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-outline.tsx",
+      path: "registry/preskok/examples/button-outline.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-outline.tsx")
+      const mod = await import("@/registry/preskok/examples/button-outline.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5452,12 +5452,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-ghost.tsx",
+      path: "registry/preskok/examples/button-ghost.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-ghost.tsx")
+      const mod = await import("@/registry/preskok/examples/button-ghost.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5470,12 +5470,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-link.tsx",
+      path: "registry/preskok/examples/button-link.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-link.tsx")
+      const mod = await import("@/registry/preskok/examples/button-link.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5488,12 +5488,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-with-icon.tsx",
+      path: "registry/preskok/examples/button-with-icon.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-with-icon.tsx")
+      const mod = await import("@/registry/preskok/examples/button-with-icon.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5506,12 +5506,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-loading.tsx",
+      path: "registry/preskok/examples/button-loading.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-loading.tsx")
+      const mod = await import("@/registry/preskok/examples/button-loading.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5524,12 +5524,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-icon.tsx",
+      path: "registry/preskok/examples/button-icon.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-icon.tsx")
+      const mod = await import("@/registry/preskok/examples/button-icon.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5542,12 +5542,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button"],
     files: [{
-      path: "registry/new-york-v4/examples/button-as-child.tsx",
+      path: "registry/preskok/examples/button-as-child.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/button-as-child.tsx")
+      const mod = await import("@/registry/preskok/examples/button-as-child.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5560,12 +5560,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/examples/calendar-demo.tsx",
+      path: "registry/preskok/examples/calendar-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/calendar-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/calendar-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5578,12 +5578,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["calendar","form","popover"],
     files: [{
-      path: "registry/new-york-v4/examples/calendar-form.tsx",
+      path: "registry/preskok/examples/calendar-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/calendar-form.tsx")
+      const mod = await import("@/registry/preskok/examples/calendar-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5596,12 +5596,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["card","button","switch"],
     files: [{
-      path: "registry/new-york-v4/examples/card-demo.tsx",
+      path: "registry/preskok/examples/card-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/card-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/card-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5614,12 +5614,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button","card","input","label","select"],
     files: [{
-      path: "registry/new-york-v4/examples/card-with-form.tsx",
+      path: "registry/preskok/examples/card-with-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/card-with-form.tsx")
+      const mod = await import("@/registry/preskok/examples/card-with-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5632,12 +5632,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["carousel"],
     files: [{
-      path: "registry/new-york-v4/examples/carousel-demo.tsx",
+      path: "registry/preskok/examples/carousel-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/carousel-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/carousel-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5650,12 +5650,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["carousel"],
     files: [{
-      path: "registry/new-york-v4/examples/carousel-size.tsx",
+      path: "registry/preskok/examples/carousel-size.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/carousel-size.tsx")
+      const mod = await import("@/registry/preskok/examples/carousel-size.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5668,12 +5668,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["carousel"],
     files: [{
-      path: "registry/new-york-v4/examples/carousel-spacing.tsx",
+      path: "registry/preskok/examples/carousel-spacing.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/carousel-spacing.tsx")
+      const mod = await import("@/registry/preskok/examples/carousel-spacing.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5686,12 +5686,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["carousel"],
     files: [{
-      path: "registry/new-york-v4/examples/carousel-orientation.tsx",
+      path: "registry/preskok/examples/carousel-orientation.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/carousel-orientation.tsx")
+      const mod = await import("@/registry/preskok/examples/carousel-orientation.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5704,12 +5704,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["carousel"],
     files: [{
-      path: "registry/new-york-v4/examples/carousel-api.tsx",
+      path: "registry/preskok/examples/carousel-api.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/carousel-api.tsx")
+      const mod = await import("@/registry/preskok/examples/carousel-api.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5722,12 +5722,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["carousel"],
     files: [{
-      path: "registry/new-york-v4/examples/carousel-plugin.tsx",
+      path: "registry/preskok/examples/carousel-plugin.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/carousel-plugin.tsx")
+      const mod = await import("@/registry/preskok/examples/carousel-plugin.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5740,12 +5740,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["checkbox"],
     files: [{
-      path: "registry/new-york-v4/examples/checkbox-demo.tsx",
+      path: "registry/preskok/examples/checkbox-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/checkbox-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/checkbox-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5758,12 +5758,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["checkbox"],
     files: [{
-      path: "registry/new-york-v4/examples/checkbox-disabled.tsx",
+      path: "registry/preskok/examples/checkbox-disabled.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/checkbox-disabled.tsx")
+      const mod = await import("@/registry/preskok/examples/checkbox-disabled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5776,12 +5776,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["checkbox","form"],
     files: [{
-      path: "registry/new-york-v4/examples/checkbox-form-multiple.tsx",
+      path: "registry/preskok/examples/checkbox-form-multiple.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/checkbox-form-multiple.tsx")
+      const mod = await import("@/registry/preskok/examples/checkbox-form-multiple.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5794,12 +5794,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["checkbox","form"],
     files: [{
-      path: "registry/new-york-v4/examples/checkbox-form-single.tsx",
+      path: "registry/preskok/examples/checkbox-form-single.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/checkbox-form-single.tsx")
+      const mod = await import("@/registry/preskok/examples/checkbox-form-single.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5812,12 +5812,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["checkbox"],
     files: [{
-      path: "registry/new-york-v4/examples/checkbox-with-text.tsx",
+      path: "registry/preskok/examples/checkbox-with-text.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/checkbox-with-text.tsx")
+      const mod = await import("@/registry/preskok/examples/checkbox-with-text.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5830,12 +5830,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["collapsible"],
     files: [{
-      path: "registry/new-york-v4/examples/collapsible-demo.tsx",
+      path: "registry/preskok/examples/collapsible-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/collapsible-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/collapsible-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5848,12 +5848,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["command"],
     files: [{
-      path: "registry/new-york-v4/examples/combobox-demo.tsx",
+      path: "registry/preskok/examples/combobox-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/combobox-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/combobox-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5866,12 +5866,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["command","dropdown-menu","button"],
     files: [{
-      path: "registry/new-york-v4/examples/combobox-dropdown-menu.tsx",
+      path: "registry/preskok/examples/combobox-dropdown-menu.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/combobox-dropdown-menu.tsx")
+      const mod = await import("@/registry/preskok/examples/combobox-dropdown-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5884,12 +5884,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["command","form"],
     files: [{
-      path: "registry/new-york-v4/examples/combobox-form.tsx",
+      path: "registry/preskok/examples/combobox-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/combobox-form.tsx")
+      const mod = await import("@/registry/preskok/examples/combobox-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5902,12 +5902,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["combobox","popover"],
     files: [{
-      path: "registry/new-york-v4/examples/combobox-popover.tsx",
+      path: "registry/preskok/examples/combobox-popover.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/combobox-popover.tsx")
+      const mod = await import("@/registry/preskok/examples/combobox-popover.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5920,12 +5920,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["combobox","popover","drawer"],
     files: [{
-      path: "registry/new-york-v4/examples/combobox-responsive.tsx",
+      path: "registry/preskok/examples/combobox-responsive.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/combobox-responsive.tsx")
+      const mod = await import("@/registry/preskok/examples/combobox-responsive.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5938,12 +5938,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["command"],
     files: [{
-      path: "registry/new-york-v4/examples/command-demo.tsx",
+      path: "registry/preskok/examples/command-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/command-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/command-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5956,12 +5956,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["command","dialog"],
     files: [{
-      path: "registry/new-york-v4/examples/command-dialog.tsx",
+      path: "registry/preskok/examples/command-dialog.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/command-dialog.tsx")
+      const mod = await import("@/registry/preskok/examples/command-dialog.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5974,12 +5974,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["context-menu"],
     files: [{
-      path: "registry/new-york-v4/examples/context-menu-demo.tsx",
+      path: "registry/preskok/examples/context-menu-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/context-menu-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/context-menu-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -5992,12 +5992,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["data-table"],
     files: [{
-      path: "registry/new-york-v4/examples/data-table-demo.tsx",
+      path: "registry/preskok/examples/data-table-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/data-table-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/data-table-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6010,12 +6010,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button","calendar","popover"],
     files: [{
-      path: "registry/new-york-v4/examples/date-picker-demo.tsx",
+      path: "registry/preskok/examples/date-picker-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/date-picker-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/date-picker-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6028,12 +6028,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button","calendar","form","popover"],
     files: [{
-      path: "registry/new-york-v4/examples/date-picker-form.tsx",
+      path: "registry/preskok/examples/date-picker-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/date-picker-form.tsx")
+      const mod = await import("@/registry/preskok/examples/date-picker-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6046,12 +6046,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button","calendar","popover","select"],
     files: [{
-      path: "registry/new-york-v4/examples/date-picker-with-presets.tsx",
+      path: "registry/preskok/examples/date-picker-with-presets.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/date-picker-with-presets.tsx")
+      const mod = await import("@/registry/preskok/examples/date-picker-with-presets.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6064,12 +6064,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["button","calendar","popover"],
     files: [{
-      path: "registry/new-york-v4/examples/date-picker-with-range.tsx",
+      path: "registry/preskok/examples/date-picker-with-range.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/date-picker-with-range.tsx")
+      const mod = await import("@/registry/preskok/examples/date-picker-with-range.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6082,12 +6082,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["dialog"],
     files: [{
-      path: "registry/new-york-v4/examples/dialog-demo.tsx",
+      path: "registry/preskok/examples/dialog-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/dialog-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/dialog-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6100,12 +6100,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["dialog","button"],
     files: [{
-      path: "registry/new-york-v4/examples/dialog-close-button.tsx",
+      path: "registry/preskok/examples/dialog-close-button.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/dialog-close-button.tsx")
+      const mod = await import("@/registry/preskok/examples/dialog-close-button.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6118,12 +6118,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["drawer"],
     files: [{
-      path: "registry/new-york-v4/examples/drawer-demo.tsx",
+      path: "registry/preskok/examples/drawer-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/drawer-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/drawer-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6136,12 +6136,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["drawer","dialog"],
     files: [{
-      path: "registry/new-york-v4/examples/drawer-dialog.tsx",
+      path: "registry/preskok/examples/drawer-dialog.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/drawer-dialog.tsx")
+      const mod = await import("@/registry/preskok/examples/drawer-dialog.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6154,12 +6154,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["dropdown-menu"],
     files: [{
-      path: "registry/new-york-v4/examples/dropdown-menu-demo.tsx",
+      path: "registry/preskok/examples/dropdown-menu-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/dropdown-menu-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/dropdown-menu-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6172,12 +6172,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["dropdown-menu","checkbox"],
     files: [{
-      path: "registry/new-york-v4/examples/dropdown-menu-checkboxes.tsx",
+      path: "registry/preskok/examples/dropdown-menu-checkboxes.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/dropdown-menu-checkboxes.tsx")
+      const mod = await import("@/registry/preskok/examples/dropdown-menu-checkboxes.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6190,12 +6190,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["dropdown-menu","radio-group"],
     files: [{
-      path: "registry/new-york-v4/examples/dropdown-menu-radio-group.tsx",
+      path: "registry/preskok/examples/dropdown-menu-radio-group.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/dropdown-menu-radio-group.tsx")
+      const mod = await import("@/registry/preskok/examples/dropdown-menu-radio-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6208,12 +6208,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["hover-card"],
     files: [{
-      path: "registry/new-york-v4/examples/hover-card-demo.tsx",
+      path: "registry/preskok/examples/hover-card-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/hover-card-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/hover-card-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6226,12 +6226,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input"],
     files: [{
-      path: "registry/new-york-v4/examples/input-demo.tsx",
+      path: "registry/preskok/examples/input-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/input-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6244,12 +6244,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input"],
     files: [{
-      path: "registry/new-york-v4/examples/input-disabled.tsx",
+      path: "registry/preskok/examples/input-disabled.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-disabled.tsx")
+      const mod = await import("@/registry/preskok/examples/input-disabled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6262,12 +6262,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input"],
     files: [{
-      path: "registry/new-york-v4/examples/input-file.tsx",
+      path: "registry/preskok/examples/input-file.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-file.tsx")
+      const mod = await import("@/registry/preskok/examples/input-file.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6280,12 +6280,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input","button","form"],
     files: [{
-      path: "registry/new-york-v4/examples/input-form.tsx",
+      path: "registry/preskok/examples/input-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-form.tsx")
+      const mod = await import("@/registry/preskok/examples/input-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6298,12 +6298,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input","button"],
     files: [{
-      path: "registry/new-york-v4/examples/input-with-button.tsx",
+      path: "registry/preskok/examples/input-with-button.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-with-button.tsx")
+      const mod = await import("@/registry/preskok/examples/input-with-button.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6316,12 +6316,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input","button","label"],
     files: [{
-      path: "registry/new-york-v4/examples/input-with-label.tsx",
+      path: "registry/preskok/examples/input-with-label.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-with-label.tsx")
+      const mod = await import("@/registry/preskok/examples/input-with-label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6334,12 +6334,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input","button","label"],
     files: [{
-      path: "registry/new-york-v4/examples/input-with-text.tsx",
+      path: "registry/preskok/examples/input-with-text.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-with-text.tsx")
+      const mod = await import("@/registry/preskok/examples/input-with-text.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6352,12 +6352,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input-otp"],
     files: [{
-      path: "registry/new-york-v4/examples/input-otp-demo.tsx",
+      path: "registry/preskok/examples/input-otp-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-otp-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/input-otp-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6370,12 +6370,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input-otp"],
     files: [{
-      path: "registry/new-york-v4/examples/input-otp-pattern.tsx",
+      path: "registry/preskok/examples/input-otp-pattern.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-otp-pattern.tsx")
+      const mod = await import("@/registry/preskok/examples/input-otp-pattern.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6388,12 +6388,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input-otp"],
     files: [{
-      path: "registry/new-york-v4/examples/input-otp-separator.tsx",
+      path: "registry/preskok/examples/input-otp-separator.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-otp-separator.tsx")
+      const mod = await import("@/registry/preskok/examples/input-otp-separator.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6406,12 +6406,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input-otp"],
     files: [{
-      path: "registry/new-york-v4/examples/input-otp-controlled.tsx",
+      path: "registry/preskok/examples/input-otp-controlled.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-otp-controlled.tsx")
+      const mod = await import("@/registry/preskok/examples/input-otp-controlled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6424,12 +6424,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["input-otp","form"],
     files: [{
-      path: "registry/new-york-v4/examples/input-otp-form.tsx",
+      path: "registry/preskok/examples/input-otp-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/input-otp-form.tsx")
+      const mod = await import("@/registry/preskok/examples/input-otp-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6442,12 +6442,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["label"],
     files: [{
-      path: "registry/new-york-v4/examples/label-demo.tsx",
+      path: "registry/preskok/examples/label-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/label-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/label-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6460,12 +6460,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["menubar"],
     files: [{
-      path: "registry/new-york-v4/examples/menubar-demo.tsx",
+      path: "registry/preskok/examples/menubar-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/menubar-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/menubar-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6478,12 +6478,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["navigation-menu"],
     files: [{
-      path: "registry/new-york-v4/examples/navigation-menu-demo.tsx",
+      path: "registry/preskok/examples/navigation-menu-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/navigation-menu-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/navigation-menu-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6496,12 +6496,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["pagination"],
     files: [{
-      path: "registry/new-york-v4/examples/pagination-demo.tsx",
+      path: "registry/preskok/examples/pagination-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/pagination-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/pagination-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6514,12 +6514,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["popover"],
     files: [{
-      path: "registry/new-york-v4/examples/popover-demo.tsx",
+      path: "registry/preskok/examples/popover-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/popover-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/popover-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6532,12 +6532,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["progress"],
     files: [{
-      path: "registry/new-york-v4/examples/progress-demo.tsx",
+      path: "registry/preskok/examples/progress-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/progress-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/progress-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6550,12 +6550,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["radio-group"],
     files: [{
-      path: "registry/new-york-v4/examples/radio-group-demo.tsx",
+      path: "registry/preskok/examples/radio-group-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/radio-group-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/radio-group-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6568,12 +6568,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["radio-group","form"],
     files: [{
-      path: "registry/new-york-v4/examples/radio-group-form.tsx",
+      path: "registry/preskok/examples/radio-group-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/radio-group-form.tsx")
+      const mod = await import("@/registry/preskok/examples/radio-group-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6586,12 +6586,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["resizable"],
     files: [{
-      path: "registry/new-york-v4/examples/resizable-demo.tsx",
+      path: "registry/preskok/examples/resizable-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/resizable-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/resizable-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6604,12 +6604,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["resizable"],
     files: [{
-      path: "registry/new-york-v4/examples/resizable-demo-with-handle.tsx",
+      path: "registry/preskok/examples/resizable-demo-with-handle.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/resizable-demo-with-handle.tsx")
+      const mod = await import("@/registry/preskok/examples/resizable-demo-with-handle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6622,12 +6622,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["resizable"],
     files: [{
-      path: "registry/new-york-v4/examples/resizable-vertical.tsx",
+      path: "registry/preskok/examples/resizable-vertical.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/resizable-vertical.tsx")
+      const mod = await import("@/registry/preskok/examples/resizable-vertical.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6640,12 +6640,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["resizable"],
     files: [{
-      path: "registry/new-york-v4/examples/resizable-handle.tsx",
+      path: "registry/preskok/examples/resizable-handle.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/resizable-handle.tsx")
+      const mod = await import("@/registry/preskok/examples/resizable-handle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6658,12 +6658,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["scroll-area"],
     files: [{
-      path: "registry/new-york-v4/examples/scroll-area-demo.tsx",
+      path: "registry/preskok/examples/scroll-area-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/scroll-area-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/scroll-area-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6676,12 +6676,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["scroll-area"],
     files: [{
-      path: "registry/new-york-v4/examples/scroll-area-horizontal-demo.tsx",
+      path: "registry/preskok/examples/scroll-area-horizontal-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/scroll-area-horizontal-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/scroll-area-horizontal-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6694,12 +6694,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["select"],
     files: [{
-      path: "registry/new-york-v4/examples/select-demo.tsx",
+      path: "registry/preskok/examples/select-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/select-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/select-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6712,12 +6712,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["select"],
     files: [{
-      path: "registry/new-york-v4/examples/select-scrollable.tsx",
+      path: "registry/preskok/examples/select-scrollable.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/select-scrollable.tsx")
+      const mod = await import("@/registry/preskok/examples/select-scrollable.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6730,12 +6730,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["select"],
     files: [{
-      path: "registry/new-york-v4/examples/select-form.tsx",
+      path: "registry/preskok/examples/select-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/select-form.tsx")
+      const mod = await import("@/registry/preskok/examples/select-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6748,12 +6748,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["separator"],
     files: [{
-      path: "registry/new-york-v4/examples/separator-demo.tsx",
+      path: "registry/preskok/examples/separator-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/separator-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/separator-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6766,12 +6766,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["sheet"],
     files: [{
-      path: "registry/new-york-v4/examples/sheet-demo.tsx",
+      path: "registry/preskok/examples/sheet-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/sheet-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/sheet-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6784,12 +6784,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["sheet"],
     files: [{
-      path: "registry/new-york-v4/examples/sheet-side.tsx",
+      path: "registry/preskok/examples/sheet-side.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/sheet-side.tsx")
+      const mod = await import("@/registry/preskok/examples/sheet-side.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6802,12 +6802,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["skeleton"],
     files: [{
-      path: "registry/new-york-v4/examples/skeleton-demo.tsx",
+      path: "registry/preskok/examples/skeleton-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/skeleton-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/skeleton-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6820,12 +6820,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["skeleton"],
     files: [{
-      path: "registry/new-york-v4/examples/skeleton-card.tsx",
+      path: "registry/preskok/examples/skeleton-card.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/skeleton-card.tsx")
+      const mod = await import("@/registry/preskok/examples/skeleton-card.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6838,12 +6838,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["slider"],
     files: [{
-      path: "registry/new-york-v4/examples/slider-demo.tsx",
+      path: "registry/preskok/examples/slider-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/slider-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/slider-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6856,12 +6856,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["sonner"],
     files: [{
-      path: "registry/new-york-v4/examples/sonner-demo.tsx",
+      path: "registry/preskok/examples/sonner-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/sonner-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/sonner-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6874,12 +6874,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["switch"],
     files: [{
-      path: "registry/new-york-v4/examples/switch-demo.tsx",
+      path: "registry/preskok/examples/switch-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/switch-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/switch-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6892,12 +6892,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["switch","form"],
     files: [{
-      path: "registry/new-york-v4/examples/switch-form.tsx",
+      path: "registry/preskok/examples/switch-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/switch-form.tsx")
+      const mod = await import("@/registry/preskok/examples/switch-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6910,12 +6910,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["table"],
     files: [{
-      path: "registry/new-york-v4/examples/table-demo.tsx",
+      path: "registry/preskok/examples/table-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/table-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/table-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6928,12 +6928,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["tabs"],
     files: [{
-      path: "registry/new-york-v4/examples/tabs-demo.tsx",
+      path: "registry/preskok/examples/tabs-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/tabs-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/tabs-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6946,12 +6946,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["textarea"],
     files: [{
-      path: "registry/new-york-v4/examples/textarea-demo.tsx",
+      path: "registry/preskok/examples/textarea-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/textarea-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/textarea-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6964,12 +6964,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["textarea"],
     files: [{
-      path: "registry/new-york-v4/examples/textarea-disabled.tsx",
+      path: "registry/preskok/examples/textarea-disabled.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/textarea-disabled.tsx")
+      const mod = await import("@/registry/preskok/examples/textarea-disabled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -6982,12 +6982,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["textarea","form"],
     files: [{
-      path: "registry/new-york-v4/examples/textarea-form.tsx",
+      path: "registry/preskok/examples/textarea-form.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/textarea-form.tsx")
+      const mod = await import("@/registry/preskok/examples/textarea-form.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7000,12 +7000,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["textarea","button"],
     files: [{
-      path: "registry/new-york-v4/examples/textarea-with-button.tsx",
+      path: "registry/preskok/examples/textarea-with-button.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/textarea-with-button.tsx")
+      const mod = await import("@/registry/preskok/examples/textarea-with-button.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7018,12 +7018,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["textarea","label"],
     files: [{
-      path: "registry/new-york-v4/examples/textarea-with-label.tsx",
+      path: "registry/preskok/examples/textarea-with-label.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/textarea-with-label.tsx")
+      const mod = await import("@/registry/preskok/examples/textarea-with-label.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7036,12 +7036,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["textarea","label"],
     files: [{
-      path: "registry/new-york-v4/examples/textarea-with-text.tsx",
+      path: "registry/preskok/examples/textarea-with-text.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/textarea-with-text.tsx")
+      const mod = await import("@/registry/preskok/examples/textarea-with-text.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7054,12 +7054,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-group-demo.tsx",
+      path: "registry/preskok/examples/toggle-group-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-group-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-group-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7072,12 +7072,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-group-disabled.tsx",
+      path: "registry/preskok/examples/toggle-group-disabled.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-group-disabled.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-group-disabled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7090,12 +7090,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-group-lg.tsx",
+      path: "registry/preskok/examples/toggle-group-lg.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-group-lg.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-group-lg.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7108,12 +7108,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-group-outline.tsx",
+      path: "registry/preskok/examples/toggle-group-outline.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-group-outline.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-group-outline.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7126,12 +7126,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-group-sm.tsx",
+      path: "registry/preskok/examples/toggle-group-sm.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-group-sm.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-group-sm.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7144,12 +7144,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle-group"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-group-single.tsx",
+      path: "registry/preskok/examples/toggle-group-single.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-group-single.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-group-single.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7162,12 +7162,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-demo.tsx",
+      path: "registry/preskok/examples/toggle-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7180,12 +7180,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-disabled.tsx",
+      path: "registry/preskok/examples/toggle-disabled.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-disabled.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-disabled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7198,12 +7198,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-lg.tsx",
+      path: "registry/preskok/examples/toggle-lg.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-lg.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-lg.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7216,12 +7216,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-outline.tsx",
+      path: "registry/preskok/examples/toggle-outline.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-outline.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-outline.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7234,12 +7234,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-sm.tsx",
+      path: "registry/preskok/examples/toggle-sm.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-sm.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-sm.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7252,12 +7252,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["toggle"],
     files: [{
-      path: "registry/new-york-v4/examples/toggle-with-text.tsx",
+      path: "registry/preskok/examples/toggle-with-text.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/toggle-with-text.tsx")
+      const mod = await import("@/registry/preskok/examples/toggle-with-text.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7270,12 +7270,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["tooltip"],
     files: [{
-      path: "registry/new-york-v4/examples/tooltip-demo.tsx",
+      path: "registry/preskok/examples/tooltip-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/tooltip-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/tooltip-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7288,12 +7288,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-blockquote.tsx",
+      path: "registry/preskok/examples/typography-blockquote.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-blockquote.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-blockquote.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7306,12 +7306,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-demo.tsx",
+      path: "registry/preskok/examples/typography-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7324,12 +7324,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-h1.tsx",
+      path: "registry/preskok/examples/typography-h1.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-h1.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-h1.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7342,12 +7342,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-h2.tsx",
+      path: "registry/preskok/examples/typography-h2.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-h2.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-h2.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7360,12 +7360,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-h3.tsx",
+      path: "registry/preskok/examples/typography-h3.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-h3.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-h3.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7378,12 +7378,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-h4.tsx",
+      path: "registry/preskok/examples/typography-h4.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-h4.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-h4.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7396,12 +7396,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-inline-code.tsx",
+      path: "registry/preskok/examples/typography-inline-code.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-inline-code.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-inline-code.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7414,12 +7414,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-large.tsx",
+      path: "registry/preskok/examples/typography-large.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-large.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-large.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7432,12 +7432,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-lead.tsx",
+      path: "registry/preskok/examples/typography-lead.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-lead.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-lead.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7450,12 +7450,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-list.tsx",
+      path: "registry/preskok/examples/typography-list.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-list.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-list.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7468,12 +7468,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-muted.tsx",
+      path: "registry/preskok/examples/typography-muted.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-muted.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-muted.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7486,12 +7486,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-p.tsx",
+      path: "registry/preskok/examples/typography-p.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-p.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-p.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7504,12 +7504,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-small.tsx",
+      path: "registry/preskok/examples/typography-small.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-small.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-small.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7522,12 +7522,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/typography-table.tsx",
+      path: "registry/preskok/examples/typography-table.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/typography-table.tsx")
+      const mod = await import("@/registry/preskok/examples/typography-table.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7540,12 +7540,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/mode-toggle.tsx",
+      path: "registry/preskok/examples/mode-toggle.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/mode-toggle.tsx")
+      const mod = await import("@/registry/preskok/examples/mode-toggle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7558,12 +7558,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/chart-bar-demo.tsx",
+      path: "registry/preskok/examples/chart-bar-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/chart-bar-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-bar-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7576,12 +7576,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/chart-bar-demo-grid.tsx",
+      path: "registry/preskok/examples/chart-bar-demo-grid.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/chart-bar-demo-grid.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-bar-demo-grid.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7594,12 +7594,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/chart-bar-demo-axis.tsx",
+      path: "registry/preskok/examples/chart-bar-demo-axis.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/chart-bar-demo-axis.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-bar-demo-axis.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7612,12 +7612,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/chart-bar-demo-tooltip.tsx",
+      path: "registry/preskok/examples/chart-bar-demo-tooltip.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/chart-bar-demo-tooltip.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-bar-demo-tooltip.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7630,12 +7630,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/chart-bar-demo-legend.tsx",
+      path: "registry/preskok/examples/chart-bar-demo-legend.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/chart-bar-demo-legend.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-bar-demo-legend.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7648,12 +7648,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/examples/chart-tooltip-demo.tsx",
+      path: "registry/preskok/examples/chart-tooltip-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/chart-tooltip-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-tooltip-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7666,12 +7666,12 @@ export const Index: Record<string, any> = {
     type: "registry:example",
     registryDependencies: ["calendar"],
     files: [{
-      path: "registry/new-york-v4/examples/calendar-hijri.tsx",
+      path: "registry/preskok/examples/calendar-hijri.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/calendar-hijri.tsx")
+      const mod = await import("@/registry/preskok/examples/calendar-hijri.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7684,12 +7684,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-demo.tsx",
+      path: "registry/preskok/internal/sidebar-demo.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-demo.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7702,12 +7702,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-header.tsx",
+      path: "registry/preskok/internal/sidebar-header.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-header.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-header.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7720,12 +7720,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-footer.tsx",
+      path: "registry/preskok/internal/sidebar-footer.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-footer.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-footer.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7738,12 +7738,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-group.tsx",
+      path: "registry/preskok/internal/sidebar-group.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-group.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7756,12 +7756,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-group-collapsible.tsx",
+      path: "registry/preskok/internal/sidebar-group-collapsible.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-group-collapsible.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-group-collapsible.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7774,12 +7774,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-group-action.tsx",
+      path: "registry/preskok/internal/sidebar-group-action.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-group-action.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-group-action.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7792,12 +7792,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-menu.tsx",
+      path: "registry/preskok/internal/sidebar-menu.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-menu.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-menu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7810,12 +7810,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-menu-action.tsx",
+      path: "registry/preskok/internal/sidebar-menu-action.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-menu-action.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-menu-action.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7828,12 +7828,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-menu-sub.tsx",
+      path: "registry/preskok/internal/sidebar-menu-sub.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-menu-sub.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-menu-sub.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7846,12 +7846,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-menu-collapsible.tsx",
+      path: "registry/preskok/internal/sidebar-menu-collapsible.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-menu-collapsible.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-menu-collapsible.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7864,12 +7864,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-menu-badge.tsx",
+      path: "registry/preskok/internal/sidebar-menu-badge.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-menu-badge.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-menu-badge.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7882,12 +7882,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-rsc.tsx",
+      path: "registry/preskok/internal/sidebar-rsc.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-rsc.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-rsc.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -7900,12 +7900,12 @@ export const Index: Record<string, any> = {
     type: "registry:internal",
     registryDependencies: undefined,
     files: [{
-      path: "registry/new-york-v4/internal/sidebar-controlled.tsx",
+      path: "registry/preskok/internal/sidebar-controlled.tsx",
       type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/internal/sidebar-controlled.tsx")
+      const mod = await import("@/registry/preskok/internal/sidebar-controlled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

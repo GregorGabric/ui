@@ -6,7 +6,7 @@ import { ChartCopyButton } from "@/components/chart-copy-button"
 import { Chart } from "@/components/chart-display"
 import { getIconForLanguageExtension } from "@/components/icons"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Drawer,
   DrawerContent,
@@ -14,7 +14,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/registry/new-york-v4/ui/drawer"
+} from "@/registry/preskok/ui/drawer"
 import {
   Sheet,
   SheetContent,
@@ -22,7 +22,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/registry/new-york-v4/ui/sheet"
+} from "@/registry/preskok/ui/sheet"
 
 export function ChartCodeViewer({
   chart,

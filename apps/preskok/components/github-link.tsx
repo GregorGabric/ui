@@ -3,8 +3,8 @@ import Link from "next/link"
 
 import { siteConfig } from "@/lib/config"
 import { Icons } from "@/components/icons"
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Skeleton } from "@/registry/new-york-v4/ui/skeleton"
+import { Button } from "@/registry/preskok/ui/button"
+import { Skeleton } from "@/registry/preskok/ui/skeleton"
 
 export function GitHubLink() {
   return (

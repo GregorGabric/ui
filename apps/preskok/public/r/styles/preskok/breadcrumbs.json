@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "type": "registry:ui",
+  "description": "A breadcrumb navigation component with customizable separators",
+  "dependencies": [
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "link"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/breadcrumbs.tsx",
+      "content": "\"use client\"\n\nimport { createContext, use } from \"react\"\nimport { ChevronRightIcon } from \"lucide-react\"\nimport type {\n  BreadcrumbProps,\n  BreadcrumbsProps,\n  LinkProps,\n} from \"react-aria-components\"\nimport {\n  Breadcrumb,\n  Breadcrumbs as BreadcrumbsPrimitive,\n} from \"react-aria-components\"\nimport { twMerge } from \"tailwind-merge\"\n\nimport { composeTailwindRenderProps } from \"@/registry/preskok/lib/primitive\"\n\nimport { Link } from \"./link\"\n\ntype BreadcrumbsContextProps = { separator?: \"chevron\" | \"slash\" | boolean }\nconst BreadcrumbsProvider = createContext<BreadcrumbsContextProps>({\n  separator: \"chevron\",\n})\n\nconst Breadcrumbs = <T extends object>({\n  className,\n  ...props\n}: BreadcrumbsProps<T> & BreadcrumbsContextProps) => {\n  return (\n    <BreadcrumbsProvider value={{ separator: props.separator }}>\n      <BreadcrumbsPrimitive\n        {...props}\n        className={twMerge(\"flex items-center gap-2\", className)}\n      />\n    </BreadcrumbsProvider>\n  )\n}\n\ninterface BreadcrumbsItemProps\n  extends BreadcrumbProps,\n    BreadcrumbsContextProps {\n  href?: string\n}\n\nconst BreadcrumbsItem = ({\n  href,\n  separator = true,\n  className,\n  ...props\n}: BreadcrumbsItemProps & Partial<Omit<LinkProps, \"className\">>) => {\n  const { separator: contextSeparator } = use(BreadcrumbsProvider)\n  separator = contextSeparator ?? separator\n  const separatorValue = separator === true ? \"chevron\" : separator\n\n  return (\n    <Breadcrumb\n      {...props}\n      className={composeTailwindRenderProps(\n        className,\n        \"flex items-center gap-2 text-sm\"\n      )}\n    >\n      {({ isCurrent }) => (\n        <>\n          <Link href={href} {...props} />\n          {!isCurrent && separator !== false && (\n            <Separator separator={separatorValue} />\n          )}\n        </>\n      )}\n    </Breadcrumb>\n  )\n}\n\nconst Separator = ({\n  separator = \"chevron\",\n}: {\n  separator?: BreadcrumbsItemProps[\"separator\"]\n}) => {\n  return (\n    <span className=\"*:text-muted-fg *:shrink-0 *:data-[slot=icon]:size-3.5\">\n      {separator === \"chevron\" && <ChevronRightIcon />}\n      {separator === \"slash\" && <span className=\"text-muted-fg\">/</span>}\n    </span>\n  )\n}\n\nBreadcrumbs.Item = BreadcrumbsItem\n\nexport { Breadcrumbs, BreadcrumbsItem }\nexport type { BreadcrumbsItemProps, BreadcrumbsProps }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

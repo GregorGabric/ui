@@ -1,4 +1,4 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -7,10 +7,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/new-york-v4/ui/dialog"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { Textarea } from "@/registry/new-york-v4/ui/textarea"
+} from "@/registry/preskok/ui/dialog"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
+import { Textarea } from "@/registry/preskok/ui/textarea"
 
 export function PresetSave() {
   return (

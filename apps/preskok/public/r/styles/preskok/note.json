@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "note",
+  "type": "registry:ui",
+  "description": "A note component for displaying contextual information with different intents",
+  "dependencies": [
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/note.tsx",
+      "content": "import { CircleAlertIcon, CircleCheckIcon, InfoIcon } from \"lucide-react\"\nimport { twMerge } from \"tailwind-merge\"\n\ninterface NoteProps extends React.HtmlHTMLAttributes<HTMLDivElement> {\n  intent?: \"default\" | \"info\" | \"warning\" | \"danger\" | \"success\"\n  indicator?: boolean\n}\n\nconst iconMap: Record<string, React.ElementType | null> = {\n  info: InfoIcon,\n  warning: CircleAlertIcon,\n  danger: CircleAlertIcon,\n  success: CircleCheckIcon,\n  default: null,\n}\nconst Note = ({\n  indicator = true,\n  intent = \"default\",\n  className,\n  ...props\n}: NoteProps) => {\n  const IconComponent = iconMap[intent] || null\n\n  return (\n    <div\n      className={twMerge([\n        \"grid w-full grid-cols-[auto_1fr] gap-3 overflow-hidden rounded-lg p-4 inset-ring-1 inset-ring-current/10 sm:text-sm/6\",\n        \"[&_a]:underline hover:[&_a]:underline **:[strong]:font-semibold\",\n        intent === \"default\" &&\n          \"border-border bg-secondary/20 text-secondary-fg **:data-[slot=icon]:text-secondary-fg dark:**:data-[slot=icon]:text-secondary-fg [&_a]:text-secondary-fg dark:[&_a]:text-secondary-fg\",\n        intent === \"info\" &&\n          \"bg-sky-500/5 text-sky-700 group-hover:bg-sky-500/25 dark:bg-sky-500/10 dark:text-sky-300 dark:group-hover:bg-sky-500/20\",\n        intent === \"warning\" &&\n          \"bg-amber-400/20 text-amber-700 group-hover:bg-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400 dark:group-hover:bg-amber-400/15\",\n        intent === \"danger\" &&\n          \"bg-red-500/15 text-red-700 group-hover:bg-red-500/25 dark:bg-red-500/10 dark:text-red-400 dark:group-hover:bg-red-500/20\",\n        intent === \"success\" &&\n          \"border-success/20 bg-success/10 **:data-[slot=icon]:text-success dark:bg-success/10 leading-4 text-emerald-800 dark:text-emerald-200 dark:**:data-[slot=icon]:text-emerald-400 [&_a]:text-emerald-600 dark:[&_a]:text-emerald-50\",\n        className,\n      ])}\n      {...props}\n    >\n      {IconComponent && indicator && (\n        <IconComponent className=\"col-start-1 size-5 shrink-0\" />\n      )}\n      <div className=\"text-base/6 text-pretty group-has-data-[slot=icon]:col-start-2 sm:text-sm/6\">\n        {props.children}\n      </div>\n    </div>\n  )\n}\n\nexport { Note }\nexport type { NoteProps }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

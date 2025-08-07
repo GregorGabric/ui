@@ -5,7 +5,7 @@ import { PopoverProps } from "@radix-ui/react-popover"
 import { Check, ChevronsUpDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -14,12 +14,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/registry/new-york-v4/ui/command"
+} from "@/registry/preskok/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/registry/new-york-v4/ui/popover"
+} from "@/registry/preskok/ui/popover"
 
 import { Preset } from "../data/presets"
 

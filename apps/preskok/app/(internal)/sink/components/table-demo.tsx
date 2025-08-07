@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/new-york-v4/ui/table"
+} from "@/registry/preskok/ui/table"
 
 const invoices = [
   {

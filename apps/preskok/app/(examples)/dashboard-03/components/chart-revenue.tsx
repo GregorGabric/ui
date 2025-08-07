@@ -10,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/preskok/ui/card"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/preskok/ui/chart"
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },

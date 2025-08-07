@@ -2,12 +2,12 @@ import { Metadata } from "next"
 import { cookies } from "next/headers"
 
 import { ThemeSelector } from "@/components/theme-selector"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
+import { Separator } from "@/registry/preskok/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/preskok/ui/sidebar"
 import { AccordionDemo } from "@/app/(internal)/sink/components/accordion-demo"
 import { AlertDemo } from "@/app/(internal)/sink/components/alert-demo"
 import { AlertDialogDemo } from "@/app/(internal)/sink/components/alert-dialog-demo"

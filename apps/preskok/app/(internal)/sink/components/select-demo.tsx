@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   ChartBarIcon,
   ChartLineIcon,
@@ -14,7 +13,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/preskok/ui/select"
 
 export function SelectDemo() {
   return (

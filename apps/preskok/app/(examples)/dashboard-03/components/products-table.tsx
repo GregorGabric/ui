@@ -5,21 +5,21 @@ import {
   PlusIcon,
 } from "lucide-react"
 
-import { Badge } from "@/registry/new-york-v4/ui/badge"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Badge } from "@/registry/preskok/ui/badge"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/registry/new-york-v4/ui/card"
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
+} from "@/registry/preskok/ui/card"
+import { Checkbox } from "@/registry/preskok/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
+} from "@/registry/preskok/ui/dropdown-menu"
 import {
   Pagination,
   PaginationContent,
@@ -28,14 +28,14 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/registry/new-york-v4/ui/pagination"
+} from "@/registry/preskok/ui/pagination"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/preskok/ui/select"
 import {
   Table,
   TableBody,
@@ -43,8 +43,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/new-york-v4/ui/table"
-import { Tabs, TabsList, TabsTrigger } from "@/registry/new-york-v4/ui/tabs"
+} from "@/registry/preskok/ui/table"
+import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/tabs"
 
 export function ProductsTable({
   products,

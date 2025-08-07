@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
+} from "@/registry/preskok/ui/dropdown-menu"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -23,7 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/preskok/ui/sidebar"
 
 export function NavDocuments({
   items,

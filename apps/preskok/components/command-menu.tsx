@@ -13,7 +13,7 @@ import { useConfig } from "@/hooks/use-config"
 import { useIsMac } from "@/hooks/use-is-mac"
 import { useMutationObserver } from "@/hooks/use-mutation-observer"
 import { copyToClipboardWithMeta } from "@/components/copy-button"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -21,7 +21,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/registry/new-york-v4/ui/command"
+} from "@/registry/preskok/ui/command"
 import {
   Dialog,
   DialogContent,
@@ -29,8 +29,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/new-york-v4/ui/dialog"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
+} from "@/registry/preskok/ui/dialog"
+import { Separator } from "@/registry/preskok/ui/separator"
 
 export function CommandMenu({
   tree,

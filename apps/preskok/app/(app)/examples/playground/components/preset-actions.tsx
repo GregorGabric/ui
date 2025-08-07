@@ -13,8 +13,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/registry/new-york-v4/ui/alert-dialog"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/alert-dialog"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   DialogClose,
   DialogContent,
@@ -22,16 +22,16 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/registry/new-york-v4/ui/dialog"
+} from "@/registry/preskok/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+} from "@/registry/preskok/ui/dropdown-menu"
+import { Label } from "@/registry/preskok/ui/label"
+import { Switch } from "@/registry/preskok/ui/switch"
 
 export function PresetActions() {
   const [open, setIsOpen] = React.useState(false)

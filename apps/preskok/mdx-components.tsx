@@ -17,20 +17,20 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/registry/new-york-v4/ui/accordion"
+} from "@/registry/preskok/ui/accordion"
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@/registry/new-york-v4/ui/alert"
-import { AspectRatio } from "@/registry/new-york-v4/ui/aspect-ratio"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/alert"
+import { AspectRatio } from "@/registry/preskok/ui/aspect-ratio"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/new-york-v4/ui/tabs"
+} from "@/registry/preskok/ui/tabs"
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<"h1">) => (

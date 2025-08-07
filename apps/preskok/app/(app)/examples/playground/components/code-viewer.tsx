@@ -1,4 +1,4 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/new-york-v4/ui/dialog"
+} from "@/registry/preskok/ui/dialog"
 
 export function CodeViewer() {
   return (

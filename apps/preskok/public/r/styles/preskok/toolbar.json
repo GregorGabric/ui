@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar",
+  "type": "registry:ui",
+  "description": "A toolbar component for grouping action buttons",
+  "dependencies": [
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "separator",
+    "toggle"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/toolbar.tsx",
+      "content": "\"use client\"\n\nimport { createContext, useContext } from \"react\"\nimport type {\n  GroupProps,\n  SeparatorProps,\n  ToolbarProps,\n} from \"react-aria-components\"\nimport {\n  composeRenderProps,\n  Group,\n  Toolbar as ToolbarPrimitive,\n} from \"react-aria-components\"\nimport { twMerge } from \"tailwind-merge\"\n\nimport { composeTailwindRenderProps } from \"@/registry/preskok/lib/primitive\"\n\nimport { Separator } from \"./separator\"\nimport { Toggle, type ToggleProps } from \"./toggle\"\n\nconst ToolbarContext = createContext<{\n  orientation?: ToolbarProps[\"orientation\"]\n}>({\n  orientation: \"horizontal\",\n})\n\nconst Toolbar = ({\n  orientation = \"horizontal\",\n  className,\n  ...props\n}: ToolbarProps) => {\n  return (\n    <ToolbarContext.Provider value={{ orientation }}>\n      <ToolbarPrimitive\n        orientation={orientation}\n        {...props}\n        className={composeRenderProps(className, (className, { orientation }) =>\n          twMerge(\n            \"group flex flex-row gap-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden\",\n            orientation === \"horizontal\"\n              ? \"flex-row items-center [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden\"\n              : \"flex-col items-start\",\n            className\n          )\n        )}\n      />\n    </ToolbarContext.Provider>\n  )\n}\n\nconst ToolbarGroupContext = createContext<{ isDisabled?: boolean }>({})\n\ntype ToolbarGroupProps = GroupProps\nconst ToolbarGroup = ({\n  isDisabled,\n  className,\n  ...props\n}: ToolbarGroupProps) => {\n  return (\n    <ToolbarGroupContext.Provider value={{ isDisabled }}>\n      <Group\n        className={composeTailwindRenderProps(\n          className,\n          \"group-orientation-vertical:flex-col group-orientation-vertical:items-start group-orientation-horizontal:items-center flex gap-2\"\n        )}\n        {...props}\n      >\n        {props.children}\n      </Group>\n    </ToolbarGroupContext.Provider>\n  )\n}\n\ntype ToggleItemProps = ToggleProps\nconst ToolbarItem = ({\n  isDisabled,\n  size = \"sm\",\n  intent = \"outline\",\n  ref,\n  ...props\n}: ToggleItemProps) => {\n  const context = useContext(ToolbarGroupContext)\n  const effectiveIsDisabled = isDisabled || context.isDisabled\n\n  return (\n    <Toggle\n      intent={intent}\n      size={size}\n      ref={ref}\n      isDisabled={effectiveIsDisabled}\n      {...props}\n    />\n  )\n}\ntype ToolbarSeparatorProps = SeparatorProps\nconst ToolbarSeparator = ({ className, ...props }: ToolbarSeparatorProps) => {\n  const { orientation } = useContext(ToolbarContext)\n  const effectiveOrientation =\n    orientation === \"vertical\" ? \"horizontal\" : \"vertical\"\n  return (\n    <Separator\n      orientation={effectiveOrientation}\n      className={twMerge(\n        effectiveOrientation === \"vertical\" ? \"mx-1.5\" : \"my-1.5 w-8\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nToolbar.Group = ToolbarGroup\nToolbar.Separator = ToolbarSeparator\nToolbar.Item = ToolbarItem\n\nexport { Toolbar }\nexport type {\n  ToggleItemProps,\n  ToolbarGroupProps,\n  ToolbarProps,\n  ToolbarSeparatorProps,\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

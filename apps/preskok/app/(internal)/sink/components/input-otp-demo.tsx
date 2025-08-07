@@ -8,8 +8,8 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/registry/new-york-v4/ui/input-otp"
-import { Label } from "@/registry/new-york-v4/ui/label"
+} from "@/registry/preskok/ui/input-otp"
+import { Label } from "@/registry/preskok/ui/label"
 
 export function InputOTPDemo() {
   return (

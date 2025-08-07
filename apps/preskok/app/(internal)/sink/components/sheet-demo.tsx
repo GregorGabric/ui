@@ -1,6 +1,6 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
+import { Button } from "@/registry/preskok/ui/button"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
 import {
   Sheet,
   SheetClose,
@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/registry/new-york-v4/ui/sheet"
+} from "@/registry/preskok/ui/sheet"
 
 const SHEET_SIDES = ["top", "right", "bottom", "left"] as const
 

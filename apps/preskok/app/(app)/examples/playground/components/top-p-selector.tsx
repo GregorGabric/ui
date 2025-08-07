@@ -7,9 +7,9 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/registry/new-york-v4/ui/hover-card"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { Slider } from "@/registry/new-york-v4/ui/slider"
+} from "@/registry/preskok/ui/hover-card"
+import { Label } from "@/registry/preskok/ui/label"
+import { Slider } from "@/registry/preskok/ui/slider"
 
 interface TopPSelectorProps {
   defaultValue: SliderProps["defaultValue"]

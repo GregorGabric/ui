@@ -1,6 +1,6 @@
 import { AppWindowIcon, CodeIcon } from "lucide-react"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
@@ -8,15 +8,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
+} from "@/registry/preskok/ui/card"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/new-york-v4/ui/tabs"
+} from "@/registry/preskok/ui/tabs"
 
 export function TabsDemo() {
   return (

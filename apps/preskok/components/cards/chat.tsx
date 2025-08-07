@@ -8,14 +8,14 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/registry/new-york-v4/ui/avatar"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/avatar"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/preskok/ui/card"
 import {
   Command,
   CommandEmpty,
@@ -23,7 +23,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/registry/new-york-v4/ui/command"
+} from "@/registry/preskok/ui/command"
 import {
   Dialog,
   DialogContent,
@@ -31,14 +31,14 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/registry/new-york-v4/ui/dialog"
-import { Input } from "@/registry/new-york-v4/ui/input"
+} from "@/registry/preskok/ui/dialog"
+import { Input } from "@/registry/preskok/ui/input"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/registry/new-york-v4/ui/tooltip"
+} from "@/registry/preskok/ui/tooltip"
 
 const users = [
   {

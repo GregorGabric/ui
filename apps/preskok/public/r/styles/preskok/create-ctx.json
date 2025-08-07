@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "create-ctx",
+  "type": "registry:lib",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/lib/create-ctx.ts",
+      "content": "\"use client\"\n\nimport { createContext, use } from \"react\"\n\n/**\n * A helper to create the Context and its Provider. The code below will make sure to skip the\n * undefined checks normally associated with Context creation.\n *\n * @return useCtx, createdContext.Provider\n */\nexport function createCtx<T extends object | null>() {\n  const createdContext = createContext<T | undefined>(undefined)\n  function useCtx() {\n    const importContext = use(createdContext)\n    if (importContext === undefined) {\n      throw new Error(\n        \"ERROR: useCtx must be used inside a Provider with a provided value! Check usage for createCtx function\"\n      )\n    }\n    return importContext\n  }\n  return [useCtx, createdContext.Provider] as const\n}\n",
+      "type": "registry:lib"
+    }
+  ]
+}

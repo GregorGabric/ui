@@ -6,11 +6,11 @@ import { Clock2Icon } from "lucide-react"
 import { type DateRange } from "react-day-picker"
 import { es } from "react-day-picker/locale"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Calendar, CalendarDayButton } from "@/registry/new-york-v4/ui/calendar"
-import { Card, CardContent, CardFooter } from "@/registry/new-york-v4/ui/card"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
+import { Button } from "@/registry/preskok/ui/button"
+import { Calendar, CalendarDayButton } from "@/registry/preskok/ui/calendar"
+import { Card, CardContent, CardFooter } from "@/registry/preskok/ui/card"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
 
 export function CalendarDemo() {
   return (

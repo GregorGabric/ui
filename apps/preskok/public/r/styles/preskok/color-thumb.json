@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-thumb",
+  "type": "registry:ui",
+  "description": "A color thumb component for color slider controls",
+  "dependencies": [
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/color-thumb.tsx",
+      "content": "\"use client\"\n\nimport {\n  ColorThumb as ColorThumbPrimitive,\n  composeRenderProps,\n  type ColorThumbProps,\n} from \"react-aria-components\"\nimport { twMerge } from \"tailwind-merge\"\n\nconst ColorThumb = ({ className, ...props }: ColorThumbProps) => {\n  return (\n    <ColorThumbPrimitive\n      {...props}\n      style={({ defaultStyle, isDisabled }) => ({\n        ...defaultStyle,\n        backgroundColor: isDisabled ? undefined : defaultStyle.backgroundColor,\n      })}\n      className={composeRenderProps(\n        className,\n        (className, { isFocusVisible, isDragging, isDisabled }) =>\n          twMerge(\n            \"top-[50%] left-[50%] size-6 rounded-full border-2 border-white [box-shadow:0_0_0_1px_black,_inset_0_0_0_1px_black]\",\n            isFocusVisible && \"size-8\",\n            isDragging && \"bg-muted-fg forced-colors:bg-[ButtonBorder]\",\n            isDisabled &&\n              \"opacity-50 forced-colors:border-[GrayText] forced-colors:bg-[GrayText]\",\n            className\n          )\n      )}\n    />\n  )\n}\n\nexport { ColorThumb }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

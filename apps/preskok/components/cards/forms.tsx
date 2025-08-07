@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
@@ -8,15 +8,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
-import { Textarea } from "@/registry/new-york-v4/ui/textarea"
+} from "@/registry/preskok/ui/card"
+import { Checkbox } from "@/registry/preskok/ui/checkbox"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/registry/preskok/ui/radio-group"
+import { Textarea } from "@/registry/preskok/ui/textarea"
 
 const plans = [
   {

@@ -10,8 +10,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/registry/new-york-v4/ui/select"
-import { Skeleton } from "@/registry/new-york-v4/ui/skeleton"
+} from "@/registry/preskok/ui/select"
+import { Skeleton } from "@/registry/preskok/ui/skeleton"
 
 export function ColorFormatSelector({
   color,

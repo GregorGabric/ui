@@ -13,7 +13,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/new-york-v4/ui/breadcrumb"
+} from "@/registry/preskok/ui/breadcrumb"
 
 export function DocsBreadcrumb({
   tree,

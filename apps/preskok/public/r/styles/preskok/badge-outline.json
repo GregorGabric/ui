@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge-outline",
+  "type": "registry:example",
+  "registryDependencies": [
+    "badge"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/badge-outline.tsx",
+      "content": "import { Badge } from \"@/registry/preskok/ui/badge\"\n\nexport default function BadgeOutline() {\n  return <Badge variant=\"outline\">Outline</Badge>\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

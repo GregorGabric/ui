@@ -1,5 +1,5 @@
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+import { Label } from "@/registry/preskok/ui/label"
+import { Switch } from "@/registry/preskok/ui/switch"
 
 export function SwitchDemo() {
   return (

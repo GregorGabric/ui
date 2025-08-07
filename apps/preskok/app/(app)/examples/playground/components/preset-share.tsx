@@ -1,13 +1,13 @@
 import { Copy } from "lucide-react"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
+import { Button } from "@/registry/preskok/ui/button"
+import { Input } from "@/registry/preskok/ui/input"
+import { Label } from "@/registry/preskok/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/registry/new-york-v4/ui/popover"
+} from "@/registry/preskok/ui/popover"
 
 export function PresetShare() {
   return (

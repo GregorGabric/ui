@@ -11,8 +11,8 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@/registry/new-york-v4/ui/alert"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/alert"
+import { Button } from "@/registry/preskok/ui/button"
 
 export function AlertDemo() {
   return (

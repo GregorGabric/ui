@@ -4,13 +4,13 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/registry/new-york-v4/ui/avatar"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/avatar"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/registry/new-york-v4/ui/hover-card"
+} from "@/registry/preskok/ui/hover-card"
 
 export function HoverCardDemo() {
   return (

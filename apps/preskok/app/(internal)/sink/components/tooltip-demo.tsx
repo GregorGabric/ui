@@ -1,11 +1,11 @@
 import { InfoIcon } from "lucide-react"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/registry/new-york-v4/ui/tooltip"
+} from "@/registry/preskok/ui/tooltip"
 
 export function TooltipDemo() {
   return (

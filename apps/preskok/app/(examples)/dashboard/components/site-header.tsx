@@ -1,6 +1,6 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
-import { SidebarTrigger } from "@/registry/new-york-v4/ui/sidebar"
+import { Button } from "@/registry/preskok/ui/button"
+import { Separator } from "@/registry/preskok/ui/separator"
+import { SidebarTrigger } from "@/registry/preskok/ui/sidebar"
 import { ModeToggle } from "@/app/(examples)/dashboard/components/mode-toggle"
 import { ThemeSelector } from "@/app/(examples)/dashboard/components/theme-selector"
 

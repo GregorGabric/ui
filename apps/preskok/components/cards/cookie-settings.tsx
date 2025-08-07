@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+} from "@/registry/preskok/ui/card"
+import { Label } from "@/registry/preskok/ui/label"
+import { Switch } from "@/registry/preskok/ui/switch"
 
 export function CardsCookieSettings() {
   return (

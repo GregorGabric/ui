@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "type": "registry:ui",
+  "description": "A multi-line text input component with field integration",
+  "dependencies": [
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "field"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/textarea.tsx",
+      "content": "\"use client\"\n\nimport { TextArea, TextField, type TextFieldProps } from \"react-aria-components\"\nimport { twJoin } from \"tailwind-merge\"\n\nimport { composeTailwindRenderProps } from \"@/registry/preskok/lib/primitive\"\n\nimport { Description, FieldError, Label, type FieldProps } from \"./field\"\n\ninterface TextareaProps extends Omit<TextFieldProps, \"className\">, FieldProps {\n  className?: string | ((v: TextFieldProps) => string)\n}\n\nconst Textarea = ({\n  className,\n  placeholder,\n  label,\n  description,\n  errorMessage,\n  ...props\n}: TextareaProps) => {\n  return (\n    <TextField\n      {...props}\n      className={composeTailwindRenderProps(\n        className,\n        \"group flex flex-col gap-y-1 *:data-[slot=label]:font-medium\"\n      )}\n    >\n      {label && <Label>{label}</Label>}\n      <TextArea\n        placeholder={placeholder}\n        className={composeTailwindRenderProps(\n          className,\n          twJoin([\n            \"border-input placeholder-muted-fg field-sizing-content max-h-96 min-h-16 w-full min-w-0 rounded-lg border px-2.5 py-2 text-base shadow-xs outline-hidden transition duration-200 sm:text-sm/6\",\n            \"focus:border-ring/70 focus:ring-ring/20 focus:ring-3\",\n            \"focus:invalid:border-danger/70 focus:invalid:ring-danger/20 focus:invalid:ring-3\",\n            \"invalid:border-danger/70\",\n            \"disabled:opacity-50 disabled:forced-colors:border-[GrayText]\",\n            \"invalid:hover:border-danger/70 hover:border-current/20\",\n          ])\n        )}\n      />\n      {description && <Description>{description}</Description>}\n      <FieldError>{errorMessage}</FieldError>\n    </TextField>\n  )\n}\n\nexport { Textarea }\nexport type { TextareaProps }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -6,15 +6,15 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/registry/new-york-v4/ui/avatar"
-import { Button } from "@/registry/new-york-v4/ui/button"
+} from "@/registry/preskok/ui/avatar"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/preskok/ui/card"
 import {
   Command,
   CommandEmpty,
@@ -22,12 +22,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/registry/new-york-v4/ui/command"
+} from "@/registry/preskok/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/registry/new-york-v4/ui/popover"
+} from "@/registry/preskok/ui/popover"
 
 const teamMembers = [
   {

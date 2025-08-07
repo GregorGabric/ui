@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { ScrollArea, ScrollBar } from "@/registry/new-york-v4/ui/scroll-area"
+import { ScrollArea, ScrollBar } from "@/registry/preskok/ui/scroll-area"
 import { registryCategories } from "@/registry/registry-categories"
 
 export function BlocksNav() {

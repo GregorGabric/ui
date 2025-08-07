@@ -26,18 +26,18 @@ import { cn } from "@/lib/utils"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { getIconForLanguageExtension } from "@/components/icons"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/new-york-v4/ui/collapsible"
+} from "@/registry/preskok/ui/collapsible"
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/registry/new-york-v4/ui/resizable"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
+} from "@/registry/preskok/ui/resizable"
+import { Separator } from "@/registry/preskok/ui/separator"
 import {
   Sidebar,
   SidebarGroup,
@@ -48,12 +48,12 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarProvider,
-} from "@/registry/new-york-v4/ui/sidebar"
-import { Tabs, TabsList, TabsTrigger } from "@/registry/new-york-v4/ui/tabs"
+} from "@/registry/preskok/ui/sidebar"
+import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/tabs"
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@/registry/new-york-v4/ui/toggle-group"
+} from "@/registry/preskok/ui/toggle-group"
 
 type BlockViewerContext = {
   item: z.infer<typeof registryItemSchema>
@@ -284,7 +284,7 @@ function BlockViewerMobile({ children }: { children: React.ReactNode }) {
       ) : (
         <div className="overflow-hidden rounded-xl border">
           <Image
-            src={`/r/styles/new-york-v4/${item.name}-light.png`}
+            src={`/r/styles/preskok/${item.name}-light.png`}
             alt={item.name}
             data-block={item.name}
             width={1440}
@@ -292,7 +292,7 @@ function BlockViewerMobile({ children }: { children: React.ReactNode }) {
             className="object-cover dark:hidden"
           />
           <Image
-            src={`/r/styles/new-york-v4/${item.name}-dark.png`}
+            src={`/r/styles/preskok/${item.name}-dark.png`}
             alt={item.name}
             data-block={item.name}
             width={1440}

@@ -11,8 +11,8 @@ import { MobileNav } from "@/components/mobile-nav"
 import { ModeSwitcher } from "@/components/mode-switcher"
 import { SiteConfig } from "@/components/site-config"
 // import blocks from "@/registry/__blocks__.json"
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
+import { Button } from "@/registry/preskok/ui/button"
+import { Separator } from "@/registry/preskok/ui/separator"
 
 export function SiteHeader() {
   const colors = getColors()

@@ -11,21 +11,21 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/preskok/ui/card"
 import {
   ChartConfig,
   ChartContainer,
   ChartStyle,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/preskok/ui/chart"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/preskok/ui/select"
 
 const desktopData = [
   { month: "january", desktop: 186, fill: "var(--color-january)" },
