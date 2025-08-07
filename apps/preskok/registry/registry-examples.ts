@@ -1204,61 +1204,7 @@ export const examples: Registry["items"] = [
       },
     ],
   },
-  {
-    name: "toast-demo",
-    type: "registry:example",
-    registryDependencies: ["toast"],
-    files: [
-      {
-        path: "examples/toast-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "toast-destructive",
-    type: "registry:example",
-    registryDependencies: ["toast"],
-    files: [
-      {
-        path: "examples/toast-destructive.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "toast-simple",
-    type: "registry:example",
-    registryDependencies: ["toast"],
-    files: [
-      {
-        path: "examples/toast-simple.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "toast-with-action",
-    type: "registry:example",
-    registryDependencies: ["toast"],
-    files: [
-      {
-        path: "examples/toast-with-action.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "toast-with-title",
-    type: "registry:example",
-    registryDependencies: ["toast"],
-    files: [
-      {
-        path: "examples/toast-with-title.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
+
   {
     name: "toggle-group-demo",
     type: "registry:example",
