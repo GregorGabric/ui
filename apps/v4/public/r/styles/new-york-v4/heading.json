@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heading",
+  "type": "registry:ui",
+  "description": "A semantic heading component with configurable levels",
+  "dependencies": [
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/ui/preskok-ui/heading.tsx",
+      "content": "import { twMerge } from \"tailwind-merge\"\n\ninterface HeadingProps\n  extends React.ComponentProps<\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"> {\n  level?: 1 | 2 | 3 | 4 | 5 | 6\n}\n\nconst Heading = ({ className, level = 1, ...props }: HeadingProps) => {\n  const Element: `h${typeof level}` = `h${level}`\n  return (\n    <Element\n      className={twMerge(\n        \"text-fg font-sans\",\n        level === 1 && \"text-xl font-semibold sm:text-2xl\",\n        level === 2 && \"text-lg font-semibold sm:text-xl\",\n        level === 3 && \"text-base font-semibold sm:text-lg\",\n        level === 4 && \"text-base font-semibold\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport type { HeadingProps }\nexport { Heading }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

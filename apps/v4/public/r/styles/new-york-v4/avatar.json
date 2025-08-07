@@ -2,13 +2,14 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "avatar",
   "type": "registry:ui",
+  "description": "A flexible avatar component with initials and image support",
   "dependencies": [
-    "@radix-ui/react-avatar"
+    "tailwind-merge"
   ],
   "files": [
     {
-      "path": "registry/new-york-v4/ui/avatar.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as AvatarPrimitive from \"@radix-ui/react-avatar\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Avatar({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Root>) {\n  return (\n    <AvatarPrimitive.Root\n      data-slot=\"avatar\"\n      className={cn(\n        \"relative flex size-8 shrink-0 overflow-hidden rounded-full\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarImage({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Image>) {\n  return (\n    <AvatarPrimitive.Image\n      data-slot=\"avatar-image\"\n      className={cn(\"aspect-square size-full\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarFallback({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {\n  return (\n    <AvatarPrimitive.Fallback\n      data-slot=\"avatar-fallback\"\n      className={cn(\n        \"bg-muted flex size-full items-center justify-center rounded-full\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Avatar, AvatarImage, AvatarFallback }\n",
+      "path": "registry/new-york-v4/ui/preskok-ui/avatar.tsx",
+      "content": "import { twMerge } from \"tailwind-merge\"\n\ninterface AvatarProps {\n  src?: string | null\n  initials?: string\n  alt?: string\n  className?: string\n  isSquare?: boolean\n  size?: \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"\n}\n\nconst Avatar = ({\n  src = null,\n  isSquare = false,\n  size = \"md\",\n  initials,\n  alt = \"\",\n  className,\n  ...props\n}: AvatarProps & React.ComponentPropsWithoutRef<\"span\">) => {\n  return (\n    <span\n      data-slot=\"avatar\"\n      {...props}\n      className={twMerge(\n        \"outline-fg/(--ring-opacity) inline-grid shrink-0 align-middle outline-1 -outline-offset-1 [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1\",\n        size === \"xs\" && \"size-5 *:size-5\",\n        size === \"sm\" && \"size-6 *:size-6\",\n        size === \"md\" && \"size-8 *:size-8\",\n        size === \"lg\" && \"size-10 *:size-10\",\n        size === \"xl\" && \"size-12 *:size-12\",\n        isSquare\n          ? \"rounded-(--avatar-radius) *:rounded-(--avatar-radius)\"\n          : \"rounded-full *:rounded-full\",\n        className\n      )}\n    >\n      {initials && (\n        <svg\n          className=\"font-md size-full fill-current p-[5%] text-[48px] uppercase select-none\"\n          viewBox=\"0 0 100 100\"\n          aria-hidden={alt ? undefined : \"true\"}\n        >\n          {alt && <title>{alt}</title>}\n          <text\n            x=\"50%\"\n            y=\"50%\"\n            alignmentBaseline=\"middle\"\n            dominantBaseline=\"middle\"\n            textAnchor=\"middle\"\n            dy=\".125em\"\n          >\n            {initials}\n          </text>\n        </svg>\n      )}\n      {src && (\n        <img\n          className=\"size-full object-cover object-center\"\n          src={src}\n          alt={alt}\n        />\n      )}\n    </span>\n  )\n}\n\nexport type { AvatarProps }\nexport { Avatar }\n",
       "type": "registry:ui"
     }
   ]

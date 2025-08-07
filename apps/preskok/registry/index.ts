@@ -12,15 +12,6 @@ import { preskokUi } from "@/registry/registry-preskok"
 import { themes } from "@/registry/registry-themes"
 import { ui } from "@/registry/registry-ui"
 
-const DEPRECATED_ITEMS = [
-  "toast",
-  "toast-demo",
-  "toast-destructive",
-  "toast-simple",
-  "toast-with-action",
-  "toast-with-title",
-]
-
 export const registry = {
   name: "preskok/ui",
   // TODO: change this
@@ -32,7 +23,7 @@ export const registry = {
         type: "registry:style",
         dependencies: ["class-variance-authority", "lucide-react"],
         devDependencies: ["tw-animate-css"],
-        registryDependencies: ["utils"],
+        registryDependencies: ["utils", "create-ctx", "primitive"],
         cssVars: {},
         files: [],
       },
@@ -46,21 +37,17 @@ export const registry = {
       ...themes,
       ...examples,
       ...internal,
-    ]
-      .filter((item) => {
-        return !DEPRECATED_ITEMS.includes(item.name)
-      })
-      .map((item) => {
-        // Temporary fix for dashboard-01.
-        if (item.name === "dashboard-01") {
-          item.dependencies?.push("@tabler/icons-react")
-        }
+    ].map((item) => {
+      // Temporary fix for dashboard-01.
+      if (item.name === "dashboard-01") {
+        item.dependencies?.push("@tabler/icons-react")
+      }
 
-        if (item.name === "accordion" && "tailwind" in item) {
-          delete item.tailwind
-        }
+      if (item.name === "accordion" && "tailwind" in item) {
+        delete item.tailwind
+      }
 
-        return item
-      })
+      return item
+    })
   ),
 } satisfies Registry

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "primitive",
+  "type": "registry:lib",
+  "dependencies": [
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/lib/primitive.ts",
+      "content": "\"use client\"\n\nimport { composeRenderProps } from \"react-aria-components\"\nimport { twMerge, type ClassNameValue } from \"tailwind-merge\"\n\nfunction composeTailwindRenderProps<T>(\n  className: string | ((v: T) => string) | undefined,\n  tailwind: ClassNameValue\n): string | ((v: T) => string) {\n  return composeRenderProps(className, (className) =>\n    twMerge(tailwind, className)\n  )\n}\n\nexport { composeTailwindRenderProps }\n",
+      "type": "registry:lib"
+    }
+  ]
+}

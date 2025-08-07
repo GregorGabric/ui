@@ -10,7 +10,9 @@
     "tw-animate-css"
   ],
   "registryDependencies": [
-    "utils"
+    "utils",
+    "create-ctx",
+    "primitive"
   ],
   "files": [],
   "cssVars": {}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-field",
+  "type": "registry:ui",
+  "description": "A date field component with input segments for date and time entry",
+  "dependencies": [
+    "@internationalized/date",
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "field"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/ui/preskok-ui/date-field.tsx",
+      "content": "\"use client\"\n\nimport {\n  DateField as DateFieldPrimitive,\n  DateInput as DateInputPrimitive,\n  DateSegment,\n  type DateFieldProps as DateFieldPrimitiveProps,\n  type DateInputProps,\n  type DateValue,\n  type ValidationResult,\n} from \"react-aria-components\"\nimport { twJoin } from \"tailwind-merge\"\n\nimport { composeTailwindRenderProps } from \"@/registry/new-york-v4/lib/primitive\"\n\nimport { Description, FieldError, FieldGroup, Label } from \"./field\"\n\ninterface DateFieldProps<T extends DateValue>\n  extends DateFieldPrimitiveProps<T> {\n  label?: string\n  description?: string\n  errorMessage?: string | ((validation: ValidationResult) => string)\n  prefix?: React.ReactNode\n  suffix?: React.ReactNode\n}\n\nconst DateField = <T extends DateValue>({\n  prefix,\n  suffix,\n  label,\n  description,\n  errorMessage,\n  ...props\n}: DateFieldProps<T>) => {\n  return (\n    <DateFieldPrimitive\n      {...props}\n      className={composeTailwindRenderProps(\n        props.className,\n        \"group flex flex-col gap-y-1\"\n      )}\n    >\n      {label && <Label>{label}</Label>}\n      <FieldGroup>\n        {prefix && typeof prefix === \"string\" ? (\n          <span className=\"text-muted-fg ml-2\">{prefix}</span>\n        ) : (\n          prefix\n        )}\n        <DateInput />\n        {suffix ? (\n          typeof suffix === \"string\" ? (\n            <span className=\"text-muted-fg mr-2\">{suffix}</span>\n          ) : (\n            suffix\n          )\n        ) : null}\n      </FieldGroup>\n      {description && <Description>{description}</Description>}\n      <FieldError>{errorMessage}</FieldError>\n    </DateFieldPrimitive>\n  )\n}\n\nconst DateInput = ({\n  className,\n  ...props\n}: Omit<DateInputProps, \"children\">) => {\n  return (\n    <DateInputPrimitive\n      className={composeTailwindRenderProps(\n        className,\n        \"text-fg placeholder-muted-fg px-3 py-2 text-base outline-hidden sm:px-2.5 sm:py-1.5 sm:text-sm/6\"\n      )}\n      {...props}\n    >\n      {(segment) => (\n        <DateSegment\n          segment={segment}\n          className={twJoin(\n            \"type-literal:px-0 text-fg data-placeholder:not-data-focused:text-muted-fg inline shrink-0 rounded px-1.5 tracking-wider caret-transparent outline-0 forced-color-adjust-none sm:p-0.5 sm:py-0.5 sm:text-sm forced-colors:text-[ButtonText]\",\n            \"focus:bg-accent focus:text-accent-fg focus:data-invalid:bg-danger focus:data-invalid:text-danger-fg forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]\",\n            \"disabled:opacity-50 forced-colors:disabled:text-[GrayText]\"\n          )}\n        />\n      )}\n    </DateInputPrimitive>\n  )\n}\n\nexport { DateField, DateInput }\nexport type { DateFieldProps }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

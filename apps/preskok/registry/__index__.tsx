@@ -10,7 +10,7 @@ export const Index: Record<string, any> = {
     name: "index",
     description: "",
     type: "registry:style",
-    registryDependencies: ["utils"],
+    registryDependencies: ["utils","create-ctx","primitive"],
     files: [],
     component: null,
     categories: undefined,
@@ -844,9 +844,783 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "avatar": {
+    name: "avatar",
+    description: "A flexible avatar component with initials and image support",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/avatar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/avatar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "badge": {
+    name: "badge",
+    description: "A versatile badge component with multiple intents and styles",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/badge.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/badge.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "button": {
+    name: "button",
+    description: "A comprehensive button component with multiple variants and sizes",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/button.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/button.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "card": {
+    name: "card",
+    description: "A flexible card component with header, content, and footer sections",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/card.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/card.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "container": {
+    name: "container",
+    description: "A responsive container component with optional constraints",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/container.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/container.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "heading": {
+    name: "heading",
+    description: "A semantic heading component with configurable levels",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/heading.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/heading.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "keyboard": {
+    name: "keyboard",
+    description: "A component for displaying keyboard shortcuts and key combinations",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/keyboard.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/keyboard.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "link": {
+    name: "link",
+    description: "An accessible link component with multiple styling options",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/link.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/link.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "loader": {
+    name: "loader",
+    description: "A collection of loading indicators with multiple variants",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/loader.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/loader.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "note": {
+    name: "note",
+    description: "A note component for displaying contextual information with different intents",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/note.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/note.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "separator": {
+    name: "separator",
+    description: "A separator component for dividing content horizontally or vertically",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/separator.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/separator.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "skeleton": {
+    name: "skeleton",
+    description: "A skeleton loading component with soft variant option",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/skeleton.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/skeleton.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "switch": {
+    name: "switch",
+    description: "An accessible switch component for boolean inputs",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/switch.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/switch.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "visually-hidden": {
+    name: "visually-hidden",
+    description: "A component for hiding content visually while keeping it accessible to screen readers",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/visually-hidden.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/visually-hidden.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "field": {
+    name: "field",
+    description: "Core field components including Input, Label, Description, and FieldError",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "form": {
+    name: "form",
+    description: "A form wrapper component with accessibility features",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/form.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/form.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "checkbox": {
+    name: "checkbox",
+    description: "Checkbox and CheckboxGroup components with field integration",
+    type: "registry:ui",
+    registryDependencies: ["field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/checkbox.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/checkbox.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "input-otp": {
+    name: "input-otp",
+    description: "One-time password input component with customizable slots",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/input-otp.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/input-otp.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "number-field": {
+    name: "number-field",
+    description: "A number input field with stepper buttons and validation",
+    type: "registry:ui",
+    registryDependencies: ["button","field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/number-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/number-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "radio": {
+    name: "radio",
+    description: "Radio and RadioGroup components with field integration",
+    type: "registry:ui",
+    registryDependencies: ["field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/radio.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/radio.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "search-field": {
+    name: "search-field",
+    description: "A search input field with loading state and clear functionality",
+    type: "registry:ui",
+    registryDependencies: ["field","loader"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/search-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/search-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "slider": {
+    name: "slider",
+    description: "A range slider component with tooltip and inline output options",
+    type: "registry:ui",
+    registryDependencies: ["field","tooltip"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/slider.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/slider.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "text-field": {
+    name: "text-field",
+    description: "A comprehensive text input field with prefix, suffix, and password reveal",
+    type: "registry:ui",
+    registryDependencies: ["field","loader"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/text-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/text-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "textarea": {
+    name: "textarea",
+    description: "A multi-line text input component with field integration",
+    type: "registry:ui",
+    registryDependencies: ["field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/textarea.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/textarea.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "time-field": {
+    name: "time-field",
+    description: "A time input field with segmented time entry",
+    type: "registry:ui",
+    registryDependencies: ["field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/time-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/time-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "popover": {
+    name: "popover",
+    description: "A popover component for displaying content in an overlay",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/popover.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/popover.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tooltip": {
+    name: "tooltip",
+    description: "A tooltip component with arrow and multiple styling options",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/tooltip.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tooltip.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "dialog": {
+    name: "dialog",
+    description: "A comprehensive dialog component with header, body, and footer sections",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/dialog.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/dialog.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "modal": {
+    name: "modal",
+    description: "A modal dialog component with overlay and blur effects",
+    type: "registry:ui",
+    registryDependencies: ["dialog"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/modal.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/modal.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "drawer": {
+    name: "drawer",
+    description: "A drawer component that slides in from different sides",
+    type: "registry:ui",
+    registryDependencies: ["button","dialog"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/drawer.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/drawer.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet": {
+    name: "sheet",
+    description: "A sheet component that slides in from different sides with blur effects",
+    type: "registry:ui",
+    registryDependencies: ["dialog"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/sheet.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/sheet.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "dropdown": {
+    name: "dropdown",
+    description: "Core dropdown components used by other menu-like components",
+    type: "registry:ui",
+    registryDependencies: ["keyboard","separator"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/dropdown.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/dropdown.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "menu": {
+    name: "menu",
+    description: "A comprehensive menu component with submenus and sections",
+    type: "registry:ui",
+    registryDependencies: ["button","dropdown","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/menu.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/menu.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "context-menu": {
+    name: "context-menu",
+    description: "A context menu component triggered by right-click",
+    type: "registry:ui",
+    registryDependencies: ["menu"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/context-menu.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/context-menu.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "select": {
+    name: "select",
+    description: "A select component with searchable options and custom styling",
+    type: "registry:ui",
+    registryDependencies: ["button","field","list-box","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/select.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/select.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "list-box": {
+    name: "list-box",
+    description: "A list box component for displaying selectable options",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/list-box.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/list-box.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "combo-box": {
+    name: "combo-box",
+    description: "A combo box component with filtering and custom input",
+    type: "registry:ui",
+    registryDependencies: ["field","list-box","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/combo-box.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/combo-box.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "breadcrumbs": {
+    name: "breadcrumbs",
+    description: "A breadcrumb navigation component with customizable separators",
+    type: "registry:ui",
+    registryDependencies: ["link"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/breadcrumbs.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/breadcrumbs.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "description-list": {
+    name: "description-list",
+    description: "A description list component for key-value pairs",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/description-list.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/description-list.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "disclosure": {
+    name: "disclosure",
+    description: "Disclosure and accordion components for collapsible content",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/disclosure.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/disclosure.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "grid-list": {
+    name: "grid-list",
+    description: "A grid list component for displaying items in a grid layout",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/grid-list.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/grid-list.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tabs": {
+    name: "tabs",
+    description: "A tabs component with accessible tab navigation",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/tabs.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tabs.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tree": {
+    name: "tree",
+    description: "A tree component for hierarchical data display",
+    type: "registry:ui",
+    registryDependencies: ["checkbox"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/tree.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tree.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "awesome-card": {
     name: "awesome-card",
-    description: "A beautiful, animated card component with variants and gradient backgrounds",
+    description: "A test card component with animations, variants and gradient backgrounds for testing the registry system",
     type: "registry:ui",
     registryDependencies: undefined,
     files: [{
@@ -862,11 +1636,785 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "video-player": {
+    name: "video-player",
+    description: "A video player component that allows you to play videos",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/video-player.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/video-player.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "file-upload": {
+    name: "file-upload",
+    description: "A file upload component that allows you to upload files",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/file-upload.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/file-upload.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "calendar": {
+    name: "calendar",
+    description: "A calendar component with single and range selection support",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/calendar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/calendar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "date-field": {
+    name: "date-field",
+    description: "A date field component with input segments for date and time entry",
+    type: "registry:ui",
+    registryDependencies: ["field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/date-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/date-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "date-picker": {
+    name: "date-picker",
+    description: "A date picker component with calendar popup for date selection",
+    type: "registry:ui",
+    registryDependencies: ["calendar","date-field","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/date-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/date-picker.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "date-range-picker": {
+    name: "date-range-picker",
+    description: "A date range picker component with calendar popup",
+    type: "registry:ui",
+    registryDependencies: ["calendar","date-field","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/date-range-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/date-range-picker.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "range-calendar": {
+    name: "range-calendar",
+    description: "A calendar component for selecting date ranges",
+    type: "registry:ui",
+    registryDependencies: ["calendar"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/range-calendar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/range-calendar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "multi-select": {
+    name: "multi-select",
+    description: "A multi-select component with search and filtering capabilities",
+    type: "registry:ui",
+    registryDependencies: ["field","list-box","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/multi-select.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/multi-select.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "multiple-select": {
+    name: "multiple-select",
+    description: "A multiple select component with tag-based selection",
+    type: "registry:ui",
+    registryDependencies: ["dropdown","field","popover","tag-group"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/multiple-select.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/multiple-select.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tag-field": {
+    name: "tag-field",
+    description: "A tag input field for adding and removing tags",
+    type: "registry:ui",
+    registryDependencies: ["field","tag-group"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/tag-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tag-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tag-group": {
+    name: "tag-group",
+    description: "A tag group component for displaying and managing tags",
+    type: "registry:ui",
+    registryDependencies: ["field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/tag-group.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tag-group.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "toggle": {
+    name: "toggle",
+    description: "A toggle button component with multiple variants",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/toggle.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toggle.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "toggle-group": {
+    name: "toggle-group",
+    description: "A toggle group component for single or multiple selection",
+    type: "registry:ui",
+    registryDependencies: ["toggle"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/toggle-group.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toggle-group.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "choicebox": {
+    name: "choicebox",
+    description: "A choice box component for selecting from a grid of options",
+    type: "registry:ui",
+    registryDependencies: ["checkbox"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/choicebox.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/choicebox.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "carousel": {
+    name: "carousel",
+    description: "A carousel component with navigation and pagination",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/carousel.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/carousel.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "navbar": {
+    name: "navbar",
+    description: "A comprehensive navigation bar with responsive design",
+    type: "registry:ui",
+    registryDependencies: ["button","link","separator"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/navbar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/navbar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sidebar": {
+    name: "sidebar",
+    description: "A comprehensive sidebar component with collapsible sections",
+    type: "registry:ui",
+    registryDependencies: ["button","disclosure","link","sheet","tooltip"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/sidebar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/sidebar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "pagination": {
+    name: "pagination",
+    description: "A pagination component with page navigation controls",
+    type: "registry:ui",
+    registryDependencies: ["button","list-box"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/pagination.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/pagination.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "toolbar": {
+    name: "toolbar",
+    description: "A toolbar component for grouping action buttons",
+    type: "registry:ui",
+    registryDependencies: ["separator","toggle"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/toolbar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/toolbar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "meter": {
+    name: "meter",
+    description: "A meter component for displaying scalar values within a range",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/meter.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/meter.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "progress-bar": {
+    name: "progress-bar",
+    description: "A progress bar component for showing completion status",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/progress-bar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/progress-bar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "progress-circle": {
+    name: "progress-circle",
+    description: "A circular progress component for showing completion status",
+    type: "registry:ui",
+    registryDependencies: ["progress-bar"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/progress-circle.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/progress-circle.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tracker": {
+    name: "tracker",
+    description: "A tracker component for visualizing data over time with tooltips",
+    type: "registry:ui",
+    registryDependencies: ["tooltip"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/tracker.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/tracker.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "chart": {
+    name: "chart",
+    description: "Core chart components and utilities for data visualization",
+    type: "registry:ui",
+    registryDependencies: ["toggle-group"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "area-chart": {
+    name: "area-chart",
+    description: "An area chart component with gradient fills and animations",
+    type: "registry:ui",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/area-chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/area-chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "bar-chart": {
+    name: "bar-chart",
+    description: "A bar chart component with stacking and percentage options",
+    type: "registry:ui",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/bar-chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/bar-chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "line-chart": {
+    name: "line-chart",
+    description: "A line chart component with multiple line support",
+    type: "registry:ui",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/line-chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/line-chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "pie-chart": {
+    name: "pie-chart",
+    description: "A pie/donut chart component with customizable labels",
+    type: "registry:ui",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/pie-chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/pie-chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "bar-list": {
+    name: "bar-list",
+    description: "A horizontal bar list component for displaying ranked data",
+    type: "registry:ui",
+    registryDependencies: ["link"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/bar-list.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/bar-list.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-area": {
+    name: "color-area",
+    description: "A color area component for 2D color selection",
+    type: "registry:ui",
+    registryDependencies: ["color-thumb"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-area.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-area.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-field": {
+    name: "color-field",
+    description: "A color input field with hex color validation",
+    type: "registry:ui",
+    registryDependencies: ["color-picker","field","loader"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-field.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-field.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-slider": {
+    name: "color-slider",
+    description: "A color slider component for single-dimension color adjustment",
+    type: "registry:ui",
+    registryDependencies: ["color-thumb","field"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-slider.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-slider.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-swatch": {
+    name: "color-swatch",
+    description: "A color swatch component for displaying colors",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-swatch.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-swatch.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-swatch-picker": {
+    name: "color-swatch-picker",
+    description: "A color swatch picker for selecting from predefined colors",
+    type: "registry:ui",
+    registryDependencies: ["color-swatch"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-swatch-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-swatch-picker.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-thumb": {
+    name: "color-thumb",
+    description: "A color thumb component for color slider controls",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-thumb.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-thumb.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-wheel": {
+    name: "color-wheel",
+    description: "A color wheel component for hue selection",
+    type: "registry:ui",
+    registryDependencies: ["color-thumb"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-wheel.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-wheel.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-picker": {
+    name: "color-picker",
+    description: "A comprehensive color picker with multiple input methods",
+    type: "registry:ui",
+    registryDependencies: ["button","color-area","color-field","color-slider","color-swatch","field","popover"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/color-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/color-picker.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "drop-zone": {
+    name: "drop-zone",
+    description: "A drop zone component for file uploads",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/drop-zone.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/drop-zone.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "file-trigger": {
+    name: "file-trigger",
+    description: "A file input trigger component with button styling",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/file-trigger.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/file-trigger.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "scroll-area": {
+    name: "scroll-area",
+    description: "A scroll area component with custom scrollbars",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/scroll-area.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/scroll-area.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "show-more": {
+    name: "show-more",
+    description: "A show more/less component for collapsible content",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/show-more.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/show-more.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "command-menu": {
+    name: "command-menu",
+    description: "A command menu component with search and keyboard navigation",
+    type: "registry:ui",
+    registryDependencies: ["dropdown","loader","menu"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/command-menu.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/command-menu.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "table": {
+    name: "table",
+    description: "A comprehensive table component with sorting, resizing, and selection",
+    type: "registry:ui",
+    registryDependencies: ["checkbox"],
+    files: [{
+      path: "registry/new-york-v4/ui/preskok-ui/table.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/table.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "number-format": {
     name: "number-format",
     description: "A number format component that allows you to format numbers in a variety of ways",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["locale-context"],
     files: [{
       path: "registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx",
       type: "registry:ui",
@@ -883,7 +2431,21 @@ export const Index: Record<string, any> = {
       path: "registry/new-york-v4/ui/preskok-ui/number-format/currency-helpers.ts",
       type: "registry:ui",
       target: ""
-    },{
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "locale-context": {
+    name: "locale-context",
+    description: "Locale context provider for internationalization support",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
       path: "registry/new-york-v4/ui/preskok-ui/locale-context/locale-context.tsx",
       type: "registry:ui",
       target: ""
@@ -893,7 +2455,7 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/number-format/number-format.tsx")
+      const mod = await import("@/registry/new-york-v4/ui/preskok-ui/locale-context/locale-context.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3434,8 +4996,8 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  "utils": {
-    name: "utils",
+  "create-ctx": {
+    name: "create-ctx",
     description: "",
     type: "registry:lib",
     registryDependencies: undefined,
@@ -3446,6 +5008,42 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/new-york-v4/lib/create-ctx.ts")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "utils": {
+    name: "utils",
+    description: "",
+    type: "registry:lib",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/lib/utils.ts",
+      type: "registry:lib",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/lib/utils.ts")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "primitive": {
+    name: "primitive",
+    description: "",
+    type: "registry:lib",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/new-york-v4/lib/primitive.ts",
+      type: "registry:lib",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/lib/primitive.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

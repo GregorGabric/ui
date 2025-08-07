@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "awesome-card",
   "type": "registry:ui",
-  "description": "A beautiful, animated card component with variants and gradient backgrounds",
+  "description": "A test card component with animations, variants and gradient backgrounds for testing the registry system",
   "dependencies": [
     "class-variance-authority"
   ],

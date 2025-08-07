@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-area",
+  "type": "registry:ui",
+  "description": "A color area component for 2D color selection",
+  "dependencies": [
+    "react-aria-components",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "color-thumb"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/ui/preskok-ui/color-area.tsx",
+      "content": "\"use client\"\n\nimport type { ColorAreaProps } from \"react-aria-components\"\nimport { ColorArea as ColorAreaPrimitive } from \"react-aria-components\"\n\nimport { composeTailwindRenderProps } from \"@/registry/new-york-v4/lib/primitive\"\n\nimport { ColorThumb } from \"./color-thumb\"\n\nconst ColorArea = ({ className, ...props }: ColorAreaProps) => {\n  return (\n    <ColorAreaPrimitive\n      {...props}\n      data-slot=\"color-area\"\n      className={composeTailwindRenderProps(\n        className,\n        \"bg-muted size-56 shrink-0 rounded-md forced-colors:bg-[GrayText]\"\n      )}\n      style={({ defaultStyle, isDisabled }) => ({\n        ...defaultStyle,\n        background: isDisabled ? undefined : defaultStyle.background,\n      })}\n    >\n      <ColorThumb />\n    </ColorAreaPrimitive>\n  )\n}\n\nexport { ColorArea }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

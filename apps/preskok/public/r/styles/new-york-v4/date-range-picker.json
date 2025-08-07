@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-range-picker",
+  "type": "registry:ui",
+  "description": "A date range picker component with calendar popup",
+  "dependencies": [
+    "@internationalized/date",
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "calendar",
+    "date-field",
+    "popover"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/ui/preskok-ui/date-range-picker.tsx",
+      "content": "\"use client\"\n\nimport type { DateDuration } from \"@internationalized/date\"\nimport type { Placement } from \"@react-types/overlays\"\nimport {\n  DateRangePicker as DateRangePickerPrimitive,\n  type DateRangePickerProps as DateRangePickerPrimitiveProps,\n  type DateValue,\n  type ValidationResult,\n} from \"react-aria-components\"\n\nimport { composeTailwindRenderProps } from \"@/registry/new-york-v4/lib/primitive\"\n\nimport { DateInput } from \"./date-field\"\nimport { DatePickerIcon, DatePickerOverlay } from \"./date-picker\"\nimport { Description, FieldError, FieldGroup, Label } from \"./field\"\n\ninterface DateRangePickerProps<T extends DateValue>\n  extends DateRangePickerPrimitiveProps<T> {\n  label?: string\n  description?: string\n  errorMessage?: string | ((validation: ValidationResult) => string)\n  visibleDuration?: DateDuration\n  pageBehavior?: \"visible\" | \"single\"\n  contentPlacement?: Placement\n}\n\nconst DateRangePicker = <T extends DateValue>({\n  label,\n  className,\n  description,\n  errorMessage,\n  contentPlacement = \"bottom\",\n  visibleDuration = { months: 1 },\n  ...props\n}: DateRangePickerProps<T>) => {\n  return (\n    <DateRangePickerPrimitive\n      {...props}\n      className={composeTailwindRenderProps(\n        className,\n        \"group flex flex-col gap-y-1 *:data-[slot=label]:font-medium\"\n      )}\n    >\n      {label && <Label>{label}</Label>}\n      <FieldGroup className=\"min-w-40 *:[button]:last:mr-1.5 sm:*:[button]:last:mr-0.5\">\n        <DateInput slot=\"start\" className=\"pl-2\" />\n        <span\n          aria-hidden=\"true\"\n          className=\"text-fg group-disabled:text-muted-fg -mx-2 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]\"\n        >\n          –\n        </span>\n        <DateInput className=\"pr-10 sm:pr-8\" slot=\"end\" />\n        <DatePickerIcon />\n      </FieldGroup>\n      {description && <Description>{description}</Description>}\n      <FieldError>{errorMessage}</FieldError>\n      <DatePickerOverlay\n        placement={contentPlacement}\n        visibleDuration={visibleDuration}\n        range\n      />\n    </DateRangePickerPrimitive>\n  )\n}\nexport { DateRangePicker }\nexport type { DateRangePickerProps }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

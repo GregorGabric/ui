@@ -1,100 +1,124 @@
 "use client"
 
-import { CheckIcon } from "lucide-react"
+import { CheckIcon, GripVerticalIcon } from "lucide-react"
 import type {
-  ListBoxItemProps as AriaListBoxItemProps,
-  ListBoxProps as AriaListBoxProps,
+  ListBoxItemProps,
+  ListBoxProps,
+  ListBoxSectionProps as ListBoxSectionPrimitiveProps,
 } from "react-aria-components"
 import {
-  Collection as AriaCollection,
-  Header as AriaHeader,
-  ListBox as AriaListBox,
-  ListBoxItem as AriaListBoxItem,
-  ListBoxSection as AriaSection,
   composeRenderProps,
+  ListBoxItem as ListBoxItemPrimitive,
+  ListBox as ListBoxPrimitive,
 } from "react-aria-components"
+import { twMerge } from "tailwind-merge"
 
-import { cn } from "@/lib/utils"
+import { composeTailwindRenderProps } from "@/registry/new-york-v4/lib/primitive"
 
-const ListBoxCollection = AriaCollection
+import {
+  DropdownDescription,
+  dropdownItemStyles,
+  DropdownLabel,
+  DropdownSection,
+} from "./dropdown"
 
-const ListBoxSection = AriaSection
-
-function ListBox<T extends object>({
+const ListBox = <T extends object>({
   className,
   ...props
-}: AriaListBoxProps<T>) {
-  return (
-    <AriaListBox
-      className={composeRenderProps(className, (className) =>
-        cn(
-          className,
-          "group bg-popover text-popover-foreground overflow-auto rounded-md border p-1 shadow-md outline-none",
-          /* Empty */
-          "data-[empty]:p-6 data-[empty]:text-center data-[empty]:text-sm"
-        )
-      )}
-      {...props}
-    />
-  )
-}
+}: ListBoxProps<T>) => (
+  <ListBoxPrimitive
+    className={composeTailwindRenderProps(
+      className,
+      "bg-bg grid max-h-96 w-full min-w-56 scroll-py-1 grid-cols-[auto_1fr] flex-col gap-y-1 overflow-y-auto overscroll-contain rounded-xl border p-1 shadow-lg outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5 *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
+    )}
+    data-slot="list-box"
+    {...props}
+  />
+)
 
 const ListBoxItem = <T extends object>({
-  className,
   children,
+  className,
   ...props
-}: AriaListBoxItemProps<T>) => {
+}: ListBoxItemProps<T>) => {
+  const textValue = typeof children === "string" ? children : undefined
   return (
-    <AriaListBoxItem
-      textValue={
-        props.textValue || (typeof children === "string" ? children : undefined)
-      }
-      className={composeRenderProps(className, (className) =>
-        cn(
-          "relative flex w-full cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none",
-          /* Disabled */
-          "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-          /* Focused */
-          "data-[focused]:bg-accent data-[focused]:text-accent-foreground",
-          /* Hovered */
-          "data-[hovered]:bg-accent data-[hovered]:text-accent-foreground",
-          /* Selection */
-          "data-[selection-mode]:pr-8",
-          className
-        )
+    <ListBoxItemPrimitive
+      textValue={textValue}
+      className={composeRenderProps(className, (className, renderProps) =>
+        dropdownItemStyles({
+          ...renderProps,
+          className,
+        })
       )}
+      data-slot="list-box-item"
       {...props}
     >
-      {composeRenderProps(children, (children, renderProps) => (
-        <>
-          {renderProps.isSelected && (
-            <span className="absolute right-2 flex size-4 items-center justify-center">
-              <CheckIcon className="size-4" />
-            </span>
-          )}
-          {children}
-        </>
-      ))}
-    </AriaListBoxItem>
+      {(renderProps) => {
+        const { allowsDragging, isSelected, isFocused, isDragging } =
+          renderProps
+
+        return (
+          <>
+            {allowsDragging && (
+              <GripVerticalIcon
+                className={twMerge(
+                  "text-muted-fg size-4 shrink-0 transition",
+                  isFocused && "text-fg",
+                  isDragging && "text-fg",
+                  isSelected && "text-accent-fg/70"
+                )}
+              />
+            )}
+            {isSelected && (
+              <CheckIcon className="-mx-0.5 mr-2" data-slot="checked-icon" />
+            )}
+            {typeof children === "function" ? (
+              children(renderProps)
+            ) : typeof children === "string" ? (
+              <DropdownLabel>{children}</DropdownLabel>
+            ) : (
+              children
+            )}
+          </>
+        )
+      }}
+    </ListBoxItemPrimitive>
   )
 }
 
-function ListBoxHeader({
+interface ListBoxSectionProps<T> extends ListBoxSectionPrimitiveProps<T> {
+  title?: string
+}
+
+const ListBoxSection = <T extends object>({
   className,
   ...props
-}: React.ComponentProps<typeof AriaHeader>) {
+}: ListBoxSectionProps<T>) => {
   return (
-    <AriaHeader
-      className={cn("px-2 py-1.5 text-sm font-semibold", className)}
+    <DropdownSection
+      className={twMerge(
+        "gap-y-1 *:data-[slot=list-box-item]:last:-mb-1.5",
+        className
+      )}
       {...props}
     />
   )
 }
+
+const ListBoxLabel = DropdownLabel
+const ListBoxDescription = DropdownDescription
+
+ListBox.Section = ListBoxSection
+ListBox.Label = ListBoxLabel
+ListBox.Description = ListBoxDescription
+ListBox.Item = ListBoxItem
 
 export {
   ListBox,
-  ListBoxCollection,
-  ListBoxHeader,
+  ListBoxDescription,
   ListBoxItem,
+  ListBoxLabel,
   ListBoxSection,
 }
+export type { ListBoxItemProps, ListBoxSectionProps }
