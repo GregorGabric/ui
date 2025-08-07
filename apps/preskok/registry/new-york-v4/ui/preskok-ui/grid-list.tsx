@@ -1,3 +1,5 @@
+"use client"
+
 import type React from "react"
 import { GripVerticalIcon } from "lucide-react"
 import type { GridListItemProps, GridListProps } from "react-aria-components"

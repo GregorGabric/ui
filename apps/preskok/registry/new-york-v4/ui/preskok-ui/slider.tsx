@@ -26,7 +26,7 @@ interface SliderProps extends SliderPrimitiveProps {
   output?: "inline" | "tooltip" | "none"
   label?: string
   description?: string
-  thumbLabels?: string[]
+  thumbLabels?: Array<string>
 }
 
 const Slider = ({
@@ -73,7 +73,9 @@ const Slider = ({
       />
     )
 
-    if (!showTooltip) return thumb
+    if (!showTooltip) {
+      return thumb
+    }
 
     return (
       <Tooltip
@@ -156,7 +158,7 @@ const SliderFiller = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
-  const state = React.useContext(SliderStateContext)
+  const state = React.use(SliderStateContext)
   const { orientation, getThumbPercent, values } = state || {}
 
   const getStyle = () => {
