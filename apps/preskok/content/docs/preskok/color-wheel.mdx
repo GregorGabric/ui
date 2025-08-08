@@ -1,0 +1,25 @@
+---
+title: Color Wheel
+description: Circular hue selector with draggable thumb.
+---
+
+<ComponentPreview
+  name="color-wheel-preskok-demo"
+  description="Basic color wheel with thumb and track."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add color-wheel
+```
+
+## Usage
+
+```tsx
+import { ColorWheel } from "@/registry/preskok/ui/preskok-ui/color-wheel"
+
+export function ColorWheelDemo() {
+  return <ColorWheel aria-label="Hue" />
+}
+```

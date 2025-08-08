@@ -1,0 +1,37 @@
+---
+title: Context Menu
+description: Right-click context menu built on top of the menu primitives.
+---
+
+<ComponentPreview
+  name="context-menu-preskok-demo"
+  description="Trigger a context menu via right-click."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add context-menu
+```
+
+## Usage
+
+```tsx
+import { ContextMenu } from "@/registry/preskok/ui/preskok-ui/context-menu"
+
+export function ContextMenuDemo() {
+  return (
+    <ContextMenu>
+      <ContextMenu.Trigger className="rounded border px-3 py-2">
+        Right click me
+      </ContextMenu.Trigger>
+      <ContextMenu.Content>
+        <ContextMenu.Item>Copy</ContextMenu.Item>
+        <ContextMenu.Item>Paste</ContextMenu.Item>
+        <ContextMenu.Separator />
+        <ContextMenu.Item intent="danger">Delete</ContextMenu.Item>
+      </ContextMenu.Content>
+    </ContextMenu>
+  )
+}
+```

@@ -14,6 +14,16 @@
     "checkbox",
     "choicebox",
     "color-area",
-    "color-field"
+    "color-field",
+    "color-picker",
+    "color-slider",
+    "color-swatch-picker",
+    "color-swatch",
+    "color-thumb",
+    "color-wheel",
+    "combo-box",
+    "command-menu",
+    "container",
+    "context-menu"
   ]
 }

@@ -1754,4 +1754,114 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "color-picker-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-picker"],
+    files: [
+      {
+        path: "examples/color-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-slider-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-picker", "color-slider"],
+    files: [
+      {
+        path: "examples/color-slider-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-swatch-picker-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-swatch-picker", "color-swatch"],
+    files: [
+      {
+        path: "examples/color-swatch-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-swatch-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-swatch"],
+    files: [
+      {
+        path: "examples/color-swatch-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-thumb-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-slider", "color-thumb"],
+    files: [
+      {
+        path: "examples/color-thumb-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-wheel-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-wheel"],
+    files: [
+      {
+        path: "examples/color-wheel-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "combo-box-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["combo-box"],
+    files: [
+      {
+        path: "examples/combo-box-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "command-menu-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["command-menu"],
+    files: [
+      {
+        path: "examples/command-menu-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "container-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["container"],
+    files: [
+      {
+        path: "examples/container-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "context-menu-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["context-menu"],
+    files: [
+      {
+        path: "examples/context-menu-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

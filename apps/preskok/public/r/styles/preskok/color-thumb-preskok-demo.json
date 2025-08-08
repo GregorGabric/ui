@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-thumb-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "color-slider",
+    "color-thumb"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/color-thumb-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorThumbPreskokDemo() {\n  return <ColorSlider channel=\"hue\" showOutput={false} />\n}\n\n\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+---
+title: Color Slider
+description: Single-axis color slider for adjusting hue, saturation, brightness, or alpha.
+---
+
+<ComponentPreview
+  name="color-slider-preskok-demo"
+  description="Hue slider with output and custom label."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add color-slider
+```
+
+## Usage
+
+```tsx
+import { ColorSlider } from "@/registry/preskok/ui/preskok-ui/color-slider"
+
+export function ColorSliderDemo() {
+  return <ColorSlider channel="hue" label="Hue" />
+}
+```

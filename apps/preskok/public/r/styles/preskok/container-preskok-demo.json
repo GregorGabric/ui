@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "container-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "container"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/container-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Container } from \"@/registry/preskok/ui/preskok-ui/container\"\n\nexport default function ContainerPreskokDemo() {\n  return (\n    <div className=\"space-y-2\">\n      <Container className=\"bg-muted p-4\">Default padding</Container>\n      <Container constrained className=\"bg-muted p-4\">\n        Constrained padding\n      </Container>\n    </div>\n  )\n}\n\n\n",
+      "type": "registry:example"
+    }
+  ]
+}

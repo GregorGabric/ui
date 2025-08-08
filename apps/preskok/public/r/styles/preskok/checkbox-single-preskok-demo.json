@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/checkbox-single-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Checkbox } from \"@/registry/preskok/ui/preskok-ui/checkbox\"\n\nexport default function CheckboxSinglePreskokDemo() {\n  return <Checkbox>Accept terms and conditions</Checkbox>\n}\n\n\n",
+      "content": "\"use client\"\n\nimport { Checkbox } from \"@/registry/preskok/ui/preskok-ui/checkbox\"\n\nexport default function CheckboxSinglePreskokDemo() {\n  return <Checkbox>Accept terms and conditions</Checkbox>\n}\n",
       "type": "registry:example"
     }
   ]

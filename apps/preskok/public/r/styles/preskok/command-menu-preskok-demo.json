@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "command-menu-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "command-menu"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/command-menu-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  CommandMenu,\n  CommandMenuFooter,\n  CommandMenuItem,\n  CommandMenuLabel,\n  CommandMenuList,\n  CommandMenuSearch,\n  CommandMenuSection,\n} from \"@/registry/preskok/ui/preskok-ui/command-menu\"\n\nexport default function CommandMenuPreskokDemo() {\n  return (\n    <CommandMenu isOpen aria-label=\"Command\" shortcut=\"k\">\n      <CommandMenuSearch />\n      <CommandMenuList>\n        <CommandMenuSection title=\"General\">\n          <CommandMenuItem>Open</CommandMenuItem>\n          <CommandMenuItem>Save</CommandMenuItem>\n        </CommandMenuSection>\n        <CommandMenuSection title=\"Navigation\">\n          <CommandMenuItem>\n            <CommandMenuLabel>Go to Dashboard</CommandMenuLabel>\n          </CommandMenuItem>\n        </CommandMenuSection>\n      </CommandMenuList>\n      <CommandMenuFooter>Press ⌘K to open</CommandMenuFooter>\n    </CommandMenu>\n  )\n}\n\n\n",
+      "type": "registry:example"
+    }
+  ]
+}

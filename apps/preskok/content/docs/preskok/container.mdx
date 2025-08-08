@@ -1,0 +1,32 @@
+---
+title: Container
+description: Responsive container with optional constrained padding.
+---
+
+<ComponentPreview
+  name="container-preskok-demo"
+  description="Container with constrained and unconstrained padding."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add container
+```
+
+## Usage
+
+```tsx
+import { Container } from "@/registry/preskok/ui/preskok-ui/container"
+
+export function ContainerDemo() {
+  return (
+    <>
+      <Container className="bg-muted p-4">Default padding</Container>
+      <Container constrained className="bg-muted mt-2 p-4">
+        Constrained padding
+      </Container>
+    </>
+  )
+}
+```

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combo-box-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "combo-box"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/combo-box-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { ComboBox } from \"@/registry/preskok/ui/preskok-ui/combo-box\"\n\ntype City = { id: string; name: string }\nconst cities: City[] = [\n  { id: \"nyc\", name: \"New York\" },\n  { id: \"ldn\", name: \"London\" },\n  { id: \"tko\", name: \"Tokyo\" },\n]\n\nexport default function ComboBoxPreskokDemo() {\n  return (\n    <ComboBox label=\"City\">\n      <ComboBox.Input placeholder=\"Search cities\" />\n      <ComboBox.List items={cities}>\n        {(item: City) => (\n          <ComboBox.Option id={item.id} textValue={item.name}>\n            {item.name}\n          </ComboBox.Option>\n        )}\n      </ComboBox.List>\n    </ComboBox>\n  )\n}\n\n\n",
+      "type": "registry:example"
+    }
+  ]
+}

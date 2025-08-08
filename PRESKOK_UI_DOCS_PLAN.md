@@ -67,36 +67,46 @@ This checklist tracks `@preskok-ui` components, their documentation status, demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-field.tsx`
   - Docs: `apps/preskok/content/docs/preskok/color-field.mdx`
   - Preskok demo: `apps/preskok/registry/preskok/examples/color-field-preskok-demo.tsx`
-- [ ] Color Picker — No Docs, No Demo
+- [x] Color Picker — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-picker.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Slider — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-picker.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-picker-preskok-demo.tsx`
+- [x] Color Slider — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-slider.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Swatch Picker — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-slider.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-slider-preskok-demo.tsx`
+- [x] Color Swatch Picker — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-swatch-picker.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Swatch — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-swatch-picker.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-swatch-picker-preskok-demo.tsx`
+- [x] Color Swatch — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-swatch.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Thumb — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-swatch.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-swatch-preskok-demo.tsx`
+- [x] Color Thumb — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-thumb.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Wheel — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-thumb.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-thumb-preskok-demo.tsx`
+- [x] Color Wheel — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-wheel.tsx`
-  - Preskok demo: (missing)
-- [ ] Combo Box — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-wheel.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-wheel-preskok-demo.tsx`
+- [x] Combo Box — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/combo-box.tsx`
-  - Preskok demo: (missing)
-- [ ] Command Menu — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/combo-box.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/combo-box-preskok-demo.tsx`
+- [x] Command Menu — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/command-menu.tsx`
-  - Preskok demo: (missing)
-- [ ] Container — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/command-menu.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/command-menu-preskok-demo.tsx`
+- [x] Container — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/container.tsx`
-  - Preskok demo: (missing)
-- [ ] Context Menu — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/container.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/container-preskok-demo.tsx`
+- [x] Context Menu — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/context-menu.tsx`
-  - Preskok demo: (missing)
+  - Docs: `apps/preskok/content/docs/preskok/context-menu.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/context-menu-preskok-demo.tsx`
 - [ ] Date Field — No Docs, No Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/date-field.tsx`
   - Preskok demo: (missing)

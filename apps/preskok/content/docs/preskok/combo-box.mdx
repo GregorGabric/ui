@@ -1,0 +1,43 @@
+---
+title: Combo Box
+description: Autocomplete combo box with input, popover list, and keyboard navigation.
+---
+
+<ComponentPreview
+  name="combo-box-preskok-demo"
+  description="Combo box with list and sections."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add combo-box
+```
+
+## Usage
+
+```tsx
+import { ComboBox } from "@/registry/preskok/ui/preskok-ui/combo-box"
+
+type City = { id: string; name: string }
+const cities: City[] = [
+  { id: "nyc", name: "New York" },
+  { id: "ldn", name: "London" },
+  { id: "tko", name: "Tokyo" },
+]
+
+export function ComboBoxDemo() {
+  return (
+    <ComboBox label="City">
+      <ComboBox.Input placeholder="Search cities" />
+      <ComboBox.List items={cities}>
+        {(item: City) => (
+          <ComboBox.Option id={item.id} textValue={item.name}>
+            {item.name}
+          </ComboBox.Option>
+        )}
+      </ComboBox.List>
+    </ComboBox>
+  )
+}
+```
