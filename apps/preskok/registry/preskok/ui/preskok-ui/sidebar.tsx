@@ -101,9 +101,9 @@ const SidebarProvider = ({
 
   const toggleSidebar = useCallback(() => {
     if (isMobile) {
-      setOpenMobile((open) => !open)
+      setOpenMobile((prevOpen) => !prevOpen)
     } else {
-      setOpen((open) => !open)
+      setOpen((prevOpen) => !prevOpen)
     }
   }, [isMobile, setOpen])
 
@@ -140,7 +140,7 @@ const SidebarProvider = ({
     <SidebarContext value={contextValue}>
       <div
         className={twMerge(
-          "@container **:data-[slot=icon]:shrink-0",
+          "@container **:data-[slot=icon]:shrink-0 **:[svg.lucide]:shrink-0",
           "[--sidebar-width-dock:3.25rem] [--sidebar-width:17rem]",
           "[--sidebar-border:color-mix(in_oklch,var(--color-sidebar)_25%,black_6%)]",
           "dark:[--sidebar-border:color-mix(in_oklch,var(--color-sidebar)_55%,white_10%)]",
@@ -277,7 +277,7 @@ const SidebarHeader = ({
   ref,
   ...props
 }: React.ComponentProps<"div">) => {
-  const { state } = use(SidebarContext)!
+  const { state } = useSidebar()
   return (
     <div
       ref={ref}
@@ -378,7 +378,7 @@ const SidebarSection = ({ className, ...props }: SidebarSectionProps) => {
       {...props}
     >
       {state !== "collapsed" && "label" in props && (
-        <Header className="text-sidebar-fg/70 ring-sidebar-ring mb-1 flex shrink-0 items-center rounded-md px-3 text-sm/6 font-medium transition-[margin,opa] duration-200 ease-linear outline-none group-data-[sidebar-collapsible=dock]/sidebar-container:-mt-8 group-data-[sidebar-collapsible=dock]/sidebar-container:opacity-0 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0">
+        <Header className="text-sidebar-fg/70 ring-sidebar-ring mb-1 flex shrink-0 items-center rounded-md px-3 text-sm/6 font-medium transition-[margin,opa] duration-200 ease-linear outline-none group-data-[sidebar-collapsible=dock]/sidebar-container:-mt-8 group-data-[sidebar-collapsible=dock]/sidebar-container:opacity-0 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:[svg.lucide]:size-4 *:[svg.lucide]:shrink-0">
           {props.label}
         </Header>
       )}
@@ -428,18 +428,23 @@ const SidebarItem = ({
             "text-sidebar-fg w-full items-center rounded-lg text-left text-base/6 font-medium",
             "group/sidebar-item relative col-span-full overflow-hidden focus-visible:outline-hidden",
             "**:data-[slot=menu-trigger]:pressed:opacity-100 **:data-[slot=menu-trigger]:absolute **:data-[slot=menu-trigger]:right-0 **:data-[slot=menu-trigger]:flex **:data-[slot=menu-trigger]:h-full **:data-[slot=menu-trigger]:w-[calc(var(--sidebar-width)-90%)] **:data-[slot=menu-trigger]:items-center **:data-[slot=menu-trigger]:justify-end **:data-[slot=menu-trigger]:pr-2.5 **:data-[slot=menu-trigger]:opacity-0 hover:**:data-[slot=menu-trigger]:opacity-100 **:data-[slot=menu-trigger]:focus-visible:opacity-100 **:data-[slot=menu-trigger]:has-data-focus:opacity-100",
-            "**:data-[slot=icon]:text-muted-fg **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
+            "**:data-[slot=icon]:text-muted-fg **:[svg.lucide]:text-muted-fg **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
+            "**:[svg.lucide]:text-muted-fg **:[svg.lucide]:size-5 **:[svg.lucide]:shrink-0 sm:**:[svg.lucide]:size-4",
+            //
             "**:last:data-[slot=icon]:size-5 sm:**:last:data-[slot=icon]:size-4",
+            "**:last:[svg.lucide]:size-5 sm:**:last:[svg.lucide]:size-4",
+            //
             "**:data-[slot=avatar]:-m-0.5 **:data-[slot=avatar]:size-6 **:data-[slot=avatar]:*:size-6 sm:**:data-[slot=avatar]:size-6 sm:**:data-[slot=avatar]:*:size-6",
+            // not-has-data-[slot=icon]:hidden - add back if needed
             isCollapsed
-              ? "flex size-9 justify-center not-has-data-[slot=icon]:hidden **:data-[slot=icon]:size-4 **:data-[slot=menu-trigger]:hidden"
-              : "grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] gap-3 p-2 **:last:data-[slot=icon]:ml-auto supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:gap-2.5 sm:py-2 sm:text-sm/5",
+              ? "flex size-9 justify-center not-has-[svg.lucide]:hidden **:data-[slot=icon]:size-4 **:data-[slot=menu-trigger]:hidden **:[svg.lucide]:size-4"
+              : "grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] gap-3 p-2 **:last:data-[slot=icon]:ml-auto supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:gap-2.5 sm:py-2 sm:text-sm/5 **:last:[svg.lucide]:ml-auto",
             isCurrent &&
-              "bg-secondary text-fg hover:bg-secondary/90 hover:text-fg **:data-[slot=menu-trigger]:from-secondary **:data-[slot=icon]:text-fg [&_.text-muted-fg]:text-fg/80",
+              "bg-secondary text-fg hover:bg-secondary/90 hover:text-fg **:data-[slot=menu-trigger]:from-secondary **:data-[slot=icon]:text-fg **:[svg.lucide]:text-fg [&_.text-muted-fg]:text-fg/80",
             isFocusVisible &&
               "inset-ring-ring ring-ring/20 ring-2 inset-ring outline-hidden",
             (isPressed || isHovered) &&
-              "bg-secondary text-sidebar-fg **:data-[slot=icon]:text-sidebar-fg",
+              "bg-secondary text-sidebar-fg **:data-[slot=icon]:text-sidebar-fg **:[svg.lucide]:text-sidebar-fg",
             isDisabled && "opacity-50",
             className,
           ])
@@ -452,8 +457,8 @@ const SidebarItem = ({
             ? children({ ...values, isCollapsed })
             : children}
 
-          {badge &&
-            (state !== "collapsed" ? (
+          {badge ? (
+            state !== "collapsed" ? (
               <span
                 data-slot="sidebar-badge"
                 className="inset-ring-border bg-fg/5 group-hover/sidebar-item:inset-ring-muted-fg/30 absolute inset-y-1/2 right-1.5 h-5.5 w-auto -translate-y-1/2 rounded-full px-2 text-[10px] inset-ring-1 transition-colors group-data-current:inset-ring-transparent"
@@ -465,7 +470,8 @@ const SidebarItem = ({
                 aria-hidden
                 className="bg-primary absolute top-1 right-1 size-1.5 rounded-full"
               />
-            ))}
+            )
+          ) : null}
         </>
       )}
     </Link>
@@ -475,7 +481,7 @@ const SidebarItem = ({
     <Tooltip delay={0}>
       {link}
       <Tooltip.Content
-        className="**:data-[slot=icon]:hidden **:data-[slot=sidebar-label-mask]:hidden"
+        className="**:data-[slot=icon]:hidden **:data-[slot=sidebar-label-mask]:hidden **:[svg.lucide]:hidden"
         intent="inverse"
         showArrow={false}
         placement="right"
@@ -589,15 +595,17 @@ const SidebarDisclosureTrigger = ({
               "text-sidebar-fg flex w-full items-center rounded-lg text-left text-base/6 font-medium",
               "group/sidebar-disclosure-trigger relative col-span-full overflow-hidden focus-visible:outline-hidden",
               "**:data-[slot=menu-trigger]:pressed:opacity-100 **:data-[slot=menu-trigger]:absolute **:data-[slot=menu-trigger]:right-0 **:data-[slot=menu-trigger]:flex **:data-[slot=menu-trigger]:h-full **:data-[slot=menu-trigger]:w-[calc(var(--sidebar-width)-90%)] **:data-[slot=menu-trigger]:items-center **:data-[slot=menu-trigger]:justify-end **:data-[slot=menu-trigger]:pr-2.5 **:data-[slot=menu-trigger]:opacity-0 hover:**:data-[slot=menu-trigger]:opacity-100 **:data-[slot=menu-trigger]:focus-visible:opacity-100 **:data-[slot=menu-trigger]:has-data-focus:opacity-100",
-              "**:data-[slot=icon]:text-muted-fg **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
+              "**:data-[slot=icon]:text-muted-fg **:[svg.lucide]:text-muted-fg **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4 **:[svg.lucide]:size-5 **:[svg.lucide]:shrink-0 sm:**:[svg.lucide]:size-4",
+              "**:[svg.lucide]:text-muted-fg **:[svg.lucide]:size-5 **:[svg.lucide]:shrink-0 sm:**:[svg.lucide]:size-4",
               "**:last:data-[slot=icon]:size-5 sm:**:last:data-[slot=icon]:size-4",
+              "**:last:[svg.lucide]:size-5 sm:**:last:[svg.lucide]:size-4",
               "**:data-[slot=avatar]:-m-0.5 **:data-[slot=avatar]:size-6 sm:**:data-[slot=avatar]:size-5",
               collapsed
-                ? "size-9 justify-center"
-                : "**:data-[slot=chevron]:text-muted-fg col-span-full gap-3 p-2 **:last:data-[slot=icon]:ml-auto sm:gap-2.5 sm:py-2 sm:text-sm/5",
+                ? "size-9 justify-center **:data-[slot=icon]:size-4 **:[svg.lucide]:size-4"
+                : "**:data-[slot=chevron]:text-muted-fg col-span-full gap-3 p-2 **:last:data-[slot=icon]:ml-auto sm:gap-2.5 sm:py-2 sm:text-sm/5 **:last:[svg.lucide]:ml-auto",
               isFocusVisible && "inset-ring-ring/70 inset-ring",
               (isPressed || isHovered) &&
-                "bg-secondary text-sidebar-fg **:data-[slot=chevron]:text-fg",
+                "bg-secondary text-sidebar-fg **:data-[slot=chevron]:text-fg **:[svg.lucide]:text-sidebar-fg",
               isDisabled && "opacity-50",
               className
             )

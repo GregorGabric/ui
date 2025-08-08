@@ -5068,6 +5068,60 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "tag-group-preskok-demo": {
+    name: "tag-group-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["tag-group"],
+    files: [{
+      path: "registry/preskok/examples/tag-group-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/tag-group-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tag-field-preskok-demo": {
+    name: "tag-field-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["tag-field","tag-group","field"],
+    files: [{
+      path: "registry/preskok/examples/tag-field-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/tag-field-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sidebar-preskok-demo": {
+    name: "sidebar-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sidebar","button","disclosure","link","separator","sheet","tooltip"],
+    files: [{
+      path: "registry/preskok/examples/sidebar-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sidebar-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: {"iframeHeight":"640px","container":"w-full bg-surface overflow-hidden min-h-[640px] flex items-stretch justify-stretch p-0 min-w-0","mobile":"component"},
+  },
   "number-field-preskok-demo": {
     name: "number-field-preskok-demo",
     description: "",

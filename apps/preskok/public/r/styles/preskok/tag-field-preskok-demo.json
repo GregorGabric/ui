@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag-field-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "tag-field",
+    "tag-group",
+    "field"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/tag-field-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useListData } from \"react-stately\"\n\nimport { TagField } from \"@/registry/preskok/ui/preskok-ui/tag-field\"\n\nexport default function TagFieldPreskokDemo() {\n  const list = useListData({ initialItems: [{ id: 1, name: \"ui\" }] })\n  return (\n    <TagField\n      label=\"Tags\"\n      placeholder=\"Add tag and press Enter\"\n      list={list}\n      max={5}\n      description=\"Up to 5 tags\"\n      name=\"tags\"\n    />\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

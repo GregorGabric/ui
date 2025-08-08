@@ -2,6 +2,53 @@ import { type Registry } from "@preskok-org/ui/registry"
 
 export const examples: Registry["items"] = [
   {
+    name: "tag-group-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["tag-group"],
+    files: [
+      {
+        path: "examples/tag-group-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "tag-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["tag-field", "tag-group", "field"],
+    files: [
+      {
+        path: "examples/tag-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sidebar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "sidebar",
+      "button",
+      "disclosure",
+      "link",
+      "separator",
+      "sheet",
+      "tooltip",
+    ],
+    files: [
+      {
+        path: "examples/sidebar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    meta: {
+      iframeHeight: "640px",
+      container:
+        "w-full bg-surface overflow-hidden min-h-[640px] flex items-stretch justify-stretch p-0 min-w-0",
+      mobile: "component",
+    },
+  },
+  {
     name: "number-field-preskok-demo",
     type: "registry:example",
     registryDependencies: ["number-field", "button", "field"],

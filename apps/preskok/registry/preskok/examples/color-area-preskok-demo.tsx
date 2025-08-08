@@ -7,9 +7,22 @@ import { ColorSlider } from "@/registry/preskok/ui/preskok-ui/color-slider"
 export default function ColorAreaPreskokDemo() {
   return (
     <div className="flex flex-col gap-3">
-      <ColorArea colorSpace="hsb" xChannel="saturation" yChannel="brightness" />
-      <ColorSlider colorSpace="hsb" channel="hue" />
-      <ColorField aria-label="Hex" placeholder="#000000" />
+      <ColorArea
+        defaultValue="hsb(0, 100%, 50%)"
+        colorSpace="hsb"
+        xChannel="saturation"
+        yChannel="brightness"
+      />
+      <ColorSlider
+        defaultValue="hsb(0, 100%, 50%)"
+        colorSpace="hsb"
+        channel="hue"
+      />
+      <ColorField
+        defaultValue="hsb(0, 100%, 50%)"
+        aria-label="Hex"
+        placeholder="#000000"
+      />
     </div>
   )
 }

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag-group-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "tag-group"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/tag-group-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Tag,\n  TagGroup,\n  TagList,\n} from \"@/registry/preskok/ui/preskok-ui/tag-group\"\n\nconst items = [\n  { id: 1, name: \"Bug\" },\n  { id: 2, name: \"Feature\" },\n  { id: 3, name: \"UX\" },\n]\n\nexport default function TagGroupPreskokDemo() {\n  return (\n    <TagGroup\n      label=\"Labels\"\n      description=\"Select applicable labels\"\n      selectionMode=\"multiple\"\n    >\n      <TagList items={items}>\n        {(item) => <Tag id={item.id}>{item.name}</Tag>}\n      </TagList>\n    </TagGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
