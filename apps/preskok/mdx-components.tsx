@@ -12,6 +12,7 @@ import { ComponentSource } from "@/components/component-source"
 import { ComponentsList } from "@/components/components-list"
 import { CopyButton } from "@/components/copy-button"
 import { getIconForLanguageExtension } from "@/components/icons"
+import { PreskokComponentsList } from "@/components/preskok-components-list"
 import {
   Accordion,
   AccordionContent,
@@ -346,6 +347,7 @@ export const mdxComponents = {
   ComponentSource,
   CodeCollapsibleWrapper,
   ComponentsList,
+  PreskokComponentsList,
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn("font-medium underline underline-offset-4", className)}

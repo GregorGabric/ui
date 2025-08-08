@@ -3,10 +3,10 @@
   "pages": [
     "(root)",
     "changelog",
+    "preskok",
     "components",
     "installation",
     "dark-mode",
-    "registry",
-    "preskok-ui"
+    "registry"
   ]
 }
