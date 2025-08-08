@@ -1,0 +1,10 @@
+{
+  "title": "Navigation",
+  "pages": [
+    "breadcrumbs",
+    "navbar",
+    "pagination",
+    "tabs",
+    "sidebar"
+  ]
+}

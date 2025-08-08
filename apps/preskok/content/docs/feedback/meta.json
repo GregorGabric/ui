@@ -1,0 +1,13 @@
+{
+  "title": "Feedback",
+  "pages": [
+    "toast",
+    "progress-bar",
+    "progress-circle",
+    "meter",
+    "loader",
+    "skeleton",
+    "note",
+    "badge"
+  ]
+}

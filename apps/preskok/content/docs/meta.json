@@ -1,12 +1,19 @@
 {
   "root": true,
   "pages": [
-    "(root)",
-    "changelog",
-    "preskok",
+    "inputs",
+    "feedback",
+    "layout",
+    "navigation",
+    "data-viz",
+    "overlay",
+    "media",
+    "colors",
+    "typography",
+    "advanced",
     "components",
-    "installation",
-    "dark-mode",
-    "registry"
+    "!installation",
+    "!dark-mode",
+    "!registry"
   ]
 }

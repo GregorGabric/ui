@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-swatch-picker-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorSwatchPicker } from \"@/registry/preskok/ui/preskok-ui/color-swatch-picker\"\n\nexport default function ColorSwatchPickerPreskokDemo() {\n  return (\n    <ColorSwatchPicker aria-label=\"Accent color\">\n      {Array.from({ length: 5 }).map((_, i) => (\n        <ColorSwatchPicker.Item key={i} />\n      ))}\n    </ColorSwatchPicker>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { parseColor } from \"@react-stately/color\"\n\nimport { ColorSwatchPicker } from \"@/registry/preskok/ui/preskok-ui/color-swatch-picker\"\n\nexport default function ColorSwatchPickerPreskokDemo() {\n  const [value, setValue] = useState(parseColor(\"#0d6efd\"))\n  return (\n    <ColorSwatchPicker\n      aria-label=\"Pick color\"\n      value={value}\n      onChange={setValue}\n      className=\"grid grid-cols-3 gap-2 lg:grid-cols-6\"\n    >\n      <ColorSwatchPicker.Item color=\"#3b83f614\" />\n      <ColorSwatchPicker.Item color=\"#10b981\" />\n      <ColorSwatchPicker.Item color=\"#f97316\" />\n      <ColorSwatchPicker.Item color=\"#8b5cf6\" />\n      <ColorSwatchPicker.Item color=\"#ef4444\" />\n      <ColorSwatchPicker.Item color=\"#6366f1\" />\n    </ColorSwatchPicker>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

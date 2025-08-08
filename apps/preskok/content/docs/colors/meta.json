@@ -1,0 +1,13 @@
+{
+  "title": "Colors",
+  "pages": [
+    "color-area",
+    "color-field",
+    "color-picker",
+    "color-slider",
+    "color-swatch",
+    "color-swatch-picker",
+    "color-thumb",
+    "color-wheel"
+  ]
+}
