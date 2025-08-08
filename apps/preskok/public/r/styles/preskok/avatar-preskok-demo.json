@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "avatar"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/avatar-preskok-demo.tsx",
+      "content": "import { Avatar } from \"@/registry/preskok/ui/preskok-ui/avatar\"\n\nexport default function AvatarPreskokDemo() {\n  return (\n    <div className=\"flex flex-row flex-wrap items-center gap-6\">\n      <Avatar src=\"/avatars/01.png\" alt=\"Alex Johnson\" />\n      <Avatar src=\"/avatars/02.png\" alt=\"Jamie Rivera\" size=\"lg\" />\n      <Avatar initials=\"AJ\" alt=\"Alex Johnson\" isSquare />\n      <Avatar initials=\"JR\" alt=\"Jamie Rivera\" size=\"xl\" />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

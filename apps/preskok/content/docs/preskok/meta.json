@@ -1,3 +1,14 @@
 {
-  "pages": ["bar-list", "breadcrumbs", "button", "calendar", "card"]
+  "pages": [
+    "bar-list",
+    "breadcrumbs",
+    "button",
+    "calendar",
+    "card",
+    "area-chart",
+    "avatar",
+    "badge",
+    "bar-chart",
+    "carousel"
+  ]
 }

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "area-chart-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "area-chart"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/area-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { AreaChart } from \"@/registry/preskok/ui/preskok-ui/area-chart\"\n\nconst chartData = [\n  { month: \"January\", Desktop: 186, Mobile: 80 },\n  { month: \"February\", Desktop: 305, Mobile: 200 },\n  { month: \"March\", Desktop: 237, Mobile: 120 },\n  { month: \"April\", Desktop: 73, Mobile: 190 },\n  { month: \"May\", Desktop: 209, Mobile: 130 },\n  { month: \"June\", Desktop: 214, Mobile: 140 },\n]\n\nconst chartConfig = {\n  Desktop: { label: \"Desktop\", color: \"#2563eb\" },\n  Mobile: { label: \"Mobile\", color: \"#60a5fa\" },\n}\n\nexport default function AreaChartPreskokDemo() {\n  return (\n    <div className=\"w-full\">\n      <AreaChart\n        className=\"min-h-[240px]\"\n        data={chartData}\n        dataKey=\"month\"\n        config={chartConfig}\n        fillType=\"gradient\"\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

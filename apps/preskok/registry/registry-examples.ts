@@ -1628,4 +1628,59 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "area-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["area-chart"],
+    files: [
+      {
+        path: "examples/area-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "avatar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["avatar"],
+    files: [
+      {
+        path: "examples/avatar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "badge-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["badge"],
+    files: [
+      {
+        path: "examples/badge-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bar-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["bar-chart"],
+    files: [
+      {
+        path: "examples/bar-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "carousel-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["carousel", "card"],
+    files: [
+      {
+        path: "examples/carousel-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

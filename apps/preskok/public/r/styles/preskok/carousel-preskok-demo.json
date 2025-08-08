@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "carousel-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "carousel",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/carousel-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Card, CardContent } from \"@/registry/preskok/ui/preskok-ui/card\"\nimport {\n  Carousel,\n  CarouselButton,\n  CarouselContent,\n  CarouselHandler,\n  CarouselItem,\n} from \"@/registry/preskok/ui/preskok-ui/carousel\"\n\nexport default function CarouselPreskokDemo() {\n  return (\n    <Carousel className=\"w-full max-w-md\">\n      <CarouselContent>\n        {Array.from({ length: 5 }).map((_, index) => (\n          <CarouselItem key={index}>\n            <div className=\"p-1\">\n              <Card>\n                <CardContent className=\"flex aspect-square items-center justify-center p-6\">\n                  <span className=\"text-4xl font-semibold\">{index + 1}</span>\n                </CardContent>\n              </Card>\n            </div>\n          </CarouselItem>\n        ))}\n      </CarouselContent>\n      <CarouselHandler className=\"justify-between\">\n        <CarouselButton segment=\"previous\" />\n        <CarouselButton segment=\"next\" />\n      </CarouselHandler>\n    </Carousel>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

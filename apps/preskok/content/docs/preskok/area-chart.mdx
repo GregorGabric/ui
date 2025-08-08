@@ -1,0 +1,43 @@
+---
+title: Area Chart
+description: Area chart for visualizing trends over time with gradients, tooltips, and legends.
+---
+
+<ComponentPreview
+  name="area-chart-preskok-demo"
+  description="A basic area chart with two series."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add area-chart
+```
+
+## Usage
+
+```tsx
+import { AreaChart } from "@/registry/preskok/ui/preskok-ui/area-chart"
+
+const chartData = [
+  { month: "January", Desktop: 186, Mobile: 80 },
+  { month: "February", Desktop: 305, Mobile: 200 },
+  { month: "March", Desktop: 237, Mobile: 120 },
+]
+
+const chartConfig = {
+  Desktop: { label: "Desktop", color: "#2563eb" },
+  Mobile: { label: "Mobile", color: "#60a5fa" },
+}
+
+export function AreaChartDemo() {
+  return <AreaChart data={chartData} dataKey="month" config={chartConfig} />
+}
+```
+
+## Features
+
+- **Multiple types**: default, stacked, percent
+- **Legend + tooltip**: configurable and accessible
+- **Custom colors**: per-series theme or custom hex
+- **Responsive**: fits parent container

@@ -1,0 +1,42 @@
+---
+title: Avatar
+description: User avatar component with images or initials, sizes, and square/round styles.
+---
+
+<ComponentPreview
+  name="avatar-preskok-demo"
+  description="Avatars with images and initials, different sizes and shapes."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add avatar
+```
+
+## Usage
+
+```tsx
+import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
+
+export function AvatarDemo() {
+  return (
+    <div className="flex gap-4">
+      <Avatar src="/avatars/01.png" alt="Alex Johnson" />
+      <Avatar initials="AJ" alt="Alex Johnson" />
+      <Avatar initials="JR" alt="Jamie Rivera" isSquare size="lg" />
+    </div>
+  )
+}
+```
+
+## Props
+
+| Prop        | Type                                   | Default | Description               |
+| ----------- | -------------------------------------- | ------- | ------------------------- |
+| `src`       | `string \| null`                       | `null`  | Image source              |
+| `initials`  | `string`                               | -       | Initials fallback         |
+| `alt`       | `string`                               | `""`    | Accessible alt text       |
+| `isSquare`  | `boolean`                              | `false` | Square vs. circular shape |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"`  | Avatar size               |
+| `className` | `string`                               | -       | Additional CSS classes    |

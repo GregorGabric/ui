@@ -1,0 +1,295 @@
+## Preskok UI documentation plan
+
+This checklist tracks `@preskok-ui` components, their documentation status, demo availability (preskok demo source), and component paths.
+
+### Already documented
+
+- [x] Button — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/button.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/button.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/button-preskok-demo.tsx`
+- [x] Bar List — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/bar-list.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/bar-list.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/bar-list-demo.tsx`
+- [x] Breadcrumbs — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/breadcrumbs.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/breadcrumbs.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/breadcrumb-demo.tsx`
+- [x] Calendar — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/calendar.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/calendar.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/calendar-preskok-demo.tsx`
+- [x] Card — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/card.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/card.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/card-preskok-demo.tsx`
+
+### Still to document (docs missing)
+
+- [x] Area Chart — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/area-chart.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/area-chart.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/area-chart-preskok-demo.tsx`
+- [x] Avatar — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/avatar.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/avatar.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/avatar-preskok-demo.tsx`
+- [x] Badge — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/badge.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/badge.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/badge-preskok-demo.tsx`
+- [x] Bar Chart — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/bar-chart.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/bar-chart.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/bar-chart-preskok-demo.tsx`
+- [x] Carousel — Docs, Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/carousel.tsx`
+  - Docs: `apps/preskok/content/docs/preskok/carousel.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/carousel-preskok-demo.tsx`
+- [ ] Chart (helpers/context) — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/chart.tsx`
+  - Preskok demo: (missing)
+- [ ] Checkbox — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/checkbox.tsx`
+  - Preskok demo: (missing)
+- [ ] Choicebox — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/choicebox.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Area — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-area.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Picker — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-picker.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Slider — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-slider.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Swatch Picker — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-swatch-picker.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Swatch — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-swatch.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Thumb — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-thumb.tsx`
+  - Preskok demo: (missing)
+- [ ] Color Wheel — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-wheel.tsx`
+  - Preskok demo: (missing)
+- [ ] Combo Box — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/combo-box.tsx`
+  - Preskok demo: (missing)
+- [ ] Command Menu — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/command-menu.tsx`
+  - Preskok demo: (missing)
+- [ ] Container — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/container.tsx`
+  - Preskok demo: (missing)
+- [ ] Context Menu — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/context-menu.tsx`
+  - Preskok demo: (missing)
+- [ ] Date Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/date-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Date Picker — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/date-picker.tsx`
+  - Preskok demo: (missing)
+- [ ] Date Range Picker — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/date-range-picker.tsx`
+  - Preskok demo: (missing)
+- [ ] Description List — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/description-list.tsx`
+  - Preskok demo: (missing)
+- [ ] Dialog — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/dialog.tsx`
+  - Preskok demo: (missing)
+- [ ] Disclosure — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/disclosure.tsx`
+  - Preskok demo: (missing)
+- [ ] Drawer — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/drawer.tsx`
+  - Preskok demo: (missing)
+- [ ] Drop Zone — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/drop-zone.tsx`
+  - Preskok demo: (missing)
+- [ ] Dropdown — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/dropdown.tsx`
+  - Preskok demo: (missing)
+- [ ] Field (form primitives) — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/field.tsx`
+  - Preskok demo: (missing)
+- [ ] File Trigger — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/file-trigger.tsx`
+  - Preskok demo: (missing)
+- [ ] Form — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/form.tsx`
+  - Preskok demo: (missing)
+- [ ] Grid List — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/grid-list.tsx`
+  - Preskok demo: (missing)
+- [ ] Heading — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/heading.tsx`
+  - Preskok demo: (missing)
+- [ ] Input OTP — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/input-otp.tsx`
+  - Preskok demo: (missing)
+- [ ] Keyboard — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/keyboard.tsx`
+  - Preskok demo: (missing)
+- [ ] Line Chart — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/line-chart.tsx`
+  - Preskok demo: (missing)
+- [ ] Link — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/link.tsx`
+  - Preskok demo: (missing)
+- [ ] List Box — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/list-box.tsx`
+  - Preskok demo: (missing)
+- [ ] Loader — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/loader.tsx`
+  - Preskok demo: (missing)
+- [ ] Locale Context — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/locale-context/locale-context.tsx`
+  - Preskok demo: (missing)
+- [ ] Menu — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/menu.tsx`
+  - Preskok demo: (missing)
+- [ ] Meter — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/meter.tsx`
+  - Preskok demo: (missing)
+- [ ] Modal — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/modal.tsx`
+  - Preskok demo: (missing)
+- [ ] Multi Select — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/multi-select.tsx`
+  - Preskok demo: (missing)
+- [ ] Multiple Select — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/multiple-select.tsx`
+  - Preskok demo: (missing)
+- [ ] Navbar — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/navbar.tsx`
+  - Preskok demo: (missing)
+- [ ] Note — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/note.tsx`
+  - Preskok demo: (missing)
+- [ ] Number Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/number-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Number Format — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/number-format/number-format.tsx`
+  - Preskok demo: (missing)
+- [ ] Pagination — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/pagination.tsx`
+  - Preskok demo: (missing)
+- [ ] Pie Chart — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/pie-chart.tsx`
+  - Preskok demo: (missing)
+- [ ] Popover — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/popover.tsx`
+  - Preskok demo: (missing)
+- [ ] Progress Bar — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/progress-bar.tsx`
+  - Preskok demo: (missing)
+- [ ] Progress Circle — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/progress-circle.tsx`
+  - Preskok demo: (missing)
+- [ ] Radio — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/radio.tsx`
+  - Preskok demo: (missing)
+- [ ] Range Calendar — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/range-calendar.tsx`
+  - Preskok demo: (missing)
+- [ ] Scroll Area — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/scroll-area.tsx`
+  - Preskok demo: (missing)
+- [ ] Search Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/search-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Select — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/select.tsx`
+  - Preskok demo: (missing)
+- [ ] Separator — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/separator.tsx`
+  - Preskok demo: (missing)
+- [ ] Sheet — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/sheet.tsx`
+  - Preskok demo: (missing)
+- [ ] Show More — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/show-more.tsx`
+  - Preskok demo: (missing)
+- [ ] Sidebar — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/sidebar.tsx`
+  - Preskok demo: (missing)
+- [ ] Skeleton — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/skeleton.tsx`
+  - Preskok demo: (missing)
+- [ ] Slider — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/slider.tsx`
+  - Preskok demo: (missing)
+- [ ] Switch — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/switch.tsx`
+  - Preskok demo: (missing)
+- [ ] Table — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/table.tsx`
+  - Preskok demo: (missing)
+- [ ] Tabs — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/tabs.tsx`
+  - Preskok demo: (missing)
+- [ ] Tag Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/tag-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Tag Group — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/tag-group.tsx`
+  - Preskok demo: (missing)
+- [ ] Text Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/text-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Textarea — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/textarea.tsx`
+  - Preskok demo: (missing)
+- [ ] Time Field — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/time-field.tsx`
+  - Preskok demo: (missing)
+- [ ] Toast — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/toast.tsx`
+  - Preskok demo: (missing)
+- [ ] Toggle Group — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/toggle-group.tsx`
+  - Preskok demo: (missing)
+- [ ] Toggle — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/toggle.tsx`
+  - Preskok demo: (missing)
+- [ ] Toolbar — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/toolbar.tsx`
+  - Preskok demo: (missing)
+- [ ] Tooltip — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/tooltip.tsx`
+  - Preskok demo: (missing)
+- [ ] Tracker — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/tracker.tsx`
+  - Preskok demo: (missing)
+- [ ] Tree — No Docs, No Demo
+  - Component: `apps/preskok/registry/preskok/ui/preskok-ui/tree.tsx`
+  - Preskok demo: (missing)
+
+---
+
+Notes
+
+- “Preskok demo” refers to a source file under `apps/preskok/registry/preskok/examples/` and can be either `*-preskok-demo.tsx` or other `*-demo.tsx` examples that demonstrate the component.
+- Update this plan as docs and preskok demos are added.
+
+Findings (registry wiring):
+
+- ComponentPreview resolves examples by `name` from the registry `Index`, which is populated from `apps/preskok/registry/registry-examples.ts`.
+- Newly added demo files must be registered there to be discoverable.
+- Added entries for:
+  - `area-chart-preskok-demo` → `examples/area-chart-preskok-demo.tsx` (deps: `area-chart`)
+  - `avatar-preskok-demo` → `examples/avatar-preskok-demo.tsx` (deps: `avatar`)
+  - `badge-preskok-demo` → `examples/badge-preskok-demo.tsx` (deps: `badge`)
+  - `bar-chart-preskok-demo` → `examples/bar-chart-preskok-demo.tsx` (deps: `bar-chart`)
+  - `carousel-preskok-demo` → `examples/carousel-preskok-demo.tsx` (deps: `carousel`, `card`)

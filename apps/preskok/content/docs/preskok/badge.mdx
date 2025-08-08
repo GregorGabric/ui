@@ -1,0 +1,42 @@
+---
+title: Badge
+description: Small label component to highlight statuses, counts, or categories.
+---
+
+<ComponentPreview
+  name="badge-preskok-demo"
+  description="Badge intents rendered from the component's variants."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add badge
+```
+
+## Usage
+
+```tsx
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
+
+export function BadgeDemo() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Badge>Primary</Badge>
+      <Badge intent="secondary">Secondary</Badge>
+      <Badge intent="success">Success</Badge>
+      <Badge intent="warning">Warning</Badge>
+      <Badge intent="danger">Danger</Badge>
+      <Badge intent="outline">Outline</Badge>
+    </div>
+  )
+}
+```
+
+## Props
+
+| Prop        | Type                                                                                    | Default     | Description               |
+| ----------- | --------------------------------------------------------------------------------------- | ----------- | ------------------------- |
+| `intent`    | `"primary" \| "secondary" \| "success" \| "info" \| "warning" \| "danger" \| "outline"` | `"primary"` | Visual style variant      |
+| `isCircle`  | `boolean`                                                                               | `true`      | Rounded vs. squared badge |
+| `className` | `string`                                                                                | -           | Additional CSS classes    |

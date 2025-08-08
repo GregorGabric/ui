@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/button-preskok-demo.tsx",
-      "content": "import { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\n\nexport default function ButtonPreskokDemo() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      <Button intent=\"primary\">Primary</Button>\n      <Button intent=\"secondary\">Secondary</Button>\n      <Button intent=\"outline\">Outline</Button>\n      <Button intent=\"ghost\">Ghost</Button>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Button, buttonStyles } from \"@/registry/preskok/ui/preskok-ui/button\"\n\nfunction toTitleCase(str: string) {\n  return str.charAt(0).toUpperCase() + str.slice(1)\n}\n\nexport default function ButtonPreskokDemo() {\n  const allIntents = Object.keys(buttonStyles.variants.intent) as Array<\n    keyof typeof buttonStyles.variants.intent\n  >\n\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      {allIntents.map((intent) => (\n        <Button key={intent} intent={intent}>\n          {toTitleCase(intent)}\n        </Button>\n      ))}\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

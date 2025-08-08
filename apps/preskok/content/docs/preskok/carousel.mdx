@@ -1,0 +1,49 @@
+---
+title: Carousel
+description: Embla-based carousel with content items and accessible previous/next controls.
+---
+
+<ComponentPreview
+  name="carousel-preskok-demo"
+  description="A simple carousel with five items and navigation controls."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add carousel
+```
+
+## Usage
+
+```tsx
+import { Carousel } from "@/registry/preskok/ui/preskok-ui/carousel"
+
+export function CarouselDemo() {
+  return (
+    <Carousel className="w-full max-w-md">
+      <Carousel.Content>
+        {[1, 2, 3].map((n) => (
+          <Carousel.Item key={n}>
+            <div className="aspect-square p-4">{n}</div>
+          </Carousel.Item>
+        ))}
+      </Carousel.Content>
+      <Carousel.Handler>
+        <Carousel.Button segment="previous" />
+        <Carousel.Button segment="next" />
+      </Carousel.Handler>
+    </Carousel>
+  )
+}
+```
+
+## Props
+
+| Component          | Key Props                                        |
+| ------------------ | ------------------------------------------------ |
+| `Carousel`         | `orientation`, `opts`, `plugins`, `setApi`       |
+| `Carousel.Content` | -                                                |
+| `Carousel.Item`    | -                                                |
+| `Carousel.Handler` | -                                                |
+| `Carousel.Button`  | `segment` (`"previous" \| "next"`), button props |
