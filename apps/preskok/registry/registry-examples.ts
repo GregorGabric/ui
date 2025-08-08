@@ -13,6 +13,116 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "file-trigger-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["file-trigger", "button", "loader"],
+    files: [
+      {
+        path: "examples/file-trigger-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "form-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["form", "field", "text-field", "button"],
+    files: [
+      {
+        path: "examples/form-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "grid-list-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["grid-list", "checkbox"],
+    files: [
+      {
+        path: "examples/grid-list-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "heading-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["heading"],
+    files: [
+      {
+        path: "examples/heading-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-otp-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["input-otp"],
+    files: [
+      {
+        path: "examples/input-otp-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "keyboard-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["keyboard"],
+    files: [
+      {
+        path: "examples/keyboard-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "line-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["line-chart", "chart", "card"],
+    files: [
+      {
+        path: "examples/line-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "link-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["link"],
+    files: [
+      {
+        path: "examples/link-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "list-box-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["list-box", "dropdown"],
+    files: [
+      {
+        path: "examples/list-box-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "loader-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["loader"],
+    files: [
+      {
+        path: "examples/loader-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "alert-demo",
     type: "registry:example",
     registryDependencies: ["alert"],
@@ -1860,6 +1970,132 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/context-menu-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "date-field-demo",
+    type: "registry:example",
+    registryDependencies: ["date-field"],
+    files: [
+      {
+        path: "examples/date-field-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-picker-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "button",
+      "field",
+    ],
+    files: [
+      {
+        path: "examples/date-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-range-picker-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-range-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+    ],
+    files: [
+      {
+        path: "examples/date-range-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "description-list-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["description-list"],
+    files: [
+      {
+        path: "examples/description-list-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "dialog-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["dialog", "button"],
+    files: [
+      {
+        path: "examples/dialog-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "disclosure-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["disclosure"],
+    files: [
+      {
+        path: "examples/disclosure-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "drawer-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["drawer", "button"],
+    files: [
+      {
+        path: "examples/drawer-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "drop-zone-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["drop-zone"],
+    files: [
+      {
+        path: "examples/drop-zone-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "dropdown-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["menu", "dropdown"],
+    files: [
+      {
+        path: "examples/dropdown-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["field"],
+    files: [
+      {
+        path: "examples/field-preskok-demo.tsx",
         type: "registry:example",
       },
     ],

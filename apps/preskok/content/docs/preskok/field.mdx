@@ -1,0 +1,44 @@
+---
+title: Field
+description: Form field primitives for label, input group, description and error.
+---
+
+<ComponentPreview
+  name="field-preskok-demo"
+  description="A labeled input with helper text and error message."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add field
+```
+
+## Usage
+
+```tsx
+import {
+  Description,
+  FieldError,
+  FieldGroup,
+  Input,
+  Label,
+} from "@/registry/preskok/ui/preskok-ui/field"
+
+export function Example() {
+  return (
+    <div>
+      <Label htmlFor="email">Email</Label>
+      <FieldGroup>
+        <Input id="email" placeholder="you@example.com" />
+      </FieldGroup>
+      <Description>We will never share your email.</Description>
+      <FieldError>Invalid email</FieldError>
+    </div>
+  )
+}
+```
+
+## Components
+
+- **Label**, **FieldGroup**, **Input**, **Description**, **FieldError**

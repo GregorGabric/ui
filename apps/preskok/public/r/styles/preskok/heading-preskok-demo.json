@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heading-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "heading"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/heading-preskok-demo.tsx",
+      "content": "import { Heading } from \"@/registry/preskok/ui/preskok-ui/heading\"\n\nexport default function HeadingPreskokDemo() {\n  return (\n    <div className=\"space-y-2\">\n      <Heading level={1}>Heading 1</Heading>\n      <Heading level={2}>Heading 2</Heading>\n      <Heading level={3}>Heading 3</Heading>\n      <Heading level={4}>Heading 4</Heading>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

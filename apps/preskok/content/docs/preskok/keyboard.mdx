@@ -1,0 +1,25 @@
+---
+title: Keyboard
+description: Display keyboard shortcuts inline and benefit from built-in focus behavior.
+---
+
+<ComponentPreview
+  name="keyboard-preskok-demo"
+  description="Common shortcut badges."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add keyboard
+```
+
+## Usage
+
+```tsx
+import { Keyboard } from "@/registry/preskok/ui/preskok-ui/keyboard"
+
+export function Example() {
+  return <Keyboard keys={["⌘", "K"]} />
+}
+```

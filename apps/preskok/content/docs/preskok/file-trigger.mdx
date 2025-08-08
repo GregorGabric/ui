@@ -1,0 +1,33 @@
+---
+title: File Trigger
+description: Select files, folders, or capture from camera with consistent button semantics.
+---
+
+<ComponentPreview
+  name="file-trigger-preskok-demo"
+  description="Upload single or multiple files with icons and pending state."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add file-trigger
+```
+
+## Usage
+
+```tsx
+import { FileTrigger } from "@/registry/preskok/ui/preskok-ui/file-trigger"
+
+export function Example() {
+  return <FileTrigger onSelect={() => {}}>Upload</FileTrigger>
+}
+```
+
+## Props
+
+- **acceptDirectory**: boolean — Allow selecting a folder.
+- **allowsMultiple**: boolean — Select multiple files.
+- **defaultCamera**: boolean — Open camera when supported.
+- **isPending**: boolean — Shows a spinner and disables interactions.
+- Inherits all `react-aria-components` FileTrigger props.

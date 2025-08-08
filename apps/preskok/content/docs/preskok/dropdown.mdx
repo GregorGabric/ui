@@ -1,0 +1,51 @@
+---
+title: Dropdown
+description: Building blocks for dropdown menu item layouts and keyboard hints.
+---
+
+<ComponentPreview
+  name="dropdown-preskok-demo"
+  description="A dropdown menu using dropdown item and section primitives."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add dropdown
+```
+
+## Usage
+
+```tsx
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import {
+  DropdownDescription,
+  DropdownLabel,
+} from "@/registry/preskok/ui/preskok-ui/dropdown"
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
+
+export function Example() {
+  return (
+    <Menu>
+      <MenuTrigger>
+        <Button intent="outline">Open</Button>
+      </MenuTrigger>
+      <MenuContent>
+        <MenuItem id="profile">
+          <DropdownLabel>Profile</DropdownLabel>
+          <DropdownDescription>View profile</DropdownDescription>
+        </MenuItem>
+      </MenuContent>
+    </Menu>
+  )
+}
+```
+
+## Components
+
+- **DropdownItem**, **DropdownLabel**, **DropdownDescription**, **DropdownSection**, **DropdownSeparator**, **DropdownKeyboard**

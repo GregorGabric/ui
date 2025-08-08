@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/context-menu-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ContextMenu } from \"@/registry/preskok/ui/preskok-ui/context-menu\"\n\nexport default function ContextMenuPreskokDemo() {\n  return (\n    <ContextMenu>\n      <ContextMenu.Trigger className=\"border rounded px-3 py-2\">\n        Right click me\n      </ContextMenu.Trigger>\n      <ContextMenu.Content>\n        <ContextMenu.Item>Copy</ContextMenu.Item>\n        <ContextMenu.Item>Paste</ContextMenu.Item>\n        <ContextMenu.Separator />\n        <ContextMenu.Item intent=\"danger\">Delete</ContextMenu.Item>\n      </ContextMenu.Content>\n    </ContextMenu>\n  )\n}\n\n\n",
+      "content": "\"use client\"\n\nimport { ContextMenu } from \"@/registry/preskok/ui/preskok-ui/context-menu\"\n\nexport default function ContextMenuPreskokDemo() {\n  return (\n    <ContextMenu>\n      <ContextMenu.Trigger className=\"rounded border px-3 py-2\">\n        Right click me\n      </ContextMenu.Trigger>\n      <ContextMenu.Content>\n        <ContextMenu.Item>Copy</ContextMenu.Item>\n        <ContextMenu.Item>Paste</ContextMenu.Item>\n        <ContextMenu.Separator />\n        <ContextMenu.Item isDanger>Delete</ContextMenu.Item>\n      </ContextMenu.Content>\n    </ContextMenu>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

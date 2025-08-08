@@ -1,0 +1,31 @@
+---
+title: Line Chart
+description: Show trends over time with a configurable line chart built on the shared chart primitives.
+---
+
+<ComponentPreview
+  name="line-chart-preskok-demo"
+  description="Sales and profit over months."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add line-chart
+```
+
+## Usage
+
+```tsx
+import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
+
+export function Example() {
+  return (
+    <LineChart
+      dataKey="month"
+      data={[]}
+      config={{ value: { label: "Value" } }}
+    />
+  )
+}
+```

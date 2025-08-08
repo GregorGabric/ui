@@ -1,0 +1,41 @@
+---
+title: Disclosure
+description: Expandable sections (accordion/collapsible) with trigger and panel.
+---
+
+<ComponentPreview
+  name="disclosure-preskok-demo"
+  description="A group of disclosures with triggers and panels."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add disclosure
+```
+
+## Usage
+
+```tsx
+import {
+  Disclosure,
+  DisclosureGroup,
+  DisclosurePanel,
+  DisclosureTrigger,
+} from "@/registry/preskok/ui/preskok-ui/disclosure"
+
+export function Example() {
+  return (
+    <DisclosureGroup>
+      <Disclosure>
+        <DisclosureTrigger>Section</DisclosureTrigger>
+        <DisclosurePanel>Content</DisclosurePanel>
+      </Disclosure>
+    </DisclosureGroup>
+  )
+}
+```
+
+## Components
+
+- **DisclosureGroup**, **Disclosure**, **DisclosureTrigger**, **DisclosurePanel**

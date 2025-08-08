@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drop-zone-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "drop-zone"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/drop-zone-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { DropZone } from \"@/registry/preskok/ui/preskok-ui/drop-zone\"\n\nexport default function DropZonePreskokDemo() {\n  return (\n    <DropZone onDrop={() => {}}>\n      <div slot=\"label\">Drag and drop files here</div>\n      <div slot=\"description\">or click to select files</div>\n    </DropZone>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+---
+title: Form
+description: Group inputs and handle validation using the native form element.
+---
+
+<ComponentPreview
+  name="form-preskok-demo"
+  description="Simple form with required fields and submit handler."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add form
+```
+
+## Usage
+
+```tsx
+import { Form } from "@/registry/preskok/ui/preskok-ui/form"
+
+export function Example() {
+  return <Form onSubmit={(e) => e.preventDefault()} />
+}
+```
+
+## Props
+
+- Inherits all `react-aria-components` Form props.

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "line-chart-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "line-chart",
+    "chart",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/line-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useMemo } from \"react\"\n\nimport { Card } from \"@/registry/preskok/ui/preskok-ui/card\"\nimport { LineChart } from \"@/registry/preskok/ui/preskok-ui/line-chart\"\n\nexport default function LineChartPreskokDemo() {\n  const data = useMemo(\n    () =>\n      Array.from({ length: 12 }, (_, i) => ({\n        month: `M${i + 1}`,\n        sales: Math.floor(200 + Math.random() * 400),\n        profit: Math.floor(50 + Math.random() * 150),\n      })),\n    []\n  )\n\n  return (\n    <Card>\n      <Card.Header>\n        <Card.Title>Performance</Card.Title>\n        <Card.Description>Sales vs Profit per month</Card.Description>\n      </Card.Header>\n      <Card.Content>\n        <LineChart\n          className=\"aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]\"\n          data={data}\n          dataKey=\"month\"\n          config={{ sales: { label: \"Sales\" }, profit: { label: \"Profit\" } }}\n        />\n      </Card.Content>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

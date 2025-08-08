@@ -24,6 +24,26 @@
     "combo-box",
     "command-menu",
     "container",
-    "context-menu"
+    "context-menu",
+    "date-field",
+    "date-picker",
+    "date-range-picker",
+    "description-list",
+    "dialog",
+    "disclosure",
+    "drawer",
+    "drop-zone",
+    "dropdown",
+    "field",
+    "file-trigger",
+    "form",
+    "grid-list",
+    "heading",
+    "input-otp",
+    "keyboard",
+    "line-chart",
+    "link",
+    "list-box",
+    "loader"
   ]
 }

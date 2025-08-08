@@ -1,0 +1,47 @@
+---
+title: Dialog
+description: Modal dialog with header, body, and footer composition.
+---
+
+<ComponentPreview
+  name="dialog-preskok-demo"
+  description="A basic dialog with title, description and close action."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add dialog
+```
+
+## Usage
+
+```tsx
+import {
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger,
+} from "@/registry/preskok/ui/preskok-ui/dialog"
+
+export function Example() {
+  return (
+    <DialogTrigger>
+      <button>Open dialog</button>
+      <Dialog>
+        <DialogHeader title="Dialog title" description="Optional description" />
+        <DialogBody>Content</DialogBody>
+        <DialogFooter>
+          <button slot="close">Close</button>
+        </DialogFooter>
+      </Dialog>
+    </DialogTrigger>
+  )
+}
+```
+
+## Components
+
+- **Dialog**: root
+- **DialogTrigger**, **DialogHeader**, **DialogBody**, **DialogFooter**

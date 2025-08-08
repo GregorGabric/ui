@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "list-box-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "list-box",
+    "dropdown"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/list-box-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  ListBox,\n  ListBoxDescription,\n  ListBoxItem,\n  ListBoxLabel,\n  ListBoxSection,\n} from \"@/registry/preskok/ui/preskok-ui/list-box\"\n\nexport default function ListBoxPreskokDemo() {\n  return (\n    <ListBox aria-label=\"Fruits\" className=\"min-w-56\">\n      <ListBoxSection title=\"Citrus\">\n        <ListBoxItem id=\"orange\">\n          <ListBoxLabel>Orange</ListBoxLabel>\n          <ListBoxDescription>Rich in vitamin C</ListBoxDescription>\n        </ListBoxItem>\n        <ListBoxItem id=\"lemon\">\n          <ListBoxLabel>Lemon</ListBoxLabel>\n          <ListBoxDescription>Tart and refreshing</ListBoxDescription>\n        </ListBoxItem>\n      </ListBoxSection>\n      <ListBoxSection title=\"Berries\">\n        <ListBoxItem id=\"strawberry\">\n          <ListBoxLabel>Strawberry</ListBoxLabel>\n          <ListBoxDescription>Sweet and juicy</ListBoxDescription>\n        </ListBoxItem>\n        <ListBoxItem id=\"blueberry\">\n          <ListBoxLabel>Blueberry</ListBoxLabel>\n          <ListBoxDescription>Antioxidant-rich</ListBoxDescription>\n        </ListBoxItem>\n      </ListBoxSection>\n    </ListBox>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

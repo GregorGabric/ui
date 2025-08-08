@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "link"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/link-preskok-demo.tsx",
+      "content": "import { Link } from \"@/registry/preskok/ui/preskok-ui/link\"\n\nexport default function LinkPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Link href=\"#\" intent=\"primary\">\n        Primary link\n      </Link>\n      <Link href=\"#\" intent=\"secondary\">\n        Secondary link\n      </Link>\n      <Link href=\"#\" intent=\"unstyled\">\n        Unstyled link\n      </Link>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

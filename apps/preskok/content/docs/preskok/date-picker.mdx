@@ -1,0 +1,47 @@
+---
+title: Date Picker
+description: A date picker with responsive popover/modal overlay and calendar.
+---
+
+<ComponentPreview
+  name="date-picker-preskok-demo"
+  description="A date picker with input and calendar overlay."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add date-picker
+```
+
+## Usage
+
+```tsx
+import { parseDate } from "@internationalized/date"
+
+import { DatePicker } from "@/registry/preskok/ui/preskok-ui/date-picker"
+
+export function Example() {
+  return (
+    <DatePicker
+      label="Pick a date"
+      granularity="day"
+      defaultValue={parseDate("2024-01-20")}
+    />
+  )
+}
+```
+
+## Props
+
+- **label**: string — Field label.
+- **description**: string — Help text.
+- **errorMessage**: string | (validation) => string — Error text.
+- **placement**: Popover placement.
+- Inherits all `react-aria-components` DatePicker props.
+
+## Features
+
+- **Responsive overlay**: popover on desktop, modal on mobile
+- **Keyboard and screen reader support**
+- **Validation and error messaging**

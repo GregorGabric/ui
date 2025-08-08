@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-swatch-picker-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorSwatchPicker } from \"@/registry/preskok/ui/preskok-ui/color-swatch-picker\"\n\nexport default function ColorSwatchPickerPreskokDemo() {\n  const colors = [\"#2563eb\", \"#16a34a\", \"#ca8a04\", \"#dc2626\", \"#9333ea\"]\n  return (\n    <ColorSwatchPicker name=\"accent\" aria-label=\"Accent color\">\n      {colors.map((c) => (\n        <ColorSwatchPicker.Item key={c} id={c} value={c} />\n      ))}\n    </ColorSwatchPicker>\n  )\n}\n\n\n",
+      "content": "\"use client\"\n\nimport { ColorSwatchPicker } from \"@/registry/preskok/ui/preskok-ui/color-swatch-picker\"\n\nexport default function ColorSwatchPickerPreskokDemo() {\n  return (\n    <ColorSwatchPicker aria-label=\"Accent color\">\n      {Array.from({ length: 5 }).map((_, i) => (\n        <ColorSwatchPicker.Item key={i} />\n      ))}\n    </ColorSwatchPicker>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

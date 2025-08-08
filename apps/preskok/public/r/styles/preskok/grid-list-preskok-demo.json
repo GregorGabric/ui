@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "grid-list-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "grid-list",
+    "checkbox"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/grid-list-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useMemo } from \"react\"\n\nimport { Checkbox } from \"@/registry/preskok/ui/preskok-ui/checkbox\"\nimport {\n  GridList,\n  GridListItem,\n} from \"@/registry/preskok/ui/preskok-ui/grid-list\"\n\nexport default function GridListPreskokDemo() {\n  const items = useMemo(\n    () => [\n      { id: 1, name: \"The Beatles\" },\n      { id: 2, name: \"Led Zeppelin\" },\n      { id: 3, name: \"Pink Floyd\" },\n      { id: 4, name: \"The Rolling Stones\" },\n    ],\n    []\n  )\n\n  return (\n    <GridList aria-label=\"Bands\" selectionMode=\"multiple\" className=\"min-w-64\">\n      {items.map((item) => (\n        <GridListItem id={item.id} key={item.id} textValue={item.name}>\n          {(values) => (\n            <>\n              {values.selectionMode === \"multiple\" &&\n                values.selectionBehavior === \"toggle\" && (\n                  <Checkbox className=\"-mr-2\" slot=\"selection\" />\n                )}\n              {item.name}\n            </>\n          )}\n        </GridListItem>\n      ))}\n    </GridList>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

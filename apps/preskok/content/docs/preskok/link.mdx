@@ -1,0 +1,29 @@
+---
+title: Link
+description: Navigate to internal or external destinations with accessible links.
+---
+
+<ComponentPreview
+  name="link-preskok-demo"
+  description="Link variants: primary, secondary, unstyled."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add link
+```
+
+## Usage
+
+```tsx
+import { Link } from "@/registry/preskok/ui/preskok-ui/link"
+
+export function Example() {
+  return (
+    <Link href="#" intent="primary">
+      Docs
+    </Link>
+  )
+}
+```

@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-wheel-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorWheel } from \"@/registry/preskok/ui/preskok-ui/color-wheel\"\n\nexport default function ColorWheelPreskokDemo() {\n  return <ColorWheel aria-label=\"Hue\" />\n}\n\n\n",
+      "content": "\"use client\"\n\nimport { ColorWheel } from \"@/registry/preskok/ui/preskok-ui/color-wheel\"\n\nexport default function ColorWheelPreskokDemo() {\n  return <ColorWheel aria-label=\"Hue\" />\n}\n",
       "type": "registry:example"
     }
   ]

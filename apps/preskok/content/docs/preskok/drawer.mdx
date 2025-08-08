@@ -1,0 +1,43 @@
+---
+title: Drawer
+description: Slide-over panel with touch drag interactions and composition.
+---
+
+<ComponentPreview
+  name="drawer-preskok-demo"
+  description="A right-side drawer with header, body and footer."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add drawer
+```
+
+## Usage
+
+```tsx
+import { Drawer } from "@/registry/preskok/ui/preskok-ui/drawer"
+
+export function Example() {
+  return (
+    <Drawer>
+      <Drawer.Trigger>Open</Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>Title</Drawer.Title>
+          <Drawer.Description>Description</Drawer.Description>
+        </Drawer.Header>
+        <Drawer.Body>Content</Drawer.Body>
+        <Drawer.Footer>
+          <Drawer.Close>Close</Drawer.Close>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+```
+
+## Components
+
+- **Drawer**, **Drawer.Trigger**, **Drawer.Content**, **Drawer.Header**, **Drawer.Title**, **Drawer.Description**, **Drawer.Body**, **Drawer.Footer**, **Drawer.Close**

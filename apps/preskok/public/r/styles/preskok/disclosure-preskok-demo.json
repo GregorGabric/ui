@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "disclosure-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "disclosure"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/disclosure-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Disclosure,\n  DisclosureGroup,\n  DisclosurePanel,\n  DisclosureTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/disclosure\"\n\nexport default function DisclosurePreskokDemo() {\n  return (\n    <DisclosureGroup defaultExpandedKeys={[\"general\"]}>\n      <Disclosure id=\"general\">\n        <DisclosureTrigger>General</DisclosureTrigger>\n        <DisclosurePanel>\n          <div className=\"p-3\">General settings content...</div>\n        </DisclosurePanel>\n      </Disclosure>\n      <Disclosure id=\"advanced\">\n        <DisclosureTrigger>Advanced</DisclosureTrigger>\n        <DisclosurePanel>\n          <div className=\"p-3\">Advanced settings content...</div>\n        </DisclosurePanel>\n      </Disclosure>\n    </DisclosureGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
