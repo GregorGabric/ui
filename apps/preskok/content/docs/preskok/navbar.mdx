@@ -1,0 +1,52 @@
+---
+title: Navbar
+description: A comprehensive navigation bar with responsive design.
+---
+
+<ComponentPreview
+  name="navbar-preskok-demo"
+  description="Navbar built with link, separator, and button primitives."
+/>
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add navbar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="navbar"
+  title="registry/preskok/ui/preskok-ui/navbar.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Navbar } from "@/registry/preskok/ui/preskok-ui/navbar"
+
+export function NavbarDemo() {
+  return <Navbar />
+}
+```

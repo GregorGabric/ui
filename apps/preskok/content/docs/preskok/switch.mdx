@@ -1,0 +1,54 @@
+---
+title: Switch
+description: An accessible switch component for boolean inputs.
+---
+
+<ComponentPreview
+  name="switch-demo"
+  description="Switch component with label."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add switch
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="switch"
+  title="registry/preskok/ui/preskok-ui/switch.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
+
+export function SwitchDemo() {
+  return <Switch>Enable notifications</Switch>
+}
+```

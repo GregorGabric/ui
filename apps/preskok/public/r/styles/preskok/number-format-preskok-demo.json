@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-format-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "number-format",
+    "locale-context"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/number-format-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  NumberFormatProvider,\n  NumberText,\n} from \"@/registry/preskok/ui/preskok-ui/number-format/number-format\"\n\nexport default function NumberFormatPreskokDemo() {\n  return (\n    <NumberFormatProvider locale=\"en-US\" currency=\"USD\">\n      <div className=\"space-y-2\">\n        <NumberText value={12345.67} />\n        <NumberText value={0.1234} style=\"percent\" />\n      </div>\n    </NumberFormatProvider>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

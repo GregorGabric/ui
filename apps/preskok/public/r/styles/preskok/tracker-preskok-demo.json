@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tracker-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "tracker",
+    "tooltip"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/tracker-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Tracker,\n  type TrackerBlockProps,\n} from \"@/registry/preskok/ui/preskok-ui/tracker\"\n\nconst data: TrackerBlockProps[] = Array.from({ length: 30 }).map((_, i) => ({\n  key: i,\n  color: i % 5 === 0 ? \"bg-primary\" : undefined,\n  tooltip: `Day ${i + 1}: ${i % 5 === 0 ? \"Active\" : \"Idle\"}`,\n}))\n\nexport default function TrackerPreskokDemo() {\n  return (\n    <div className=\"w-full max-w-xl\">\n      <Tracker data={data} />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

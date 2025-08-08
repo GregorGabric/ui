@@ -1,0 +1,51 @@
+---
+title: Tree
+description: A tree component for hierarchical data display.
+---
+
+<ComponentPreview
+  name="tree-preskok-demo"
+  description="Tree with nested items and multiple selection."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add tree
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="tree" title="registry/preskok/ui/preskok-ui/tree.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Tree } from "@/registry/preskok/ui/preskok-ui/tree"
+
+export function TreeDemo() {
+  return <Tree nodes={[]} />
+}
+```

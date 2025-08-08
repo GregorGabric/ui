@@ -1,0 +1,63 @@
+---
+title: Sheet
+description: A sheet component that slides in from different sides with blur effects.
+---
+
+<ComponentPreview
+  name="sheet-demo"
+  description="Sheet sliding in with overlay."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add sheet
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="sheet"
+  title="registry/preskok/ui/preskok-ui/sheet.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/registry/preskok/ui/preskok-ui/sheet"
+
+export function SheetDemo() {
+  return (
+    <Sheet>
+      <SheetTrigger>Open</SheetTrigger>
+      <SheetContent>Content</SheetContent>
+    </Sheet>
+  )
+}
+```

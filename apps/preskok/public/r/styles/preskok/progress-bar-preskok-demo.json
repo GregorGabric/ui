@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress-bar-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "progress-bar"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/progress-bar-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { ProgressBar } from \"@/registry/preskok/ui/preskok-ui/progress-bar\"\n\nexport default function ProgressBarPreskokDemo() {\n  return <ProgressBar label=\"Uploading\" value={42} />\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -5337,6 +5337,164 @@
       }
     },
     {
+      "name": "number-field-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "number-field",
+        "button",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/number-field-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "pie-chart-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "pie-chart",
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/pie-chart-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "progress-bar-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "progress-bar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/progress-bar-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "progress-circle-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "progress-circle",
+        "progress-bar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/progress-circle-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "range-calendar-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/range-calendar-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "search-field-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "search-field",
+        "field",
+        "loader"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/search-field-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "navbar-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "navbar",
+        "button",
+        "link",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/navbar-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tracker-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "tracker",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/tracker-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tree-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "tree",
+        "checkbox"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/tree-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "text-field-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "text-field",
+        "field",
+        "loader"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/text-field-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "time-field-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "time-field",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/time-field-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "accordion-demo",
       "type": "registry:example",
       "registryDependencies": [

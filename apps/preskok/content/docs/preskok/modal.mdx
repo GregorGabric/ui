@@ -1,0 +1,58 @@
+---
+title: Modal
+description: A modal dialog component with overlay and blur effects.
+---
+
+<ComponentPreview
+  name="dialog-preskok-demo"
+  description="Modal built on top of dialog primitives."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add modal
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="modal"
+  title="registry/preskok/ui/preskok-ui/modal.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Modal } from "@/registry/preskok/ui/preskok-ui/modal"
+
+export function ModalDemo() {
+  return (
+    <Modal isOpen onOpenChange={() => {}}>
+      <div>Content</div>
+    </Modal>
+  )
+}
+```

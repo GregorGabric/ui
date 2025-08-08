@@ -1,0 +1,54 @@
+---
+title: Multi Select
+description: A multi-select component with search and filtering capabilities.
+---
+
+<ComponentPreview
+  name="combo-box-preskok-demo"
+  description="Multi-select built with list-box and popover."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add multi-select
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="multi-select"
+  title="registry/preskok/ui/preskok-ui/multi-select.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { MultiSelect } from "@/registry/preskok/ui/preskok-ui/multi-select"
+
+export function MultiSelectDemo() {
+  return <MultiSelect label="Assignees" items={[]} />
+}
+```

@@ -1,0 +1,54 @@
+---
+title: Slider
+description: A range slider component with tooltip and inline output options.
+---
+
+<ComponentPreview
+  name="slider-demo"
+  description="Slider with tooltip and output."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add slider
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="slider"
+  title="registry/preskok/ui/preskok-ui/slider.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Slider } from "@/registry/preskok/ui/preskok-ui/slider"
+
+export function SliderDemo() {
+  return <Slider label="Volume" defaultValue={50} />
+}
+```

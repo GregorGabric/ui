@@ -1,0 +1,54 @@
+---
+title: Sidebar
+description: A comprehensive sidebar component with collapsible sections.
+---
+
+<ComponentPreview
+  name="disclosure-preskok-demo"
+  description="Sidebar built with disclosure, tooltip, and sheet."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add sidebar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="sidebar"
+  title="registry/preskok/ui/preskok-ui/sidebar.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Sidebar } from "@/registry/preskok/ui/preskok-ui/sidebar"
+
+export function SidebarDemo() {
+  return <Sidebar />
+}
+```

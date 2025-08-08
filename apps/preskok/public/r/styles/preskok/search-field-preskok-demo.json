@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-field-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "search-field",
+    "field",
+    "loader"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/search-field-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { SearchField } from \"@/registry/preskok/ui/preskok-ui/search-field\"\n\nexport default function SearchFieldPreskokDemo() {\n  return <SearchField label=\"Search\" placeholder=\"Search...\" />\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

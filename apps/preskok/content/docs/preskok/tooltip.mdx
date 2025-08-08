@@ -1,0 +1,51 @@
+---
+title: Tooltip
+description: A tooltip component with arrow and multiple styling options.
+---
+
+<ComponentPreview name="tooltip-demo" description="Tooltip with arrow." />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add tooltip
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="tooltip"
+  title="registry/preskok/ui/preskok-ui/tooltip.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Tooltip } from "@/registry/preskok/ui/preskok-ui/tooltip"
+
+export function TooltipDemo() {
+  return <Tooltip label="More info">Hover me</Tooltip>
+}
+```

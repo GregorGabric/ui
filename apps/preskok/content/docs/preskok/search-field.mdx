@@ -1,0 +1,54 @@
+---
+title: Search Field
+description: A search input field with loading state and clear functionality.
+---
+
+<ComponentPreview
+  name="search-field-preskok-demo"
+  description="Search field examples with loading and clear."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add search-field
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="search-field"
+  title="registry/preskok/ui/preskok-ui/search-field.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { SearchField } from "@/registry/preskok/ui/preskok-ui/search-field"
+
+export function SearchFieldDemo() {
+  return <SearchField label="Search" placeholder="Search..." />
+}
+```

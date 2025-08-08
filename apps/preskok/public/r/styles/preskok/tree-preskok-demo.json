@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tree-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "tree",
+    "checkbox"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/tree-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Tree,\n  TreeContent,\n  TreeItem,\n} from \"@/registry/preskok/ui/preskok-ui/tree\"\n\nconst items = [\n  {\n    id: \"1\",\n    name: \"Projects\",\n    children: [\n      { id: \"1-1\", name: \"Website\" },\n      { id: \"1-2\", name: \"Mobile App\" },\n    ],\n  },\n  {\n    id: \"2\",\n    name: \"Archives\",\n    children: [\n      { id: \"2-1\", name: \"2024\" },\n      { id: \"2-2\", name: \"2023\" },\n    ],\n  },\n]\n\nexport default function TreePreskokDemo() {\n  return (\n    <Tree\n      aria-label=\"Projects\"\n      selectionMode=\"multiple\"\n      defaultExpandedKeys={[\"1\"]}\n    >\n      {items.map((group) => (\n        <TreeItem key={group.id} id={group.id} textValue={group.name}>\n          <TreeContent>{group.name}</TreeContent>\n          {group.children?.map((child) => (\n            <TreeItem key={child.id} id={child.id} textValue={child.name}>\n              <TreeContent>{child.name}</TreeContent>\n            </TreeItem>\n          ))}\n        </TreeItem>\n      ))}\n    </Tree>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

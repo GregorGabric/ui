@@ -1,0 +1,54 @@
+---
+title: Progress Bar
+description: A progress bar component for showing completion status.
+---
+
+<ComponentPreview
+  name="progress-bar-preskok-demo"
+  description="Progress bar examples."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add progress-bar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="progress-bar"
+  title="registry/preskok/ui/preskok-ui/progress-bar.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ProgressBar } from "@/registry/preskok/ui/preskok-ui/progress-bar"
+
+export function ProgressBarDemo() {
+  return <ProgressBar label="Uploading" value={42} />
+}
+```

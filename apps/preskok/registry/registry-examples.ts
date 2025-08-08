@@ -2,6 +2,127 @@ import { type Registry } from "@preskok-org/ui/registry"
 
 export const examples: Registry["items"] = [
   {
+    name: "number-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["number-field", "button", "field"],
+    files: [
+      {
+        path: "examples/number-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "pie-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["pie-chart", "chart"],
+    files: [
+      {
+        path: "examples/pie-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "progress-bar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["progress-bar"],
+    files: [
+      {
+        path: "examples/progress-bar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "progress-circle-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["progress-circle", "progress-bar"],
+    files: [
+      {
+        path: "examples/progress-circle-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "range-calendar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["range-calendar", "calendar"],
+    files: [
+      {
+        path: "examples/range-calendar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "search-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["search-field", "field", "loader"],
+    files: [
+      {
+        path: "examples/search-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "navbar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["navbar", "button", "link", "separator"],
+    files: [
+      {
+        path: "examples/navbar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "tracker-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["tracker", "tooltip"],
+    files: [
+      {
+        path: "examples/tracker-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "tree-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["tree", "checkbox"],
+    files: [
+      {
+        path: "examples/tree-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "text-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["text-field", "field", "loader"],
+    files: [
+      {
+        path: "examples/text-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "time-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["time-field", "field"],
+    files: [
+      {
+        path: "examples/time-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "accordion-demo",
     type: "registry:example",
     registryDependencies: ["accordion"],

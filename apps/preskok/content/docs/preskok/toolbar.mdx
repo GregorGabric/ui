@@ -1,0 +1,56 @@
+---
+title: Toolbar
+description: A toolbar component for grouping action buttons.
+---
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add toolbar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="toolbar"
+  title="registry/preskok/ui/preskok-ui/toolbar.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Toolbar } from "@/registry/preskok/ui/preskok-ui/toolbar"
+
+export function ToolbarDemo() {
+  return (
+    <Toolbar>
+      <Toolbar.Item>Bold</Toolbar.Item>
+      <Toolbar.Item>Italic</Toolbar.Item>
+      <Toolbar.Separator />
+      <Toolbar.Item>Link</Toolbar.Item>
+    </Toolbar>
+  )
+}
+```

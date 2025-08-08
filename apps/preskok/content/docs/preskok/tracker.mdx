@@ -1,0 +1,54 @@
+---
+title: Tracker
+description: Visualize data over time with tooltips.
+---
+
+<ComponentPreview
+  name="tracker-preskok-demo"
+  description="Tracker built with tooltips."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add tracker
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="tracker"
+  title="registry/preskok/ui/preskok-ui/tracker.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Tracker } from "@/registry/preskok/ui/preskok-ui/tracker"
+
+export function TrackerDemo() {
+  return <Tracker data={[]} />
+}
+```

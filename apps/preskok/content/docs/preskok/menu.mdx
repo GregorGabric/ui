@@ -1,0 +1,57 @@
+---
+title: Menu
+description: A comprehensive menu component with submenus and sections.
+---
+
+<ComponentPreview
+  name="dropdown-preskok-demo"
+  description="Menu built with dropdown and popover primitives."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add menu
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="menu" title="registry/preskok/ui/preskok-ui/menu.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+
+export function MenuDemo() {
+  return (
+    <Menu label="Actions">
+      <Menu.Section title="File">
+        <Menu.Item id="new">New</Menu.Item>
+      </Menu.Section>
+    </Menu>
+  )
+}
+```

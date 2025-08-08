@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "range-calendar-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "range-calendar",
+    "calendar"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/range-calendar-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { RangeCalendar } from \"@/registry/preskok/ui/preskok-ui/range-calendar\"\n\nexport default function RangeCalendarPreskokDemo() {\n  return <RangeCalendar aria-label=\"Trip dates\" />\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

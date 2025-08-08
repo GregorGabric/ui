@@ -1,0 +1,56 @@
+---
+title: Skeleton
+description: A skeleton loading component with soft variant option.
+---
+
+<ComponentPreview name="skeleton-demo" description="Skeleton placeholders." />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add skeleton
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="skeleton"
+  title="registry/preskok/ui/preskok-ui/skeleton.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Skeleton } from "@/registry/preskok/ui/preskok-ui/skeleton"
+
+export function SkeletonDemo() {
+  return (
+    <div className="space-y-2">
+      <Skeleton className="h-4 w-[250px]" />
+      <Skeleton className="h-4 w-[200px]" />
+    </div>
+  )
+}
+```

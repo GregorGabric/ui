@@ -1,0 +1,63 @@
+---
+title: Popover
+description: A popover component for displaying content in an overlay.
+---
+
+<ComponentPreview
+  name="popover-demo"
+  description="Popover with overlay content."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add popover
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="popover"
+  title="registry/preskok/ui/preskok-ui/popover.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/registry/preskok/ui/preskok-ui/popover"
+
+export function PopoverDemo() {
+  return (
+    <Popover>
+      <PopoverTrigger>Open</PopoverTrigger>
+      <PopoverContent>Content</PopoverContent>
+    </Popover>
+  )
+}
+```

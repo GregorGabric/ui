@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pie-chart-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "pie-chart",
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/pie-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { PieChart } from \"@/registry/preskok/ui/preskok-ui/pie-chart\"\n\nconst data = [\n  { name: \"A\", value: 30 },\n  { name: \"B\", value: 50 },\n  { name: \"C\", value: 20 },\n]\n\nexport default function PieChartPreskokDemo() {\n  return <PieChart data={data} labelKey=\"name\" valueKey=\"value\" />\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

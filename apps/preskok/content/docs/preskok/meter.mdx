@@ -1,0 +1,54 @@
+---
+title: Meter
+description: A meter component for displaying scalar values within a range.
+---
+
+<ComponentPreview
+  name="progress-demo"
+  description="Meter and progress examples."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add meter
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="meter"
+  title="registry/preskok/ui/preskok-ui/meter.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Meter } from "@/registry/preskok/ui/preskok-ui/meter"
+
+export function MeterDemo() {
+  return <Meter label="Storage" value={64} minValue={0} maxValue={100} />
+}
+```

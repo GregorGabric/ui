@@ -1,0 +1,60 @@
+---
+title: Toggle Group
+description: A toggle group component for single or multiple selection.
+---
+
+<ComponentPreview
+  name="toggle-group-demo"
+  description="Toggle group options."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add toggle-group
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="toggle-group"
+  title="registry/preskok/ui/preskok-ui/toggle-group.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ToggleGroup } from "@/registry/preskok/ui/preskok-ui/toggle-group"
+
+export function ToggleGroupDemo() {
+  return (
+    <ToggleGroup selectionMode="single" aria-label="Formatting">
+      <ToggleGroup.Item id="bold">Bold</ToggleGroup.Item>
+      <ToggleGroup.Item id="italic">Italic</ToggleGroup.Item>
+      <ToggleGroup.Item id="underline">Underline</ToggleGroup.Item>
+    </ToggleGroup>
+  )
+}
+```
