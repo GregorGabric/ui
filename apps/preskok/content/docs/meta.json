@@ -6,6 +6,7 @@
     "components",
     "installation",
     "dark-mode",
-    "registry"
+    "registry",
+    "preskok-ui"
   ]
 }

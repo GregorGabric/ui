@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-preskok-demo",
+  "type": "registry:example",
+  "files": [
+    {
+      "path": "registry/preskok/examples/button-preskok-demo.tsx",
+      "content": "import { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\n\nexport default function ButtonPreskokDemo() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      <Button intent=\"primary\">Primary</Button>\n      <Button intent=\"secondary\">Secondary</Button>\n      <Button intent=\"outline\">Outline</Button>\n      <Button intent=\"ghost\">Ghost</Button>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+---
+title: Breadcrumbs
+description: Navigation breadcrumb trails with customizable separators and link handling.
+---
+
+<ComponentPreview
+  name="breadcrumbs-demo"
+  description="A breadcrumb navigation component."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add breadcrumbs
+```
+
+## Usage
+
+```tsx
+import { Breadcrumbs } from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
+
+export function BreadcrumbsDemo() {
+  return (
+    <Breadcrumbs>
+      <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="/products/electronics">
+        Electronics
+      </Breadcrumbs.Item>
+      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>
+    </Breadcrumbs>
+  )
+}
+```
+
+## Components
+
+### Breadcrumbs
+
+The root breadcrumbs container.
+
+| Prop        | Type                              | Default     | Description                  |
+| ----------- | --------------------------------- | ----------- | ---------------------------- |
+| `separator` | `"chevron" \| "slash" \| boolean` | `"chevron"` | Separator type between items |
+| `className` | `string`                          | -           | Additional CSS classes       |
+
+### Breadcrumbs.Item
+
+Individual breadcrumb items.
+
+| Prop        | Type                              | Default | Description                      |
+| ----------- | --------------------------------- | ------- | -------------------------------- |
+| `href`      | `string`                          | -       | Link URL (optional)              |
+| `separator` | `"chevron" \| "slash" \| boolean` | `true`  | Override separator for this item |
+| `className` | `string`                          | -       | Additional CSS classes           |
+
+## Examples
+
+### Basic Breadcrumbs
+
+```tsx
+<Breadcrumbs>
+  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/docs">Documentation</Breadcrumbs.Item>
+  <Breadcrumbs.Item>Components</Breadcrumbs.Item>
+</Breadcrumbs>
+```
+
+### With Slash Separator
+
+```tsx
+<Breadcrumbs separator="slash">
+  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
+  <Breadcrumbs.Item>Current Page</Breadcrumbs.Item>
+</Breadcrumbs>
+```
+
+### Without Separators
+
+```tsx
+<Breadcrumbs separator={false}>
+  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+  <Breadcrumbs.Item>Current</Breadcrumbs.Item>
+</Breadcrumbs>
+```
+
+### Mixed Separator Types
+
+```tsx
+<Breadcrumbs>
+  <Breadcrumbs.Item href="/" separator="slash">
+    Home
+  </Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
+  <Breadcrumbs.Item separator={false}>Current Page</Breadcrumbs.Item>
+</Breadcrumbs>
+```
+
+## Features
+
+- **Flexible separators** - Chevron, slash, or custom separators
+- **Accessible navigation** - Proper ARIA labels and structure
+- **Link support** - Optional href for navigation
+- **Current page indication** - Automatic styling for current page
+- **Customizable styling** - Full control over appearance
+- **Responsive design** - Adapts to container width

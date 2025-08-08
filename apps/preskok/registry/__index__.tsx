@@ -7660,6 +7660,96 @@ export const Index: Record<string, any> = {
     categories: ["calendar","date"],
     meta: {"iframeHeight":"600px","container":"w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0","mobile":"component"},
   },
+  "bar-list-demo": {
+    name: "bar-list-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/examples/bar-list-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/bar-list-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "breadcrumbs-demo": {
+    name: "breadcrumbs-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/examples/breadcrumbs-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/breadcrumbs-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "button-preskok-demo": {
+    name: "button-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/examples/button-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/button-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "calendar-preskok-demo": {
+    name: "calendar-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/examples/calendar-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/calendar-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "card-preskok-demo": {
+    name: "card-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/examples/card-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/card-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "sidebar-demo": {
     name: "sidebar-demo",
     description: "",

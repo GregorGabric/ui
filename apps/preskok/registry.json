@@ -7214,6 +7214,56 @@
       ]
     },
     {
+      "name": "bar-list-demo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/preskok/examples/bar-list-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumbs-demo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/preskok/examples/breadcrumbs-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-preskok-demo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/preskok/examples/button-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-preskok-demo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "card-preskok-demo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/preskok/examples/card-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "sidebar-demo",
       "type": "registry:internal",
       "files": [

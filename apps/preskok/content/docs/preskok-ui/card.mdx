@@ -1,0 +1,252 @@
+---
+title: Card
+description: Content containers with headers, actions, and flexible layouts for organizing information.
+---
+
+<ComponentPreview
+  name="card-preskok-demo"
+  description="A card component with header, content, and actions."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add card
+```
+
+## Usage
+
+```tsx
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
+
+export function CardDemo() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card description goes here</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Card content goes here.</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Action</Button>
+      </CardFooter>
+    </Card>
+  )
+}
+```
+
+## Components
+
+### Card
+
+The root card container.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+### CardHeader
+
+Card header section with optional title and description.
+
+| Prop          | Type     | Default | Description            |
+| ------------- | -------- | ------- | ---------------------- |
+| `title`       | `string` | -       | Header title           |
+| `description` | `string` | -       | Header description     |
+| `className`   | `string` | -       | Additional CSS classes |
+
+### CardTitle
+
+Standalone card title component.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+### CardDescription
+
+Standalone card description component.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+### CardAction
+
+Card action area, typically placed in the header.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+### CardContent
+
+Main content area of the card.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+### CardFooter
+
+Card footer section for actions or additional content.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+## Examples
+
+### Basic Card
+
+```tsx
+<Card>
+  <CardContent>
+    <p>Simple card with just content.</p>
+  </CardContent>
+</Card>
+```
+
+### Card with Header
+
+```tsx
+<Card>
+  <CardHeader
+    title="Project Update"
+    description="Latest changes to the project"
+  />
+  <CardContent>
+    <p>The project has been updated with new features and bug fixes.</p>
+  </CardContent>
+</Card>
+```
+
+### Card with Actions
+
+```tsx
+<Card>
+  <CardHeader>
+    <div className="flex items-start justify-between">
+      <div>
+        <CardTitle>Settings</CardTitle>
+        <CardDescription>Manage your preferences</CardDescription>
+      </div>
+      <CardAction>
+        <Button size="sm" intent="outline">
+          <IconEdit />
+        </Button>
+      </CardAction>
+    </div>
+  </CardHeader>
+  <CardContent>
+    <p>Configure your application settings here.</p>
+  </CardContent>
+</Card>
+```
+
+### Card with Footer
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Confirm Action</CardTitle>
+    <CardDescription>This action cannot be undone</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Are you sure you want to delete this item?</p>
+  </CardContent>
+  <CardFooter className="flex gap-2">
+    <Button intent="outline">Cancel</Button>
+    <Button intent="danger">Delete</Button>
+  </CardFooter>
+</Card>
+```
+
+### Complex Card Layout
+
+```tsx
+<Card>
+  <CardHeader>
+    <div className="flex items-start justify-between">
+      <div>
+        <CardTitle>Team Member</CardTitle>
+        <CardDescription>John Doe - Developer</CardDescription>
+      </div>
+      <CardAction>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm" intent="ghost">
+              <IconMore />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Remove</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </CardAction>
+    </div>
+  </CardHeader>
+  <CardContent>
+    <div className="flex items-center gap-4">
+      <Avatar src="/avatars/john.jpg" initials="JD" />
+      <div>
+        <p className="font-medium">John Doe</p>
+        <p className="text-muted-foreground text-sm">john@example.com</p>
+      </div>
+    </div>
+  </CardContent>
+  <CardFooter>
+    <Button size="sm">View Profile</Button>
+  </CardFooter>
+</Card>
+```
+
+### Card Grid
+
+```tsx
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+  {projects.map((project) => (
+    <Card key={project.id}>
+      <CardHeader>
+        <CardTitle>{project.name}</CardTitle>
+        <CardDescription>{project.description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center gap-2">
+          <Badge intent={project.status === "active" ? "success" : "secondary"}>
+            {project.status}
+          </Badge>
+          <span className="text-muted-foreground text-sm">
+            {project.members} members
+          </span>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button size="sm" className="w-full">
+          View Project
+        </Button>
+      </CardFooter>
+    </Card>
+  ))}
+</div>
+```
+
+## Features
+
+- **Flexible layout** - Compose cards with different sections
+- **Optional elements** - Use only the components you need
+- **Consistent spacing** - Built-in spacing between sections
+- **Responsive design** - Adapts to different screen sizes
+- **Customizable styling** - Full control over appearance
+- **Semantic structure** - Proper HTML structure for accessibility

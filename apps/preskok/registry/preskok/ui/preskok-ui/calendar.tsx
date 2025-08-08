@@ -126,7 +126,7 @@ const CalendarHeader = ({
           intent="plain"
           slot="next"
         >
-          {direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          {direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </Button>
       </div>
     </header>

@@ -1577,4 +1577,55 @@ export const examples: Registry["items"] = [
       mobile: "component",
     },
   },
+  // Preskok UI Examples
+  {
+    name: "bar-list-demo",
+    type: "registry:example",
+    files: [
+      {
+        path: "examples/bar-list-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "breadcrumbs-demo",
+    type: "registry:example",
+    files: [
+      {
+        path: "examples/breadcrumbs-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-preskok-demo",
+    type: "registry:example",
+    files: [
+      {
+        path: "examples/button-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-preskok-demo",
+    type: "registry:example",
+    files: [
+      {
+        path: "examples/calendar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "card-preskok-demo",
+    type: "registry:example",
+    files: [
+      {
+        path: "examples/card-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

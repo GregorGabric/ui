@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs-demo",
+  "type": "registry:example",
+  "files": [
+    {
+      "path": "registry/preskok/examples/breadcrumbs-demo.tsx",
+      "content": "import { Breadcrumbs } from \"@/registry/preskok/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbsDemo() {\n  return (\n    <Breadcrumbs>\n      <Breadcrumbs.Item href=\"/\">Home</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"/products\">Products</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"/products/electronics\">\n        Electronics\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>\n    </Breadcrumbs>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

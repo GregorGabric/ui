@@ -74,7 +74,6 @@ const SidebarProvider = ({
   isOpen: openProp,
   onOpenChange: setOpenProp,
   className,
-  style,
   children,
   shortcut = "b",
   ref,
@@ -117,7 +116,9 @@ const SidebarProvider = ({
     }
 
     window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
   }, [toggleSidebar, shortcut])
 
   const state = open ? "expanded" : "collapsed"

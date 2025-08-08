@@ -1,0 +1,117 @@
+---
+title: Bar List
+description: Horizontal bar list for data visualization with interactive bars and customizable formatting.
+---
+
+<ComponentPreview
+  name="bar-list-demo"
+  description="A horizontal bar list showing data visualization."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add bar-list
+```
+
+## Usage
+
+```tsx
+import { BarList } from "@/registry/preskok/ui/preskok-ui/bar-list"
+
+const data = [
+  { name: "Sales", value: 1200, key: "sales" },
+  { name: "Marketing", value: 800, key: "marketing" },
+  { name: "Support", value: 600, key: "support" },
+  { name: "Development", value: 400, key: "development" },
+]
+
+export function BarListDemo() {
+  return (
+    <BarList
+      data={data}
+      valueFormatter={(value) => `$${value.toLocaleString()}`}
+    />
+  )
+}
+```
+
+## Props
+
+| Prop             | Type                                    | Default                       | Description                    |
+| ---------------- | --------------------------------------- | ----------------------------- | ------------------------------ |
+| `data`           | `Array<Bar<T>>`                         | `[]`                          | Array of data items to display |
+| `valueFormatter` | `(value: number) => string`             | `(value) => value.toString()` | Function to format values      |
+| `showAnimation`  | `boolean`                               | `false`                       | Enable bar animation           |
+| `onValueChange`  | `(payload: Bar<T>) => void`             | -                             | Callback when bar is clicked   |
+| `sortOrder`      | `"ascending" \| "descending" \| "none"` | `"descending"`                | Sort order for bars            |
+| `className`      | `string`                                | -                             | Additional CSS classes         |
+
+### Bar Data Type
+
+```tsx
+type Bar<T> = T & {
+  key?: string
+  href?: string
+  value: number
+  name: string
+}
+```
+
+## Examples
+
+### Basic Bar List
+
+```tsx
+<BarList
+  data={[
+    { name: "Product A", value: 1200 },
+    { name: "Product B", value: 800 },
+    { name: "Product C", value: 600 },
+  ]}
+/>
+```
+
+### With Custom Formatting
+
+```tsx
+<BarList
+  data={data}
+  valueFormatter={(value) => `${value}%`}
+  sortOrder="ascending"
+/>
+```
+
+### Interactive Bar List
+
+```tsx
+<BarList
+  data={data}
+  onValueChange={(item) => {
+    console.log("Selected:", item.name, item.value)
+  }}
+  showAnimation
+/>
+```
+
+### With Links
+
+```tsx
+<BarList
+  data={[
+    { name: "Dashboard", value: 1200, href: "/dashboard" },
+    { name: "Analytics", value: 800, href: "/analytics" },
+    { name: "Settings", value: 600, href: "/settings" },
+  ]}
+/>
+```
+
+## Features
+
+- **Responsive design** - Adapts to container width
+- **Interactive bars** - Click handling with onValueChange
+- **Custom formatting** - Flexible value formatting
+- **Sorting options** - Multiple sort orders
+- **Animation support** - Smooth bar transitions
+- **Link support** - Clickable bars with href
+- **Accessibility** - Proper ARIA labels and keyboard navigation

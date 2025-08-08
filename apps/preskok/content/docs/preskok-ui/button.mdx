@@ -1,0 +1,176 @@
+---
+title: Button
+description: Customizable buttons with multiple variants, sizes, and interactive states.
+---
+
+<ComponentPreview
+  name="button-preskok-demo"
+  description="Buttons with different variants and styles."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add button
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="button"
+  title="registry/preskok/ui/preskok-ui/button.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+
+export function ButtonDemo() {
+  return (
+    <Button intent="primary" size="md">
+      Click me
+    </Button>
+  )
+}
+```
+
+## Props
+
+| Prop        | Type                                                                       | Default     | Description            |
+| ----------- | -------------------------------------------------------------------------- | ----------- | ---------------------- |
+| `intent`    | `"primary" \| "secondary" \| "outline" \| "ghost" \| "link" \| "plain"`    | `"primary"` | Visual style variant   |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "sq-xs" \| "sq-sm" \| "sq-md" \| "sq-lg"` | `"md"`      | Button size            |
+| `isCircle`  | `boolean`                                                                  | `false`     | Circular button shape  |
+| `className` | `string`                                                                   | -           | Additional CSS classes |
+| `ref`       | `React.Ref<HTMLButtonElement>`                                             | -           | Button element ref     |
+
+All standard HTML button props are also supported.
+
+## Examples
+
+### Intent Variants
+
+```tsx
+<div className="flex gap-2">
+  <Button intent="primary">Primary</Button>
+  <Button intent="secondary">Secondary</Button>
+  <Button intent="outline">Outline</Button>
+  <Button intent="ghost">Ghost</Button>
+  <Button intent="link">Link</Button>
+  <Button intent="plain">Plain</Button>
+</div>
+```
+
+### Sizes
+
+```tsx
+<div className="flex items-center gap-2">
+  <Button size="xs">Extra Small</Button>
+  <Button size="sm">Small</Button>
+  <Button size="md">Medium</Button>
+  <Button size="lg">Large</Button>
+</div>
+```
+
+### Square Buttons
+
+```tsx
+<div className="flex items-center gap-2">
+  <Button size="sq-xs" intent="outline">
+    <IconPlus />
+  </Button>
+  <Button size="sq-sm" intent="outline">
+    <IconPlus />
+  </Button>
+  <Button size="sq-md" intent="outline">
+    <IconPlus />
+  </Button>
+  <Button size="sq-lg" intent="outline">
+    <IconPlus />
+  </Button>
+</div>
+```
+
+### Circular Buttons
+
+```tsx
+<div className="flex items-center gap-2">
+  <Button isCircle size="sm">
+    <IconHeart />
+  </Button>
+  <Button isCircle size="md" intent="secondary">
+    <IconStar />
+  </Button>
+  <Button isCircle size="lg" intent="outline">
+    <IconShare />
+  </Button>
+</div>
+```
+
+### With Icons
+
+```tsx
+<div className="flex gap-2">
+  <Button intent="primary">
+    <IconDownload />
+    Download
+  </Button>
+  <Button intent="outline">
+    Save
+    <IconSave />
+  </Button>
+  <Button intent="ghost">
+    <IconRefresh />
+  </Button>
+</div>
+```
+
+### Loading State
+
+```tsx
+<Button disabled>
+  <IconSpinner className="animate-spin" />
+  Loading...
+</Button>
+```
+
+### As Child
+
+```tsx
+<Button asChild>
+  <a href="/download">Download</a>
+</Button>
+```
+
+## Features
+
+- **Multiple variants** - Six different visual styles
+- **Flexible sizing** - Regular and square size options
+- **Icon support** - Easy integration with icons
+- **Loading states** - Built-in disabled and loading styles
+- **Accessibility** - Proper focus management and ARIA support
+- **Polymorphic** - Can render as different elements with asChild
+- **Responsive** - Adapts to different screen sizes

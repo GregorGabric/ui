@@ -243,6 +243,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.0.1
         version: 4.1.10
+      '@tailwindcss/typography':
+        specifier: ^0.5.16
+        version: 0.5.16(tailwindcss@4.1.10)
       '@tanstack/react-table':
         specifier: ^8.9.1
         version: 8.21.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -360,6 +363,9 @@ importers:
       tailwind-variants:
         specifier: ^2.1.0
         version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.10)
+      tailwindcss-react-aria-components:
+        specifier: ^2.0.0
+        version: 2.0.0(tailwindcss@4.1.10)
       ts-morph:
         specifier: 18.0.0
         version: 18.0.0
@@ -3470,6 +3476,11 @@ packages:
   '@tailwindcss/postcss@4.1.10':
     resolution: {integrity: sha512-B+7r7ABZbkXJwpvt2VMnS6ujcDoR2OOcFaqrLIo1xbcdxje4Vf+VgJdBzNNbrAjBj/rLZ66/tlQ1knIGNLKOBQ==}
 
+  '@tailwindcss/typography@0.5.16':
+    resolution: {integrity: sha512-0wDLwCVF5V3x3b1SGXPCDcdsbDHMBe+lkFzBRaHeLvNi+nrrnZ1lA18u+OTWO8iSWU2GxUOCvlXtDuqftc1oiA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
+
   '@tanstack/react-table@8.21.3':
     resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
     engines: {node: '>=12'}
@@ -6004,6 +6015,9 @@ packages:
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
 
+  lodash.castarray@4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+
   lodash.clone@4.5.0:
     resolution: {integrity: sha512-GhrVeweiTD6uTmmn5hV/lzgCQhccwReIVRLHp7LT4SopOjqEZ5BbX8b5WWEtAKasjmy8hR7ZPwsYlxRCku5odg==}
     deprecated: This package is deprecated. Use structuredClone instead.
@@ -6794,6 +6808,10 @@ packages:
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
+
+  postcss-selector-parser@6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
 
   postcss-selector-parser@6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
@@ -7634,6 +7652,11 @@ packages:
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+
+  tailwindcss-react-aria-components@2.0.0:
+    resolution: {integrity: sha512-l8YdpXX//qx0Mz2bW3YKLjboTQxR3zLrFhlHniAIn+mTwVM1yvT0Jp7Pn3eFrqi+qtOMmcJzXaF2rsKezSr0SQ==}
+    peerDependencies:
+      tailwindcss: ^4.0.0
 
   tailwindcss@3.4.6:
     resolution: {integrity: sha512-1uRHzPB+Vzu57ocybfZ4jh5Q3SdlH7XW23J5sQoM9LhE9eIOlzxer/3XPSsycvih3rboRsvt0QCmzSrqyOYUIA==}
@@ -11616,6 +11639,14 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.10
 
+  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.10)':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 4.1.10
+
   '@tanstack/react-table@8.21.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/table-core': 8.21.3
@@ -14595,6 +14626,8 @@ snapshots:
 
   lodash.camelcase@4.3.0: {}
 
+  lodash.castarray@4.4.0: {}
+
   lodash.clone@4.5.0: {}
 
   lodash.isequal@4.5.0: {}
@@ -15640,6 +15673,11 @@ snapshots:
     dependencies:
       postcss: 8.5.6
       postcss-selector-parser: 6.1.2
+
+  postcss-selector-parser@6.0.10:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
 
   postcss-selector-parser@6.1.2:
     dependencies:
@@ -16745,6 +16783,10 @@ snapshots:
   tailwindcss-animate@1.0.7(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3))):
     dependencies:
       tailwindcss: 3.4.6(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3))
+
+  tailwindcss-react-aria-components@2.0.0(tailwindcss@4.1.10):
+    dependencies:
+      tailwindcss: 4.1.10
 
   tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3)):
     dependencies:

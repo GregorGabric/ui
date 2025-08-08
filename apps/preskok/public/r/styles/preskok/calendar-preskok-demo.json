@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-preskok-demo",
+  "type": "registry:example",
+  "files": [
+    {
+      "path": "registry/preskok/examples/calendar-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { getLocalTimeZone, today } from \"@internationalized/date\"\n\nimport { Calendar } from \"@/registry/preskok/ui/preskok-ui/calendar\"\n\nexport default function CalendarPreskokDemo() {\n  const [date, setDate] = useState(today(getLocalTimeZone()))\n\n  return (\n    <div className=\"flex justify-center\">\n      <Calendar value={date} onChange={setDate} aria-label=\"Select a date\" />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
