@@ -44,7 +44,7 @@ export function CopyButton({
       <TooltipTrigger asChild>
         <Button
           data-slot="copy-button"
-          size="sq-xs"
+          size="sq-sm"
           intent={intent}
           className={cn(
             "bg-code absolute top-3 right-2 z-10 size-7 hover:opacity-100 focus-visible:opacity-100",

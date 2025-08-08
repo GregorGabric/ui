@@ -10,10 +10,11 @@ import { tv, type VariantProps } from "tailwind-variants"
 const buttonStyles = tv({
   base: [
     "[--btn-icon-active:var(--btn-fg)] [--btn-outline:var(--btn-bg)] [--btn-ring:var(--btn-bg)]/20",
-    "bg-(--btn-bg) pressed:bg-(--btn-overlay) text-(--btn-fg) outline-(--btn-outline) ring-(--btn-ring) hover:bg-(--btn-overlay)",
+    "bg-(--btn-bg) pressed:bg-(--btn-overlay) text-(--btn-fg) outline-(--btn-outline) ring-(--btn-ring) hover:bg-(--btn-overlay) focus-visible:bg-(--btn-overlay)",
     "relative inset-ring inset-ring-fg/15 isolate inline-flex items-center justify-center font-medium",
     "focus:outline-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-bg active:scale-[98%] transition-transform duration-150",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) pressed:*:data-[slot=icon]:text-(--btn-icon-active) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:my-1 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
+    "[&_svg.lucide]:-mx-0.5 [&_svg.lucide]:my-0.5 [&_svg.lucide]:shrink-0 [&_svg.lucide]:self-center [&_svg.lucide]:text-(--btn-icon) pressed:[&_svg.lucide]:text-(--btn-icon-active) focus-visible:[&_svg.lucide]:text-(--btn-icon-active)/80 hover:[&_svg.lucide]:text-(--btn-icon-active)/90 sm:[&_svg.lucide]:my-1",
     "*:data-[slot=loader]:-mx-0.5 *:data-[slot=loader]:my-0.5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:my-1",
   ],
   variants: {
@@ -35,31 +36,35 @@ const buttonStyles = tv({
       xs: [
         "gap-x-1 px-2.5 py-1.5 text-sm sm:px-2 sm:py-[--spacing(1.4)] sm:text-xs/4",
         "*:data-[slot=icon]:size-3.5 sm:*:data-[slot=icon]:size-3",
+        "[&_svg.lucide]:size-3.5 sm:[&_svg.lucide]:size-3",
         "*:data-[slot=loader]:size-3.5 sm:*:data-[slot=loader]:size-3",
       ],
       sm: [
         "gap-x-1.5 px-3 py-2 sm:px-2.5 sm:py-1.5 sm:text-sm/5",
         "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4",
+        "[&_svg.lucide]:size-4.5 sm:[&_svg.lucide]:size-4",
         "*:data-[slot=loader]:size-4.5 sm:*:data-[slot=loader]:size-4",
       ],
       md: [
         "gap-x-2 px-3.5 py-2 sm:px-3 sm:py-1.5 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4",
+        "[&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4",
       ],
       lg: [
         "gap-x-2 px-4 py-2.5 sm:px-3.5 sm:py-2 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4.5",
+        "[&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4.5",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4.5",
       ],
       "sq-xs":
-        "size-8 *:data-[slot=icon]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:*:data-[slot=loader]:size-3",
+        "size-8 *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:[&_svg.lucide]:size-3 sm:*:data-[slot=loader]:size-3",
       "sq-sm":
-        "size-9 *:data-[slot=icon]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4",
+        "size-9 *:data-[slot=icon]:size-4.5 [&_svg.lucide]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:[&_svg.lucide]:size-4 sm:*:data-[slot=loader]:size-4",
       "sq-md":
-        "size-10 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4",
+        "size-10 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4 sm:[&_svg.lucide]:size-4 sm:*:data-[slot=loader]:size-4",
       "sq-lg":
-        "size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
+        "size-11 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-4.5 sm:[&_svg.lucide]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
     },
 
     isCircle: {
@@ -81,7 +86,8 @@ const buttonStyles = tv({
   compoundVariants: [
     {
       size: ["xs", "sq-xs"],
-      className: "rounded-md *:data-[slot=icon]:size-3.5",
+      className:
+        "rounded-md *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5",
     },
   ],
 })
