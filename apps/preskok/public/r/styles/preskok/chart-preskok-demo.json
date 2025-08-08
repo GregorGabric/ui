@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useMemo } from \"react\"\nimport { Area, AreaChart as AreaChartPrimitive } from \"recharts\"\n\nimport {\n  CartesianGrid,\n  Chart,\n  ChartLegend,\n  ChartLegendContent,\n  ChartTooltip,\n  ChartTooltipContent,\n  XAxis,\n  YAxis,\n} from \"@/registry/preskok/ui/preskok-ui/chart\"\n\ntype DataPoint = {\n  day: string\n  Desktop: number\n  Mobile: number\n}\n\nexport default function ChartPreskokDemo() {\n  const data: Array<DataPoint> = useMemo(\n    () =>\n      Array.from({ length: 7 }, (_, i) => ({\n        day: `Day ${i + 1}`,\n        Desktop: Math.floor(100 + Math.random() * 300),\n        Mobile: Math.floor(50 + Math.random() * 200),\n      })),\n    []\n  )\n\n  const config = {\n    Desktop: { label: \"Desktop\", color: \"#2563eb\" },\n    Mobile: { label: \"Mobile\", color: \"#60a5fa\" },\n  }\n\n  return (\n    <Chart className=\"h-56 w-full\" data={data} dataKey=\"day\" config={config}>\n      {() => (\n        <AreaChartPrimitive\n          data={data}\n          margin={{ top: 5, right: 0, bottom: 0, left: 0 }}\n        >\n          <CartesianGrid strokeDasharray=\"3 3\" />\n          <XAxis />\n          <YAxis />\n          <ChartLegend content={<ChartLegendContent />} />\n          <ChartTooltip content={<ChartTooltipContent accessibilityLayer />} />\n          <Area\n            type=\"monotone\"\n            dataKey=\"Desktop\"\n            stroke=\"var(--color-Desktop)\"\n            fill=\"var(--color-Desktop)\"\n            fillOpacity={0.3}\n            isAnimationActive\n            dot={false}\n          />\n          <Area\n            type=\"monotone\"\n            dataKey=\"Mobile\"\n            stroke=\"var(--color-Mobile)\"\n            fill=\"var(--color-Mobile)\"\n            fillOpacity={0.3}\n            isAnimationActive\n            dot={false}\n          />\n        </AreaChartPrimitive>\n      )}\n    </Chart>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

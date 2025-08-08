@@ -1,0 +1,33 @@
+---
+title: Color Area
+description: 2D color selection area, typically used for saturation/brightness.
+---
+
+<ComponentPreview
+  name="color-area-preskok-demo"
+  description="Color area with hue slider and hex field."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add color-area
+```
+
+## Usage
+
+```tsx
+import { ColorArea } from "@/registry/preskok/ui/preskok-ui/color-area"
+import { ColorField } from "@/registry/preskok/ui/preskok-ui/color-field"
+import { ColorSlider } from "@/registry/preskok/ui/preskok-ui/color-slider"
+
+export function ColorAreaExample() {
+  return (
+    <div className="flex flex-col gap-3">
+      <ColorArea colorSpace="hsb" xChannel="saturation" yChannel="brightness" />
+      <ColorSlider colorSpace="hsb" channel="hue" />
+      <ColorField aria-label="Hex" placeholder="#000000" />
+    </div>
+  )
+}
+```

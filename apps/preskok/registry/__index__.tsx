@@ -7840,6 +7840,114 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "chart-preskok-demo": {
+    name: "chart-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/preskok/examples/chart-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/chart-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "checkbox-preskok-demo": {
+    name: "checkbox-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["checkbox","field"],
+    files: [{
+      path: "registry/preskok/examples/checkbox-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/checkbox-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "checkbox-single-preskok-demo": {
+    name: "checkbox-single-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["checkbox"],
+    files: [{
+      path: "registry/preskok/examples/checkbox-single-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/checkbox-single-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "choicebox-preskok-demo": {
+    name: "choicebox-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["choicebox","checkbox"],
+    files: [{
+      path: "registry/preskok/examples/choicebox-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/choicebox-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-area-preskok-demo": {
+    name: "color-area-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["color-area","color-slider","color-field","color-thumb"],
+    files: [{
+      path: "registry/preskok/examples/color-area-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/color-area-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "color-field-preskok-demo": {
+    name: "color-field-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["color-field","color-picker","field","loader"],
+    files: [{
+      path: "registry/preskok/examples/color-field-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/color-field-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "sidebar-demo": {
     name: "sidebar-demo",
     description: "",

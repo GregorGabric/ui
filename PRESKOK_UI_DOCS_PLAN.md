@@ -47,21 +47,26 @@ This checklist tracks `@preskok-ui` components, their documentation status, demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/carousel.tsx`
   - Docs: `apps/preskok/content/docs/preskok/carousel.mdx`
   - Preskok demo: `apps/preskok/registry/preskok/examples/carousel-preskok-demo.tsx`
-- [ ] Chart (helpers/context) — No Docs, No Demo
+- [x] Chart (helpers/context) — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/chart.tsx`
-  - Preskok demo: (missing)
-- [ ] Checkbox — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/chart.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/chart-preskok-demo.tsx`
+- [x] Checkbox — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/checkbox.tsx`
-  - Preskok demo: (missing)
-- [ ] Choicebox — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/checkbox.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/checkbox-preskok-demo.tsx`
+- [x] Choicebox — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/choicebox.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Area — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/choicebox.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/choicebox-preskok-demo.tsx`
+- [x] Color Area — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-area.tsx`
-  - Preskok demo: (missing)
-- [ ] Color Field — No Docs, No Demo
+  - Docs: `apps/preskok/content/docs/preskok/color-area.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-area-preskok-demo.tsx`
+- [x] Color Field — Docs, Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-field.tsx`
-  - Preskok demo: (missing)
+  - Docs: `apps/preskok/content/docs/preskok/color-field.mdx`
+  - Preskok demo: `apps/preskok/registry/preskok/examples/color-field-preskok-demo.tsx`
 - [ ] Color Picker — No Docs, No Demo
   - Component: `apps/preskok/registry/preskok/ui/preskok-ui/color-picker.tsx`
   - Preskok demo: (missing)

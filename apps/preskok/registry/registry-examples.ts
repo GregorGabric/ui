@@ -1683,4 +1683,75 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["chart"],
+    files: [
+      {
+        path: "examples/chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "checkbox-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["checkbox", "field"],
+    files: [
+      {
+        path: "examples/checkbox-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "checkbox-single-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["checkbox"],
+    files: [
+      {
+        path: "examples/checkbox-single-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "choicebox-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["choicebox", "checkbox"],
+    files: [
+      {
+        path: "examples/choicebox-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-area-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "color-area",
+      "color-slider",
+      "color-field",
+      "color-thumb",
+    ],
+    files: [
+      {
+        path: "examples/color-area-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "color-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["color-field", "color-picker", "field", "loader"],
+    files: [
+      {
+        path: "examples/color-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

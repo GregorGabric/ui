@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "choicebox-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "choicebox",
+    "checkbox"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/choicebox-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Choicebox } from \"@/registry/preskok/ui/preskok-ui/choicebox\"\n\ntype Option = { id: string; label: string; description?: string }\n\nconst options: Option[] = [\n  { id: \"basic\", label: \"Basic\", description: \"For personal projects\" },\n  { id: \"pro\", label: \"Pro\", description: \"For small teams\" },\n  { id: \"enterprise\", label: \"Enterprise\", description: \"For large orgs\" },\n]\n\nexport default function ChoiceboxPreskokDemo() {\n  return (\n    <Choicebox<Option>\n      aria-label=\"Plans\"\n      items={options}\n      columns={3}\n      gap={4}\n      selectionMode=\"single\"\n    >\n      {(item) => (\n        <Choicebox.Item key={item.id}>\n          <Choicebox.Label>{item.label}</Choicebox.Label>\n          {item.description && (\n            <Choicebox.Description>{item.description}</Choicebox.Description>\n          )}\n        </Choicebox.Item>\n      )}\n    </Choicebox>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

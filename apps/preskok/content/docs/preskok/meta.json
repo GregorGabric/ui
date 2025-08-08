@@ -9,6 +9,11 @@
     "avatar",
     "badge",
     "bar-chart",
-    "carousel"
+    "carousel",
+    "chart",
+    "checkbox",
+    "choicebox",
+    "color-area",
+    "color-field"
   ]
 }

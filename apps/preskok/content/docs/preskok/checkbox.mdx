@@ -1,0 +1,51 @@
+---
+title: Checkbox
+description: Accessible checkbox and checkbox group components with field integration.
+---
+
+## Checkbox
+
+<ComponentPreview
+  name="checkbox-single-preskok-demo"
+  description="A single checkbox for simple boolean input."
+/>
+
+```tsx
+import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
+
+export function SingleCheckboxExample() {
+  return <Checkbox>Accept terms and conditions</Checkbox>
+}
+```
+
+## Checkbox Group
+
+<ComponentPreview
+  name="checkbox-preskok-demo"
+  description="Basic checkbox group with three options."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add checkbox
+```
+
+## Usage
+
+```tsx
+import {
+  Checkbox,
+  CheckboxGroup,
+} from "@/registry/preskok/ui/preskok-ui/checkbox"
+
+export function CheckboxGroupExample() {
+  return (
+    <CheckboxGroup label="Select interests">
+      <Checkbox value="dev">Development</Checkbox>
+      <Checkbox value="design">Design</Checkbox>
+      <Checkbox value="pm">Product Management</Checkbox>
+    </CheckboxGroup>
+  )
+}
+```

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-area-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "color-area",
+    "color-slider",
+    "color-field",
+    "color-thumb"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/color-area-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { ColorArea } from \"@/registry/preskok/ui/preskok-ui/color-area\"\nimport { ColorField } from \"@/registry/preskok/ui/preskok-ui/color-field\"\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorAreaPreskokDemo() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <ColorArea colorSpace=\"hsb\" xChannel=\"saturation\" yChannel=\"brightness\" />\n      <ColorSlider colorSpace=\"hsb\" channel=\"hue\" />\n      <ColorField aria-label=\"Hex\" placeholder=\"#000000\" />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

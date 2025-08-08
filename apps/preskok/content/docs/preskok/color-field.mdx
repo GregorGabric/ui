@@ -1,0 +1,32 @@
+---
+title: Color Field
+description: Text color input with optional inline color picker and validation.
+---
+
+<ComponentPreview
+  name="color-field-preskok-demo"
+  description="Color field with inline picker and hex value."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add color-field
+```
+
+## Usage
+
+```tsx
+import { ColorField } from "@/registry/preskok/ui/preskok-ui/color-field"
+
+export function ColorFieldExample() {
+  return (
+    <ColorField
+      label="Brand color"
+      placeholder="#2563eb"
+      defaultValue="#2563eb"
+      description="Choose a hex color."
+    />
+  )
+}
+```
