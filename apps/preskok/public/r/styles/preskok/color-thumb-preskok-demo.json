@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-thumb-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorThumbPreskokDemo() {\n  return <ColorSlider channel=\"hue\" showOutput={false} />\n}\n",
+      "content": "\"use client\"\n\nimport { ColorArea } from \"@/registry/preskok/ui/preskok-ui/color-area\"\n\nexport default function ColorThumbPreskokDemo() {\n  return <ColorArea xChannel=\"alpha\" yChannel=\"blue\" />\n}\n",
       "type": "registry:example"
     }
   ]

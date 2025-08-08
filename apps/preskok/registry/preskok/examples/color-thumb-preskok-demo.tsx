@@ -1,7 +1,7 @@
 "use client"
 
-import { ColorSlider } from "@/registry/preskok/ui/preskok-ui/color-slider"
+import { ColorArea } from "@/registry/preskok/ui/preskok-ui/color-area"
 
 export default function ColorThumbPreskokDemo() {
-  return <ColorSlider channel="hue" showOutput={false} />
+  return <ColorArea xChannel="alpha" yChannel="blue" />
 }

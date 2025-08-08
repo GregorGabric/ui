@@ -11,7 +11,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-area-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorArea } from \"@/registry/preskok/ui/preskok-ui/color-area\"\nimport { ColorField } from \"@/registry/preskok/ui/preskok-ui/color-field\"\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorAreaPreskokDemo() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <ColorArea colorSpace=\"hsb\" xChannel=\"saturation\" yChannel=\"brightness\" />\n      <ColorSlider colorSpace=\"hsb\" channel=\"hue\" />\n      <ColorField aria-label=\"Hex\" placeholder=\"#000000\" />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { ColorArea } from \"@/registry/preskok/ui/preskok-ui/color-area\"\nimport { ColorField } from \"@/registry/preskok/ui/preskok-ui/color-field\"\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorAreaPreskokDemo() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <ColorArea\n        defaultValue=\"hsb(0, 100%, 50%)\"\n        colorSpace=\"hsb\"\n        xChannel=\"saturation\"\n        yChannel=\"brightness\"\n      />\n      <ColorSlider\n        defaultValue=\"hsb(0, 100%, 50%)\"\n        colorSpace=\"hsb\"\n        channel=\"hue\"\n      />\n      <ColorField\n        defaultValue=\"hsb(0, 100%, 50%)\"\n        aria-label=\"Hex\"\n        placeholder=\"#000000\"\n      />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

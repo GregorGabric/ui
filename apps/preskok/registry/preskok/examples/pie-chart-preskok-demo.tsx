@@ -1,13 +1,43 @@
 "use client"
 
+import { useMemo } from "react"
+
+import { Card } from "@/registry/preskok/ui/preskok-ui/card"
 import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
 
-const data = [
-  { name: "A", value: 30 },
-  { name: "B", value: 50 },
-  { name: "C", value: 20 },
-]
+export function Component() {
+  const data = useMemo(
+    () => [
+      { name: "Organic", amount: 1240 },
+      { name: "Paid", amount: 880 },
+      { name: "Referral", amount: 360 },
+      { name: "Social", amount: 220 },
+    ],
+    []
+  )
 
-export default function PieChartPreskokDemo() {
-  return <PieChart data={data} labelKey="name" valueKey="value" />
+  return (
+    <Card>
+      <Card.Header className="text-center">
+        <Card.Title>Traffic source breakdown</Card.Title>
+        <Card.Description>
+          Where your website traffic is coming from.
+        </Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <PieChart
+          className="mx-auto h-56"
+          data={data}
+          dataKey="amount"
+          nameKey="name"
+          config={{
+            Organic: { label: "Organic" },
+            Paid: { label: "Paid" },
+            Referral: { label: "Referral" },
+            Social: { label: "Social" },
+          }}
+        />
+      </Card.Content>
+    </Card>
+  )
 }

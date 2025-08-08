@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/pie-chart-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { PieChart } from \"@/registry/preskok/ui/preskok-ui/pie-chart\"\n\nconst data = [\n  { name: \"A\", value: 30 },\n  { name: \"B\", value: 50 },\n  { name: \"C\", value: 20 },\n]\n\nexport default function PieChartPreskokDemo() {\n  return <PieChart data={data} labelKey=\"name\" valueKey=\"value\" />\n}\n",
+      "content": "\"use client\"\n\nimport { useMemo } from \"react\"\n\nimport { Card } from \"@/registry/preskok/ui/preskok-ui/card\"\nimport { PieChart } from \"@/registry/preskok/ui/preskok-ui/pie-chart\"\n\nexport function Component() {\n  const data = useMemo(\n    () => [\n      { name: \"Organic\", amount: 1240 },\n      { name: \"Paid\", amount: 880 },\n      { name: \"Referral\", amount: 360 },\n      { name: \"Social\", amount: 220 },\n    ],\n    []\n  )\n\n  return (\n    <Card>\n      <Card.Header className=\"text-center\">\n        <Card.Title>Traffic source breakdown</Card.Title>\n        <Card.Description>\n          Where your website traffic is coming from.\n        </Card.Description>\n      </Card.Header>\n      <Card.Content>\n        <PieChart\n          className=\"mx-auto h-56\"\n          data={data}\n          dataKey=\"amount\"\n          nameKey=\"name\"\n          config={{\n            Organic: { label: \"Organic\" },\n            Paid: { label: \"Paid\" },\n            Referral: { label: \"Referral\" },\n            Social: { label: \"Social\" },\n          }}\n        />\n      </Card.Content>\n    </Card>\n  )\n}\n",
       "type": "registry:example"
     }
   ]
