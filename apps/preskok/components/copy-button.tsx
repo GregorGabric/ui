@@ -3,9 +3,10 @@
 import * as React from "react"
 import { CheckIcon, ClipboardIcon } from "lucide-react"
 
-import { Event, trackEvent } from "@/lib/events"
+import type { Event } from "@/lib/events"
+import { trackEvent } from "@/lib/events"
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Tooltip,
   TooltipContent,
@@ -13,7 +14,7 @@ import {
 } from "@/registry/preskok/ui/tooltip"
 
 export function copyToClipboardWithMeta(value: string, event?: Event) {
-  navigator.clipboard.writeText(value)
+  void navigator.clipboard.writeText(value)
   if (event) {
     trackEvent(event)
   }
@@ -22,7 +23,7 @@ export function copyToClipboardWithMeta(value: string, event?: Event) {
 export function CopyButton({
   value,
   className,
-  variant = "ghost",
+  intent = "plain",
   event,
   ...props
 }: React.ComponentProps<typeof Button> & {
@@ -43,8 +44,8 @@ export function CopyButton({
       <TooltipTrigger asChild>
         <Button
           data-slot="copy-button"
-          size="icon"
-          variant={variant}
+          size="sq-xs"
+          intent={intent}
           className={cn(
             "bg-code absolute top-3 right-2 z-10 size-7 hover:opacity-100 focus-visible:opacity-100",
             className

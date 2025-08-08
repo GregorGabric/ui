@@ -1,4 +1,4 @@
-.shiki {
+/* .shiki {
   background-color: var(--shiki-light-bg);
 }
 
@@ -125,10 +125,6 @@ span[data-rehype-pretty-code-figure] > code > span {
   @apply mr-4 inline-block w-4 text-right text-gray-500;
 }
 
-[data-rehype-pretty-code-figure] [data-highlighted-line] {
-  @apply -ml-4 border-l border-blue-400 bg-gradient-to-r from-blue-600/10 via-(--shiki-bg) to-(--shiki-bg) pl-4;
-}
-
 [data-rehype-pretty-code-figure] [data-highlighted-chars] {
   @apply rounded bg-zinc-600/50;
   box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
@@ -205,4 +201,4 @@ span[data-rehype-pretty-code-figure] > code > span {
   :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *))
   th:first-child {
   @apply border-l;
-}
+} */

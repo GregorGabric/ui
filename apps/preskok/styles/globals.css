@@ -124,8 +124,8 @@
   --bg: oklch(1 0 0);
   --background: var(--bg);
 
-  --shiki-bg: #2d2d3b;
-  --shiki-light: #2d2d3b;
+  --shiki-bg: #ffffff;
+  --shiki-light: #000000;
 
   --fg: oklch(0.147 0.004 49.25);
   --foreground: var(--fg);

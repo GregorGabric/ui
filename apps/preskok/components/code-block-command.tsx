@@ -92,7 +92,7 @@ export function CodeBlockCommand({
                 <Tab
                   key={key}
                   id={key}
-                  className="group-orientation-horizontal/tabs:pb-1 selected:border-border h-7 border border-transparent px-2 py-1 pt-0.5 [&>span]:hidden"
+                  className="group-orientation-horizontal/tabs:pb-1 selected:border-border h-7 border border-dashed border-transparent px-2 py-1 pt-0.5 [&>span]:hidden"
                 >
                   {key}
                 </Tab>
