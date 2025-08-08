@@ -3,7 +3,7 @@
 import * as React from "react"
 
 import { useConfig } from "@/hooks/use-config"
-import { Tabs } from "@/registry/preskok/ui/tabs"
+import { Tabs } from "@/registry/preskok/ui/preskok-ui/tabs"
 
 export function CodeTabs({ children }: React.ComponentProps<typeof Tabs>) {
   const [config, setConfig] = useConfig()
@@ -14,8 +14,8 @@ export function CodeTabs({ children }: React.ComponentProps<typeof Tabs>) {
 
   return (
     <Tabs
-      value={installationType}
-      onValueChange={(value) =>
+      selectedKey={installationType}
+      onSelectionChange={(value) =>
         setConfig({ ...config, installationType: value as "cli" | "manual" })
       }
       className="relative mt-6 w-full"

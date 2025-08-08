@@ -7,11 +7,11 @@ import { useConfig } from "@/hooks/use-config"
 import { copyToClipboardWithMeta } from "@/components/copy-button"
 import { Button } from "@/registry/preskok/ui/button"
 import {
+  Tab,
+  TabList,
+  TabPanel,
   Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/preskok/ui/tabs"
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 import {
   Tooltip,
   TooltipContent,
@@ -34,12 +34,16 @@ export function CodeBlockCommand({
 
   React.useEffect(() => {
     if (hasCopied) {
-      const timer = setTimeout(() => setHasCopied(false), 2000)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => {
+        setHasCopied(false)
+      }, 2000)
+      return () => {
+        clearTimeout(timer)
+      }
     }
   }, [hasCopied])
 
-  const packageManager = config.packageManager || "pnpm"
+  const packageManager = config.packageManager
   const tabs = React.useMemo(() => {
     return {
       pnpm: __pnpm__,
@@ -69,12 +73,12 @@ export function CodeBlockCommand({
   return (
     <div className="overflow-x-auto">
       <Tabs
-        value={packageManager}
+        selectedKey={packageManager}
         className="gap-0"
-        onValueChange={(value) => {
+        onSelectionChange={(key) => {
           setConfig({
             ...config,
-            packageManager: value as "pnpm" | "npm" | "yarn" | "bun",
+            packageManager: key as "pnpm" | "npm" | "yarn" | "bun",
           })
         }}
       >
@@ -82,24 +86,24 @@ export function CodeBlockCommand({
           <div className="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70">
             <TerminalIcon className="text-code size-3" />
           </div>
-          <TabsList className="rounded-none bg-transparent p-0">
+          <TabList className="gap-x-1 border-b-0" aria-label="Package managers">
             {Object.entries(tabs).map(([key]) => {
               return (
-                <TabsTrigger
+                <Tab
                   key={key}
-                  value={key}
-                  className="data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
+                  id={key}
+                  className="group-orientation-horizontal/tabs:pb-1 selected:border-border h-7 border border-transparent px-2 py-1 pt-0.5 [&>span]:hidden"
                 >
                   {key}
-                </TabsTrigger>
+                </Tab>
               )
             })}
-          </TabsList>
+          </TabList>
         </div>
         <div className="no-scrollbar overflow-x-auto">
           {Object.entries(tabs).map(([key, value]) => {
             return (
-              <TabsContent key={key} value={key} className="mt-0 px-4 py-3.5">
+              <TabPanel key={key} id={key} className="mt-0 px-4 py-3.5">
                 <pre>
                   <code
                     className="relative font-mono text-sm leading-none"
@@ -108,7 +112,7 @@ export function CodeBlockCommand({
                     {value}
                   </code>
                 </pre>
-              </TabsContent>
+              </TabPanel>
             )
           })}
         </div>
