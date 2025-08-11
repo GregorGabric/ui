@@ -23,7 +23,7 @@
 
   --color-ring: var(--ring);
 
-  --color-bg: var(--bg);
+  --color-bg: var(--background);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-fg: var(--color-foreground);
@@ -308,7 +308,7 @@
   }
 
   body {
-    background-color: var(--bg);
+    background-color: var(--background);
     color: var(--foreground);
     font-synthesis-weight: none;
   }
