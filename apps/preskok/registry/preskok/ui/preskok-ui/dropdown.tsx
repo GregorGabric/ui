@@ -25,7 +25,7 @@ const dropdownItemStyles = tv({
   base: [
     "[--mr-icon:--spacing(2)] sm:[--mr-icon:--spacing(1.5)]",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] px-3 py-2 supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:px-2.5 sm:py-1.5",
-    "not-has-[[slot=description]]:items-center has-[[slot=description]]:**:data-[slot=check-indicator]:mt-[1.5px]",
+    "not-has-[[slot=description]]:items-center has-[[slot=description]]:**:data-[slot=indicator]:mt-[1.5px]",
     "group relative cursor-default select-none rounded-[calc(var(--radius-lg)-1px)] text-base/6 text-foreground outline-0 sm:text-sm/6",
     "**:data-[slot=avatar]:*:mr-1.5 **:data-[slot=avatar]:*:size-6 **:data-[slot=avatar]:mr-(--mr-icon) **:data-[slot=avatar]:size-6 sm:**:data-[slot=avatar]:*:size-5 sm:**:data-[slot=avatar]:size-5",
     "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 **:data-[slot=icon]:text-muted-foreground sm:**:data-[slot=icon]:size-4",
@@ -111,7 +111,7 @@ const DropdownItem = ({ className, children, ...props }: DropdownItemProps) => {
       {composeRenderProps(children, (children, { isSelected }) => (
         <>
           {isSelected && (
-            <CheckIcon className="-mx-1 mr-1.5" data-slot="check-indicator" />
+            <CheckIcon className="mr-1.5 size-4" data-slot="indicator" />
           )}
           {typeof children === "string" ? (
             <DropdownLabel>{children}</DropdownLabel>
