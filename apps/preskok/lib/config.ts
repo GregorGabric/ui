@@ -1,13 +1,9 @@
 export const siteConfig = {
-  name: "shadcn/ui",
-  url: "https://ui.shadcn.com",
-  ogImage: "https://ui.shadcn.com/og.jpg",
+  name: "preskok/ui",
+  url: "ui-three-mu.vercel.app",
+  ogImage: "ui-three-mu.vercel.app/og.jpg",
   description:
     "A set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks. Open Source. Open Code.",
-  links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn-ui/ui",
-  },
   navItems: [
     {
       href: "/docs/installation",
@@ -28,6 +24,10 @@ export const siteConfig = {
     {
       href: "/themes",
       label: "Themes",
+    },
+    {
+      href: "/theme-studio",
+      label: "Themes New",
     },
     {
       href: "/colors",
