@@ -2214,6 +2214,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "modal-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["modal", "button", "text-field"],
+    files: [
+      {
+        path: "examples/modal-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "disclosure-preskok-demo",
     type: "registry:example",
     registryDependencies: ["disclosure"],
@@ -2242,6 +2253,28 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/drop-zone-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "multiple-select-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["multiple-select"],
+    files: [
+      {
+        path: "examples/multiple-select-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "show-more-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["show-more"],
+    files: [
+      {
+        path: "examples/show-more-preskok-demo.tsx",
         type: "registry:example",
       },
     ],

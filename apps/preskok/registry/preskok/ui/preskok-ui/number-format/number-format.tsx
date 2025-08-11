@@ -1,11 +1,17 @@
 "use client"
 
+import type { PropsWithChildren } from "react"
 import React, { useRef } from "react"
 import type { NumericFormatProps } from "react-number-format"
 import { NumericFormat } from "react-number-format"
 
+import { LocaleContext } from "@/registry/preskok/ui/preskok-ui/locale-context/locale-context"
+import type { Locale } from "@/registry/preskok/ui/preskok-ui/locale-context/locale-helpers"
 import { CurrencyCodeAndSymbolMap } from "@/registry/preskok/ui/preskok-ui/locale-context/locale-helpers"
-import { useNumberFormatContext } from "@/registry/preskok/ui/preskok-ui/number-format/number-format-context"
+import {
+  NumberFormatContext,
+  useNumberFormatContext,
+} from "@/registry/preskok/ui/preskok-ui/number-format/number-format-context"
 
 interface NumberFormatPropsUnified
   extends Omit<
@@ -173,3 +179,37 @@ export const NumberFormat: React.FC<NumberFormatPropsUnified> = ({
     />
   )
 }
+
+export function NumberFormatProvider({ children }: PropsWithChildren) {
+  return (
+    <LocaleContext>
+      <NumberFormatContext>{children}</NumberFormatContext>
+    </LocaleContext>
+  )
+}
+
+interface NumberTextProps {
+  value: number
+  className?: string
+  intlOptions?: Intl.NumberFormatOptions
+  locale?: Locale
+  invalidNumberText?: string
+}
+
+export function NumberText({
+  value,
+  className,
+  intlOptions,
+  locale,
+  invalidNumberText,
+}: NumberTextProps) {
+  const { formatNumberRaw } = useNumberFormatContext()
+  const res = formatNumberRaw(value, { locale, intlOptions, invalidNumberText })
+  return (
+    <span className={className}>
+      {res.value ?? res.invalidNumberText ?? ""}
+    </span>
+  )
+}
+
+export const useNumberFormat = useNumberFormatContext
