@@ -111,10 +111,10 @@ const Slider = ({
       )}
       {...props}
     >
-      <div className="text-fg flex">
+      <div className="text-foreground flex">
         {props.label && <Label>{props.label}</Label>}
         {output === "inline" && (
-          <SliderOutput className="text-muted-fg text-sm tabular-nums data-[orientation=horizontal]:ml-auto data-[orientation=vertical]:mx-auto">
+          <SliderOutput className="text-muted-foreground text-sm tabular-nums data-[orientation=horizontal]:ml-auto data-[orientation=vertical]:mx-auto">
             {({ state }) =>
               state.values
                 .map((_, i) => state.getThumbValueLabel(i))
@@ -190,7 +190,7 @@ const SliderFiller = ({
 
 const thumbStyles = tv({
   base: [
-    "top-[50%] left-[50%] size-[1.25rem] rounded-full border border-fg/10 bg-white outline-hidden ring-black transition-[width,height]",
+    "top-[50%] left-[50%] size-[1.25rem] rounded-full border border-foreground/10 bg-white outline-hidden ring-black transition-[width,height]",
   ],
   variants: {
     isFocusVisible: {

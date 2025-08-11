@@ -47,7 +47,7 @@ const useTableContext = () => use(TableContext)
 const Root = (props: TableProps) => {
   return (
     <TablePrimitive
-      className="w-full min-w-full caption-bottom text-sm/6 outline-hidden [--table-selected-bg:var(--color-secondary)]/50"
+      className="w-full min-w-full caption-bottom text-sm/6 outline-hidden [--table-selected-background:var(--color-secondary)]/50"
       {...props}
     />
   )
@@ -123,7 +123,7 @@ const TableColumn = ({
       className={composeTailwindRenderProps(
         className,
         twJoin(
-          "text-muted-fg text-left font-medium",
+          "text-muted-foreground text-left font-medium",
           "allows-sorting:cursor-default relative outline-hidden data-dragging:cursor-grabbing",
           "px-4 py-(--gutter-y) first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
           !bleed && "sm:first:pl-1 sm:last:pr-1",
@@ -139,8 +139,8 @@ const TableColumn = ({
           {values.allowsSorting && (
             <span
               className={twMerge(
-                "bg-secondary text-fg grid size-[1.15rem] flex-none shrink-0 place-content-center rounded *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:transition-transform *:data-[slot=icon]:duration-200",
-                values.isHovered ? "bg-secondary-fg/10" : "",
+                "bg-secondary text-foreground grid size-[1.15rem] flex-none shrink-0 place-content-center rounded *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:transition-transform *:data-[slot=icon]:duration-200",
+                values.isHovered ? "bg-secondary-foreground/10" : "",
                 className
               )}
             >
@@ -236,15 +236,15 @@ const TableRow = <T extends object>({
           }
         ) =>
           twMerge(
-            "group text-muted-fg ring-primary relative cursor-default border-b outline-transparent last:border-b-0",
+            "group text-muted-foreground ring-primary relative cursor-default border-b outline-transparent last:border-b-0",
             isDragging && "outline outline-blue-500",
             isSelected &&
-              "text-fg bg-(--table-selected-bg) hover:bg-(--table-selected-bg)/50",
+              "text-foreground bg-(--table-selected-background) hover:bg-(--table-selected-background)/50",
             (props.href || props.onAction || selectionMode === "multiple") &&
-              "hover:text-fg hover:bg-(--table-selected-bg)",
+              "hover:text-foreground hover:bg-(--table-selected-background)",
             (props.href || props.onAction || selectionMode === "multiple") &&
               isFocusVisibleWithin &&
-              "selected:bg-(--table-selected-bg)/50 text-fg bg-(--table-selected-bg)/50",
+              "selected:bg-(--table-selected-background)/50 text-foreground bg-(--table-selected-background)/50",
             isDisabled && "opacity-50",
             className
           )
@@ -281,7 +281,7 @@ const TableCell = ({ className, ...props }: CellProps) => {
       className={composeTailwindRenderProps(
         className,
         twJoin(
-          "group group-has-data-focus-visible-within:text-fg px-4 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
+          "group group-has-data-focus-visible-within:text-foreground px-4 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
           !bleed && "sm:first:pl-1 sm:last:pr-1",
           allowResize && "truncate overflow-hidden"
         )

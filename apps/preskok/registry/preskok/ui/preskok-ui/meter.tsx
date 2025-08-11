@@ -29,7 +29,7 @@ const Meter = ({ label, className, ...props }: MeterProps) => {
           <div className="flex w-full justify-between gap-2">
             <Label>{label}</Label>
             <span
-              className={`text-sm tabular-nums ${percentage >= 80 ? "text-danger" : "text-muted-fg"}`}
+              className={`text-sm tabular-nums ${percentage >= 80 ? "text-danger" : "text-muted-foreground"}`}
             >
               {percentage >= 80 && (
                 <CircleAlertIcon

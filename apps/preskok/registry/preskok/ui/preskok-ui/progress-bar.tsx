@@ -26,7 +26,7 @@ const ProgressBar = ({ label, ref, className, ...props }: ProgressBarProps) => {
         <>
           <div className="flex justify-between gap-2">
             {label && <Label>{label}</Label>}
-            <span className="text-muted-fg text-sm tabular-nums">
+            <span className="text-muted-foreground text-sm tabular-nums">
               {valueText}
             </span>
           </div>

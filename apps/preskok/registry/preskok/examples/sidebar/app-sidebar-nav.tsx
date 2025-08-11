@@ -46,7 +46,7 @@ function UserMenu() {
         <Menu.Section>
           <Menu.Header separator>
             <span className="block">Kurt Cobain</span>
-            <span className="text-muted-fg font-normal">@cobain</span>
+            <span className="text-muted-foreground font-normal">@cobain</span>
           </Menu.Header>
         </Menu.Section>
         <Menu.Item href="#dashboard">

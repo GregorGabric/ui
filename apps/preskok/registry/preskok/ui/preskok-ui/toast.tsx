@@ -17,23 +17,23 @@ const Toast = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          "--normal-bg": "var(--color-overlay)",
-          "--normal-text": "var(--color-overlay-fg)",
+          "--normal-background": "var(--color-overlay)",
+          "--normal-text": "var(--color-overlay-foreground)",
           "--normal-border": "var(--color-border)",
 
-          "--success-bg": "var(--color-success-bg)",
+          "--success-background": "var(--color-success-background)",
           "--success-border": "var(--color-success-border)",
           "--success-text": "var(--color-success-text)",
 
-          "--error-bg": "var(--color-error-bg)",
+          "--error-background": "var(--color-error-background)",
           "--error-border": "var(--color-error-border)",
           "--error-text": "var(--color-error-text)",
 
-          "--warning-bg": "var(--color-warning-bg)",
+          "--warning-background": "var(--color-warning-background)",
           "--warning-border": "var(--color-warning-border)",
           "--warning-text": "var(--color-warning-text)",
 
-          "--info-bg": "var(--color-info-bg)",
+          "--info-background": "var(--color-info-background)",
           "--info-border": "var(--color-info-border)",
           "--info-text": "var(--color-info-text)",
         } as React.CSSProperties

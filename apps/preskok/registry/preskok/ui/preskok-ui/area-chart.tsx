@@ -138,14 +138,14 @@ export const AreaChart = <TValue extends ValueType, TName extends NameType>({
             <CartesianGrid {...cartesianGridProps} strokeDasharray="3 3" />
           )}
           <XAxis
-            className="**:[text]:fill-muted-fg"
+            className="**:[text]:fill-muted-foreground"
             hide={hideXAxis}
             displayEdgeLabelsOnly={displayEdgeLabelsOnly}
             intervalType={intervalType}
             {...xAxisProps}
           />
           <YAxis
-            className="**:[text]:fill-muted-fg"
+            className="**:[text]:fill-muted-foreground"
             hide={hideYAxis}
             tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
             {...yAxisProps}

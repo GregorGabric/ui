@@ -18,9 +18,9 @@ const tooltipStyles = tv({
   variants: {
     intent: {
       default:
-        "bg-overlay text-overlay-fg *:data-[slot=overlay-arrow]:fill-overlay *:data-[slot=overlay-arrow]:stroke-border",
+        "bg-overlay text-overlay-foreground *:data-[slot=overlay-arrow]:fill-overlay *:data-[slot=overlay-arrow]:stroke-border",
       inverse:
-        "border-transparent bg-fg text-bg *:data-[slot=overlay-arrow]:fill-fg *:data-[slot=overlay-arrow]:stroke-transparent dark:*:data-[slot=overlay-arrow]:fill-white [&_.text-muted-fg]:text-bg/70 dark:[&_.text-muted-fg]:text-fg/70",
+        "border-transparent bg-foreground text-background *:data-[slot=overlay-arrow]:fill-foreground *:data-[slot=overlay-arrow]:stroke-transparent dark:*:data-[slot=overlay-arrow]:fill-white [&_.text-muted-foreground]:text-background/70 dark:[&_.text-muted-foreground]:text-foreground/70",
     },
     isEntering: {
       true: [
@@ -89,5 +89,5 @@ const TooltipContent = ({
 Tooltip.Trigger = Button
 Tooltip.Content = TooltipContent
 
-export type { TooltipProps, TooltipContentProps }
 export { Tooltip }
+export type { TooltipContentProps, TooltipProps }

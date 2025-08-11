@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/drawer-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Drawer } from \"@/registry/preskok/ui/preskok-ui/drawer\"\n\nexport default function DrawerPreskokDemo() {\n  return (\n    <Drawer>\n      <Drawer.Trigger className=\"bg-primary text-primary-fg rounded-md px-3 py-1.5\">\n        Open drawer\n      </Drawer.Trigger>\n      <Drawer.Content side=\"right\">\n        <Drawer.Header>\n          <Drawer.Title>Drawer title</Drawer.Title>\n          <Drawer.Description>Optional description</Drawer.Description>\n        </Drawer.Header>\n        <Drawer.Body>\n          <p className=\"p-2\">Drawer content...</p>\n        </Drawer.Body>\n        <Drawer.Footer>\n          <Drawer.Close>Close</Drawer.Close>\n        </Drawer.Footer>\n      </Drawer.Content>\n    </Drawer>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Drawer } from \"@/registry/preskok/ui/preskok-ui/drawer\"\n\nexport default function DrawerPreskokDemo() {\n  return (\n    <Drawer>\n      <Drawer.Trigger className=\"bg-primary text-primary-foreground rounded-md px-3 py-1.5\">\n        Open drawer\n      </Drawer.Trigger>\n      <Drawer.Content side=\"right\">\n        <Drawer.Header>\n          <Drawer.Title>Drawer title</Drawer.Title>\n          <Drawer.Description>Optional description</Drawer.Description>\n        </Drawer.Header>\n        <Drawer.Body>\n          <p className=\"p-2\">Drawer content...</p>\n        </Drawer.Body>\n        <Drawer.Footer>\n          <Drawer.Close>Close</Drawer.Close>\n        </Drawer.Footer>\n      </Drawer.Content>\n    </Drawer>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

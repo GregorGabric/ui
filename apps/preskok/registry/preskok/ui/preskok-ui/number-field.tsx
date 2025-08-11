@@ -61,7 +61,7 @@ const NumberField = ({
       <FieldGroup
         className={twJoin(
           isMobile && [
-            "**:[button]:inset-ring-fg/5 **:[button]:grid **:[button]:size-8 **:[button]:place-content-center **:[button]:inset-ring",
+            "**:[button]:inset-ring-foreground/5 **:[button]:grid **:[button]:size-8 **:[button]:place-content-center **:[button]:inset-ring",
             "*:[button]:first:ml-1 *:[button]:last:mr-1",
             "**:[button]:bg-secondary **:[button]:pressed:bg-secondary/80",
           ]
@@ -140,7 +140,7 @@ const StepperButton = ({
     <Button
       className={composeTailwindRenderProps(
         className,
-        "pressed:text-primary-fg text-muted-fg group-disabled:bg-secondary/70 sm:pressed:bg-primary relative z-10 h-10 cursor-default forced-colors:group-disabled:text-[GrayText]"
+        "pressed:text-primary-foreground text-muted-foreground group-disabled:bg-secondary/70 sm:pressed:bg-primary relative z-10 h-10 cursor-default forced-colors:group-disabled:text-[GrayText]"
       )}
       slot={slot}
       {...props}

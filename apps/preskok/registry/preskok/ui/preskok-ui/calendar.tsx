@@ -57,12 +57,13 @@ const Calendar = <T extends DateValue>({
                 className,
                 (className, { isSelected, isDisabled }) =>
                   twMerge(
-                    "text-fg hover:bg-secondary-fg/15 relative flex size-12 cursor-default items-center justify-center rounded-lg tabular-nums outline-hidden sm:size-9 sm:text-sm/6 forced-colors:text-[ButtonText] forced-colors:outline-0",
+                    "text-foreground hover:bg-secondary-foreground/15 relative flex size-12 cursor-default items-center justify-center rounded-lg tabular-nums outline-hidden sm:size-9 sm:text-sm/6 forced-colors:text-[ButtonText] forced-colors:outline-0",
                     isSelected &&
-                      "bg-primary pressed:bg-primary text-primary-fg hover:bg-primary/90 data-invalid:bg-danger data-invalid:text-danger-fg forced-colors:bg-[Highlight] forced-colors:text-[Highlight] forced-colors:data-invalid:bg-[Mark]",
-                    isDisabled && "text-muted-fg forced-colors:text-[GrayText]",
+                      "bg-primary pressed:bg-primary text-primary-foreground hover:bg-primary/90 data-invalid:bg-danger data-invalid:text-danger-foreground forced-colors:bg-[Highlight] forced-colors:text-[Highlight] forced-colors:data-invalid:bg-[Mark]",
+                    isDisabled &&
+                      "text-muted-foreground forced-colors:text-[GrayText]",
                     date.compare(now) === 0 &&
-                      "after:bg-primary selected:after:bg-primary-fg focus-visible:after:bg-primary-fg after:pointer-events-none after:absolute after:start-1/2 after:bottom-1 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full",
+                      "after:bg-primary selected:after:bg-primary-foreground focus-visible:after:bg-primary-foreground after:pointer-events-none after:absolute after:start-1/2 after:bottom-1 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full",
                     className
                   )
               )}
@@ -104,7 +105,7 @@ const CalendarHeader = ({
       )}
       <Heading
         className={twMerge(
-          "text-muted-fg mr-2 flex-1 text-left font-medium sm:text-sm",
+          "text-muted-foreground mr-2 flex-1 text-left font-medium sm:text-sm",
           !isRange && "sr-only",
           className
         )}
@@ -112,7 +113,7 @@ const CalendarHeader = ({
       <div className="flex items-center gap-1">
         <Button
           size="sq-sm"
-          className="**:data-[slot=icon]:text-fg size-8 sm:size-7"
+          className="**:data-[slot=icon]:text-foreground size-8 sm:size-7"
           isCircle
           intent="plain"
           slot="previous"
@@ -121,7 +122,7 @@ const CalendarHeader = ({
         </Button>
         <Button
           size="sq-sm"
-          className="**:data-[slot=icon]:text-fg size-8 sm:size-7"
+          className="**:data-[slot=icon]:text-foreground size-8 sm:size-7"
           isCircle
           intent="plain"
           slot="next"
@@ -214,7 +215,7 @@ const CalendarGridHeader = () => {
   return (
     <CalendarGridHeaderPrimitive>
       {(day) => (
-        <CalendarHeaderCell className="text-muted-fg pb-2 text-center text-sm/6 font-semibold sm:px-0 sm:py-0.5 lg:text-xs">
+        <CalendarHeaderCell className="text-muted-foreground pb-2 text-center text-sm/6 font-semibold sm:px-0 sm:py-0.5 lg:text-xs">
           {day}
         </CalendarHeaderCell>
       )}

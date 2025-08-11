@@ -9,10 +9,12 @@
 @plugin 'tailwindcss-react-aria-components';
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: "Geist Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas",
-    '"Liberation Mono"', '"Courier New"', "monospace";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono:
+    "Geist Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco",
+    "Consolas", '"Liberation Mono"', '"Courier New"', "monospace";
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -20,37 +22,38 @@
   --color-ring: var(--ring);
 
   --color-bg: var(--bg);
-  --color-fg: var(--fg);
+  --color-foreground: var(--foreground);
+  --color-fg: var(--color-foreground);
 
   --color-primary: var(--primary);
-  --color-primary-fg: var(--primary-fg);
+  --color-primary-fg: var(--primary-foreground);
 
   --color-secondary: var(--secondary);
-  --color-secondary-fg: var(--secondary-fg);
+  --color-secondary-fg: var(--secondary-foreground);
 
   --color-accent: var(--accent);
-  --color-accent-fg: var(--accent-fg);
+  --color-accent-fg: var(--accent-foreground);
 
   --color-success: var(--success);
-  --color-success-fg: var(--success-fg);
+  --color-success-fg: var(--success-foreground);
 
   --color-danger: var(--danger);
-  --color-danger-fg: var(--danger-fg);
+  --color-danger-fg: var(--danger-foreground);
 
   --color-warning: var(--warning);
-  --color-warning-fg: var(--warning-fg);
+  --color-warning-fg: var(--warning-foreground);
 
   --color-muted: var(--muted);
-  --color-muted-fg: var(--muted-fg);
+  --color-muted-fg: var(--muted-foreground);
 
   --color-overlay: var(--overlay);
-  --color-overlay-fg: var(--overlay-fg);
+  --color-overlay-fg: var(--overlay-foreground);
 
   --color-navbar: var(--navbar);
-  --color-navbar-fg: var(--navbar-fg);
+  --color-navbar-fg: var(--navbar-foreground);
 
   --color-sidebar: var(--sidebar);
-  --color-sidebar-fg: var(--sidebar-fg);
+  --color-sidebar-fg: var(--sidebar-foreground);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -62,41 +65,52 @@
 @layer base {
   :root {
     --bg: var(--color-white);
-    --fg: var(--color-neutral-950);
+    --foreground: var(--color-neutral-950);
+    --fg: var(--foreground);
 
     --primary: var(--color-blue-600);
-    --primary-fg: var(--color-white);
+    --primary-foreground: var(--color-white);
+    --primary-fg: var(--primary-foreground);
 
     --secondary: var(--color-neutral-100);
-    --secondary-fg: var(--color-neutral-950);
+    --secondary-foreground: var(--color-neutral-950);
+    --secondary-fg: var(--secondary-foreground);
 
     --overlay: var(--color-white);
-    --overlay-fg: var(--color-neutral-950);
+    --overlay-foreground: var(--color-neutral-950);
+    --overlay-fg: var(--overlay-foreground);
 
     --accent: var(--color-blue-600);
-    --accent-fg: var(--color-white);
+    --accent-foreground: var(--color-white);
+    --accent-fg: var(--accent-foreground);
 
     --muted: var(--color-neutral-100);
-    --muted-fg: var(--color-neutral-600);
+    --muted-foreground: var(--color-neutral-600);
+    --muted-fg: var(--muted-foreground);
 
     --success: var(--color-emerald-600);
-    --success-fg: var(--color-white);
+    --success-foreground: var(--color-white);
+    --success-fg: var(--success-foreground);
 
     --warning: var(--color-amber-400);
-    --warning-fg: var(--color-amber-950);
+    --warning-foreground: var(--color-amber-950);
+    --warning-fg: var(--warning-foreground);
 
     --danger: var(--color-red-600);
-    --danger-fg: var(--color-red-50);
+    --danger-foreground: var(--color-red-50);
+    --danger-fg: var(--danger-foreground);
 
     --border: var(--color-neutral-200);
     --input: var(--color-neutral-300);
     --ring: var(--color-blue-600);
 
     --navbar: var(--color-neutral-50);
-    --navbar-fg: var(--color-neutral-950);
+    --navbar-foreground: var(--color-neutral-950);
+    --navbar-fg: var(--navbar-foreground);
 
     --sidebar: var(--color-neutral-50);
-    --sidebar-fg: var(--color-neutral-950);
+    --sidebar-foreground: var(--color-neutral-950);
+    --sidebar-fg: var(--sidebar-foreground);
 
     --chart-1: var(--color-blue-600);
     --chart-2: var(--color-blue-400);
@@ -116,7 +130,8 @@
 
   .dark {
     --bg: var(--color-neutral-950);
-    --fg: var(--color-neutral-50);
+    --foreground: var(--color-neutral-50);
+    --fg: var(--foreground);
 
     --primary: var(--color-blue-600);
     --primary-fg: var(--color-white);

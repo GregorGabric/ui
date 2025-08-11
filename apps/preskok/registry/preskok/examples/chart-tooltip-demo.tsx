@@ -177,7 +177,7 @@ function TooltipDemo({
                 {!hideIndicator && (
                   <div
                     className={cn(
-                      "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
+                      "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-background]",
                       {
                         "h-2.5 w-2.5": indicator === "dot",
                         "w-1": indicator === "line",
@@ -188,7 +188,7 @@ function TooltipDemo({
                     )}
                     style={
                       {
-                        "--color-bg": indicatorColor,
+                        "--color-background": indicatorColor,
                         "--color-border": indicatorColor,
                       } as React.CSSProperties
                     }

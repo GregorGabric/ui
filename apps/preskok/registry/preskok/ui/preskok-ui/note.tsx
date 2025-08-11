@@ -27,7 +27,7 @@ const Note = ({
         "grid w-full grid-cols-[auto_1fr] gap-3 overflow-hidden rounded-lg p-4 inset-ring-1 inset-ring-current/10 sm:text-sm/6",
         "[&_a]:underline hover:[&_a]:underline **:[strong]:font-semibold",
         intent === "default" &&
-          "border-border bg-secondary/20 text-secondary-fg **:data-[slot=icon]:text-secondary-fg dark:**:data-[slot=icon]:text-secondary-fg [&_a]:text-secondary-fg dark:[&_a]:text-secondary-fg",
+          "border-border bg-secondary/20 text-secondary-foreground **:data-[slot=icon]:text-secondary-foreground dark:**:data-[slot=icon]:text-secondary-foreground [&_a]:text-secondary-foreground dark:[&_a]:text-secondary-foreground",
         intent === "info" &&
           "bg-sky-500/5 text-sky-700 group-hover:bg-sky-500/25 dark:bg-sky-500/10 dark:text-sky-300 dark:group-hover:bg-sky-500/20",
         intent === "warning" &&

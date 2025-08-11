@@ -12,7 +12,7 @@ import {
 export default function DialogPreskokDemo() {
   return (
     <DialogTrigger>
-      <button className="bg-primary text-primary-fg rounded-md px-3 py-1.5">
+      <button className="bg-primary text-primary-foreground rounded-md px-3 py-1.5">
         Open dialog
       </button>
       <Dialog>

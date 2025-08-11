@@ -79,7 +79,7 @@ const DatePickerIcon = () => (
   <Button
     size="sq-sm"
     intent="plain"
-    className="pressed:bg-transparent focus-visible:text-fg group-open:text-fg **:data-[slot=icon]:text-muted-fg group-open:*:data-[slot=icon]:text-fg size-7 shrink-0 rounded outline-hidden outline-offset-0 hover:bg-transparent focus-visible:ring-0"
+    className="pressed:bg-transparent focus-visible:text-foreground group-open:text-foreground **:data-[slot=icon]:text-muted-foreground group-open:*:data-[slot=icon]:text-foreground size-7 shrink-0 rounded outline-hidden outline-offset-0 hover:bg-transparent focus-visible:ring-0"
   >
     <CalendarDaysIcon />
   </Button>

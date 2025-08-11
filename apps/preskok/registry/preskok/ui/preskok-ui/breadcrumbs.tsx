@@ -78,9 +78,11 @@ const Separator = ({
   separator?: BreadcrumbsItemProps["separator"]
 }) => {
   return (
-    <span className="*:text-muted-fg *:shrink-0 *:data-[slot=icon]:size-3.5">
+    <span className="*:text-muted-foreground *:shrink-0 *:data-[slot=icon]:size-3.5">
       {separator === "chevron" && <ChevronRightIcon />}
-      {separator === "slash" && <span className="text-muted-fg">/</span>}
+      {separator === "slash" && (
+        <span className="text-muted-foreground">/</span>
+      )}
     </span>
   )
 }

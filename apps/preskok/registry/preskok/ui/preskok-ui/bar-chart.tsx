@@ -115,14 +115,14 @@ const BarChart = <TValue extends ValueType, TName extends NameType>({
           {!hideGridLines && <CartesianGrid strokeDasharray="4 4" />}
           <XAxis
             hide={hideXAxis}
-            className="**:[text]:fill-muted-fg"
+            className="**:[text]:fill-muted-foreground"
             displayEdgeLabelsOnly={displayEdgeLabelsOnly}
             intervalType={intervalType}
             {...xAxisProps}
           />
           <YAxis
             hide={hideYAxis}
-            className="**:[text]:fill-muted-fg"
+            className="**:[text]:fill-muted-foreground"
             tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
             {...yAxisProps}
           />

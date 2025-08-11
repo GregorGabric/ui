@@ -41,14 +41,14 @@ const TimeField = <T extends TimeValue>({
       {label && <Label>{label}</Label>}
       <FieldGroup>
         {prefix && typeof prefix === "string" ? (
-          <span className="text-muted-fg ml-2">{prefix}</span>
+          <span className="text-muted-foreground ml-2">{prefix}</span>
         ) : (
           prefix
         )}
         <DateInput className="flex w-fit min-w-28 justify-around whitespace-nowrap" />
         {suffix ? (
           typeof suffix === "string" ? (
-            <span className="text-muted-fg mr-2">{suffix}</span>
+            <span className="text-muted-foreground mr-2">{suffix}</span>
           ) : (
             suffix
           )

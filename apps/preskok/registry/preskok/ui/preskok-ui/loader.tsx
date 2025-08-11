@@ -12,7 +12,7 @@ const loaderStyles = tv({
     intent: {
       current: "text-current",
       primary: "text-primary",
-      secondary: "text-muted-fg",
+      secondary: "text-muted-foreground",
       success: "text-success",
       warning: "text-warning",
       danger: "text-danger",

@@ -110,12 +110,12 @@ const ComboBoxInput = (props: InputProps) => {
       <Button
         size="sq-xs"
         intent="plain"
-        className="pressed:bg-transparent **:data-[slot=icon]:pressed:text-fg **:data-[slot=icon]:text-muted-fg **:data-[slot=icon]:hover:text-fg rounded outline-offset-0 hover:bg-transparent active:bg-transparent forced-colors:group-disabled:border-[GrayText] forced-colors:group-disabled:text-[GrayText]"
+        className="pressed:bg-transparent **:data-[slot=icon]:pressed:text-foreground **:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:hover:text-foreground rounded outline-offset-0 hover:bg-transparent active:bg-transparent forced-colors:group-disabled:border-[GrayText] forced-colors:group-disabled:text-[GrayText]"
       >
         {!context?.inputValue && (
           <ChevronsUpDownIcon
             data-slot="chevron"
-            className="text-muted-fg group-open:text-fg size-4 shrink-0"
+            className="text-muted-foreground group-open:text-foreground size-4 shrink-0"
           />
         )}
       </Button>

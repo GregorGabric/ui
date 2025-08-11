@@ -96,7 +96,7 @@ const DialogTitle = ({ className, ref, ...props }: DialogTitleProps) => (
     slot="title"
     ref={ref}
     className={twMerge(
-      "text-fg text-lg/6 font-semibold text-balance sm:text-base/6",
+      "text-foreground text-lg/6 font-semibold text-balance sm:text-base/6",
       className
     )}
     {...props}
@@ -114,7 +114,7 @@ const DialogDescription = ({
   <Text
     slot="description"
     className={twMerge(
-      "text-muted-fg text-base/6 text-pretty group-disabled:opacity-50 sm:text-sm/6",
+      "text-muted-foreground text-base/6 text-pretty group-disabled:opacity-50 sm:text-sm/6",
       className
     )}
     ref={ref}

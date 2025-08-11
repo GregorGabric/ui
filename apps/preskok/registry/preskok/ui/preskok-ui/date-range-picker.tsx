@@ -47,7 +47,7 @@ const DateRangePicker = <T extends DateValue>({
         <DateInput slot="start" className="pl-2" />
         <span
           aria-hidden="true"
-          className="text-fg group-disabled:text-muted-fg -mx-2 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
+          className="text-foreground group-disabled:text-muted-foreground -mx-2 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
         >
           –
         </span>

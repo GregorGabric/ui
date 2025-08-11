@@ -19,7 +19,7 @@ export function Color({ color }: { color: Color }) {
       data-last-copied={lastCopied === color[format]}
       style={
         {
-          "--bg": `${color.oklch}`,
+          "--background": `${color.oklch}`,
           "--text": color.foreground,
         } as React.CSSProperties
       }
@@ -42,7 +42,7 @@ export function Color({ color }: { color: Color }) {
       ) : (
         <Clipboard className="group-hover:opacity-100" />
       )}
-      <div className="border-ghost after:border-input w-full flex-1 rounded-md bg-(--bg) after:rounded-lg md:rounded-lg" />
+      <div className="border-ghost after:border-input w-full flex-1 rounded-md bg-(--background) after:rounded-lg md:rounded-lg" />
       <div className="flex w-full flex-col items-center justify-center gap-1">
         <span className="text-muted-foreground group-hover:text-foreground group-data-[last-copied=true]:text-primary font-mono text-xs tabular-nums transition-colors sm:hidden xl:flex">
           {color.className}

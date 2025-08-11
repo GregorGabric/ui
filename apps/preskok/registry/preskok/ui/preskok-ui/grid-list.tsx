@@ -33,7 +33,7 @@ const GridList = <T extends object>({
 )
 
 const itemStyles = tv({
-  base: "group -mb-px -outline-offset-2 relative flex cursor-default select-none gap-3 border-y px-3 py-2 text-fg outline-hidden transition [--selected-item-hovered:--color-muted]/70 [--selected-item:var(--color-muted)]/80 first:rounded-t-md first:border-t-0 last:mb-0 last:rounded-b-md last:border-b-0 sm:text-sm",
+  base: "group -mb-px -outline-offset-2 relative flex cursor-default select-none gap-3 border-y px-3 py-2 text-foreground outline-hidden transition [--selected-item-hovered:--color-muted]/70 [--selected-item:var(--color-muted)]/80 first:rounded-t-md first:border-t-0 last:mb-0 last:rounded-b-md last:border-b-0 sm:text-sm",
   variants: {
     isHovered: { true: "bg-subtle" },
     isSelected: {
@@ -46,7 +46,7 @@ const itemStyles = tv({
       true: "bg-(--selected-item) selected:bg-(--selected-item) outline-hidden ring-1 ring-ring hover:bg-(--selected-item-hovered)",
     },
     isDisabled: {
-      true: "text-muted-fg/70 forced-colors:text-[GrayText]",
+      true: "text-muted-foreground/70 forced-colors:text-[GrayText]",
     },
   },
 })
@@ -67,7 +67,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
           {values.allowsDragging && (
             <Button
               slot="drag"
-              className="*:data-[slot=icon]:text-muted-fg cursor-grab data-dragging:cursor-grabbing"
+              className="*:data-[slot=icon]:text-muted-foreground cursor-grab data-dragging:cursor-grabbing"
             >
               <GripVerticalIcon />
             </Button>

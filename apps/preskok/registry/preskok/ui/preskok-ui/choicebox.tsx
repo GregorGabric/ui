@@ -85,10 +85,10 @@ const Choicebox = <T extends object>({
 
 const choiceboxItemStyles = tv({
   base: [
-    "group outline-hidden [--choicebox-fg:var(--color-primary)] [--choicebox:color-mix(in_oklab,var(--color-primary)_4%,white_96%)]",
+    "group outline-hidden [--choicebox-foreground:var(--color-primary)] [--choicebox:color-mix(in_oklab,var(--color-primary)_4%,white_96%)]",
     "[--choicebox-selected-hovered:color-mix(in_oklab,var(--color-primary)_15%,white_85%)]",
     "dark:[--choicebox-selected-hovered:color-mix(in_oklab,var(--color-primary)_25%,black_75%)]",
-    "dark:[--choicebox-fg:color-mix(in_oklab,var(--color-primary)_45%,white_55%)] dark:[--choicebox:color-mix(in_oklab,var(--color-primary)_20%,black_70%)]",
+    "dark:[--choicebox-foreground:color-mix(in_oklab,var(--color-primary)_45%,white_55%)] dark:[--choicebox:color-mix(in_oklab,var(--color-primary)_20%,black_70%)]",
     "inset-ring inset-ring-border rounded-lg p-4 **:data-[slot=label]:font-medium",
     " **:data-[slot=avatar]:*:size-6 **:data-[slot=avatar]:size-5 **:data-[slot=avatar]:shrink-0",
     "**:data-[slot=icon]:mt-[--spacing(0.7)] **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0",
@@ -109,14 +109,14 @@ const choiceboxItemStyles = tv({
     },
     isHocuset: {
       true: [
-        "bg-(--choicebox) text-(--choicebox-fg)",
+        "bg-(--choicebox) text-(--choicebox-foreground)",
         "inset-ring-ring/70 z-20 hover:bg-(--choicebox-selected-hovered)",
-        "**:data-[slot=label]:text-(--choicebox-fg)",
-        "**:[[slot=description]]:text-(--choicebox-fg)",
+        "**:data-[slot=label]:text-(--choicebox-foreground)",
+        "**:[[slot=description]]:text-(--choicebox-foreground)",
       ],
     },
     isDisabled: {
-      true: "z-10 opacity-50 **:data-[slot=label]:text-muted-fg forced-colors:text-[GrayText] **:[[slot=description]]:text-muted-fg/70",
+      true: "z-10 opacity-50 **:data-[slot=label]:text-muted-foreground forced-colors:text-[GrayText] **:[[slot=description]]:text-muted-foreground/70",
     },
   },
 })
@@ -201,7 +201,7 @@ const ChoiceboxLabel = ({ className, ref, ...props }: ChoiceboxLabelProps) => {
       data-slot="label"
       ref={ref}
       className={twMerge(
-        "text-fg text-base/6 select-none group-disabled:opacity-50 sm:text-sm/6",
+        "text-foreground text-base/6 select-none group-disabled:opacity-50 sm:text-sm/6",
         "col-start-1 row-start-1",
         "group-has-data-[slot=icon]:col-start-2",
         className
@@ -225,7 +225,7 @@ const ChoiceboxDescription = ({
       className={twMerge(
         "col-start-1 row-start-2",
         "group-has-data-[slot=icon]:col-start-2",
-        "text-muted-fg text-base/6 sm:text-sm/6",
+        "text-muted-foreground text-base/6 sm:text-sm/6",
         "group-disabled:opacity-50",
         className
       )}
@@ -238,5 +238,5 @@ Choicebox.Item = ChoiceboxItem
 Choicebox.Label = ChoiceboxLabel
 Choicebox.Description = ChoiceboxDescription
 
-export type { ChoiceboxProps, ChoiceboxItemProps }
 export { Choicebox }
+export type { ChoiceboxItemProps, ChoiceboxProps }

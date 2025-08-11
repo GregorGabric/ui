@@ -85,7 +85,7 @@ function BarList<T>({
                     href={item.href}
                     className={twJoin(
                       "truncate rounded-sm text-sm whitespace-nowrap",
-                      "text-fg",
+                      "text-foreground",
                       "hover:underline hover:underline-offset-2",
                       "focus:inset-ring-ring focus:ring-ring/20 focus:ring-2 focus:inset-ring focus:outline-hidden"
                     )}
@@ -98,7 +98,7 @@ function BarList<T>({
                     {item.name}
                   </Link>
                 ) : (
-                  <p className="text-fg truncate text-sm whitespace-nowrap">
+                  <p className="text-foreground truncate text-sm whitespace-nowrap">
                     {item.name}
                   </p>
                 )}
@@ -117,7 +117,7 @@ function BarList<T>({
               index === sortedData.length - 1 ? "mb-0" : "mb-1.5"
             )}
           >
-            <p className="text-fg truncate text-sm leading-none whitespace-nowrap">
+            <p className="text-foreground truncate text-sm leading-none whitespace-nowrap">
               {valueFormatter(item.value)}
             </p>
           </div>

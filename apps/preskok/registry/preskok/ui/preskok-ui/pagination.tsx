@@ -121,7 +121,7 @@ const PaginationItem = ({
         className: buttonStyles({
           intent: "outline",
           className: twMerge(
-            "size-9 cursor-default font-normal text-fg",
+            "size-9 cursor-default font-normal text-foreground",
             className
           ),
         }),

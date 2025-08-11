@@ -14,10 +14,10 @@ const FileUpload = ({ className, asChild, ref, ...rest }: FileUploadProps) => {
     <Component
       ref={ref}
       className={cn(
-        "border-stroke-sub-300 bg-bg-white-0 flex w-full cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed p-8 text-center",
+        "border-stroke-sub-300 bg-background-white-0 flex w-full cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed p-8 text-center",
         "transition duration-200 ease-out",
         // hover
-        "hover:bg-bg-weak-50",
+        "hover:bg-background-weak-50",
         className
       )}
       {...rest}
@@ -41,7 +41,7 @@ const FileUploadButton = ({
     <Component
       ref={ref}
       className={cn(
-        "bg-bg-white-0 text-label-sm text-text-sub-600 inline-flex h-8 items-center justify-center gap-2.5 rounded-lg px-2.5 whitespace-nowrap",
+        "bg-background-white-0 text-label-sm text-text-sub-600 inline-flex h-8 items-center justify-center gap-2.5 rounded-lg px-2.5 whitespace-nowrap",
         "ring-stroke-soft-200 pointer-events-none ring-1 ring-inset",
         className
       )}

@@ -51,15 +51,15 @@ const RangeCalendar = <T extends DateValue>({
                     <CalendarCell
                       date={date}
                       className={twMerge([
-                        "shrink-0 [--cell-fg:var(--color-primary)] [--cell:color-mix(in_oklab,var(--color-primary)_15%,white_85%)]",
-                        "dark:[--cell-fg:color-mix(in_oklab,var(--color-primary)_80%,white_20%)] dark:[--cell:color-mix(in_oklab,var(--color-primary)_30%,black_45%)]",
-                        "group/calendar-cell selection-start:rounded-s-lg data-outside-month:text-muted-fg relative size-12 cursor-default [line-height:2.286rem] outline-hidden data-selection-end:rounded-e-lg sm:size-9 sm:text-sm",
-                        "selected:bg-(--cell)/70 selected:text-(--cell-fg) dark:selected:bg-(--cell)",
-                        "selected:after:bg-primary-fg invalid:selected:bg-danger/10 focus-visible:after:bg-primary-fg dark:invalid:selected:bg-danger/13",
+                        "shrink-0 [--cell-foreground:var(--color-primary)] [--cell:color-mix(in_oklab,var(--color-primary)_15%,white_85%)]",
+                        "dark:[--cell-foreground:color-mix(in_oklab,var(--color-primary)_80%,white_20%)] dark:[--cell:color-mix(in_oklab,var(--color-primary)_30%,black_45%)]",
+                        "group/calendar-cell selection-start:rounded-s-lg data-outside-month:text-muted-foreground relative size-12 cursor-default [line-height:2.286rem] outline-hidden data-selection-end:rounded-e-lg sm:size-9 sm:text-sm",
+                        "selected:bg-(--cell)/70 selected:text-(--cell-foreground) dark:selected:bg-(--cell)",
+                        "selected:after:bg-primary-foreground invalid:selected:bg-danger/10 focus-visible:after:bg-primary-foreground dark:invalid:selected:bg-danger/13",
                         "[td:first-child_&]:rounded-s-lg [td:last-child_&]:rounded-e-lg",
                         "forced-colors:selected:bg-[Highlight] forced-colors:selected:text-[HighlightText] forced-colors:invalid:selected:bg-[Mark]",
                         date.compare(now) === 0 &&
-                          "after:bg-primary selected:after:bg-primary-fg after:pointer-events-none after:absolute after:start-1/2 after:bottom-1 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full",
+                          "after:bg-primary selected:after:bg-primary-foreground after:pointer-events-none after:absolute after:start-1/2 after:bottom-1 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full",
                       ])}
                     >
                       {({
@@ -73,7 +73,7 @@ const RangeCalendar = <T extends DateValue>({
                           className={twMerge(
                             "flex size-full items-center justify-center rounded-lg tabular-nums forced-color-adjust-none",
                             isSelected && (isSelectionStart || isSelectionEnd)
-                              ? "bg-primary text-primary-fg group-invalid/calendar-cell:bg-danger group-invalid/calendar-cell:text-danger-fg forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:group-invalid/calendar-cell:bg-[Mark]"
+                              ? "bg-primary text-primary-foreground group-invalid/calendar-cell:bg-danger group-invalid/calendar-cell:text-danger-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:group-invalid/calendar-cell:bg-[Mark]"
                               : isSelected
                                 ? [
                                     "group-hover/calendar-cell:bg-primary/15 dark:group-hover/calendar-cell:bg-primary/20 forced-colors:group-hover/calendar-cell:bg-[Highlight]",
@@ -81,7 +81,7 @@ const RangeCalendar = <T extends DateValue>({
                                     "group-invalid/calendar-cell:group-hover/calendar-cell:bg-danger/20 group-invalid/calendar-cell:group-pressed/calendar-cell:bg-danger/30 forced-colors:group-invalid/calendar-cell:group-pressed/calendar-cell:bg-[Mark]",
                                     "group-invalid/calendar-cell:text-danger forced-colors:group-invalid:group-hover/calendar-cell:bg-[Mark]",
                                   ]
-                                : "group-hover/calendar-cell:bg-secondary-fg/15 group-pressed/calendar-cell:bg-secondary-fg/20 forced-colors:group-pressed/calendar-cell:bg-[Highlight]",
+                                : "group-hover/calendar-cell:bg-secondary-foreground/15 group-pressed/calendar-cell:bg-secondary-foreground/20 forced-colors:group-pressed/calendar-cell:bg-[Highlight]",
                             isDisabled &&
                               "opacity-50 forced-colors:text-[GrayText]"
                           )}
@@ -107,5 +107,5 @@ const RangeCalendar = <T extends DateValue>({
   )
 }
 
-export type { RangeCalendarProps }
 export { RangeCalendar }
+export type { RangeCalendarProps }

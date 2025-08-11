@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/color-swatch.tsx",
-      "content": "\"use client\"\n\nimport { parseColor } from \"@react-stately/color\"\nimport type { ColorSwatchProps } from \"react-aria-components\"\nimport { ColorSwatch as ColorSwatchPrimitive } from \"react-aria-components\"\n\nimport { composeTailwindRenderProps } from \"@/registry/preskok/lib/primitive\"\n\nconst defaultColor = parseColor(\"hsl(216, 98%, 52%)\")\n\nconst ColorSwatch = ({ className, ...props }: ColorSwatchProps) => {\n  return (\n    <ColorSwatchPrimitive\n      data-slot=\"color-swatch\"\n      aria-label={props[\"aria-label\"] ?? \"Color swatch\"}\n      className={composeTailwindRenderProps(\n        className,\n        \"inset-ring-fg/10 size-8 shrink-0 rounded-sm inset-ring-1\"\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ColorSwatch, defaultColor }\n",
+      "content": "\"use client\"\n\nimport { parseColor } from \"@react-stately/color\"\nimport type { ColorSwatchProps } from \"react-aria-components\"\nimport { ColorSwatch as ColorSwatchPrimitive } from \"react-aria-components\"\n\nimport { composeTailwindRenderProps } from \"@/registry/preskok/lib/primitive\"\n\nconst defaultColor = parseColor(\"hsl(216, 98%, 52%)\")\n\nconst ColorSwatch = ({ className, ...props }: ColorSwatchProps) => {\n  return (\n    <ColorSwatchPrimitive\n      data-slot=\"color-swatch\"\n      aria-label={props[\"aria-label\"] ?? \"Color swatch\"}\n      className={composeTailwindRenderProps(\n        className,\n        \"inset-ring-foreground/10 size-8 shrink-0 rounded-sm inset-ring-1\"\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ColorSwatch, defaultColor }\n",
       "type": "registry:ui"
     }
   ]

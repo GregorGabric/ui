@@ -23,7 +23,7 @@ const Avatar = ({
       data-slot="avatar"
       {...props}
       className={twMerge(
-        "outline-fg/(--ring-opacity) inline-grid shrink-0 align-middle outline-1 -outline-offset-1 [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1",
+        "outline-foreground/(--ring-opacity) inline-grid shrink-0 align-middle outline-1 -outline-offset-1 [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1",
         size === "xs" && "size-5 *:size-5",
         size === "sm" && "size-6 *:size-6",
         size === "md" && "size-8 *:size-8",
@@ -65,5 +65,5 @@ const Avatar = ({
   )
 }
 
-export type { AvatarProps }
 export { Avatar }
+export type { AvatarProps }

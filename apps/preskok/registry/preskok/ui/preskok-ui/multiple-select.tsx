@@ -164,7 +164,7 @@ const MultipleSelect = <T extends object>({
               >
                 {(item: { id: Key; textValue: Key }) => (
                   <Tag
-                    className="bg-secondary/50 text-secondary-fg rounded-[calc(var(--radius-sm)-1px)]"
+                    className="bg-secondary/50 text-secondary-foreground rounded-[calc(var(--radius-sm)-1px)]"
                     isDisabled={isDisabled}
                     textValue={item.textValue as string}
                   >
@@ -199,11 +199,11 @@ const MultipleSelect = <T extends object>({
                 <Button
                   ref={triggerButtonRef}
                   aria-label="Open"
-                  className="text-muted-fg ml-auto inline-flex items-center justify-center rounded-lg outline-hidden"
+                  className="text-muted-foreground ml-auto inline-flex items-center justify-center rounded-lg outline-hidden"
                 >
                   <ChevronsUpDownIcon
                     data-slot="chevron"
-                    className="text-muted-fg group-open:text-fg size-4"
+                    className="text-muted-foreground group-open:text-foreground size-4"
                   />
                 </Button>
               </div>
@@ -224,7 +224,7 @@ const MultipleSelect = <T extends object>({
                         {inputValue ? (
                           <>
                             No results found for:{" "}
-                            <strong className="text-fg font-medium">
+                            <strong className="text-foreground font-medium">
                               {inputValue}
                             </strong>
                           </>

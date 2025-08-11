@@ -16,7 +16,7 @@ const tagFieldsStyles = tv({
   variants: {
     appearance: {
       outline: [
-        "rounded-lg border px-1.5 shadow-xs hover:border-[color-mix(in_oklab,var(--color-fg)_10%,var(--color-border))]",
+        "rounded-lg border px-1.5 shadow-xs hover:border-[color-mix(in_oklab,var(--color-foreground)_10%,var(--color-border))]",
         "has-[input[data-invalid=true][focus=true]]:border-danger has-[input[data-invalid=true]]:border-danger has-[input[data-invalid=true]]:ring-danger/20",
         "has-[input[focus=true]]:border-ring/70 has-[input[focus=true]]:ring-3 has-[input[focus=true]]:ring-ring/20",
       ],
@@ -188,5 +188,5 @@ const TagField = ({
   )
 }
 
-export type { TagFieldProps, TagItemProps }
 export { TagField }
+export type { TagFieldProps, TagItemProps }

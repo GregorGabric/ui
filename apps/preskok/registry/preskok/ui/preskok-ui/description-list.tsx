@@ -26,7 +26,7 @@ const DescriptionTerm = ({
     <dt
       ref={ref}
       className={twMerge(
-        "text-muted-fg col-start-1 border-t pt-3 first:border-none sm:py-3",
+        "text-muted-foreground col-start-1 border-t pt-3 first:border-none sm:py-3",
         className
       )}
       {...props}
@@ -42,7 +42,7 @@ const DescriptionDetails = ({
     <dd
       {...props}
       className={twMerge(
-        "text-fg pt-1 pb-3 sm:border-t sm:py-3 sm:nth-2:border-none",
+        "text-foreground pt-1 pb-3 sm:border-t sm:py-3 sm:nth-2:border-none",
         className
       )}
     />

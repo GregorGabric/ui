@@ -8,7 +8,7 @@ const Card = ({
     <div
       data-slot="card"
       className={twMerge(
-        "group/card bg-bg text-fg **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--card-spacing) rounded-lg border py-(--card-spacing) shadow-xs [--card-spacing:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
+        "group/card bg-background text-foreground **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--card-spacing) rounded-lg border py-(--card-spacing) shadow-xs [--card-spacing:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
         className
       )}
       {...props}
@@ -51,7 +51,7 @@ const CardTitle = ({ className, ...props }: React.ComponentProps<"div">) => {
     <div
       data-slot="card-title"
       className={twMerge(
-        "text-fg text-lg/6 font-semibold text-balance sm:text-base/6",
+        "text-foreground text-lg/6 font-semibold text-balance sm:text-base/6",
         className
       )}
       {...props}
@@ -68,7 +68,7 @@ const CardDescription = ({
       {...props}
       data-slot="card-description"
       className={twMerge(
-        "text-muted-fg row-start-2 text-sm text-pretty",
+        "text-muted-foreground row-start-2 text-sm text-pretty",
         className
       )}
       {...props}
@@ -130,10 +130,10 @@ Card.Action = CardAction
 
 export {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  CardAction,
 }

@@ -69,9 +69,9 @@ const Tag = ({ className, children, ...props }: TagProps) => {
           twMerge(
             "inset-ring-border inline-flex cursor-default items-center gap-x-1.5 rounded-full px-2 py-0.5 text-sm/5 font-medium inset-ring outline-hidden sm:text-xs/5 forced-colors:outline",
             isSelected &&
-              "inset-ring-primary bg-primary text-primary-fg focus-visible:bg-primary/90",
+              "inset-ring-primary bg-primary text-primary-foreground focus-visible:bg-primary/90",
             isFocusVisible &&
-              "bg-secondary text-secondary-fg inset-ring inset-ring-current/10",
+              "bg-secondary text-secondary-foreground inset-ring inset-ring-current/10",
             isDisabled && "opacity-50",
             allowsRemoving && "pr-2",
             className
@@ -84,7 +84,7 @@ const Tag = ({ className, children, ...props }: TagProps) => {
           {allowsRemoving && (
             <Button
               slot="remove"
-              className="text-muted-fg hover:text-fg -mx-0.5 grid size-3.5 shrink-0 place-content-center rounded-full outline-hidden"
+              className="text-muted-foreground hover:text-foreground -mx-0.5 grid size-3.5 shrink-0 place-content-center rounded-full outline-hidden"
             >
               <XIcon data-slot="close" className="size-3" />
             </Button>

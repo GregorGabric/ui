@@ -5,7 +5,7 @@ import { Drawer } from "@/registry/preskok/ui/preskok-ui/drawer"
 export default function DrawerPreskokDemo() {
   return (
     <Drawer>
-      <Drawer.Trigger className="bg-primary text-primary-fg rounded-md px-3 py-1.5">
+      <Drawer.Trigger className="bg-primary text-primary-foreground rounded-md px-3 py-1.5">
         Open drawer
       </Drawer.Trigger>
       <Drawer.Content side="right">

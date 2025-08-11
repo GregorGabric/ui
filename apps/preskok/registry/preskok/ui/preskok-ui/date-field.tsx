@@ -43,14 +43,14 @@ const DateField = <T extends DateValue>({
       {label && <Label>{label}</Label>}
       <FieldGroup>
         {prefix && typeof prefix === "string" ? (
-          <span className="text-muted-fg ml-2">{prefix}</span>
+          <span className="text-muted-foreground ml-2">{prefix}</span>
         ) : (
           prefix
         )}
         <DateInput />
         {suffix ? (
           typeof suffix === "string" ? (
-            <span className="text-muted-fg mr-2">{suffix}</span>
+            <span className="text-muted-foreground mr-2">{suffix}</span>
           ) : (
             suffix
           )
@@ -70,7 +70,7 @@ const DateInput = ({
     <DateInputPrimitive
       className={composeTailwindRenderProps(
         className,
-        "text-fg placeholder-muted-fg px-3 py-2 text-base outline-hidden sm:px-2.5 sm:py-1.5 sm:text-sm/6"
+        "text-foreground placeholder-muted-foreground px-3 py-2 text-base outline-hidden sm:px-2.5 sm:py-1.5 sm:text-sm/6"
       )}
       {...props}
     >
@@ -78,8 +78,8 @@ const DateInput = ({
         <DateSegment
           segment={segment}
           className={twJoin(
-            "type-literal:px-0 text-fg data-placeholder:not-data-focused:text-muted-fg inline shrink-0 rounded px-1.5 tracking-wider caret-transparent outline-0 forced-color-adjust-none sm:p-0.5 sm:py-0.5 sm:text-sm forced-colors:text-[ButtonText]",
-            "focus:bg-accent focus:text-accent-fg focus:data-invalid:bg-danger focus:data-invalid:text-danger-fg forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]",
+            "type-literal:px-0 text-foreground data-placeholder:not-data-focused:text-muted-foreground inline shrink-0 rounded px-1.5 tracking-wider caret-transparent outline-0 forced-color-adjust-none sm:p-0.5 sm:py-0.5 sm:text-sm forced-colors:text-[ButtonText]",
+            "focus:bg-accent focus:text-accent-foreground focus:data-invalid:bg-danger focus:data-invalid:text-danger-foreground forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]",
             "disabled:opacity-50 forced-colors:disabled:text-[GrayText]"
           )}
         />

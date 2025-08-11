@@ -98,17 +98,17 @@ const Radio = ({
               <span
                 data-slot="indicator"
                 className={twMerge([
-                  "inset-ring-fg/10 bg-secondary text-bg hover:before:bg-fg/10 sm:before:size-1.7 relative isolate flex size-4.5 shrink-0 items-center justify-center rounded-full inset-ring transition before:absolute before:inset-auto before:size-2 before:shrink-0 before:rounded-full before:content-[''] sm:size-4",
+                  "inset-ring-foreground/10 bg-secondary text-background hover:before:bg-foreground/10 sm:before:size-1.7 relative isolate flex size-4.5 shrink-0 items-center justify-center rounded-full inset-ring transition before:absolute before:inset-auto before:size-2 before:shrink-0 before:rounded-full before:content-[''] sm:size-4",
                   isSelected && [
-                    "bg-primary text-primary-fg before:bg-bg hover:before:bg-muted/90 dark:inset-ring-primary",
-                    "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-fg",
+                    "bg-primary text-primary-foreground before:bg-background hover:before:bg-muted/90 dark:inset-ring-primary",
+                    "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-foreground",
                   ],
                   isFocusVisible && [
                     "inset-ring-primary ring-ring/20 ring-3",
-                    "group-invalid:inset-ring-danger/70 group-invalid:text-danger-fg group-invalid:ring-danger/20",
+                    "group-invalid:inset-ring-danger/70 group-invalid:text-danger-foreground group-invalid:ring-danger/20",
                   ],
                   isInvalid &&
-                    "inset-ring-danger/70 bg-danger/20 text-danger-fg ring-danger/20",
+                    "inset-ring-danger/70 bg-danger/20 text-danger-foreground ring-danger/20",
                 ])}
               />
               {content}

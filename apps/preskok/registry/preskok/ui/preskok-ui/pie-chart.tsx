@@ -105,7 +105,7 @@ const PieChart = <TValue extends ValueType, TName extends NameType>({
         >
           {showLabel && variant === "donut" && (
             <text
-              className="fill-fg font-medium"
+              className="fill-foreground font-medium"
               x="50%"
               y="50%"
               textAnchor="middle"
@@ -161,5 +161,5 @@ const PieChart = <TValue extends ValueType, TName extends NameType>({
   )
 }
 
-export type { PieChartProps }
 export { PieChart }
+export type { PieChartProps }

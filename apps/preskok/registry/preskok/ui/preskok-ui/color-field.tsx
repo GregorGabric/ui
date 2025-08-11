@@ -49,7 +49,7 @@ const ColorField = ({
       {label && <Label>{label}</Label>}
       <FieldGroup data-loading={isLoading ? "true" : undefined}>
         {prefix && typeof prefix === "string" ? (
-          <span className="text-muted-fg ml-2">{prefix}</span>
+          <span className="text-muted-foreground ml-2">{prefix}</span>
         ) : (
           prefix
         )}
@@ -71,7 +71,7 @@ const ColorField = ({
           <Input placeholder={placeholder} />
         </div>
         {suffix && typeof suffix === "string" ? (
-          <span className="text-muted-fg mr-2">{suffix}</span>
+          <span className="text-muted-foreground mr-2">{suffix}</span>
         ) : (
           suffix
         )}

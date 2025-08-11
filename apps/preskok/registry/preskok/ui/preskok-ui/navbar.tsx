@@ -78,7 +78,7 @@ const NavbarProvider = ({
       <div
         className={twMerge(
           "peer/navbar group/navbar relative isolate z-10 flex w-full flex-col",
-          "has-data-navbar-inset:bg-navbar dark:has-data-navbar-inset:bg-bg has-data-navbar-inset:min-h-svh",
+          "has-data-navbar-inset:bg-navbar dark:has-data-navbar-inset:bg-background has-data-navbar-inset:min-h-svh",
           className
         )}
         {...props}
@@ -190,14 +190,14 @@ const NavbarItem = ({ className, isCurrent, ...props }: NavbarItemProps) => {
       className={composeTailwindRenderProps(className, [
         "href" in props ? "cursor-pointer" : "cursor-default",
         "group/sidebar-item hover:bg-secondary",
-        "aria-[current=page]:text-fg aria-[current=page]*:data-[slot=icon]:text-fg",
+        "aria-[current=page]:text-foreground aria-[current=page]*:data-[slot=icon]:text-foreground",
         "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] supports-[grid-template-columns:subgrid]:grid-cols-subgrid md:supports-[grid-template-columns:subgrid]:grid-cols-none",
         "relative min-w-0 items-center gap-x-3 rounded-lg p-2 text-left text-base/6 font-medium sm:text-sm/5 md:gap-x-2.5",
-        "*:data-[slot=icon]:text-muted-fg *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 sm:*:data-[slot=icon]:size-4",
+        "*:data-[slot=icon]:text-muted-foreground *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 sm:*:data-[slot=icon]:size-4",
         "*:data-[slot=loader]:size-5 *:data-[slot=loader]:shrink-0 sm:*:data-[slot=loader]:size-4",
         "*:not-nth-2:last:data-[slot=icon]:row-start-1 *:not-nth-2:last:data-[slot=icon]:ml-auto *:not-nth-2:last:data-[slot=icon]:size-5 sm:*:not-nth-2:last:data-[slot=icon]:size-4",
         "*:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:size-5",
-        "*:data-[slot=icon]:text-muted-fg pressed:*:data-[slot=icon]:text-fg hover:*:data-[slot=icon]:text-fg",
+        "*:data-[slot=icon]:text-muted-foreground pressed:*:data-[slot=icon]:text-foreground hover:*:data-[slot=icon]:text-foreground",
         "focus-visible:inset-ring-ring focus-visible:ring-ring/20 outline-hidden focus-visible:ring-2 focus-visible:inset-ring",
         "text-left disabled:cursor-default disabled:opacity-50",
       ])}
@@ -213,7 +213,7 @@ const NavbarItem = ({ className, isCurrent, ...props }: NavbarItemProps) => {
             <span
               data-navbar="current-indicator"
               className={twJoin(
-                "bg-fg absolute rounded-full [--gutter:--spacing(0.5)]",
+                "bg-foreground absolute rounded-full [--gutter:--spacing(0.5)]",
                 "inset-y-2 -left-4 w-(--gutter) md:inset-y-auto md:w-auto",
                 "md:inset-x-2 md:-bottom-[--spacing(3.4)] md:h-(--gutter) md:group-data-[navbar=inset]/navbar-intent:-bottom-[--spacing(3.1)]"
               )}
@@ -300,12 +300,12 @@ const NavbarInset = ({
       ref={ref}
       data-navbar-inset={true}
       className={twMerge(
-        "bg-navbar dark:bg-bg flex flex-1 flex-col pb-2 md:px-2",
+        "bg-navbar dark:bg-background flex flex-1 flex-col pb-2 md:px-2",
         className
       )}
       {...props}
     >
-      <div className="bg-bg md:ring-fg/15 md:dark:bg-navbar md:dark:ring-border grow p-6 md:rounded-lg md:p-12 md:shadow-xs md:ring-1">
+      <div className="bg-background md:ring-foreground/15 md:dark:bg-navbar md:dark:ring-border grow p-6 md:rounded-lg md:p-12 md:shadow-xs md:ring-1">
         <div className="mx-auto max-w-7xl">{children}</div>
       </div>
     </div>

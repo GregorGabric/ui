@@ -107,19 +107,19 @@ const Checkbox = ({
               <span
                 data-slot="indicator"
                 className={twMerge([
-                  "inset-ring-fg/10 bg-muted text-bg relative isolate flex shrink-0 items-center justify-center rounded inset-ring transition",
+                  "inset-ring-foreground/10 bg-muted text-background relative isolate flex shrink-0 items-center justify-center rounded inset-ring transition",
                   "sm:size-4 sm:*:data-[slot=check-indicator]:size-3.5",
                   "size-4.5 *:data-[slot=check-indicator]:size-4",
                   (isSelected || isIndeterminate) && [
-                    "bg-primary text-primary-fg dark:inset-ring-primary",
-                    "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-fg dark:group-invalid:inset-ring-danger/70",
+                    "bg-primary text-primary-foreground dark:inset-ring-primary",
+                    "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-foreground dark:group-invalid:inset-ring-danger/70",
                   ],
                   isFocusVisible && [
                     "inset-ring-primary ring-ring/20 ring-3",
-                    "group-invalid:inset-ring-danger/70 group-invalid:text-danger-fg group-invalid:ring-danger/20",
+                    "group-invalid:inset-ring-danger/70 group-invalid:text-danger-foreground group-invalid:ring-danger/20",
                   ],
                   isInvalid &&
-                    "inset-ring-danger/70 bg-danger/20 text-danger-fg ring-danger/20",
+                    "inset-ring-danger/70 bg-danger/20 text-danger-foreground ring-danger/20",
                 ])}
               >
                 {indicator}

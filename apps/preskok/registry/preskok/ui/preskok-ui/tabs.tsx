@@ -67,10 +67,10 @@ const Tab = ({ children, className, ref, ...props }: TabProps) => {
       ref={ref}
       {...props}
       className={composeTailwindRenderProps(className, [
-        "text-fg hover:text-fg relative flex cursor-default items-center rounded-full text-sm font-medium whitespace-nowrap outline-hidden transition *:data-[slot=icon]:mr-2 *:data-[slot=icon]:size-4",
+        "text-foreground hover:text-foreground relative flex cursor-default items-center rounded-full text-sm font-medium whitespace-nowrap outline-hidden transition *:data-[slot=icon]:mr-2 *:data-[slot=icon]:size-4",
         "group-orientation-vertical/tabs:w-full group-orientation-vertical/tabs:py-0 group-orientation-vertical/tabs:pr-2 group-orientation-vertical/tabs:pl-4",
         "group-orientation-horizontal/tabs:pb-3",
-        "selected:text-fg text-muted-fg focus:ring-0",
+        "selected:text-foreground text-muted-foreground focus:ring-0",
         "disabled:opacity-50",
         "href" in props && "cursor-pointer",
       ])}
@@ -82,7 +82,7 @@ const Tab = ({ children, className, ref, ...props }: TabProps) => {
             <span
               data-slot="selected-indicator"
               className={twMerge(
-                "bg-fg absolute rounded",
+                "bg-foreground absolute rounded",
                 "group-orientation-horizontal/tabs:-bottom-px group-orientation-horizontal/tabs:inset-x-0 group-orientation-horizontal/tabs:h-0.5 group-orientation-horizontal/tabs:w-full",
                 "group-orientation-vertical/tabs:left-0 group-orientation-vertical/tabs:h-[calc(100%-10%)] group-orientation-vertical/tabs:w-0.5 group-orientation-vertical/tabs:transform"
               )}
@@ -104,7 +104,7 @@ const TabPanel = ({ className, ref, ...props }: TabPanelProps) => {
       ref={ref}
       className={composeTailwindRenderProps(
         className,
-        "text-fg flex-1 text-sm focus-visible:outline-hidden"
+        "text-foreground flex-1 text-sm focus-visible:outline-hidden"
       )}
     />
   )

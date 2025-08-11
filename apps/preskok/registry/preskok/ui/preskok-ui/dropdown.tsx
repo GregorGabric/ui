@@ -26,24 +26,24 @@ const dropdownItemStyles = tv({
     "[--mr-icon:--spacing(2)] sm:[--mr-icon:--spacing(1.5)]",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] px-3 py-2 supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:px-2.5 sm:py-1.5",
     "not-has-[[slot=description]]:items-center has-[[slot=description]]:**:data-[slot=check-indicator]:mt-[1.5px]",
-    "group relative cursor-default select-none rounded-[calc(var(--radius-lg)-1px)] text-base/6 text-fg outline-0 sm:text-sm/6",
+    "group relative cursor-default select-none rounded-[calc(var(--radius-lg)-1px)] text-base/6 text-foreground outline-0 sm:text-sm/6",
     "**:data-[slot=avatar]:*:mr-1.5 **:data-[slot=avatar]:*:size-6 **:data-[slot=avatar]:mr-(--mr-icon) **:data-[slot=avatar]:size-6 sm:**:data-[slot=avatar]:*:size-5 sm:**:data-[slot=avatar]:size-5",
-    "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 **:data-[slot=icon]:text-muted-fg sm:**:data-[slot=icon]:size-4",
+    "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 **:data-[slot=icon]:text-muted-foreground sm:**:data-[slot=icon]:size-4",
     "[&_svg.lucide:not([data-slot=indicator])]:mr-(--mr-icon)",
     "[&_svg.lucide:not([data-slot=indicator])]:size-5",
     "sm:[&_svg.lucide:not([data-slot=indicator])]:size-4",
     "[&_svg.lucide:not([data-slot=indicator])]:shrink-0",
-    "[&_svg.lucide:not([data-slot=indicator])]:text-muted-fg",
+    "[&_svg.lucide:not([data-slot=indicator])]:text-muted-foreground",
     "[&>[slot=label]+[data-slot=icon]]:absolute [&>[slot=label]+[data-slot=icon]]:right-1",
     "data-danger:text-danger data-danger:**:data-[slot=icon]:text-danger/60 data-danger:[&_svg.lucide:not([data-slot=indicator])]:text-danger/60",
     "forced-color-adjust-none forced-colors:text-[CanvasText] forced-colors:**:data-[slot=icon]:text-[CanvasText] forced-colors:[&_svg.lucide:not([data-slot=indicator])]:text-[CanvasText] forced-colors:group-focus:**:data-[slot=icon]:text-[CanvasText] forced-colors:group-focus:[&_svg.lucide:not([data-slot=indicator])]:text-[CanvasText]",
   ],
   variants: {
     isDisabled: {
-      true: "text-muted-fg forced-colors:text-[GrayText]",
+      true: "text-muted-foreground forced-colors:text-[GrayText]",
     },
     isSelected: {
-      true: "**:data-[slot=avatar]:*:hidden **:data-[slot=avatar]:hidden **:data-[slot=icon]:hidden **:data-[slot=icon]:text-accent-fg [&_svg.lucide:not([data-slot=indicator])]:hidden [&_svg.lucide:not([data-slot=indicator])]:text-accent-fg",
+      true: "**:data-[slot=avatar]:*:hidden **:data-[slot=avatar]:hidden **:data-[slot=icon]:hidden **:data-[slot=icon]:text-accent-foreground [&_svg.lucide:not([data-slot=indicator])]:hidden [&_svg.lucide:not([data-slot=indicator])]:text-accent-foreground",
     },
     isDanger: {
       true: [
@@ -54,16 +54,16 @@ const dropdownItemStyles = tv({
     },
     isFocused: {
       true: [
-        "**:data-[slot=icon]:text-accent-fg [&_svg.lucide:not([data-slot=indicator])]:text-accent-fg **:[kbd]:text-accent-fg",
-        "bg-accent text-accent-fg forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
-        "[&_.text-muted-fg]:text-accent-fg/80 *:[[slot=description]]:text-accent-fg *:[[slot=label]]:text-accent-fg",
+        "**:data-[slot=icon]:text-accent-foreground [&_svg.lucide:not([data-slot=indicator])]:text-accent-foreground **:[kbd]:text-accent-foreground",
+        "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
+        "[&_.text-muted-foreground]:text-accent-foreground/80 *:[[slot=description]]:text-accent-foreground *:[[slot=label]]:text-accent-foreground",
       ],
     },
     isHovered: {
       true: [
-        "**:data-[slot=icon]:text-accent-fg [&_svg.lucide:not([data-slot=indicator])]:text-accent-fg **:[kbd]:text-accent-fg",
-        "bg-accent text-accent-fg forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
-        "[&_.text-muted-fg]:text-accent-fg/80 *:[[slot=description]]:text-accent-fg *:[[slot=label]]:text-accent-fg",
+        "**:data-[slot=icon]:text-accent-foreground [&_svg.lucide:not([data-slot=indicator])]:text-accent-foreground **:[kbd]:text-accent-foreground",
+        "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
+        "[&_.text-muted-foreground]:text-accent-foreground/80 *:[[slot=description]]:text-accent-foreground *:[[slot=label]]:text-accent-foreground",
       ],
     },
   },
@@ -73,7 +73,7 @@ const dropdownSectionStyles = tv({
   slots: {
     section: "col-span-full grid grid-cols-[auto_1fr]",
     header:
-      "col-span-full px-3.5 py-2 font-medium text-muted-fg text-sm/6 sm:px-3 sm:py-1.5 sm:text-xs/5",
+      "col-span-full px-3.5 py-2 font-medium text-muted-foreground text-sm/6 sm:px-3 sm:py-1.5 sm:text-xs/5",
   },
 })
 
@@ -149,7 +149,7 @@ const DropdownDescription = ({
   <Text
     slot="description"
     ref={ref}
-    className={twMerge("text-muted-fg col-start-2 text-sm", className)}
+    className={twMerge("text-muted-foreground col-start-2 text-sm", className)}
     {...props}
   />
 )
@@ -157,7 +157,10 @@ const DropdownDescription = ({
 const DropdownSeparator = ({ className, ...props }: SeparatorProps) => (
   <Separator
     orientation="horizontal"
-    className={twMerge("bg-fg/10 col-span-full -mx-1 my-1 h-px", className)}
+    className={twMerge(
+      "bg-foreground/10 col-span-full -mx-1 my-1 h-px",
+      className
+    )}
     {...props}
   />
 )
@@ -170,7 +173,7 @@ const DropdownKeyboard = ({
     <Keyboard
       classNames={{
         base: twMerge(
-          "absolute right-2 pl-2 group-hover:text-primary-fg group-focus:text-primary-fg",
+          "absolute right-2 pl-2 group-hover:text-primary-foreground group-focus:text-primary-foreground",
           className
         ),
       }}

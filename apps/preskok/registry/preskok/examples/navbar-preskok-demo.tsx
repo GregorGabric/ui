@@ -86,7 +86,7 @@ export default function AppNavbar(props: NavbarProps) {
           >
             <PreskokIcon className="size-6 sm:size-5" />
             <span>
-              Preskok <span className="text-muted-fg">UI</span>
+              Preskok <span className="text-muted-foreground">UI</span>
             </span>
           </Link>
         </NavbarStart>

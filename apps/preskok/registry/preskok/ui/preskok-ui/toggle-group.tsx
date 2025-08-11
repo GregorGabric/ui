@@ -66,7 +66,7 @@ interface ToggleGroupItemProps extends ToggleButtonProps {}
 
 const toggleGroupItemStyles = tv({
   base: [
-    "[--toggle-group-item-icon:color-mix(in_oklab,var(--secondary-fg)_50%,var(--secondary))]",
+    "[--toggle-group-item-icon:color-mix(in_oklab,var(--secondary-foreground)_50%,var(--secondary))]",
     "relative isolate inline-flex flex-row items-center font-medium outline-hidden",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--toggle-group-item-icon) sm:*:data-[slot=icon]:my-1",
   ],
@@ -110,16 +110,16 @@ const toggleGroupItemStyles = tv({
         "size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
     },
     isPressed: {
-      true: "bg-primary/90 text-primary-fg",
+      true: "bg-primary/90 text-primary-foreground",
     },
     isSelected: {
-      true: "bg-primary text-primary-fg [--toggle-group-item-icon:var(--primary-fg)] hover:bg-primary/90",
+      true: "bg-primary text-primary-foreground [--toggle-group-item-icon:var(--primary-foreground)] hover:bg-primary/90",
     },
     isFocused: {
-      true: "not-selected:bg-secondary not-selected:text-secondary-fg not-selected:[--toggle-group-item-icon:var(--secondary-fg)]",
+      true: "not-selected:bg-secondary not-selected:text-secondary-foreground not-selected:[--toggle-group-item-icon:var(--secondary-foreground)]",
     },
     isHovered: {
-      true: "enabled:not-selected:bg-secondary enabled:not-selected:text-secondary-fg enabled:not-selected:[--toggle-group-item-icon:var(--secondary-fg)]",
+      true: "enabled:not-selected:bg-secondary enabled:not-selected:text-secondary-foreground enabled:not-selected:[--toggle-group-item-icon:var(--secondary-foreground)]",
     },
     isDisabled: {
       true: "opacity-50 forced-colors:text-[GrayText]",

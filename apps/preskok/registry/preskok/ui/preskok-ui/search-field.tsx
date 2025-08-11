@@ -54,7 +54,7 @@ const SearchField = ({
               {isPending ? <Loader variant="spin" /> : <SearchIcon />}
               <Input placeholder={placeholder ?? "Search..."} />
 
-              <Button className="pressed:text-fg text-muted-fg hover:text-fg grid place-content-center group-empty/search-field:invisible">
+              <Button className="pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center group-empty/search-field:invisible">
                 <XIcon />
               </Button>
             </FieldGroup>

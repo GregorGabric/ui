@@ -31,7 +31,7 @@ const ListBox = <T extends object>({
   <ListBoxPrimitive
     className={composeTailwindRenderProps(
       className,
-      "bg-bg grid max-h-96 w-full min-w-56 scroll-py-1 grid-cols-[auto_1fr] flex-col gap-y-1 overflow-y-auto overscroll-contain rounded-xl border p-1 shadow-lg outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5 *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
+      "bg-background grid max-h-96 w-full min-w-56 scroll-py-1 grid-cols-[auto_1fr] flex-col gap-y-1 overflow-y-auto overscroll-contain rounded-xl border p-1 shadow-lg outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5 *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
     )}
     data-slot="list-box"
     {...props}
@@ -65,10 +65,10 @@ const ListBoxItem = <T extends object>({
             {allowsDragging && (
               <GripVerticalIcon
                 className={twMerge(
-                  "text-muted-fg size-4 shrink-0 transition",
-                  isFocused && "text-fg",
-                  isDragging && "text-fg",
-                  isSelected && "text-accent-fg/70"
+                  "text-muted-foreground size-4 shrink-0 transition",
+                  isFocused && "text-foreground",
+                  isDragging && "text-foreground",
+                  isSelected && "text-accent-foreground/70"
                 )}
               />
             )}

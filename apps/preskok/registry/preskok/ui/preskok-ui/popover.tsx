@@ -50,7 +50,7 @@ const PopoverContent = ({
       ref={ref}
       offset={offset}
       className={composeTailwindRenderProps(className, [
-        "group/popover bg-overlay text-overlay-fg max-w-xs min-w-(--trigger-width) rounded-xl border shadow-xs outline-hidden transition-transform [--gutter:--spacing(6)] sm:text-sm dark:backdrop-saturate-200 **:[[role=dialog]]:[--gutter:--spacing(4)]",
+        "group/popover bg-overlay text-overlay-foreground max-w-xs min-w-(--trigger-width) rounded-xl border shadow-xs outline-hidden transition-transform [--gutter:--spacing(6)] sm:text-sm dark:backdrop-saturate-200 **:[[role=dialog]]:[--gutter:--spacing(4)]",
         "entering:fade-in entering:animate-in",
         "exiting:fade-out exiting:animate-out",
         "placement-left:entering:slide-in-from-right-1 placement-right:entering:slide-in-from-left-1 placement-top:entering:slide-in-from-bottom-1 placement-bottom:entering:slide-in-from-top-1",

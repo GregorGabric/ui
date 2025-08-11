@@ -43,7 +43,7 @@ const generateCompoundVariants = (sides: Array<Sides>) => {
 }
 
 const contentStyles = tv({
-  base: "fixed z-50 grid gap-4 border-muted-fg/20 bg-overlay text-overlay-fg shadow-lg transition ease-in-out dark:border-border",
+  base: "fixed z-50 grid gap-4 border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg transition ease-in-out dark:border-border",
   variants: {
     isEntering: {
       true: "fade-in animate-in duration-300",
@@ -60,8 +60,8 @@ const contentStyles = tv({
         "entering:slide-in-from-right exiting:slide-out-to-right inset-y-0 right-0 h-auto w-3/4 overflow-y-auto border-l sm:max-w-sm",
     },
     isFloat: {
-      false: "border-fg/20 dark:border-border",
-      true: "ring-fg/5 dark:ring-border",
+      false: "border-foreground/20 dark:border-border",
+      true: "ring-foreground/5 dark:ring-border",
     },
   },
   compoundVariants: generateCompoundVariants([
@@ -158,15 +158,15 @@ Sheet.Body = SheetBody
 Sheet.Close = SheetClose
 Sheet.Content = SheetContent
 
-export type { SheetProps, SheetContentProps, Sides }
 export {
   Sheet,
-  SheetTrigger,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
   SheetBody,
   SheetClose,
   SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 }
+export type { SheetContentProps, SheetProps, Sides }

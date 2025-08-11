@@ -25,7 +25,8 @@ const Link = ({ className, ref, intent = "unstyled", ...props }: LinkProps) => {
           "disabled:cursor-default disabled:opacity-60 forced-colors:disabled:text-[GrayText]",
           intent === "unstyled" && "text-current",
           intent === "primary" && "text-primary hover:text-primary/80",
-          intent === "secondary" && "text-muted-fg hover:text-fg",
+          intent === "secondary" &&
+            "text-muted-foreground hover:text-foreground",
         ])
       )}
     >

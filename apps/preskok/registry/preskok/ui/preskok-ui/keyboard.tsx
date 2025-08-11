@@ -20,7 +20,7 @@ const Keyboard = ({
   return (
     <KeyboardPrimitive
       className={twMerge(
-        "group-hover:text-fg group-focus:text-fg hidden font-mono text-current/60 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
+        "group-hover:text-foreground group-focus:text-foreground hidden font-mono text-current/60 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
         classNames?.base
       )}
       {...props}

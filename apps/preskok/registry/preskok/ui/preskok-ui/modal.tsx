@@ -83,8 +83,8 @@ const ModalContent = ({
         className={({ isExiting, isEntering }) =>
           twMerge(
             "row-start-2 w-full text-left align-middle",
-            "bg-overlay text-overlay-fg relative overflow-hidden",
-            "ring-fg/5 dark:ring-border shadow-lg ring",
+            "bg-overlay text-overlay-foreground relative overflow-hidden",
+            "ring-foreground/5 dark:ring-border shadow-lg ring",
             "rounded-t-2xl md:rounded-xl",
             sizes[size],
             isEntering && [

@@ -129,7 +129,7 @@ const MenuItem = ({
             className: hasSubmenu
               ? twMerge(
                   "open:data-danger:bg-danger/10 open:data-danger:text-danger",
-                  "open:bg-accent open:text-accent-fg open:*:data-[slot=icon]:text-accent-fg open:[&_svg.lucide:not([data-slot=indicator])]:text-accent-fg open:*:[.text-muted-fg]:text-accent-fg",
+                  "open:bg-accent open:text-accent-foreground open:*:data-[slot=icon]:text-accent-foreground open:[&_svg.lucide:not([data-slot=indicator])]:text-accent-foreground open:*:[.text-muted-foreground]:text-accent-foreground",
                   className
                 )
               : className,

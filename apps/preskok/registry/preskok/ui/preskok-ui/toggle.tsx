@@ -7,20 +7,20 @@ import { tv, type VariantProps } from "tailwind-variants"
 
 const toggleStyles = tv({
   base: [
-    "relative inset-ring inset-ring-fg/15 isolate inline-flex items-center justify-center font-medium",
-    "focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-bg",
+    "relative inset-ring inset-ring-foreground/15 isolate inline-flex items-center justify-center font-medium",
+    "focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-background",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) pressed:*:data-[slot=icon]:text-(--btn-icon-active) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:my-1 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
     "*:data-[slot=loader]:-mx-0.5 *:data-[slot=loader]:my-0.5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:my-1",
   ],
   variants: {
     intent: {
       outline: [
-        "bg-transparent selected:bg-secondary outline-secondary-fg ring-secondary-fg/25 hover:bg-secondary",
-        "[--toggle-icon:color-mix(in_oklab,var(--secondary-fg)_50%,var(--secondary))] pressed:[--toggle-icon:var(--secondary-fg)] selected:[--toggle-icon:var(--secondary-fg)] hover:[--toggle-icon:var(--secondary-fg)]",
+        "bg-transparent selected:bg-secondary outline-secondary-foreground ring-secondary-foreground/25 hover:bg-secondary",
+        "[--toggle-icon:color-mix(in_oklab,var(--secondary-foreground)_50%,var(--secondary))] pressed:[--toggle-icon:var(--secondary-foreground)] selected:[--toggle-icon:var(--secondary-foreground)] hover:[--toggle-icon:var(--secondary-foreground)]",
       ],
       plain: [
-        "inset-ring-transparent bg-transparent selected:bg-secondary outline-secondary-fg ring-secondary-fg/25 hover:bg-secondary",
-        "[--toggle-icon:color-mix(in_oklab,var(--secondary-fg)_50%,var(--secondary))] pressed:[--toggle-icon:var(--secondary-fg)] selected:[--toggle-icon:var(--secondary-fg)] hover:[--toggle-icon:var(--secondary-fg)]",
+        "inset-ring-transparent bg-transparent selected:bg-secondary outline-secondary-foreground ring-secondary-foreground/25 hover:bg-secondary",
+        "[--toggle-icon:color-mix(in_oklab,var(--secondary-foreground)_50%,var(--secondary))] pressed:[--toggle-icon:var(--secondary-foreground)] selected:[--toggle-icon:var(--secondary-foreground)] hover:[--toggle-icon:var(--secondary-foreground)]",
       ],
     },
     size: {
@@ -99,5 +99,5 @@ const Toggle = ({ className, size, intent, ref, ...props }: ToggleProps) => {
     />
   )
 }
-export type { ToggleProps }
 export { Toggle }
+export type { ToggleProps }

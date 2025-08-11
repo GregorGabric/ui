@@ -51,14 +51,14 @@ const ColorSwatchPickerItem = ({
               <ColorSwatch
                 className={twMerge(
                   (values.isSelected || values.isFocused || values.isPressed) &&
-                    "inset-ring-fg/30",
+                    "inset-ring-foreground/30",
                   values.isDisabled && "opacity-50"
                 )}
               />
               {(values.isSelected || values.isFocused || values.isPressed) && (
                 <span
                   aria-hidden
-                  className="bg-fg absolute right-1 bottom-1 size-1 rounded-full"
+                  className="bg-foreground absolute right-1 bottom-1 size-1 rounded-full"
                 />
               )}
             </>
