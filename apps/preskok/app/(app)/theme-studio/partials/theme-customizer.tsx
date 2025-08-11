@@ -96,7 +96,9 @@ export function ThemeCustomizer({
   const handleSelectionChange =
     (type: keyof typeof selectedColors) => (key: Key | null) => {
       if (type === "primary") {
-        setSelectedColors((prev) => ({ ...prev, accent: key?.toString()! }))
+        if (key) {
+          setSelectedColors((prev) => ({ ...prev, accent: key.toString() }))
+        }
       }
       setSelectedColors((prev) => ({ ...prev, [type]: key?.toString() }))
     }
