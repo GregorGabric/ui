@@ -180,9 +180,9 @@ export default function AppSidebar(
                   <CircleHelpIcon />
                   <SidebarLabel>FAQ</SidebarLabel>
                 </SidebarItem>
-                <SidebarItem href="#" tooltip="Documentation">
+                <SidebarItem href="#" tooltip="Sales Docs">
                   <FileTextIcon />
-                  <SidebarLabel>Documentation</SidebarLabel>
+                  <SidebarLabel>Sales Docs</SidebarLabel>
                 </SidebarItem>
               </SidebarDisclosurePanel>
             </SidebarDisclosure>
@@ -199,8 +199,8 @@ export default function AppSidebar(
                 <SidebarItem href="#" tooltip="Stock Levels">
                   <SidebarLabel>Stock Levels</SidebarLabel>
                 </SidebarItem>
-                <SidebarItem href="#" tooltip="Shipping">
-                  <SidebarLabel>Shipping</SidebarLabel>
+                <SidebarItem href="#" tooltip="Delivery">
+                  <SidebarLabel>Delivery</SidebarLabel>
                 </SidebarItem>
               </SidebarDisclosurePanel>
             </SidebarDisclosure>

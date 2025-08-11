@@ -5,7 +5,7 @@ import { DescriptionList } from "@/registry/preskok/ui/preskok-ui/description-li
 export default function DescriptionListPreskokDemo() {
   return (
     <DescriptionList className="max-w-xl">
-      <DescriptionList.Term>Project</DescriptionList.Term>
+      <DescriptionList.Term>Listing</DescriptionList.Term>
       <DescriptionList.Details>Preskok UI</DescriptionList.Details>
 
       <DescriptionList.Term>Status</DescriptionList.Term>

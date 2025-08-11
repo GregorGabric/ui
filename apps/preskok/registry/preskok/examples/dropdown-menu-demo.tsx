@@ -47,7 +47,7 @@ export default function DropdownMenuDemo() {
             <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>Email</DropdownMenuItem>
+                <DropdownMenuItem>Dealer Email</DropdownMenuItem>
                 <DropdownMenuItem>Message</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>More...</DropdownMenuItem>

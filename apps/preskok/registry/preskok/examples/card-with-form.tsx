@@ -21,7 +21,7 @@ export default function CardWithForm() {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
+        <CardTitle>Create listing</CardTitle>
         <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent>
@@ -32,7 +32,7 @@ export default function CardWithForm() {
               <Input id="name" placeholder="Name of your project" />
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="framework">Framework</Label>
+              <Label htmlFor="framework">Make</Label>
               <Select>
                 <SelectTrigger id="framework" className="w-full">
                   <SelectValue placeholder="Select" />

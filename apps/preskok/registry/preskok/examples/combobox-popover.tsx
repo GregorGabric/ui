@@ -23,26 +23,11 @@ type Status = {
 }
 
 const statuses: Status[] = [
-  {
-    value: "backlog",
-    label: "Backlog",
-  },
-  {
-    value: "todo",
-    label: "Todo",
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-  },
+  { value: "inbound", label: "Inbound" },
+  { value: "inspection", label: "Inspection" },
+  { value: "detail", label: "Detailing" },
+  { value: "listed", label: "Listed" },
+  { value: "sold", label: "Sold" },
 ]
 
 export default function ComboboxPopover() {
@@ -53,11 +38,15 @@ export default function ComboboxPopover() {
 
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Status</p>
+      <p className="text-muted-foreground text-sm">Vehicle status</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="outline" className="w-[150px] justify-start">
-            {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+            {selectedStatus ? (
+              <>{selectedStatus.label}</>
+            ) : (
+              <>+ Set vehicle status</>
+            )}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-0" side="right" align="start">

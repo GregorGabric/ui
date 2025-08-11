@@ -1,20 +1,79 @@
-"use client"
+import { Card } from "@/registry/preskok/ui/preskok-ui/card"
+import { Tracker } from "@/registry/preskok/ui/preskok-ui/tracker"
 
-import {
-  Tracker,
-  type TrackerBlockProps,
-} from "@/registry/preskok/ui/preskok-ui/tracker"
+const deliveries = [
+  { status: "on-time", time: "2025-06-24T00:00:00Z" },
+  { status: "on-time", time: "2025-06-24T01:00:00Z" },
+  { status: "on-time", time: "2025-06-24T02:00:00Z" },
+  { status: "issue", time: "2025-06-24T03:00:00Z" },
+  { status: "on-time", time: "2025-06-24T04:00:00Z" },
+  { status: "delayed", time: "2025-06-24T05:00:00Z" },
+  { status: "on-time", time: "2025-06-24T06:00:00Z" },
+  { status: "on-time", time: "2025-06-24T07:00:00Z" },
+  { status: "issue", time: "2025-06-24T08:00:00Z" },
+  { status: "on-time", time: "2025-06-24T09:00:00Z" },
+  { status: "on-time", time: "2025-06-24T10:00:00Z" },
+  { status: "on-time", time: "2025-06-24T11:00:00Z" },
+  { status: "on-time", time: "2025-06-24T12:00:00Z" },
+  { status: "on-time", time: "2025-06-24T13:00:00Z" },
+  { status: "on-time", time: "2025-06-24T14:00:00Z" },
+  { status: "on-time", time: "2025-06-24T15:00:00Z" },
+  { status: "on-time", time: "2025-06-24T16:00:00Z" },
+  { status: "on-time", time: "2025-06-24T17:00:00Z" },
+  { status: "on-time", time: "2025-06-24T18:00:00Z" },
+  { status: "on-time", time: "2025-06-24T19:00:00Z" },
+  { status: "on-time", time: "2025-06-24T20:00:00Z" },
+  { status: "on-time", time: "2025-06-24T21:00:00Z" },
+  { status: "delayed", time: "2025-06-24T22:00:00Z" },
+  { status: "on-time", time: "2025-06-24T23:00:00Z" },
+  { status: "on-time", time: "2025-06-25T00:00:00Z" },
+  { status: "on-time", time: "2025-06-25T01:00:00Z" },
+  { status: "on-time", time: "2025-06-25T02:00:00Z" },
+  { status: "on-time", time: "2025-06-25T03:00:00Z" },
+  { status: "issue", time: "2025-06-25T04:00:00Z" },
+  { status: "on-time", time: "2025-06-25T05:00:00Z" },
+  { status: "on-time", time: "2025-06-25T06:00:00Z" },
+  { status: "on-time", time: "2025-06-25T07:00:00Z" },
+  { status: "on-time", time: "2025-06-25T08:00:00Z" },
+  { status: "on-time", time: "2025-06-25T09:00:00Z" },
+  { status: "on-time", time: "2025-06-25T10:00:00Z" },
+  { status: "on-time", time: "2025-06-25T11:00:00Z" },
+  { status: "on-time", time: "2025-06-25T12:00:00Z" },
+  { status: "on-time", time: "2025-06-25T13:00:00Z" },
+  { status: "on-time", time: "2025-06-25T14:00:00Z" },
+  { status: "on-time", time: "2025-06-25T15:00:00Z" },
+  { status: "on-time", time: "2025-06-25T16:00:00Z" },
+  { status: "on-time", time: "2025-06-25T17:00:00Z" },
+  { status: "on-time", time: "2025-06-25T18:00:00Z" },
+  { status: "on-time", time: "2025-06-25T19:00:00Z" },
+  { status: "on-time", time: "2025-06-25T20:00:00Z" },
+  { status: "on-time", time: "2025-06-25T21:00:00Z" },
+  { status: "on-time", time: "2025-06-25T22:00:00Z" },
+  { status: "on-time", time: "2025-06-25T23:00:00Z" },
+]
 
-const data: TrackerBlockProps[] = Array.from({ length: 30 }).map((_, i) => ({
-  key: i,
-  color: i % 5 === 0 ? "bg-primary" : undefined,
-  tooltip: `Day ${i + 1}: ${i % 5 === 0 ? "Active" : "Idle"}`,
+const data = deliveries.map((d) => ({
+  color:
+    d.status === "on-time"
+      ? "bg-success"
+      : d.status === "issue"
+        ? "bg-danger"
+        : "bg-warning",
+  tooltip: `${d.status} @ ${new Date(d.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
 }))
 
-export default function TrackerPreskokDemo() {
+export function Component() {
   return (
-    <div className="w-full max-w-xl">
-      <Tracker data={data} />
-    </div>
+    <Card>
+      <Card.Header>
+        <Card.Title>Recent deliveries</Card.Title>
+        <Card.Description>
+          Visual timeline of vehicle delivery outcomes by hour
+        </Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <Tracker data={data} />
+      </Card.Content>
+    </Card>
   )
 }

@@ -5,21 +5,21 @@ import { useMemo } from "react"
 import { BarChart } from "@/registry/preskok/ui/preskok-ui/bar-chart"
 import { Card } from "@/registry/preskok/ui/preskok-ui/card"
 
-type EngagementPoint = {
+type SalesPoint = {
   day: string
-  likes: number
-  comments: number
-  shares: number
+  suv: number
+  sedan: number
+  truck: number
 }
 
 export default function BarChartPreskokDemo() {
-  const engagementData: Array<EngagementPoint> = useMemo(
+  const salesData: Array<SalesPoint> = useMemo(
     () =>
       Array.from({ length: 7 }, (_, i) => ({
         day: `Day ${i + 1}`,
-        likes: Math.floor(100 + Math.random() * 300),
-        comments: Math.floor(20 + Math.random() * 80),
-        shares: Math.floor(10 + Math.random() * 50),
+        suv: Math.floor(20 + Math.random() * 60),
+        sedan: Math.floor(15 + Math.random() * 50),
+        truck: Math.floor(10 + Math.random() * 40),
       })),
     []
   )
@@ -27,22 +27,22 @@ export default function BarChartPreskokDemo() {
   return (
     <Card>
       <Card.Header>
-        <Card.Title>Engagement last 7d</Card.Title>
+        <Card.Title>Vehicle sales last 7d</Card.Title>
         <Card.Description>
-          Tracks likes, comments, and shares during the most recent 7-day
-          period.
+          Sales volume across SUV, Sedan, and Truck segments for the last 7
+          days.
         </Card.Description>
       </Card.Header>
       <Card.Content>
         <BarChart
           className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
-          data={engagementData}
+          data={salesData}
           dataKey="day"
           xAxisProps={{ interval: 0 }}
           config={{
-            likes: { label: "Likes" },
-            comments: { label: "Comments" },
-            shares: { label: "Shares" },
+            suv: { label: "SUV" },
+            sedan: { label: "Sedan" },
+            truck: { label: "Truck" },
           }}
         />
       </Card.Content>

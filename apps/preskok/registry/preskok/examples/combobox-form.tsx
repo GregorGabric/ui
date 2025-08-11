@@ -31,21 +31,21 @@ import {
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
 
-const languages = [
-  { label: "English", value: "en" },
-  { label: "French", value: "fr" },
-  { label: "German", value: "de" },
-  { label: "Spanish", value: "es" },
-  { label: "Portuguese", value: "pt" },
-  { label: "Russian", value: "ru" },
-  { label: "Japanese", value: "ja" },
-  { label: "Korean", value: "ko" },
-  { label: "Chinese", value: "zh" },
+const vehicleTypes = [
+  { label: "Sedan", value: "sedan" },
+  { label: "SUV", value: "suv" },
+  { label: "Truck", value: "truck" },
+  { label: "Coupe", value: "coupe" },
+  { label: "Hatchback", value: "hatchback" },
+  { label: "Convertible", value: "convertible" },
+  { label: "Van", value: "van" },
+  { label: "Wagon", value: "wagon" },
+  { label: "Electric", value: "electric" },
 ] as const
 
 const FormSchema = z.object({
-  language: z.string({
-    required_error: "Please select a language.",
+  type: z.string({
+    required_error: "Please select a vehicle type.",
   }),
 })
 
@@ -69,10 +69,10 @@ export default function ComboboxForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="language"
+          name="type"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Vehicle type</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -85,10 +85,9 @@ export default function ComboboxForm() {
                       )}
                     >
                       {field.value
-                        ? languages.find(
-                            (language) => language.value === field.value
-                          )?.label
-                        : "Select language"}
+                        ? vehicleTypes.find((t) => t.value === field.value)
+                            ?.label
+                        : "Select type"}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </FormControl>
@@ -96,25 +95,25 @@ export default function ComboboxForm() {
                 <PopoverContent className="w-[200px] p-0">
                   <Command>
                     <CommandInput
-                      placeholder="Search framework..."
+                      placeholder="Search type..."
                       className="h-9"
                     />
                     <CommandList>
                       <CommandEmpty>No framework found.</CommandEmpty>
                       <CommandGroup>
-                        {languages.map((language) => (
+                        {vehicleTypes.map((vt) => (
                           <CommandItem
-                            value={language.label}
-                            key={language.value}
+                            value={vt.label}
+                            key={vt.value}
                             onSelect={() => {
-                              form.setValue("language", language.value)
+                              form.setValue("type", vt.value)
                             }}
                           >
-                            {language.label}
+                            {vt.label}
                             <Check
                               className={cn(
                                 "ml-auto",
-                                language.value === field.value
+                                vt.value === field.value
                                   ? "opacity-100"
                                   : "opacity-0"
                               )}
@@ -127,7 +126,7 @@ export default function ComboboxForm() {
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                This is the language that will be used in the dashboard.
+                This is the type used to categorize the vehicle listing.
               </FormDescription>
               <FormMessage />
             </FormItem>

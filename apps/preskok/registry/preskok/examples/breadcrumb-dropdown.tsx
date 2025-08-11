@@ -31,11 +31,11 @@ export default function BreadcrumbWithDropdown() {
         <BreadcrumbItem>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5">
-              Components
+              Vehicles
               <ChevronDownIcon />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuItem>Documentation</DropdownMenuItem>
+              <DropdownMenuItem>Sales Docs</DropdownMenuItem>
               <DropdownMenuItem>Themes</DropdownMenuItem>
               <DropdownMenuItem>GitHub</DropdownMenuItem>
             </DropdownMenuContent>

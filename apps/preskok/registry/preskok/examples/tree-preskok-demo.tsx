@@ -9,7 +9,7 @@ import {
 const items = [
   {
     id: "1",
-    name: "Projects",
+    name: "Listings",
     children: [
       { id: "1-1", name: "Website" },
       { id: "1-2", name: "Mobile App" },
@@ -28,7 +28,7 @@ const items = [
 export default function TreePreskokDemo() {
   return (
     <Tree
-      aria-label="Projects"
+      aria-label="Listings"
       selectionMode="multiple"
       defaultExpandedKeys={["1"]}
     >

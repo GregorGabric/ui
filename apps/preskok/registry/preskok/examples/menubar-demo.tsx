@@ -31,7 +31,7 @@ export default function MenubarDemo() {
           <MenubarSub>
             <MenubarSubTrigger>Share</MenubarSubTrigger>
             <MenubarSubContent>
-              <MenubarItem>Email link</MenubarItem>
+              <MenubarItem>Dealer Email link</MenubarItem>
               <MenubarItem>Messages</MenubarItem>
               <MenubarItem>Notes</MenubarItem>
             </MenubarSubContent>

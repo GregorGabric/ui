@@ -27,32 +27,32 @@ export default function CommandDemo() {
         <CommandGroup heading="Suggestions">
           <CommandItem>
             <Calendar />
-            <span>Calendar</span>
+            <span>Delivery calendar</span>
           </CommandItem>
           <CommandItem>
             <Smile />
-            <span>Search Emoji</span>
+            <span>Search vehicles</span>
           </CommandItem>
           <CommandItem disabled>
             <Calculator />
-            <span>Calculator</span>
+            <span>Payment calculator</span>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading="Settings">
+        <CommandGroup heading="Dealer Settings">
           <CommandItem>
             <User />
-            <span>Profile</span>
+            <span>Dealer profile</span>
             <CommandShortcut>⌘P</CommandShortcut>
           </CommandItem>
           <CommandItem>
             <CreditCard />
-            <span>Billing</span>
+            <span>Billing & financing</span>
             <CommandShortcut>⌘B</CommandShortcut>
           </CommandItem>
           <CommandItem>
             <Settings />
-            <span>Settings</span>
+            <span>Platform settings</span>
             <CommandShortcut>⌘S</CommandShortcut>
           </CommandItem>
         </CommandGroup>

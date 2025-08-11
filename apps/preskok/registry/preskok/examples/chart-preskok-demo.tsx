@@ -16,8 +16,8 @@ import {
 
 type DataPoint = {
   day: string
-  Desktop: number
-  Mobile: number
+  SUV: number
+  Sedan: number
 }
 
 export default function ChartPreskokDemo() {
@@ -25,15 +25,15 @@ export default function ChartPreskokDemo() {
     () =>
       Array.from({ length: 7 }, (_, i) => ({
         day: `Day ${i + 1}`,
-        Desktop: Math.floor(100 + Math.random() * 300),
-        Mobile: Math.floor(50 + Math.random() * 200),
+        SUV: Math.floor(100 + Math.random() * 300),
+        Sedan: Math.floor(50 + Math.random() * 200),
       })),
     []
   )
 
   const config = {
-    Desktop: { label: "Desktop", color: "#2563eb" },
-    Mobile: { label: "Mobile", color: "#60a5fa" },
+    SUV: { label: "SUV", color: "#2563eb" },
+    Sedan: { label: "Sedan", color: "#60a5fa" },
   }
 
   return (
@@ -50,18 +50,18 @@ export default function ChartPreskokDemo() {
           <ChartTooltip content={<ChartTooltipContent accessibilityLayer />} />
           <Area
             type="monotone"
-            dataKey="Desktop"
-            stroke="var(--color-Desktop)"
-            fill="var(--color-Desktop)"
+            dataKey="SUV"
+            stroke="var(--color-SUV)"
+            fill="var(--color-SUV)"
             fillOpacity={0.3}
             isAnimationActive
             dot={false}
           />
           <Area
             type="monotone"
-            dataKey="Mobile"
-            stroke="var(--color-Mobile)"
-            fill="var(--color-Mobile)"
+            dataKey="Sedan"
+            stroke="var(--color-Sedan)"
+            fill="var(--color-Sedan)"
             fillOpacity={0.3}
             isAnimationActive
             dot={false}

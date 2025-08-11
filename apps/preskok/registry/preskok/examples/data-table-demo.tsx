@@ -38,34 +38,34 @@ import {
 
 const data: Payment[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
+    id: "veh-9321",
+    amount: 31600,
     status: "success",
-    email: "ken99@example.com",
+    email: "dealer1@autohub.com",
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
+    id: "veh-1844",
+    amount: 24200,
     status: "success",
-    email: "Abe45@example.com",
+    email: "dealer2@autohub.com",
   },
   {
-    id: "derv1ws0",
-    amount: 837,
+    id: "veh-7720",
+    amount: 38700,
     status: "processing",
-    email: "Monserrat44@example.com",
+    email: "dealer3@autohub.com",
   },
   {
-    id: "5kma53ae",
-    amount: 874,
+    id: "veh-5521",
+    amount: 48900,
     status: "success",
-    email: "Silas22@example.com",
+    email: "dealer4@autohub.com",
   },
   {
-    id: "bhqecj4p",
-    amount: 721,
+    id: "veh-2134",
+    amount: 22100,
     status: "failed",
-    email: "carmella@example.com",
+    email: "dealer5@autohub.com",
   },
 ]
 
@@ -114,7 +114,7 @@ export const columns: ColumnDef<Payment>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Dealer Email
           <ArrowUpDown />
         </Button>
       )

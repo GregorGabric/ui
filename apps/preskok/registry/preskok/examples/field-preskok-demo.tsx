@@ -11,7 +11,7 @@ import {
 export default function FieldPreskokDemo() {
   return (
     <div className="max-w-sm space-y-2">
-      <Label htmlFor="email">Email</Label>
+      <Label htmlFor="email">Dealer Email</Label>
       <FieldGroup>
         <Input id="email" placeholder="you@example.com" />
       </FieldGroup>

@@ -27,13 +27,13 @@ import {
 } from "@/registry/preskok/ui/dropdown-menu"
 
 const labels = [
-  "feature",
-  "bug",
-  "enhancement",
-  "documentation",
-  "design",
-  "question",
-  "maintenance",
+  "new-arrival",
+  "price-drop",
+  "certified",
+  "demo",
+  "electric",
+  "featured",
+  "clearance",
 ]
 
 export default function ComboboxDropdownMenu() {
@@ -46,7 +46,9 @@ export default function ComboboxDropdownMenu() {
         <span className="bg-primary text-primary-foreground mr-2 rounded-lg px-2 py-1 text-xs">
           {label}
         </span>
-        <span className="text-muted-foreground">Create a new project</span>
+        <span className="text-muted-foreground">
+          Create a new vehicle listing
+        </span>
       </p>
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
@@ -55,10 +57,10 @@ export default function ComboboxDropdownMenu() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[200px]">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Listing actions</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem>Assign to...</DropdownMenuItem>
-            <DropdownMenuItem>Set due date...</DropdownMenuItem>
+            <DropdownMenuItem>Assign sales rep...</DropdownMenuItem>
+            <DropdownMenuItem>Set delivery date...</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>Apply label</DropdownMenuSubTrigger>

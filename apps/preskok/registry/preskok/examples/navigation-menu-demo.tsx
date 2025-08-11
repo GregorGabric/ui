@@ -88,7 +88,7 @@ export default function NavigationMenuDemo() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Vehicles</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {components.map((component) => (
@@ -115,7 +115,7 @@ export default function NavigationMenuDemo() {
               <li>
                 <NavigationMenuLink asChild>
                   <Link href="#">
-                    <div className="font-medium">Components</div>
+                    <div className="font-medium">Vehicles</div>
                     <div className="text-muted-foreground">
                       Browse all components in the library.
                     </div>
@@ -123,7 +123,7 @@ export default function NavigationMenuDemo() {
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
                   <Link href="#">
-                    <div className="font-medium">Documentation</div>
+                    <div className="font-medium">Sales Docs</div>
                     <div className="text-muted-foreground">
                       Learn how to use the library.
                     </div>
@@ -147,10 +147,10 @@ export default function NavigationMenuDemo() {
             <ul className="grid w-[200px] gap-4">
               <li>
                 <NavigationMenuLink asChild>
-                  <Link href="#">Components</Link>
+                  <Link href="#">Vehicles</Link>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <Link href="#">Documentation</Link>
+                  <Link href="#">Sales Docs</Link>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
                   <Link href="#">Blocks</Link>

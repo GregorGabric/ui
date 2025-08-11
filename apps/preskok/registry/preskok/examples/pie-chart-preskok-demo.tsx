@@ -8,10 +8,10 @@ import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
 export function Component() {
   const data = useMemo(
     () => [
-      { name: "Organic", amount: 1240 },
-      { name: "Paid", amount: 880 },
-      { name: "Referral", amount: 360 },
-      { name: "Social", amount: 220 },
+      { name: "Sedan", amount: 420 },
+      { name: "SUV", amount: 580 },
+      { name: "Truck", amount: 260 },
+      { name: "EV", amount: 180 },
     ],
     []
   )
@@ -19,9 +19,9 @@ export function Component() {
   return (
     <Card>
       <Card.Header className="text-center">
-        <Card.Title>Traffic source breakdown</Card.Title>
+        <Card.Title>Vehicle category breakdown</Card.Title>
         <Card.Description>
-          Where your website traffic is coming from.
+          Share of inventory by vehicle category.
         </Card.Description>
       </Card.Header>
       <Card.Content>
@@ -31,10 +31,10 @@ export function Component() {
           dataKey="amount"
           nameKey="name"
           config={{
-            Organic: { label: "Organic" },
-            Paid: { label: "Paid" },
-            Referral: { label: "Referral" },
-            Social: { label: "Social" },
+            Sedan: { label: "Sedan" },
+            SUV: { label: "SUV" },
+            Truck: { label: "Truck" },
+            EV: { label: "EV" },
           }}
         />
       </Card.Content>

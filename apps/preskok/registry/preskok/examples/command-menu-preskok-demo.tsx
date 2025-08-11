@@ -39,9 +39,9 @@ export function Component() {
               <CommandMenu.Label>Docs</CommandMenu.Label>
               <CommandMenu.Keyboard keys="⌘k" />
             </CommandMenu.Item>
-            <CommandMenu.Item textValue="Components" href="#">
+            <CommandMenu.Item textValue="Vehicles" href="#">
               <BoxIcon size={16} />
-              <CommandMenu.Label>Components</CommandMenu.Label>
+              <CommandMenu.Label>Vehicles</CommandMenu.Label>
             </CommandMenu.Item>
           </CommandMenu.Section>
           <CommandMenu.Section title="Dashboard">

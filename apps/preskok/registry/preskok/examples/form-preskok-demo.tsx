@@ -12,7 +12,7 @@ export default function FormPreskokDemo() {
     >
       <TextField label="Name" name="name" isRequired placeholder="Jane Doe" />
       <TextField
-        label="Email"
+        label="Dealer Email"
         name="email"
         type="email"
         isRequired

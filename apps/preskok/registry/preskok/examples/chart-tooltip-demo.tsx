@@ -32,10 +32,10 @@ export default function Component() {
           </defs>
         </svg>
         <TooltipDemo
-          label="Page Views"
+          label="Sales"
           payload={[
-            { name: "Desktop", value: 186, fill: "hsl(var(--chart-1))" },
-            { name: "Mobile", value: 80, fill: "hsl(var(--chart-2))" },
+            { name: "SUV", value: 186, fill: "hsl(var(--chart-1))" },
+            { name: "Sedan", value: 80, fill: "hsl(var(--chart-2))" },
           ]}
           className="w-[8rem]"
         />
@@ -65,11 +65,11 @@ export default function Component() {
           </defs>
         </svg>
         <TooltipDemo
-          label="Browser"
+          label="Lead Source"
           hideLabel
           payload={[
-            { name: "Chrome", value: 1286, fill: "hsl(var(--chart-3))" },
-            { name: "Firefox", value: 1000, fill: "hsl(var(--chart-4))" },
+            { name: "Website", value: 1286, fill: "hsl(var(--chart-3))" },
+            { name: "Walk-in", value: 1000, fill: "hsl(var(--chart-4))" },
           ]}
           indicator="dashed"
           className="w-[8rem]"
@@ -77,9 +77,9 @@ export default function Component() {
       </div>
       <div className="!hidden md:!flex">
         <TooltipDemo
-          label="Page Views"
+          label="Sales"
           payload={[
-            { name: "Desktop", value: 12486, fill: "hsl(var(--chart-3))" },
+            { name: "SUV", value: 12486, fill: "hsl(var(--chart-3))" },
           ]}
           className="w-[9rem]"
           indicator="line"
@@ -90,10 +90,10 @@ export default function Component() {
           Indicator
         </div>
         <TooltipDemo
-          label="Browser"
+          label="Lead Source"
           hideLabel
           payload={[
-            { name: "Chrome", value: 1286, fill: "hsl(var(--chart-1))" },
+            { name: "Website", value: 1286, fill: "hsl(var(--chart-1))" },
           ]}
           indicator="dot"
           className="w-[8rem]"

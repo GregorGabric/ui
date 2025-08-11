@@ -17,7 +17,7 @@ export default function CardPreskokDemo() {
       <CardHeader>
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle>Team Project</CardTitle>
+            <CardTitle>Team Listing</CardTitle>
             <CardDescription>
               Collaborative workspace for the team
             </CardDescription>

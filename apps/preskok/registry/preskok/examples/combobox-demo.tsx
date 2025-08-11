@@ -19,27 +19,12 @@ import {
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
+const makes = [
+  { value: "toyota", label: "Toyota" },
+  { value: "ford", label: "Ford" },
+  { value: "bmw", label: "BMW" },
+  { value: "tesla", label: "Tesla" },
+  { value: "honda", label: "Honda" },
 ]
 
 export default function ComboboxDemo() {
@@ -56,31 +41,31 @@ export default function ComboboxDemo() {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? makes.find((make) => make.value === value)?.label
+            : "Select make..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search make..." className="h-9" />
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {makes.map((make) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={make.value}
+                  value={make.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
-                  {framework.label}
+                  {make.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === make.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

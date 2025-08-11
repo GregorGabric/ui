@@ -10,8 +10,8 @@ export default function LineChartPreskokDemo() {
     () =>
       Array.from({ length: 12 }, (_, i) => ({
         month: `M${i + 1}`,
-        sales: Math.floor(200 + Math.random() * 400),
-        profit: Math.floor(50 + Math.random() * 150),
+        sales: Math.floor(20 + Math.random() * 80),
+        leads: Math.floor(10 + Math.random() * 50),
       })),
     []
   )
@@ -19,15 +19,15 @@ export default function LineChartPreskokDemo() {
   return (
     <Card>
       <Card.Header>
-        <Card.Title>Performance</Card.Title>
-        <Card.Description>Sales vs Profit per month</Card.Description>
+        <Card.Title>Dealership performance</Card.Title>
+        <Card.Description>Sales vs Leads per month</Card.Description>
       </Card.Header>
       <Card.Content>
         <LineChart
           className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={data}
           dataKey="month"
-          config={{ sales: { label: "Sales" }, profit: { label: "Profit" } }}
+          config={{ sales: { label: "Sales" }, leads: { label: "Leads" } }}
         />
       </Card.Content>
     </Card>

@@ -10,21 +10,21 @@ import {
 } from "@/registry/preskok/ui/chart"
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", suv: 186, sedan: 80 },
+  { month: "February", suv: 305, sedan: 200 },
+  { month: "March", suv: 237, sedan: 120 },
+  { month: "April", suv: 73, sedan: 190 },
+  { month: "May", suv: 209, sedan: 130 },
+  { month: "June", suv: 214, sedan: 140 },
 ]
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  suv: {
+    label: "SUV",
     color: "#2563eb",
   },
-  mobile: {
-    label: "Mobile",
+  sedan: {
+    label: "Sedan",
     color: "#60a5fa",
   },
 } satisfies ChartConfig
@@ -39,11 +39,11 @@ export default function Component() {
           tickLine={false}
           tickMargin={10}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
+          tickFormatter={(value: string) => value.slice(0, 3)}
         />
         <ChartTooltip content={<ChartTooltipContent />} />
-        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+        <Bar dataKey="suv" fill="var(--color-suv)" radius={4} />
+        <Bar dataKey="sedan" fill="var(--color-sedan)" radius={4} />
       </BarChart>
     </ChartContainer>
   )
