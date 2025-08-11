@@ -4,26 +4,26 @@ import { Choicebox } from "@/registry/preskok/ui/preskok-ui/choicebox"
 
 export function Component() {
   return (
-    <Choicebox aria-label="Select items" selectionMode="multiple">
+    <Choicebox aria-label="Select car packages" selectionMode="multiple">
       <Choicebox.Item
-        textValue="premium"
-        label="Premium"
-        description="Advanced options for growing needs."
+        textValue="sedan"
+        label="Sedan"
+        description="Comfortable family car with excellent fuel economy."
       />
       <Choicebox.Item
-        textValue="deluxe"
-        label="Deluxe"
-        description="Top-tier features for maximum performance."
+        textValue="suv"
+        label="SUV"
+        description="Versatile vehicle with enhanced cargo space and off-road capability."
       />
       <Choicebox.Item
-        textValue="ultimate"
-        label="Ultimate"
-        description="All-inclusive plan with every feature available."
+        textValue="luxury"
+        label="Luxury"
+        description="Premium features with leather interior and advanced technology package."
       />
       <Choicebox.Item
-        textValue="enterprise"
-        label="Enterprise"
-        description="Custom solutions for large-scale operations."
+        textValue="electric"
+        label="Electric"
+        description="Zero-emission vehicle with cutting-edge battery technology."
       />
     </Choicebox>
   )
