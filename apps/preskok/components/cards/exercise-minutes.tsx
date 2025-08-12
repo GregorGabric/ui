@@ -1,20 +1,14 @@
 "use client"
 
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart"
+import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
 
 const data = [
   {
@@ -75,54 +69,16 @@ export function CardsExerciseMinutes() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="w-full md:h-[200px]">
-          <LineChart
-            accessibilityLayer
-            data={data}
-            margin={{
-              top: 5,
-              right: 10,
-              left: 16,
-              bottom: 0,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="day"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <Line
-              type="monotone"
-              dataKey="today"
-              strokeWidth={2}
-              stroke="var(--color-today)"
-              dot={{
-                fill: "var(--color-today)",
-              }}
-              activeDot={{
-                r: 5,
-              }}
-            />
-            <Line
-              type="monotone"
-              strokeWidth={2}
-              dataKey="average"
-              stroke="var(--color-average)"
-              strokeOpacity={0.5}
-              dot={{
-                fill: "var(--color-average)",
-                opacity: 0.5,
-              }}
-              activeDot={{
-                r: 5,
-              }}
-            />
-            <ChartTooltip content={<ChartTooltipContent />} />
-          </LineChart>
-        </ChartContainer>
+        <LineChart
+          data={data}
+          dataKey="day"
+          config={chartConfig}
+          className="w-full"
+          xAxisProps={{
+            tickMargin: 8,
+            tickFormatter: (value: string) => value.slice(0, 3),
+          }}
+        />
       </CardContent>
     </Card>
   )

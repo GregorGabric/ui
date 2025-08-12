@@ -1,4 +1,3 @@
-import { CardsActivityGoal } from "@/components/cards/activity-goal"
 import { CardsCalendar } from "@/components/cards/calendar"
 import { CardsChat } from "@/components/cards/chat"
 import { CardsCookieSettings } from "@/components/cards/cookie-settings"
@@ -18,9 +17,7 @@ export function CardsDemo() {
         <CardsStats />
         <div className="grid gap-1 sm:grid-cols-[auto_1fr] md:hidden">
           <CardsCalendar />
-          <div className="pt-3 sm:pt-0 sm:pl-2 xl:pl-4">
-            <CardsActivityGoal />
-          </div>
+
           <div className="pt-3 sm:col-span-2 xl:pt-4">
             <CardsExerciseMinutes />
           </div>
@@ -43,9 +40,7 @@ export function CardsDemo() {
       <div className="flex flex-col gap-4 lg:col-span-6 xl:col-span-5">
         <div className="hidden gap-1 sm:grid-cols-[auto_1fr] md:grid">
           <CardsCalendar />
-          <div className="pt-3 sm:pt-0 sm:pl-2 xl:pl-3">
-            <CardsActivityGoal />
-          </div>
+
           <div className="pt-3 sm:col-span-2 xl:pt-3">
             <CardsExerciseMinutes />
           </div>

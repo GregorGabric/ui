@@ -1,25 +1,46 @@
 "use client"
 
-import { addDays } from "date-fns"
-
-import { Calendar } from "@/registry/preskok/ui/calendar"
-import { Card, CardContent } from "@/registry/preskok/ui/card"
-
-const start = new Date(2025, 5, 5)
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { DateRangePicker } from "@/registry/preskok/ui/preskok-ui/date-range-picker"
 
 export function CardsCalendar() {
   return (
-    <Card className="hidden max-w-[260px] p-0 sm:flex">
-      <CardContent className="p-0">
-        <Calendar
-          numberOfMonths={1}
-          mode="range"
-          defaultMonth={start}
-          selected={{
-            from: start,
-            to: addDays(start, 8),
-          }}
-        />
+    <Card className="col-span-2 hidden place-items-center sm:flex">
+      <CardHeader>
+        <CardTitle>Shipments by Date</CardTitle>
+        <CardDescription>
+          Select a date range to analyze pickups, deliveries, and transit
+          performance across your fleet.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="w-full">
+        <div className="flex flex-col gap-4">
+          <DateRangePicker className="max-w-max" label="Shipment window" />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-md border p-3">
+              <div className="text-muted-foreground text-xs">
+                Deliveries scheduled
+              </div>
+              <div className="text-lg font-semibold">128</div>
+            </div>
+            <div className="rounded-md border p-3">
+              <div className="text-muted-foreground text-xs">On‑time rate</div>
+              <div className="text-lg font-semibold">96.2%</div>
+            </div>
+            <div className="rounded-md border p-3">
+              <div className="text-muted-foreground text-xs">
+                Avg. transit time
+              </div>
+              <div className="text-lg font-semibold">1.8 days</div>
+            </div>
+          </div>
+        </div>
       </CardContent>
     </Card>
   )
