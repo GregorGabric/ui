@@ -4,41 +4,17 @@ import * as React from "react"
 import { ArrowUpIcon, CheckIcon, PlusIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/preskok/ui/avatar"
-import { Button } from "@/registry/preskok/ui/button"
+import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/registry/preskok/ui/card"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/registry/preskok/ui/command"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/registry/preskok/ui/dialog"
-import { Input } from "@/registry/preskok/ui/input"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/registry/preskok/ui/tooltip"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { CommandMenu } from "@/registry/preskok/ui/preskok-ui/command-menu"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
+import { Tooltip } from "@/registry/preskok/ui/preskok-ui/tooltip"
 
 const users = [
   {
@@ -70,28 +46,39 @@ const users = [
 
 type User = (typeof users)[number]
 
+interface ChatMessage {
+  id: string
+  role: "agent" | "user"
+  content: string
+}
+
 export function CardsChat() {
   const [open, setOpen] = React.useState(false)
   const [selectedUsers, setSelectedUsers] = React.useState<Array<User>>([])
 
-  const [messages, setMessages] = React.useState([
+  const [messages, setMessages] = React.useState<Array<ChatMessage>>([
     {
+      id: "m-1",
       role: "agent",
       content: "Hi, how can I help you today?",
     },
     {
+      id: "m-2",
       role: "user",
       content: "Hey, I'm having trouble with my account.",
     },
     {
+      id: "m-3",
       role: "agent",
       content: "What seems to be the problem?",
     },
     {
+      id: "m-4",
       role: "user",
       content: "I can't log in.",
     },
   ])
+  const nextId = React.useRef(5)
   const [input, setInput] = React.useState("")
   const inputLength = input.trim().length
 
@@ -100,39 +87,38 @@ export function CardsChat() {
       <Card>
         <CardHeader className="flex flex-row items-center">
           <div className="flex items-center gap-4">
-            <Avatar className="border">
-              <AvatarImage src="/avatars/01.png" alt="Image" />
-              <AvatarFallback>S</AvatarFallback>
-            </Avatar>
+            <Avatar
+              src="/avatars/01.png"
+              alt="Image"
+              initials="S"
+              className="border"
+            />
             <div className="flex flex-col gap-0.5">
               <p className="text-sm leading-none font-medium">Sofia Davis</p>
               <p className="text-muted-foreground text-xs">m@example.com</p>
             </div>
           </div>
-          <TooltipProvider delayDuration={0}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  className="ml-auto size-8 rounded-full"
-                  onClick={() => {
-                    setOpen(true)
-                  }}
-                >
-                  <PlusIcon />
-                  <span className="sr-only">New message</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent sideOffset={10}>New message</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Tooltip>
+            <Button
+              size="sq-sm"
+              intent="secondary"
+              isCircle
+              className="ml-auto"
+              onPress={() => {
+                setOpen(true)
+              }}
+            >
+              <PlusIcon />
+              <span className="sr-only">New message</span>
+            </Button>
+            <Tooltip.Content>New message</Tooltip.Content>
+          </Tooltip>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {messages.map((message, index) => (
+            {messages.map((message) => (
               <div
-                key={index}
+                key={message.id}
                 className={cn(
                   "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
                   message.role === "user"
@@ -155,6 +141,7 @@ export function CardsChat() {
               setMessages([
                 ...messages,
                 {
+                  id: `m-${nextId.current++}`,
                   role: "user",
                   content: input,
                 },
@@ -163,111 +150,95 @@ export function CardsChat() {
             }}
             className="relative w-full"
           >
-            <Input
-              id="message"
+            <TextField
+              aria-label="Message"
               placeholder="Type your message..."
-              className="flex-1 pr-10"
-              autoComplete="off"
+              className="w-full"
               value={input}
-              onChange={(event) => {
-                setInput(event.target.value)
+              onChange={(value) => {
+                setInput(value)
               }}
+              suffix={
+                <Button type="submit" isDisabled={inputLength === 0}>
+                  <ArrowUpIcon className="size-3.5" />
+                  <span className="sr-only">Send</span>
+                </Button>
+              }
             />
-            <Button
-              type="submit"
-              size="icon"
-              className="absolute top-1/2 right-2 size-6 -translate-y-1/2 rounded-full"
-              disabled={inputLength === 0}
-            >
-              <ArrowUpIcon className="size-3.5" />
-              <span className="sr-only">Send</span>
-            </Button>
           </form>
         </CardFooter>
       </Card>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="gap-0 p-0 outline-none">
-          <DialogHeader className="px-4 pt-5 pb-4">
-            <DialogTitle>New message</DialogTitle>
-            <DialogDescription>
-              Invite a user to this thread. This will create a new group
-              message.
-            </DialogDescription>
-          </DialogHeader>
-          <Command className="overflow-hidden rounded-t-none border-t bg-transparent">
-            <CommandInput placeholder="Search user..." />
-            <CommandList>
-              <CommandEmpty>No users found.</CommandEmpty>
-              <CommandGroup>
-                {users.map((user) => (
-                  <CommandItem
-                    key={user.email}
-                    data-active={selectedUsers.includes(user)}
-                    className="data-[active=true]:opacity-50"
-                    onSelect={() => {
-                      if (selectedUsers.includes(user)) {
-                        setSelectedUsers(
-                          selectedUsers.filter(
-                            (selectedUser) => selectedUser !== user
-                          )
-                        )
-                        return
-                      }
-
-                      setSelectedUsers(
-                        [...users].filter((u) =>
-                          [...selectedUsers, user].includes(u)
-                        )
-                      )
-                    }}
-                  >
-                    <Avatar className="border">
-                      <AvatarImage src={user.avatar} alt="Image" />
-                      <AvatarFallback>{user.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div className="ml-2">
-                      <p className="text-sm leading-none font-medium">
-                        {user.name}
-                      </p>
-                      <p className="text-muted-foreground text-sm">
-                        {user.email}
-                      </p>
-                    </div>
-                    {selectedUsers.includes(user) ? (
-                      <CheckIcon className="text-primary ml-auto flex size-4" />
-                    ) : null}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-          <DialogFooter className="flex items-center border-t p-4 sm:justify-between">
-            {selectedUsers.length > 0 ? (
-              <div className="flex -space-x-2 overflow-hidden">
-                {selectedUsers.map((user) => (
-                  <Avatar key={user.email} className="inline-block border">
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>{user.name[0]}</AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-            ) : (
-              <p className="text-muted-foreground text-sm">
-                Select users to add to this thread.
-              </p>
-            )}
-            <Button
-              disabled={selectedUsers.length < 2}
-              size="sm"
-              onClick={() => {
-                setOpen(false)
-              }}
+      <CommandMenu
+        isOpen={open}
+        onOpenChange={setOpen}
+        aria-label="New message"
+        size="md"
+      >
+        <CommandMenu.Search placeholder="Search user..." />
+        <CommandMenu.List
+          onAction={(key) => {
+            const user = users.find((u) => u.email === key)
+            if (!user) {
+              return
+            }
+            if (selectedUsers.includes(user)) {
+              setSelectedUsers(selectedUsers.filter((u) => u !== user))
+              return
+            }
+            setSelectedUsers(
+              [...users].filter((u) => [...selectedUsers, user].includes(u))
+            )
+          }}
+        >
+          {users.map((user) => (
+            <CommandMenu.Item
+              key={user.email}
+              id={user.email}
+              textValue={user.name}
+              className={"flex"}
             >
-              Continue
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+              <Avatar
+                src={user.avatar}
+                initials={user.name[0]}
+                className="border"
+              />
+              <div className="ml-2">
+                <p className="text-sm leading-none font-medium">{user.name}</p>
+                <p className="text-muted-foreground text-sm">{user.email}</p>
+              </div>
+              {selectedUsers.includes(user) ? (
+                <CheckIcon className="text-primary ml-auto flex size-4" />
+              ) : null}
+            </CommandMenu.Item>
+          ))}
+        </CommandMenu.List>
+        <CommandMenu.Footer className="flex items-center sm:justify-between">
+          {selectedUsers.length > 0 ? (
+            <div className="flex -space-x-2 overflow-hidden">
+              {selectedUsers.map((user) => (
+                <Avatar
+                  key={user.email}
+                  src={user.avatar}
+                  initials={user.name[0]}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground text-sm">
+              Select users to add to this thread.
+            </p>
+          )}
+          <Button
+            size="sm"
+            isDisabled={selectedUsers.length < 2}
+            onPress={() => {
+              setOpen(false)
+            }}
+          >
+            Continue
+          </Button>
+        </CommandMenu.Footer>
+      </CommandMenu>
     </>
   )
 }

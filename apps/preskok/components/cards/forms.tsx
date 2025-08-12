@@ -51,7 +51,6 @@ export function CardsForms() {
             <Label htmlFor="card-number">Card Number</Label>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-[1fr_80px_60px]">
               <Input
-                intent
                 id="card-number"
                 placeholder="1234 1234 1234 1234"
                 className="col-span-2 md:col-span-1"

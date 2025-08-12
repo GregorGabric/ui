@@ -8,7 +8,7 @@ export default function ModalPreskokDemo() {
   return (
     <Modal>
       <Button intent="outline">Rename</Button>
-      <Modal.Content>
+      <Modal.Content isBlurred>
         {({ close }) => (
           <>
             <Modal.Header>
