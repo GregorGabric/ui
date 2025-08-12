@@ -30,7 +30,7 @@ export default function AuthenticationPage() {
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
             <p className="text-muted-foreground text-sm">
-              Enter your email below to create your account
+              Enter your email below to login
             </p>
           </div>
           <UserAuthForm />

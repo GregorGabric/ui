@@ -29,15 +29,15 @@ export function UserAuthForm({
         <div className="grid gap-2">
           <div className="grid gap-1">
             <TextField
+              label="Email"
               aria-label="Email"
-              placeholder="name@example.com"
               type="email"
               isDisabled={isLoading}
             />
             <TextField
+              label="Password"
               aria-label="password"
               type="password"
-              placeholder="*******"
               isRevealable
               isDisabled={isLoading}
             />
