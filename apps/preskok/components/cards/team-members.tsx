@@ -2,32 +2,17 @@
 
 import { ChevronDown } from "lucide-react"
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/preskok/ui/avatar"
-import { Button } from "@/registry/preskok/ui/button"
+import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
+// Button not needed; Menu.Trigger renders a button
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/registry/preskok/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/registry/preskok/ui/popover"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
 
 const teamMembers = [
   {
@@ -85,10 +70,12 @@ export function CardsTeamMembers() {
             className="flex items-center justify-between gap-4"
           >
             <div className="flex items-center gap-4">
-              <Avatar className="border">
-                <AvatarImage src={member.avatar} alt="Image" />
-                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-              </Avatar>
+              <Avatar
+                className="border"
+                src={member.avatar}
+                alt={member.name}
+                initials={member.name.charAt(0)}
+              />
               <div className="flex flex-col gap-0.5">
                 <p className="text-sm leading-none font-medium">
                   {member.name}
@@ -96,37 +83,23 @@ export function CardsTeamMembers() {
                 <p className="text-muted-foreground text-xs">{member.email}</p>
               </div>
             </div>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="ml-auto shadow-none"
-                >
-                  {member.role} <ChevronDown />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="p-0" align="end">
-                <Command>
-                  <CommandInput placeholder="Select role..." />
-                  <CommandList>
-                    <CommandEmpty>No roles found.</CommandEmpty>
-                    <CommandGroup>
-                      {roles.map((role) => (
-                        <CommandItem key={role.name}>
-                          <div className="flex flex-col">
-                            <p className="text-sm font-medium">{role.name}</p>
-                            <p className="text-muted-foreground">
-                              {role.description}
-                            </p>
-                          </div>
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <Menu>
+              <Button intent="plain" className="ml-auto shadow-none">
+                {member.role} <ChevronDown />
+              </Button>
+              <Menu.Content placement="bottom end">
+                {roles.map((role) => (
+                  <Menu.Item key={role.name}>
+                    <div className="flex flex-col">
+                      <p className="text-sm font-medium">{role.name}</p>
+                      <p className="text-muted-foreground">
+                        {role.description}
+                      </p>
+                    </div>
+                  </Menu.Item>
+                ))}
+              </Menu.Content>
+            </Menu>
           </div>
         ))}
       </CardContent>

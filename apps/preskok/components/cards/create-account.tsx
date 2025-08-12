@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
@@ -8,9 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function CardsCreateAccount() {
   return (
@@ -23,7 +22,7 @@ export function CardsCreateAccount() {
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-6">
-          <Button variant="outline">
+          <Button intent="outline">
             <svg viewBox="0 0 438.549 438.549">
               <path
                 fill="currentColor"
@@ -32,7 +31,7 @@ export function CardsCreateAccount() {
             </svg>
             GitHub
           </Button>
-          <Button variant="outline">
+          <Button intent="outline">
             <svg role="img" viewBox="0 0 24 24">
               <path
                 fill="currentColor"

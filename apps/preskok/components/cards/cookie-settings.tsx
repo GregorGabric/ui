@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Label } from "@/registry/preskok/ui/label"
-import { Switch } from "@/registry/preskok/ui/switch"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
 
 export function CardsCookieSettings() {
   return (
@@ -28,7 +28,7 @@ export function CardsCookieSettings() {
               its features.
             </span>
           </Label>
-          <Switch id="necessary" defaultChecked aria-label="Necessary" />
+          <Switch id="necessary" isSelected aria-label="Necessary" />
         </div>
         <div className="flex items-center justify-between gap-4">
           <Label htmlFor="functional" className="flex flex-col items-start">
@@ -42,7 +42,7 @@ export function CardsCookieSettings() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full">
+        <Button intent="outline" className="w-full">
           Save preferences
         </Button>
       </CardFooter>

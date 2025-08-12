@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
@@ -10,17 +10,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/select"
-import { Textarea } from "@/registry/preskok/ui/textarea"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import { Textarea } from "@/registry/preskok/ui/preskok-ui/textarea"
 
 export function CardsReportIssue() {
   const id = React.useId()
@@ -37,39 +30,30 @@ export function CardsReportIssue() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-3">
             <Label htmlFor={`area-${id}`}>Area</Label>
-            <Select defaultValue="billing">
-              <SelectTrigger
-                id={`area-${id}`}
-                aria-label="Area"
-                className="w-full"
-              >
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="team">Team</SelectItem>
-                <SelectItem value="billing">Billing</SelectItem>
-                <SelectItem value="account">Account</SelectItem>
-                <SelectItem value="deployments">Deployments</SelectItem>
-                <SelectItem value="support">Support</SelectItem>
-              </SelectContent>
+            <Select selectedKey="billing" aria-label="Area">
+              <Select.Trigger id={`area-${id}`} className="w-full" />
+              <Select.List>
+                <Select.Option id="team">Team</Select.Option>
+                <Select.Option id="billing">Billing</Select.Option>
+                <Select.Option id="account">Account</Select.Option>
+                <Select.Option id="deployments">Deployments</Select.Option>
+                <Select.Option id="support">Support</Select.Option>
+              </Select.List>
             </Select>
           </div>
           <div className="flex flex-col gap-3">
             <Label htmlFor={`security-level-${id}`}>Security Level</Label>
-            <Select defaultValue="2">
-              <SelectTrigger
+            <Select selectedKey="2" aria-label="Security Level">
+              <Select.Trigger
                 id={`security-level-${id}`}
                 className="w-full [&_span]:!block [&_span]:truncate"
-                aria-label="Security Level"
-              >
-                <SelectValue placeholder="Select level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">Severity 1 (Highest)</SelectItem>
-                <SelectItem value="2">Severity 2</SelectItem>
-                <SelectItem value="3">Severity 3</SelectItem>
-                <SelectItem value="4">Severity 4 (Lowest)</SelectItem>
-              </SelectContent>
+              />
+              <Select.List>
+                <Select.Option id="1">Severity 1 (Highest)</Select.Option>
+                <Select.Option id="2">Severity 2</Select.Option>
+                <Select.Option id="3">Severity 3</Select.Option>
+                <Select.Option id="4">Severity 4 (Lowest)</Select.Option>
+              </Select.List>
             </Select>
           </div>
         </div>
@@ -87,7 +71,7 @@ export function CardsReportIssue() {
         </div>
       </CardContent>
       <CardFooter className="justify-end gap-2">
-        <Button variant="ghost" size="sm">
+        <Button intent="plain" size="sm">
           Cancel
         </Button>
         <Button size="sm">Submit</Button>

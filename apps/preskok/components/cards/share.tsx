@@ -1,28 +1,18 @@
 "use client"
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/preskok/ui/avatar"
-import { Button } from "@/registry/preskok/ui/button"
+import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/select"
-import { Separator } from "@/registry/preskok/ui/separator"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 const people = [
   {
@@ -60,13 +50,13 @@ export function CardsShare() {
           <Label htmlFor="link" className="sr-only">
             Link
           </Label>
-          <Input
+          <TextField
             id="link"
             value="http://example.com/link/to/document"
-            className="h-8"
-            readOnly
+            className="h-8 flex-1"
+            isReadOnly
           />
-          <Button size="sm" variant="outline" className="shadow-none">
+          <Button size="sm" intent="outline" className="shadow-none">
             Copy Link
           </Button>
         </div>
@@ -80,10 +70,11 @@ export function CardsShare() {
                 className="flex items-center justify-between gap-4"
               >
                 <div className="flex items-center gap-4">
-                  <Avatar>
-                    <AvatarImage src={person.avatar} alt="Image" />
-                    <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
+                  <Avatar
+                    src={person.avatar}
+                    alt={person.name}
+                    initials={person.name.charAt(0)}
+                  />
                   <div>
                     <p className="text-sm leading-none font-medium">
                       {person.name}
@@ -93,18 +84,12 @@ export function CardsShare() {
                     </p>
                   </div>
                 </div>
-                <Select defaultValue="edit">
-                  <SelectTrigger
-                    className="ml-auto pr-2"
-                    aria-label="Edit"
-                    size="sm"
-                  >
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent align="end">
-                    <SelectItem value="edit">Can edit</SelectItem>
-                    <SelectItem value="view">Can view</SelectItem>
-                  </SelectContent>
+                <Select selectedKey="edit" aria-label="Edit">
+                  <Select.Trigger className="ml-auto pr-2" />
+                  <Select.List>
+                    <Select.Option id="edit">Can edit</Select.Option>
+                    <Select.Option id="view">Can view</Select.Option>
+                  </Select.List>
                 </Select>
               </div>
             ))}

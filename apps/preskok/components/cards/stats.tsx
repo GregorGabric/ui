@@ -1,8 +1,7 @@
 "use client"
 
-import { Area, AreaChart, Line, LineChart } from "recharts"
-
-import { Button } from "@/registry/preskok/ui/button"
+import { AreaChart } from "@/registry/preskok/ui/preskok-ui/area-chart"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardAction,
@@ -10,8 +9,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { ChartConfig, ChartContainer } from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
 
 const data = [
   {
@@ -48,17 +47,6 @@ const data = [
   },
 ]
 
-const chartConfig = {
-  revenue: {
-    label: "Revenue",
-    color: "var(--primary)",
-  },
-  subscription: {
-    label: "Subscriptions",
-    color: "var(--primary)",
-  },
-} satisfies ChartConfig
-
 export function CardsStats() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
@@ -69,27 +57,18 @@ export function CardsStats() {
           <CardDescription>+20.1% from last month</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
-          <ChartContainer config={chartConfig} className="h-[80px] w-full">
-            <LineChart
-              data={data}
-              margin={{
-                top: 5,
-                right: 10,
-                left: 10,
-                bottom: 0,
-              }}
-            >
-              <Line
-                type="monotone"
-                strokeWidth={2}
-                dataKey="revenue"
-                stroke="var(--color-revenue)"
-                activeDot={{
-                  r: 6,
-                }}
-              />
-            </LineChart>
-          </ChartContainer>
+          <LineChart
+            config={{ revenue: { label: "Revenue", color: "var(--primary)" } }}
+            data={data.map((d, i) => ({ name: i, revenue: d.revenue }))}
+            dataKey="name"
+            className="h-[80px] w-full"
+            legend={false}
+            tooltip={false}
+            hideGridLines
+            hideYAxis
+            xAxisProps={{ hide: true }}
+            yAxisProps={{ hide: true }}
+          />
         </CardContent>
       </Card>
       <Card className="pb-0 lg:hidden xl:flex">
@@ -98,30 +77,29 @@ export function CardsStats() {
           <CardTitle className="text-3xl">+2,350</CardTitle>
           <CardDescription>+180.1% from last month</CardDescription>
           <CardAction>
-            <Button variant="ghost" size="sm">
+            <Button intent="plain" size="sm">
               View More
             </Button>
           </CardAction>
         </CardHeader>
         <CardContent className="mt-auto max-h-[124px] flex-1 p-0">
-          <ChartContainer config={chartConfig} className="size-full">
-            <AreaChart
-              data={data}
-              margin={{
-                left: 0,
-                right: 0,
-              }}
-            >
-              <Area
-                dataKey="subscription"
-                fill="var(--color-subscription)"
-                fillOpacity={0.05}
-                stroke="var(--color-subscription)"
-                strokeWidth={2}
-                type="monotone"
-              />
-            </AreaChart>
-          </ChartContainer>
+          <AreaChart
+            config={{
+              subscription: { label: "Subscriptions", color: "var(--primary)" },
+            }}
+            data={data.map((d, i) => ({
+              name: i,
+              subscription: d.subscription,
+            }))}
+            dataKey="name"
+            className="size-full"
+            legend={false}
+            tooltip={false}
+            hideGridLines
+            hideYAxis
+            xAxisProps={{ hide: true }}
+            yAxisProps={{ hide: true }}
+          />
         </CardContent>
       </Card>
     </div>

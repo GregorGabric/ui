@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
@@ -8,17 +8,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/registry/preskok/ui/radio-group"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/select"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Radio, RadioGroup } from "@/registry/preskok/ui/preskok-ui/radio"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
 
 const plans = [
   {
@@ -54,24 +47,16 @@ export function CardsPaymentMethod() {
           <p className="text-muted-foreground text-sm">
             Select the plan that best fits your needs.
           </p>
-          <RadioGroup defaultValue="starter" className="grid gap-3">
+          <RadioGroup className="grid gap-3">
             {plans.map((plan) => (
-              <Label
-                className="has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-primary/5 flex items-start gap-3 rounded-lg border p-3"
-                key={plan.id}
-              >
-                <RadioGroupItem
-                  value={plan.id}
-                  id={plan.name}
-                  className="data-[state=checked]:border-primary"
-                />
+              <Radio key={plan.id} value={plan.id}>
                 <div className="grid gap-1 font-normal">
                   <div className="font-medium">{plan.name}</div>
                   <div className="text-muted-foreground pr-2 text-xs leading-snug text-balance">
                     {plan.description}
                   </div>
                 </div>
-              </Label>
+              </Radio>
             ))}
           </RadioGroup>
         </fieldset>
@@ -82,39 +67,35 @@ export function CardsPaymentMethod() {
         <div className="grid grid-cols-3 gap-4">
           <div className="flex flex-col gap-3">
             <Label htmlFor="month">Expires</Label>
-            <Select>
-              <SelectTrigger id="month" aria-label="Month" className="w-full">
-                <SelectValue placeholder="Month" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">January</SelectItem>
-                <SelectItem value="2">February</SelectItem>
-                <SelectItem value="3">March</SelectItem>
-                <SelectItem value="4">April</SelectItem>
-                <SelectItem value="5">May</SelectItem>
-                <SelectItem value="6">June</SelectItem>
-                <SelectItem value="7">July</SelectItem>
-                <SelectItem value="8">August</SelectItem>
-                <SelectItem value="9">September</SelectItem>
-                <SelectItem value="10">October</SelectItem>
-                <SelectItem value="11">November</SelectItem>
-                <SelectItem value="12">December</SelectItem>
-              </SelectContent>
+            <Select aria-label="Month">
+              <Select.Trigger id="month" className="w-full" />
+              <Select.List>
+                <Select.Option id="1">January</Select.Option>
+                <Select.Option id="2">February</Select.Option>
+                <Select.Option id="3">March</Select.Option>
+                <Select.Option id="4">April</Select.Option>
+                <Select.Option id="5">May</Select.Option>
+                <Select.Option id="6">June</Select.Option>
+                <Select.Option id="7">July</Select.Option>
+                <Select.Option id="8">August</Select.Option>
+                <Select.Option id="9">September</Select.Option>
+                <Select.Option id="10">October</Select.Option>
+                <Select.Option id="11">November</Select.Option>
+                <Select.Option id="12">December</Select.Option>
+              </Select.List>
             </Select>
           </div>
           <div className="flex flex-col gap-3">
             <Label htmlFor="year">Year</Label>
-            <Select>
-              <SelectTrigger id="year" aria-label="Year" className="w-full">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent>
+            <Select aria-label="Year">
+              <Select.Trigger id="year" className="w-full" />
+              <Select.List>
                 {Array.from({ length: 10 }, (_, i) => (
-                  <SelectItem key={i} value={`${new Date().getFullYear() + i}`}>
+                  <Select.Option key={i} id={`${new Date().getFullYear() + i}`}>
                     {new Date().getFullYear() + i}
-                  </SelectItem>
+                  </Select.Option>
                 ))}
-              </SelectContent>
+              </Select.List>
             </Select>
           </div>
           <div className="flex flex-col gap-3">

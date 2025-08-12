@@ -2,20 +2,20 @@
 
 import * as React from "react"
 import {
-  ColumnDef,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
-  VisibilityState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
 } from "@tanstack/react-table"
 import { MoreHorizontalIcon } from "lucide-react"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardAction,
@@ -23,26 +23,12 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Checkbox } from "@/registry/preskok/ui/checkbox"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/registry/preskok/ui/table"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
+import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import { Table } from "@/registry/preskok/ui/preskok-ui/table"
 
-const data: Payment[] = [
+const data: Array<Payment> = [
   {
     id: "m5gr84i9",
     amount: 316,
@@ -88,23 +74,27 @@ export type Payment = {
   email: string
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: Array<ColumnDef<Payment>> = [
   {
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        slot="selection"
+        isIndeterminate={table.getIsSomePageRowsSelected()}
+        isSelected={table.getIsAllPageRowsSelected()}
+        onChange={(isSelected) => {
+          table.toggleAllPageRowsSelected(!!isSelected)
+        }}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        slot="selection"
+        isSelected={row.getIsSelected()}
+        onChange={(isSelected) => {
+          row.toggleSelected(!!isSelected)
+        }}
         aria-label="Select row"
       />
     ),
@@ -145,25 +135,23 @@ export const columns: ColumnDef<Payment>[] = [
       const payment = row.original
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="size-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontalIcon />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+        <Menu>
+          <Menu.Trigger className="size-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontalIcon />
+          </Menu.Trigger>
+          <Menu.Content placement="bottom end">
+            <Menu.Header>Actions</Menu.Header>
+            <Menu.Item
+              onAction={() => navigator.clipboard.writeText(payment.id)}
             >
               Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </Menu.Item>
+            <Menu.Separator />
+            <Menu.Item>View customer</Menu.Item>
+            <Menu.Item>View payment details</Menu.Item>
+          </Menu.Content>
+        </Menu>
       )
     },
   },
@@ -203,7 +191,7 @@ export function CardsPayments() {
         <CardTitle className="text-xl">Payments</CardTitle>
         <CardDescription>Manage your payments.</CardDescription>
         <CardAction>
-          <Button variant="secondary" size="sm" className="shadow-none">
+          <Button intent="secondary" size="sm" className="shadow-none">
             Add Payment
           </Button>
         </CardAction>
@@ -211,12 +199,12 @@ export function CardsPayments() {
       <CardContent className="flex flex-col gap-4">
         <div className="rounded-md border">
           <Table>
-            <TableHeader>
+            <Table.Header>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
+                <Table.Row key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead
+                      <Table.Column
                         key={header.id}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={header.id}
@@ -227,21 +215,23 @@ export function CardsPayments() {
                               header.column.columnDef.header,
                               header.getContext()
                             )}
-                      </TableHead>
+                      </Table.Column>
                     )
                   })}
-                </TableRow>
+                </Table.Row>
               ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
+            </Table.Header>
+            <Table.Body>
+              {table.getRowModel().rows.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow
+                  <Table.Row
                     key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
+                    data-state={
+                      row.getIsSelected() ? ("selected" as const) : undefined
+                    }
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell
+                      <Table.Cell
                         key={cell.id}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={cell.column.id}
@@ -250,21 +240,21 @@ export function CardsPayments() {
                           cell.column.columnDef.cell,
                           cell.getContext()
                         )}
-                      </TableCell>
+                      </Table.Cell>
                     ))}
-                  </TableRow>
+                  </Table.Row>
                 ))
               ) : (
-                <TableRow>
-                  <TableCell
+                <Table.Row>
+                  <Table.Cell
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
                     No results.
-                  </TableCell>
-                </TableRow>
+                  </Table.Cell>
+                </Table.Row>
               )}
-            </TableBody>
+            </Table.Body>
           </Table>
         </div>
         <div className="flex items-center justify-end gap-2">
@@ -274,18 +264,22 @@ export function CardsPayments() {
           </div>
           <div className="flex gap-2">
             <Button
-              variant="outline"
+              intent="outline"
               size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
+              onClick={() => {
+                table.previousPage()
+              }}
+              isDisabled={!table.getCanPreviousPage()}
             >
               Previous
             </Button>
             <Button
-              variant="outline"
+              intent="outline"
               size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
+              onClick={() => {
+                table.nextPage()
+              }}
+              isDisabled={!table.getCanNextPage()}
             >
               Next
             </Button>

@@ -16,6 +16,8 @@ const buttonStyles = tv({
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) pressed:*:data-[slot=icon]:text-(--btn-icon-active) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:my-1 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
     "[&_svg.lucide]:-mx-0.5 [&_svg.lucide]:my-0.5 [&_svg.lucide]:shrink-0 [&_svg.lucide]:self-center [&_svg.lucide]:text-(--btn-icon) pressed:[&_svg.lucide]:text-(--btn-icon-active) focus-visible:[&_svg.lucide]:text-(--btn-icon-active)/80 hover:[&_svg.lucide]:text-(--btn-icon-active)/90 sm:[&_svg.lucide]:my-1",
     "*:data-[slot=loader]:-mx-0.5 *:data-[slot=loader]:my-0.5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:my-1",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:shrink-0",
   ],
   variants: {
     intent: {
