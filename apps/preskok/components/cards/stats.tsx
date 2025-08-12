@@ -52,13 +52,15 @@ export function CardsStats() {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardDescription>Total Revenue</CardDescription>
+          <CardDescription>Freight Revenue</CardDescription>
           <CardTitle className="text-3xl">$15,231.89</CardTitle>
           <CardDescription>+20.1% from last month</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
           <LineChart
-            config={{ revenue: { label: "Revenue", color: "var(--primary)" } }}
+            config={{
+              revenue: { label: "Freight Revenue", color: "var(--primary)" },
+            }}
             data={data.map((d, i) => ({ name: i, revenue: d.revenue }))}
             dataKey="name"
             className="h-[80px] w-full"
@@ -73,19 +75,27 @@ export function CardsStats() {
       </Card>
       <Card className="pb-0 lg:hidden xl:flex">
         <CardHeader>
-          <CardDescription>Subscriptions</CardDescription>
-          <CardTitle className="text-3xl">+2,350</CardTitle>
-          <CardDescription>+180.1% from last month</CardDescription>
+          <p className="text-sm">Completed Trips</p>
+          <CardTitle>
+            <p className="text-3xl">2,350</p>
+            <p className="text-muted-foreground row-start-2 text-sm text-pretty">
+              +180.1% trips from last month
+            </p>
+          </CardTitle>
+
           <CardAction>
             <Button intent="plain" size="sm">
-              View More
+              View Dispatch
             </Button>
           </CardAction>
         </CardHeader>
         <CardContent className="mt-auto max-h-[124px] flex-1 p-0">
           <AreaChart
             config={{
-              subscription: { label: "Subscriptions", color: "var(--primary)" },
+              subscription: {
+                label: "Completed Trips",
+                color: "var(--primary)",
+              },
             }}
             data={data.map((d, i) => ({
               name: i,
