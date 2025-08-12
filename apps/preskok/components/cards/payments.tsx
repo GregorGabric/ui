@@ -206,6 +206,7 @@ export function CardsPayments() {
                     return (
                       <Table.Column
                         key={header.id}
+                        isNumeric={header.id === "amount"}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={header.id}
                         isRowHeader={header.id === "email"}
@@ -234,6 +235,7 @@ export function CardsPayments() {
                   >
                     {row.getVisibleCells().map((cell) => (
                       <Table.Cell
+                        isNumeric={cell.column.id === "amount"}
                         key={cell.id}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={cell.column.id}

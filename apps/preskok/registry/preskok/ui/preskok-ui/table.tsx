@@ -108,10 +108,12 @@ const TableBody = <T extends object>(props: TableBodyProps<T>) => (
 interface TableColumnProps extends ColumnProps {
   className?: string
   isResizable?: boolean
+  isNumeric?: boolean
 }
 
 const TableColumn = ({
   isResizable = false,
+  isNumeric = false,
   className,
   ...props
 }: TableColumnProps) => {
@@ -132,7 +134,12 @@ const TableColumn = ({
       )}
     >
       {(values) => (
-        <div className="flex items-center gap-2 **:data-[slot=icon]:shrink-0">
+        <div
+          className={twJoin(
+            "flex items-center gap-2 **:data-[slot=icon]:shrink-0",
+            isNumeric && "justify-end"
+          )}
+        >
           {typeof props.children === "function"
             ? props.children(values)
             : props.children}
@@ -272,7 +279,15 @@ const TableRow = <T extends object>({
   )
 }
 
-const TableCell = ({ className, ...props }: CellProps) => {
+interface TableCellProps extends CellProps {
+  isNumeric?: boolean
+}
+
+const TableCell = ({
+  className,
+  isNumeric = false,
+  ...props
+}: TableCellProps) => {
   const { allowResize, bleed } = useTableContext()
   return (
     <Cell
@@ -283,7 +298,8 @@ const TableCell = ({ className, ...props }: CellProps) => {
         twJoin(
           "group group-has-data-focus-visible-within:text-foreground px-4 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
           !bleed && "sm:first:pl-2 sm:last:pr-1",
-          allowResize && "truncate overflow-hidden"
+          allowResize && "truncate overflow-hidden",
+          isNumeric && "text-right tabular-nums"
         )
       )}
     />
@@ -297,4 +313,4 @@ Table.Header = TableHeader
 Table.Row = TableRow
 
 export { Table }
-export type { TableColumnProps, TableProps, TableRowProps }
+export type { TableCellProps, TableColumnProps, TableProps, TableRowProps }
