@@ -4,9 +4,9 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
-import { Button } from "@/registry/preskok/ui/button"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import { PreskokAuthButton } from "@/registry/preskok/ui/preskok-ui/preskok-auth-button"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 export function UserAuthForm({
   className,
@@ -28,24 +28,25 @@ export function UserAuthForm({
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
+            <TextField
+              aria-label="Email"
               placeholder="name@example.com"
               type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
+              isDisabled={isLoading}
+            />
+            <TextField
+              aria-label="password"
+              type="password"
+              placeholder="*******"
+              isRevealable
+              isDisabled={isLoading}
             />
           </div>
-          <Button disabled={isLoading}>
+          <Button isDisabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign In with Email
+            Sign In
           </Button>
         </div>
       </form>
@@ -59,14 +60,11 @@ export function UserAuthForm({
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <PreskokAuthButton type="button" isDisabled={isLoading}>
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
-        GitHub
-      </Button>
+        ) : null}
+      </PreskokAuthButton>
     </div>
   )
 }
