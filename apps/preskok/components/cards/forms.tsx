@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
-import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { Radio, RadioGroup } from "@/registry/preskok/ui/preskok-ui/radio"
 import { Textarea } from "@/registry/preskok/ui/preskok-ui/textarea"
 
@@ -47,16 +47,26 @@ export function CardsForms() {
             <TextField label="Name" placeholder="Matt Smith" />
             <TextField label="Email" placeholder="example@preskok.si" />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="card-number">Card Number</Label>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-[1fr_80px_60px]">
-              <Input
-                id="card-number"
-                placeholder="1234 1234 1234 1234"
-                className="col-span-2 md:col-span-1"
+          <div className="flex flex-col gap-3">
+            <TextField
+              label="Card Number"
+              placeholder="1234 1234 1234 1234"
+              inputMode="numeric"
+              className="w-full"
+            />
+            <div className="flex gap-3">
+              <TextField
+                label="Expiry"
+                placeholder="MM/YY"
+                inputMode="numeric"
+                className="w-[120px]"
               />
-              <Input id="card-number-expiry" placeholder="MM/YY" />
-              <Input id="card-number-cvc" placeholder="CVC" />
+              <TextField
+                label="CVC"
+                placeholder="CVC"
+                inputMode="numeric"
+                className="w-[100px]"
+              />
             </div>
           </div>
           <fieldset className="flex flex-col gap-3">
