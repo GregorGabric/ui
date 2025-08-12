@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { Announcement } from "@/components/announcement"
 import {
   PageActions,
   PageHeader,
@@ -46,7 +45,6 @@ export default function ThemesLayout({
   return (
     <div>
       <PageHeader>
-        <Announcement />
         <PageHeaderHeading>{title}</PageHeaderHeading>
         <PageHeaderDescription>{description}</PageHeaderDescription>
         <PageActions>

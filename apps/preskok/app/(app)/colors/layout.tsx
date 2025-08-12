@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { Announcement } from "@/components/announcement"
 import { ColorsNav } from "@/components/colors-nav"
 import {
   PageActions,
@@ -47,7 +46,6 @@ export default function ColorsLayout({
   return (
     <div>
       <PageHeader>
-        <Announcement />
         <PageHeaderHeading>{title}</PageHeaderHeading>
         <PageHeaderDescription>{description}</PageHeaderDescription>
         <PageActions>

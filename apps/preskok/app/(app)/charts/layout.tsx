@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { Announcement } from "@/components/announcement"
 import { ChartsNav } from "@/components/charts-nav"
 import {
   PageActions,
@@ -49,7 +48,6 @@ export default function ChartsLayout({
   return (
     <>
       <PageHeader>
-        <Announcement />
         <PageHeaderHeading>{title}</PageHeaderHeading>
         <PageHeaderDescription>{description}</PageHeaderDescription>
         <PageActions>

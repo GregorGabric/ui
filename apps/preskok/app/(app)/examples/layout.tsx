@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { Announcement } from "@/components/announcement"
 import { ExamplesNav } from "@/components/examples-nav"
 import {
   PageActions,
@@ -51,7 +50,6 @@ export default function ExamplesLayout({
   return (
     <>
       <PageHeader>
-        <Announcement />
         <PageHeaderHeading>Build your Component Library</PageHeaderHeading>
         <PageHeaderDescription>
           A set of beautifully-designed, accessible components and a code
