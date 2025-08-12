@@ -140,7 +140,7 @@ export const columns: Array<ColumnDef<Payment>> = [
             <span className="sr-only">Open menu</span>
             <MoreHorizontalIcon />
           </Menu.Trigger>
-          <Menu.Content placement="bottom end">
+          <Menu.Content aria-label="Actions" placement="bottom end">
             <Menu.Header>Actions</Menu.Header>
             <Menu.Item
               onAction={() => navigator.clipboard.writeText(payment.id)}
@@ -196,9 +196,9 @@ export function CardsPayments() {
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-4 p-4">
         <div className="rounded-md border">
-          <Table>
+          <Table aria-label="Payments">
             <Table.Header>
               {table.getHeaderGroups().map((headerGroup) => (
                 <Table.Row key={headerGroup.id}>
@@ -208,6 +208,7 @@ export function CardsPayments() {
                         key={header.id}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={header.id}
+                        isRowHeader={header.id === "email"}
                       >
                         {header.isPlaceholder
                           ? null
@@ -226,6 +227,7 @@ export function CardsPayments() {
                 table.getRowModel().rows.map((row) => (
                   <Table.Row
                     key={row.id}
+                    id={row.original.id}
                     data-state={
                       row.getIsSelected() ? ("selected" as const) : undefined
                     }
@@ -236,9 +238,18 @@ export function CardsPayments() {
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={cell.column.id}
                       >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
+                        {cell.column.id === "actions" ? (
+                          <div className="flex justify-end">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </div>
+                        ) : (
+                          flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )
                         )}
                       </Table.Cell>
                     ))}

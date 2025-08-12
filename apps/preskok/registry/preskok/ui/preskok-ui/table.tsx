@@ -126,7 +126,7 @@ const TableColumn = ({
           "text-muted-foreground text-left font-medium",
           "allows-sorting:cursor-default relative outline-hidden data-dragging:cursor-grabbing",
           "px-4 py-(--gutter-y) first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          !bleed && "sm:first:pl-1 sm:last:pr-1",
+          !bleed && "sm:first:pl-2 sm:last:pr-1",
           isResizable && "truncate overflow-hidden"
         )
       )}
@@ -183,7 +183,7 @@ const TableHeader = <T extends object>({
           data-slot="table-column"
           className={twMerge(
             "w-0 max-w-8 px-4 first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-            !bleed && "sm:first:pl-1 sm:last:pr-1"
+            !bleed && "sm:first:pl-2 sm:last:pr-1"
           )}
         />
       )}
@@ -192,7 +192,7 @@ const TableHeader = <T extends object>({
           data-slot="table-column"
           className={twMerge(
             "w-0 max-w-8 px-4 first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-            !bleed && "sm:first:pl-1 sm:last:pr-1"
+            !bleed && "sm:first:pl-2 sm:last:pr-1"
           )}
         >
           {selectionMode === "multiple" && <Checkbox slot="selection" />}
@@ -251,7 +251,7 @@ const TableRow = <T extends object>({
       )}
     >
       {allowsDragging && (
-        <TableCell className="max-w-4 sm:first:pl-1 sm:last:pr-1">
+        <TableCell className="max-w-4 sm:first:pl-2 sm:last:pr-1">
           <Button
             slot="drag"
             className="focus-visible:ring-ring grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring"
@@ -262,7 +262,7 @@ const TableRow = <T extends object>({
       )}
       {selectionBehavior === "toggle" && (
         <TableCell
-          className={twJoin(!bleed && "max-w-4 sm:first:pl-1 sm:last:pr-1")}
+          className={twJoin(!bleed && "max-w-4 sm:first:pl-2 sm:last:pr-1")}
         >
           <Checkbox slot="selection" />
         </TableCell>
@@ -282,7 +282,7 @@ const TableCell = ({ className, ...props }: CellProps) => {
         className,
         twJoin(
           "group group-has-data-focus-visible-within:text-foreground px-4 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          !bleed && "sm:first:pl-1 sm:last:pr-1",
+          !bleed && "sm:first:pl-2 sm:last:pr-1",
           allowResize && "truncate overflow-hidden"
         )
       )}

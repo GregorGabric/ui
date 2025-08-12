@@ -11,8 +11,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 import { Textarea } from "@/registry/preskok/ui/preskok-ui/textarea"
 
 export function CardsReportIssue() {
@@ -57,13 +58,11 @@ export function CardsReportIssue() {
             </Select>
           </div>
         </div>
+        <TextField label="Subject" placeholder="Info about" />
+
         <div className="flex flex-col gap-3">
-          <Label htmlFor={`subject-${id}`}>Subject</Label>
-          <Input id={`subject-${id}`} placeholder="I need help with..." />
-        </div>
-        <div className="flex flex-col gap-3">
-          <Label htmlFor={`description-${id}`}>Description</Label>
           <Textarea
+            label="Description"
             id={`description-${id}`}
             placeholder="Please include all information relevant to your issue."
             className="min-h-28"

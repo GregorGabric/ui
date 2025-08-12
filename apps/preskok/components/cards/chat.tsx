@@ -72,7 +72,7 @@ type User = (typeof users)[number]
 
 export function CardsChat() {
   const [open, setOpen] = React.useState(false)
-  const [selectedUsers, setSelectedUsers] = React.useState<User[]>([])
+  const [selectedUsers, setSelectedUsers] = React.useState<Array<User>>([])
 
   const [messages, setMessages] = React.useState([
     {
@@ -116,7 +116,9 @@ export function CardsChat() {
                   size="icon"
                   variant="secondary"
                   className="ml-auto size-8 rounded-full"
-                  onClick={() => setOpen(true)}
+                  onClick={() => {
+                    setOpen(true)
+                  }}
                 >
                   <PlusIcon />
                   <span className="sr-only">New message</span>
@@ -147,7 +149,9 @@ export function CardsChat() {
           <form
             onSubmit={(event) => {
               event.preventDefault()
-              if (inputLength === 0) return
+              if (inputLength === 0) {
+                return
+              }
               setMessages([
                 ...messages,
                 {
@@ -165,7 +169,9 @@ export function CardsChat() {
               className="flex-1 pr-10"
               autoComplete="off"
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(event) => {
+                setInput(event.target.value)
+              }}
             />
             <Button
               type="submit"
@@ -200,14 +206,15 @@ export function CardsChat() {
                     className="data-[active=true]:opacity-50"
                     onSelect={() => {
                       if (selectedUsers.includes(user)) {
-                        return setSelectedUsers(
+                        setSelectedUsers(
                           selectedUsers.filter(
                             (selectedUser) => selectedUser !== user
                           )
                         )
+                        return
                       }
 
-                      return setSelectedUsers(
+                      setSelectedUsers(
                         [...users].filter((u) =>
                           [...selectedUsers, user].includes(u)
                         )

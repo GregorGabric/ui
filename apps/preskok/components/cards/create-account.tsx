@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 export function CardsCreateAccount() {
   return (
@@ -51,18 +51,14 @@ export function CardsCreateAccount() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col gap-3">
-          <Label htmlFor="email-create-account">Email</Label>
-          <Input
-            id="email-create-account"
-            type="email"
-            placeholder="m@example.com"
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <Label htmlFor="password-create-account">Password</Label>
-          <Input id="password-create-account" type="password" />
-        </div>
+        <TextField label="Email" placeholder="me@preskok.si" />
+
+        <TextField
+          defaultValue="password"
+          type="password"
+          label="Password"
+          isRevealable
+        />
       </CardContent>
       <CardFooter>
         <Button className="w-full">Create account</Button>
