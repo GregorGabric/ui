@@ -2,8 +2,7 @@ export const siteConfig = {
   name: "preskok/ui",
   url: "ui-three-mu.vercel.app",
   ogImage: "ui-three-mu.vercel.app/og.jpg",
-  description:
-    "A set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks. Open Source. Open Code.",
+  description: "A set of well-designed, accessible react-aria components",
   navItems: [
     {
       href: "/docs/installation",
@@ -22,16 +21,8 @@ export const siteConfig = {
       label: "Charts",
     },
     {
-      href: "/themes",
-      label: "Themes",
-    },
-    {
-      href: "/theme-studio",
-      label: "Themes New",
-    },
-    {
-      href: "/colors",
-      label: "Colors",
+      href: "/theme",
+      label: "Theme",
     },
   ],
 }

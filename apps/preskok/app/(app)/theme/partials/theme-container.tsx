@@ -20,9 +20,9 @@ import {
 import { Container } from "@/registry/preskok/ui/preskok-ui/container"
 import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
 import { Sheet } from "@/registry/preskok/ui/preskok-ui/sheet"
-import { Blocks } from "@/app/(app)/theme-studio/partials/blocks"
-import { GeneratedTheme } from "@/app/(app)/theme-studio/partials/generated-theme"
-import { ThemeCustomizer } from "@/app/(app)/theme-studio/partials/theme-customizer"
+import { Blocks } from "@/app/(app)/theme/partials/blocks"
+import { GeneratedTheme } from "@/app/(app)/theme/partials/generated-theme"
+import { ThemeCustomizer } from "@/app/(app)/theme/partials/theme-customizer"
 
 import { generateTheme } from "./themes"
 

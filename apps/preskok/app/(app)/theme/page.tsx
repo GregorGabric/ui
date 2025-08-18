@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { siteConfig } from "@/lib/config"
-import { Header } from "@/app/(app)/theme-studio/partials/header"
+import { Header } from "@/app/(app)/theme/partials/header"
 
 import { ThemeContainer } from "./partials/theme-container"
 
