@@ -1,0 +1,33 @@
+---
+title: Grid List
+description: Browse and select items arranged in a grid with optional drag-and-drop and multi-select.
+---
+
+<ComponentPreview
+  name="grid-list-preskok-demo"
+  description="Grid list with multiple selection and checkboxes."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add grid-list
+```
+
+## Usage
+
+```tsx
+import {
+  GridList,
+  GridListItem,
+} from "@/registry/preskok/ui/preskok-ui/grid-list"
+
+export function Example() {
+  return (
+    <GridList aria-label="Items">
+      <GridListItem id="a">A</GridListItem>
+      <GridListItem id="b">B</GridListItem>
+    </GridList>
+  )
+}
+```

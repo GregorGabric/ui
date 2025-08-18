@@ -1,0 +1,54 @@
+---
+title: Table
+description: A comprehensive table component with sorting, resizing, and selection.
+---
+
+<ComponentPreview
+  name="table-demo"
+  description="Table with selection and sorting."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add table
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="table"
+  title="registry/preskok/ui/preskok-ui/table.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Table } from "@/registry/preskok/ui/preskok-ui/table"
+
+export function TableDemo() {
+  return <Table rows={[]} columns={[]} />
+}
+```
