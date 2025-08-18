@@ -11,7 +11,6 @@ import { findNeighbour } from "fumadocs-core/server"
 import { source } from "@/lib/source"
 import { absoluteUrl } from "@/lib/utils"
 import { DocsTableOfContents } from "@/components/docs-toc"
-import { OpenInV0Cta } from "@/components/open-in-v0-cta"
 import { Badge } from "@/registry/preskok/ui/badge"
 import { Button } from "@/registry/preskok/ui/button"
 
@@ -197,9 +196,6 @@ export default async function Page(props: {
             <div className="h-12" />
           </div>
         ) : null}
-        <div className="flex flex-1 flex-col gap-12 px-6">
-          <OpenInV0Cta />
-        </div>
       </div>
     </div>
   )
