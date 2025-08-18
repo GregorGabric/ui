@@ -1,24 +1,12 @@
 {
   "title": "Inputs",
   "pages": [
-    "checkbox",
-    "combo-box",
-    "drop-zone",
-    "field",
-    "form",
-    "input-otp",
-    "multi-select",
-    "multiple-select",
-    "number-field",
-    "number-format",
-    "radio",
-    "search-field",
-    "select",
-    "slider",
-    "switch",
-    "tag-field",
-    "tag-group",
-    "text-field",
-    "textarea"
+    "basics",
+    "text",
+    "choice",
+    "toggles",
+    "numeric",
+    "tags",
+    "upload"
   ]
 }
