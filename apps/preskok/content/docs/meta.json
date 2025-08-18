@@ -1,7 +1,12 @@
 {
   "root": true,
   "pages": [
-    "inputs",
+    "buttons",
+    "choice",
+    "numeric",
+    "tags",
+    "toggles",
+    "upload",
     "date-time",
     "feedback",
     "layout",
@@ -12,7 +17,7 @@
     "colors",
     "typography",
     "advanced",
-    "components",
+    "!components",
     "!installation",
     "!dark-mode",
     "!registry"
