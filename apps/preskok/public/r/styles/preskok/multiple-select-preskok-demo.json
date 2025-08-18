@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "multiple-select-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "multiple-select"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/multiple-select-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport type { Key, Selection } from \"react-aria-components\"\n\nimport { MultipleSelect } from \"@/registry/preskok/ui/preskok-ui/multiple-select\"\n\nconst items = [\n  { id: \"design\", textValue: \"Design\" },\n  { id: \"frontend\", textValue: \"Frontend\" },\n  { id: \"backend\", textValue: \"Backend\" },\n  { id: \"docs\", textValue: \"Docs\" },\n]\n\nexport default function MultipleSelectPreskokDemo() {\n  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set<Key>())\n\n  return (\n    <div className=\"min-w-64\">\n      <MultipleSelect\n        label=\"Labels\"\n        placeholder=\"Search labels...\"\n        items={items}\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

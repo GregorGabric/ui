@@ -5,16 +5,27 @@
     {
       "name": "index",
       "type": "registry:style",
-      "dependencies": ["class-variance-authority", "lucide-react"],
-      "devDependencies": ["tw-animate-css"],
-      "registryDependencies": ["utils", "create-ctx", "primitive"],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "devDependencies": [
+        "tw-animate-css"
+      ],
+      "registryDependencies": [
+        "utils",
+        "create-ctx",
+        "primitive"
+      ],
       "files": [],
       "cssVars": {}
     },
     {
       "name": "accordion",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-accordion"],
+      "dependencies": [
+        "@radix-ui/react-accordion"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/accordion.tsx",
@@ -35,8 +46,12 @@
     {
       "name": "alert-dialog",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-alert-dialog"],
-      "registryDependencies": ["button"],
+      "dependencies": [
+        "@radix-ui/react-alert-dialog"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/alert-dialog.tsx",
@@ -47,7 +62,9 @@
     {
       "name": "aspect-ratio",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-aspect-ratio"],
+      "dependencies": [
+        "@radix-ui/react-aspect-ratio"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/aspect-ratio.tsx",
@@ -58,7 +75,9 @@
     {
       "name": "avatar",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-avatar"],
+      "dependencies": [
+        "@radix-ui/react-avatar"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/avatar.tsx",
@@ -69,7 +88,9 @@
     {
       "name": "badge",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-slot"],
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/badge.tsx",
@@ -80,7 +101,9 @@
     {
       "name": "breadcrumb",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-slot"],
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/breadcrumb.tsx",
@@ -91,7 +114,9 @@
     {
       "name": "button",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-slot"],
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/button.tsx",
@@ -102,8 +127,13 @@
     {
       "name": "calendar",
       "type": "registry:ui",
-      "dependencies": ["react-day-picker@latest", "date-fns"],
-      "registryDependencies": ["button"],
+      "dependencies": [
+        "react-day-picker@latest",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/calendar.tsx",
@@ -124,8 +154,12 @@
     {
       "name": "carousel",
       "type": "registry:ui",
-      "dependencies": ["embla-carousel-react"],
-      "registryDependencies": ["button"],
+      "dependencies": [
+        "embla-carousel-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/carousel.tsx",
@@ -136,8 +170,13 @@
     {
       "name": "chart",
       "type": "registry:ui",
-      "dependencies": ["recharts", "lucide-react"],
-      "registryDependencies": ["card"],
+      "dependencies": [
+        "recharts",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "card"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/chart.tsx",
@@ -148,7 +187,9 @@
     {
       "name": "checkbox",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-checkbox"],
+      "dependencies": [
+        "@radix-ui/react-checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/checkbox.tsx",
@@ -159,7 +200,9 @@
     {
       "name": "collapsible",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-collapsible"],
+      "dependencies": [
+        "@radix-ui/react-collapsible"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/collapsible.tsx",
@@ -170,8 +213,12 @@
     {
       "name": "command",
       "type": "registry:ui",
-      "dependencies": ["cmdk"],
-      "registryDependencies": ["dialog"],
+      "dependencies": [
+        "cmdk"
+      ],
+      "registryDependencies": [
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/command.tsx",
@@ -182,7 +229,9 @@
     {
       "name": "context-menu",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-context-menu"],
+      "dependencies": [
+        "@radix-ui/react-context-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/context-menu.tsx",
@@ -193,7 +242,9 @@
     {
       "name": "dialog",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-dialog"],
+      "dependencies": [
+        "@radix-ui/react-dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/dialog.tsx",
@@ -204,7 +255,10 @@
     {
       "name": "drawer",
       "type": "registry:ui",
-      "dependencies": ["vaul", "@radix-ui/react-dialog"],
+      "dependencies": [
+        "vaul",
+        "@radix-ui/react-dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/drawer.tsx",
@@ -215,7 +269,9 @@
     {
       "name": "dropdown-menu",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-dropdown-menu"],
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/dropdown-menu.tsx",
@@ -233,7 +289,10 @@
         "zod",
         "react-hook-form"
       ],
-      "registryDependencies": ["button", "label"],
+      "registryDependencies": [
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/form.tsx",
@@ -244,7 +303,9 @@
     {
       "name": "hover-card",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-hover-card"],
+      "dependencies": [
+        "@radix-ui/react-hover-card"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/hover-card.tsx",
@@ -265,7 +326,9 @@
     {
       "name": "input-otp",
       "type": "registry:ui",
-      "dependencies": ["input-otp"],
+      "dependencies": [
+        "input-otp"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/input-otp.tsx",
@@ -276,7 +339,9 @@
     {
       "name": "label",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-label"],
+      "dependencies": [
+        "@radix-ui/react-label"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/label.tsx",
@@ -287,7 +352,9 @@
     {
       "name": "menubar",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-menubar"],
+      "dependencies": [
+        "@radix-ui/react-menubar"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/menubar.tsx",
@@ -298,7 +365,9 @@
     {
       "name": "navigation-menu",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-navigation-menu"],
+      "dependencies": [
+        "@radix-ui/react-navigation-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/navigation-menu.tsx",
@@ -309,7 +378,9 @@
     {
       "name": "pagination",
       "type": "registry:ui",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/pagination.tsx",
@@ -320,7 +391,9 @@
     {
       "name": "popover",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-popover"],
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/popover.tsx",
@@ -331,7 +404,9 @@
     {
       "name": "progress",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-progress"],
+      "dependencies": [
+        "@radix-ui/react-progress"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/progress.tsx",
@@ -342,7 +417,9 @@
     {
       "name": "radio-group",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-radio-group"],
+      "dependencies": [
+        "@radix-ui/react-radio-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/radio-group.tsx",
@@ -353,7 +430,9 @@
     {
       "name": "resizable",
       "type": "registry:ui",
-      "dependencies": ["react-resizable-panels"],
+      "dependencies": [
+        "react-resizable-panels"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/resizable.tsx",
@@ -364,7 +443,9 @@
     {
       "name": "scroll-area",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-scroll-area"],
+      "dependencies": [
+        "@radix-ui/react-scroll-area"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/scroll-area.tsx",
@@ -375,7 +456,9 @@
     {
       "name": "select",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-select"],
+      "dependencies": [
+        "@radix-ui/react-select"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/select.tsx",
@@ -386,7 +469,9 @@
     {
       "name": "separator",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-separator"],
+      "dependencies": [
+        "@radix-ui/react-separator"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/separator.tsx",
@@ -397,7 +482,9 @@
     {
       "name": "sheet",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-dialog"],
+      "dependencies": [
+        "@radix-ui/react-dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/sheet.tsx",
@@ -484,7 +571,9 @@
     {
       "name": "slider",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-slider"],
+      "dependencies": [
+        "@radix-ui/react-slider"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/slider.tsx",
@@ -495,7 +584,10 @@
     {
       "name": "sonner",
       "type": "registry:ui",
-      "dependencies": ["sonner", "next-themes"],
+      "dependencies": [
+        "sonner",
+        "next-themes"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/sonner.tsx",
@@ -506,7 +598,9 @@
     {
       "name": "switch",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-switch"],
+      "dependencies": [
+        "@radix-ui/react-switch"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/switch.tsx",
@@ -527,7 +621,9 @@
     {
       "name": "tabs",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-tabs"],
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/tabs.tsx",
@@ -548,7 +644,9 @@
     {
       "name": "toggle",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-toggle"],
+      "dependencies": [
+        "@radix-ui/react-toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/toggle.tsx",
@@ -559,8 +657,12 @@
     {
       "name": "toggle-group",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-toggle-group"],
-      "registryDependencies": ["toggle"],
+      "dependencies": [
+        "@radix-ui/react-toggle-group"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/toggle-group.tsx",
@@ -571,7 +673,9 @@
     {
       "name": "tooltip",
       "type": "registry:ui",
-      "dependencies": ["@radix-ui/react-tooltip"],
+      "dependencies": [
+        "@radix-ui/react-tooltip"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/tooltip.tsx",
@@ -583,7 +687,9 @@
       "name": "avatar",
       "type": "registry:ui",
       "description": "A flexible avatar component with initials and image support",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/avatar.tsx",
@@ -595,7 +701,9 @@
       "name": "badge",
       "type": "registry:ui",
       "description": "A versatile badge component with multiple intents and styles",
-      "dependencies": ["tailwind-variants"],
+      "dependencies": [
+        "tailwind-variants"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/badge.tsx",
@@ -607,7 +715,10 @@
       "name": "button",
       "type": "registry:ui",
       "description": "A comprehensive button component with multiple variants and sizes",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/button.tsx",
@@ -619,7 +730,9 @@
       "name": "card",
       "type": "registry:ui",
       "description": "A flexible card component with header, content, and footer sections",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/card.tsx",
@@ -631,7 +744,9 @@
       "name": "container",
       "type": "registry:ui",
       "description": "A responsive container component with optional constraints",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/container.tsx",
@@ -643,7 +758,9 @@
       "name": "heading",
       "type": "registry:ui",
       "description": "A semantic heading component with configurable levels",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/heading.tsx",
@@ -655,7 +772,9 @@
       "name": "keyboard",
       "type": "registry:ui",
       "description": "A component for displaying keyboard shortcuts and key combinations",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/keyboard.tsx",
@@ -667,7 +786,10 @@
       "name": "link",
       "type": "registry:ui",
       "description": "An accessible link component with multiple styling options",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/link.tsx",
@@ -679,7 +801,9 @@
       "name": "loader",
       "type": "registry:ui",
       "description": "A collection of loading indicators with multiple variants",
-      "dependencies": ["tailwind-variants"],
+      "dependencies": [
+        "tailwind-variants"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/loader.tsx",
@@ -691,7 +815,9 @@
       "name": "note",
       "type": "registry:ui",
       "description": "A note component for displaying contextual information with different intents",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/note.tsx",
@@ -703,7 +829,10 @@
       "name": "separator",
       "type": "registry:ui",
       "description": "A separator component for dividing content horizontally or vertically",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/separator.tsx",
@@ -715,7 +844,9 @@
       "name": "skeleton",
       "type": "registry:ui",
       "description": "A skeleton loading component with soft variant option",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/skeleton.tsx",
@@ -727,7 +858,10 @@
       "name": "switch",
       "type": "registry:ui",
       "description": "An accessible switch component for boolean inputs",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/switch.tsx",
@@ -739,7 +873,10 @@
       "name": "tooltip",
       "type": "registry:ui",
       "description": "A tooltip component with arrow and multiple styling options",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tooltip.tsx",
@@ -751,7 +888,10 @@
       "name": "field",
       "type": "registry:ui",
       "description": "Core field components including Input, Label, Description, and FieldError",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/field.tsx",
@@ -763,7 +903,9 @@
       "name": "form",
       "type": "registry:ui",
       "description": "A form wrapper component with accessibility features",
-      "dependencies": ["react-aria-components"],
+      "dependencies": [
+        "react-aria-components"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/form.tsx",
@@ -775,8 +917,13 @@
       "name": "checkbox",
       "type": "registry:ui",
       "description": "Checkbox and CheckboxGroup components with field integration",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/checkbox.tsx",
@@ -788,7 +935,10 @@
       "name": "input-otp",
       "type": "registry:ui",
       "description": "One-time password input component with customizable slots",
-      "dependencies": ["input-otp", "tailwind-merge"],
+      "dependencies": [
+        "input-otp",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/input-otp.tsx",
@@ -805,7 +955,10 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button", "field"],
+      "registryDependencies": [
+        "button",
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/number-field.tsx",
@@ -817,8 +970,13 @@
       "name": "radio",
       "type": "registry:ui",
       "description": "Radio and RadioGroup components with field integration",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/radio.tsx",
@@ -835,7 +993,10 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["field", "loader"],
+      "registryDependencies": [
+        "field",
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/search-field.tsx",
@@ -847,8 +1008,14 @@
       "name": "slider",
       "type": "registry:ui",
       "description": "A range slider component with tooltip and inline output options",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field", "tooltip"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field",
+        "tooltip"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/slider.tsx",
@@ -860,8 +1027,14 @@
       "name": "text-field",
       "type": "registry:ui",
       "description": "A comprehensive text input field with prefix, suffix, and password reveal",
-      "dependencies": ["lucide-react", "react-aria-components"],
-      "registryDependencies": ["field", "loader"],
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "field",
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/text-field.tsx",
@@ -873,8 +1046,13 @@
       "name": "textarea",
       "type": "registry:ui",
       "description": "A multi-line text input component with field integration",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/textarea.tsx",
@@ -886,8 +1064,13 @@
       "name": "time-field",
       "type": "registry:ui",
       "description": "A time input field with segmented time entry",
-      "dependencies": ["@internationalized/date", "react-aria-components"],
-      "registryDependencies": ["field"],
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/time-field.tsx",
@@ -899,7 +1082,10 @@
       "name": "popover",
       "type": "registry:ui",
       "description": "A popover component for displaying content in an overlay",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/popover.tsx",
@@ -916,7 +1102,9 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/dialog.tsx",
@@ -928,8 +1116,13 @@
       "name": "modal",
       "type": "registry:ui",
       "description": "A modal dialog component with overlay and blur effects",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
-      "registryDependencies": ["dialog"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/modal.tsx",
@@ -941,8 +1134,14 @@
       "name": "drawer",
       "type": "registry:ui",
       "description": "A drawer component that slides in from different sides",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["button", "dialog"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/drawer.tsx",
@@ -954,8 +1153,13 @@
       "name": "sheet",
       "type": "registry:ui",
       "description": "A sheet component that slides in from different sides with blur effects",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
-      "registryDependencies": ["dialog"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/sheet.tsx",
@@ -967,8 +1171,14 @@
       "name": "dropdown",
       "type": "registry:ui",
       "description": "Core dropdown components used by other menu-like components",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["keyboard", "separator"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "keyboard",
+        "separator"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/dropdown.tsx",
@@ -986,7 +1196,11 @@
         "tailwind-merge",
         "tailwind-variants"
       ],
-      "registryDependencies": ["button", "dropdown", "popover"],
+      "registryDependencies": [
+        "button",
+        "dropdown",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/menu.tsx",
@@ -998,8 +1212,12 @@
       "name": "context-menu",
       "type": "registry:ui",
       "description": "A context menu component triggered by right-click",
-      "dependencies": ["react-aria-components"],
-      "registryDependencies": ["menu"],
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/context-menu.tsx",
@@ -1032,7 +1250,12 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button", "field", "list-box", "popover"],
+      "registryDependencies": [
+        "button",
+        "field",
+        "list-box",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/select.tsx",
@@ -1044,8 +1267,15 @@
       "name": "combo-box",
       "type": "registry:ui",
       "description": "A combo box component with filtering and custom input",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field", "list-box", "popover"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field",
+        "list-box",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/combo-box.tsx",
@@ -1062,7 +1292,9 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["link"],
+      "registryDependencies": [
+        "link"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/breadcrumbs.tsx",
@@ -1074,7 +1306,9 @@
       "name": "description-list",
       "type": "registry:ui",
       "description": "A description list component for key-value pairs",
-      "dependencies": ["tailwind-merge"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/description-list.tsx",
@@ -1091,7 +1325,9 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/disclosure.tsx",
@@ -1119,7 +1355,10 @@
       "name": "tabs",
       "type": "registry:ui",
       "description": "A tabs component with accessible tab navigation",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tabs.tsx",
@@ -1136,7 +1375,9 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tree.tsx",
@@ -1148,7 +1389,9 @@
       "name": "awesome-card",
       "type": "registry:ui",
       "description": "A test card component with animations, variants and gradient backgrounds for testing the registry system",
-      "dependencies": ["class-variance-authority"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/awesome-card.tsx",
@@ -1198,8 +1441,13 @@
       "name": "date-field",
       "type": "registry:ui",
       "description": "A date field component with input segments for date and time entry",
-      "dependencies": ["@internationalized/date", "react-aria-components"],
-      "registryDependencies": ["field"],
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/date-field.tsx",
@@ -1211,8 +1459,15 @@
       "name": "date-picker",
       "type": "registry:ui",
       "description": "A date picker component with calendar popup for date selection",
-      "dependencies": ["lucide-react", "react-aria-components"],
-      "registryDependencies": ["calendar", "date-field", "popover"],
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "date-field",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/date-picker.tsx",
@@ -1224,8 +1479,15 @@
       "name": "date-range-picker",
       "type": "registry:ui",
       "description": "A date range picker component with calendar popup",
-      "dependencies": ["@internationalized/date", "react-aria-components"],
-      "registryDependencies": ["calendar", "date-field", "popover"],
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "date-field",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/date-range-picker.tsx",
@@ -1237,8 +1499,13 @@
       "name": "range-calendar",
       "type": "registry:ui",
       "description": "A calendar component for selecting date ranges",
-      "dependencies": ["@internationalized/date", "react-aria-components"],
-      "registryDependencies": ["calendar"],
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/range-calendar.tsx",
@@ -1250,8 +1517,13 @@
       "name": "tag-group",
       "type": "registry:ui",
       "description": "A tag group component for displaying and managing tags",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tag-group.tsx",
@@ -1263,8 +1535,15 @@
       "name": "multi-select",
       "type": "registry:ui",
       "description": "A multi-select component with search and filtering capabilities",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["field", "list-box", "popover"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "field",
+        "list-box",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/multi-select.tsx",
@@ -1276,8 +1555,16 @@
       "name": "multiple-select",
       "type": "registry:ui",
       "description": "A multiple select component with tag-based selection",
-      "dependencies": ["lucide-react", "react-aria-components"],
-      "registryDependencies": ["dropdown", "field", "popover", "tag-group"],
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "dropdown",
+        "field",
+        "popover",
+        "tag-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/multiple-select.tsx",
@@ -1289,8 +1576,13 @@
       "name": "tag-field",
       "type": "registry:ui",
       "description": "A tag input field for adding and removing tags",
-      "dependencies": ["react-aria-components"],
-      "registryDependencies": ["field", "tag-group"],
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "field",
+        "tag-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tag-field.tsx",
@@ -1302,7 +1594,10 @@
       "name": "toggle",
       "type": "registry:ui",
       "description": "A toggle button component with multiple variants",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/toggle.tsx",
@@ -1319,7 +1614,9 @@
         "tailwind-merge",
         "tailwind-variants"
       ],
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/toggle-group.tsx",
@@ -1337,7 +1634,9 @@
         "tailwind-merge",
         "tailwind-variants"
       ],
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/choicebox.tsx",
@@ -1349,8 +1648,13 @@
       "name": "carousel",
       "type": "registry:ui",
       "description": "A carousel component with navigation and pagination",
-      "dependencies": ["embla-carousel-react", "lucide-react"],
-      "registryDependencies": ["button"],
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/carousel.tsx",
@@ -1367,7 +1671,11 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button", "link", "separator"],
+      "registryDependencies": [
+        "button",
+        "link",
+        "separator"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/navbar.tsx",
@@ -1407,7 +1715,10 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button", "list-box"],
+      "registryDependencies": [
+        "button",
+        "list-box"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/pagination.tsx",
@@ -1419,8 +1730,14 @@
       "name": "toolbar",
       "type": "registry:ui",
       "description": "A toolbar component for grouping action buttons",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["separator", "toggle"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "separator",
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/toolbar.tsx",
@@ -1432,7 +1749,10 @@
       "name": "meter",
       "type": "registry:ui",
       "description": "A meter component for displaying scalar values within a range",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/meter.tsx",
@@ -1444,7 +1764,10 @@
       "name": "progress-bar",
       "type": "registry:ui",
       "description": "A progress bar component for showing completion status",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/progress-bar.tsx",
@@ -1456,8 +1779,12 @@
       "name": "progress-circle",
       "type": "registry:ui",
       "description": "A circular progress component for showing completion status",
-      "dependencies": ["tailwind-merge"],
-      "registryDependencies": ["progress-bar"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "progress-bar"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/progress-circle.tsx",
@@ -1469,8 +1796,12 @@
       "name": "tracker",
       "type": "registry:ui",
       "description": "A tracker component for visualizing data over time with tooltips",
-      "dependencies": ["tailwind-merge"],
-      "registryDependencies": ["tooltip"],
+      "dependencies": [
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "tooltip"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tracker.tsx",
@@ -1482,7 +1813,9 @@
       "name": "toast",
       "type": "registry:ui",
       "description": "A toast notification component using Sonner",
-      "dependencies": ["sonner"],
+      "dependencies": [
+        "sonner"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/toast.tsx",
@@ -1500,7 +1833,9 @@
         "recharts",
         "tailwind-merge"
       ],
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/chart.tsx",
@@ -1512,8 +1847,13 @@
       "name": "area-chart",
       "type": "registry:ui",
       "description": "An area chart component with gradient fills and animations",
-      "dependencies": ["recharts", "tailwind-merge"],
-      "registryDependencies": ["chart"],
+      "dependencies": [
+        "recharts",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/area-chart.tsx",
@@ -1525,8 +1865,13 @@
       "name": "bar-chart",
       "type": "registry:ui",
       "description": "A bar chart component with stacking and percentage options",
-      "dependencies": ["recharts", "tailwind-merge"],
-      "registryDependencies": ["chart"],
+      "dependencies": [
+        "recharts",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/bar-chart.tsx",
@@ -1538,8 +1883,13 @@
       "name": "line-chart",
       "type": "registry:ui",
       "description": "A line chart component with multiple line support",
-      "dependencies": ["recharts", "tailwind-merge"],
-      "registryDependencies": ["chart"],
+      "dependencies": [
+        "recharts",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/line-chart.tsx",
@@ -1551,8 +1901,13 @@
       "name": "pie-chart",
       "type": "registry:ui",
       "description": "A pie/donut chart component with customizable labels",
-      "dependencies": ["recharts", "tailwind-merge"],
-      "registryDependencies": ["chart"],
+      "dependencies": [
+        "recharts",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/pie-chart.tsx",
@@ -1564,8 +1919,13 @@
       "name": "bar-list",
       "type": "registry:ui",
       "description": "A horizontal bar list component for displaying ranked data",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["link"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "link"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/bar-list.tsx",
@@ -1577,8 +1937,13 @@
       "name": "color-area",
       "type": "registry:ui",
       "description": "A color area component for 2D color selection",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["color-thumb"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "color-thumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-area.tsx",
@@ -1590,8 +1955,15 @@
       "name": "color-field",
       "type": "registry:ui",
       "description": "A color input field with hex color validation",
-      "dependencies": ["lucide-react", "react-aria-components"],
-      "registryDependencies": ["color-picker", "field", "loader"],
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "color-picker",
+        "field",
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-field.tsx",
@@ -1603,8 +1975,13 @@
       "name": "color-slider",
       "type": "registry:ui",
       "description": "A color slider component for single-dimension color adjustment",
-      "dependencies": ["react-aria-components"],
-      "registryDependencies": ["color-thumb", "field"],
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "color-thumb",
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-slider.tsx",
@@ -1616,7 +1993,10 @@
       "name": "color-swatch",
       "type": "registry:ui",
       "description": "A color swatch component for displaying colors",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-swatch.tsx",
@@ -1628,8 +2008,13 @@
       "name": "color-swatch-picker",
       "type": "registry:ui",
       "description": "A color swatch picker for selecting from predefined colors",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["color-swatch"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "color-swatch"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-swatch-picker.tsx",
@@ -1641,7 +2026,10 @@
       "name": "color-thumb",
       "type": "registry:ui",
       "description": "A color thumb component for color slider controls",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-thumb.tsx",
@@ -1653,8 +2041,12 @@
       "name": "color-wheel",
       "type": "registry:ui",
       "description": "A color wheel component for hue selection",
-      "dependencies": ["react-aria-components"],
-      "registryDependencies": ["color-thumb"],
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "color-thumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/color-wheel.tsx",
@@ -1692,7 +2084,10 @@
       "name": "drop-zone",
       "type": "registry:ui",
       "description": "A drop zone component for file uploads",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/drop-zone.tsx",
@@ -1704,8 +2099,13 @@
       "name": "file-trigger",
       "type": "registry:ui",
       "description": "A file input trigger component with button styling",
-      "dependencies": ["react-aria-components", "tailwind-variants"],
-      "registryDependencies": ["button"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/file-trigger.tsx",
@@ -1733,7 +2133,9 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/show-more.tsx",
@@ -1750,7 +2152,11 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": ["dropdown", "loader", "menu"],
+      "registryDependencies": [
+        "dropdown",
+        "loader",
+        "menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/command-menu.tsx",
@@ -1762,8 +2168,13 @@
       "name": "table",
       "type": "registry:ui",
       "description": "A comprehensive table component with sorting, resizing, and selection",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
-      "registryDependencies": ["checkbox"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/table.tsx",
@@ -1775,8 +2186,12 @@
       "name": "number-format",
       "type": "registry:ui",
       "description": "A number format component that allows you to format numbers in a variety of ways",
-      "dependencies": ["react-number-format"],
-      "registryDependencies": ["locale-context"],
+      "dependencies": [
+        "react-number-format"
+      ],
+      "registryDependencies": [
+        "locale-context"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/number-format/number-format.tsx",
@@ -1896,7 +2311,9 @@
       "meta": {
         "iframeHeight": "1000px"
       },
-      "categories": ["dashboard"]
+      "categories": [
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-01",
@@ -1928,7 +2345,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-02",
@@ -1960,13 +2380,19 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-03",
       "type": "registry:block",
       "description": "A sidebar with submenus.",
-      "registryDependencies": ["sidebar", "breadcrumb"],
+      "registryDependencies": [
+        "sidebar",
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/sidebar-03/page.tsx",
@@ -1978,13 +2404,20 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-04",
       "type": "registry:block",
       "description": "A floating sidebar with submenus.",
-      "registryDependencies": ["sidebar", "breadcrumb", "separator"],
+      "registryDependencies": [
+        "sidebar",
+        "breadcrumb",
+        "separator"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/sidebar-04/page.tsx",
@@ -1996,7 +2429,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-05",
@@ -2024,7 +2460,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-06",
@@ -2056,7 +2495,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-07",
@@ -2097,7 +2539,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-08",
@@ -2138,7 +2583,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-09",
@@ -2169,7 +2617,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-10",
@@ -2218,7 +2669,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-11",
@@ -2241,7 +2695,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-12",
@@ -2279,13 +2736,21 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-13",
       "type": "registry:block",
       "description": "A sidebar in a dialog.",
-      "registryDependencies": ["sidebar", "breadcrumb", "button", "dialog"],
+      "registryDependencies": [
+        "sidebar",
+        "breadcrumb",
+        "button",
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/sidebar-13/page.tsx",
@@ -2297,13 +2762,19 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-14",
       "type": "registry:block",
       "description": "A sidebar on the right.",
-      "registryDependencies": ["sidebar", "breadcrumb"],
+      "registryDependencies": [
+        "sidebar",
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/sidebar-14/page.tsx",
@@ -2315,7 +2786,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-15",
@@ -2378,7 +2852,10 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "sidebar-16",
@@ -2429,13 +2906,21 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["sidebar", "dashboard"]
+      "categories": [
+        "sidebar",
+        "dashboard"
+      ]
     },
     {
       "name": "login-01",
       "type": "registry:block",
       "description": "A simple login form.",
-      "registryDependencies": ["button", "card", "input", "label"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/login-01/page.tsx",
@@ -2447,13 +2932,21 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["authentication", "login"]
+      "categories": [
+        "authentication",
+        "login"
+      ]
     },
     {
       "name": "login-02",
       "type": "registry:block",
       "description": "A two column login page with a cover image.",
-      "registryDependencies": ["button", "card", "input", "label"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/login-02/page.tsx",
@@ -2465,13 +2958,21 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["authentication", "login"]
+      "categories": [
+        "authentication",
+        "login"
+      ]
     },
     {
       "name": "login-03",
       "type": "registry:block",
       "description": "A login page with a muted background color.",
-      "registryDependencies": ["button", "card", "input", "label"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/login-03/page.tsx",
@@ -2483,13 +2984,21 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["authentication", "login"]
+      "categories": [
+        "authentication",
+        "login"
+      ]
     },
     {
       "name": "login-04",
       "type": "registry:block",
       "description": "A login page with form and image.",
-      "registryDependencies": ["button", "card", "input", "label"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/login-04/page.tsx",
@@ -2501,13 +3010,21 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["authentication", "login"]
+      "categories": [
+        "authentication",
+        "login"
+      ]
     },
     {
       "name": "login-05",
       "type": "registry:block",
       "description": "A simple email-only login page.",
-      "registryDependencies": ["button", "card", "input", "label"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/login-05/page.tsx",
@@ -2519,13 +3036,18 @@
           "type": "registry:component"
         }
       ],
-      "categories": ["authentication", "login"]
+      "categories": [
+        "authentication",
+        "login"
+      ]
     },
     {
       "name": "calendar-01",
       "type": "registry:block",
       "description": "A simple calendar.",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-01.tsx",
@@ -2537,13 +3059,18 @@
         "container": "w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-02",
       "type": "registry:block",
       "description": "Multiple months with single selection.",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-02.tsx",
@@ -2555,13 +3082,18 @@
         "container": "w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-03",
       "type": "registry:block",
       "description": "Multiple months with multiple selection.",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-03.tsx",
@@ -2573,13 +3105,18 @@
         "container": "w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-04",
       "type": "registry:block",
       "description": "Single month with range selection",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-04.tsx",
@@ -2591,13 +3128,18 @@
         "container": "w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0 xl:pt-28",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-05",
       "type": "registry:block",
       "description": "Multiple months with range selection",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-05.tsx",
@@ -2609,13 +3151,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-06",
       "type": "registry:block",
       "description": "Range selection with minimum days",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-06.tsx",
@@ -2627,13 +3174,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-07",
       "type": "registry:block",
       "description": "Range selection with minimum and maximum days",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-07.tsx",
@@ -2645,13 +3197,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-08",
       "type": "registry:block",
       "description": "Calendar with disabled days",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-08.tsx",
@@ -2663,13 +3220,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-09",
       "type": "registry:block",
       "description": "Calendar with disabled weekends",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-09.tsx",
@@ -2681,13 +3243,20 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-10",
       "type": "registry:block",
       "description": "Today button",
-      "registryDependencies": ["calendar", "card", "button"],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-10.tsx",
@@ -2699,13 +3268,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-11",
       "type": "registry:block",
       "description": "Start and end of month",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-11.tsx",
@@ -2717,13 +3291,20 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-12",
       "type": "registry:block",
       "description": "Localized calendar",
-      "registryDependencies": ["calendar", "card", "select"],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-12.tsx",
@@ -2735,13 +3316,20 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-13",
       "type": "registry:block",
       "description": "With Month and Year Dropdown",
-      "registryDependencies": ["calendar", "label", "select"],
+      "registryDependencies": [
+        "calendar",
+        "label",
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-13.tsx",
@@ -2753,13 +3341,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-14",
       "type": "registry:block",
       "description": "With Booked/Unavailable Days",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-14.tsx",
@@ -2771,13 +3364,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-15",
       "type": "registry:block",
       "description": "With Week Numbers",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-15.tsx",
@@ -2789,13 +3387,21 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-16",
       "type": "registry:block",
       "description": "With time picker",
-      "registryDependencies": ["calendar", "card", "input", "label"],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-16.tsx",
@@ -2807,13 +3413,21 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-17",
       "type": "registry:block",
       "description": "With time picker inline",
-      "registryDependencies": ["calendar", "card", "input", "label"],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-17.tsx",
@@ -2825,13 +3439,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-18",
       "type": "registry:block",
       "description": "Variable size",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-18.tsx",
@@ -2843,14 +3462,24 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-19",
       "type": "registry:block",
       "description": "With presets",
-      "dependencies": ["date-fns"],
-      "registryDependencies": ["calendar", "card", "input", "label"],
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "input",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-19.tsx",
@@ -2862,13 +3491,20 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-20",
       "type": "registry:block",
       "description": "With time presets",
-      "registryDependencies": ["calendar", "card", "button"],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-20.tsx",
@@ -2880,13 +3516,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-21",
       "type": "registry:block",
       "description": "Custom days and formatters",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-21.tsx",
@@ -2898,13 +3539,21 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-22",
       "type": "registry:block",
       "description": "Date picker",
-      "registryDependencies": ["calendar", "popover", "button", "label"],
+      "registryDependencies": [
+        "calendar",
+        "popover",
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-22.tsx",
@@ -2916,13 +3565,21 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-23",
       "type": "registry:block",
       "description": "Date range picker",
-      "registryDependencies": ["calendar", "popover", "button", "label"],
+      "registryDependencies": [
+        "calendar",
+        "popover",
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-23.tsx",
@@ -2934,13 +3591,21 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-24",
       "type": "registry:block",
       "description": "Date and Time picker",
-      "registryDependencies": ["calendar", "popover", "button", "label"],
+      "registryDependencies": [
+        "calendar",
+        "popover",
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-24.tsx",
@@ -2952,13 +3617,21 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-25",
       "type": "registry:block",
       "description": "Date and Time range picker",
-      "registryDependencies": ["calendar", "popover", "button", "label"],
+      "registryDependencies": [
+        "calendar",
+        "popover",
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-25.tsx",
@@ -2970,7 +3643,10 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-26",
@@ -2994,7 +3670,10 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-27",
@@ -3018,7 +3697,10 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-28",
@@ -3042,13 +3724,18 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-29",
       "type": "registry:block",
       "description": "Natural language date picker",
-      "dependencies": ["chrono-node"],
+      "dependencies": [
+        "chrono-node"
+      ],
       "registryDependencies": [
         "calendar",
         "input",
@@ -3067,7 +3754,10 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-30",
@@ -3091,13 +3781,20 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-31",
       "type": "registry:block",
       "description": "With event slots",
-      "registryDependencies": ["calendar", "card", "button"],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-31.tsx",
@@ -3109,13 +3806,20 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "calendar-32",
       "type": "registry:block",
       "description": "Date picker in a drawer",
-      "registryDependencies": ["calendar", "button", "drawer"],
+      "registryDependencies": [
+        "calendar",
+        "button",
+        "drawer"
+      ],
       "files": [
         {
           "path": "registry/preskok/blocks/calendar-32.tsx",
@@ -3127,852 +3831,1279 @@
         "container": "w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "chart-area-axes",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-axes.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-default",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-default.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-gradient",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-gradient.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-icons",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-icons.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-interactive",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart", "select"],
+      "registryDependencies": [
+        "card",
+        "chart",
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-interactive.tsx",
           "type": "registry:component"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-legend",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-legend.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-linear",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-linear.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-stacked-expand",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-stacked-expand.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-stacked",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-stacked.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-area-step",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-area-step.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-area"]
+      "categories": [
+        "charts",
+        "charts-area"
+      ]
     },
     {
       "name": "chart-bar-active",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-active.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-default",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-default.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-horizontal",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-horizontal.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-interactive",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-interactive.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-label-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-label-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-label",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-label.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-mixed",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-mixed.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-multiple",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-multiple.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-negative",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-negative.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-bar-stacked",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-bar-stacked.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-bar"]
+      "categories": [
+        "charts",
+        "charts-bar"
+      ]
     },
     {
       "name": "chart-line-default",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-default.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-dots-colors",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-dots-colors.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-dots-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-dots-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-dots",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-dots.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-interactive",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-interactive.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-label-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-label-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-label",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-label.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-linear",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-linear.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-multiple",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-multiple.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-line-step",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-line-step.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-line"]
+      "categories": [
+        "charts",
+        "charts-line"
+      ]
     },
     {
       "name": "chart-pie-donut-active",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-donut-active.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-donut-text",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-donut-text.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-donut",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-donut.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-interactive",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-interactive.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-label-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-label-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-label-list",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-label-list.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-label",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-label.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-legend",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-legend.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-separator-none",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-separator-none.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-simple",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-simple.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-pie-stacked",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-pie-stacked.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-pie"]
+      "categories": [
+        "charts",
+        "charts-pie"
+      ]
     },
     {
       "name": "chart-radar-default",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-default.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-dots",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-dots.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-grid-circle-fill",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-grid-circle-fill.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-grid-circle-no-lines",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-grid-circle-no-lines.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-grid-circle",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-grid-circle.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-grid-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-grid-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-grid-fill",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-grid-fill.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-grid-none",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-grid-none.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-icons",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-icons.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-label-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-label-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-legend",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-legend.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-lines-only",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-lines-only.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-multiple",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-multiple.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radar-radius",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radar-radius.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radar"]
+      "categories": [
+        "charts",
+        "charts-radar"
+      ]
     },
     {
       "name": "chart-radial-grid",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radial-grid.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radial"]
+      "categories": [
+        "charts",
+        "charts-radial"
+      ]
     },
     {
       "name": "chart-radial-label",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radial-label.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radial"]
+      "categories": [
+        "charts",
+        "charts-radial"
+      ]
     },
     {
       "name": "chart-radial-shape",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radial-shape.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radial"]
+      "categories": [
+        "charts",
+        "charts-radial"
+      ]
     },
     {
       "name": "chart-radial-simple",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radial-simple.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radial"]
+      "categories": [
+        "charts",
+        "charts-radial"
+      ]
     },
     {
       "name": "chart-radial-stacked",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radial-stacked.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radial"]
+      "categories": [
+        "charts",
+        "charts-radial"
+      ]
     },
     {
       "name": "chart-radial-text",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-radial-text.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-radial"]
+      "categories": [
+        "charts",
+        "charts-radial"
+      ]
     },
     {
       "name": "chart-tooltip-default",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-default.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-indicator-line",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-indicator-line.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-indicator-none",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-indicator-none.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-label-none",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-label-none.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-label-custom",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-label-custom.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-label-formatter",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-label-formatter.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-formatter",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-formatter.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-icons",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-icons.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "chart-tooltip-advanced",
       "type": "registry:block",
-      "registryDependencies": ["card", "chart"],
+      "registryDependencies": [
+        "card",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/charts/chart-tooltip-advanced.tsx",
           "type": "registry:block"
         }
       ],
-      "categories": ["charts", "charts-tooltip"]
+      "categories": [
+        "charts",
+        "charts-tooltip"
+      ]
     },
     {
       "name": "utils",
       "type": "registry:lib",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/lib/utils.ts",
@@ -3983,7 +5114,9 @@
     {
       "name": "create-ctx",
       "type": "registry:lib",
-      "dependencies": ["react"],
+      "dependencies": [
+        "react"
+      ],
       "files": [
         {
           "path": "registry/preskok/lib/create-ctx.ts",
@@ -3994,7 +5127,10 @@
     {
       "name": "utils",
       "type": "registry:lib",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/lib/utils.ts",
@@ -4005,7 +5141,10 @@
     {
       "name": "primitive",
       "type": "registry:lib",
-      "dependencies": ["react-aria-components", "tailwind-merge"],
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/lib/primitive.ts",
@@ -4200,7 +5339,9 @@
     {
       "name": "tag-group-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["tag-group"],
+      "registryDependencies": [
+        "tag-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/tag-group-preskok-demo.tsx",
@@ -4211,7 +5352,11 @@
     {
       "name": "tag-field-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["tag-field", "tag-group", "field"],
+      "registryDependencies": [
+        "tag-field",
+        "tag-group",
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/tag-field-preskok-demo.tsx",
@@ -4246,7 +5391,11 @@
     {
       "name": "number-field-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["number-field", "button", "field"],
+      "registryDependencies": [
+        "number-field",
+        "button",
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/number-field-preskok-demo.tsx",
@@ -4257,7 +5406,10 @@
     {
       "name": "pie-chart-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["pie-chart", "chart"],
+      "registryDependencies": [
+        "pie-chart",
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/pie-chart-preskok-demo.tsx",
@@ -4268,7 +5420,9 @@
     {
       "name": "progress-bar-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["progress-bar"],
+      "registryDependencies": [
+        "progress-bar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/progress-bar-preskok-demo.tsx",
@@ -4279,7 +5433,10 @@
     {
       "name": "progress-circle-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["progress-circle", "progress-bar"],
+      "registryDependencies": [
+        "progress-circle",
+        "progress-bar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/progress-circle-preskok-demo.tsx",
@@ -4290,7 +5447,10 @@
     {
       "name": "range-calendar-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["range-calendar", "calendar"],
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/range-calendar-preskok-demo.tsx",
@@ -4301,7 +5461,11 @@
     {
       "name": "search-field-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["search-field", "field", "loader"],
+      "registryDependencies": [
+        "search-field",
+        "field",
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/search-field-preskok-demo.tsx",
@@ -4312,7 +5476,12 @@
     {
       "name": "navbar-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["navbar", "button", "link", "separator"],
+      "registryDependencies": [
+        "navbar",
+        "button",
+        "link",
+        "separator"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/navbar-preskok-demo.tsx",
@@ -4323,7 +5492,10 @@
     {
       "name": "tracker-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["tracker", "tooltip"],
+      "registryDependencies": [
+        "tracker",
+        "tooltip"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/tracker-preskok-demo.tsx",
@@ -4334,7 +5506,10 @@
     {
       "name": "tree-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["tree", "checkbox"],
+      "registryDependencies": [
+        "tree",
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/tree-preskok-demo.tsx",
@@ -4345,7 +5520,11 @@
     {
       "name": "text-field-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["text-field", "field", "loader"],
+      "registryDependencies": [
+        "text-field",
+        "field",
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/text-field-preskok-demo.tsx",
@@ -4356,7 +5535,10 @@
     {
       "name": "time-field-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["time-field", "field"],
+      "registryDependencies": [
+        "time-field",
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/time-field-preskok-demo.tsx",
@@ -4367,7 +5549,9 @@
     {
       "name": "accordion-demo",
       "type": "registry:example",
-      "registryDependencies": ["accordion"],
+      "registryDependencies": [
+        "accordion"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/accordion-demo.tsx",
@@ -4378,7 +5562,11 @@
     {
       "name": "file-trigger-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["file-trigger", "button", "loader"],
+      "registryDependencies": [
+        "file-trigger",
+        "button",
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/file-trigger-preskok-demo.tsx",
@@ -4389,7 +5577,12 @@
     {
       "name": "form-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["form", "field", "text-field", "button"],
+      "registryDependencies": [
+        "form",
+        "field",
+        "text-field",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/form-preskok-demo.tsx",
@@ -4400,7 +5593,10 @@
     {
       "name": "grid-list-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["grid-list", "checkbox"],
+      "registryDependencies": [
+        "grid-list",
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/grid-list-preskok-demo.tsx",
@@ -4411,7 +5607,9 @@
     {
       "name": "heading-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["heading"],
+      "registryDependencies": [
+        "heading"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/heading-preskok-demo.tsx",
@@ -4422,7 +5620,9 @@
     {
       "name": "input-otp-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["input-otp"],
+      "registryDependencies": [
+        "input-otp"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-otp-preskok-demo.tsx",
@@ -4433,7 +5633,9 @@
     {
       "name": "keyboard-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["keyboard"],
+      "registryDependencies": [
+        "keyboard"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/keyboard-preskok-demo.tsx",
@@ -4444,7 +5646,11 @@
     {
       "name": "line-chart-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["line-chart", "chart", "card"],
+      "registryDependencies": [
+        "line-chart",
+        "chart",
+        "card"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/line-chart-preskok-demo.tsx",
@@ -4455,7 +5661,9 @@
     {
       "name": "link-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["link"],
+      "registryDependencies": [
+        "link"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/link-preskok-demo.tsx",
@@ -4466,7 +5674,10 @@
     {
       "name": "list-box-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["list-box", "dropdown"],
+      "registryDependencies": [
+        "list-box",
+        "dropdown"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/list-box-preskok-demo.tsx",
@@ -4477,7 +5688,9 @@
     {
       "name": "loader-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["loader"],
+      "registryDependencies": [
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/loader-preskok-demo.tsx",
@@ -4488,7 +5701,9 @@
     {
       "name": "alert-demo",
       "type": "registry:example",
-      "registryDependencies": ["alert"],
+      "registryDependencies": [
+        "alert"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/alert-demo.tsx",
@@ -4499,7 +5714,9 @@
     {
       "name": "alert-destructive",
       "type": "registry:example",
-      "registryDependencies": ["alert"],
+      "registryDependencies": [
+        "alert"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/alert-destructive.tsx",
@@ -4510,7 +5727,10 @@
     {
       "name": "alert-dialog-demo",
       "type": "registry:example",
-      "registryDependencies": ["alert-dialog", "button"],
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/alert-dialog-demo.tsx",
@@ -4521,7 +5741,9 @@
     {
       "name": "aspect-ratio-demo",
       "type": "registry:example",
-      "registryDependencies": ["aspect-ratio"],
+      "registryDependencies": [
+        "aspect-ratio"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/aspect-ratio-demo.tsx",
@@ -4532,7 +5754,9 @@
     {
       "name": "avatar-demo",
       "type": "registry:example",
-      "registryDependencies": ["avatar"],
+      "registryDependencies": [
+        "avatar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/avatar-demo.tsx",
@@ -4543,7 +5767,9 @@
     {
       "name": "badge-demo",
       "type": "registry:example",
-      "registryDependencies": ["badge"],
+      "registryDependencies": [
+        "badge"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/badge-demo.tsx",
@@ -4554,7 +5780,9 @@
     {
       "name": "badge-destructive",
       "type": "registry:example",
-      "registryDependencies": ["badge"],
+      "registryDependencies": [
+        "badge"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/badge-destructive.tsx",
@@ -4565,7 +5793,9 @@
     {
       "name": "badge-outline",
       "type": "registry:example",
-      "registryDependencies": ["badge"],
+      "registryDependencies": [
+        "badge"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/badge-outline.tsx",
@@ -4576,7 +5806,9 @@
     {
       "name": "badge-secondary",
       "type": "registry:example",
-      "registryDependencies": ["badge"],
+      "registryDependencies": [
+        "badge"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/badge-secondary.tsx",
@@ -4587,7 +5819,9 @@
     {
       "name": "breadcrumb-demo",
       "type": "registry:example",
-      "registryDependencies": ["breadcrumb"],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/breadcrumb-demo.tsx",
@@ -4598,7 +5832,9 @@
     {
       "name": "breadcrumb-separator",
       "type": "registry:example",
-      "registryDependencies": ["breadcrumb"],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/breadcrumb-separator.tsx",
@@ -4609,7 +5845,9 @@
     {
       "name": "breadcrumb-dropdown",
       "type": "registry:example",
-      "registryDependencies": ["breadcrumb"],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/breadcrumb-dropdown.tsx",
@@ -4620,7 +5858,9 @@
     {
       "name": "breadcrumb-ellipsis",
       "type": "registry:example",
-      "registryDependencies": ["breadcrumb"],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/breadcrumb-ellipsis.tsx",
@@ -4631,7 +5871,9 @@
     {
       "name": "breadcrumb-link",
       "type": "registry:example",
-      "registryDependencies": ["breadcrumb"],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/breadcrumb-link.tsx",
@@ -4642,7 +5884,9 @@
     {
       "name": "breadcrumb-responsive",
       "type": "registry:example",
-      "registryDependencies": ["breadcrumb"],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/breadcrumb-responsive.tsx",
@@ -4653,7 +5897,9 @@
     {
       "name": "button-demo",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-demo.tsx",
@@ -4664,7 +5910,9 @@
     {
       "name": "button-secondary",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-secondary.tsx",
@@ -4675,7 +5923,9 @@
     {
       "name": "button-destructive",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-destructive.tsx",
@@ -4686,7 +5936,9 @@
     {
       "name": "button-outline",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-outline.tsx",
@@ -4697,7 +5949,9 @@
     {
       "name": "button-ghost",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-ghost.tsx",
@@ -4708,7 +5962,9 @@
     {
       "name": "button-link",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-link.tsx",
@@ -4719,7 +5975,9 @@
     {
       "name": "button-with-icon",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-with-icon.tsx",
@@ -4730,7 +5988,9 @@
     {
       "name": "button-loading",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-loading.tsx",
@@ -4741,7 +6001,9 @@
     {
       "name": "button-icon",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-icon.tsx",
@@ -4752,7 +6014,9 @@
     {
       "name": "button-as-child",
       "type": "registry:example",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/button-as-child.tsx",
@@ -4763,7 +6027,9 @@
     {
       "name": "calendar-demo",
       "type": "registry:example",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/calendar-demo.tsx",
@@ -4774,7 +6040,11 @@
     {
       "name": "calendar-form",
       "type": "registry:example",
-      "registryDependencies": ["calendar", "form", "popover"],
+      "registryDependencies": [
+        "calendar",
+        "form",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/calendar-form.tsx",
@@ -4785,7 +6055,11 @@
     {
       "name": "card-demo",
       "type": "registry:example",
-      "registryDependencies": ["card", "button", "switch"],
+      "registryDependencies": [
+        "card",
+        "button",
+        "switch"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/card-demo.tsx",
@@ -4796,7 +6070,13 @@
     {
       "name": "card-with-form",
       "type": "registry:example",
-      "registryDependencies": ["button", "card", "input", "label", "select"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label",
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/card-with-form.tsx",
@@ -4807,7 +6087,9 @@
     {
       "name": "carousel-demo",
       "type": "registry:example",
-      "registryDependencies": ["carousel"],
+      "registryDependencies": [
+        "carousel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-demo.tsx",
@@ -4818,7 +6100,9 @@
     {
       "name": "carousel-size",
       "type": "registry:example",
-      "registryDependencies": ["carousel"],
+      "registryDependencies": [
+        "carousel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-size.tsx",
@@ -4829,7 +6113,9 @@
     {
       "name": "carousel-spacing",
       "type": "registry:example",
-      "registryDependencies": ["carousel"],
+      "registryDependencies": [
+        "carousel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-spacing.tsx",
@@ -4840,7 +6126,9 @@
     {
       "name": "carousel-orientation",
       "type": "registry:example",
-      "registryDependencies": ["carousel"],
+      "registryDependencies": [
+        "carousel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-orientation.tsx",
@@ -4851,7 +6139,9 @@
     {
       "name": "carousel-api",
       "type": "registry:example",
-      "registryDependencies": ["carousel"],
+      "registryDependencies": [
+        "carousel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-api.tsx",
@@ -4862,7 +6152,9 @@
     {
       "name": "carousel-plugin",
       "type": "registry:example",
-      "registryDependencies": ["carousel"],
+      "registryDependencies": [
+        "carousel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-plugin.tsx",
@@ -4873,7 +6165,9 @@
     {
       "name": "checkbox-demo",
       "type": "registry:example",
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-demo.tsx",
@@ -4884,7 +6178,9 @@
     {
       "name": "checkbox-disabled",
       "type": "registry:example",
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-disabled.tsx",
@@ -4895,7 +6191,10 @@
     {
       "name": "checkbox-form-multiple",
       "type": "registry:example",
-      "registryDependencies": ["checkbox", "form"],
+      "registryDependencies": [
+        "checkbox",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-form-multiple.tsx",
@@ -4906,7 +6205,10 @@
     {
       "name": "checkbox-form-single",
       "type": "registry:example",
-      "registryDependencies": ["checkbox", "form"],
+      "registryDependencies": [
+        "checkbox",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-form-single.tsx",
@@ -4917,7 +6219,9 @@
     {
       "name": "checkbox-with-text",
       "type": "registry:example",
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-with-text.tsx",
@@ -4928,7 +6232,9 @@
     {
       "name": "collapsible-demo",
       "type": "registry:example",
-      "registryDependencies": ["collapsible"],
+      "registryDependencies": [
+        "collapsible"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/collapsible-demo.tsx",
@@ -4939,7 +6245,9 @@
     {
       "name": "combobox-demo",
       "type": "registry:example",
-      "registryDependencies": ["command"],
+      "registryDependencies": [
+        "command"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/combobox-demo.tsx",
@@ -4950,7 +6258,11 @@
     {
       "name": "combobox-dropdown-menu",
       "type": "registry:example",
-      "registryDependencies": ["command", "dropdown-menu", "button"],
+      "registryDependencies": [
+        "command",
+        "dropdown-menu",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/combobox-dropdown-menu.tsx",
@@ -4961,7 +6273,10 @@
     {
       "name": "combobox-form",
       "type": "registry:example",
-      "registryDependencies": ["command", "form"],
+      "registryDependencies": [
+        "command",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/combobox-form.tsx",
@@ -4972,7 +6287,10 @@
     {
       "name": "combobox-popover",
       "type": "registry:example",
-      "registryDependencies": ["combobox", "popover"],
+      "registryDependencies": [
+        "combobox",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/combobox-popover.tsx",
@@ -4983,7 +6301,11 @@
     {
       "name": "combobox-responsive",
       "type": "registry:example",
-      "registryDependencies": ["combobox", "popover", "drawer"],
+      "registryDependencies": [
+        "combobox",
+        "popover",
+        "drawer"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/combobox-responsive.tsx",
@@ -4994,7 +6316,9 @@
     {
       "name": "command-demo",
       "type": "registry:example",
-      "registryDependencies": ["command"],
+      "registryDependencies": [
+        "command"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/command-demo.tsx",
@@ -5005,7 +6329,10 @@
     {
       "name": "command-dialog",
       "type": "registry:example",
-      "registryDependencies": ["command", "dialog"],
+      "registryDependencies": [
+        "command",
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/command-dialog.tsx",
@@ -5016,7 +6343,9 @@
     {
       "name": "context-menu-demo",
       "type": "registry:example",
-      "registryDependencies": ["context-menu"],
+      "registryDependencies": [
+        "context-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/context-menu-demo.tsx",
@@ -5027,7 +6356,9 @@
     {
       "name": "data-table-demo",
       "type": "registry:example",
-      "registryDependencies": ["data-table"],
+      "registryDependencies": [
+        "data-table"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/data-table-demo.tsx",
@@ -5038,8 +6369,14 @@
     {
       "name": "date-picker-demo",
       "type": "registry:example",
-      "dependencies": ["date-fns"],
-      "registryDependencies": ["button", "calendar", "popover"],
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/date-picker-demo.tsx",
@@ -5050,8 +6387,15 @@
     {
       "name": "date-picker-form",
       "type": "registry:example",
-      "dependencies": ["date-fns"],
-      "registryDependencies": ["button", "calendar", "form", "popover"],
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "form",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/date-picker-form.tsx",
@@ -5062,8 +6406,15 @@
     {
       "name": "date-picker-with-presets",
       "type": "registry:example",
-      "dependencies": ["date-fns"],
-      "registryDependencies": ["button", "calendar", "popover", "select"],
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover",
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/date-picker-with-presets.tsx",
@@ -5074,8 +6425,14 @@
     {
       "name": "date-picker-with-range",
       "type": "registry:example",
-      "dependencies": ["date-fns"],
-      "registryDependencies": ["button", "calendar", "popover"],
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/date-picker-with-range.tsx",
@@ -5086,7 +6443,9 @@
     {
       "name": "dialog-demo",
       "type": "registry:example",
-      "registryDependencies": ["dialog"],
+      "registryDependencies": [
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dialog-demo.tsx",
@@ -5097,7 +6456,10 @@
     {
       "name": "dialog-close-button",
       "type": "registry:example",
-      "registryDependencies": ["dialog", "button"],
+      "registryDependencies": [
+        "dialog",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dialog-close-button.tsx",
@@ -5108,7 +6470,9 @@
     {
       "name": "drawer-demo",
       "type": "registry:example",
-      "registryDependencies": ["drawer"],
+      "registryDependencies": [
+        "drawer"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/drawer-demo.tsx",
@@ -5119,7 +6483,10 @@
     {
       "name": "drawer-dialog",
       "type": "registry:example",
-      "registryDependencies": ["drawer", "dialog"],
+      "registryDependencies": [
+        "drawer",
+        "dialog"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/drawer-dialog.tsx",
@@ -5130,7 +6497,9 @@
     {
       "name": "dropdown-menu-demo",
       "type": "registry:example",
-      "registryDependencies": ["dropdown-menu"],
+      "registryDependencies": [
+        "dropdown-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dropdown-menu-demo.tsx",
@@ -5141,7 +6510,10 @@
     {
       "name": "dropdown-menu-checkboxes",
       "type": "registry:example",
-      "registryDependencies": ["dropdown-menu", "checkbox"],
+      "registryDependencies": [
+        "dropdown-menu",
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dropdown-menu-checkboxes.tsx",
@@ -5152,7 +6524,10 @@
     {
       "name": "dropdown-menu-radio-group",
       "type": "registry:example",
-      "registryDependencies": ["dropdown-menu", "radio-group"],
+      "registryDependencies": [
+        "dropdown-menu",
+        "radio-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dropdown-menu-radio-group.tsx",
@@ -5163,7 +6538,9 @@
     {
       "name": "hover-card-demo",
       "type": "registry:example",
-      "registryDependencies": ["hover-card"],
+      "registryDependencies": [
+        "hover-card"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/hover-card-demo.tsx",
@@ -5174,7 +6551,9 @@
     {
       "name": "input-demo",
       "type": "registry:example",
-      "registryDependencies": ["input"],
+      "registryDependencies": [
+        "input"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-demo.tsx",
@@ -5185,7 +6564,9 @@
     {
       "name": "input-disabled",
       "type": "registry:example",
-      "registryDependencies": ["input"],
+      "registryDependencies": [
+        "input"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-disabled.tsx",
@@ -5196,7 +6577,9 @@
     {
       "name": "input-file",
       "type": "registry:example",
-      "registryDependencies": ["input"],
+      "registryDependencies": [
+        "input"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-file.tsx",
@@ -5207,7 +6590,11 @@
     {
       "name": "input-form",
       "type": "registry:example",
-      "registryDependencies": ["input", "button", "form"],
+      "registryDependencies": [
+        "input",
+        "button",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-form.tsx",
@@ -5218,7 +6605,10 @@
     {
       "name": "input-with-button",
       "type": "registry:example",
-      "registryDependencies": ["input", "button"],
+      "registryDependencies": [
+        "input",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-with-button.tsx",
@@ -5229,7 +6619,11 @@
     {
       "name": "input-with-label",
       "type": "registry:example",
-      "registryDependencies": ["input", "button", "label"],
+      "registryDependencies": [
+        "input",
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-with-label.tsx",
@@ -5240,7 +6634,11 @@
     {
       "name": "input-with-text",
       "type": "registry:example",
-      "registryDependencies": ["input", "button", "label"],
+      "registryDependencies": [
+        "input",
+        "button",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-with-text.tsx",
@@ -5251,7 +6649,9 @@
     {
       "name": "input-otp-demo",
       "type": "registry:example",
-      "registryDependencies": ["input-otp"],
+      "registryDependencies": [
+        "input-otp"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-otp-demo.tsx",
@@ -5262,7 +6662,9 @@
     {
       "name": "input-otp-pattern",
       "type": "registry:example",
-      "registryDependencies": ["input-otp"],
+      "registryDependencies": [
+        "input-otp"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-otp-pattern.tsx",
@@ -5273,7 +6675,9 @@
     {
       "name": "input-otp-separator",
       "type": "registry:example",
-      "registryDependencies": ["input-otp"],
+      "registryDependencies": [
+        "input-otp"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-otp-separator.tsx",
@@ -5284,7 +6688,9 @@
     {
       "name": "input-otp-controlled",
       "type": "registry:example",
-      "registryDependencies": ["input-otp"],
+      "registryDependencies": [
+        "input-otp"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-otp-controlled.tsx",
@@ -5295,7 +6701,10 @@
     {
       "name": "input-otp-form",
       "type": "registry:example",
-      "registryDependencies": ["input-otp", "form"],
+      "registryDependencies": [
+        "input-otp",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/input-otp-form.tsx",
@@ -5306,7 +6715,9 @@
     {
       "name": "label-demo",
       "type": "registry:example",
-      "registryDependencies": ["label"],
+      "registryDependencies": [
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/label-demo.tsx",
@@ -5317,7 +6728,9 @@
     {
       "name": "menubar-demo",
       "type": "registry:example",
-      "registryDependencies": ["menubar"],
+      "registryDependencies": [
+        "menubar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/menubar-demo.tsx",
@@ -5328,7 +6741,9 @@
     {
       "name": "navigation-menu-demo",
       "type": "registry:example",
-      "registryDependencies": ["navigation-menu"],
+      "registryDependencies": [
+        "navigation-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/navigation-menu-demo.tsx",
@@ -5339,7 +6754,9 @@
     {
       "name": "pagination-demo",
       "type": "registry:example",
-      "registryDependencies": ["pagination"],
+      "registryDependencies": [
+        "pagination"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/pagination-demo.tsx",
@@ -5350,7 +6767,9 @@
     {
       "name": "popover-demo",
       "type": "registry:example",
-      "registryDependencies": ["popover"],
+      "registryDependencies": [
+        "popover"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/popover-demo.tsx",
@@ -5361,7 +6780,9 @@
     {
       "name": "progress-demo",
       "type": "registry:example",
-      "registryDependencies": ["progress"],
+      "registryDependencies": [
+        "progress"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/progress-demo.tsx",
@@ -5372,7 +6793,9 @@
     {
       "name": "radio-group-demo",
       "type": "registry:example",
-      "registryDependencies": ["radio-group"],
+      "registryDependencies": [
+        "radio-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/radio-group-demo.tsx",
@@ -5383,7 +6806,10 @@
     {
       "name": "radio-group-form",
       "type": "registry:example",
-      "registryDependencies": ["radio-group", "form"],
+      "registryDependencies": [
+        "radio-group",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/radio-group-form.tsx",
@@ -5394,7 +6820,9 @@
     {
       "name": "resizable-demo",
       "type": "registry:example",
-      "registryDependencies": ["resizable"],
+      "registryDependencies": [
+        "resizable"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/resizable-demo.tsx",
@@ -5405,7 +6833,9 @@
     {
       "name": "resizable-demo-with-handle",
       "type": "registry:example",
-      "registryDependencies": ["resizable"],
+      "registryDependencies": [
+        "resizable"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/resizable-demo-with-handle.tsx",
@@ -5416,7 +6846,9 @@
     {
       "name": "resizable-vertical",
       "type": "registry:example",
-      "registryDependencies": ["resizable"],
+      "registryDependencies": [
+        "resizable"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/resizable-vertical.tsx",
@@ -5427,7 +6859,9 @@
     {
       "name": "resizable-handle",
       "type": "registry:example",
-      "registryDependencies": ["resizable"],
+      "registryDependencies": [
+        "resizable"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/resizable-handle.tsx",
@@ -5438,7 +6872,9 @@
     {
       "name": "scroll-area-demo",
       "type": "registry:example",
-      "registryDependencies": ["scroll-area"],
+      "registryDependencies": [
+        "scroll-area"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/scroll-area-demo.tsx",
@@ -5449,7 +6885,9 @@
     {
       "name": "scroll-area-horizontal-demo",
       "type": "registry:example",
-      "registryDependencies": ["scroll-area"],
+      "registryDependencies": [
+        "scroll-area"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/scroll-area-horizontal-demo.tsx",
@@ -5460,7 +6898,9 @@
     {
       "name": "select-demo",
       "type": "registry:example",
-      "registryDependencies": ["select"],
+      "registryDependencies": [
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/select-demo.tsx",
@@ -5471,7 +6911,9 @@
     {
       "name": "select-scrollable",
       "type": "registry:example",
-      "registryDependencies": ["select"],
+      "registryDependencies": [
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/select-scrollable.tsx",
@@ -5482,7 +6924,9 @@
     {
       "name": "select-form",
       "type": "registry:example",
-      "registryDependencies": ["select"],
+      "registryDependencies": [
+        "select"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/select-form.tsx",
@@ -5493,7 +6937,9 @@
     {
       "name": "separator-demo",
       "type": "registry:example",
-      "registryDependencies": ["separator"],
+      "registryDependencies": [
+        "separator"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/separator-demo.tsx",
@@ -5504,7 +6950,9 @@
     {
       "name": "sheet-demo",
       "type": "registry:example",
-      "registryDependencies": ["sheet"],
+      "registryDependencies": [
+        "sheet"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/sheet-demo.tsx",
@@ -5515,7 +6963,9 @@
     {
       "name": "sheet-side",
       "type": "registry:example",
-      "registryDependencies": ["sheet"],
+      "registryDependencies": [
+        "sheet"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/sheet-side.tsx",
@@ -5526,7 +6976,9 @@
     {
       "name": "skeleton-demo",
       "type": "registry:example",
-      "registryDependencies": ["skeleton"],
+      "registryDependencies": [
+        "skeleton"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/skeleton-demo.tsx",
@@ -5537,7 +6989,9 @@
     {
       "name": "skeleton-card",
       "type": "registry:example",
-      "registryDependencies": ["skeleton"],
+      "registryDependencies": [
+        "skeleton"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/skeleton-card.tsx",
@@ -5548,7 +7002,9 @@
     {
       "name": "slider-demo",
       "type": "registry:example",
-      "registryDependencies": ["slider"],
+      "registryDependencies": [
+        "slider"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/slider-demo.tsx",
@@ -5559,7 +7015,9 @@
     {
       "name": "sonner-demo",
       "type": "registry:example",
-      "registryDependencies": ["sonner"],
+      "registryDependencies": [
+        "sonner"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/sonner-demo.tsx",
@@ -5570,7 +7028,9 @@
     {
       "name": "switch-demo",
       "type": "registry:example",
-      "registryDependencies": ["switch"],
+      "registryDependencies": [
+        "switch"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/switch-demo.tsx",
@@ -5581,7 +7041,10 @@
     {
       "name": "switch-form",
       "type": "registry:example",
-      "registryDependencies": ["switch", "form"],
+      "registryDependencies": [
+        "switch",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/switch-form.tsx",
@@ -5592,7 +7055,9 @@
     {
       "name": "table-demo",
       "type": "registry:example",
-      "registryDependencies": ["table"],
+      "registryDependencies": [
+        "table"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/table-demo.tsx",
@@ -5603,7 +7068,9 @@
     {
       "name": "tabs-demo",
       "type": "registry:example",
-      "registryDependencies": ["tabs"],
+      "registryDependencies": [
+        "tabs"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/tabs-demo.tsx",
@@ -5614,7 +7081,9 @@
     {
       "name": "textarea-demo",
       "type": "registry:example",
-      "registryDependencies": ["textarea"],
+      "registryDependencies": [
+        "textarea"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/textarea-demo.tsx",
@@ -5625,7 +7094,9 @@
     {
       "name": "textarea-disabled",
       "type": "registry:example",
-      "registryDependencies": ["textarea"],
+      "registryDependencies": [
+        "textarea"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/textarea-disabled.tsx",
@@ -5636,7 +7107,10 @@
     {
       "name": "textarea-form",
       "type": "registry:example",
-      "registryDependencies": ["textarea", "form"],
+      "registryDependencies": [
+        "textarea",
+        "form"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/textarea-form.tsx",
@@ -5647,7 +7121,10 @@
     {
       "name": "textarea-with-button",
       "type": "registry:example",
-      "registryDependencies": ["textarea", "button"],
+      "registryDependencies": [
+        "textarea",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/textarea-with-button.tsx",
@@ -5658,7 +7135,10 @@
     {
       "name": "textarea-with-label",
       "type": "registry:example",
-      "registryDependencies": ["textarea", "label"],
+      "registryDependencies": [
+        "textarea",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/textarea-with-label.tsx",
@@ -5669,7 +7149,10 @@
     {
       "name": "textarea-with-text",
       "type": "registry:example",
-      "registryDependencies": ["textarea", "label"],
+      "registryDependencies": [
+        "textarea",
+        "label"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/textarea-with-text.tsx",
@@ -5680,7 +7163,9 @@
     {
       "name": "toggle-group-demo",
       "type": "registry:example",
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-group-demo.tsx",
@@ -5691,7 +7176,9 @@
     {
       "name": "toggle-group-disabled",
       "type": "registry:example",
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-group-disabled.tsx",
@@ -5702,7 +7189,9 @@
     {
       "name": "toggle-group-lg",
       "type": "registry:example",
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-group-lg.tsx",
@@ -5713,7 +7202,9 @@
     {
       "name": "toggle-group-outline",
       "type": "registry:example",
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-group-outline.tsx",
@@ -5724,7 +7215,9 @@
     {
       "name": "toggle-group-sm",
       "type": "registry:example",
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-group-sm.tsx",
@@ -5735,7 +7228,9 @@
     {
       "name": "toggle-group-single",
       "type": "registry:example",
-      "registryDependencies": ["toggle-group"],
+      "registryDependencies": [
+        "toggle-group"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-group-single.tsx",
@@ -5746,7 +7241,9 @@
     {
       "name": "toggle-demo",
       "type": "registry:example",
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-demo.tsx",
@@ -5757,7 +7254,9 @@
     {
       "name": "toggle-disabled",
       "type": "registry:example",
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-disabled.tsx",
@@ -5768,7 +7267,9 @@
     {
       "name": "toggle-lg",
       "type": "registry:example",
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-lg.tsx",
@@ -5779,7 +7280,9 @@
     {
       "name": "toggle-outline",
       "type": "registry:example",
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-outline.tsx",
@@ -5790,7 +7293,9 @@
     {
       "name": "toggle-sm",
       "type": "registry:example",
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-sm.tsx",
@@ -5801,7 +7306,9 @@
     {
       "name": "toggle-with-text",
       "type": "registry:example",
-      "registryDependencies": ["toggle"],
+      "registryDependencies": [
+        "toggle"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/toggle-with-text.tsx",
@@ -5812,7 +7319,9 @@
     {
       "name": "tooltip-demo",
       "type": "registry:example",
-      "registryDependencies": ["tooltip"],
+      "registryDependencies": [
+        "tooltip"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/tooltip-demo.tsx",
@@ -6034,7 +7543,9 @@
       "name": "calendar-hijri",
       "type": "registry:example",
       "description": "A Persian calendar.",
-      "registryDependencies": ["calendar"],
+      "registryDependencies": [
+        "calendar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/calendar-hijri.tsx",
@@ -6046,7 +7557,10 @@
         "container": "w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0",
         "mobile": "component"
       },
-      "categories": ["calendar", "date"]
+      "categories": [
+        "calendar",
+        "date"
+      ]
     },
     {
       "name": "bar-list-demo",
@@ -6101,7 +7615,9 @@
     {
       "name": "area-chart-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["area-chart"],
+      "registryDependencies": [
+        "area-chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/area-chart-preskok-demo.tsx",
@@ -6112,7 +7628,9 @@
     {
       "name": "avatar-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["avatar"],
+      "registryDependencies": [
+        "avatar"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/avatar-preskok-demo.tsx",
@@ -6123,7 +7641,9 @@
     {
       "name": "badge-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["badge"],
+      "registryDependencies": [
+        "badge"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/badge-preskok-demo.tsx",
@@ -6134,7 +7654,9 @@
     {
       "name": "bar-chart-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["bar-chart"],
+      "registryDependencies": [
+        "bar-chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/bar-chart-preskok-demo.tsx",
@@ -6145,7 +7667,10 @@
     {
       "name": "carousel-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["carousel", "card"],
+      "registryDependencies": [
+        "carousel",
+        "card"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/carousel-preskok-demo.tsx",
@@ -6156,7 +7681,9 @@
     {
       "name": "chart-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["chart"],
+      "registryDependencies": [
+        "chart"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/chart-preskok-demo.tsx",
@@ -6167,7 +7694,10 @@
     {
       "name": "checkbox-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["checkbox", "field"],
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-preskok-demo.tsx",
@@ -6178,7 +7708,9 @@
     {
       "name": "checkbox-single-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": [
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/checkbox-single-preskok-demo.tsx",
@@ -6189,7 +7721,10 @@
     {
       "name": "choicebox-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["choicebox", "checkbox"],
+      "registryDependencies": [
+        "choicebox",
+        "checkbox"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/choicebox-preskok-demo.tsx",
@@ -6232,7 +7767,9 @@
     {
       "name": "color-picker-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["color-picker"],
+      "registryDependencies": [
+        "color-picker"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/color-picker-preskok-demo.tsx",
@@ -6243,7 +7780,10 @@
     {
       "name": "color-slider-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["color-picker", "color-slider"],
+      "registryDependencies": [
+        "color-picker",
+        "color-slider"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/color-slider-preskok-demo.tsx",
@@ -6254,7 +7794,10 @@
     {
       "name": "color-swatch-picker-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["color-swatch-picker", "color-swatch"],
+      "registryDependencies": [
+        "color-swatch-picker",
+        "color-swatch"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/color-swatch-picker-preskok-demo.tsx",
@@ -6265,7 +7808,9 @@
     {
       "name": "color-swatch-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["color-swatch"],
+      "registryDependencies": [
+        "color-swatch"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/color-swatch-preskok-demo.tsx",
@@ -6276,7 +7821,10 @@
     {
       "name": "color-thumb-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["color-slider", "color-thumb"],
+      "registryDependencies": [
+        "color-slider",
+        "color-thumb"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/color-thumb-preskok-demo.tsx",
@@ -6287,7 +7835,9 @@
     {
       "name": "color-wheel-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["color-wheel"],
+      "registryDependencies": [
+        "color-wheel"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/color-wheel-preskok-demo.tsx",
@@ -6298,7 +7848,9 @@
     {
       "name": "combo-box-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["combo-box"],
+      "registryDependencies": [
+        "combo-box"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/combo-box-preskok-demo.tsx",
@@ -6309,7 +7861,9 @@
     {
       "name": "command-menu-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["command-menu"],
+      "registryDependencies": [
+        "command-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/command-menu-preskok-demo.tsx",
@@ -6320,7 +7874,9 @@
     {
       "name": "container-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["container"],
+      "registryDependencies": [
+        "container"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/container-preskok-demo.tsx",
@@ -6331,7 +7887,9 @@
     {
       "name": "context-menu-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["context-menu"],
+      "registryDependencies": [
+        "context-menu"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/context-menu-preskok-demo.tsx",
@@ -6342,8 +7900,12 @@
     {
       "name": "date-field-demo",
       "type": "registry:example",
-      "dependencies": ["@internationalized/date"],
-      "registryDependencies": ["date-field"],
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/date-field-demo.tsx",
@@ -6354,7 +7916,9 @@
     {
       "name": "date-picker-preskok-demo",
       "type": "registry:example",
-      "dependencies": ["@internationalized/date"],
+      "dependencies": [
+        "@internationalized/date"
+      ],
       "registryDependencies": [
         "date-picker",
         "calendar",
@@ -6373,7 +7937,9 @@
     {
       "name": "date-range-picker-preskok-demo",
       "type": "registry:example",
-      "dependencies": ["@internationalized/date"],
+      "dependencies": [
+        "@internationalized/date"
+      ],
       "registryDependencies": [
         "date-range-picker",
         "calendar",
@@ -6391,7 +7957,9 @@
     {
       "name": "description-list-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["description-list"],
+      "registryDependencies": [
+        "description-list"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/description-list-preskok-demo.tsx",
@@ -6402,7 +7970,10 @@
     {
       "name": "dialog-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["dialog", "button"],
+      "registryDependencies": [
+        "dialog",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dialog-preskok-demo.tsx",
@@ -6413,7 +7984,11 @@
     {
       "name": "modal-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["modal", "button", "text-field"],
+      "registryDependencies": [
+        "modal",
+        "button",
+        "text-field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/modal-preskok-demo.tsx",
@@ -6424,7 +7999,9 @@
     {
       "name": "disclosure-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["disclosure"],
+      "registryDependencies": [
+        "disclosure"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/disclosure-preskok-demo.tsx",
@@ -6435,7 +8012,10 @@
     {
       "name": "drawer-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["drawer", "button"],
+      "registryDependencies": [
+        "drawer",
+        "button"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/drawer-preskok-demo.tsx",
@@ -6446,7 +8026,9 @@
     {
       "name": "drop-zone-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["drop-zone"],
+      "registryDependencies": [
+        "drop-zone"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/drop-zone-preskok-demo.tsx",
@@ -6457,7 +8039,9 @@
     {
       "name": "multiple-select-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["multiple-select"],
+      "registryDependencies": [
+        "multiple-select"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/multiple-select-preskok-demo.tsx",
@@ -6466,9 +8050,24 @@
       ]
     },
     {
+      "name": "multi-select-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "multiple-select"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/multi-select-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "show-more-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["show-more"],
+      "registryDependencies": [
+        "show-more"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/show-more-preskok-demo.tsx",
@@ -6479,7 +8078,10 @@
     {
       "name": "dropdown-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["menu", "dropdown"],
+      "registryDependencies": [
+        "menu",
+        "dropdown"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/dropdown-preskok-demo.tsx",
@@ -6490,7 +8092,9 @@
     {
       "name": "field-preskok-demo",
       "type": "registry:example",
-      "registryDependencies": ["field"],
+      "registryDependencies": [
+        "field"
+      ],
       "files": [
         {
           "path": "registry/preskok/examples/field-preskok-demo.tsx",

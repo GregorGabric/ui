@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport {\n  Description,\n  FieldError,\n  FieldGroup,\n  Input,\n  Label,\n} from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport default function FieldPreskokDemo() {\n  return (\n    <div className=\"max-w-sm space-y-2\">\n      <Label htmlFor=\"email\">Email</Label>\n      <FieldGroup>\n        <Input id=\"email\" placeholder=\"you@example.com\" />\n      </FieldGroup>\n      <Description>We will never share your email.</Description>\n      <FieldError>Invalid email</FieldError>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  Description,\n  FieldError,\n  FieldGroup,\n  Input,\n  Label,\n} from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport default function FieldPreskokDemo() {\n  return (\n    <div className=\"max-w-sm space-y-2\">\n      <Label htmlFor=\"email\">Dealer Email</Label>\n      <FieldGroup>\n        <Input id=\"email\" placeholder=\"you@example.com\" />\n      </FieldGroup>\n      <Description>We will never share your email.</Description>\n      <FieldError>Invalid email</FieldError>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

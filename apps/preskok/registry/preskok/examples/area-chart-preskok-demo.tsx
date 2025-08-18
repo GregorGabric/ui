@@ -29,7 +29,8 @@ export default function AreaChartPreskokDemo() {
       <Card.Header>
         <Card.Title>Vehicle sales last 7d</Card.Title>
         <Card.Description>
-          Sales volume across SUV, Sedan, and Truck segments for the last 7 days.
+          Sales volume across SUV, Sedan, and Truck segments for the last 7
+          days.
         </Card.Description>
       </Card.Header>
       <Card.Content>

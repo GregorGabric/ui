@@ -78,9 +78,7 @@ export default function Component() {
       <div className="!hidden md:!flex">
         <TooltipDemo
           label="Sales"
-          payload={[
-            { name: "SUV", value: 12486, fill: "hsl(var(--chart-3))" },
-          ]}
+          payload={[{ name: "SUV", value: 12486, fill: "hsl(var(--chart-3))" }]}
           className="w-[9rem]"
           indicator="line"
         />

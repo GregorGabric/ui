@@ -3,7 +3,7 @@
 import { ComboBox } from "@/registry/preskok/ui/preskok-ui/combo-box"
 
 type City = { id: string; name: string }
-const cities: City[] = [
+const cities: Array<City> = [
   { id: "nyc", name: "New York" },
   { id: "ldn", name: "London" },
   { id: "tko", name: "Tokyo" },

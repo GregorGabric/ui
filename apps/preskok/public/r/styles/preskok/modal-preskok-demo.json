@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "modal-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "modal",
+    "button",
+    "text-field"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/modal-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Modal } from \"@/registry/preskok/ui/preskok-ui/modal\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function ModalPreskokDemo() {\n  return (\n    <Modal>\n      <Button intent=\"outline\">Rename</Button>\n      <Modal.Content isBlurred>\n        {({ close }) => (\n          <>\n            <Modal.Header>\n              <Modal.Title>Rename project</Modal.Title>\n              <Modal.Description>\n                Change how this project will appear across the dashboard.\n              </Modal.Description>\n            </Modal.Header>\n            <Modal.Body>\n              <TextField\n                autoFocus\n                aria-label=\"Name\"\n                placeholder=\"Enter a name\"\n              />\n            </Modal.Body>\n            <Modal.Footer>\n              <Modal.Close>Cancel</Modal.Close>\n              <Button onPress={close} intent=\"primary\">\n                Save changes\n              </Button>\n            </Modal.Footer>\n          </>\n        )}\n      </Modal.Content>\n    </Modal>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

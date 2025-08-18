@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "show-more-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "show-more"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/show-more-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { ShowMore } from \"@/registry/preskok/ui/preskok-ui/show-more\"\n\nexport default function ShowMorePreskokDemo() {\n  return (\n    <div className=\"space-y-3\">\n      <ShowMore as=\"button\">Show more</ShowMore>\n      <ShowMore as=\"text\" text=\"More results\" />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

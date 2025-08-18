@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/typography-small.tsx",
-      "content": "export default function TypographySmall() {\n  return (\n    <small className=\"text-sm leading-none font-medium\">Email address</small>\n  )\n}\n",
+      "content": "export default function TypographySmall() {\n  return (\n    <small className=\"text-sm leading-none font-medium\">\n      Dealer Email address\n    </small>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

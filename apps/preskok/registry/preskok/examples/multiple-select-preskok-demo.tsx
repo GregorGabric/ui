@@ -27,9 +27,3 @@ export default function MultipleSelectPreskokDemo() {
     </div>
   )
 }
-
-
-
-
-
-
