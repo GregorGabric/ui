@@ -1,0 +1,10 @@
+{
+  "title": "collections",
+  "pages": [
+    "[Grid List](/docs/layout/grid-list)",
+    "[Table](/docs/layout/table)",
+    "[Tree](/docs/advanced/tree)",
+    "[Description List](/docs/layout/description-list)"
+  ]
+}
+

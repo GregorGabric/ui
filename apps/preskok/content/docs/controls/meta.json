@@ -1,0 +1,14 @@
+{
+  "title": "controls",
+  "pages": [
+    "[Checkbox](/docs/inputs/checkbox)",
+    "[Radio Group](/docs/inputs/radio)",
+    "[Switch](/docs/inputs/switch)",
+    "[Slider](/docs/inputs/slider)",
+    "[Toggle](/docs/inputs/toggle)",
+    "[Toggle Group](/docs/inputs/toggle-group)",
+    "[Input OTP](/docs/inputs/input-otp)",
+    "[Choicebox](/docs/inputs/choicebox)"
+  ]
+}
+

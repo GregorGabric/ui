@@ -1,0 +1,14 @@
+{
+  "title": "Pickers",
+  "pages": [
+    "[Combobox](/docs/components/combobox)",
+    "[Command](/docs/components/command)",
+    "[List Box](/docs/inputs/list-box)",
+    "[Select](/docs/components/select)",
+    "[Multi Select](/docs/inputs/multi-select)",
+    "[Multiple Select](/docs/inputs/multiple-select)",
+    "[Tag Field](/docs/inputs/tag-field)",
+    "[Tag Group](/docs/inputs/tag-group)"
+  ]
+}
+
