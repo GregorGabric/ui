@@ -8,7 +8,6 @@ import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ModeSwitcher } from "@/components/mode-switcher"
-import { SiteConfig } from "@/components/site-config"
 // import blocks from "@/registry/__blocks__.json"
 
 import { Separator } from "@/registry/preskok/ui/separator"
@@ -38,8 +37,6 @@ export function SiteHeader() {
               <CommandMenu tree={pageTree} colors={colors} />
             </div>
 
-            <Separator orientation="vertical" className="3xl:flex hidden" />
-            <SiteConfig className="3xl:flex hidden" />
             <Separator orientation="vertical" />
             <ModeSwitcher />
           </div>
