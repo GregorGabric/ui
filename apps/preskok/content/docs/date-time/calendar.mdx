@@ -1,0 +1,182 @@
+---
+title: Calendar
+description: Advanced date selection calendar with month/year navigation, date ranges, and internationalization support.
+---
+
+<ComponentPreview
+  name="calendar-preskok-demo"
+  description="An interactive calendar for date selection."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add calendar
+```
+
+## Usage
+
+```tsx
+import { getLocalTimeZone, today } from "@internationalized/date"
+
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
+
+export function CalendarDemo() {
+  const [date, setDate] = useState(today(getLocalTimeZone()))
+
+  return <Calendar value={date} onChange={setDate} aria-label="Select a date" />
+}
+```
+
+## Props
+
+| Prop                | Type                                | Default | Description                        |
+| ------------------- | ----------------------------------- | ------- | ---------------------------------- |
+| `value`             | `DateValue | null`                 | -       | Selected date value                |
+| `onChange`          | `(date: DateValue | null) => void` | -       | Date change handler                |
+| `minValue`          | `DateValue`                         | -       | Minimum selectable date            |
+| `maxValue`          | `DateValue`                         | -       | Maximum selectable date            |
+| `isDisabled`        | `boolean`                           | `false` | Disable the entire calendar        |
+| `isReadOnly`        | `boolean`                           | `false` | Make calendar read-only            |
+| `isDateUnavailable` | `(date: DateValue) => boolean`      | -       | Function to disable specific dates |
+| `errorMessage`      | `string`                            | -       | Error message to display           |
+| `className`         | `string`                            | -       | Additional CSS classes             |
+
+## Examples
+
+### Basic Calendar
+
+```tsx
+import { useState } from "react"
+import { getLocalTimeZone, today } from "@internationalized/date"
+
+function BasicCalendar() {
+  const [date, setDate] = useState(today(getLocalTimeZone()))
+
+  return <Calendar value={date} onChange={setDate} aria-label="Select a date" />
+}
+```
+
+### With Date Range
+
+```tsx
+import { useState } from "react"
+import { getLocalTimeZone, today } from "@internationalized/date"
+
+function CalendarWithRange() {
+  const [range, setRange] = useState({
+    start: today(getLocalTimeZone()),
+    end: today(getLocalTimeZone()).add({ days: 7 }),
+  })
+
+  return (
+    <Calendar
+      selectionMode="range"
+      value={range}
+      onChange={setRange}
+      aria-label="Select date range"
+    />
+  )
+}
+```
+
+### With Disabled Dates
+
+```tsx
+function CalendarWithDisabledDates() {
+  const [date, setDate] = useState(null)
+
+  const isDateUnavailable = (date) => {
+    // Disable weekends
+    const dayOfWeek = date.toDate(getLocalTimeZone()).getDay()
+    return dayOfWeek === 0 || dayOfWeek === 6
+  }
+
+  return (
+    <Calendar
+      value={date}
+      onChange={setDate}
+      isDateUnavailable={isDateUnavailable}
+      aria-label="Select a weekday"
+    />
+  )
+}
+```
+
+### With Min/Max Dates
+
+```tsx
+function CalendarWithLimits() {
+  const [date, setDate] = useState(null)
+  const today = today(getLocalTimeZone())
+
+  return (
+    <Calendar
+      value={date}
+      onChange={setDate}
+      minValue={today}
+      maxValue={today.add({ months: 3 })}
+      aria-label="Select future date"
+    />
+  )
+}
+```
+
+### Multiple Months
+
+```tsx
+function MultiMonthCalendar() {
+  const [date, setDate] = useState(null)
+
+  return (
+    <Calendar
+      value={date}
+      onChange={setDate}
+      visibleDuration={{ months: 2 }}
+      aria-label="Select a date"
+    />
+  )
+}
+```
+
+### Controlled Month/Year
+
+```tsx
+function CalendarWithControls() {
+  const [date, setDate] = useState(null)
+  const [focusedDate, setFocusedDate] = useState(today(getLocalTimeZone()))
+
+  return (
+    <Calendar
+      value={date}
+      onChange={setDate}
+      focusedValue={focusedDate}
+      onFocusChange={setFocusedDate}
+      aria-label="Select a date"
+    />
+  )
+}
+```
+
+## Features
+
+- **Flexible date selection** - Single dates, ranges, or multiple dates
+- **Month/year navigation** - Dropdown selectors for quick navigation
+- **Date validation** - Min/max dates and custom unavailable dates
+- **Internationalization** - Full i18n support with locale-aware formatting
+- **Keyboard navigation** - Complete keyboard accessibility
+- **Custom styling** - Extensive customization options
+- **Multiple months** - Display multiple months simultaneously
+- **Time zones** - Proper time zone handling with @internationalized/date
+- **Screen reader support** - Comprehensive accessibility features
+
+## Accessibility
+
+The Calendar component follows WAI-ARIA guidelines:
+
+- Proper grid structure with row/column headers
+- Keyboard navigation with arrow keys
+- Focus management and visual indicators
+- Screen reader announcements for date changes
+- Support for disabled and unavailable dates
+

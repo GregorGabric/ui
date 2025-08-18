@@ -1,0 +1,40 @@
+---
+title: Input OTP
+description: Enter one-time passwords with grouped slots, separators, and control.
+---
+
+<ComponentPreview
+  name="input-otp-preskok-demo"
+  description="Six-digit OTP input with separator."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add input-otp
+```
+
+## Usage
+
+```tsx
+import { InputOTP } from "@/registry/preskok/ui/preskok-ui/input-otp"
+
+export function Example() {
+  return (
+    <InputOTP maxLength={6}>
+      <InputOTP.Group>
+        <InputOTP.Slot index={0} />
+        <InputOTP.Slot index={1} />
+        <InputOTP.Slot index={2} />
+      </InputOTP.Group>
+      <InputOTP.Separator />
+      <InputOTP.Group>
+        <InputOTP.Slot index={3} />
+        <InputOTP.Slot index={4} />
+        <InputOTP.Slot index={5} />
+      </InputOTP.Group>
+    </InputOTP>
+  )
+}
+```
+

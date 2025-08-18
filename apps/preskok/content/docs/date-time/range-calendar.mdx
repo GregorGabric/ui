@@ -1,0 +1,55 @@
+---
+title: Range Calendar
+description: A calendar component for selecting date ranges.
+---
+
+<ComponentPreview
+  name="range-calendar-preskok-demo"
+  description="Range calendar built on calendar primitives."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add range-calendar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="range-calendar"
+  title="registry/preskok/ui/preskok-ui/range-calendar.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
+
+export function RangeCalendarDemo() {
+  return <RangeCalendar />
+}
+```
+

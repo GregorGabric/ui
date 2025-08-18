@@ -1,0 +1,31 @@
+---
+title: Color Picker
+description: A comprehensive color picker with color area, hue slider, swatch, and hex input.
+---
+
+<ComponentPreview
+  name="color-picker-preskok-demo"
+  description="Color picker with area, hue slider, and hex field."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add color-picker
+```
+
+## Usage
+
+```tsx
+import { ColorPicker } from "@/registry/preskok/ui/preskok-ui/color-picker"
+
+export function ColorPickerDemo() {
+  return <ColorPicker label="Pick a color" defaultValue="hsl(216, 98%, 52%)" />
+}
+```
+
+## Notes
+
+- **EyeDropper API**: enable `eyeDropper` prop to render an eyedropper button when supported.
+- **Slots**: customize content by passing children (e.g., your own sliders or fields).
+

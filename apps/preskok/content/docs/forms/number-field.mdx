@@ -1,0 +1,55 @@
+---
+title: Number Field
+description: A number input field with stepper buttons and validation.
+---
+
+<ComponentPreview
+  name="number-field-preskok-demo"
+  description="Number field examples."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add number-field
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="number-field"
+  title="registry/preskok/ui/preskok-ui/number-field.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { NumberField } from "@/registry/preskok/ui/preskok-ui/number-field"
+
+export function NumberFieldDemo() {
+  return <NumberField label="Quantity" defaultValue={1} />
+}
+```
+

@@ -1,14 +1,14 @@
 {
   "title": "color",
   "pages": [
-    "[Color Area](/docs/colors/color-area)",
-    "[Color Field](/docs/colors/color-field)",
-    "[Color Picker](/docs/colors/color-picker)",
-    "[Color Slider](/docs/colors/color-slider)",
-    "[Color Swatch](/docs/colors/color-swatch)",
-    "[Color Swatch Picker](/docs/colors/color-swatch-picker)",
-    "[Color Thumb](/docs/colors/color-thumb)",
-    "[Color Wheel](/docs/colors/color-wheel)"
+    "color-area",
+    "color-field",
+    "color-picker",
+    "color-slider",
+    "color-swatch",
+    "color-swatch-picker",
+    "color-thumb",
+    "color-wheel"
   ]
 }
 

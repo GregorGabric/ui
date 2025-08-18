@@ -1,0 +1,37 @@
+---
+title: Description List
+description: Semantic list of term–description pairs.
+---
+
+<ComponentPreview
+  name="description-list-preskok-demo"
+  description="A compact two-column description list."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add description-list
+```
+
+## Usage
+
+```tsx
+import { DescriptionList } from "@/registry/preskok/ui/preskok-ui/description-list"
+
+export function Example() {
+  return (
+    <DescriptionList>
+      <DescriptionList.Term>Project</DescriptionList.Term>
+      <DescriptionList.Details>Preskok UI</DescriptionList.Details>
+    </DescriptionList>
+  )
+}
+```
+
+## Components
+
+- **DescriptionList**: root `dl`
+- **DescriptionList.Term**: `dt`
+- **DescriptionList.Details**: `dd`
+

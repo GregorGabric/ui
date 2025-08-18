@@ -1,0 +1,32 @@
+---
+title: Color Swatch Picker
+description: Grid or list of selectable color swatches.
+---
+
+<ComponentPreview
+  name="color-swatch-picker-preskok-demo"
+  description="Swatch picker with selected state indicator."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add color-swatch-picker
+```
+
+## Usage
+
+```tsx
+import { ColorSwatchPicker } from "@/registry/preskok/ui/preskok-ui/color-swatch-picker"
+
+export function ColorSwatchPickerDemo() {
+  return (
+    <ColorSwatchPicker aria-label="Theme color">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <ColorSwatchPicker.Item key={i} />
+      ))}
+    </ColorSwatchPicker>
+  )
+}
+```
+

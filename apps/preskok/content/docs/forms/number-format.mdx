@@ -1,0 +1,75 @@
+---
+title: Number Format
+description: Format numbers and currencies consistently using a context-aware component.
+---
+
+<ComponentPreview
+  name="number-format-preskok-demo"
+  description="Number formatting utilities and component."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add number-format
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following files into your project.</Step>
+
+<ComponentSource
+  name="number-format"
+  title="registry/preskok/ui/preskok-ui/number-format/number-format.tsx"
+ />
+<ComponentSource
+  name="number-format-context"
+  title="registry/preskok/ui/preskok-ui/number-format/number-format-context.tsx"
+ />
+<ComponentSource
+  name="number-format-helpers"
+  title="registry/preskok/ui/preskok-ui/number-format/number-format-helpers.ts"
+ />
+<ComponentSource
+  name="currency-helpers"
+  title="registry/preskok/ui/preskok-ui/number-format/currency-helpers.ts"
+ />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  NumberFormatProvider,
+  NumberText,
+  useNumberFormat,
+} from "@/registry/preskok/ui/preskok-ui/number-format/number-format"
+
+export function NumberFormatDemo() {
+  return (
+    <NumberFormatProvider locale="en-US" currency="USD">
+      <NumberText value={12345.67} />
+    </NumberFormatProvider>
+  )
+}
+```
+

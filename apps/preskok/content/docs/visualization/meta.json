@@ -1,13 +1,13 @@
 {
   "title": "Visualization",
   "pages": [
-    "[Chart](/docs/data-viz/chart)",
-    "[Area Chart](/docs/data-viz/area-chart)",
-    "[Bar Chart](/docs/data-viz/bar-chart)",
-    "[Line Chart](/docs/data-viz/line-chart)",
-    "[Pie Chart](/docs/data-viz/pie-chart)",
-    "[Bar List](/docs/data-viz/bar-list)",
-    "[Tracker](/docs/data-viz/tracker)"
+    "chart",
+    "area-chart",
+    "bar-chart",
+    "line-chart",
+    "pie-chart",
+    "bar-list",
+    "tracker"
   ]
 }
 

@@ -1,12 +1,12 @@
 {
   "title": "date and time",
   "pages": [
-    "[Calendar](/docs/inputs/calendar)",
-    "[Date Field](/docs/inputs/date-field)",
-    "[Date Picker](/docs/inputs/date-picker)",
-    "[Date Range Picker](/docs/inputs/date-range-picker)",
-    "[Range Calendar](/docs/inputs/range-calendar)",
-    "[Time Field](/docs/inputs/time-field)"
+    "calendar",
+    "date-field",
+    "date-picker",
+    "date-range-picker",
+    "range-calendar",
+    "time-field"
   ]
 }
 

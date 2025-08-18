@@ -1,0 +1,62 @@
+---
+title: Toast
+description: Toast notifications using Sonner.
+---
+
+<ComponentPreview name="sonner-demo" description="Toast notifications." />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add toast
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="toast"
+  title="registry/preskok/ui/preskok-ui/toast.tsx"
+ />
+
+<Step>Install Sonner if needed.</Step>
+
+```bash
+pnpm add sonner
+```
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+## Usage
+
+```tsx
+import { toast } from "sonner"
+
+import { Toast } from "@/registry/preskok/ui/preskok-ui/toast"
+
+export function ToastDemo() {
+  return (
+    <div>
+      <button onClick={() => toast.success("Saved!")}>Show toast</button>
+      <Toast />
+    </div>
+  )
+}
+```

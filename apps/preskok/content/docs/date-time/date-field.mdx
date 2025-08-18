@@ -1,0 +1,49 @@
+---
+title: Date Field
+description: Input for entering and editing a date via segmented fields.
+---
+
+<ComponentPreview
+  name="date-field-demo"
+  description="A segmented date input field with label and error state."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add date-field
+```
+
+## Usage
+
+```tsx
+import { parseDate } from "@internationalized/date"
+
+import { DateField } from "@/registry/preskok/ui/preskok-ui/date-field"
+
+export function Example() {
+  return (
+    <DateField
+      label="Date"
+      granularity="day"
+      defaultValue={parseDate("2024-02-10")}
+    />
+  )
+}
+```
+
+## Props
+
+- **label**: string — Optional label text.
+- **description**: string — Optional help text.
+- **errorMessage**: string | (validation) => string — Error text.
+- **prefix/suffix**: ReactNode — Inline adornments.
+- Plus all `react-aria-components` DateField props.
+
+## Features
+
+- **Segmented input** with keyboard affordances
+- **Validation states** and error messaging
+- **Prefix/Suffix** adornments
+- **Accessible** by default
+

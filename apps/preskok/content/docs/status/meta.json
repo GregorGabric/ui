@@ -1,14 +1,14 @@
 {
   "title": "Status",
   "pages": [
-    "[Toast](/docs/feedback/toast)",
-    "[Progress Bar](/docs/feedback/progress-bar)",
-    "[Progress Circle](/docs/feedback/progress-circle)",
-    "[Meter](/docs/feedback/meter)",
-    "[Loader](/docs/feedback/loader)",
-    "[Skeleton](/docs/feedback/skeleton)",
-    "[Note](/docs/feedback/note)",
-    "[Badge](/docs/feedback/badge)"
+    "toast",
+    "progress-bar",
+    "progress-circle",
+    "meter",
+    "loader",
+    "skeleton",
+    "note",
+    "badge"
   ]
 }
 

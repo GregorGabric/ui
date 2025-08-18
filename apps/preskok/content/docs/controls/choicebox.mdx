@@ -1,0 +1,51 @@
+---
+title: Choicebox
+description: Grid or stacked option selector with single or multiple selection modes.
+---
+
+<ComponentPreview
+  name="choicebox-preskok-demo"
+  description="Three-column choicebox with plan options."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add choicebox
+```
+
+## Usage
+
+```tsx
+import { Choicebox } from "@/registry/preskok/ui/preskok-ui/choicebox"
+
+type Option = { id: string; label: string; description?: string }
+
+const options: Option[] = [
+  { id: "basic", label: "Basic", description: "For personal projects" },
+  { id: "pro", label: "Pro", description: "For small teams" },
+  { id: "enterprise", label: "Enterprise", description: "For large orgs" },
+]
+
+export function ChoiceboxExample() {
+  return (
+    <Choicebox<Option>
+      aria-label="Plans"
+      items={options}
+      columns={3}
+      gap={4}
+      selectionMode="single"
+    >
+      {(item) => (
+        <Choicebox.Item key={item.id}>
+          <Choicebox.Label>{item.label}</Choicebox.Label>
+          {item.description && (
+            <Choicebox.Description>{item.description}</Choicebox.Description>
+          )}
+        </Choicebox.Item>
+      )}
+    </Choicebox>
+  )
+}
+```
+

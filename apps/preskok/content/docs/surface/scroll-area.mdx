@@ -1,0 +1,63 @@
+---
+title: Scroll Area
+description: A scroll area component with custom scrollbars.
+---
+
+<ComponentPreview
+  name="scroll-area-demo"
+  description="Scrollable area with custom scrollbars."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx preskok-ui@latest add scroll-area
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="scroll-area"
+  title="registry/preskok/ui/preskok-ui/scroll-area.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ScrollArea } from "@/registry/preskok/ui/preskok-ui/scroll-area"
+
+export function ScrollAreaDemo() {
+  return (
+    <ScrollArea className="h-48 w-64">
+      <div className="space-y-2">
+        {Array.from({ length: 50 }, (_, i) => (
+          <div key={i}>Item {i + 1}</div>
+        ))}
+      </div>
+    </ScrollArea>
+  )
+}
+```
+

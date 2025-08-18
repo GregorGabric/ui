@@ -1,15 +1,13 @@
 {
   "title": "forms",
   "pages": [
-    "[Form](/docs/inputs/form)",
-    "[Field](/docs/inputs/field)",
-    "[Input](/docs/components/input)",
-    "[Textarea](/docs/components/textarea)",
-    "[Select](/docs/components/select)",
-    "[Number Field](/docs/inputs/number-field)",
-    "[Number Format](/docs/inputs/number-format)",
-    "[File Trigger](/docs/inputs/file-trigger)",
-    "[Search Field](/docs/inputs/search-field)"
+    "form",
+    "field",
+    "input",
+    "textarea",
+    "select",
+    "number-field",
+    "number-format"
   ]
 }
 

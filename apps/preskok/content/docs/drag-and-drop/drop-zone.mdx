@@ -1,0 +1,35 @@
+---
+title: Drop Zone
+description: Drag-and-drop upload target with visual feedback.
+---
+
+<ComponentPreview
+  name="drop-zone-preskok-demo"
+  description="A dashed drop zone with label and description."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add drop-zone
+```
+
+## Usage
+
+```tsx
+import { DropZone } from "@/registry/preskok/ui/preskok-ui/drop-zone"
+
+export function Example() {
+  return (
+    <DropZone onDrop={() => {}}>
+      <div slot="label">Drag and drop files here</div>
+      <div slot="description">or click to select files</div>
+    </DropZone>
+  )
+}
+```
+
+## Props
+
+- Inherits all `react-aria-components` DropZone props
+
