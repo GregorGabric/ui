@@ -17,7 +17,9 @@ export function CardsCookieSettings() {
     <Card>
       <CardHeader>
         <CardTitle>Cookie Settings</CardTitle>
-        <CardDescription>Manage your cookie settings here.</CardDescription>
+        <CardDescription>
+          Manage analytics and preferences for Preskok’s B2B vehicle platform.
+        </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="flex items-center justify-between gap-4">
@@ -34,8 +36,8 @@ export function CardsCookieSettings() {
           <Label htmlFor="functional" className="flex flex-col items-start">
             <span>Functional Cookies</span>
             <span className="text-muted-foreground leading-snug font-normal">
-              These cookies allow the website to provide personalized
-              functionality.
+              These cookies enable features like saved routes, filters, and
+              personalized dashboards.
             </span>
           </Label>
           <Switch id="functional" aria-label="Functional" />

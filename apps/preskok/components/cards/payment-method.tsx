@@ -34,12 +34,12 @@ export function CardsPaymentMethod() {
       <CardHeader>
         <CardTitle>Payment Method</CardTitle>
         <CardDescription>
-          Add a new payment method to your account.
+          Add a payment method for transport invoices and marketplace fees.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
         <div className="flex flex-col gap-3">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">Cardholder Name</Label>
           <Input id="name" placeholder="First Last" />
         </div>
         <fieldset className="flex flex-col gap-3">

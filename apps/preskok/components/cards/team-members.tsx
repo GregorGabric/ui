@@ -58,9 +58,10 @@ export function CardsTeamMembers() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Team Members</CardTitle>
+        <CardTitle>Operations Team</CardTitle>
         <CardDescription>
-          Invite your team members to collaborate.
+          Invite logistics, sales, and finance to collaborate on shipments and
+          vehicle sales.
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">

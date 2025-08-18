@@ -63,9 +63,9 @@ export function CardsExerciseMinutes() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Exercise Minutes</CardTitle>
+        <CardTitle>Transit Time Trends</CardTitle>
         <CardDescription>
-          Your exercise minutes are ahead of where you normally are.
+          Your average vehicle transit times are improving week over week.
         </CardDescription>
       </CardHeader>
       <CardContent>

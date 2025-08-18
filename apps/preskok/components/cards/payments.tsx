@@ -188,11 +188,13 @@ export function CardsPayments() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Payments</CardTitle>
-        <CardDescription>Manage your payments.</CardDescription>
+        <CardTitle className="text-xl">Invoices</CardTitle>
+        <CardDescription>
+          Manage transport invoices and payments.
+        </CardDescription>
         <CardAction>
           <Button intent="secondary" size="sm" className="shadow-none">
-            Add Payment
+            Add Invoice
           </Button>
         </CardAction>
       </CardHeader>

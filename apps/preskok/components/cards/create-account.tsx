@@ -15,9 +15,10 @@ export function CardsCreateAccount() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardTitle className="text-2xl">Create your Preskok account</CardTitle>
         <CardDescription>
-          Enter your email below to create your account
+          Use your work email to access Preskok’s B2B vehicle and logistics
+          portal.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">

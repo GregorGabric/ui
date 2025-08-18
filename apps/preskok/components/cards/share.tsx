@@ -40,9 +40,9 @@ export function CardsShare() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Share this document</CardTitle>
+        <CardTitle>Share shipment manifest</CardTitle>
         <CardDescription>
-          Anyone with the link can view this document.
+          Anyone with the link can view this manifest and tracking details.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -52,7 +52,7 @@ export function CardsShare() {
           </Label>
           <TextField
             id="link"
-            value="http://example.com/link/to/document"
+            value="https://portal.preskok.si/shipments/PK-2025-001234"
             className="h-8 flex-1"
             isReadOnly
           />

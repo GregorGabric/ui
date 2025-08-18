@@ -24,21 +24,21 @@ export function CardsReportIssue() {
       <CardHeader>
         <CardTitle>Report an issue</CardTitle>
         <CardDescription>
-          What area are you having problems with?
+          Which area of vehicle logistics or remarketing needs attention?
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-3">
             <Label htmlFor={`area-${id}`}>Area</Label>
-            <Select selectedKey="billing" aria-label="Area">
+            <Select selectedKey="logistics" aria-label="Area">
               <Select.Trigger id={`area-${id}`} className="w-full" />
               <Select.List>
-                <Select.Option id="team">Team</Select.Option>
+                <Select.Option id="logistics">Logistics</Select.Option>
+                <Select.Option id="auctions">Auctions</Select.Option>
+                <Select.Option id="documentation">Documentation</Select.Option>
                 <Select.Option id="billing">Billing</Select.Option>
-                <Select.Option id="account">Account</Select.Option>
-                <Select.Option id="deployments">Deployments</Select.Option>
-                <Select.Option id="support">Support</Select.Option>
+                <Select.Option id="platform">Platform</Select.Option>
               </Select.List>
             </Select>
           </div>
@@ -58,13 +58,16 @@ export function CardsReportIssue() {
             </Select>
           </div>
         </div>
-        <TextField label="Subject" placeholder="Info about" />
+        <TextField
+          label="Subject"
+          placeholder="Issue with cross-border transport booking"
+        />
 
         <div className="flex flex-col gap-3">
           <Textarea
             label="Description"
             id={`description-${id}`}
-            placeholder="Please include all information relevant to your issue."
+            placeholder="Include VINs, lane/routes, timing windows, and any carrier references."
             className="min-h-28"
           />
         </div>

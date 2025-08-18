@@ -12,9 +12,8 @@ import {
 import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { Radio, RadioGroup } from "@/registry/preskok/ui/preskok-ui/radio"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 import { Textarea } from "@/registry/preskok/ui/preskok-ui/textarea"
-
-import { TextField } from "../../registry/preskok/ui/preskok-ui/text-field"
 
 const plans = [
   {
@@ -35,17 +34,17 @@ export function CardsForms() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Upgrade your subscription</CardTitle>
+        <CardTitle className="text-lg">Upgrade your Preskok plan</CardTitle>
         <CardDescription className="text-balance">
-          You are currently on the free plan. Upgrade to the pro plan to get
-          access to all features.
+          Unlock advanced logistics and remarketing tools for your fleet and
+          trading teams.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-3 md:flex-row">
-            <TextField label="Name" placeholder="Matt Smith" />
-            <TextField label="Email" placeholder="example@preskok.si" />
+            <TextField label="Company" placeholder="ACME Mobility GmbH" />
+            <TextField label="Work Email" placeholder="logistics@company.com" />
           </div>
           <div className="flex flex-col gap-3">
             <TextField
@@ -72,7 +71,8 @@ export function CardsForms() {
           <fieldset className="flex flex-col gap-3">
             <legend className="text-sm font-medium">Plan</legend>
             <p className="text-muted-foreground text-sm">
-              Select the plan that best fits your needs.
+              Select the plan that best fits your vehicle transport and resale
+              operations.
             </p>
             <RadioGroup className="grid gap-3 md:grid-cols-2">
               {plans.map((plan) => (
@@ -89,7 +89,10 @@ export function CardsForms() {
           </fieldset>
           <div className="flex flex-col gap-2">
             <Label htmlFor="notes">Notes</Label>
-            <Textarea id="notes" placeholder="Enter notes" />
+            <Textarea
+              id="notes"
+              placeholder="Add PO number, VIN range, or route preferences"
+            />
           </div>
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
@@ -101,7 +104,8 @@ export function CardsForms() {
             <div className="flex items-center gap-2">
               <Checkbox id="newsletter" isSelected />
               <Label htmlFor="newsletter" className="font-normal">
-                Allow us to send you emails
+                Send me updates about new logistics features and vehicle market
+                insights
               </Label>
             </div>
           </div>

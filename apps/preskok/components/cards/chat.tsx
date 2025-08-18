@@ -60,22 +60,23 @@ export function CardsChat() {
     {
       id: "m-1",
       role: "agent",
-      content: "Hi, how can I help you today?",
+      content:
+        "Hi, how can we assist with your vehicle transport or resale today?",
     },
     {
       id: "m-2",
       role: "user",
-      content: "Hey, I'm having trouble with my account.",
+      content: "I need help scheduling a pickup for a vehicle auction lot.",
     },
     {
       id: "m-3",
       role: "agent",
-      content: "What seems to be the problem?",
+      content: "Sure—what's the pickup location and desired delivery window?",
     },
     {
       id: "m-4",
       role: "user",
-      content: "I can't log in.",
+      content: "Pickup in Munich, delivery to Lyon next week.",
     },
   ])
   const nextId = React.useRef(5)
@@ -152,7 +153,7 @@ export function CardsChat() {
           >
             <TextField
               aria-label="Message"
-              placeholder="Type your message..."
+              placeholder="Type a message about a shipment..."
               className="w-full"
               value={input}
               onChange={(value) => {
