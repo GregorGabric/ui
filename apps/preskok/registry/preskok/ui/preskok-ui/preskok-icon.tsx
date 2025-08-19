@@ -3,16 +3,18 @@ export function PreskokIcon({ className }: { className?: string }) {
     <svg
       width="24"
       height="24"
-      viewBox="0 0 24 24"
+      viewBox="0 0 155.432 140"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
       <path
-        d="M12 2L2 22h20L12 2Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
+        d="M115.228 0.0136719C137.529 0.581528 155.432 18.9209 155.432 41.4615C155.432 64.0022 137.529 82.3415 115.228 82.9094L114.162 82.9231H0V56.9697H25.7268V57.0769H114.162C122.747 57.0769 129.706 50.0856 129.706 41.4615C129.706 32.8374 122.747 25.8462 114.162 25.8462H25.7268V25.7389H0V0H114.162L115.228 0.0136719Z"
+        fill="#DF3B3B"
+      />
+      <path
+        d="M0 82.9231H25.7268V140H23.5829C10.5584 140 0 129.392 0 116.308V82.9231Z"
+        fill="#DF3B3B"
       />
     </svg>
   )
