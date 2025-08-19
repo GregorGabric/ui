@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import {
+import type {
   registryItemFileSchema,
   registryItemSchema,
 } from "@preskok-org/ui/registry"
@@ -20,11 +20,14 @@ import {
   Tablet,
   Terminal,
 } from "lucide-react"
-import { ImperativePanelHandle } from "react-resizable-panels"
-import { z } from "zod"
+import type { ImperativePanelHandle } from "react-resizable-panels"
+import type { z } from "zod"
 
 import { trackEvent } from "@/lib/events"
-import { createFileTreeForRegistryItemFiles, FileTree } from "@/lib/registry"
+import type {
+  createFileTreeForRegistryItemFiles,
+  FileTree,
+} from "@/lib/registry"
 import { cn } from "@/lib/utils"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { getIconForLanguageExtension } from "@/components/icons"
@@ -65,11 +68,11 @@ type BlockViewerContext = {
   setActiveFile: (file: string) => void
   resizablePanelRef: React.RefObject<ImperativePanelHandle | null> | null
   tree: ReturnType<typeof createFileTreeForRegistryItemFiles> | null
-  highlightedFiles:
-    | (z.infer<typeof registryItemFileSchema> & {
-        highlightedContent: string
-      })[]
-    | null
+  highlightedFiles: Array<
+    z.infer<typeof registryItemFileSchema> & {
+      highlightedContent: string
+    }
+  > | null
   iframeKey?: number
   setIframeKey?: React.Dispatch<React.SetStateAction<number>>
 }
@@ -77,7 +80,7 @@ type BlockViewerContext = {
 const BlockViewerContext = React.createContext<BlockViewerContext | null>(null)
 
 function useBlockViewer() {
-  const context = React.useContext(BlockViewerContext)
+  const context = React.use(BlockViewerContext)
   if (!context) {
     throw new Error("useBlockViewer must be used within a BlockViewerProvider.")
   }
@@ -100,7 +103,7 @@ function BlockViewerProvider({
   const [iframeKey, setIframeKey] = React.useState(0)
 
   return (
-    <BlockViewerContext.Provider
+    <BlockViewerContext
       value={{
         item,
         view,
@@ -126,7 +129,7 @@ function BlockViewerProvider({
       >
         {children}
       </div>
-    </BlockViewerContext.Provider>
+    </BlockViewerContext>
   )
 }
 
@@ -139,7 +142,9 @@ function BlockViewerToolbar() {
     <div className="hidden w-full items-center gap-2 pl-2 md:pr-6 lg:flex">
       <Tabs
         value={view}
-        onValueChange={(value) => setView(value as "preview" | "code")}
+        onValueChange={(value) => {
+          setView(value as "preview" | "code")
+        }}
       >
         <TabsList className="grid h-8 grid-cols-2 items-center rounded-md p-1 *:data-[slot=tabs-trigger]:h-6 *:data-[slot=tabs-trigger]:rounded-sm *:data-[slot=tabs-trigger]:px-2 *:data-[slot=tabs-trigger]:text-xs">
           <TabsTrigger value="preview">Preview</TabsTrigger>
@@ -211,11 +216,11 @@ function BlockViewerToolbar() {
           className="w-fit gap-1 px-2 shadow-none"
           size="sm"
           onClick={() => {
-            copyToClipboard(`npx shadcn@latest add ${item.name}`)
+            copyToClipboard(`npx @preskok-org/ui@latest add ${item.name}`)
           }}
         >
           {isCopied ? <Check /> : <Terminal />}
-          <span>npx shadcn add {item.name}</span>
+          <span>npx @preskok-org/ui add {item.name}</span>
         </Button>
         <Separator orientation="vertical" className="mx-1 !h-4" />
       </div>
