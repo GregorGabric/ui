@@ -15,8 +15,8 @@ import {
   SidebarLink,
   SidebarSection,
   SidebarSectionGroup,
+  useSidebar,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
-import { useSidebar } from "@/registry/preskok/ui/sidebar"
 import { Switch } from "@/registry/preskok/ui/switch"
 
 // This is sample data
@@ -151,7 +151,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar
-      collapsible="icon"
       className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
       {...props}
     >
@@ -183,7 +182,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {data.navMain.map((item) => (
                 <SidebarItem
                   key={item.title}
-                  isCurrent={activeItem?.title === item.title}
+                  isCurrent={activeItem.title === item.title}
                 >
                   <SidebarLink
                     onPress={() => {
@@ -217,7 +216,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
             <div className="text-foreground text-base font-medium">
-              {activeItem?.title}
+              {activeItem.title}
             </div>
             <Label className="flex items-center gap-2 text-sm">
               <span>Unreads</span>

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { registryItemSchema } from "@preskok-org/ui/registry"
 import { z } from "zod"
@@ -7,6 +7,8 @@ import { z } from "zod"
 import { siteConfig } from "@/lib/config"
 import { getRegistryComponent, getRegistryItem } from "@/lib/registry"
 import { absoluteUrl, cn } from "@/lib/utils"
+import { SidebarProvider } from "@/registry/preskok/ui/preskok-ui/sidebar"
+import { SidebarProvider as LegacySidebarProvider } from "@/registry/preskok/ui/sidebar"
 
 export const revalidate = false
 export const dynamic = "force-static"
@@ -87,17 +89,21 @@ export default async function BlockPage({
 }) {
   const { name } = await params
   const item = await getCachedRegistryItem(name)
-  const Component = getRegistryComponent(name)
+  const Component = getRegistryComponent(name) as React.ComponentType
 
-  if (!item || !Component) {
+  if (!item) {
     return notFound()
   }
 
+  const containerClassName = item.meta?.container as string | undefined
+
   return (
-    <>
-      <div className={cn("bg-background", item.meta?.container)}>
-        <Component />
-      </div>
-    </>
+    <div className={cn("bg-background", containerClassName)}>
+      <LegacySidebarProvider>
+        <SidebarProvider>
+          <Component />
+        </SidebarProvider>
+      </LegacySidebarProvider>
+    </div>
   )
 }

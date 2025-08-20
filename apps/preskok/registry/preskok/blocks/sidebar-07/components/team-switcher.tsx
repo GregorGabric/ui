@@ -15,17 +15,17 @@ import {
 import {
   SidebarItem,
   SidebarLabel,
+  useSidebar,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
-import { useSidebar } from "@/registry/preskok/ui/sidebar"
 
 export function TeamSwitcher({
   teams,
 }: {
-  teams: {
+  teams: Array<{
     name: string
     logo: React.ElementType
     plan: string
-  }[]
+  }>
 }) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])

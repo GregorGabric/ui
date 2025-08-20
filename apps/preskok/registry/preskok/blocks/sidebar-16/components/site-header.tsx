@@ -12,8 +12,8 @@ import {
   BreadcrumbSeparator,
 } from "@/registry/preskok/ui/breadcrumb"
 import { Button } from "@/registry/preskok/ui/button"
+import { useSidebar } from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { Separator } from "@/registry/preskok/ui/separator"
-import { useSidebar } from "@/registry/preskok/ui/sidebar"
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar()

@@ -25,6 +25,8 @@ import {
   SidebarProvider,
 } from "@/registry/preskok/ui/sidebar"
 
+// Note: legacy import retained intentionally for internal examples that include their own provider
+
 const projects = [
   {
     name: "Design Engineering",

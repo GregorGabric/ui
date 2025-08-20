@@ -26,8 +26,8 @@ import {
 import {
   SidebarItem,
   SidebarLabel,
+  useSidebar,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
-import { useSidebar } from "@/registry/preskok/ui/sidebar"
 
 export function NavUser({
   user,
