@@ -3700,24 +3700,6 @@ export const Index: Record<string, any> = {
     categories: ["calendar","date"],
     meta: {"iframeHeight":"700px","container":"w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0","mobile":"component"},
   },
-  "calendar-32": {
-    name: "calendar-32",
-    description: "Date picker in a drawer",
-    type: "registry:block",
-    registryDependencies: ["calendar","button","drawer"],
-    files: [{
-      path: "registry/preskok/blocks/calendar-32.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/blocks/calendar-32.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: ["calendar","date"],
-    meta: {"iframeHeight":"600px","container":"w-full bg-surface min-h-svh flex px-6 py-12 items-start md:pt-20 justify-center min-w-0 xl:py-24","mobile":"component"},
-  },
   "chart-area-axes": {
     name: "chart-area-axes",
     description: "",

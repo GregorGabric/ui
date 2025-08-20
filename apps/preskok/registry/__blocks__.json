@@ -263,10 +263,5 @@
     "name": "calendar-31",
     "description": "With event slots",
     "categories": ["calendar", "date"]
-  },
-  {
-    "name": "calendar-32",
-    "description": "Date picker in a drawer",
-    "categories": ["calendar", "date"]
   }
 ]
