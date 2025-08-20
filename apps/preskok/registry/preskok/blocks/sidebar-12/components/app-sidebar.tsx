@@ -9,12 +9,14 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
   SidebarRail,
+  SidebarSection,
+  SidebarSectionGroup,
   SidebarSeparator,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // This is sample data.
 const data = {
@@ -51,14 +53,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Calendars calendars={data.calendars} />
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Plus />
-              <span>New Calendar</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <SidebarSectionGroup>
+          <SidebarSection>
+            <SidebarItem>
+              <SidebarLink href="#">
+                <Plus />
+                <SidebarLabel>New Calendar</SidebarLabel>
+              </SidebarLink>
+            </SidebarItem>
+          </SidebarSection>
+        </SidebarSectionGroup>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

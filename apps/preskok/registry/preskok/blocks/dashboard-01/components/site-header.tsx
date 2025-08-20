@@ -1,6 +1,6 @@
 import { Button } from "@/registry/preskok/ui/button"
+import { SidebarTrigger } from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { Separator } from "@/registry/preskok/ui/separator"
-import { SidebarTrigger } from "@/registry/preskok/ui/sidebar"
 
 export function SiteHeader() {
   return (

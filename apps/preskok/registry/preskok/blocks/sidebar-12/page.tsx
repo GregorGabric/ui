@@ -5,12 +5,12 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/registry/preskok/ui/breadcrumb"
-import { Separator } from "@/registry/preskok/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
+import { Separator } from "@/registry/preskok/ui/separator"
 
 export default function Page() {
   return (

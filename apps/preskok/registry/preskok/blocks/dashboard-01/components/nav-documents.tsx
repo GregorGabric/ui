@@ -16,14 +16,13 @@ import {
   DropdownMenuTrigger,
 } from "@/registry/preskok/ui/dropdown-menu"
 import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+  SidebarSection,
+  SidebarSectionGroup,
   useSidebar,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavDocuments({
   items,
@@ -37,26 +36,18 @@ export function NavDocuments({
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Documents</SidebarGroupLabel>
-      <SidebarMenu>
+    <SidebarSectionGroup className="group-data-[collapsible=icon]:hidden">
+      <SidebarSection label="Documents">
         {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
-            </SidebarMenuButton>
+          <SidebarItem key={item.name}>
+            <SidebarLink href={item.url}>
+              <item.icon />
+              <SidebarLabel>{item.name}</SidebarLabel>
+            </SidebarLink>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction
-                  showOnHover
-                  className="data-[state=open]:bg-accent rounded-sm"
-                >
-                  <IconDots />
-                  <span className="sr-only">More</span>
-                </SidebarMenuAction>
+              <DropdownMenuTrigger data-slot="menu-trigger">
+                <IconDots />
+                <span className="sr-only">More</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className="w-24 rounded-lg"
@@ -78,15 +69,15 @@ export function NavDocuments({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </SidebarMenuItem>
+          </SidebarItem>
         ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
+        <SidebarItem>
+          <SidebarLink className="text-sidebar-foreground/70">
             <IconDots className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarGroup>
+            <SidebarLabel>More</SidebarLabel>
+          </SidebarLink>
+        </SidebarItem>
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

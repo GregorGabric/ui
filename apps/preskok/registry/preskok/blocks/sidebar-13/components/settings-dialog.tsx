@@ -35,13 +35,13 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const data = {
   nav: [
@@ -76,25 +76,21 @@ export function SettingsDialog() {
         <SidebarProvider className="items-start">
           <Sidebar collapsible="none" className="hidden md:flex">
             <SidebarContent>
-              <SidebarGroup>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {data.nav.map((item) => (
-                      <SidebarMenuItem key={item.name}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={item.name === "Messages & media"}
-                        >
-                          <a href="#">
-                            <item.icon />
-                            <span>{item.name}</span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
+              <SidebarSectionGroup>
+                <SidebarSection>
+                  {data.nav.map((item) => (
+                    <SidebarItem
+                      key={item.name}
+                      isCurrent={item.name === "Messages & media"}
+                    >
+                      <SidebarLink href="#">
+                        <item.icon />
+                        <SidebarLabel>{item.name}</SidebarLabel>
+                      </SidebarLink>
+                    </SidebarItem>
+                  ))}
+                </SidebarSection>
+              </SidebarSectionGroup>
             </SidebarContent>
           </Sidebar>
           <main className="flex h-[480px] flex-1 flex-col overflow-hidden">

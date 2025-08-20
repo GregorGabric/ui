@@ -1,23 +1,18 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/registry/preskok/ui/collapsible"
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarDisclosure,
+  SidebarDisclosureGroup,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavMain({
   items,
@@ -34,45 +29,30 @@ export function NavMain({
   }[]
 }) {
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => (
-          <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.title}>
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
+    <SidebarSectionGroup>
+      <SidebarSection label="Platform">
+        <SidebarDisclosureGroup>
+          {items.map((item) => (
+            <SidebarDisclosure key={item.title} defaultExpanded={item.isActive}>
+              <SidebarDisclosureTrigger>
+                <item.icon />
+                <SidebarLabel>{item.title}</SidebarLabel>
+              </SidebarDisclosureTrigger>
               {item.items?.length ? (
-                <>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuAction className="data-[state=open]:rotate-90">
-                      <ChevronRight />
-                      <span className="sr-only">Toggle</span>
-                    </SidebarMenuAction>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </>
+                <SidebarDisclosurePanel>
+                  {item.items.map((subItem) => (
+                    <SidebarItem key={subItem.title}>
+                      <SidebarLink href={subItem.url}>
+                        {subItem.title}
+                      </SidebarLink>
+                    </SidebarItem>
+                  ))}
+                </SidebarDisclosurePanel>
               ) : null}
-            </SidebarMenuItem>
-          </Collapsible>
-        ))}
-      </SidebarMenu>
-    </SidebarGroup>
+            </SidebarDisclosure>
+          ))}
+        </SidebarDisclosureGroup>
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

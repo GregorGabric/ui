@@ -3,10 +3,12 @@
 import { type LucideIcon } from "lucide-react"
 
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavMain({
   items,
@@ -19,17 +21,17 @@ export function NavMain({
   }[]
 }) {
   return (
-    <SidebarMenu>
-      {items.map((item) => (
-        <SidebarMenuItem key={item.title}>
-          <SidebarMenuButton asChild isActive={item.isActive}>
-            <a href={item.url}>
+    <SidebarSectionGroup>
+      <SidebarSection>
+        {items.map((item) => (
+          <SidebarItem key={item.title} isCurrent={item.isActive}>
+            <SidebarLink href={item.url}>
               <item.icon />
-              <span>{item.title}</span>
-            </a>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      ))}
-    </SidebarMenu>
+              <SidebarLabel>{item.title}</SidebarLabel>
+            </SidebarLink>
+          </SidebarItem>
+        ))}
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

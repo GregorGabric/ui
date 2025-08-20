@@ -4,12 +4,12 @@ import * as React from "react"
 import { type Icon } from "@tabler/icons-react"
 
 import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavSecondary({
   items,
@@ -22,21 +22,17 @@ export function NavSecondary({
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   return (
-    <SidebarGroup {...props}>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <SidebarSectionGroup {...props}>
+      <SidebarSection>
+        {items.map((item) => (
+          <SidebarItem key={item.title}>
+            <SidebarLink href={item.url}>
+              <item.icon />
+              <SidebarLabel>{item.title}</SidebarLabel>
+            </SidebarLink>
+          </SidebarItem>
+        ))}
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

@@ -1,20 +1,17 @@
 import * as React from "react"
-import { Check, ChevronRight } from "lucide-react"
+import { Check } from "lucide-react"
 
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/registry/preskok/ui/collapsible"
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarDisclosure,
+  SidebarDisclosureGroup,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
+  SidebarItem,
+  SidebarLabel,
+  SidebarSection,
+  SidebarSectionGroup,
   SidebarSeparator,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function Calendars({
   calendars,
@@ -26,46 +23,37 @@ export function Calendars({
 }) {
   return (
     <>
-      {calendars.map((calendar, index) => (
-        <React.Fragment key={calendar.name}>
-          <SidebarGroup key={calendar.name} className="py-0">
-            <Collapsible
-              defaultOpen={index === 0}
-              className="group/collapsible"
-            >
-              <SidebarGroupLabel
-                asChild
-                className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground w-full text-sm"
-              >
-                <CollapsibleTrigger>
-                  {calendar.name}{" "}
-                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {calendar.items.map((item, index) => (
-                      <SidebarMenuItem key={item}>
-                        <SidebarMenuButton>
+      <SidebarSectionGroup>
+        <SidebarDisclosureGroup>
+          {calendars.map((calendar, index) => (
+            <React.Fragment key={calendar.name}>
+              <SidebarSection className="py-0">
+                <SidebarDisclosure defaultExpanded={index === 0}>
+                  <SidebarDisclosureTrigger>
+                    <SidebarLabel>{calendar.name}</SidebarLabel>
+                  </SidebarDisclosureTrigger>
+                  <SidebarDisclosurePanel>
+                    {calendar.items.map((item, i) => (
+                      <SidebarItem key={item}>
+                        <div className="flex items-center gap-2">
                           <div
-                            data-active={index < 2}
-                            className="group/calendar-item border-sidebar-border text-sidebar-primary-foreground data-[active=true]:border-sidebar-primary data-[active=true]:bg-sidebar-primary flex aspect-square size-4 shrink-0 items-center justify-center rounded-xs border"
+                            data-active={i < 2}
+                            className="group/calendar-item border-sidebar-border text-sidebar-primary-foreground data-[active=true]:border-sidebar-primary data-[active=true]:bg-sidebar-primary flex aspect-square size-4 shrink-0 items-center justify-center rounded-sm border"
                           >
                             <Check className="hidden size-3 group-data-[active=true]/calendar-item:block" />
                           </div>
-                          {item}
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
+                          <SidebarLabel>{item}</SidebarLabel>
+                        </div>
+                      </SidebarItem>
                     ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </Collapsible>
-          </SidebarGroup>
-          <SidebarSeparator className="mx-0" />
-        </React.Fragment>
-      ))}
+                  </SidebarDisclosurePanel>
+                </SidebarDisclosure>
+              </SidebarSection>
+              <SidebarSeparator className="mx-0" />
+            </React.Fragment>
+          ))}
+        </SidebarDisclosureGroup>
+      </SidebarSectionGroup>
     </>
   )
 }

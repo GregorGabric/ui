@@ -4,22 +4,17 @@ import { ChevronRight } from "lucide-react"
 import { SearchForm } from "@/registry/preskok/blocks/sidebar-02/components/search-form"
 import { VersionSwitcher } from "@/registry/preskok/blocks/sidebar-02/components/version-switcher"
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/registry/preskok/ui/collapsible"
-import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarDisclosure,
+  SidebarDisclosureGroup,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarItem,
+  SidebarLink,
   SidebarRail,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // This is sample data.
 const data = {
@@ -174,40 +169,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SearchForm />
       </SidebarHeader>
       <SidebarContent className="gap-0">
-        {/* We create a collapsible SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
-          <Collapsible
-            key={item.title}
-            title={item.title}
-            defaultOpen
-            className="group/collapsible"
-          >
-            <SidebarGroup>
-              <SidebarGroupLabel
-                asChild
-                className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
-              >
-                <CollapsibleTrigger>
-                  {item.title}{" "}
-                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {item.items.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </SidebarGroup>
-          </Collapsible>
-        ))}
+        <SidebarDisclosureGroup>
+          {data.navMain.map((section) => (
+            <SidebarDisclosure key={section.title}>
+              <SidebarDisclosureTrigger>
+                {section.title}
+                <ChevronRight className="ml-auto" />
+              </SidebarDisclosureTrigger>
+              <SidebarDisclosurePanel>
+                {section.items.map((link) => (
+                  <SidebarItem key={link.title} isCurrent={!!link.isActive}>
+                    <SidebarLink href={link.url}>{link.title}</SidebarLink>
+                  </SidebarItem>
+                ))}
+              </SidebarDisclosurePanel>
+            </SidebarDisclosure>
+          ))}
+        </SidebarDisclosureGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

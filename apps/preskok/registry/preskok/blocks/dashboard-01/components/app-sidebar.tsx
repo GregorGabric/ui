@@ -28,10 +28,10 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const data = {
   user: {
@@ -154,19 +154,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <SidebarItem>
+          <SidebarLink className="!p-1.5">
+            <IconInnerShadowTop className="!size-5" />
+            <SidebarLabel className="text-base font-semibold">
+              Acme Inc.
+            </SidebarLabel>
+          </SidebarLink>
+        </SidebarItem>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

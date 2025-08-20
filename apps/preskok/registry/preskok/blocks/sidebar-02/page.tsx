@@ -1,18 +1,14 @@
 import { AppSidebar } from "@/registry/preskok/blocks/sidebar-02/components/app-sidebar"
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/registry/preskok/ui/breadcrumb"
-import { Separator } from "@/registry/preskok/ui/separator"
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export default function Page() {
   return (
@@ -22,19 +18,12 @@ export default function Page() {
         <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  Building Your Application
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <Breadcrumbs>
+            <BreadcrumbsItem href="#" className="hidden md:flex">
+              Building Your Application
+            </BreadcrumbsItem>
+            <BreadcrumbsItem>Data Fetching</BreadcrumbsItem>
+          </Breadcrumbs>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           {Array.from({ length: 24 }).map((_, index) => (

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/card"
-import { SidebarInput } from "@/registry/preskok/ui/sidebar"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function SidebarOptInForm() {
   return (
@@ -20,7 +20,10 @@ export function SidebarOptInForm() {
       <CardContent className="px-4">
         <form>
           <div className="grid gap-2.5">
-            <SidebarInput type="email" placeholder="Email" />
+            <Label htmlFor="optin-email" className="sr-only">
+              Email
+            </Label>
+            <Input id="optin-email" type="email" placeholder="Email" />
             <Button
               className="bg-sidebar-primary text-sidebar-primary-foreground w-full shadow-none"
               size="sm"

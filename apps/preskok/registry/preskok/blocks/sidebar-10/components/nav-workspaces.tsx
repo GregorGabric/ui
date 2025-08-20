@@ -1,22 +1,16 @@
-import { ChevronRight, MoreHorizontal, Plus } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/registry/preskok/ui/collapsible"
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarDisclosure,
+  SidebarDisclosureGroup,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavWorkspaces({
   workspaces,
@@ -31,55 +25,35 @@ export function NavWorkspaces({
   }[]
 }) {
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Workspaces</SidebarGroupLabel>
-      <SidebarGroupContent>
-        <SidebarMenu>
+    <SidebarSectionGroup>
+      <SidebarSection label="Workspaces">
+        <SidebarDisclosureGroup>
           {workspaces.map((workspace) => (
-            <Collapsible key={workspace.name}>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="#">
-                    <span>{workspace.emoji}</span>
-                    <span>{workspace.name}</span>
-                  </a>
-                </SidebarMenuButton>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuAction
-                    className="bg-sidebar-accent text-sidebar-accent-foreground left-2 data-[state=open]:rotate-90"
-                    showOnHover
-                  >
-                    <ChevronRight />
-                  </SidebarMenuAction>
-                </CollapsibleTrigger>
-                <SidebarMenuAction showOnHover>
-                  <Plus />
-                </SidebarMenuAction>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {workspace.pages.map((page) => (
-                      <SidebarMenuSubItem key={page.name}>
-                        <SidebarMenuSubButton asChild>
-                          <a href="#">
-                            <span>{page.emoji}</span>
-                            <span>{page.name}</span>
-                          </a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
+            <SidebarDisclosure key={workspace.name}>
+              <SidebarDisclosureTrigger>
+                <span>{workspace.emoji}</span>
+                <SidebarLabel>{workspace.name}</SidebarLabel>
+              </SidebarDisclosureTrigger>
+              <SidebarDisclosurePanel>
+                {workspace.pages.map((page) => (
+                  <SidebarItem key={page.name}>
+                    <SidebarLink href="#">
+                      <span>{page.emoji}</span>
+                      <SidebarLabel>{page.name}</SidebarLabel>
+                    </SidebarLink>
+                  </SidebarItem>
+                ))}
+              </SidebarDisclosurePanel>
+            </SidebarDisclosure>
           ))}
-          <SidebarMenuItem>
-            <SidebarMenuButton className="text-sidebar-foreground/70">
+          <SidebarItem>
+            <SidebarLink className="text-sidebar-foreground/70">
               <MoreHorizontal />
-              <span>More</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+              <SidebarLabel>More</SidebarLabel>
+            </SidebarLink>
+          </SidebarItem>
+        </SidebarDisclosureGroup>
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

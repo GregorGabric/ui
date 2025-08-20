@@ -28,12 +28,12 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const data = [
   [
@@ -129,21 +129,23 @@ export function NavActions() {
         >
           <Sidebar collapsible="none" className="bg-transparent">
             <SidebarContent>
-              {data.map((group, index) => (
-                <SidebarGroup key={index} className="border-b last:border-none">
-                  <SidebarGroupContent className="gap-0">
-                    <SidebarMenu>
-                      {group.map((item, index) => (
-                        <SidebarMenuItem key={index}>
-                          <SidebarMenuButton>
-                            <item.icon /> <span>{item.label}</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              ))}
+              <SidebarSectionGroup>
+                {data.map((group, index) => (
+                  <SidebarSection
+                    key={index}
+                    className="border-b last:border-none"
+                  >
+                    {group.map((item, i) => (
+                      <SidebarItem key={i}>
+                        <SidebarLink>
+                          <item.icon />
+                          <SidebarLabel>{item.label}</SidebarLabel>
+                        </SidebarLink>
+                      </SidebarItem>
+                    ))}
+                  </SidebarSection>
+                ))}
+              </SidebarSectionGroup>
             </SidebarContent>
           </Sidebar>
         </PopoverContent>

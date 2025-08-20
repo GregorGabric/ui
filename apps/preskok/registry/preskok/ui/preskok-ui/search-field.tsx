@@ -51,7 +51,11 @@ const SearchField = ({
             children
           ) : (
             <FieldGroup>
-              {isPending ? <Loader variant="spin" /> : <SearchIcon />}
+              {isPending ? (
+                <Loader variant="spin" />
+              ) : (
+                <SearchIcon data-slot="icon" />
+              )}
               <Input placeholder={placeholder ?? "Search..."} />
 
               <Button className="pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center group-empty/search-field:invisible">

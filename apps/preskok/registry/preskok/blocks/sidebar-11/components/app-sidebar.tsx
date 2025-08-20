@@ -2,23 +2,19 @@ import * as React from "react"
 import { ChevronRight, File, Folder } from "lucide-react"
 
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/registry/preskok/ui/collapsible"
-import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
+  SidebarDisclosure,
+  SidebarDisclosureGroup,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
   SidebarRail,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // This is sample data.
 const data = {
@@ -68,32 +64,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Changes</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {data.changes.map((item, index) => (
-                <SidebarMenuItem key={index}>
-                  <SidebarMenuButton>
-                    <File />
-                    {item.file}
-                  </SidebarMenuButton>
-                  <SidebarMenuBadge>{item.state}</SidebarMenuBadge>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Files</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+        <SidebarSectionGroup>
+          <SidebarSection label="Changes">
+            {data.changes.map((item, index) => (
+              <SidebarItem key={index}>
+                <SidebarLink>
+                  <File />
+                  <SidebarLabel>{item.file}</SidebarLabel>
+                </SidebarLink>
+                <span className="ml-auto text-xs">{item.state}</span>
+              </SidebarItem>
+            ))}
+          </SidebarSection>
+          <SidebarSection label="Files">
+            <SidebarDisclosureGroup>
               {data.tree.map((item, index) => (
                 <Tree key={index} item={item} />
               ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+            </SidebarDisclosureGroup>
+          </SidebarSection>
+        </SidebarSectionGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
@@ -105,37 +95,27 @@ function Tree({ item }: { item: string | any[] }) {
 
   if (!items.length) {
     return (
-      <SidebarMenuButton
-        isActive={name === "button.tsx"}
-        className="data-[active=true]:bg-transparent"
-      >
-        <File />
-        {name}
-      </SidebarMenuButton>
+      <SidebarItem isCurrent={name === "button.tsx"}>
+        <SidebarLink>
+          <File />
+          <SidebarLabel>{name}</SidebarLabel>
+        </SidebarLink>
+      </SidebarItem>
     )
   }
 
   return (
-    <SidebarMenuItem>
-      <Collapsible
-        className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
-        defaultOpen={name === "components" || name === "ui"}
-      >
-        <CollapsibleTrigger asChild>
-          <SidebarMenuButton>
-            <ChevronRight className="transition-transform" />
-            <Folder />
-            {name}
-          </SidebarMenuButton>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          <SidebarMenuSub>
-            {items.map((subItem, index) => (
-              <Tree key={index} item={subItem} />
-            ))}
-          </SidebarMenuSub>
-        </CollapsibleContent>
-      </Collapsible>
-    </SidebarMenuItem>
+    <SidebarDisclosure defaultExpanded={name === "components" || name === "ui"}>
+      <SidebarDisclosureTrigger>
+        <ChevronRight className="transition-transform" />
+        <Folder />
+        <SidebarLabel>{name}</SidebarLabel>
+      </SidebarDisclosureTrigger>
+      <SidebarDisclosurePanel>
+        {items.map((subItem, index) => (
+          <Tree key={index} item={subItem} />
+        ))}
+      </SidebarDisclosurePanel>
+    </SidebarDisclosure>
   )
 }

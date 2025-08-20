@@ -3,7 +3,10 @@ import { ChartAreaInteractive } from "@/registry/preskok/blocks/dashboard-01/com
 import { DataTable } from "@/registry/preskok/blocks/dashboard-01/components/data-table"
 import { SectionCards } from "@/registry/preskok/blocks/dashboard-01/components/section-cards"
 import { SiteHeader } from "@/registry/preskok/blocks/dashboard-01/components/site-header"
-import { SidebarInset, SidebarProvider } from "@/registry/preskok/ui/sidebar"
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 import data from "./data.json"
 

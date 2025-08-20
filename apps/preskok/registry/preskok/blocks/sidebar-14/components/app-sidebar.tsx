@@ -3,17 +3,17 @@ import * as React from "react"
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
+  SidebarDisclosure,
+  SidebarDisclosureGroup,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
+  SidebarItem,
+  SidebarLabel,
+  SidebarLink,
   SidebarRail,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // This is sample data.
 const data = {
@@ -160,36 +160,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Table of Contents</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+        <SidebarSectionGroup>
+          <SidebarSection label="Table of Contents">
+            <SidebarDisclosureGroup>
               {data.navMain.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url} className="font-medium">
+                <SidebarDisclosure key={item.title}>
+                  <SidebarDisclosureTrigger>
+                    <SidebarLabel className="font-medium">
                       {item.title}
-                    </a>
-                  </SidebarMenuButton>
+                    </SidebarLabel>
+                  </SidebarDisclosureTrigger>
                   {item.items?.length ? (
-                    <SidebarMenuSub>
-                      {item.items.map((item) => (
-                        <SidebarMenuSubItem key={item.title}>
-                          <SidebarMenuSubButton
-                            asChild
-                            isActive={item.isActive}
-                          >
-                            <a href={item.url}>{item.title}</a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
+                    <SidebarDisclosurePanel>
+                      {item.items.map((sub) => (
+                        <SidebarItem key={sub.title} isCurrent={sub.isActive}>
+                          <SidebarLink href={sub.url}>{sub.title}</SidebarLink>
+                        </SidebarItem>
                       ))}
-                    </SidebarMenuSub>
+                    </SidebarDisclosurePanel>
                   ) : null}
-                </SidebarMenuItem>
+                </SidebarDisclosure>
               ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+            </SidebarDisclosureGroup>
+          </SidebarSection>
+        </SidebarSectionGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
