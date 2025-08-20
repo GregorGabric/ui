@@ -1,25 +1,18 @@
 "use client"
 
 import * as React from "react"
+import { parseDate, type CalendarDate } from "@internationalized/date"
 
-import { Calendar } from "@/registry/preskok/ui/calendar"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar03() {
-  const [dates, setDates] = React.useState<Date[]>([
-    new Date(2025, 5, 12),
-    new Date(2025, 6, 24),
-  ])
+  const [date, setDate] = React.useState<CalendarDate>(() =>
+    parseDate("2025-06-12")
+  )
 
   return (
-    <Calendar
-      mode="multiple"
-      numberOfMonths={2}
-      defaultMonth={dates[0]}
-      required
-      selected={dates}
-      onSelect={setDates}
-      max={5}
-      className="rounded-lg border shadow-sm"
-    />
+    <div className="inline-block rounded-lg border shadow-sm">
+      <Calendar value={date} onChange={setDate} />
+    </div>
   )
 }

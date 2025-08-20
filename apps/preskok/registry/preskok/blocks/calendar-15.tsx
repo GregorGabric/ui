@@ -1,22 +1,20 @@
 "use client"
 
 import * as React from "react"
+import type { CalendarDate } from "@internationalized/date"
+import { parseDate } from "@internationalized/date"
 
-import { Calendar } from "@/registry/preskok/ui/calendar"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar15() {
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+  const [date, setDate] = React.useState<CalendarDate>(() =>
+    parseDate("2025-06-12")
   )
 
   return (
-    <Calendar
-      mode="single"
-      defaultMonth={date}
-      selected={date}
-      onSelect={setDate}
-      className="rounded-lg border shadow-sm"
-      showWeekNumber
-    />
+    <div className="inline-block rounded-lg border shadow-sm">
+      {/* Week numbers are not supported by Preskok UI calendar */}
+      <Calendar value={date} onChange={setDate} />
+    </div>
   )
 }

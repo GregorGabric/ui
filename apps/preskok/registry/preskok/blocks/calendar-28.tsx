@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
+import type { CalendarDate } from "@internationalized/date"
+import { parseDate } from "@internationalized/date"
 import { CalendarIcon } from "lucide-react"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Input } from "@/registry/preskok/ui/input"
 import { Label } from "@/registry/preskok/ui/label"
 import {
@@ -12,13 +13,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
-function formatDate(date: Date | undefined) {
+function formatDate(date: CalendarDate | undefined) {
   if (!date) {
     return ""
   }
 
-  return date.toLocaleDateString("en-US", {
+  return date.toDate("UTC").toLocaleDateString("en-US", {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -34,10 +36,9 @@ function isValidDate(date: Date | undefined) {
 
 export default function Calendar28() {
   const [open, setOpen] = React.useState(false)
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date("2025-06-01")
+  const [date, setDate] = React.useState<CalendarDate | undefined>(
+    parseDate("2025-06-01")
   )
-  const [month, setMonth] = React.useState<Date | undefined>(date)
   const [value, setValue] = React.useState(formatDate(date))
 
   return (
@@ -55,8 +56,11 @@ export default function Calendar28() {
             const date = new Date(e.target.value)
             setValue(e.target.value)
             if (isValidDate(date)) {
-              setDate(date)
-              setMonth(date)
+              setDate(
+                parseDate(
+                  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
+                )
+              )
             }
           }}
           onKeyDown={(e) => {
@@ -83,18 +87,16 @@ export default function Calendar28() {
             alignOffset={-8}
             sideOffset={10}
           >
-            <Calendar
-              mode="single"
-              selected={date}
-              captionLayout="dropdown"
-              month={month}
-              onMonthChange={setMonth}
-              onSelect={(date) => {
-                setDate(date)
-                setValue(formatDate(date))
-                setOpen(false)
-              }}
-            />
+            <div className="inline-block rounded-lg border shadow-sm">
+              <Calendar
+                value={date}
+                onChange={(value) => {
+                  setDate(value)
+                  setValue(formatDate(value))
+                  setOpen(false)
+                }}
+              />
+            </div>
           </PopoverContent>
         </Popover>
       </div>

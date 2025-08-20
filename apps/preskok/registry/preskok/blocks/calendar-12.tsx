@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { type DateRange } from "react-day-picker"
-import { enUS, es } from "react-day-picker/locale"
+import type { CalendarDate } from "@internationalized/date"
+import { parseDate } from "@internationalized/date"
+import { I18nProvider } from "@react-aria/i18n"
+import type { RangeValue } from "react-aria-components"
 
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import {
   Card,
   CardAction,
@@ -13,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/card"
+import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 import {
   Select,
   SelectContent,
@@ -35,10 +37,10 @@ const localizedStrings = {
 export default function Calendar12() {
   const [locale, setLocale] =
     React.useState<keyof typeof localizedStrings>("es")
-  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 8, 9),
-    to: new Date(2025, 8, 17),
-  })
+  const [range, setRange] = React.useState<RangeValue<CalendarDate>>(() => ({
+    start: parseDate("2025-09-09"),
+    end: parseDate("2025-09-17"),
+  }))
 
   return (
     <Card>
@@ -65,16 +67,15 @@ export default function Calendar12() {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <Calendar
-          mode="range"
-          selected={dateRange}
-          onSelect={setDateRange}
-          defaultMonth={dateRange?.from}
-          numberOfMonths={2}
-          locale={locale === "es" ? es : enUS}
-          className="bg-transparent p-0"
-          buttonVariant="outline"
-        />
+        <I18nProvider locale={locale === "es" ? "es-ES" : "en-US"}>
+          <div className="inline-block rounded-lg border shadow-sm">
+            <RangeCalendar
+              value={range}
+              onChange={setRange}
+              visibleDuration={{ months: 2 }}
+            />
+          </div>
+        </I18nProvider>
       </CardContent>
     </Card>
   )

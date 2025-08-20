@@ -1,10 +1,10 @@
 "use client"
 
 import * as React from "react"
+import { parseDate, type CalendarDate } from "@internationalized/date"
 import { ChevronDownIcon } from "lucide-react"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Input } from "@/registry/preskok/ui/input"
 import { Label } from "@/registry/preskok/ui/label"
 import {
@@ -12,15 +12,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar26() {
   const [openFrom, setOpenFrom] = React.useState(false)
   const [openTo, setOpenTo] = React.useState(false)
-  const [dateFrom, setDateFrom] = React.useState<Date | undefined>(
-    new Date("2025-06-01")
+  const [dateFrom, setDateFrom] = React.useState<CalendarDate | undefined>(
+    parseDate("2025-06-01")
   )
-  const [dateTo, setDateTo] = React.useState<Date | undefined>(
-    new Date("2025-06-03")
+  const [dateTo, setDateTo] = React.useState<CalendarDate | undefined>(
+    parseDate("2025-06-03")
   )
 
   return (
@@ -38,7 +39,7 @@ export default function Calendar26() {
                 className="w-full justify-between font-normal"
               >
                 {dateFrom
-                  ? dateFrom.toLocaleDateString("en-US", {
+                  ? dateFrom.toDate("UTC").toLocaleDateString("en-US", {
                       day: "2-digit",
                       month: "short",
                       year: "numeric",
@@ -51,15 +52,15 @@ export default function Calendar26() {
               className="w-auto overflow-hidden p-0"
               align="start"
             >
-              <Calendar
-                mode="single"
-                selected={dateFrom}
-                captionLayout="dropdown"
-                onSelect={(date) => {
-                  setDateFrom(date)
-                  setOpenFrom(false)
-                }}
-              />
+              <div className="inline-block rounded-lg border shadow-sm">
+                <Calendar
+                  value={dateFrom}
+                  onChange={(value) => {
+                    setDateFrom(value)
+                    setOpenFrom(false)
+                  }}
+                />
+              </div>
             </PopoverContent>
           </Popover>
         </div>
@@ -89,7 +90,7 @@ export default function Calendar26() {
                 className="w-full justify-between font-normal"
               >
                 {dateTo
-                  ? dateTo.toLocaleDateString("en-US", {
+                  ? dateTo.toDate("UTC").toLocaleDateString("en-US", {
                       day: "2-digit",
                       month: "short",
                       year: "numeric",
@@ -102,16 +103,16 @@ export default function Calendar26() {
               className="w-auto overflow-hidden p-0"
               align="start"
             >
-              <Calendar
-                mode="single"
-                selected={dateTo}
-                captionLayout="dropdown"
-                onSelect={(date) => {
-                  setDateTo(date)
-                  setOpenTo(false)
-                }}
-                disabled={dateFrom && { before: dateFrom }}
-              />
+              <div className="inline-block rounded-lg border shadow-sm">
+                <Calendar
+                  value={dateTo}
+                  onChange={(value) => {
+                    setDateTo(value)
+                    setOpenTo(false)
+                  }}
+                  minValue={dateFrom}
+                />
+              </div>
             </PopoverContent>
           </Popover>
         </div>

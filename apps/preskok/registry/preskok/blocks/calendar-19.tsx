@@ -1,27 +1,28 @@
 "use client"
 
 import * as React from "react"
-import { addDays } from "date-fns"
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date"
+import type { CalendarDate } from "@internationalized/date"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Card, CardContent, CardFooter } from "@/registry/preskok/ui/card"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar19() {
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+  const [date, setDate] = React.useState<CalendarDate>(() =>
+    parseDate("2025-06-12")
   )
 
   return (
     <Card className="max-w-[300px] py-4">
       <CardContent className="px-4">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          defaultMonth={date}
-          className="bg-transparent p-0 [--cell-size:--spacing(9.5)]"
-        />
+        <div className="inline-block rounded-lg border shadow-sm">
+          <Calendar
+            value={date}
+            onChange={setDate}
+            className="[--cell-size:--spacing(9.5)]"
+          />
+        </div>
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2 border-t px-4 !pt-4">
         {[
@@ -37,8 +38,8 @@ export default function Calendar19() {
             size="sm"
             className="flex-1"
             onClick={() => {
-              const newDate = addDays(new Date(), preset.value)
-              setDate(newDate)
+              const base = today(getLocalTimeZone())
+              setDate(base.add({ days: preset.value }))
             }}
           >
             {preset.label}

@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/blocks/calendar-18.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { Calendar } from \"@/registry/preskok/ui/calendar\"\n\nexport default function Calendar18() {\n  const [date, setDate] = React.useState<Date | undefined>(\n    new Date(2025, 5, 12)\n  )\n\n  return (\n    <Calendar\n      mode=\"single\"\n      selected={date}\n      onSelect={setDate}\n      className=\"rounded-lg border [--cell-size:--spacing(11)] md:[--cell-size:--spacing(12)]\"\n      buttonVariant=\"ghost\"\n    />\n  )\n}\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport type { CalendarDate } from \"@internationalized/date\"\nimport { parseDate } from \"@internationalized/date\"\n\nimport { Calendar } from \"@/registry/preskok/ui/preskok-ui/calendar\"\n\nexport default function Calendar18() {\n  const [date, setDate] = React.useState<CalendarDate>(() =>\n    parseDate(\"2025-06-12\")\n  )\n\n  return (\n    <div className=\"inline-block rounded-lg border shadow-sm\">\n      <Calendar\n        value={date}\n        onChange={setDate}\n        className=\"[--cell-size:--spacing(11)] md:[--cell-size:--spacing(12)]\"\n      />\n    </div>\n  )\n}\n",
       "type": "registry:component"
     }
   ],

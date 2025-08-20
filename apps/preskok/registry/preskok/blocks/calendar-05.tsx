@@ -1,24 +1,26 @@
 "use client"
 
 import * as React from "react"
-import { type DateRange } from "react-day-picker"
+import { parseDate, type CalendarDate } from "@internationalized/date"
+import type { RangeValue } from "react-aria-components"
 
-import { Calendar } from "@/registry/preskok/ui/calendar"
+import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 
 export default function Calendar05() {
-  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 5, 12),
-    to: new Date(2025, 6, 15),
-  })
+  const [dateRange, setDateRange] = React.useState<RangeValue<CalendarDate>>(
+    () => ({
+      start: parseDate("2025-06-12"),
+      end: parseDate("2025-07-15"),
+    })
+  )
 
   return (
-    <Calendar
-      mode="range"
-      defaultMonth={dateRange?.from}
-      selected={dateRange}
-      onSelect={setDateRange}
-      numberOfMonths={2}
-      className="rounded-lg border shadow-sm"
-    />
+    <div className="inline-block rounded-lg border shadow-sm">
+      <RangeCalendar
+        value={dateRange}
+        onChange={setDateRange}
+        visibleDuration={{ months: 2 }}
+      />
+    </div>
   )
 }

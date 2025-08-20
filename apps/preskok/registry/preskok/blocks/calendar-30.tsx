@@ -1,23 +1,24 @@
 "use client"
 
 import * as React from "react"
+import { parseDate, type CalendarDate } from "@internationalized/date"
 import { formatDateRange } from "little-date"
 import { ChevronDownIcon } from "lucide-react"
-import { type DateRange } from "react-day-picker"
+import type { RangeValue } from "react-aria-components"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Label } from "@/registry/preskok/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 
 export default function Calendar30() {
-  const [range, setRange] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 5, 4),
-    to: new Date(2025, 5, 10),
+  const [range, setRange] = React.useState<RangeValue<CalendarDate>>({
+    start: parseDate("2025-06-04"),
+    end: parseDate("2025-06-10"),
   })
 
   return (
@@ -32,23 +33,27 @@ export default function Calendar30() {
             id="dates"
             className="w-56 justify-between font-normal"
           >
-            {range?.from && range?.to
-              ? formatDateRange(range.from, range.to, {
-                  includeTime: false,
-                })
+            {range?.start && range?.end
+              ? formatDateRange(
+                  range.start.toDate("UTC"),
+                  range.end.toDate("UTC"),
+                  {
+                    includeTime: false,
+                  }
+                )
               : "Select date"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-          <Calendar
-            mode="range"
-            selected={range}
-            captionLayout="dropdown"
-            onSelect={(range) => {
-              setRange(range)
-            }}
-          />
+          <div className="inline-block rounded-lg border shadow-sm">
+            <RangeCalendar
+              value={range}
+              onChange={(value) => {
+                setRange(value)
+              }}
+            />
+          </div>
         </PopoverContent>
       </Popover>
     </div>

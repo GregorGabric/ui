@@ -1,9 +1,10 @@
 "use client"
 
 import * as React from "react"
+import type { CalendarDate } from "@internationalized/date"
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import {
   Card,
   CardAction,
@@ -12,12 +13,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/card"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar10() {
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+  const [date, setDate] = React.useState<CalendarDate>(() =>
+    parseDate("2025-06-12")
   )
-  const [month, setMonth] = React.useState<Date | undefined>(new Date())
 
   return (
     <Card>
@@ -29,8 +30,7 @@ export default function Calendar10() {
             size="sm"
             variant="outline"
             onClick={() => {
-              setMonth(new Date())
-              setDate(new Date())
+              setDate(today(getLocalTimeZone()))
             }}
           >
             Today
@@ -38,14 +38,9 @@ export default function Calendar10() {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <Calendar
-          mode="single"
-          month={month}
-          onMonthChange={setMonth}
-          selected={date}
-          onSelect={setDate}
-          className="bg-transparent p-0"
-        />
+        <div className="inline-block rounded-lg border shadow-sm">
+          <Calendar value={date} onChange={setDate} />
+        </div>
       </CardContent>
     </Card>
   )

@@ -1,12 +1,12 @@
 "use client"
 
 import * as React from "react"
+import { parseDate, type CalendarDate } from "@internationalized/date"
 import { CalendarIcon } from "lucide-react"
-import { DateRange } from "react-day-picker"
+import type { RangeValue } from "react-aria-components"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import {
   Card,
   CardAction,
@@ -27,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 
 const chartData = [
   { date: "2025-06-01", visitors: 178 },
@@ -71,18 +72,20 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export default function Calendar27() {
-  const [range, setRange] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 5, 5),
-    to: new Date(2025, 5, 20),
+  const [range, setRange] = React.useState<RangeValue<CalendarDate>>({
+    start: parseDate("2025-06-05"),
+    end: parseDate("2025-06-20"),
   })
   const filteredData = React.useMemo(() => {
-    if (!range?.from && !range?.to) {
+    if (!range?.start && !range?.end) {
       return chartData
     }
 
     return chartData.filter((item) => {
       const date = new Date(item.date)
-      return date >= range.from! && date <= range.to!
+      const start = range.start?.toDate("UTC")
+      const end = range.end?.toDate("UTC")
+      return (!start || date >= start) && (!end || date <= end)
     })
   }, [range])
 
@@ -98,26 +101,20 @@ export default function Calendar27() {
             <PopoverTrigger asChild>
               <Button variant="outline">
                 <CalendarIcon />
-                {range?.from && range?.to
-                  ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`
+                {range?.start && range?.end
+                  ? `${range.start.toDate("UTC").toLocaleDateString()} - ${range.end.toDate("UTC").toLocaleDateString()}`
                   : "June 2025"}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto overflow-hidden p-0" align="end">
-              <Calendar
-                className="w-full"
-                mode="range"
-                defaultMonth={range?.from}
-                selected={range}
-                onSelect={setRange}
-                disableNavigation
-                startMonth={range?.from}
-                fixedWeeks
-                showOutsideDays
-                disabled={{
-                  after: new Date(2025, 5, 31),
-                }}
-              />
+              <div className="inline-block rounded-lg border shadow-sm">
+                <RangeCalendar
+                  value={range}
+                  onChange={setRange}
+                  minValue={parseDate("2025-06-01")}
+                  maxValue={parseDate("2025-06-30")}
+                />
+              </div>
             </PopoverContent>
           </Popover>
         </CardAction>

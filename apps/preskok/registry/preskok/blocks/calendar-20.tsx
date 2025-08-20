@@ -1,14 +1,15 @@
 "use client"
 
 import * as React from "react"
+import { parseDate, type CalendarDate } from "@internationalized/date"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Card, CardContent, CardFooter } from "@/registry/preskok/ui/card"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar20() {
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+  const [date, setDate] = React.useState<CalendarDate | undefined>(() =>
+    parseDate("2025-06-12")
   )
   const [selectedTime, setSelectedTime] = React.useState<string | null>("10:00")
   const timeSlots = Array.from({ length: 37 }, (_, i) => {
@@ -18,35 +19,30 @@ export default function Calendar20() {
     return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`
   })
 
-  const bookedDates = Array.from(
-    { length: 3 },
-    (_, i) => new Date(2025, 5, 17 + i)
+  const bookedDates = new Set(
+    Array.from({ length: 3 }, (_, i) =>
+      parseDate(`2025-06-${(17 + i).toString().padStart(2, "0")}`)
+    )
   )
+  const isBooked = (d: CalendarDate) =>
+    bookedDates.has(
+      parseDate(
+        `${d.year}-${String(d.month).padStart(2, "0")}-${String(d.day).padStart(2, "0")}`
+      )
+    )
 
   return (
     <Card className="gap-0 p-0">
       <CardContent className="relative p-0 md:pr-48">
         <div className="p-6">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-            defaultMonth={date}
-            disabled={bookedDates}
-            showOutsideDays={false}
-            modifiers={{
-              booked: bookedDates,
-            }}
-            modifiersClassNames={{
-              booked: "[&>button]:line-through opacity-100",
-            }}
-            className="bg-transparent p-0 [--cell-size:--spacing(10)] md:[--cell-size:--spacing(12)]"
-            formatters={{
-              formatWeekdayName: (date) => {
-                return date.toLocaleString("en-US", { weekday: "short" })
-              },
-            }}
-          />
+          <div className="inline-block rounded-lg border shadow-sm">
+            <Calendar
+              value={date}
+              onChange={setDate}
+              isDateUnavailable={isBooked}
+              className="[--cell-size:--spacing(10)] md:[--cell-size:--spacing(12)]"
+            />
+          </div>
         </div>
         <div className="no-scrollbar inset-y-0 right-0 flex max-h-72 w-full scroll-pb-6 flex-col gap-4 overflow-y-auto border-t p-6 md:absolute md:max-h-none md:w-48 md:border-t-0 md:border-l">
           <div className="grid gap-2">
@@ -70,11 +66,11 @@ export default function Calendar20() {
               Your meeting is booked for{" "}
               <span className="font-medium">
                 {" "}
-                {date?.toLocaleDateString("en-US", {
+                {`${date.toDate("UTC").toLocaleDateString("en-US", {
                   weekday: "long",
                   day: "numeric",
                   month: "long",
-                })}{" "}
+                })}`}{" "}
               </span>
               at <span className="font-medium">{selectedTime}</span>.
             </>

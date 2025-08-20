@@ -1,11 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { parseDate } from "chrono-node"
+import type { CalendarDate } from "@internationalized/date"
+import { parseDate } from "@internationalized/date"
+import { parseDate as parseNatural } from "chrono-node"
 import { CalendarIcon } from "lucide-react"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Input } from "@/registry/preskok/ui/input"
 import { Label } from "@/registry/preskok/ui/label"
 import {
@@ -13,13 +14,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
-function formatDate(date: Date | undefined) {
+function formatDate(date: CalendarDate | undefined) {
   if (!date) {
     return ""
   }
 
-  return date.toLocaleDateString("en-US", {
+  return date.toDate("UTC").toLocaleDateString("en-US", {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -29,10 +31,14 @@ function formatDate(date: Date | undefined) {
 export default function Calendar29() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("In 2 days")
-  const [date, setDate] = React.useState<Date | undefined>(
-    parseDate(value) || undefined
+  const initial = parseNatural(value)
+  const [date, setDate] = React.useState<CalendarDate | undefined>(
+    initial
+      ? parseDate(
+          `${initial.getFullYear()}-${String(initial.getMonth() + 1).padStart(2, "0")}-${String(initial.getDate()).padStart(2, "0")}`
+        )
+      : undefined
   )
-  const [month, setMonth] = React.useState<Date | undefined>(date)
 
   return (
     <div className="flex flex-col gap-3">
@@ -47,10 +53,13 @@ export default function Calendar29() {
           className="bg-background pr-10"
           onChange={(e) => {
             setValue(e.target.value)
-            const date = parseDate(e.target.value)
-            if (date) {
-              setDate(date)
-              setMonth(date)
+            const d = parseNatural(e.target.value)
+            if (d) {
+              setDate(
+                parseDate(
+                  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+                )
+              )
             }
           }}
           onKeyDown={(e) => {
@@ -72,18 +81,16 @@ export default function Calendar29() {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto overflow-hidden p-0" align="end">
-            <Calendar
-              mode="single"
-              selected={date}
-              captionLayout="dropdown"
-              month={month}
-              onMonthChange={setMonth}
-              onSelect={(date) => {
-                setDate(date)
-                setValue(formatDate(date))
-                setOpen(false)
-              }}
-            />
+            <div className="inline-block rounded-lg border shadow-sm">
+              <Calendar
+                value={date}
+                onChange={(value) => {
+                  setDate(value)
+                  setValue(formatDate(value))
+                  setOpen(false)
+                }}
+              />
+            </div>
           </PopoverContent>
         </Popover>
       </div>

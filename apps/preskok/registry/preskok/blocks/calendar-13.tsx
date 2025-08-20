@@ -1,9 +1,11 @@
 "use client"
 
 import * as React from "react"
+import type { CalendarDate } from "@internationalized/date"
+import { parseDate } from "@internationalized/date"
 
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Label } from "@/registry/preskok/ui/label"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 import {
   Select,
   SelectContent,
@@ -13,24 +15,20 @@ import {
 } from "@/registry/preskok/ui/select"
 
 export default function Calendar13() {
-  const [dropdown, setDropdown] =
-    React.useState<React.ComponentProps<typeof Calendar>["captionLayout"]>(
-      "dropdown"
-    )
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+  // Caption layout modes are not supported by Preskok UI calendar.
+  // We keep the dropdown UI as a no-op to demonstrate available options.
+  const [dropdown, setDropdown] = React.useState<
+    "dropdown" | "dropdown-months" | "dropdown-years"
+  >("dropdown")
+  const [date, setDate] = React.useState<CalendarDate>(() =>
+    parseDate("2025-06-12")
   )
 
   return (
     <div className="flex flex-col gap-4">
-      <Calendar
-        mode="single"
-        defaultMonth={date}
-        selected={date}
-        onSelect={setDate}
-        captionLayout={dropdown}
-        className="rounded-lg border shadow-sm"
-      />
+      <div className="inline-block rounded-lg border shadow-sm">
+        <Calendar value={date} onChange={setDate} />
+      </div>
       <div className="flex flex-col gap-3">
         <Label htmlFor="dropdown" className="px-1">
           Dropdown

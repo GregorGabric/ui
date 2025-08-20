@@ -1,12 +1,14 @@
 "use client"
 
 import * as React from "react"
+import type { CalendarDate } from "@internationalized/date"
+import { parseDate } from "@internationalized/date"
 import { formatDateRange } from "little-date"
 import { PlusIcon } from "lucide-react"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Card, CardContent, CardFooter } from "@/registry/preskok/ui/card"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 const events = [
   {
@@ -27,25 +29,21 @@ const events = [
 ]
 
 export default function Calendar31() {
-  const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+  const [date, setDate] = React.useState<CalendarDate | undefined>(
+    parseDate("2025-06-12")
   )
 
   return (
     <Card className="w-fit py-4">
       <CardContent className="px-4">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          className="bg-transparent p-0"
-          required
-        />
+        <div className="inline-block rounded-lg border shadow-sm">
+          <Calendar value={date} onChange={setDate} />
+        </div>
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-3 border-t px-4 !pt-4">
         <div className="flex w-full items-center justify-between px-1">
           <div className="text-sm font-medium">
-            {date?.toLocaleDateString("en-US", {
+            {date?.toDate("UTC").toLocaleDateString("en-US", {
               day: "numeric",
               month: "long",
               year: "numeric",

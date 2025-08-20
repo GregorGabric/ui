@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/blocks/calendar-09.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { type DateRange } from \"react-day-picker\"\n\nimport { Calendar } from \"@/registry/preskok/ui/calendar\"\n\nexport default function Calendar09() {\n  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({\n    from: new Date(2025, 5, 17),\n    to: new Date(2025, 5, 20),\n  })\n\n  return (\n    <Calendar\n      mode=\"range\"\n      defaultMonth={dateRange?.from}\n      selected={dateRange}\n      onSelect={setDateRange}\n      numberOfMonths={2}\n      disabled={{ dayOfWeek: [0, 6] }}\n      className=\"rounded-lg border shadow-sm\"\n      excludeDisabled\n    />\n  )\n}\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { parseDate, type CalendarDate } from \"@internationalized/date\"\nimport type { RangeValue } from \"react-aria-components\"\n\nimport { RangeCalendar } from \"@/registry/preskok/ui/preskok-ui/range-calendar\"\n\nexport default function Calendar09() {\n  const [range, setRange] = React.useState<RangeValue<CalendarDate>>(() => ({\n    start: parseDate(\"2025-06-17\"),\n    end: parseDate(\"2025-06-20\"),\n  }))\n\n  const isWeekend = (d: CalendarDate) => d.dayOfWeek === 0 || d.dayOfWeek === 6\n\n  return (\n    <div className=\"inline-block rounded-lg border shadow-sm\">\n      <RangeCalendar\n        value={range}\n        onChange={setRange}\n        visibleDuration={{ months: 2 }}\n        isDateUnavailable={isWeekend}\n      />\n    </div>\n  )\n}\n",
       "type": "registry:component"
     }
   ],

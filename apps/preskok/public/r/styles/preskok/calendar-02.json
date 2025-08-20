@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/blocks/calendar-02.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { Calendar } from \"@/registry/preskok/ui/calendar\"\n\nexport default function Calendar02() {\n  const [date, setDate] = React.useState<Date | undefined>(\n    new Date(2025, 5, 12)\n  )\n\n  return (\n    <Calendar\n      mode=\"single\"\n      defaultMonth={date}\n      numberOfMonths={2}\n      selected={date}\n      onSelect={setDate}\n      className=\"rounded-lg border shadow-sm\"\n    />\n  )\n}\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { parseDate, type CalendarDate } from \"@internationalized/date\"\n\nimport { Calendar } from \"@/registry/preskok/ui/preskok-ui/calendar\"\n\nexport default function Calendar02() {\n  const [date, setDate] = React.useState<CalendarDate>(() =>\n    parseDate(\"2025-06-12\")\n  )\n\n  return (\n    <div className=\"inline-block rounded-lg border shadow-sm\">\n      <Calendar value={date} onChange={setDate} />\n    </div>\n  )\n}\n",
       "type": "registry:component"
     }
   ],

@@ -1,10 +1,10 @@
 "use client"
 
 import * as React from "react"
+import { type CalendarDate } from "@internationalized/date"
 import { ChevronDownIcon } from "lucide-react"
 
 import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
 import { Input } from "@/registry/preskok/ui/input"
 import { Label } from "@/registry/preskok/ui/label"
 import {
@@ -12,10 +12,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 
 export default function Calendar25() {
   const [open, setOpen] = React.useState(false)
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
+  const [date, setDate] = React.useState<CalendarDate | undefined>(undefined)
 
   return (
     <div className="flex flex-col gap-6">
@@ -35,15 +36,15 @@ export default function Calendar25() {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              captionLayout="dropdown"
-              onSelect={(date) => {
-                setDate(date)
-                setOpen(false)
-              }}
-            />
+            <div className="inline-block rounded-lg border shadow-sm">
+              <Calendar
+                value={date}
+                onChange={(value) => {
+                  setDate(value)
+                  setOpen(false)
+                }}
+              />
+            </div>
           </PopoverContent>
         </Popover>
       </div>

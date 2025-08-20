@@ -1,28 +1,42 @@
 "use client"
 
 import * as React from "react"
-import { type DateRange } from "react-day-picker"
+import type { CalendarDate } from "@internationalized/date"
+import { getLocalTimeZone, parseDate } from "@internationalized/date"
+import type { RangeValue } from "react-aria-components"
 
-import { Calendar } from "@/registry/preskok/ui/calendar"
+import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 
 export default function Calendar07() {
-  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 5, 18),
-    to: new Date(2025, 6, 7),
-  })
+  const [range, setRange] = React.useState<RangeValue<CalendarDate>>(() => ({
+    start: parseDate("2025-06-18"),
+    end: parseDate("2025-07-07"),
+  }))
+
+  const getNights = (value: RangeValue<CalendarDate>) => {
+    if (!value || !value.start || !value.end) return 0
+    const tz = getLocalTimeZone()
+    const start = value.start.toDate(tz)
+    const end = value.end.toDate(tz)
+    return Math.max(0, Math.round((end.getTime() - start.getTime()) / 86400000))
+  }
+
+  const nights = getNights(range)
 
   return (
     <div className="flex min-w-0 flex-col gap-2">
-      <Calendar
-        mode="range"
-        defaultMonth={dateRange?.from}
-        selected={dateRange}
-        onSelect={setDateRange}
-        numberOfMonths={2}
-        min={2}
-        max={20}
-        className="rounded-lg border shadow-sm"
-      />
+      <div className="inline-block rounded-lg border shadow-sm">
+        <RangeCalendar
+          value={range}
+          onChange={setRange}
+          visibleDuration={{ months: 2 }}
+          errorMessage={
+            nights > 0 && (nights < 2 || nights > 20)
+              ? "Your stay must be between 2 and 20 nights"
+              : undefined
+          }
+        />
+      </div>
       <div className="text-muted-foreground text-center text-xs">
         Your stay must be between 2 and 20 nights
       </div>
