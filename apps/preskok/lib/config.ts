@@ -6,11 +6,7 @@ export const siteConfig = {
   navItems: [
     {
       href: "/docs/installation",
-      label: "Docs",
-    },
-    {
-      href: "/docs/components",
-      label: "Components",
+      label: "Docs / Components",
     },
     {
       href: "/blocks",
