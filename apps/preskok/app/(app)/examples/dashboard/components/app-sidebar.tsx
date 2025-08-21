@@ -25,10 +25,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { NavDocuments } from "@/app/(app)/examples/dashboard/components/nav-documents"
 import { NavMain } from "@/app/(app)/examples/dashboard/components/nav-main"
 import { NavSecondary } from "@/app/(app)/examples/dashboard/components/nav-secondary"
@@ -155,19 +152,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="none" className="h-auto border-r" {...props}>
       <SidebarHeader className="border-b">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <Link href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <Link href="#" className="flex items-center gap-2 p-1.5">
+          <IconInnerShadowTop className="!size-5" />
+          <span className="text-base font-semibold">Acme Inc.</span>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

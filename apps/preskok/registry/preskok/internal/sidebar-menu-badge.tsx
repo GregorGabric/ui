@@ -11,15 +11,10 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const projects = [
   {
@@ -59,27 +54,27 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {projects.map((project) => (
-                  <SidebarMenuItem key={project.name}>
-                    <SidebarMenuButton
-                      asChild
-                      className="group-has-[[data-state=open]]/menu-item:bg-sidebar-accent"
-                    >
-                      <a href={project.url}>
-                        <project.icon />
-                        <span>{project.name}</span>
-                      </a>
-                    </SidebarMenuButton>
-                    <SidebarMenuBadge>{project.badge}</SidebarMenuBadge>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              {projects.map((project) => (
+                <div
+                  key={project.name}
+                  className="group/menu-item hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center gap-2 rounded-md p-2"
+                >
+                  <a
+                    href={project.url}
+                    className="flex flex-1 items-center gap-2"
+                  >
+                    <project.icon />
+                    <span>{project.name}</span>
+                  </a>
+                  <span className="bg-primary/10 text-primary flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums">
+                    {project.badge}
+                  </span>
+                </div>
+              ))}
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>

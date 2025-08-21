@@ -16,14 +16,10 @@ import {
   DropdownMenuTrigger,
 } from "@/registry/preskok/ui/dropdown-menu"
 import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarSection,
+  SidebarSectionGroup,
   useSidebar,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavDocuments({
   items,
@@ -37,26 +33,26 @@ export function NavDocuments({
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Documents</SidebarGroupLabel>
-      <SidebarMenu>
+    <SidebarSectionGroup className="group-data-[collapsible=icon]:hidden">
+      <SidebarSection>
+        <div className="text-muted-foreground mb-2 px-2 text-xs font-semibold">
+          Documents
+        </div>
         {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
-            </SidebarMenuButton>
+          <div
+            key={item.name}
+            className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+          >
+            <a href={item.url} className="flex flex-1 items-center gap-2">
+              <item.icon />
+              <span>{item.name}</span>
+            </a>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuAction
-                  showOnHover
-                  className="data-[state=open]:bg-accent rounded-sm"
-                >
+                <button className="hover:bg-accent data-[state=open]:bg-accent ml-auto rounded-sm p-1 opacity-0 group-hover:opacity-100 data-[state=open]:opacity-100">
                   <IconDots />
                   <span className="sr-only">More</span>
-                </SidebarMenuAction>
+                </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className="w-24 rounded-lg"
@@ -78,15 +74,13 @@ export function NavDocuments({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </SidebarMenuItem>
+          </div>
         ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <IconDots className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarGroup>
+        <button className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2">
+          <IconDots className="text-sidebar-foreground/70" />
+          <span>More</span>
+        </button>
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

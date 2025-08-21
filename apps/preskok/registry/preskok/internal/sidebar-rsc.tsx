@@ -10,15 +10,10 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const projects = [
   {
@@ -64,14 +59,13 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarGroupContent>
+          <SidebarSectionGroup>
+            <SidebarSection>
               <React.Suspense fallback={<NavProjectsSkeleton />}>
                 <NavProjects />
               </React.Suspense>
-            </SidebarGroupContent>
-          </SidebarGroup>
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>
@@ -80,13 +74,14 @@ export default function AppSidebar() {
 
 function NavProjectsSkeleton() {
   return (
-    <SidebarMenu>
+    <div className="flex flex-col gap-2">
       {Array.from({ length: 5 }).map((_, index) => (
-        <SidebarMenuItem key={index}>
-          <SidebarMenuSkeleton showIcon />
-        </SidebarMenuItem>
+        <div key={index} className="flex items-center gap-2 rounded-md p-2">
+          <div className="bg-muted h-4 w-4 animate-pulse rounded" />
+          <div className="bg-muted h-4 flex-1 animate-pulse rounded" />
+        </div>
       ))}
-    </SidebarMenu>
+    </div>
   )
 }
 
@@ -94,17 +89,17 @@ async function NavProjects() {
   const projects = await fetchProjects()
 
   return (
-    <SidebarMenu>
+    <div className="flex flex-col gap-2">
       {projects.map((project) => (
-        <SidebarMenuItem key={project.name}>
-          <SidebarMenuButton asChild>
-            <a href={project.url}>
-              <project.icon />
-              <span>{project.name}</span>
-            </a>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+        <a
+          key={project.name}
+          href={project.url}
+          className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+        >
+          <project.icon />
+          <span>{project.name}</span>
+        </a>
       ))}
-    </SidebarMenu>
+    </div>
   )
 }

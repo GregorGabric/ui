@@ -18,15 +18,10 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const projects = [
   {
@@ -61,42 +56,40 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {projects.map((project) => (
-                  <SidebarMenuItem key={project.name}>
-                    <SidebarMenuButton
-                      asChild
-                      className="group-has-[[data-state=open]]/menu-item:bg-sidebar-accent"
-                    >
-                      <a href={project.url}>
-                        <project.icon />
-                        <span>{project.name}</span>
-                      </a>
-                    </SidebarMenuButton>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <SidebarMenuAction>
-                          <MoreHorizontalIcon />
-                          <span className="sr-only">More</span>
-                        </SidebarMenuAction>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent side="right" align="start">
-                        <DropdownMenuItem>
-                          <span>Edit Project</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <span>Delete Project</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              {projects.map((project) => (
+                <div
+                  key={project.name}
+                  className="group/menu-item hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center gap-2 rounded-md p-2"
+                >
+                  <a
+                    href={project.url}
+                    className="flex flex-1 items-center gap-2"
+                  >
+                    <project.icon />
+                    <span>{project.name}</span>
+                  </a>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="hover:bg-sidebar-accent flex h-5 w-5 items-center justify-center rounded-md">
+                        <MoreHorizontalIcon />
+                        <span className="sr-only">More</span>
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent side="right" align="start">
+                      <DropdownMenuItem>
+                        <span>Edit Project</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <span>Delete Project</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              ))}
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>

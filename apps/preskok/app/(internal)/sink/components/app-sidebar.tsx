@@ -27,19 +27,11 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
-  SidebarInput,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // This is sample data.
 const data = {
@@ -164,76 +156,69 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="dock" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
-        <SidebarGroup className="py-0 group-data-[collapsible=icon]:hidden">
-          <SidebarGroupContent>
-            <form className="relative">
-              <Label htmlFor="search" className="sr-only">
-                Search
-              </Label>
-              <SidebarInput
-                id="search"
-                placeholder="Search the docs..."
-                className="pl-8"
-              />
-              <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none" />
-            </form>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <div className="hidden group-data-[sidebar-collapsible=dock]/sidebar-container:block">
+          <form className="relative">
+            <Label htmlFor="search" className="sr-only">
+              Search
+            </Label>
+            <input
+              id="search"
+              placeholder="Search the docs..."
+              className="bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-8 w-full rounded-md px-3 py-2 pl-8 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+            <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none" />
+          </form>
+        </div>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
-          <SidebarMenu>
+        <SidebarSectionGroup>
+          <SidebarSection>
             {data.navMain.map((item) => (
               <Collapsible
                 key={item.title}
-                asChild
                 defaultOpen={item.isActive}
                 className="group/collapsible"
               >
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton tooltip={item.title}>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                      <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
+                <CollapsibleTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-md p-2">
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                  <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="border-sidebar-border ml-4 border-l pl-2">
+                    {item.items?.map((subItem) => (
+                      <a
+                        key={subItem.title}
+                        href={subItem.url}
+                        className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2 text-sm"
+                      >
+                        <span>{subItem.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                </CollapsibleContent>
               </Collapsible>
             ))}
-          </SidebarMenu>
-        </SidebarGroup>
-        <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Components</SidebarGroupLabel>
-          <SidebarMenu>
-            {data.components.map((item) => (
-              <SidebarMenuItem key={item.name}>
-                <SidebarMenuButton asChild>
-                  <Link href={`/sink#${item.name}`}>
-                    <span>{getComponentName(item.name)}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
+          </SidebarSection>
+        </SidebarSectionGroup>
+        <SidebarSectionGroup>
+          <SidebarSection>
+            <div className="hidden group-data-[sidebar-collapsible=dock]/sidebar-container:block">
+              {data.components.map((item) => (
+                <Link
+                  key={item.name}
+                  href={`/sink#${item.name}`}
+                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                >
+                  <span>{getComponentName(item.name)}</span>
+                </Link>
+              ))}
+            </div>
+          </SidebarSection>
+        </SidebarSectionGroup>
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

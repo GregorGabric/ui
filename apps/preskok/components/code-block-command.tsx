@@ -5,7 +5,7 @@ import { CheckIcon, ClipboardIcon, TerminalIcon } from "lucide-react"
 
 import { useConfig } from "@/hooks/use-config"
 import { copyToClipboardWithMeta } from "@/components/copy-button"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Tab,
   TabList,
@@ -121,8 +121,8 @@ export function CodeBlockCommand({
         <TooltipTrigger asChild>
           <Button
             data-slot="copy-button"
-            size="icon"
-            variant="ghost"
+            size="sq-xs"
+            intent="plain"
             className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
             onClick={copyCommand}
           >

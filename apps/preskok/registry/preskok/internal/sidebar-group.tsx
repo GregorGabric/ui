@@ -5,39 +5,28 @@ import { LifeBuoyIcon, SendIcon } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export default function AppSidebar() {
   return (
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Help</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    <LifeBuoyIcon />
-                    Support
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    <SendIcon />
-                    Feedback
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              <div className="flex items-center gap-2 rounded-md p-2">
+                <LifeBuoyIcon />
+                Support
+              </div>
+              <div className="flex items-center gap-2 rounded-md p-2">
+                <SendIcon />
+                Feedback
+              </div>
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>

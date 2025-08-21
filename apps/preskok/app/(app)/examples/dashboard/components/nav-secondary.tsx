@@ -4,12 +4,9 @@ import * as React from "react"
 import { type Icon } from "@tabler/icons-react"
 
 import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavSecondary({
   items,
@@ -20,23 +17,21 @@ export function NavSecondary({
     url: string
     icon: Icon
   }[]
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+} & React.ComponentPropsWithoutRef<"div">) {
   return (
-    <SidebarGroup {...props}>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <SidebarSectionGroup {...props}>
+      <SidebarSection>
+        {items.map((item) => (
+          <a
+            key={item.title}
+            href={item.url}
+            className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+          >
+            <item.icon />
+            <span>{item.title}</span>
+          </a>
+        ))}
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

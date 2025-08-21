@@ -38,22 +38,18 @@ import {
   CollapsibleTrigger,
 } from "@/registry/preskok/ui/collapsible"
 import {
+  Sidebar,
+  SidebarContent,
+  SidebarProvider,
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
+import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/registry/preskok/ui/resizable"
 import { Separator } from "@/registry/preskok/ui/separator"
-import {
-  Sidebar,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
 import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/tabs"
 import {
   ToggleGroup,
@@ -363,18 +359,20 @@ export function BlockViewerFileTree() {
   return (
     <SidebarProvider className="flex !min-h-full flex-col border-r">
       <Sidebar collapsible="none" className="w-full flex-1">
-        <SidebarGroupLabel className="h-12 rounded-none border-b px-4 text-sm">
-          Files
-        </SidebarGroupLabel>
-        <SidebarGroup className="p-0">
-          <SidebarGroupContent>
-            <SidebarMenu className="translate-x-0 gap-1.5">
-              {tree.map((file, index) => (
-                <Tree key={index} item={file} index={1} />
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <SidebarContent>
+          <div className="flex h-12 items-center rounded-none border-b px-4 text-sm font-medium">
+            Files
+          </div>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              <div className="translate-x-0 gap-1.5">
+                {tree.map((file, index) => (
+                  <Tree key={index} item={file} index={1} />
+                ))}
+              </div>
+            </SidebarSection>
+          </SidebarSectionGroup>
+        </SidebarContent>
       </Sidebar>
     </SidebarProvider>
   )
@@ -385,55 +383,55 @@ function Tree({ item, index }: { item: FileTree; index: number }) {
 
   if (!item.children) {
     return (
-      <SidebarMenuItem>
-        <SidebarMenuButton
-          isActive={item.path === activeFile}
-          onClick={() => item.path && setActiveFile(item.path)}
-          className="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 focus-visible:bg-muted-foreground/15 active:bg-muted-foreground/15 data-[active=true]:bg-muted-foreground/15 rounded-none pl-(--index) whitespace-nowrap"
-          data-index={index}
-          style={
-            {
-              "--index": `${index * (index === 2 ? 1.2 : 1.3)}rem`,
-            } as React.CSSProperties
-          }
-        >
-          <ChevronRight className="invisible" />
-          <File className="h-4 w-4" />
-          {item.name}
-        </SidebarMenuButton>
-      </SidebarMenuItem>
+      <button
+        className={cn(
+          "hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 focus-visible:bg-muted-foreground/15 active:bg-muted-foreground/15 flex w-full items-center gap-2 rounded-none p-2 text-left whitespace-nowrap",
+          item.path === activeFile && "bg-muted-foreground/15"
+        )}
+        onClick={() => item.path && setActiveFile(item.path)}
+        data-index={index}
+        style={
+          {
+            "--index": `${index * (index === 2 ? 1.2 : 1.3)}rem`,
+            paddingLeft: `var(--index)`,
+          } as React.CSSProperties
+        }
+      >
+        <ChevronRight className="invisible" />
+        <File className="h-4 w-4" />
+        {item.name}
+      </button>
     )
   }
 
   return (
-    <SidebarMenuItem>
-      <Collapsible
-        className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
-        defaultOpen
-      >
-        <CollapsibleTrigger asChild>
-          <SidebarMenuButton
-            className="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 focus-visible:bg-muted-foreground/15 active:bg-muted-foreground/15 data-[active=true]:bg-muted-foreground/15 rounded-none pl-(--index) whitespace-nowrap"
-            style={
-              {
-                "--index": `${index * (index === 1 ? 1 : 1.2)}rem`,
-              } as React.CSSProperties
-            }
-          >
-            <ChevronRight className="transition-transform" />
-            <Folder />
-            {item.name}
-          </SidebarMenuButton>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          <SidebarMenuSub className="m-0 w-full translate-x-0 border-none p-0">
-            {item.children.map((subItem, key) => (
-              <Tree key={key} item={subItem} index={index + 1} />
-            ))}
-          </SidebarMenuSub>
-        </CollapsibleContent>
-      </Collapsible>
-    </SidebarMenuItem>
+    <Collapsible
+      className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
+      defaultOpen
+    >
+      <CollapsibleTrigger asChild>
+        <button
+          className="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 focus-visible:bg-muted-foreground/15 active:bg-muted-foreground/15 flex w-full items-center gap-2 rounded-none p-2 text-left whitespace-nowrap"
+          style={
+            {
+              "--index": `${index * (index === 1 ? 1 : 1.2)}rem`,
+              paddingLeft: `var(--index)`,
+            } as React.CSSProperties
+          }
+        >
+          <ChevronRight className="transition-transform" />
+          <Folder />
+          {item.name}
+        </button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="m-0 w-full translate-x-0 border-none p-0">
+          {item.children.map((subItem, key) => (
+            <Tree key={key} item={subItem} index={index + 1} />
+          ))}
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   )
 }
 

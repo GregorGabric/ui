@@ -1,6 +1,9 @@
 import Image from "next/image"
 
-import { SidebarInset, SidebarProvider } from "@/registry/preskok/ui/sidebar"
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { AppSidebar } from "@/app/(app)/examples/dashboard/components/app-sidebar"
 import { ChartAreaInteractive } from "@/app/(app)/examples/dashboard/components/chart-area-interactive"
 import { DataTable } from "@/app/(app)/examples/dashboard/components/data-table"
@@ -39,7 +42,7 @@ export default function Page() {
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="sidebar" />
+        <AppSidebar />
         <SidebarInset>
           <SiteHeader />
           <div className="flex flex-1 flex-col">

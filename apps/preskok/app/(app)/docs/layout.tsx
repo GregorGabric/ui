@@ -1,7 +1,6 @@
 import { source } from "@/lib/source"
 import { DocsSidebar } from "@/components/docs-sidebar"
 import { SidebarProvider } from "@/registry/preskok/ui/preskok-ui/sidebar"
-import { SidebarProvider as LegacySidebarProvider } from "@/registry/preskok/ui/sidebar"
 import { ClientProviders } from "@/app/(app)/docs/router-provider"
 
 export default function DocsLayout({
@@ -10,7 +9,7 @@ export default function DocsLayout({
   children: React.ReactNode
 }) {
   return (
-    <LegacySidebarProvider className="contents">
+    <SidebarProvider className="contents">
       <ClientProviders>
         <div className="container-wrapper container flex flex-1 flex-col px-2">
           <SidebarProvider className="3xl:fixed:container 3xl:fixed:px-3 min-h-min flex-1 items-start px-0 [--sidebar-width:220px] [--top-spacing:0] lg:grid lg:grid-cols-[var(--sidebar-width)_minmax(0,1fr)] lg:[--sidebar-width:240px] lg:[--top-spacing:calc(var(--spacing)*4)]">
@@ -19,6 +18,6 @@ export default function DocsLayout({
           </SidebarProvider>
         </div>
       </ClientProviders>
-    </LegacySidebarProvider>
+    </SidebarProvider>
   )
 }

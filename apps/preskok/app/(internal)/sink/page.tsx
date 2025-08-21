@@ -2,13 +2,8 @@ import type { Metadata } from "next"
 import { cookies } from "next/headers"
 
 import { ThemeSelector } from "@/components/theme-selector"
-import { SidebarProvider as NewSidebarProvider } from "@/registry/preskok/ui/preskok-ui/sidebar"
+import { SidebarProvider } from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { Separator } from "@/registry/preskok/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/preskok/ui/sidebar"
 import { AccordionDemo } from "@/app/(internal)/sink/components/accordion-demo"
 import { AlertDemo } from "@/app/(internal)/sink/components/alert-demo"
 import { AlertDialogDemo } from "@/app/(internal)/sink/components/alert-dialog-demo"
@@ -72,161 +67,176 @@ export default async function SinkPage() {
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
 
   return (
-    <NewSidebarProvider defaultOpen={defaultOpen} className="theme-container">
-      <SidebarProvider defaultOpen={defaultOpen} className="theme-container">
-        <AppSidebar />
-        <SidebarInset>
-          <header className="bg-background sticky top-0 z-10 flex h-14 items-center border-b p-4">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="mr-4 ml-2 !h-4" />
-            <h1 className="text-base font-medium">Kitchen Sink</h1>
-            <ThemeSelector className="ml-auto" />
-          </header>
-          <div className="@container grid flex-1 gap-4 p-4">
-            <ComponentWrapper name="accordion">
-              <AccordionDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="alert">
-              <AlertDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="alert-dialog">
-              <AlertDialogDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="aspect-ratio">
-              <AspectRatioDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="avatar">
-              <AvatarDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="badge">
-              <BadgeDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="breadcrumb">
-              <BreadcrumbDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="button">
-              <ButtonDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="calendar">
-              <CalendarDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="card">
-              <CardDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="carousel">
-              <CarouselDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="chart" className="w-full">
-              <ChartDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="checkbox">
-              <CheckboxDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="collapsible">
-              <CollapsibleDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="combobox">
-              <ComboboxDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="command">
-              <CommandDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="context-menu">
-              <ContextMenuDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="date-picker">
-              <DatePickerDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="dialog">
-              <DialogDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="drawer">
-              <DrawerDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="dropdown-menu">
-              <DropdownMenuDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="form">
-              <FormDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="hover-card">
-              <HoverCardDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="input">
-              <InputDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="input-otp">
-              <InputOTPDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="label">
-              <LabelDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="menubar">
-              <MenubarDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="navigation-menu">
-              <NavigationMenuDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="pagination">
-              <PaginationDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="popover">
-              <PopoverDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="progress">
-              <ProgressDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="radio-group">
-              <RadioGroupDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="resizable">
-              <ResizableDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="scroll-area">
-              <ScrollAreaDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="select">
-              <SelectDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="separator">
-              <SeparatorDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="sheet">
-              <SheetDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="skeleton">
-              <SkeletonDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="slider">
-              <SliderDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="sonner">
-              <SonnerDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="switch">
-              <SwitchDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="table">
-              <TableDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="tabs">
-              <TabsDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="textarea">
-              <TextareaDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="toggle">
-              <ToggleDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="toggle-group">
-              <ToggleGroupDemo />
-            </ComponentWrapper>
-            <ComponentWrapper name="tooltip">
-              <TooltipDemo />
-            </ComponentWrapper>
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </NewSidebarProvider>
+    <SidebarProvider defaultOpen={defaultOpen} className="theme-container">
+      <AppSidebar />
+      <main className="flex flex-1 flex-col">
+        <header className="bg-background sticky top-0 z-10 flex h-14 items-center border-b p-4">
+          <button className="ring-offset-background focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground inline-flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+            >
+              <path
+                d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+            <span className="sr-only">Toggle Sidebar</span>
+          </button>
+          <Separator orientation="vertical" className="mr-4 ml-2 !h-4" />
+          <h1 className="text-base font-medium">Kitchen Sink</h1>
+          <ThemeSelector className="ml-auto" />
+        </header>
+        <div className="@container grid flex-1 gap-4 p-4">
+          <ComponentWrapper name="accordion">
+            <AccordionDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="alert">
+            <AlertDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="alert-dialog">
+            <AlertDialogDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="aspect-ratio">
+            <AspectRatioDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="avatar">
+            <AvatarDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="badge">
+            <BadgeDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="breadcrumb">
+            <BreadcrumbDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="button">
+            <ButtonDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="calendar">
+            <CalendarDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="card">
+            <CardDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="carousel">
+            <CarouselDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="chart" className="w-full">
+            <ChartDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="checkbox">
+            <CheckboxDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="collapsible">
+            <CollapsibleDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="combobox">
+            <ComboboxDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="command">
+            <CommandDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="context-menu">
+            <ContextMenuDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="date-picker">
+            <DatePickerDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="dialog">
+            <DialogDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="drawer">
+            <DrawerDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="dropdown-menu">
+            <DropdownMenuDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="form">
+            <FormDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="hover-card">
+            <HoverCardDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="input">
+            <InputDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="input-otp">
+            <InputOTPDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="label">
+            <LabelDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="menubar">
+            <MenubarDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="navigation-menu">
+            <NavigationMenuDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="pagination">
+            <PaginationDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="popover">
+            <PopoverDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="progress">
+            <ProgressDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="radio-group">
+            <RadioGroupDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="resizable">
+            <ResizableDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="scroll-area">
+            <ScrollAreaDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="select">
+            <SelectDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="separator">
+            <SeparatorDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="sheet">
+            <SheetDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="skeleton">
+            <SkeletonDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="slider">
+            <SliderDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="sonner">
+            <SonnerDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="switch">
+            <SwitchDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="table">
+            <TableDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="tabs">
+            <TabsDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="textarea">
+            <TextareaDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="toggle">
+            <ToggleDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="toggle-group">
+            <ToggleGroupDemo />
+          </ComponentWrapper>
+          <ComponentWrapper name="tooltip">
+            <TooltipDemo />
+          </ComponentWrapper>
+        </div>
+      </main>
+    </SidebarProvider>
   )
 }

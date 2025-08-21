@@ -3,16 +3,10 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const items = [
   {
@@ -147,32 +141,29 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {items.map((item, index) => (
-                  <SidebarMenuItem key={index}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                    <SidebarMenuSub>
-                      {item.items.map((subItem, subIndex) => (
-                        <SidebarMenuSubItem key={subIndex}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            {items.map((item, index) => (
+              <SidebarSection key={index}>
+                <a
+                  href={item.url}
+                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                >
+                  <span>{item.title}</span>
+                </a>
+                <div className="border-sidebar-border ml-4 border-l pl-2">
+                  {item.items.map((subItem, subIndex) => (
+                    <a
+                      key={subIndex}
+                      href={subItem.url}
+                      className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2 text-sm"
+                    >
+                      <span>{subItem.title}</span>
+                    </a>
+                  ))}
+                </div>
+              </SidebarSection>
+            ))}
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>

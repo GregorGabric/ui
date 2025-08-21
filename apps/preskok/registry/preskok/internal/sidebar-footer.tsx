@@ -14,12 +14,9 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export default function AppSidebar() {
   return (
@@ -28,32 +25,28 @@ export default function AppSidebar() {
         <SidebarHeader />
         <SidebarContent />
         <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                    Username
-                    <ChevronUpIcon className="ml-auto" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="top"
-                  className="w-(--radix-popper-anchor-width)"
-                >
-                  <DropdownMenuItem>
-                    <span>Account</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Billing</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
-          </SidebarMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium">
+                Username
+                <ChevronUpIcon className="ml-auto" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="top"
+              className="w-(--radix-popper-anchor-width)"
+            >
+              <DropdownMenuItem>
+                <span>Account</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>Billing</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>Sign out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>

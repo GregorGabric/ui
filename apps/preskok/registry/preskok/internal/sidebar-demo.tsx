@@ -11,16 +11,12 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
+  SidebarSection,
+  SidebarSectionGroup,
   SidebarTrigger,
-} from "@/registry/preskok/ui/sidebar"
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // Menu items.
 const items = [
@@ -56,23 +52,20 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Application</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              {items.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.url}
+                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                >
+                  <item.icon />
+                  <span>{item.title}</span>
+                </a>
+              ))}
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
       <SidebarInset>

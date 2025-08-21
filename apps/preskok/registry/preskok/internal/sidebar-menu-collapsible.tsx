@@ -10,16 +10,10 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 const items = [
   {
@@ -154,41 +148,36 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {items.map((item, index) => (
-                  <Collapsible
-                    key={index}
-                    className="group/collapsible"
-                    defaultOpen={index === 0}
-                  >
-                    <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton>
-                          <span>{item.title}</span>
-                          <ChevronRightIcon className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.items.map((subItem, subIndex) => (
-                            <SidebarMenuSubItem key={subIndex}>
-                              <SidebarMenuSubButton asChild>
-                                <a href={subItem.url}>
-                                  <span>{subItem.title}</span>
-                                </a>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </SidebarMenuItem>
-                  </Collapsible>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            {items.map((item, index) => (
+              <SidebarSection key={index}>
+                <Collapsible
+                  className="group/collapsible"
+                  defaultOpen={index === 0}
+                >
+                  <CollapsibleTrigger asChild>
+                    <button className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-md p-2">
+                      <span>{item.title}</span>
+                      <ChevronRightIcon className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="border-sidebar-border ml-4 border-l pl-2">
+                      {item.items.map((subItem, subIndex) => (
+                        <a
+                          key={subIndex}
+                          href={subItem.url}
+                          className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2 text-sm"
+                        >
+                          <span>{subItem.title}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarSection>
+            ))}
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>

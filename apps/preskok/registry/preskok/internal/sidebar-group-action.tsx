@@ -6,15 +6,10 @@ import { toast, Toaster } from "sonner"
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export default function AppSidebar() {
   return (
@@ -27,43 +22,38 @@ export default function AppSidebar() {
       />
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarGroupAction
-              title="Add Project"
-              onClick={() => toast("You clicked the group action!")}
-            >
-              <PlusIcon /> <span className="sr-only">Add Project</span>
-            </SidebarGroupAction>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <a href="#">
-                      <FrameIcon />
-                      <span>Design Engineering</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <a href="#">
-                      <PieChartIcon />
-                      <span>Sales & Marketing</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <a href="#">
-                      <MapIcon />
-                      <span>Travel</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              <button
+                title="Add Project"
+                onClick={() => toast("You clicked the group action!")}
+                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+              >
+                <PlusIcon /> <span className="sr-only">Add Project</span>
+              </button>
+              <a
+                href="#"
+                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+              >
+                <FrameIcon />
+                <span>Design Engineering</span>
+              </a>
+              <a
+                href="#"
+                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+              >
+                <PieChartIcon />
+                <span>Sales & Marketing</span>
+              </a>
+              <a
+                href="#"
+                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+              >
+                <MapIcon />
+                <span>Travel</span>
+              </a>
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>

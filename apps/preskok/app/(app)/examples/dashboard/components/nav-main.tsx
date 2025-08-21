@@ -3,13 +3,9 @@
 import { type Icon } from "@tabler/icons-react"
 
 import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavMain({
   items,
@@ -21,20 +17,22 @@ export function NavMain({
   }[]
 }) {
   return (
-    <SidebarGroup>
-      <SidebarGroupContent>
-        <SidebarGroupLabel>Home</SidebarGroupLabel>
-        <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <SidebarSectionGroup>
+      <SidebarSection>
+        <div className="text-muted-foreground mb-2 px-2 text-xs font-semibold">
+          Home
+        </div>
+        {items.map((item) => (
+          <a
+            key={item.title}
+            href={item.url}
+            className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+          >
+            {item.icon && <item.icon />}
+            <span>{item.title}</span>
+          </a>
+        ))}
+      </SidebarSection>
+    </SidebarSectionGroup>
   )
 }

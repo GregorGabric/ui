@@ -15,15 +15,12 @@ import { Button } from "@/registry/preskok/ui/button"
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarItem,
   SidebarProvider,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarSection,
+  SidebarSectionGroup,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 // Note: legacy import retained intentionally for internal examples that include their own provider
 
@@ -62,23 +59,16 @@ export default function AppSidebar() {
     <SidebarProvider open={open} onOpenChange={setOpen}>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {projects.map((project) => (
-                  <SidebarMenuItem key={project.name}>
-                    <SidebarMenuButton asChild>
-                      <a href={project.url}>
-                        <project.icon />
-                        <span>{project.name}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarSectionGroup>
+            <SidebarSection>
+              {projects.map((project) => (
+                <SidebarItem key={project.name} href={project.url}>
+                  <project.icon />
+                  <span>{project.name}</span>
+                </SidebarItem>
+              ))}
+            </SidebarSection>
+          </SidebarSectionGroup>
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
