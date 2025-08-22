@@ -9,12 +9,12 @@ import {
 } from "@tabler/icons-react"
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   SidebarSection,
   SidebarSectionGroup,
@@ -47,33 +47,35 @@ export function NavDocuments({
               <item.icon />
               <span>{item.name}</span>
             </a>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+            <Menu>
+              <MenuTrigger>
                 <button className="hover:bg-accent data-[state=open]:bg-accent ml-auto rounded-sm p-1 opacity-0 group-hover:opacity-100 data-[state=open]:opacity-100">
                   <IconDots />
                   <span className="sr-only">More</span>
                 </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
+              </MenuTrigger>
+              <MenuContent
                 className="w-24 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
+                placement={isMobile ? "bottom" : "right"}
+                popover={{
+                  crossOffset: isMobile ? 0 : undefined,
+                }}
               >
-                <DropdownMenuItem>
+                <MenuItem>
                   <IconFolder />
                   <span>Open</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
+                </MenuItem>
+                <MenuItem>
                   <IconShare3 />
                   <span>Share</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
+                </MenuItem>
+                <MenuSeparator />
+                <MenuItem isDanger>
                   <IconTrash />
                   <span>Delete</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                </MenuItem>
+              </MenuContent>
+            </Menu>
           </div>
         ))}
         <button className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2">
