@@ -1,0 +1,280 @@
+import { type Registry } from "@preskok-org/ui/registry"
+
+export const examples: Registry["items"] = [
+      {
+        path: "examples/tag-group-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/tag-field-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/sidebar-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/number-field-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/pie-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/progress-bar-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/progress-circle-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/range-calendar-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/search-field-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/navbar-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/tracker-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/tree-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/text-field-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/time-field-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/file-trigger-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/form-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/grid-list-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/heading-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/input-otp-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/keyboard-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/line-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/link-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/list-box-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/loader-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/chart-bar-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/chart-bar-demo-grid.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/chart-bar-demo-axis.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/chart-bar-demo-tooltip.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/chart-bar-demo-legend.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/bar-list-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/breadcrumbs-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/button-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/calendar-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/card-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/area-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/avatar-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/badge-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/bar-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/carousel-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/chart-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/checkbox-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/checkbox-single-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/choicebox-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-area-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-field-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-slider-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-swatch-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-swatch-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-thumb-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/color-wheel-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/combo-box-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/command-menu-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/container-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/context-menu-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/date-field-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/date-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/date-range-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/description-list-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/dialog-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/modal-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/disclosure-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/drawer-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/drop-zone-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/multiple-select-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/multi-select-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/show-more-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/dropdown-preskok-demo.tsx",
+        type: "registry:example",
+      },,
+      {
+        path: "examples/field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+]
