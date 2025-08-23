@@ -1,5 +1,4 @@
 import * as React from "react"
-import { ChevronRight } from "lucide-react"
 
 import { SearchForm } from "@/registry/preskok/blocks/sidebar-02/components/search-form"
 import { VersionSwitcher } from "@/registry/preskok/blocks/sidebar-02/components/version-switcher"
@@ -174,7 +173,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarDisclosure key={section.title}>
               <SidebarDisclosureTrigger>
                 {section.title}
-                <ChevronRight className="ml-auto" />
               </SidebarDisclosureTrigger>
               <SidebarDisclosurePanel>
                 {section.items.map((link) => (

@@ -1,49 +1,55 @@
 import { twMerge } from "tailwind-merge"
 
-export function GeneratedTheme({ className, ...props }: React.ComponentProps<"div">) {
+export function GeneratedTheme({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div>
       <div
-        className={twMerge("grid max-h-48 gap-4 overflow-y-auto lg:gap-6", className)}
+        className={twMerge(
+          "grid max-h-48 gap-4 overflow-y-auto lg:gap-6",
+          className
+        )}
         {...props}
       >
-        <div className="sticky inset-x-0 top-0 h-10 w-full bg-linear-to-b from-5% from-bg to-transparent" />
+        <div className="from-bg sticky inset-x-0 top-0 h-10 w-full bg-linear-to-b from-5% to-transparent" />
         <div className="-mt-12 -mb-12 flex flex-col gap-y-6">
           <ColorBox>
-            <ColorBoxItem variable="bg" />
-            <ColorBoxItem variable="fg" />
+            <ColorBoxItem variable="background" />
+            <ColorBoxItem variable="foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="primary" />
-            <ColorBoxItem variable="primary-fg" />
+            <ColorBoxItem variable="primary-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="secondary" />
-            <ColorBoxItem variable="secondary-fg" />
+            <ColorBoxItem variable="secondary-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="accent" />
-            <ColorBoxItem variable="accent-fg" />
+            <ColorBoxItem variable="accent-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="muted" />
-            <ColorBoxItem variable="muted-fg" />
+            <ColorBoxItem variable="muted-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="overlay" />
-            <ColorBoxItem variable="overlay-fg" />
+            <ColorBoxItem variable="overlay-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="success" />
-            <ColorBoxItem variable="success-fg" />
+            <ColorBoxItem variable="success-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="warning" />
-            <ColorBoxItem variable="warning-fg" />
+            <ColorBoxItem variable="warning-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="danger" />
-            <ColorBoxItem variable="danger-fg" />
+            <ColorBoxItem variable="danger-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="border" />
@@ -59,15 +65,15 @@ export function GeneratedTheme({ className, ...props }: React.ComponentProps<"di
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="navbar" />
-            <ColorBoxItem variable="navbar-fg" />
+            <ColorBoxItem variable="navbar-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="sidebar" />
-            <ColorBoxItem variable="sidebar-fg" />
+            <ColorBoxItem variable="sidebar-foreground" />
           </ColorBox>
         </div>
 
-        <div className="sticky inset-x-0 bottom-0 h-10 w-full bg-linear-to-t from-5% from-bg to-transparent" />
+        <div className="from-bg sticky inset-x-0 bottom-0 h-10 w-full bg-linear-to-t from-5% to-transparent" />
       </div>
     </div>
   )
@@ -81,7 +87,7 @@ function ColorBoxItem({ variable }: { variable: string }) {
   return (
     <div className="flex items-center gap-2">
       <div
-        className="inset-ring-1 inset-ring-fg/15 size-5 shrink-0 rounded-sm"
+        className="inset-ring-foreground/15 size-5 shrink-0 rounded-sm inset-ring-1"
         style={{ backgroundColor: `var(--${variable})` }}
       />
       <small className="font-mono text-xs">--{variable}</small>

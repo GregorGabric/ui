@@ -9,8 +9,7 @@ export default function Page() {
   return (
     <div>
       <Header>
-        <span className="text-fg">Them</span>
-        <span className="text-muted-fg">es</span>
+        <span className="text-foreground">Theme</span>
       </Header>
       <ThemeContainer />
     </div>

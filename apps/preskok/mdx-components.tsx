@@ -13,25 +13,20 @@ import { ComponentsList } from "@/components/components-list"
 import { CopyButton } from "@/components/copy-button"
 import { getIconForLanguageExtension } from "@/components/icons"
 import { PreskokComponentsList } from "@/components/preskok-components-list"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/registry/preskok/ui/accordion"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/registry/preskok/ui/alert"
-import { AspectRatio } from "@/registry/preskok/ui/aspect-ratio"
-import { Button } from "@/registry/preskok/ui/button"
+  DisclosureGroup as Accordion,
+  DisclosurePanel as AccordionContent,
+  Disclosure as AccordionItem,
+  DisclosureTrigger as AccordionTrigger,
+} from "@/registry/preskok/ui/preskok-ui/disclosure"
+import { Note as Alert } from "@/registry/preskok/ui/preskok-ui/note"
 import {
   Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/preskok/ui/tabs"
+  TabPanel as TabsContent,
+  TabList as TabsList,
+  Tab as TabsTrigger,
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<"h1">) => (
@@ -338,9 +333,6 @@ export const mdxComponents = {
   AccordionItem,
   AccordionTrigger,
   Alert,
-  AlertTitle,
-  AlertDescription,
-  AspectRatio,
   CodeTabs,
   ComponentPreview,
   ComponentSource,
