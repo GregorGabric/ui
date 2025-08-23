@@ -1,61 +1,22 @@
 "use client"
 
-import * as React from "react"
-import { addDays, format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
-import { DateRange } from "react-day-picker"
+import { getLocalTimeZone, today } from "@internationalized/date"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/preskok-ui/button"
-import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/registry/preskok/ui/preskok-ui/popover"
+import { DateRangePicker } from "@/registry/preskok/ui/preskok-ui/date-range-picker"
 
 export function AnalyticsDatePicker() {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(new Date().getFullYear(), 0, 20),
-    to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
-  })
+  const now = today(getLocalTimeZone())
+  const defaultValue = {
+    start: now.subtract({ days: 20 }),
+    end: now,
+  }
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          id="date"
-          variant="outline"
-          className={cn(
-            "w-fit justify-start px-2 font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="text-muted-foreground" />
-          {date?.from ? (
-            date.to ? (
-              <>
-                {format(date.from, "LLL dd, y")} -{" "}
-                {format(date.to, "LLL dd, y")}
-              </>
-            ) : (
-              format(date.from, "LLL dd, y")
-            )
-          ) : (
-            <span>Pick a date</span>
-          )}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="end">
-        <Calendar
-          initialFocus
-          mode="range"
-          defaultMonth={date?.from}
-          selected={date}
-          onSelect={setDate}
-          numberOfMonths={2}
-        />
-      </PopoverContent>
-    </Popover>
+    <DateRangePicker
+      aria-label="Analytics date range"
+      defaultValue={defaultValue}
+      visibleDuration={{ months: 2 }}
+      className="w-fit"
+    />
   )
 }

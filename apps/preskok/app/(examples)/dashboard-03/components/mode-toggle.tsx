@@ -15,10 +15,10 @@ export function ModeToggle() {
 
   return (
     <Button
-      variant="secondary"
-      size="icon"
+      intent="secondary"
+      size="sq-sm"
       className="group/toggle size-8"
-      onClick={toggleTheme}
+      onPress={toggleTheme}
     >
       <SunIcon className="hidden [html.dark_&]:block" />
       <MoonIcon className="hidden [html.light_&]:block" />

@@ -16,10 +16,10 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import {
+  Tab,
+  TabList,
+  TabPanel,
   Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
 } from "@/registry/preskok/ui/preskok-ui/tabs"
 import { AnalyticsDatePicker } from "@/app/(examples)/dashboard-03/components/analytics-date-picker"
 import { ChartRevenue } from "@/app/(examples)/dashboard-03/components/chart-revenue"
@@ -118,32 +118,32 @@ const products = [
 export default function DashboardPage() {
   return (
     <div className="@container/page flex flex-1 flex-col gap-8 p-6">
-      <Tabs defaultValue="overview" className="gap-6">
+      <Tabs defaultSelectedKey="overview" className="gap-6">
         <div
           data-slot="dashboard-header"
           className="flex items-center justify-between"
         >
-          <TabsList className="w-full @3xl/page:w-fit">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="reports">Reports</TabsTrigger>
-            <TabsTrigger value="exports" disabled>
+          <TabList className="w-full @3xl/page:w-fit">
+            <Tab id="overview">Overview</Tab>
+            <Tab id="analytics">Analytics</Tab>
+            <Tab id="reports">Reports</Tab>
+            <Tab id="exports" isDisabled>
               Exports
-            </TabsTrigger>
-          </TabsList>
+            </Tab>
+          </TabList>
           <div className="hidden items-center gap-2 @3xl/page:flex">
             <AnalyticsDatePicker />
-            <Button variant="outline">
+            <Button intent="outline">
               <FilterIcon />
               Filter
             </Button>
-            <Button variant="outline">
+            <Button intent="outline">
               <DownloadIcon />
               Export
             </Button>
           </div>
         </div>
-        <TabsContent value="overview" className="flex flex-col gap-4">
+        <TabPanel id="overview" className="flex flex-col gap-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader>
@@ -151,7 +151,7 @@ export default function DashboardPage() {
                 <CardDescription>$1,250.00 in the last 30 days</CardDescription>
               </CardHeader>
               <CardFooter>
-                <Badge variant="outline">
+                <Badge intent="outline">
                   <TrendingUpIcon />
                   +12.5%
                 </Badge>
@@ -163,7 +163,7 @@ export default function DashboardPage() {
                 <CardDescription>-12 customers from last month</CardDescription>
               </CardHeader>
               <CardFooter>
-                <Badge variant="outline">
+                <Badge intent="outline">
                   <TrendingDownIcon />
                   -20%
                 </Badge>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
                 <CardDescription>+2,345 users from last month</CardDescription>
               </CardHeader>
               <CardFooter>
-                <Badge variant="outline">
+                <Badge intent="outline">
                   <TrendingUpIcon />
                   +12.5%
                 </Badge>
@@ -187,7 +187,7 @@ export default function DashboardPage() {
                 <CardDescription>+12.5% increase per month</CardDescription>
               </CardHeader>
               <CardFooter>
-                <Badge variant="outline">
+                <Badge intent="outline">
                   <TrendingUpIcon />
                   +4.5%
                 </Badge>
@@ -199,7 +199,7 @@ export default function DashboardPage() {
             <ChartVisitors />
           </div>
           <ProductsTable products={products} />
-        </TabsContent>
+        </TabPanel>
       </Tabs>
     </div>
   )

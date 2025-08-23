@@ -1,20 +1,21 @@
 "use client"
 
-import { Fragment, useMemo } from "react"
+import { useMemo } from "react"
 import { usePathname } from "next/navigation"
 import { SidebarIcon } from "lucide-react"
 
 import { ThemeSelector } from "@/components/theme-selector"
-import { SearchForm } from "@/registry/preskok/blocks/sidebar-16/components/search-form"
 import {
   Breadcrumbs,
   BreadcrumbsItem,
 } from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
-import { useSidebar } from "@/registry/preskok/ui/sidebar"
+import { useSidebar } from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { ModeToggle } from "@/app/(examples)/dashboard-03/components/mode-toggle"
 import { NavUser } from "@/app/(examples)/dashboard-03/components/nav-user"
+
+import { SearchForm } from "./search-form"
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar()
@@ -38,9 +39,9 @@ export function SiteHeader() {
     >
       <div className="flex h-(--header-height) w-full items-center gap-2 px-2 pr-4">
         <Button
-          variant="ghost"
+          intent="plain"
           size="sm"
-          onClick={toggleSidebar}
+          onPress={toggleSidebar}
           className="gap-2.5 has-[>svg]:px-2"
         >
           <SidebarIcon />
@@ -57,7 +58,9 @@ export function SiteHeader() {
           {breadcrumbs.map((breadcrumb, index) => (
             <BreadcrumbsItem
               key={index}
-              href={index === breadcrumbs.length - 1 ? undefined : breadcrumb.href}
+              href={
+                index === breadcrumbs.length - 1 ? undefined : breadcrumb.href
+              }
               className="capitalize"
             >
               {breadcrumb.label}

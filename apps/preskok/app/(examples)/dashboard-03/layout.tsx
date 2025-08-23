@@ -1,6 +1,9 @@
 import { cookies } from "next/headers"
 
-import { SidebarInset, SidebarProvider } from "@/registry/preskok/ui/sidebar"
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 import { AppSidebar } from "@/app/(examples)/dashboard-03/components/app-sidebar"
 import { SiteHeader } from "@/app/(examples)/dashboard-03/components/site-header"
 

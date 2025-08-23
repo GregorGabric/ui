@@ -13,16 +13,14 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
 import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/preskok-ui/select"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
 import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
+import {
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 import {
   Table,
   TableBody,
@@ -30,13 +28,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/preskok-ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/preskok/ui/preskok-ui/tabs"
+} from "@/registry/preskok/ui/table"
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -128,19 +120,19 @@ const activeSessions = [
 export default function SettingsPage() {
   return (
     <div className="@container/page flex flex-1 flex-col gap-8 p-6">
-      <Tabs defaultValue="account" className="gap-6">
+      <Tabs defaultSelectedKey="account" className="gap-6">
         <div
           data-slot="dashboard-header"
           className="flex items-center justify-between"
         >
-          <TabsList>
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            <TabsTrigger value="privacy">Privacy</TabsTrigger>
-          </TabsList>
+          <TabList>
+            <Tab id="account">Account</Tab>
+            <Tab id="security">Security</Tab>
+            <Tab id="notifications">Notifications</Tab>
+            <Tab id="privacy">Privacy</Tab>
+          </TabList>
         </div>
-        <TabsContent value="account" className="grid gap-6">
+        <TabPanel id="account" className="grid gap-6">
           <Card>
             <CardHeader>
               <CardTitle>Account Settings</CardTitle>
@@ -177,22 +169,22 @@ export default function SettingsPage() {
                   <Field>
                     <Label htmlFor="timezone">Timezone</Label>
                     <FieldControl>
-                      <Select>
-                        <SelectTrigger id="timezone">
-                          <SelectValue placeholder="Select a timezone" />
-                        </SelectTrigger>
-                        <SelectContent>
+                      <Select placeholder="Select a timezone">
+                        <Select.Trigger id="timezone" />
+                        <Select.List>
                           {timezones.map((timezone) => (
-                            <SelectGroup key={timezone.label}>
-                              <SelectLabel>{timezone.label}</SelectLabel>
+                            <Select.Section
+                              key={timezone.label}
+                              title={timezone.label}
+                            >
                               {timezone.timezones.map((time) => (
-                                <SelectItem key={time.value} value={time.value}>
-                                  {time.label}
-                                </SelectItem>
+                                <Select.Option key={time.value} id={time.value}>
+                                  <Select.Label>{time.label}</Select.Label>
+                                </Select.Option>
                               ))}
-                            </SelectGroup>
+                            </Select.Section>
                           ))}
-                        </SelectContent>
+                        </Select.List>
                       </Select>
                     </FieldControl>
                   </Field>
@@ -200,7 +192,7 @@ export default function SettingsPage() {
               </form>
             </CardContent>
             <CardFooter className="border-t">
-              <Button type="submit" form="form-account" variant="secondary">
+              <Button type="submit" form="form-account" intent="secondary">
                 Save changes
               </Button>
             </CardFooter>
@@ -247,8 +239,8 @@ export default function SettingsPage() {
                       <div className="flex items-center gap-2">
                         <Checkbox
                           id="notification-security"
-                          defaultChecked
-                          disabled
+                          isSelected
+                          isDisabled
                         />
                         <Label htmlFor="notification-security">
                           Security Alerts
@@ -272,17 +264,14 @@ export default function SettingsPage() {
               <Button
                 type="submit"
                 form="form-notifications"
-                variant="secondary"
+                intent="secondary"
               >
                 Save changes
               </Button>
             </CardFooter>
           </Card>
-        </TabsContent>
-        <TabsContent
-          value="security"
-          className="grid gap-6 @3xl/page:grid-cols-2"
-        >
+        </TabPanel>
+        <TabPanel id="security" className="grid gap-6 @3xl/page:grid-cols-2">
           <Card className="@3xl/page:col-span-2">
             <CardHeader>
               <CardTitle>Security Settings</CardTitle>
@@ -344,7 +333,7 @@ export default function SettingsPage() {
               </form>
             </CardContent>
             <CardFooter className="border-t">
-              <Button type="submit" form="form-security" variant="secondary">
+              <Button type="submit" form="form-security" intent="secondary">
                 Save changes
               </Button>
             </CardFooter>
@@ -399,7 +388,7 @@ export default function SettingsPage() {
                 Current active sessions on your account.
               </CardDescription>
               <CardAction>
-                <Button variant="outline" size="sm">
+                <Button intent="outline" size="sm">
                   <span className="hidden @md/card-header:block">
                     Manage Sessions
                   </span>
@@ -428,7 +417,7 @@ export default function SettingsPage() {
               </Table>
             </CardContent>
           </Card>
-        </TabsContent>
+        </TabPanel>
       </Tabs>
     </div>
   )

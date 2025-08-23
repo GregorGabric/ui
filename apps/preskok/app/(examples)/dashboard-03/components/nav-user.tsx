@@ -2,11 +2,7 @@
 
 import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/preskok/ui/avatar"
+import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Menu,
@@ -29,10 +25,13 @@ export function NavUser({
     <Menu>
       <MenuTrigger>
         <Button intent="plain" size="sq-sm">
-          <Avatar className="size-8 rounded-md">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-          </Avatar>
+          <Avatar
+            src={user.avatar}
+            alt={user.name}
+            initials="CN"
+            isSquare
+            className="size-8"
+          />
         </Button>
       </MenuTrigger>
       <MenuContent
@@ -41,10 +40,13 @@ export function NavUser({
       >
         <Menu.Header className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-            </Avatar>
+            <Avatar
+              src={user.avatar}
+              alt={user.name}
+              initials="CN"
+              isSquare
+              className="h-8 w-8"
+            />
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">{user.name}</span>
               <span className="text-muted-foreground truncate text-xs">

@@ -20,22 +20,9 @@ import {
   MenuItem,
   MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/registry/preskok/ui/preskok-ui/pagination"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/preskok-ui/select"
+import { Pagination } from "@/registry/preskok/ui/preskok-ui/pagination"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import { Tab, TabList, Tabs } from "@/registry/preskok/ui/preskok-ui/tabs"
 import {
   Table,
   TableBody,
@@ -43,8 +30,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/preskok-ui/table"
-import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/preskok-ui/tabs"
+} from "@/registry/preskok/ui/table"
 
 export function ProductsTable({
   products,
@@ -61,59 +47,78 @@ export function ProductsTable({
   return (
     <Card className="flex w-full flex-col gap-4">
       <CardHeader className="flex flex-row items-center justify-between">
-        <Tabs defaultValue="all">
-          <TabsList className="w-full @3xl/page:w-fit">
-            <TabsTrigger value="all">All Products</TabsTrigger>
-            <TabsTrigger value="in-stock">In Stock</TabsTrigger>
-            <TabsTrigger value="low-stock">Low Stock</TabsTrigger>
-            <TabsTrigger value="add-product" asChild>
-              <button>
-                <PlusIcon />
-              </button>
-            </TabsTrigger>
-          </TabsList>
+        <Tabs defaultSelectedKey="all">
+          <TabList className="w-full @3xl/page:w-fit">
+            <Tab id="all">All Products</Tab>
+            <Tab id="in-stock">In Stock</Tab>
+            <Tab id="low-stock">Low Stock</Tab>
+            <Tab id="add-product">
+              <PlusIcon />
+            </Tab>
+          </TabList>
         </Tabs>
         <div className="hidden items-center gap-2 **:data-[slot=button]:size-8 **:data-[slot=select-trigger]:h-8 @3xl/page:flex">
-          <Select defaultValue="all">
-            <SelectTrigger>
+          <Select defaultSelectedKey="all" placeholder="Select a product">
+            <Select.Trigger>
               <span className="text-muted-foreground text-sm">Category:</span>
-              <SelectValue placeholder="Select a product" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="in-stock">In Stock</SelectItem>
-              <SelectItem value="low-stock">Low Stock</SelectItem>
-              <SelectItem value="archived">Archived</SelectItem>
-            </SelectContent>
+            </Select.Trigger>
+            <Select.List>
+              <Select.Option id="all">
+                <Select.Label>All</Select.Label>
+              </Select.Option>
+              <Select.Option id="in-stock">
+                <Select.Label>In Stock</Select.Label>
+              </Select.Option>
+              <Select.Option id="low-stock">
+                <Select.Label>Low Stock</Select.Label>
+              </Select.Option>
+              <Select.Option id="archived">
+                <Select.Label>Archived</Select.Label>
+              </Select.Option>
+            </Select.List>
           </Select>
-          <Select defaultValue="all">
-            <SelectTrigger>
+          <Select defaultSelectedKey="all" placeholder="Select a product">
+            <Select.Trigger>
               <span className="text-muted-foreground text-sm">Price:</span>
-              <SelectValue placeholder="Select a product" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">$100-$200</SelectItem>
-              <SelectItem value="in-stock">$200-$300</SelectItem>
-              <SelectItem value="low-stock">$300-$400</SelectItem>
-              <SelectItem value="archived">$400-$500</SelectItem>
-            </SelectContent>
+            </Select.Trigger>
+            <Select.List>
+              <Select.Option id="all">
+                <Select.Label>$100-$200</Select.Label>
+              </Select.Option>
+              <Select.Option id="in-stock">
+                <Select.Label>$200-$300</Select.Label>
+              </Select.Option>
+              <Select.Option id="low-stock">
+                <Select.Label>$300-$400</Select.Label>
+              </Select.Option>
+              <Select.Option id="archived">
+                <Select.Label>$400-$500</Select.Label>
+              </Select.Option>
+            </Select.List>
           </Select>
-          <Select defaultValue="all">
-            <SelectTrigger>
+          <Select defaultSelectedKey="all" placeholder="Select a product">
+            <Select.Trigger>
               <span className="text-muted-foreground text-sm">Status:</span>
-              <SelectValue placeholder="Select a product" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">In Stock</SelectItem>
-              <SelectItem value="in-stock">Low Stock</SelectItem>
-              <SelectItem value="low-stock">Archived</SelectItem>
-              <SelectItem value="archived">Archived</SelectItem>
-            </SelectContent>
+            </Select.Trigger>
+            <Select.List>
+              <Select.Option id="all">
+                <Select.Label>In Stock</Select.Label>
+              </Select.Option>
+              <Select.Option id="in-stock">
+                <Select.Label>Low Stock</Select.Label>
+              </Select.Option>
+              <Select.Option id="low-stock">
+                <Select.Label>Archived</Select.Label>
+              </Select.Option>
+              <Select.Option id="archived">
+                <Select.Label>Archived</Select.Label>
+              </Select.Option>
+            </Select.List>
           </Select>
-          <Button variant="outline" size="icon">
+          <Button intent="outline" size="sq-sm">
             <ListFilterIcon />
           </Button>
-          <Button variant="outline" size="icon">
+          <Button intent="outline" size="sq-sm">
             <ArrowUpDownIcon />
           </Button>
         </div>
@@ -146,7 +151,7 @@ export function ProductsTable({
                 <TableCell className="text-right">{product.stock}</TableCell>
                 <TableCell>
                   <Badge
-                    variant="secondary"
+                    intent="secondary"
                     className={
                       product.status === "Low Stock"
                         ? "border-orange-700 bg-transparent text-orange-700 dark:border-orange-700 dark:bg-transparent dark:text-orange-700"
@@ -172,9 +177,7 @@ export function ProductsTable({
                     </MenuTrigger>
                     <MenuContent placement="bottom end">
                       <MenuItem>Edit</MenuItem>
-                      <MenuItem isDanger>
-                        Delete
-                      </MenuItem>
+                      <MenuItem isDanger>Delete</MenuItem>
                     </MenuContent>
                   </Menu>
                 </TableCell>
@@ -188,28 +191,16 @@ export function ProductsTable({
           Showing 1-10 of 100 products
         </div>
         <Pagination className="mx-0 w-fit">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
+          <Pagination.List>
+            <Pagination.Item segment="previous" href="#" />
+            <Pagination.Item href="#">1</Pagination.Item>
+            <Pagination.Item href="#" isCurrent>
+              2
+            </Pagination.Item>
+            <Pagination.Item href="#">3</Pagination.Item>
+            <Pagination.Item segment="ellipsis" />
+            <Pagination.Item segment="next" href="#" />
+          </Pagination.List>
         </Pagination>
       </CardFooter>
     </Card>

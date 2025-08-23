@@ -2,12 +2,10 @@ import * as React from "react"
 import { type LucideIcon } from "lucide-react"
 
 import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/registry/preskok/ui/sidebar"
+  SidebarItem,
+  SidebarLabel,
+  SidebarSection,
+} from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export function NavSecondary({
   items,
@@ -18,23 +16,15 @@ export function NavSecondary({
     url: string
     icon: LucideIcon
   }[]
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+} & React.ComponentPropsWithoutRef<typeof SidebarSection>) {
   return (
-    <SidebarGroup {...props}>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild size="sm">
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <SidebarSection {...props}>
+      {items.map((item) => (
+        <SidebarItem key={item.title} href={item.url}>
+          <item.icon />
+          <SidebarLabel>{item.title}</SidebarLabel>
+        </SidebarItem>
+      ))}
+    </SidebarSection>
   )
 }

@@ -1,7 +1,6 @@
 import { Search } from "lucide-react"
 
-import { Label } from "@/registry/preskok/ui/preskok-ui/field"
-import { SidebarInput } from "@/registry/preskok/ui/sidebar"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function SearchForm({ ...props }: React.ComponentProps<"form">) {
   return (
@@ -10,7 +9,7 @@ export function SearchForm({ ...props }: React.ComponentProps<"form">) {
         <Label htmlFor="search" className="sr-only">
           Search
         </Label>
-        <SidebarInput
+        <Input
           id="search"
           placeholder="Type to search..."
           className="h-8 pl-7"
