@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
+} from "@/registry/preskok/ui/preskok-ui/card"
 import {
   ChartConfig,
   ChartContainer,

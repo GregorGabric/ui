@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
+} from "@/registry/preskok/ui/preskok-ui/card"
 import {
   ChartConfig,
   ChartContainer,
