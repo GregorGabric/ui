@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
+import { Bar } from "recharts"
 
 import {
   Card,
@@ -10,13 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { XAxis, YAxis } from "@/registry/preskok/ui/preskok-ui/chart"
 import {
+  BarChart,
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A mixed bar chart"
 
@@ -64,12 +66,10 @@ export function ChartBarMixed() {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart
-            accessibilityLayer
             data={chartData}
+            dataKey="visitors"
+            config={chartConfig}
             layout="vertical"
-            margin={{
-              left: 0,
-            }}
           >
             <YAxis
               dataKey="browser"
@@ -86,7 +86,7 @@ export function ChartBarMixed() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="visitors" layout="vertical" radius={5} />
+            <Bar dataKey="visitors" radius={5} />
           </BarChart>
         </ChartContainer>
       </CardContent>

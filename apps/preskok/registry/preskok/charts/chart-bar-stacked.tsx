@@ -1,7 +1,6 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   Card,
@@ -10,15 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+import { BarChart } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A stacked bar chart with a legend"
 
@@ -50,32 +43,25 @@ export function ChartBarStacked() {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar
-              dataKey="desktop"
-              stackId="a"
-              fill="var(--color-desktop)"
-              radius={[0, 0, 4, 4]}
-            />
-            <Bar
-              dataKey="mobile"
-              stackId="a"
-              fill="var(--color-mobile)"
-              radius={[4, 4, 0, 0]}
-            />
-          </BarChart>
-        </ChartContainer>
+        <BarChart
+          data={chartData}
+          dataKey="month"
+          config={chartConfig}
+          type="stacked"
+          tooltip={true}
+          tooltipProps={{
+            hideLabel: true,
+          }}
+          legend={true}
+          hideGridLines={false}
+          cartesianGridProps={{ vertical: false }}
+          xAxisProps={{
+            tickLine: false,
+            tickMargin: 10,
+            axisLine: false,
+            tickFormatter: (value) => value.slice(0, 3),
+          }}
+        />
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium">

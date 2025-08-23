@@ -17,7 +17,7 @@ import {
   ChartStyle,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 import {
   Select,
   SelectContent,

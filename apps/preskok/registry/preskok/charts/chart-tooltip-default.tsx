@@ -14,7 +14,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A stacked bar chart with a legend"
 export const iframeHeight = "600px"

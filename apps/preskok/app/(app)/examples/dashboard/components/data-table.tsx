@@ -56,12 +56,6 @@ import { z } from "zod"
 import { useIsMobile } from "@/registry/preskok/hooks/use-mobile"
 import { Badge } from "@/registry/preskok/ui/badge"
 import { Button } from "@/registry/preskok/ui/button"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
 import { Checkbox } from "@/registry/preskok/ui/checkbox"
 import {
   Drawer,
@@ -83,6 +77,12 @@ import {
 } from "@/registry/preskok/ui/dropdown-menu"
 import { Input } from "@/registry/preskok/ui/input"
 import { Label } from "@/registry/preskok/ui/label"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 import {
   Select,
   SelectContent,

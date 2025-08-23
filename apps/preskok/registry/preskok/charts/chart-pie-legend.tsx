@@ -14,7 +14,7 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A pie chart with a legend"
 

@@ -16,7 +16,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },

@@ -2,6 +2,7 @@
 
 import { ChevronDownIcon, SearchIcon, ShoppingBagIcon } from "lucide-react"
 
+import { UserMenu } from "@/registry/preskok/examples/user-menu"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Link } from "@/registry/preskok/ui/preskok-ui/link"
 import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
@@ -77,7 +78,7 @@ const categories = [
 export default function AppNavbar(props: NavbarProps) {
   return (
     <NavbarProvider>
-      <Navbar {...props}>
+      <Navbar {...props} className="max-w-[100cqi]">
         <NavbarStart>
           <Link
             className="flex items-center gap-x-2 font-medium"
@@ -85,9 +86,6 @@ export default function AppNavbar(props: NavbarProps) {
             href="/docs/components/layouts/navbar"
           >
             <PreskokIcon className="size-6 sm:size-5" />
-            <span>
-              Preskok <span className="text-muted-foreground">UI</span>
-            </span>
           </Link>
         </NavbarStart>
         <NavbarGap />
@@ -124,6 +122,7 @@ export default function AppNavbar(props: NavbarProps) {
             <ShoppingBagIcon />
           </Button>
           <Separator orientation="vertical" className="mr-3 ml-1 h-5" />
+          <UserMenu />
         </NavbarSection>
       </Navbar>
       <NavbarMobile>
@@ -136,6 +135,7 @@ export default function AppNavbar(props: NavbarProps) {
           <ShoppingBagIcon />
         </Button>
         <NavbarSeparator className="mr-2.5" />
+        <UserMenu />
       </NavbarMobile>
     </NavbarProvider>
   )

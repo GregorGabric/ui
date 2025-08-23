@@ -17,16 +17,16 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/card"
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/registry/preskok/ui/popover"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 
 const chartData = [

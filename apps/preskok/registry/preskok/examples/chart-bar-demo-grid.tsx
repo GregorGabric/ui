@@ -2,7 +2,10 @@
 
 import { Bar, BarChart, CartesianGrid } from "recharts"
 
-import { ChartConfig, ChartContainer } from "@/registry/preskok/ui/chart"
+import {
+  ChartConfig,
+  ChartContainer,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 const chartData = [
   { month: "January", suv: 186, sedan: 80 },

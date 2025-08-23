@@ -42,6 +42,20 @@ import { twJoin, twMerge } from "tailwind-merge"
 
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
 
+// Import individual chart components
+import { AreaChart } from "./area-chart"
+import { BarChart } from "./bar-chart"
+// Import legacy chart helpers
+import {
+  ChartContainer as LegacyChartContainer,
+  ChartLegend as LegacyChartLegend,
+  ChartLegendContent as LegacyChartLegendContent,
+  ChartStyle as LegacyChartStyle,
+  ChartTooltip as LegacyChartTooltip,
+  ChartTooltipContent as LegacyChartTooltipContent,
+} from "./chart-helpers"
+import { LineChart } from "./line-chart"
+import { PieChart } from "./pie-chart"
 import { Separator } from "./separator"
 
 // #region Chart Types
@@ -83,7 +97,7 @@ const DEFAULT_COLORS = [
 
 type ChartContextProps = {
   config: ChartConfig
-  data: Record<string, any>[]
+  data: Record<string, unknown>[]
   layout: ChartLayout
   dataKey: string
   selectedLegend: string | null
@@ -179,7 +193,7 @@ function getPayloadConfigFromPayload(
 interface BaseChartProps<TValue extends ValueType, TName extends NameType>
   extends React.HTMLAttributes<HTMLDivElement> {
   config: ChartConfig
-  data: Record<string, any>[]
+  data: Record<string, unknown>[]
   dataKey: string
   colors?: readonly (ChartColorKeys | (string & {}))[]
   type?: ChartType
@@ -222,7 +236,7 @@ const Chart = ({
   ...props
 }: Omit<React.ComponentProps<"div">, "children"> & {
   config: ChartConfig
-  data: Record<string, any>[]
+  data: Record<string, unknown>[]
   layout?: ChartLayout
   dataKey: string
   children: ReactElement | ((props: ChartContextProps) => ReactElement)
@@ -268,6 +282,9 @@ const Chart = ({
     </ChartContext.Provider>
   )
 }
+
+// Use legacy ChartContainer from chart-helpers
+const ChartContainer = LegacyChartContainer
 
 const THEMES = { light: "", dark: ".dark" } as const
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
@@ -353,7 +370,6 @@ const XAxis = ({
   className,
   intervalType = "preserveStartEnd",
   minTickGap = 5,
-  domain = ["auto", "auto"],
   ...props
 }: XAxisProps) => {
   const { dataKey, data, layout } = useChart()
@@ -513,7 +529,7 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
 
           return (
             <div
-              key={key}
+              key={`${key}-${index}`}
               className={twMerge(
                 "*:data-[slot=icon]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 *:data-[slot=icon]:size-2.5",
                 indicator === "dot" && "items-center"
@@ -579,7 +595,7 @@ type ChartLegendContentProps = ToggleButtonGroupProps &
     payload?: ReadonlyArray<LegendPayload>
     hideIcon?: boolean
     nameKey?: string
-    ref?: React.Ref<any>
+    ref?: React.Ref<unknown>
   }
 
 const ChartLegendContent = ({
@@ -666,9 +682,14 @@ export type {
 }
 
 export {
+  // Individual chart components
+  AreaChart,
+  BarChart,
+  // Chart utilities
   CartesianGrid,
   Chart,
   CHART_COLORS,
+  ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
@@ -676,6 +697,15 @@ export {
   constructCategoryColors,
   DEFAULT_COLORS,
   getColorValue,
+  // Legacy components (aliases)
+  LegacyChartContainer,
+  LegacyChartLegend,
+  LegacyChartLegendContent,
+  LegacyChartStyle,
+  LegacyChartTooltip,
+  LegacyChartTooltipContent,
+  LineChart,
+  PieChart,
   XAxis,
   YAxis,
 }

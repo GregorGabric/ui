@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
+import { Bar, LabelList } from "recharts"
 
 import {
   Card,
@@ -10,13 +10,19 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
+} from "@/registry/preskok/ui/preskok-ui/card"
 import {
+  CartesianGrid,
+  XAxis,
+  YAxis,
+} from "@/registry/preskok/ui/preskok-ui/chart"
+import {
+  BarChart,
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A bar chart with a custom label"
 
@@ -53,12 +59,10 @@ export function ChartBarLabelCustom() {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart
-            accessibilityLayer
+            dataKey="desktop"
+            config={chartConfig}
             data={chartData}
             layout="vertical"
-            margin={{
-              right: 16,
-            }}
           >
             <CartesianGrid horizontal={false} />
             <YAxis
@@ -67,7 +71,6 @@ export function ChartBarLabelCustom() {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
               hide
             />
             <XAxis dataKey="desktop" type="number" hide />
@@ -77,7 +80,7 @@ export function ChartBarLabelCustom() {
             />
             <Bar
               dataKey="desktop"
-              layout="vertical"
+              // layout="vertical"
               fill="var(--color-desktop)"
               radius={4}
             >

@@ -17,7 +17,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/card"
-import { ChartConfig, ChartContainer } from "@/registry/preskok/ui/chart"
+import {
+  ChartConfig,
+  ChartContainer,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A radial chart with text"
 

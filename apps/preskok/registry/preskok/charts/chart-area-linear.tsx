@@ -1,7 +1,6 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   Card,
@@ -10,13 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+import { AreaChart } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A linear area chart"
 
@@ -46,36 +41,28 @@ export function ChartAreaLinear() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" hideLabel />}
-            />
-            <Area
-              dataKey="desktop"
-              type="linear"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-            />
-          </AreaChart>
-        </ChartContainer>
+        <AreaChart
+          data={chartData}
+          dataKey="month"
+          config={chartConfig}
+          type="default"
+          fillType="solid"
+          lineType="linear"
+          tooltip={true}
+          tooltipProps={{
+            cursor: false,
+            indicator: "dot",
+            hideLabel: true,
+          }}
+          hideGridLines={false}
+          cartesianGridProps={{ vertical: false }}
+          xAxisProps={{
+            tickLine: false,
+            axisLine: false,
+            tickMargin: 8,
+            tickFormatter: (value) => value.slice(0, 3),
+          }}
+        />
       </CardContent>
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">

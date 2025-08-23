@@ -10,7 +10,6 @@ import { ChartAreaLinear } from "@/registry/preskok/charts/chart-area-linear"
 import { ChartAreaStacked } from "@/registry/preskok/charts/chart-area-stacked"
 import { ChartAreaStackedExpand } from "@/registry/preskok/charts/chart-area-stacked-expand"
 import { ChartAreaStep } from "@/registry/preskok/charts/chart-area-step"
-import { ChartBarActive } from "@/registry/preskok/charts/chart-bar-active"
 import { ChartBarDefault } from "@/registry/preskok/charts/chart-bar-default"
 import { ChartBarHorizontal } from "@/registry/preskok/charts/chart-bar-horizontal"
 import { ChartBarInteractive } from "@/registry/preskok/charts/chart-bar-interactive"
@@ -119,7 +118,6 @@ export const charts: ChartGroups = {
     { id: "chart-bar-label", component: ChartBarLabel },
     { id: "chart-bar-label-custom", component: ChartBarLabelCustom },
     { id: "chart-bar-mixed", component: ChartBarMixed },
-    { id: "chart-bar-active", component: ChartBarActive },
     { id: "chart-bar-negative", component: ChartBarNegative },
   ],
   line: [
@@ -212,7 +210,6 @@ export {
   ChartAreaStacked,
   ChartAreaStackedExpand,
   ChartAreaStep,
-  ChartBarActive,
   ChartBarDefault,
   ChartBarHorizontal,
   ChartBarInteractive,

@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, Cell, LabelList } from "recharts"
+import { Bar, Cell, LabelList } from "recharts"
 
 import {
   Card,
@@ -10,13 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { CartesianGrid } from "@/registry/preskok/ui/preskok-ui/chart"
 import {
+  BarChart,
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/preskok/ui/chart"
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A bar chart with negative values"
 
@@ -44,7 +46,12 @@ export function ChartBarNegative() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart
+            data={chartData}
+            dataKey="visitors"
+            config={chartConfig}
+            layout="vertical"
+          >
             <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
