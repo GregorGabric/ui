@@ -125,18 +125,6 @@ export const charts: Registry["items"] = [
 
   // Bar Charts
   {
-    name: "chart-bar-active",
-    type: "registry:block",
-    registryDependencies: ["card", "chart"],
-    files: [
-      {
-        path: "charts/chart-bar-active.tsx",
-        type: "registry:block",
-      },
-    ],
-    categories: ["charts", "charts-bar"],
-  },
-  {
     name: "chart-bar-default",
     type: "registry:block",
     registryDependencies: ["card", "chart"],
