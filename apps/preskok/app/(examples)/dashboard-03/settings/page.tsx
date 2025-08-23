@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardAction,
@@ -10,10 +10,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
-import { Checkbox } from "@/registry/preskok/ui/checkbox"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
   Select,
   SelectContent,
@@ -22,8 +21,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/registry/preskok/ui/select"
-import { Switch } from "@/registry/preskok/ui/switch"
+} from "@/registry/preskok/ui/preskok-ui/select"
+import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
 import {
   Table,
   TableBody,
@@ -31,13 +30,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/table"
+} from "@/registry/preskok/ui/preskok-ui/table"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/preskok/ui/tabs"
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 
 export const metadata: Metadata = {
   title: "Settings",

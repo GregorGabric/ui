@@ -4,6 +4,8 @@ import * as React from "react"
 import { IconBrightness, type Icon } from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 
+import { Skeleton } from "@/registry/preskok/ui/preskok-ui/skeleton"
+import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -11,8 +13,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/registry/preskok/ui/sidebar"
-import { Skeleton } from "@/registry/preskok/ui/skeleton"
-import { Switch } from "@/registry/preskok/ui/switch"
 
 export function NavSecondary({
   items,

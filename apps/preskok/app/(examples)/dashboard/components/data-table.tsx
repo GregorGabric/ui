@@ -54,9 +54,15 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { useIsMobile } from "@/registry/preskok/hooks/use-mobile"
-import { Badge } from "@/registry/preskok/ui/badge"
-import { Button } from "@/registry/preskok/ui/button"
-import { Checkbox } from "@/registry/preskok/ui/checkbox"
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
 import {
   Drawer,
   DrawerClose,
@@ -66,31 +72,23 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/registry/preskok/ui/drawer"
+} from "@/registry/preskok/ui/preskok-ui/drawer"
+import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
-import { Input } from "@/registry/preskok/ui/input"
-import { Label } from "@/registry/preskok/ui/label"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/preskok/ui/select"
-import { Separator } from "@/registry/preskok/ui/separator"
+} from "@/registry/preskok/ui/preskok-ui/select"
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 import {
   Table,
   TableBody,
@@ -98,13 +96,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/table"
+} from "@/registry/preskok/ui/preskok-ui/table"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/preskok/ui/tabs"
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 
 export const schema = z.object({
   id: z.number(),
@@ -288,25 +286,25 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     id: "actions",
     cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+      <Menu>
+        <MenuTrigger>
           <Button
-            variant="ghost"
+            intent="plain"
             className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-            size="icon"
+            size="sq-sm"
           >
             <IconDotsVertical />
             <span className="sr-only">Open menu</span>
           </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </MenuTrigger>
+        <MenuContent className="w-32" placement="bottom end">
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Make a copy</MenuItem>
+          <MenuItem>Favorite</MenuItem>
+          <MenuSeparator />
+          <MenuItem isDanger>Delete</MenuItem>
+        </MenuContent>
+      </Menu>
     ),
   },
 ]
@@ -436,16 +434,16 @@ export function DataTable({
           <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
         </TabsList>
         <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+          <Menu>
+            <MenuTrigger>
+              <Button intent="outline" size="sm">
                 <IconLayoutColumns />
                 <span className="hidden lg:inline">Customize Columns</span>
                 <span className="lg:hidden">Columns</span>
                 <IconChevronDown />
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            </MenuTrigger>
+            <MenuContent className="w-56" placement="bottom end">
               {table
                 .getAllColumns()
                 .filter(
@@ -455,20 +453,19 @@ export function DataTable({
                 )
                 .map((column) => {
                   return (
-                    <DropdownMenuCheckboxItem
+                    <MenuItem
                       key={column.id}
                       className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
+                      onAction={() =>
+                        column.toggleVisibility(!column.getIsVisible())
                       }
                     >
                       {column.id}
-                    </DropdownMenuCheckboxItem>
+                    </MenuItem>
                   )
                 })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </MenuContent>
+          </Menu>
           <Button variant="outline" size="sm">
             <IconPlus />
             <span className="hidden lg:inline">Add Section</span>

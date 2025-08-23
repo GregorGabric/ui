@@ -5,21 +5,21 @@ import {
   PlusIcon,
 } from "lucide-react"
 
-import { Badge } from "@/registry/preskok/ui/badge"
-import { Button } from "@/registry/preskok/ui/button"
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/registry/preskok/ui/card"
-import { Checkbox } from "@/registry/preskok/ui/checkbox"
+} from "@/registry/preskok/ui/preskok-ui/card"
+import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Pagination,
   PaginationContent,
@@ -28,14 +28,14 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/registry/preskok/ui/pagination"
+} from "@/registry/preskok/ui/preskok-ui/pagination"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/preskok/ui/select"
+} from "@/registry/preskok/ui/preskok-ui/select"
 import {
   Table,
   TableBody,
@@ -43,8 +43,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/table"
-import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/tabs"
+} from "@/registry/preskok/ui/preskok-ui/table"
+import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/preskok-ui/tabs"
 
 export function ProductsTable({
   products,
@@ -164,19 +164,19 @@ export function ProductsTable({
                   })}
                 </TableCell>
                 <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="size-6">
+                  <Menu>
+                    <MenuTrigger>
+                      <Button intent="plain" size="sq-xs" className="size-6">
                         <EllipsisVerticalIcon />
                       </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem variant="destructive">
+                    </MenuTrigger>
+                    <MenuContent placement="bottom end">
+                      <MenuItem>Edit</MenuItem>
+                      <MenuItem isDanger>
                         Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                      </MenuItem>
+                    </MenuContent>
+                  </Menu>
                 </TableCell>
               </TableRow>
             ))}

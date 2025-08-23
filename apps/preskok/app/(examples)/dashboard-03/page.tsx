@@ -6,21 +6,21 @@ import {
   TrendingUpIcon,
 } from "lucide-react"
 
-import { Badge } from "@/registry/preskok/ui/badge"
-import { Button } from "@/registry/preskok/ui/button"
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/card"
+} from "@/registry/preskok/ui/preskok-ui/card"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/preskok/ui/tabs"
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 import { AnalyticsDatePicker } from "@/app/(examples)/dashboard-03/components/analytics-date-picker"
 import { ChartRevenue } from "@/app/(examples)/dashboard-03/components/chart-revenue"
 import { ChartVisitors } from "@/app/(examples)/dashboard-03/components/chart-visitors"

@@ -1,7 +1,7 @@
 "use client"
 
 import { useThemeConfig } from "@/components/active-theme"
-import { Label } from "@/registry/preskok/ui/label"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/registry/preskok/ui/select"
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 const DEFAULT_THEMES = [
   {

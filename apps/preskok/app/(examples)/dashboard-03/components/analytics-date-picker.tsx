@@ -6,13 +6,13 @@ import { CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/button"
-import { Calendar } from "@/registry/preskok/ui/calendar"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/registry/preskok/ui/popover"
+} from "@/registry/preskok/ui/preskok-ui/popover"
 
 export function AnalyticsDatePicker() {
   const [date, setDate] = React.useState<DateRange | undefined>({

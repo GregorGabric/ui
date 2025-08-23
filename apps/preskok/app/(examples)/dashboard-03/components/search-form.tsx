@@ -1,6 +1,6 @@
 import { Search } from "lucide-react"
 
-import { Label } from "@/registry/preskok/ui/label"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { SidebarInput } from "@/registry/preskok/ui/sidebar"
 
 export function SearchForm({ ...props }: React.ComponentProps<"form">) {

@@ -7,15 +7,11 @@ import { SidebarIcon } from "lucide-react"
 import { ThemeSelector } from "@/components/theme-selector"
 import { SearchForm } from "@/registry/preskok/blocks/sidebar-16/components/search-form"
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/registry/preskok/ui/breadcrumb"
-import { Button } from "@/registry/preskok/ui/button"
-import { Separator } from "@/registry/preskok/ui/separator"
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 import { useSidebar } from "@/registry/preskok/ui/sidebar"
 import { ModeToggle } from "@/app/(examples)/dashboard-03/components/mode-toggle"
 import { NavUser } from "@/app/(examples)/dashboard-03/components/nav-user"
@@ -54,37 +50,20 @@ export function SiteHeader() {
           orientation="vertical"
           className="mr-2 data-[orientation=vertical]:h-4"
         />
-        <Breadcrumb className="hidden sm:block">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="capitalize">
-                Home
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            {breadcrumbs.map((breadcrumb, index) =>
-              index === breadcrumbs.length - 1 ? (
-                <BreadcrumbItem key={index}>
-                  <BreadcrumbPage className="capitalize">
-                    {breadcrumb.label}
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              ) : (
-                <Fragment key={index}>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink
-                      href={breadcrumb.href}
-                      className="capitalize"
-                    >
-                      {breadcrumb.label}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                </Fragment>
-              )
-            )}
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumbs className="hidden sm:block">
+          <BreadcrumbsItem href="/" className="capitalize">
+            Home
+          </BreadcrumbsItem>
+          {breadcrumbs.map((breadcrumb, index) => (
+            <BreadcrumbsItem
+              key={index}
+              href={index === breadcrumbs.length - 1 ? undefined : breadcrumb.href}
+              className="capitalize"
+            >
+              {breadcrumb.label}
+            </BreadcrumbsItem>
+          ))}
+        </Breadcrumbs>
         <div className="ml-auto flex items-center gap-2">
           <SearchForm className="w-fullsm:w-auto" />
           <ThemeSelector />

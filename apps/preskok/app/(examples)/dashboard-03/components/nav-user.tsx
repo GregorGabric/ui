@@ -7,16 +7,14 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/registry/preskok/ui/avatar"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 
 export function NavUser({
   user,
@@ -28,22 +26,20 @@ export function NavUser({
   }
 }) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+    <Menu>
+      <MenuTrigger>
+        <Button intent="plain" size="sq-sm">
           <Avatar className="size-8 rounded-md">
             <AvatarImage src={user.avatar} alt={user.name} />
             <AvatarFallback className="rounded-lg">CN</AvatarFallback>
           </Avatar>
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
+      </MenuTrigger>
+      <MenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-        side="bottom"
-        align="end"
-        sideOffset={4}
+        placement="bottom end"
       >
-        <DropdownMenuLabel className="p-0 font-normal">
+        <Menu.Header className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar className="h-8 w-8 rounded-lg">
               <AvatarImage src={user.avatar} alt={user.name} />
@@ -56,35 +52,31 @@ export function NavUser({
               </span>
             </div>
           </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Sparkles />
-            Upgrade to Pro
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Billing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell />
-            Notifications
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        </Menu.Header>
+        <MenuSeparator />
+        <MenuItem>
+          <Sparkles />
+          Upgrade to Pro
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem>
+          <BadgeCheck />
+          Account
+        </MenuItem>
+        <MenuItem>
+          <CreditCard />
+          Billing
+        </MenuItem>
+        <MenuItem>
+          <Bell />
+          Notifications
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem>
           <LogOut />
           Log out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </MenuItem>
+      </MenuContent>
+    </Menu>
   )
 }
