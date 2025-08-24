@@ -29,17 +29,7 @@ export default function ProgressDemo() {
           maxValue={100}
           formatOptions={{ style: "percent" }}
         />
-        <Meter
-          label="Tire Pressure"
-          value={32}
-          minValue={0}
-          maxValue={50}
-          formatOptions={{
-            style: "unit",
-            unit: "pound-force-per-square-inch",
-            unitDisplay: "short",
-          }}
-        />
+        <Meter label="Tire Pressure" value={32} minValue={0} maxValue={50} />
       </div>
 
       <div className="space-y-4">
