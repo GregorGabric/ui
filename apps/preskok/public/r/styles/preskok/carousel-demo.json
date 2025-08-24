@@ -3,12 +3,13 @@
   "name": "carousel-demo",
   "type": "registry:example",
   "registryDependencies": [
-    "carousel"
+    "carousel",
+    "card"
   ],
   "files": [
     {
       "path": "registry/preskok/examples/carousel-demo.tsx",
-      "content": "import { Card, CardContent } from \"@/registry/preskok/ui/card\"\nimport {\n  Carousel,\n  CarouselContent,\n  CarouselItem,\n  CarouselNext,\n  CarouselPrevious,\n} from \"@/registry/preskok/ui/carousel\"\n\nexport default function CarouselDemo() {\n  return (\n    <Carousel className=\"w-full max-w-xs\">\n      <CarouselContent>\n        {Array.from({ length: 5 }).map((_, index) => (\n          <CarouselItem key={index}>\n            <div className=\"p-1\">\n              <Card>\n                <CardContent className=\"flex aspect-square items-center justify-center p-6\">\n                  <span className=\"text-4xl font-semibold\">{index + 1}</span>\n                </CardContent>\n              </Card>\n            </div>\n          </CarouselItem>\n        ))}\n      </CarouselContent>\n      <CarouselPrevious />\n      <CarouselNext />\n    </Carousel>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Card, CardContent } from \"@/registry/preskok/ui/preskok-ui/card\"\nimport {\n  Carousel,\n  CarouselButton,\n  CarouselContent,\n  CarouselHandler,\n  CarouselItem,\n} from \"@/registry/preskok/ui/preskok-ui/carousel\"\n\nconst vehicleImages = [\n  {\n    id: 1,\n    title: \"Exterior Front\",\n    description: \"Front view showing the sleek design\",\n  },\n  {\n    id: 2,\n    title: \"Interior Dashboard\",\n    description: \"Modern dashboard with digital displays\",\n  },\n  {\n    id: 3,\n    title: \"Engine Bay\",\n    description: \"2.5L 4-cylinder hybrid engine\",\n  },\n  {\n    id: 4,\n    title: \"Rear View\",\n    description: \"Aerodynamic rear design with LED taillights\",\n  },\n  {\n    id: 5,\n    title: \"Side Profile\",\n    description: \"Complete side view with alloy wheels\",\n  },\n]\n\nexport default function CarouselDemo() {\n  return (\n    <Carousel className=\"w-full max-w-md\">\n      <CarouselContent>\n        {vehicleImages.map((image) => (\n          <CarouselItem key={image.id}>\n            <div className=\"p-1\">\n              <Card>\n                <CardContent className=\"flex aspect-video items-center justify-center p-6\">\n                  <div className=\"space-y-2 text-center\">\n                    <div className=\"text-2xl font-semibold\">{image.id}</div>\n                    <div className=\"font-medium\">{image.title}</div>\n                    <div className=\"text-muted-foreground text-sm\">\n                      {image.description}\n                    </div>\n                  </div>\n                </CardContent>\n              </Card>\n            </div>\n          </CarouselItem>\n        ))}\n      </CarouselContent>\n      <CarouselHandler className=\"justify-between\">\n        <CarouselButton segment=\"previous\" />\n        <CarouselButton segment=\"next\" />\n      </CarouselHandler>\n    </Carousel>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

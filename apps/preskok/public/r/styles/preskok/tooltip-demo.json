@@ -3,12 +3,13 @@
   "name": "tooltip-demo",
   "type": "registry:example",
   "registryDependencies": [
-    "tooltip"
+    "tooltip",
+    "button"
   ],
   "files": [
     {
       "path": "registry/preskok/examples/tooltip-demo.tsx",
-      "content": "import { Button } from \"@/registry/preskok/ui/button\"\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/registry/preskok/ui/tooltip\"\n\nexport default function TooltipDemo() {\n  return (\n    <Tooltip>\n      <TooltipTrigger asChild>\n        <Button variant=\"outline\">Hover</Button>\n      </TooltipTrigger>\n      <TooltipContent>\n        <p>Add to library</p>\n      </TooltipContent>\n    </Tooltip>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { InfoIcon } from \"lucide-react\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Tooltip } from \"@/registry/preskok/ui/preskok-ui/tooltip\"\n\nexport default function TooltipDemo() {\n  return (\n    <div className=\"flex items-center gap-6\">\n      <Tooltip label=\"View detailed vehicle specifications and features\">\n        <Button intent=\"primary\">Vehicle Details</Button>\n      </Tooltip>\n\n      <Tooltip label=\"Calculate monthly payment based on down payment, interest rate, and loan term\">\n        <Button intent=\"outline\">Payment Calculator</Button>\n      </Tooltip>\n\n      <Tooltip label=\"This vehicle has been certified by our inspection team and comes with a 30-day warranty\">\n        <Button intent=\"ghost\" size=\"sq-sm\">\n          <InfoIcon className=\"h-4 w-4\" />\n        </Button>\n      </Tooltip>\n\n      <div className=\"flex items-center gap-2\">\n        <span className=\"text-sm\">MPG Rating:</span>\n        <Tooltip label=\"EPA estimated fuel economy: 28 city / 35 highway / 31 combined\">\n          <span className=\"cursor-help border-b border-dashed\">\n            31 combined\n          </span>\n        </Tooltip>\n      </div>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

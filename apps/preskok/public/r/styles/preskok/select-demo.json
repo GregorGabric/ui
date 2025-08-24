@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/select-demo.tsx",
-      "content": "import {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectTrigger,\n  SelectValue,\n} from \"@/registry/preskok/ui/select\"\n\nexport default function SelectDemo() {\n  return (\n    <Select>\n      <SelectTrigger className=\"w-[180px]\">\n        <SelectValue placeholder=\"Select a fruit\" />\n      </SelectTrigger>\n      <SelectContent>\n        <SelectGroup>\n          <SelectLabel>Fruits</SelectLabel>\n          <SelectItem value=\"apple\">Apple</SelectItem>\n          <SelectItem value=\"banana\">Banana</SelectItem>\n          <SelectItem value=\"blueberry\">Blueberry</SelectItem>\n          <SelectItem value=\"grapes\">Grapes</SelectItem>\n          <SelectItem value=\"pineapple\">Pineapple</SelectItem>\n        </SelectGroup>\n      </SelectContent>\n    </Select>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Select } from \"@/registry/preskok/ui/preskok-ui/select\"\n\nexport const cars = [\n  { id: 1, name: \"Audi\" },\n  { id: 2, name: \"BMW\" },\n  { id: 3, name: \"Mercedes-Benz\" },\n  { id: 4, name: \"Volkswagen\" },\n  { id: 5, name: \"Ford\" },\n]\nexport default function SelectDemo() {\n  return (\n    <Select aria-label=\"Cars\" placeholder=\"Select a car\">\n      <Select.Trigger />\n      <Select.List items={cars}>\n        {(item) => (\n          <Select.Option id={item.id} textValue={item.name}>\n            {item.name}\n          </Select.Option>\n        )}\n      </Select.List>\n    </Select>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

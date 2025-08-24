@@ -798,4 +798,303 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  // New missing demos
+  {
+    name: "slider-demo",
+    type: "registry:example",
+    registryDependencies: ["slider"],
+    files: [
+      {
+        path: "examples/slider-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "switch-demo",
+    type: "registry:example",
+    registryDependencies: ["switch"],
+    files: [
+      {
+        path: "examples/switch-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "toggle-demo",
+    type: "registry:example",
+    registryDependencies: ["toggle"],
+    files: [
+      {
+        path: "examples/toggle-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "select-demo",
+    type: "registry:example",
+    registryDependencies: ["select"],
+    files: [
+      {
+        path: "examples/select-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "textarea-demo",
+    type: "registry:example",
+    registryDependencies: ["textarea"],
+    files: [
+      {
+        path: "examples/textarea-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "radio-group-demo",
+    type: "registry:example",
+    registryDependencies: ["radio"],
+    files: [
+      {
+        path: "examples/radio-group-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "separator-demo",
+    type: "registry:example",
+    registryDependencies: ["separator"],
+    files: [
+      {
+        path: "examples/separator-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "table-demo",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [
+      {
+        path: "examples/table-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "tabs-demo",
+    type: "registry:example",
+    registryDependencies: ["tabs"],
+    files: [
+      {
+        path: "examples/tabs-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "pagination-demo",
+    type: "registry:example",
+    registryDependencies: ["pagination"],
+    files: [
+      {
+        path: "examples/pagination-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "scroll-area-demo",
+    type: "registry:example",
+    registryDependencies: ["scroll-area"],
+    files: [
+      {
+        path: "examples/scroll-area-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "toggle-group-demo",
+    type: "registry:example",
+    registryDependencies: ["toggle-group"],
+    files: [
+      {
+        path: "examples/toggle-group-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "popover-demo",
+    type: "registry:example",
+    registryDependencies: ["popover", "button"],
+    files: [
+      {
+        path: "examples/popover-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "tooltip-demo",
+    type: "registry:example",
+    registryDependencies: ["tooltip", "button"],
+    files: [
+      {
+        path: "examples/tooltip-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button", "text-field"],
+    files: [
+      {
+        path: "examples/sheet-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "progress-demo",
+    type: "registry:example",
+    registryDependencies: ["meter", "progress-bar"],
+    files: [
+      {
+        path: "examples/progress-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "skeleton-demo",
+    type: "registry:example",
+    registryDependencies: ["skeleton"],
+    files: [
+      {
+        path: "examples/skeleton-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sonner-demo",
+    type: "registry:example",
+    registryDependencies: ["toast", "button"],
+    files: [
+      {
+        path: "examples/sonner-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "breadcrumb-demo",
+    type: "registry:example",
+    registryDependencies: ["breadcrumbs"],
+    files: [
+      {
+        path: "examples/breadcrumb-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-otp-demo",
+    type: "registry:example",
+    registryDependencies: ["input-otp"],
+    files: [
+      {
+        path: "examples/input-otp-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "carousel-demo",
+    type: "registry:example",
+    registryDependencies: ["carousel", "card"],
+    files: [
+      {
+        path: "examples/carousel-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "drawer-demo",
+    type: "registry:example",
+    registryDependencies: ["drawer", "button", "text-field"],
+    files: [
+      {
+        path: "examples/drawer-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "combobox-demo",
+    type: "registry:example",
+    registryDependencies: ["combo-box"],
+    files: [
+      {
+        path: "examples/combobox-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-icon",
+    type: "registry:example",
+    registryDependencies: ["button"],
+    files: [
+      {
+        path: "examples/button-icon.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-side",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button"],
+    files: [
+      {
+        path: "examples/sheet-side.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "mode-toggle",
+    type: "registry:example",
+    registryDependencies: ["menu", "button"],
+    dependencies: ["next-themes"],
+    files: [
+      {
+        path: "examples/mode-toggle.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "resizable-demo-with-handle",
+    type: "registry:example",
+    registryDependencies: ["card"],
+    files: [
+      {
+        path: "examples/resizable-demo-with-handle.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

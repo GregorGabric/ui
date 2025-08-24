@@ -3,12 +3,12 @@
   "name": "breadcrumb-demo",
   "type": "registry:example",
   "registryDependencies": [
-    "breadcrumb"
+    "breadcrumbs"
   ],
   "files": [
     {
       "path": "registry/preskok/examples/breadcrumb-demo.tsx",
-      "content": "import Link from \"next/link\"\n\nimport {\n  Breadcrumb,\n  BreadcrumbEllipsis,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/registry/preskok/ui/breadcrumb\"\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/registry/preskok/ui/dropdown-menu\"\n\nexport default function BreadcrumbDemo() {\n  return (\n    <Breadcrumb>\n      <BreadcrumbList>\n        <BreadcrumbItem>\n          <BreadcrumbLink asChild>\n            <Link href=\"/\">Home</Link>\n          </BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <DropdownMenu>\n            <DropdownMenuTrigger className=\"flex items-center gap-1\">\n              <BreadcrumbEllipsis className=\"size-4\" />\n              <span className=\"sr-only\">Toggle menu</span>\n            </DropdownMenuTrigger>\n            <DropdownMenuContent align=\"start\">\n              <DropdownMenuItem>Sales Docs</DropdownMenuItem>\n              <DropdownMenuItem>Inventory</DropdownMenuItem>\n              <DropdownMenuItem>Financing</DropdownMenuItem>\n            </DropdownMenuContent>\n          </DropdownMenu>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbLink asChild>\n            <Link href=\"/inventory\">Vehicles</Link>\n          </BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbPage>Listing</BreadcrumbPage>\n        </BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Breadcrumbs } from \"@/registry/preskok/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <Breadcrumbs>\n        <Breadcrumbs.Item href=\"/\">Dealership</Breadcrumbs.Item>\n        <Breadcrumbs.Item href=\"/inventory\">Inventory</Breadcrumbs.Item>\n        <Breadcrumbs.Item href=\"/inventory/sedans\">Sedans</Breadcrumbs.Item>\n        <Breadcrumbs.Item>2024 Toyota Camry</Breadcrumbs.Item>\n      </Breadcrumbs>\n\n      <Breadcrumbs separator=\"slash\">\n        <Breadcrumbs.Item href=\"/\">Home</Breadcrumbs.Item>\n        <Breadcrumbs.Item href=\"/services\">Services</Breadcrumbs.Item>\n        <Breadcrumbs.Item href=\"/services/maintenance\">\n          Maintenance\n        </Breadcrumbs.Item>\n        <Breadcrumbs.Item>Oil Change</Breadcrumbs.Item>\n      </Breadcrumbs>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

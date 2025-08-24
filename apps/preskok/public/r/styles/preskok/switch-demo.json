@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/switch-demo.tsx",
-      "content": "import { Label } from \"@/registry/preskok/ui/label\"\nimport { Switch } from \"@/registry/preskok/ui/switch\"\n\nexport default function SwitchDemo() {\n  return (\n    <div className=\"flex items-center space-x-2\">\n      <Switch id=\"airplane-mode\" />\n      <Label htmlFor=\"airplane-mode\">Airplane Mode</Label>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Switch } from \"@/registry/preskok/ui/preskok-ui/switch\"\n\nexport default function SwitchDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <Switch defaultSelected>Enable GPS Navigation</Switch>\n      <Switch>Automatic Emergency Braking</Switch>\n      <Switch>Lane Departure Warning</Switch>\n      <Switch defaultSelected>Bluetooth Connectivity</Switch>\n      <Switch>Adaptive Cruise Control</Switch>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]
