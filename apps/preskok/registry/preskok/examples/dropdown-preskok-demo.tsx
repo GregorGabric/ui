@@ -32,12 +32,12 @@ export default function DropdownPreskokDemo() {
         <MenuItem id="profile">
           <DropdownLabel>Profile</DropdownLabel>
           <DropdownDescription>View your profile</DropdownDescription>
-          <DropdownKeyboard>⌘P</DropdownKeyboard>
+          <DropdownKeyboard keys="⌘P">⌘P</DropdownKeyboard>
         </MenuItem>
         <MenuItem id="settings">
           <DropdownLabel>Settings</DropdownLabel>
           <DropdownDescription>Manage preferences</DropdownDescription>
-          <DropdownKeyboard>⌘,</DropdownKeyboard>
+          <DropdownKeyboard keys="⌘,">⌘,</DropdownKeyboard>
         </MenuItem>
         <DropdownSeparator />
         <DropdownSection title="Danger">

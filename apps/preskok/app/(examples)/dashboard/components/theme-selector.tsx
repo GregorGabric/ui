@@ -2,16 +2,7 @@
 
 import { useThemeConfig } from "@/components/active-theme"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/preskok-ui/select"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
 
 const DEFAULT_THEMES = [
   {
@@ -58,45 +49,50 @@ export function ThemeSelector() {
       <Label htmlFor="theme-selector" className="sr-only">
         Theme
       </Label>
-      <Select value={activeTheme} onValueChange={setActiveTheme}>
-        <SelectTrigger
+      <Select
+        selectedKey={activeTheme}
+        onSelectionChange={(key) => {
+          if (key && typeof key === "string") {
+            setActiveTheme(key)
+          }
+        }}
+      >
+        <Select.Trigger
           id="theme-selector"
-          size="sm"
           className="justify-start *:data-[slot=select-value]:w-12"
         >
           <span className="text-muted-foreground hidden sm:block">
             Select a theme:
           </span>
           <span className="text-muted-foreground block sm:hidden">Theme</span>
-          <SelectValue placeholder="Select a theme" />
-        </SelectTrigger>
-        <SelectContent align="end">
-          <SelectGroup>
-            <SelectLabel>Default</SelectLabel>
+        </Select.Trigger>
+        <Select.List>
+          <Select.Section>
+            <Select.Label>Default</Select.Label>
             {DEFAULT_THEMES.map((theme) => (
-              <SelectItem key={theme.name} value={theme.value}>
+              <Select.Option key={theme.name} id={theme.value}>
                 {theme.name}
-              </SelectItem>
+              </Select.Option>
             ))}
-          </SelectGroup>
-          <SelectSeparator />
-          <SelectGroup>
-            <SelectLabel>Scaled</SelectLabel>
+          </Select.Section>
+          <Select.Separator />
+          <Select.Section>
+            <Select.Label>Scaled</Select.Label>
             {SCALED_THEMES.map((theme) => (
-              <SelectItem key={theme.name} value={theme.value}>
+              <Select.Option key={theme.name} id={theme.value}>
                 {theme.name}
-              </SelectItem>
+              </Select.Option>
             ))}
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel>Monospaced</SelectLabel>
+          </Select.Section>
+          <Select.Section>
+            <Select.Label>Monospaced</Select.Label>
             {MONO_THEMES.map((theme) => (
-              <SelectItem key={theme.name} value={theme.value}>
+              <Select.Option key={theme.name} id={theme.value}>
                 {theme.name}
-              </SelectItem>
+              </Select.Option>
             ))}
-          </SelectGroup>
-        </SelectContent>
+          </Select.Section>
+        </Select.List>
       </Select>
     </div>
   )

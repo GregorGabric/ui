@@ -3,12 +3,13 @@
   "name": "progress-demo",
   "type": "registry:example",
   "registryDependencies": [
-    "progress"
+    "meter",
+    "progress-bar"
   ],
   "files": [
     {
       "path": "registry/preskok/examples/progress-demo.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { Progress } from \"@/registry/preskok/ui/progress\"\n\nexport default function ProgressDemo() {\n  const [progress, setProgress] = React.useState(13)\n\n  React.useEffect(() => {\n    const timer = setTimeout(() => setProgress(66), 500)\n    return () => clearTimeout(timer)\n  }, [])\n\n  return <Progress value={progress} className=\"w-[60%]\" />\n}\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { Meter } from \"@/registry/preskok/ui/preskok-ui/meter\"\nimport { ProgressBar } from \"@/registry/preskok/ui/preskok-ui/progress-bar\"\n\nexport default function ProgressDemo() {\n  const [progress, setProgress] = React.useState(13)\n  const [mounted, setMounted] = React.useState(false)\n\n  React.useEffect(() => {\n    setMounted(true)\n    const timer = setTimeout(() => setProgress(66), 500)\n    return () => clearTimeout(timer)\n  }, [])\n\n  if (!mounted) {\n    return (\n      <div className=\"w-full max-w-sm space-y-4\">\n        <div className=\"bg-muted h-16 w-full animate-pulse rounded\" />\n        <div className=\"bg-muted h-8 w-full animate-pulse rounded\" />\n      </div>\n    )\n  }\n\n  return (\n    <div className=\"w-full max-w-sm space-y-4\">\n      <Meter label=\"Storage\" value={66} minValue={0} maxValue={100} />\n      <ProgressBar label=\"Uploading\" value={66} />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

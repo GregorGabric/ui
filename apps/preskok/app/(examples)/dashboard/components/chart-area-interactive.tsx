@@ -18,13 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/preskok-ui/select"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -176,35 +170,43 @@ export function ChartAreaInteractive() {
         </CardDescription>
         <CardAction>
           <ToggleGroup
-            type="single"
-            value={timeRange}
-            onValueChange={setTimeRange}
-            variant="outline"
+            selectionMode="single"
+            selectedKeys={new Set([timeRange])}
+            onSelectionChange={(keys) => {
+              const selectedKey = Array.from(keys)[0]
+              if (selectedKey && typeof selectedKey === "string") {
+                setTimeRange(selectedKey)
+              }
+            }}
             className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
           >
-            <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
-            <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
-            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
+            <ToggleGroupItem id="90d">Last 3 months</ToggleGroupItem>
+            <ToggleGroupItem id="30d">Last 30 days</ToggleGroupItem>
+            <ToggleGroupItem id="7d">Last 7 days</ToggleGroupItem>
           </ToggleGroup>
-          <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger
+          <Select
+            selectedKey={timeRange}
+            onSelectionChange={(key) => {
+              if (key && typeof key === "string") {
+                setTimeRange(key)
+              }
+            }}
+          >
+            <Select.Trigger
               className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
-              size="sm"
               aria-label="Select a value"
-            >
-              <SelectValue placeholder="Last 3 months" />
-            </SelectTrigger>
-            <SelectContent className="rounded-xl">
-              <SelectItem value="90d" className="rounded-lg">
+            />
+            <Select.List className="rounded-xl">
+              <Select.Option id="90d" className="rounded-lg">
                 Last 3 months
-              </SelectItem>
-              <SelectItem value="30d" className="rounded-lg">
+              </Select.Option>
+              <Select.Option id="30d" className="rounded-lg">
                 Last 30 days
-              </SelectItem>
-              <SelectItem value="7d" className="rounded-lg">
+              </Select.Option>
+              <Select.Option id="7d" className="rounded-lg">
                 Last 7 days
-              </SelectItem>
-            </SelectContent>
+              </Select.Option>
+            </Select.List>
           </Select>
         </CardAction>
       </CardHeader>

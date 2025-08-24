@@ -19,13 +19,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/preskok-ui/select"
+import { Select } from "@/registry/preskok/ui/preskok-ui/select"
 
 const desktopData = [
   { month: "january", desktop: 186, fill: "var(--color-january)" },
@@ -84,14 +78,19 @@ export function ChartVisitors() {
         <CardDescription>January - June 2024</CardDescription>
         <CardTitle className="text-2xl font-bold">1,234 visitors</CardTitle>
         <CardAction>
-          <Select value={activeMonth} onValueChange={setActiveMonth}>
-            <SelectTrigger
+          <Select
+            selectedKey={activeMonth}
+            onSelectionChange={(key) => {
+              if (key && typeof key === "string") {
+                setActiveMonth(key)
+              }
+            }}
+          >
+            <Select.Trigger
               className="ml-auto h-8 w-[120px]"
               aria-label="Select a value"
-            >
-              <SelectValue placeholder="Select month" />
-            </SelectTrigger>
-            <SelectContent align="end">
+            />
+            <Select.List>
               {months.map((key) => {
                 const config = chartConfig[key as keyof typeof chartConfig]
 
@@ -102,7 +101,7 @@ export function ChartVisitors() {
                 const color = "color" in config ? config.color : undefined
 
                 return (
-                  <SelectItem key={key} value={key}>
+                  <Select.Option key={key} id={key}>
                     <div className="flex items-center gap-2 text-xs">
                       <span
                         className="flex h-3 w-3 shrink-0 rounded-sm"
@@ -112,10 +111,10 @@ export function ChartVisitors() {
                       />
                       {config?.label}
                     </div>
-                  </SelectItem>
+                  </Select.Option>
                 )
               })}
-            </SelectContent>
+            </Select.List>
           </Select>
         </CardAction>
       </CardHeader>
@@ -136,7 +135,6 @@ export function ChartVisitors() {
               nameKey="month"
               innerRadius={60}
               strokeWidth={5}
-              activeIndex={activeIndex}
               activeShape={({
                 outerRadius = 0,
                 ...props
