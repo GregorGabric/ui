@@ -5,7 +5,7 @@ import { useMemo } from "react"
 import { Card } from "@/registry/preskok/ui/preskok-ui/card"
 import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
 
-export function Component() {
+export default function PieChartPreskokDemo() {
   const data = useMemo(
     () => [
       { name: "Sedan", amount: 420 },
