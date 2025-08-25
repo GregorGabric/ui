@@ -1,8 +1,7 @@
 "use client"
 
-import { LucideIcon, MailIcon, PlusIcon } from "lucide-react"
+import { LucideIcon, PlusIcon } from "lucide-react"
 
-import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   SidebarItem,
   SidebarLabel,
@@ -23,13 +22,9 @@ export function NavMain({
   return (
     <SidebarSectionGroup>
       <SidebarSection className="flex flex-col gap-2">
-        <SidebarItem className={"grid grid-cols-[auto_1fr_auto] gap-3 p-2"}>
-          <PlusIcon />
+        <SidebarItem>
+          <PlusIcon className="size-4" />
           <SidebarLabel>Quick Create</SidebarLabel>
-          <Button size="sq-sm" intent="plain">
-            <MailIcon />
-            <span className="sr-only">Inbox</span>
-          </Button>
         </SidebarItem>
         {items.map((item) => (
           <SidebarItem key={item.title}>

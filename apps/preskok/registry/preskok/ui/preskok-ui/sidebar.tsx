@@ -420,6 +420,7 @@ const SidebarItem = ({
       ref={ref}
       data-sidebar-item="true"
       aria-current={isCurrent ? "page" : undefined}
+      data-sidebar-item-collapsed={isCollapsed}
       className={composeRenderProps(
         className,
         (className, { isPressed, isFocusVisible, isHovered, isDisabled }) =>
@@ -509,7 +510,7 @@ const SidebarLink = ({ className, ref, ...props }: SidebarLinkProps) => {
           "col-span-full items-center focus:outline-hidden",
           collapsed
             ? "absolute inset-0 flex size-full justify-center"
-            : "grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] supports-[grid-template-columns:subgrid]:grid-cols-subgrid"
+            : "grid grid-cols-subgrid"
         )
       )}
       {...props}

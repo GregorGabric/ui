@@ -161,10 +161,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <SidebarItem>
-          <SidebarLink href="#">
-            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+          <SidebarLink href="#" className="grid grid-cols-[auto_1fr] gap-4">
               <GalleryVerticalEnd className="size-4" />
-            </div>
             <div className="flex flex-col gap-0.5 leading-none">
               <span className="font-medium">Documentation</span>
               <span>v1.0.0</span>

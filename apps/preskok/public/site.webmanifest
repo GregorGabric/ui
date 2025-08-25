@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "Preskok UI",
+  "short_name": "Preskok",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,5 +13,7 @@
       "type": "image/png"
     }
   ],
+  "theme_color": "#DF3B3B",
+  "background_color": "#ffffff",
   "display": "standalone"
 }
