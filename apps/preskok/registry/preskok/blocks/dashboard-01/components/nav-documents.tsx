@@ -1,12 +1,12 @@
 "use client"
 
 import {
-  IconDots,
-  IconFolder,
-  IconShare3,
-  IconTrash,
-  type Icon,
-} from "@tabler/icons-react"
+  FolderIcon,
+  MoreHorizontalIcon,
+  Share2Icon,
+  TrashIcon,
+  type LucideIcon,
+} from "lucide-react"
 
 import {
   DropdownMenu,
@@ -30,7 +30,7 @@ export function NavDocuments({
   items: {
     name: string
     url: string
-    icon: Icon
+    icon: LucideIcon
   }[]
 }) {
   const { isMobile } = useSidebar()
@@ -41,12 +41,12 @@ export function NavDocuments({
         {items.map((item) => (
           <SidebarItem key={item.name}>
             <SidebarLink href={item.url}>
-              <item.icon />
+              <item.icon className="size-4" />
               <SidebarLabel>{item.name}</SidebarLabel>
             </SidebarLink>
             <DropdownMenu>
               <DropdownMenuTrigger data-slot="menu-trigger">
-                <IconDots />
+                <MoreHorizontalIcon className="size-4" />
                 <span className="sr-only">More</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -55,16 +55,16 @@ export function NavDocuments({
                 align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem>
-                  <IconFolder />
+                  <FolderIcon className="size-4" />
                   <span>Open</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <IconShare3 />
+                  <Share2Icon className="size-4" />
                   <span>Share</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive">
-                  <IconTrash />
+                  <TrashIcon className="size-4" />
                   <span>Delete</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -73,7 +73,7 @@ export function NavDocuments({
         ))}
         <SidebarItem>
           <SidebarLink className="text-sidebar-foreground/70">
-            <IconDots className="text-sidebar-foreground/70" />
+            <MoreHorizontalIcon className="text-sidebar-foreground/70 size-4" />
             <SidebarLabel>More</SidebarLabel>
           </SidebarLink>
         </SidebarItem>

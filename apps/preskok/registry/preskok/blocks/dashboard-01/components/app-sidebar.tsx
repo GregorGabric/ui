@@ -2,22 +2,21 @@
 
 import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+  BarChart3Icon,
+  CameraIcon,
+  CircleIcon,
+  DatabaseIcon,
+  FileTextIcon,
+  FolderIcon,
+  HelpCircleIcon,
+  LayoutDashboardIcon,
+  ListIcon,
+  SearchIcon,
+  SettingsIcon,
+  SparklesIcon,
+  TrendingUpIcon,
+  UsersIcon,
+} from "lucide-react"
 
 import { NavDocuments } from "@/registry/preskok/blocks/dashboard-01/components/nav-documents"
 import { NavMain } from "@/registry/preskok/blocks/dashboard-01/components/nav-main"
@@ -43,33 +42,33 @@ const data = {
     {
       title: "Dashboard",
       url: "#",
-      icon: IconDashboard,
+      icon: LayoutDashboardIcon,
     },
     {
       title: "Lifecycle",
       url: "#",
-      icon: IconListDetails,
+      icon: ListIcon,
     },
     {
       title: "Analytics",
       url: "#",
-      icon: IconChartBar,
+      icon: BarChart3Icon,
     },
     {
       title: "Projects",
       url: "#",
-      icon: IconFolder,
+      icon: FolderIcon,
     },
     {
       title: "Team",
       url: "#",
-      icon: IconUsers,
+      icon: UsersIcon,
     },
   ],
   navClouds: [
     {
       title: "Capture",
-      icon: IconCamera,
+      icon: CameraIcon,
       isActive: true,
       url: "#",
       items: [
@@ -85,7 +84,7 @@ const data = {
     },
     {
       title: "Proposal",
-      icon: IconFileDescription,
+      icon: FileTextIcon,
       url: "#",
       items: [
         {
@@ -100,7 +99,7 @@ const data = {
     },
     {
       title: "Prompts",
-      icon: IconFileAi,
+      icon: SparklesIcon,
       url: "#",
       items: [
         {
@@ -118,47 +117,47 @@ const data = {
     {
       title: "Settings",
       url: "#",
-      icon: IconSettings,
+      icon: SettingsIcon,
     },
     {
       title: "Get Help",
       url: "#",
-      icon: IconHelp,
+      icon: HelpCircleIcon,
     },
     {
       title: "Search",
       url: "#",
-      icon: IconSearch,
+      icon: SearchIcon,
     },
   ],
   documents: [
     {
       name: "Data Library",
       url: "#",
-      icon: IconDatabase,
+      icon: DatabaseIcon,
     },
     {
       name: "Reports",
       url: "#",
-      icon: IconReport,
+      icon: TrendingUpIcon,
     },
     {
       name: "Word Assistant",
       url: "#",
-      icon: IconFileWord,
+      icon: FileTextIcon,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="dock" {...props}>
       <SidebarHeader>
-        <SidebarItem>
-          <SidebarLink className="!p-1.5">
-            <IconInnerShadowTop className="!size-5" />
+        <SidebarItem className="flex items-center gap-2 p-1.5">
+          <SidebarLink className="flex items-center gap-2 p-1.5">
+            <CircleIcon className="size-5" />
             <SidebarLabel className="text-base font-semibold">
-              Acme Inc.
+              Preskok d.o.o.
             </SidebarLabel>
           </SidebarLink>
         </SidebarItem>

@@ -1,8 +1,8 @@
 "use client"
 
-import { IconCirclePlusFilled, IconMail, type Icon } from "@tabler/icons-react"
+import { LucideIcon, MailIcon, PlusIcon } from "lucide-react"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   SidebarItem,
   SidebarLabel,
@@ -17,30 +17,24 @@ export function NavMain({
   items: {
     title: string
     url: string
-    icon?: Icon
+    icon?: LucideIcon
   }[]
 }) {
   return (
     <SidebarSectionGroup>
       <SidebarSection className="flex flex-col gap-2">
-        <SidebarItem>
-          <SidebarLink className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear">
-            <IconCirclePlusFilled />
-            <SidebarLabel>Quick Create</SidebarLabel>
-          </SidebarLink>
-          <Button
-            size="icon"
-            className="size-8 group-data-[collapsible=icon]:opacity-0"
-            variant="outline"
-          >
-            <IconMail />
+        <SidebarItem className={"grid grid-cols-[auto_1fr_auto] gap-3 p-2"}>
+          <PlusIcon />
+          <SidebarLabel>Quick Create</SidebarLabel>
+          <Button size="sq-sm" intent="plain">
+            <MailIcon />
             <span className="sr-only">Inbox</span>
           </Button>
         </SidebarItem>
         {items.map((item) => (
           <SidebarItem key={item.title}>
             <SidebarLink>
-              {item.icon && <item.icon />}
+              {item.icon && <item.icon className="size-4" />}
               <SidebarLabel>{item.title}</SidebarLabel>
             </SidebarLink>
           </SidebarItem>

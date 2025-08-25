@@ -438,7 +438,7 @@ const SidebarItem = ({
             // not-has-data-[slot=icon]:hidden - add back if needed
             isCollapsed
               ? "flex size-9 justify-center not-has-[svg.lucide]:hidden **:data-[slot=icon]:size-4 **:data-[slot=menu-trigger]:hidden **:[svg.lucide]:size-4"
-              : "grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] gap-3 p-2 **:last:data-[slot=icon]:ml-auto supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:gap-2.5 sm:py-2 sm:text-sm/5 **:last:[svg.lucide]:ml-auto",
+              : "grid grid-cols-subgrid gap-3 p-2 **:last:data-[slot=icon]:ml-auto sm:gap-2.5 sm:py-2 sm:text-sm/5 **:last:[svg.lucide]:ml-auto",
             isCurrent &&
               "bg-secondary text-foreground hover:bg-secondary/90 hover:text-foreground **:data-[slot=menu-trigger]:from-secondary **:data-[slot=icon]:text-foreground **:[svg.lucide]:text-foreground [&_.text-muted-foreground]:text-foreground/80",
             isFocusVisible &&

@@ -357,7 +357,7 @@ export function BlockViewerFileTree() {
   }
 
   return (
-    <SidebarProvider className="flex !min-h-full flex-col border-r">
+    <SidebarProvider className="flex flex-col border-r">
       <Sidebar collapsible="none" className="w-full flex-1">
         <SidebarContent>
           <div className="flex h-12 items-center rounded-none border-b px-4 text-sm font-medium">
