@@ -12,12 +12,7 @@ export default function Calendar01() {
 
   return (
     <div className="inline-block rounded-lg border shadow-sm">
-      <Calendar
-        value={date}
-        onChange={setDate}
-        defaultValue={date}
-        className="rounded-lg border shadow-sm"
-      />
+      <Calendar value={date} onChange={setDate} defaultValue={date} />
     </div>
   )
 }
