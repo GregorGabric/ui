@@ -7,7 +7,6 @@ import { z } from "zod"
 import { siteConfig } from "@/lib/config"
 import { getRegistryComponent, getRegistryItem } from "@/lib/registry"
 import { absoluteUrl, cn } from "@/lib/utils"
-import { SidebarProvider } from "@/registry/preskok/ui/preskok-ui/sidebar"
 
 export const revalidate = false
 export const dynamic = "force-static"
@@ -98,9 +97,9 @@ export default async function BlockPage({
 
   return (
     <div className={cn("bg-background", containerClassName)}>
-      <SidebarProvider>
-        <Component />
-      </SidebarProvider>
+      {/* <SidebarProvider> */}
+      <Component />
+      {/* </SidebarProvider> */}
     </div>
   )
 }
