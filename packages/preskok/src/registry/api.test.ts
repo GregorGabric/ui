@@ -7,28 +7,28 @@ import { clearRegistryCache, fetchRegistry } from "./api"
 const REGISTRY_URL = "https://ui-three-mu.vercel.app/r"
 
 const server = setupServer(
-  http.get(`${REGISTRY_URL}/styles/new-york/button.json`, () => {
+  http.get(`${REGISTRY_URL}/styles/preskok/button.json`, () => {
     return HttpResponse.json({
       name: "button",
       type: "registry:ui",
       dependencies: ["@radix-ui/react-slot"],
       files: [
         {
-          path: "registry/new-york/ui/button.tsx",
+          path: "registry/preskok/ui/button.tsx",
           content: "// button component content",
           type: "registry:ui",
         },
       ],
     })
   }),
-  http.get(`${REGISTRY_URL}/styles/new-york/card.json`, () => {
+  http.get(`${REGISTRY_URL}/styles/preskok/card.json`, () => {
     return HttpResponse.json({
       name: "card",
       type: "registry:ui",
       dependencies: ["@radix-ui/react-slot"],
       files: [
         {
-          path: "registry/new-york/ui/card.tsx",
+          path: "registry/preskok/ui/card.tsx",
           content: "// card component content",
           type: "registry:ui",
         },
@@ -45,7 +45,7 @@ afterAll(() => server.close())
 
 describe("fetchRegistry", () => {
   it("should fetch registry data", async () => {
-    const paths = ["styles/new-york/button.json"]
+    const paths = ["styles/preskok/button.json"]
     const result = await fetchRegistry(paths)
 
     expect(result).toHaveLength(1)
@@ -57,7 +57,7 @@ describe("fetchRegistry", () => {
   })
 
   it("should use cache for subsequent requests", async () => {
-    const paths = ["styles/new-york/button.json"]
+    const paths = ["styles/preskok/button.json"]
     let fetchCount = 0
 
     // Clear any existing cache before test
@@ -65,7 +65,7 @@ describe("fetchRegistry", () => {
 
     // Define the handler with counter before making requests
     server.use(
-      http.get(`${REGISTRY_URL}/styles/new-york/button.json`, async () => {
+      http.get(`${REGISTRY_URL}/styles/preskok/button.json`, async () => {
         // Add a small delay to simulate network latency
         await new Promise((resolve) => setTimeout(resolve, 10))
         fetchCount++
@@ -75,7 +75,7 @@ describe("fetchRegistry", () => {
           dependencies: ["@radix-ui/react-slot"],
           files: [
             {
-              path: "registry/new-york/ui/button.tsx",
+              path: "registry/preskok/ui/button.tsx",
               content: "// button component content",
               type: "registry:ui",
             },
@@ -104,7 +104,7 @@ describe("fetchRegistry", () => {
   })
 
   it("should handle multiple paths", async () => {
-    const paths = ["styles/new-york/button.json", "styles/new-york/card.json"]
+    const paths = ["styles/preskok/button.json", "styles/preskok/card.json"]
     const result = await fetchRegistry(paths)
 
     expect(result).toHaveLength(2)

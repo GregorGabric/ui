@@ -72,8 +72,12 @@ const ListBoxItem = <T extends object>({
                 )}
               />
             )}
+
             {isSelected && (
-              <CheckIcon className="-mx-0.5 mr-2" data-slot="checked-icon" />
+              <CheckIcon
+                className="-mx-0.5 mr-2 size-4"
+                data-slot="indicator"
+              />
             )}
             {typeof children === "function" ? (
               children(renderProps)

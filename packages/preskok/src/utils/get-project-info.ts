@@ -317,7 +317,7 @@ export async function getProjectConfig(
     $schema: "https://ui-three-mu.vercel.app/schema.json",
     rsc: projectInfo.isRSC,
     tsx: projectInfo.isTsx,
-    style: "new-york",
+    style: "preskok",
     tailwind: {
       config: projectInfo.tailwindConfigFile ?? "",
       baseColor: "zinc",

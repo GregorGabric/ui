@@ -374,8 +374,7 @@ async function promptForMinimalConfig(
         name: "style",
         message: `Which ${highlighter.info("style")} would you like to use?`,
         choices: styles.map((style) => ({
-          title:
-            style.name === "new-york" ? "New York (Recommended)" : style.label,
+          title: style.label,
           value: style.name,
         })),
         initial: 0,
@@ -393,7 +392,7 @@ async function promptForMinimalConfig(
       },
     ])
 
-    style = options.style ?? "new-york"
+    style = options.style ?? "preskok"
     baseColor = options.tailwindBaseColor ?? baseColor
     cssVariables = opts.cssVariables
   }

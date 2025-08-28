@@ -53,7 +53,7 @@ function updateImportAliases(
 
   // This treats the remote as coming from a faux registry.
   if (isRemote && moduleSpecifier.startsWith("@/")) {
-    moduleSpecifier = moduleSpecifier.replace(/^@\//, `@/registry/new-york/`)
+    moduleSpecifier = moduleSpecifier.replace(/^@\//, `@/registry/preskok/`)
   }
 
   // Not a registry import.
