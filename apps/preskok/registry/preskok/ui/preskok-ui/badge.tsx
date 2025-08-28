@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
 
 const badgeIntents = {
