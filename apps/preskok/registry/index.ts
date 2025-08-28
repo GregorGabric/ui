@@ -10,7 +10,6 @@ import { lib } from "@/registry/registry-lib"
 import { libPreskok } from "@/registry/registry-lib-preskok"
 import { preskokUi } from "@/registry/registry-preskok"
 import { themes } from "@/registry/registry-themes"
-import { ui } from "@/registry/registry-ui"
 
 export const registry = {
   name: "preskok/ui",
@@ -27,7 +26,7 @@ export const registry = {
         cssVars: {},
         files: [],
       },
-      ...ui,
+      // ...ui,
       ...preskokUi,
       ...blocks,
       ...charts,
