@@ -529,6 +529,19 @@ function updateThemePlugin(cssVars: z.infer<typeof registryItemCssVarsSchema>) {
         }
 
         if (variable === "radius") {
+          // Skip old radius system if new radius-lg system is detected
+          const hasNewRadiusSystem = variables.some(
+            (v) =>
+              v.startsWith("radius-lg") ||
+              v.startsWith("radius-xs") ||
+              v.startsWith("radius-sm") ||
+              v.startsWith("radius-md") ||
+              v.startsWith("radius-xl")
+          )
+          if (hasNewRadiusSystem) {
+            continue
+          }
+
           const radiusVariables = {
             sm: "calc(var(--radius) - 4px)",
             md: "calc(var(--radius) - 2px)",
