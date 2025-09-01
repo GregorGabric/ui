@@ -1,5 +1,6 @@
 "use client"
 
+import type { ComponentProps } from "react"
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
 
@@ -39,7 +40,7 @@ const badgeStyles = tv({
 })
 
 interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends ComponentProps<"span">,
     VariantProps<typeof badgeStyles> {
   className?: string
   children: React.ReactNode
@@ -58,6 +59,5 @@ const Badge = ({
     </span>
   )
 }
-
 export { Badge, badgeIntents, badgeStyles }
 export type { BadgeProps }
