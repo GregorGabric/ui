@@ -1,14 +1,12 @@
 "use client"
 
+import React from "react"
 import { Toaster as ToasterPrimitive, type ToasterProps } from "sonner"
 
-import { useTheme } from "@/components/theme-provider"
-
 const Toast = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
   return (
     <ToasterPrimitive
-      theme={theme as ToasterProps["theme"]}
+      theme={"system"}
       className="toaster group"
       richColors
       toastOptions={{
