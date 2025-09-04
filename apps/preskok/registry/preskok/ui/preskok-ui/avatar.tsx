@@ -1,7 +1,7 @@
 import React from "react"
 import { twMerge } from "tailwind-merge"
 
-interface AvatarProps {
+interface AvatarProps extends React.ComponentProps<"span"> {
   src?: string | null
   initials?: string
   alt?: string
@@ -18,7 +18,7 @@ const Avatar = ({
   alt = "",
   className,
   ...props
-}: AvatarProps & React.ComponentPropsWithoutRef<"span">) => {
+}: AvatarProps) => {
   return (
     <span
       data-slot="avatar"
