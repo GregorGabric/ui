@@ -7,7 +7,8 @@
       "type": "registry:style",
       "dependencies": [
         "class-variance-authority",
-        "lucide-react"
+        "lucide-react",
+        "tailwindcss-react-aria-components"
       ],
       "devDependencies": [
         "tw-animate-css"
@@ -18,6 +19,13 @@
         "primitive"
       ],
       "files": [],
+      "tailwind": {
+        "config": {
+          "plugins": [
+            "require(\"tailwindcss-react-aria-components\")"
+          ]
+        }
+      },
       "cssVars": {}
     },
     {

@@ -20,9 +20,18 @@ export const registry = {
       {
         name: "index",
         type: "registry:style",
-        dependencies: ["class-variance-authority", "lucide-react"],
+        dependencies: [
+          "class-variance-authority",
+          "lucide-react",
+          "tailwindcss-react-aria-components",
+        ],
         devDependencies: ["tw-animate-css"],
         registryDependencies: ["utils", "create-ctx", "primitive"],
+        tailwind: {
+          config: {
+            plugins: ['require("tailwindcss-react-aria-components")'],
+          },
+        },
         cssVars: {},
         files: [],
       },

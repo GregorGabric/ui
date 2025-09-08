@@ -49,7 +49,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-react-aria-components")],
 }`
 
 export const TAILWIND_CONFIG_WITH_VARIABLES = `/** @type {import('tailwindcss').Config} */
@@ -127,7 +127,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-react-aria-components")],
 }`
 
 export const TAILWIND_CONFIG_TS = `import type { Config } from "tailwindcss"
@@ -166,7 +166,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-react-aria-components")],
 } satisfies Config
 
 export default config`
@@ -247,7 +247,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-react-aria-components")],
 } satisfies Config
 
 export default config`
