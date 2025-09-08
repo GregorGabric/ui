@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { LoaderIcon } from "lucide-react"
 import { ProgressBar } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
@@ -32,7 +33,7 @@ const loaderStyles = tv({
 
 type LoaderVariantProps = VariantProps<typeof loaderStyles>
 
-const Bars = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+const Bars = ({ className, ...props }: React.ComponentProps<"svg">) => (
   <svg
     className={twMerge("size-4", className)}
     data-slot="icon"
@@ -133,8 +134,8 @@ const Bars = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </rect>
   </svg>
 )
-const Ring = (props: React.SVGProps<SVGSVGElement>) => <LoaderIcon {...props} />
-const Spin = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+const Ring = (props: React.ComponentProps<"svg">) => <LoaderIcon {...props} />
+const Spin = ({ className, ...props }: React.ComponentProps<"svg">) => (
   <svg
     className={twMerge("size-4", className)}
     data-slot="icon"
@@ -178,16 +179,12 @@ const LOADERS = {
 const DEFAULT_SPINNER = "spin"
 
 interface LoaderProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<"svg">,
-      "display" | "opacity" | "intent"
-    >,
+  extends Omit<React.ComponentProps<"svg">, "display" | "opacity" | "intent">,
     LoaderVariantProps {
   variant?: keyof typeof LOADERS
   percentage?: number
   isIndeterminate?: boolean
   formatOptions?: Intl.NumberFormatOptions
-  ref?: React.RefObject<SVGSVGElement>
 }
 
 const Loader = ({ isIndeterminate = true, ref, ...props }: LoaderProps) => {
