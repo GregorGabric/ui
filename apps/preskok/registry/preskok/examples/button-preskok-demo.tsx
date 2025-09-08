@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react"
+
 import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 
 function toTitleCase(str: string) {
@@ -11,8 +13,13 @@ export default function ButtonPreskokDemo() {
     keyof typeof buttonStyles.variants.intent
   >
 
+  const [isLoading, _setIsLoading] = useState(true)
+
   return (
     <div className="flex flex-wrap items-center gap-2">
+      <Button isPending={isLoading}>
+        {isLoading ? "Creating..." : "Create"}
+      </Button>
       {allIntents.map((intent) => (
         <Button key={intent} intent={intent}>
           {toTitleCase(intent)}

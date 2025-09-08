@@ -56,7 +56,7 @@ export const Index: Record<string, any> = {
     name: "button",
     description: "A comprehensive button component with multiple variants and sizes",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["loader"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/button.tsx",
       type: "registry:ui",

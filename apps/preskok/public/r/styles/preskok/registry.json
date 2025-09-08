@@ -56,6 +56,9 @@
         "react-aria-components",
         "tailwind-variants"
       ],
+      "registryDependencies": [
+        "loader"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/button.tsx",

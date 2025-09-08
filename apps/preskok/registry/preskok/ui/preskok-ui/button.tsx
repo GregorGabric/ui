@@ -8,6 +8,8 @@ import {
 } from "react-aria-components"
 import { tv, type VariantProps } from "tailwind-variants"
 
+import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
+
 const buttonStyles = tv({
   base: [
     "[--btn-icon-active:var(--btn-foreground)] [--btn-outline:var(--btn-background)] [--btn-ring:var(--btn-background)]/20",
@@ -125,6 +127,9 @@ const Button = ({
     >
       {(values) => (
         <>
+          {values.isPending && typeof props.children !== "function" && (
+            <Loader variant="spin" />
+          )}
           {typeof props.children === "function"
             ? props.children(values)
             : props.children}

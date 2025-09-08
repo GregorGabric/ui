@@ -32,6 +32,7 @@ export const preskokUi: Registry["items"] = [
     description:
       "A comprehensive button component with multiple variants and sizes",
     dependencies: ["react-aria-components", "tailwind-variants"],
+    registryDependencies: ["loader"],
     files: [
       {
         path: "ui/preskok-ui/button.tsx",

@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/button-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Button, buttonStyles } from \"@/registry/preskok/ui/preskok-ui/button\"\n\nfunction toTitleCase(str: string) {\n  return str.charAt(0).toUpperCase() + str.slice(1)\n}\n\nexport default function ButtonPreskokDemo() {\n  const allIntents = Object.keys(buttonStyles.variants.intent) as Array<\n    keyof typeof buttonStyles.variants.intent\n  >\n\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      {allIntents.map((intent) => (\n        <Button key={intent} intent={intent}>\n          {toTitleCase(intent)}\n        </Button>\n      ))}\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Button, buttonStyles } from \"@/registry/preskok/ui/preskok-ui/button\"\n\nfunction toTitleCase(str: string) {\n  return str.charAt(0).toUpperCase() + str.slice(1)\n}\n\nexport default function ButtonPreskokDemo() {\n  const allIntents = Object.keys(buttonStyles.variants.intent) as Array<\n    keyof typeof buttonStyles.variants.intent\n  >\n\n  const [isLoading, _setIsLoading] = useState(true)\n\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      <Button isPending={isLoading}>\n        {isLoading ? \"Creating...\" : \"Create\"}\n      </Button>\n      {allIntents.map((intent) => (\n        <Button key={intent} intent={intent}>\n          {toTitleCase(intent)}\n        </Button>\n      ))}\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]
