@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { ProgressBar, type ProgressBarProps } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
@@ -62,5 +63,5 @@ const ProgressCircle = ({ className, ref, ...props }: ProgressCircleProps) => {
   )
 }
 
-export type { ProgressCircleProps }
 export { ProgressCircle }
+export type { ProgressCircleProps }

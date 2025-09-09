@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import type { ColorFieldProps as ColorFieldPrimitiveProps } from "react-aria-components"
 import { ColorField as ColorFieldPrimitive } from "react-aria-components"
 import { twJoin } from "tailwind-merge"

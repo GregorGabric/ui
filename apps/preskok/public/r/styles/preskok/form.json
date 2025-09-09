@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/form.tsx",
-      "content": "\"use client\"\n\nimport type { FormProps as FormPrimitiveProps } from \"react-aria-components\"\nimport { Form as FormPrimitive } from \"react-aria-components\"\n\ninterface FormProps extends FormPrimitiveProps {\n  ref?: React.RefObject<HTMLFormElement>\n}\n\nconst Form = ({ ref, ...props }: FormProps) => {\n  return <FormPrimitive ref={ref} {...props} />\n}\n\nexport type { FormProps }\nexport { Form }\n",
+      "content": "\"use client\"\n\nimport React from \"react\"\nimport type { FormProps as FormPrimitiveProps } from \"react-aria-components\"\nimport { Form as FormPrimitive } from \"react-aria-components\"\n\ninterface FormProps extends FormPrimitiveProps {\n  ref?: React.RefObject<HTMLFormElement>\n}\n\nconst Form = ({ ref, ...props }: FormProps) => {\n  return <FormPrimitive ref={ref} {...props} />\n}\n\nexport { Form }\nexport type { FormProps }\n",
       "type": "registry:ui"
     }
   ]

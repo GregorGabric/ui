@@ -1,6 +1,6 @@
 "use client"
 
-import { use } from "react"
+import React, { use } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import type {
   DialogProps,

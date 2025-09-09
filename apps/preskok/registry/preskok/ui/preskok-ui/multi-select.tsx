@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { ChevronsUpDownIcon } from "lucide-react"
 import type {
   ComboBoxProps as AriaComboBoxProps,

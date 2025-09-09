@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { composeRenderProps, Text, ToggleButton } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
@@ -64,5 +65,5 @@ const ShowMore = ({
   )
 }
 
-export type { ShowMoreProps }
 export { ShowMore }
+export type { ShowMoreProps }

@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { CameraIcon, FolderIcon, PaperclipIcon } from "lucide-react"
 import {
   FileTrigger as FileTriggerPrimitive,

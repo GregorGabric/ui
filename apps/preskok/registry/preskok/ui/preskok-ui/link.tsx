@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import {
   Link as LinkPrimitive,
   type LinkProps as LinkPrimitiveProps,

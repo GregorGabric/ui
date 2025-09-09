@@ -1,3 +1,4 @@
+import React from "react"
 import { twMerge } from "tailwind-merge"
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -22,5 +23,5 @@ const Container = ({
   />
 )
 
-export type { ContainerProps }
 export { Container }
+export type { ContainerProps }

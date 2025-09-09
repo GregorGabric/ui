@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react"
+import React, { type PropsWithChildren } from "react"
 
 import type { ButtonProps } from "@/registry/preskok/ui/preskok-ui/button"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"

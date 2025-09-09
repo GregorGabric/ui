@@ -30,5 +30,5 @@ const ColorWheel = (props: ColorWheelProps) => {
   )
 }
 
-export type { ColorWheelProps }
 export { ColorWheel }
+export type { ColorWheelProps }

@@ -1,6 +1,6 @@
 "use client"
 
-import { use } from "react"
+import React, { use } from "react"
 import { parseColor } from "@react-stately/color"
 import { PipetteIcon } from "lucide-react"
 import {

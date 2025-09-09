@@ -23,5 +23,5 @@ const Separator = ({
   )
 }
 
-export type { SeparatorProps }
 export { Separator }
+export type { SeparatorProps }

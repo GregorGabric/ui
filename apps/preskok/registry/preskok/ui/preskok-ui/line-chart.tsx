@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { Line, LineChart as LineChartPrimitive, type LineProps } from "recharts"
 import type {
   NameType,

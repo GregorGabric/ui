@@ -67,5 +67,5 @@ const ColorSlider = ({
   )
 }
 
-export type { ColorSliderProps }
 export { ColorSlider }
+export type { ColorSliderProps }

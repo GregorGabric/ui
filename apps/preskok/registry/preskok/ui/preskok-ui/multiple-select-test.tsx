@@ -1,6 +1,12 @@
 "use client"
 
-import { ComponentProps, RefObject, useMemo, useRef, useState } from "react"
+import React, {
+  ComponentProps,
+  RefObject,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { ChevronsUpDownIcon, XIcon } from "lucide-react"
 import type {
   ComboBoxProps,

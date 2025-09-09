@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, use } from "react"
+import React, { createContext, use } from "react"
 import { ChevronDownIcon, GridIcon } from "lucide-react"
 import type {
   CellProps,

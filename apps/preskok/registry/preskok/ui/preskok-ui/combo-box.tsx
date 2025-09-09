@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 import { ChevronsUpDownIcon } from "lucide-react"
 import type {
   ComboBoxProps as ComboboxPrimitiveProps,

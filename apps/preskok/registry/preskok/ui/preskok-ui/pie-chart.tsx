@@ -1,6 +1,6 @@
 "use client"
 
-import type { ComponentProps } from "react"
+import { type ComponentProps } from "react"
 import { Cell, Pie, PieChart as PieChartPrimitive } from "recharts"
 import type {
   NameType,

@@ -1,6 +1,6 @@
 "use client"
 
-import {
+import React, {
   createContext,
   use,
   useCallback,
@@ -63,15 +63,16 @@ type ChartType = "default" | "stacked" | "percent"
 type ChartLayout = "horizontal" | "vertical" | "radial"
 type IntervalType = "preserveStartEnd" | "equidistantPreserveStart"
 
-export type ChartConfig = {
-  [k in string]: {
+export type ChartConfig = Record<
+  string,
+  {
     label?: React.ReactNode
     icon?: React.ComponentType
   } & (
     | { color?: ChartColorKeys | (string & {}); theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
   )
-}
+>
 
 const CHART_COLORS = {
   "chart-1": "var(--chart-1)",
@@ -97,7 +98,7 @@ const DEFAULT_COLORS = [
 
 type ChartContextProps = {
   config: ChartConfig
-  data: Record<string, unknown>[]
+  data: Array<Record<string, unknown>>
   layout: ChartLayout
   dataKey: string
   selectedLegend: string | null
@@ -125,8 +126,8 @@ export function valueToPercent(value: number) {
 }
 
 const constructCategoryColors = (
-  categories: string[],
-  colors: readonly ChartColorKeys[]
+  categories: Array<string>,
+  colors: ReadonlyArray<ChartColorKeys>
 ): Map<string, ChartColorKeys> => {
   const categoryColors = new Map<string, ChartColorKeys>()
 
@@ -181,9 +182,7 @@ function getPayloadConfigFromPayload(
     ] as string
   }
 
-  return configLabelKey in config
-    ? config[configLabelKey]
-    : config[key as keyof typeof config]
+  return configLabelKey in config ? config[configLabelKey] : config[key]
 }
 
 // #endregion
@@ -193,9 +192,9 @@ function getPayloadConfigFromPayload(
 interface BaseChartProps<TValue extends ValueType, TName extends NameType>
   extends React.HTMLAttributes<HTMLDivElement> {
   config: ChartConfig
-  data: Record<string, unknown>[]
+  data: Array<Record<string, unknown>>
   dataKey: string
-  colors?: readonly (ChartColorKeys | (string & {}))[]
+  colors?: ReadonlyArray<ChartColorKeys | (string & {})>
   type?: ChartType
   lineType?: CurveType
   intervalType?: IntervalType
@@ -236,7 +235,7 @@ const Chart = ({
   ...props
 }: Omit<React.ComponentProps<"div">, "children"> & {
   config: ChartConfig
-  data: Record<string, unknown>[]
+  data: Array<Record<string, unknown>>
   layout?: ChartLayout
   dataKey: string
   children: ReactElement | ((props: ChartContextProps) => ReactElement)
@@ -263,7 +262,7 @@ const Chart = ({
   }
 
   return (
-    <ChartContext.Provider value={value}>
+    <ChartContext value={value}>
       <div
         data-chart={chartId}
         ref={ref}
@@ -279,7 +278,7 @@ const Chart = ({
           {typeof children === "function" ? children(value) : children}
         </ResponsiveContainer>
       </div>
-    </ChartContext.Provider>
+    </ChartContext>
   )
 }
 
@@ -481,7 +480,7 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
     const value =
       !labelKey && typeof label === "string"
-        ? config[label as keyof typeof config]?.label || label
+        ? config[label]?.label || label
         : itemConfig?.label
 
     if (labelFormatter) {

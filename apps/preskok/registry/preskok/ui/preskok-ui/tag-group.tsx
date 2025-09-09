@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { XIcon } from "lucide-react"
 import type {
   TagGroupProps as TagGroupPrimitiveProps,

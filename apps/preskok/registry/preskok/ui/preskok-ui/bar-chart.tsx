@@ -1,6 +1,6 @@
 "use client"
 
-import { startTransition, type ComponentProps } from "react"
+import React, { startTransition, type ComponentProps } from "react"
 import { Bar, BarChart as BarChartPrimitive } from "recharts"
 import type {
   NameType,

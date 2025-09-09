@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { ChevronLeftIcon } from "lucide-react"
 import type {
   DisclosureGroupProps as AccordionProps,

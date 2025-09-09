@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext } from "react"
+import { createContext, use } from "react"
 import type {
   GroupProps,
   SeparatorProps,
@@ -30,7 +30,7 @@ const Toolbar = ({
   ...props
 }: ToolbarProps) => {
   return (
-    <ToolbarContext.Provider value={{ orientation }}>
+    <ToolbarContext value={{ orientation }}>
       <ToolbarPrimitive
         orientation={orientation}
         {...props}
@@ -44,7 +44,7 @@ const Toolbar = ({
           )
         )}
       />
-    </ToolbarContext.Provider>
+    </ToolbarContext>
   )
 }
 
@@ -57,7 +57,7 @@ const ToolbarGroup = ({
   ...props
 }: ToolbarGroupProps) => {
   return (
-    <ToolbarGroupContext.Provider value={{ isDisabled }}>
+    <ToolbarGroupContext value={{ isDisabled }}>
       <Group
         className={composeTailwindRenderProps(
           className,
@@ -67,7 +67,7 @@ const ToolbarGroup = ({
       >
         {props.children}
       </Group>
-    </ToolbarGroupContext.Provider>
+    </ToolbarGroupContext>
   )
 }
 
@@ -79,7 +79,7 @@ const ToolbarItem = ({
   ref,
   ...props
 }: ToggleItemProps) => {
-  const context = useContext(ToolbarGroupContext)
+  const context = use(ToolbarGroupContext)
   const effectiveIsDisabled = isDisabled || context.isDisabled
 
   return (
@@ -94,7 +94,7 @@ const ToolbarItem = ({
 }
 type ToolbarSeparatorProps = SeparatorProps
 const ToolbarSeparator = ({ className, ...props }: ToolbarSeparatorProps) => {
-  const { orientation } = useContext(ToolbarContext)
+  const { orientation } = use(ToolbarContext)
   const effectiveOrientation =
     orientation === "vertical" ? "horizontal" : "vertical"
   return (

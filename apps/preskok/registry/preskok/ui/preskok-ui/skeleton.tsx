@@ -25,5 +25,5 @@ const Skeleton = ({
   )
 }
 
-export type { SkeletonProps }
 export { Skeleton }
+export type { SkeletonProps }

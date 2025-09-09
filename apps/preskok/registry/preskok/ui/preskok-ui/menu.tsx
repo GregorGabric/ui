@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
 import type {
   ButtonProps,

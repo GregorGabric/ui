@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { XIcon } from "lucide-react"
 import type { HeadingProps, TextProps } from "react-aria-components"
 import {

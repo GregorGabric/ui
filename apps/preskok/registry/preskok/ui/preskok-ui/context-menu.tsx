@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, use, useRef, useState } from "react"
+import React, { createContext, use, useRef, useState } from "react"
 import { twMerge } from "tailwind-merge"
 
 import type { MenuContentProps } from "./menu"
@@ -127,5 +127,5 @@ ContextMenu.Section = ContextMenuSection
 ContextMenu.Header = ContextMenuHeader
 ContextMenu.Keyboard = ContextMenuKeyboard
 
-export type { ContextMenuProps }
 export { ContextMenu }
+export type { ContextMenuProps }

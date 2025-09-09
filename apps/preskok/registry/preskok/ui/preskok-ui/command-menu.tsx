@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, use, useEffect } from "react"
+import React, { createContext, use, useEffect } from "react"
 import { SearchIcon } from "lucide-react"
 import type {
   AutocompleteProps,

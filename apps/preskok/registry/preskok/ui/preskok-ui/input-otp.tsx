@@ -1,6 +1,6 @@
 "use client"
 
-import { use } from "react"
+import React, { use } from "react"
 import { OTPInput, OTPInputContext } from "input-otp"
 import { DotIcon } from "lucide-react"
 import { twMerge } from "tailwind-merge"
