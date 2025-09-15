@@ -209,6 +209,7 @@ const MultipleSelect = <T extends object>({
               >
                 <div className="bg-muted flex w-full flex-row items-center justify-between border-b p-2">
                   <SearchField
+                    className={"w-full"}
                     autoFocus
                     onFocus={() => triggerButtonRef.current?.click()}
                     onBlur={() => {
@@ -243,10 +244,7 @@ const MultipleSelect = <T extends object>({
                   }
                   selectedKeys={selectedKeys}
                   onSelectionChange={onSelectionChange}
-                  items={
-                    // (availableItemsToSelect as unknown as Array<T>) ??
-                    props.items
-                  }
+                  items={props.items}
                   {...props}
                   children={children}
                 />
@@ -265,11 +263,16 @@ const MultipleSelect = <T extends object>({
   )
 }
 
-function Item({ children, className, ...props }: ComponentProps<"div">) {
+function Item({
+  children,
+  className,
+  onClick,
+  ...props
+}: ComponentProps<"div">) {
   return (
     <div
       onClick={(event) => {
-        props.onClick?.(event)
+        onClick?.(event)
         event.stopPropagation()
       }}
       className={twMerge(

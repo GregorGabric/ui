@@ -31,18 +31,6 @@ export default function SearchableMultiSelectPreskokDemo() {
 
   return (
     <div className="flex justify-center gap-4 rounded-lg p-8 sm:h-[350px]">
-      {/* <ListBox
-        items={technologies}
-        aria-label="Fruits"
-        selectionMode="multiple"
-      >
-        {(item) => (
-          <ListBox.Item id={item.id} textValue={item.label}>
-            hello
-            {item.label}
-          </ListBox.Item>
-        )}
-      </ListBox> */}
       <MultipleSelectTest
         description={JSON.stringify(selectedItems, null, 2)}
         label="Select Technologies"
@@ -67,9 +55,6 @@ export default function SearchableMultiSelectPreskokDemo() {
             )}
           </div>
         )}
-        // renderValue={(items) => {
-        //   return items?.map((item) => item.label).join(" | ")
-        // }}
       >
         {(fruit) => (
           <MultipleSelectTest.Item
