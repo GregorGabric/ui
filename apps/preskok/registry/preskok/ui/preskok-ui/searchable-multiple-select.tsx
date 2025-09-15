@@ -20,12 +20,20 @@ import { twMerge } from "tailwind-merge"
 
 import { useControllableState } from "@/registry/preskok/hooks/use-controllable-state"
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import {
+  DropdownItem,
+  DropdownLabel,
+  DropdownSection,
+} from "@/registry/preskok/ui/preskok-ui/dropdown"
+import {
+  Description,
+  FieldGroup,
+  Label,
+  type FieldProps,
+} from "@/registry/preskok/ui/preskok-ui/field"
 import { ListBox } from "@/registry/preskok/ui/preskok-ui/list-box"
+import { Popover } from "@/registry/preskok/ui/preskok-ui/popover"
 import { SearchField } from "@/registry/preskok/ui/preskok-ui/search-field"
-
-import { DropdownItem, DropdownLabel, DropdownSection } from "./dropdown"
-import { Description, FieldGroup, Label, type FieldProps } from "./field"
-import { Popover } from "./popover"
 
 export function composeEventHandlers<E extends { defaultPrevented: boolean }>(
   originalEventHandler?: (event: E) => void,
@@ -293,53 +301,3 @@ MultipleSelect.Section = DropdownSection
 
 export { MultipleSelect as MultipleSelectTest }
 export type { MultipleSelectProps }
-
-// ;<div className="flex flex-col flex-wrap">
-//   <div className="flex flex-wrap gap-1 px-1.5 py-1.5 outline-hidden [[role='row']]:last:-mr-1">
-//     {[...selectedKeys]
-//       .map((key) => ({
-//         id: key,
-//         textValue:
-//           normalizedItems.find((item) => item.id === key)?.textValue ??
-//           String(key),
-//       }))
-//       .map((item) => (
-//         <div
-//           onClick={(e) => {
-//             e.stopPropagation()
-//             removeItem(new Set([item.id]))
-//           }}
-//           key={item.id}
-//           className="bg-secondary/50 text-secondary-foreground inset-ring-border inline-flex cursor-default items-center gap-x-1.5 rounded-[calc(var(--radius-sm)-1px)] px-2 py-0.5 text-sm/5 font-medium inset-ring outline-hidden sm:text-xs/5 forced-colors:outline"
-//         >
-//           {item.textValue}
-//           <XIcon className="size-3" />
-//         </div>
-//       ))}
-//   </div>
-//   {/* <TagGroup
-//                       onRemove={removeItem}
-//                       aria-hidden
-//                       aria-label={props.label ?? "Selected items"}
-//                     >
-//                       <TagList
-//                         className="gap-1 px-1.5 py-1.5 outline-hidden [[role='row']]:last:-mr-1"
-//                         items={[...selectedKeys].map((key) => ({
-//                           id: key,
-//                           textValue:
-//                             normalizedItems.find((item) => item.id === key)
-//                               ?.textValue ?? String(key),
-//                         }))}
-//                       >
-//                         {(item: { id: Key; textValue: string }) => (
-//                           <Tag
-//                             className="bg-secondary/50 text-secondary-foreground rounded-[calc(var(--radius-sm)-1px)]"
-//                             isDisabled={isDisabled}
-//                             textValue={item.textValue}
-//                           >
-//                             {item.textValue}
-//                           </Tag>
-//                         )}
-//                       </TagList>
-//                     </TagGroup> */}
-// </div>

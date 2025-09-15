@@ -976,12 +976,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["dropdown","field","list-box","popover","search-field"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/multiple-select-test.tsx",
+      path: "registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/multiple-select-test.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

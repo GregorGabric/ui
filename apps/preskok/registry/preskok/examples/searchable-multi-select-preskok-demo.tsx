@@ -1,10 +1,9 @@
 "use client"
 
-// import { SearchField } from "@/registry/preskok/ui/preskok-ui/search-field"
 import { useEffect, useState } from "react"
 import type { Selection } from "react-aria-components"
 
-import { MultipleSelectTest } from "@/registry/preskok/ui/preskok-ui/multiple-select-test"
+import { MultipleSelectTest } from "@/registry/preskok/ui/preskok-ui/searchable-multiple-select"
 
 export default function SearchableMultiSelectPreskokDemo() {
   const [selectedItems, setSelectedItems] = useState<Selection>(new Set())

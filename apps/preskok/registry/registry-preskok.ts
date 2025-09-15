@@ -726,7 +726,7 @@ export const preskokUi: Registry["items"] = [
     ],
     files: [
       {
-        path: "ui/preskok-ui/multiple-select-test.tsx",
+        path: "ui/preskok-ui/searchable-multiple-select.tsx",
         type: "registry:ui",
       },
     ],

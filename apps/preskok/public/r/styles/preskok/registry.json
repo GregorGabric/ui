@@ -938,7 +938,7 @@
       ],
       "files": [
         {
-          "path": "registry/preskok/ui/preskok-ui/multiple-select-test.tsx",
+          "path": "registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx",
           "type": "registry:ui"
         }
       ]
