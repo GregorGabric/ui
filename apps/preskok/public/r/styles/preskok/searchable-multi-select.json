@@ -13,7 +13,8 @@
     "field",
     "list-box",
     "popover",
-    "search-field"
+    "search-field",
+    "use-controllable-state"
   ],
   "files": [
     {

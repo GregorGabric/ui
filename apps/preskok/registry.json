@@ -934,7 +934,8 @@
         "field",
         "list-box",
         "popover",
-        "search-field"
+        "search-field",
+        "use-controllable-state"
       ],
       "files": [
         {
@@ -3984,6 +3985,29 @@
       "files": [
         {
           "path": "registry/preskok/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-layout-effect",
+      "type": "registry:hook",
+      "files": [
+        {
+          "path": "registry/preskok/hooks/use-layout-effect.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-controllable-state",
+      "type": "registry:hook",
+      "registryDependencies": [
+        "use-layout-effect"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/hooks/use-controllable-state.ts",
           "type": "registry:hook"
         }
       ]

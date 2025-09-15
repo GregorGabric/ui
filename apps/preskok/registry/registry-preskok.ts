@@ -723,6 +723,7 @@ export const preskokUi: Registry["items"] = [
       "list-box",
       "popover",
       "search-field",
+      "use-controllable-state",
     ],
     files: [
       {

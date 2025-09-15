@@ -974,7 +974,7 @@ export const Index: Record<string, any> = {
     name: "searchable-multi-select",
     description: "A searchable multi-select component with filtering and tag-based selection",
     type: "registry:ui",
-    registryDependencies: ["dropdown","field","list-box","popover","search-field"],
+    registryDependencies: ["dropdown","field","list-box","popover","search-field","use-controllable-state"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx",
       type: "registry:ui",
@@ -3786,6 +3786,42 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/hooks/use-mobile.ts")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "use-layout-effect": {
+    name: "use-layout-effect",
+    description: "",
+    type: "registry:hook",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/hooks/use-layout-effect.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/hooks/use-layout-effect.ts")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "use-controllable-state": {
+    name: "use-controllable-state",
+    description: "",
+    type: "registry:hook",
+    registryDependencies: ["use-layout-effect"],
+    files: [{
+      path: "registry/preskok/hooks/use-controllable-state.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/hooks/use-controllable-state.ts")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
