@@ -12,7 +12,6 @@ import {
 } from "react-aria-components"
 
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
-
 import {
   DialogBody,
   DialogClose,
@@ -21,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./dialog"
+} from "@/registry/preskok/ui/preskok-ui/dialog"
 
 type PopoverProps = DialogTriggerProps
 const Popover = (props: PopoverProps) => {

@@ -331,6 +331,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A popover component for displaying content in an overlay",
     dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["dialog"],
     files: [
       {
         path: "ui/preskok-ui/popover.tsx",

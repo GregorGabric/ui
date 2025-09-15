@@ -470,7 +470,7 @@ export const Index: Record<string, any> = {
     name: "popover",
     description: "A popover component for displaying content in an overlay",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["dialog"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/popover.tsx",
       type: "registry:ui",

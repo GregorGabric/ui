@@ -8,7 +8,6 @@ import {
 } from "react-aria-components"
 
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
-
 import {
   Description,
   FieldError,
@@ -16,8 +15,8 @@ import {
   Input,
   Label,
   type FieldProps,
-} from "./field"
-import { Loader } from "./loader"
+} from "@/registry/preskok/ui/preskok-ui/field"
+import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
 
 interface SearchFieldProps extends SearchFieldPrimitiveProps, FieldProps {
   isPending?: boolean
