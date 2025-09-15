@@ -712,6 +712,26 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "searchable-multi-select",
+    type: "registry:ui",
+    description:
+      "A searchable multi-select component with filtering and tag-based selection",
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
+    registryDependencies: [
+      "dropdown",
+      "field",
+      "list-box",
+      "popover",
+      "search-field",
+    ],
+    files: [
+      {
+        path: "ui/preskok-ui/multiple-select-test.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "tag-field",
     type: "registry:ui",
     description: "A tag input field for adding and removing tags",

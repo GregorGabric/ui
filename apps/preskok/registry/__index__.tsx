@@ -970,6 +970,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "searchable-multi-select": {
+    name: "searchable-multi-select",
+    description: "A searchable multi-select component with filtering and tag-based selection",
+    type: "registry:ui",
+    registryDependencies: ["dropdown","field","list-box","popover","search-field"],
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/multiple-select-test.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/multiple-select-test.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "tag-field": {
     name: "tag-field",
     description: "A tag input field for adding and removing tags",
