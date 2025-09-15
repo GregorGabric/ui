@@ -93,6 +93,6 @@ function useUncontrolledState<T>({
   return [value, setValue, onChangeRef]
 }
 
-function isFunction(value: unknown): value is (...args: any[]) => any {
+function isFunction(value: unknown): value is (...args: Array<any>) => any {
   return typeof value === "function"
 }
