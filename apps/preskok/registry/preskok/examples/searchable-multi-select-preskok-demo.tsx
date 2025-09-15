@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import type { Selection } from "react-aria-components"
 
-import { MultipleSelectTest } from "@/registry/preskok/ui/preskok-ui/searchable-multiple-select"
+import { MultipleSelect } from "@/registry/preskok/ui/preskok-ui/searchable-multiple-select"
 
 export default function SearchableMultiSelectPreskokDemo() {
   const [selectedItems, setSelectedItems] = useState<Selection>(new Set())
@@ -30,7 +30,7 @@ export default function SearchableMultiSelectPreskokDemo() {
 
   return (
     <div className="flex justify-center gap-4 rounded-lg p-8 sm:h-[350px]">
-      <MultipleSelectTest
+      <MultipleSelect
         description={JSON.stringify(selectedItems, null, 2)}
         label="Select Technologies"
         items={items}
@@ -56,15 +56,15 @@ export default function SearchableMultiSelectPreskokDemo() {
         )}
       >
         {(fruit) => (
-          <MultipleSelectTest.Item
+          <MultipleSelect.Item
             id={fruit.id}
             textValue={fruit.label}
             key={fruit.id}
           >
             {fruit.label}
-          </MultipleSelectTest.Item>
+          </MultipleSelect.Item>
         )}
-      </MultipleSelectTest>
+      </MultipleSelect>
     </div>
   )
 }
