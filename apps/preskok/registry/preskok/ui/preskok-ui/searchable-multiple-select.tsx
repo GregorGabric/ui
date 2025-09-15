@@ -299,5 +299,5 @@ MultipleSelect.Item = DropdownItem
 MultipleSelect.Label = DropdownLabel
 MultipleSelect.Section = DropdownSection
 
-export { MultipleSelect as MultipleSelectTest }
+export { MultipleSelect }
 export type { MultipleSelectProps }
