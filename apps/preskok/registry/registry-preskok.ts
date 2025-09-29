@@ -235,7 +235,8 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A number input field with stepper buttons and validation",
     dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
-    registryDependencies: ["button", "field"],
+    registryDependencies: ["button", "field", "use-media-query"],
+
     files: [
       {
         path: "ui/preskok-ui/number-field.tsx",
