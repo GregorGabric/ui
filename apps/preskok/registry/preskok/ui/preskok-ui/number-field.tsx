@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import {
   ChevronDownIcon,
   ChevronUpIcon,
@@ -15,7 +16,7 @@ import {
 } from "react-aria-components"
 import { twJoin } from "tailwind-merge"
 import { tv } from "tailwind-variants"
-import React from "react"
+
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
 
