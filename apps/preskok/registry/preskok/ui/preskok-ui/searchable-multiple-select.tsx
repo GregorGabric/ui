@@ -1,12 +1,6 @@
 "use client"
 
-import React, {
-  ComponentProps,
-  RefObject,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import React, { ComponentProps, RefObject, useRef, useState } from "react"
 import { ChevronsUpDownIcon, XIcon } from "lucide-react"
 import type {
   ComboBoxProps,
@@ -15,7 +9,12 @@ import type {
   ListBoxProps,
   Selection,
 } from "react-aria-components"
-import { Autocomplete, Group, useFilter } from "react-aria-components"
+import {
+  Autocomplete,
+  Group,
+  ListBoxItem,
+  useFilter,
+} from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
 import { useControllableState } from "@/registry/preskok/hooks/use-controllable-state"
@@ -32,6 +31,7 @@ import {
   type FieldProps,
 } from "@/registry/preskok/ui/preskok-ui/field"
 import { ListBox } from "@/registry/preskok/ui/preskok-ui/list-box"
+import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
 import { Popover } from "@/registry/preskok/ui/preskok-ui/popover"
 import { SearchField } from "@/registry/preskok/ui/preskok-ui/search-field"
 
@@ -64,6 +64,8 @@ interface MultipleSelectProps<T>
   renderValue?: (items: Array<T>) => React.ReactNode
   itemKey?: keyof T | "id"
   itemTextValue?: keyof T | "label"
+  isPending?: boolean
+  displayVariant?: "chips" | "text" | "count"
 }
 
 function mapToNewObject<T extends object>(
@@ -71,17 +73,16 @@ function mapToNewObject<T extends object>(
   itemKey: keyof T | "id",
   itemTextValue: keyof T | "label"
 ): Array<{ id: T[keyof T]; textValue: T[keyof T] }> {
-  return array.map((item) => {
-    const idProperty = Object.keys(item).find((key) => key === itemKey)
-    const textProperty = Object.keys(item).find((key) => key === itemTextValue)
-    return {
-      id: item[idProperty as keyof T],
-      textValue: item[textProperty as keyof T],
-    }
-  })
+  return array.map((item) => ({
+    id: item[itemKey as keyof T],
+    textValue: item[itemTextValue as keyof T],
+  }))
 }
 
 function isEmpty(value: Selection) {
+  if (value === undefined || value === null) {
+    return true
+  }
   if (value instanceof Set) {
     return value.size === 0
   }
@@ -94,23 +95,48 @@ const MultipleSelect = <T extends object>({
   children,
   itemKey = "id",
   itemTextValue = "label",
+  selectionMode = "multiple",
+  displayVariant,
   ...props
 }: MultipleSelectProps<T>) => {
   const triggerRef = useRef<HTMLDivElement>(null)
-  const triggerButtonRef = useRef<HTMLButtonElement>(null)
   const [inputValue, setInputValue] = useState("")
   const { contains } = useFilter({ sensitivity: "base" })
+
+  // Determine the default display variant based on selection mode
+  const resolvedDisplayVariant =
+    displayVariant || (selectionMode === "single" ? "text" : "chips")
 
   const [selectedKeys, onSelectionChange] = useControllableState({
     prop: props.selectedKeys as Selection,
     defaultProp: props.defaultSelectedKeys as Selection,
     onChange: props.onSelectionChange,
+    caller: "MultipleSelect",
   })
 
   const removeItem = (e: Set<Key>) => {
-    onSelectionChange?.(
-      (s) => new Set([...s].filter((i) => i !== e.values().next().value))
-    )
+    onSelectionChange?.((s) => {
+      // In single selection mode, just clear the selection
+      if (selectionMode === "single") {
+        return new Set()
+      }
+
+      // Handle the case where current selection is "all"
+      if (s === "all") {
+        // When removing from "all", create a Set with all items except the one being removed
+        const itemToRemove = e.values().next().value
+        return new Set(
+          normalizedItems
+            .map((item) => item.id)
+            .filter((id) => id !== itemToRemove)
+        )
+      }
+      // Handle normal Set case or undefined
+      const currentSet = s || new Set()
+      return new Set(
+        [...currentSet].filter((i) => i !== e.values().next().value)
+      )
+    })
   }
 
   const parsedItems = props.items
@@ -122,11 +148,14 @@ const MultipleSelect = <T extends object>({
     textValue: String(item.textValue),
   }))
 
-  const showPlaceholder = isEmpty(selectedKeys)
+  const showPlaceholder =
+    isEmpty(selectedKeys) ||
+    (selectedKeys === "all" && normalizedItems.length === 0)
 
-  const renderSelectedItem = useMemo(() => {
-    // Show placeholder only when selection is an empty Set
-    if (isEmpty(selectedKeys)) return props.placeholder
+  const renderSelectedItem = () => {
+    if (isEmpty(selectedKeys)) {
+      return props.placeholder
+    }
 
     // If a custom renderer is provided, honor it for both Set and "all"
     if (props.renderValue && typeof props.renderValue === "function") {
@@ -145,27 +174,54 @@ const MultipleSelect = <T extends object>({
       return props.renderValue(items as Array<T>)
     }
 
+    // Count variant - just show the number of selected items
+    if (resolvedDisplayVariant === "count") {
+      const count =
+        selectedKeys === "all"
+          ? normalizedItems.length
+          : selectedKeys?.size || 0
+      return (
+        <span className="truncate pl-[3px] text-sm/6">
+          {count} item{count !== 1 ? "s" : ""} selected
+        </span>
+      )
+    }
+
+    // Text variant - show the text content (typically for single selection)
+    if (resolvedDisplayVariant === "text") {
+      const selectedKey = Array.from(selectedKeys || [])[0]
+      const selectedItem = normalizedItems.find(
+        (item) => item.id === selectedKey
+      )
+      return (
+        <span className="truncate pl-[3px] text-sm/6">
+          {selectedItem?.textValue || ""}
+        </span>
+      )
+    }
+
+    // Chips variant - show removable chips (default for multiple selection)
     if (selectedKeys === "all") {
       return normalizedItems.map((item) => (
-        <Item onClick={() => removeItem(new Set([item.id]))} key={item.id}>
+        <Chip onClick={() => removeItem(new Set([item.id]))} key={item.id}>
           {item.textValue}
-        </Item>
+        </Chip>
       ))
     }
 
-    const items = Array.from(selectedKeys).map((key) =>
+    const items = Array.from(selectedKeys || []).map((key) =>
       normalizedItems.find((item) => item.id === key)
     )
 
     return items.map((item) => (
-      <Item
+      <Chip
         onClick={() => removeItem(new Set([item?.id as Key]))}
         key={item?.id}
       >
         {item?.textValue}
-      </Item>
+      </Chip>
     ))
-  }, [selectedKeys, props.renderValue, props.placeholder])
+  }
 
   return (
     <Group
@@ -180,7 +236,7 @@ const MultipleSelect = <T extends object>({
         <>
           {props.label && <Label>{props.label}</Label>}
           <Popover>
-            <Popover.Trigger onClick={console.log}>
+            <Popover.Trigger>
               <FieldGroup
                 ref={triggerRef as RefObject<HTMLDivElement>}
                 isDisabled={isDisabled}
@@ -196,16 +252,20 @@ const MultipleSelect = <T extends object>({
                 ) : (
                   <div className="flex flex-col flex-wrap">
                     <div className="flex flex-wrap gap-1 px-1.5 py-1.5 outline-hidden [[role='row']]:last:-mr-1">
-                      {renderSelectedItem}
+                      {renderSelectedItem()}
                     </div>
                   </div>
                 )}
 
                 <div className="flex w-full flex-row items-center justify-between pr-1.5">
-                  <ChevronsUpDownIcon
-                    data-slot="chevron"
-                    className="text-muted-foreground group-open:text-foreground size-4"
-                  />
+                  {props.isPending ? (
+                    <Loader variant="spin" />
+                  ) : (
+                    <ChevronsUpDownIcon
+                      data-slot="chevron"
+                      className="text-muted-foreground group-open:text-foreground size-4"
+                    />
+                  )}
                 </div>
               </FieldGroup>
             </Popover.Trigger>
@@ -219,15 +279,17 @@ const MultipleSelect = <T extends object>({
                   <SearchField
                     className={"w-full"}
                     autoFocus
-                    onFocus={() => triggerButtonRef.current?.click()}
+                    isPending={props.isPending}
                     onBlur={() => {
                       setInputValue("")
                     }}
                   />
                 </div>
                 <ListBox
-                  selectionBehavior="toggle"
-                  selectionMode="multiple"
+                  selectionBehavior={
+                    selectionMode === "single" ? "replace" : "toggle"
+                  }
+                  selectionMode={selectionMode}
                   className={composeTailwindRenderProps(
                     className,
                     "grid max-h-96 w-full grid-cols-[auto_1fr] flex-col gap-y-1 overflow-auto rounded-none p-1 shadow-none outline-hidden *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
@@ -252,10 +314,27 @@ const MultipleSelect = <T extends object>({
                   }
                   selectedKeys={selectedKeys}
                   onSelectionChange={onSelectionChange}
-                  items={props.items}
                   {...props}
-                  children={children}
-                />
+                >
+                  {typeof children === "undefined"
+                    ? (item) => {
+                        const id = item[itemKey as keyof T] as Key
+                        const textValue = item[
+                          itemTextValue as keyof T
+                        ] as string
+
+                        return (
+                          <MultipleSelect.Item
+                            id={id}
+                            textValue={textValue}
+                            key={id}
+                          >
+                            {textValue}
+                          </MultipleSelect.Item>
+                        )
+                      }
+                    : children}
+                </ListBox>
               </Popover.Content>
             </Autocomplete>
           </Popover>
@@ -271,7 +350,7 @@ const MultipleSelect = <T extends object>({
   )
 }
 
-function Item({
+export function Chip({
   children,
   className,
   onClick,
@@ -295,6 +374,7 @@ function Item({
   )
 }
 
+MultipleSelect.CustomItem = ListBoxItem
 MultipleSelect.Item = DropdownItem
 MultipleSelect.Label = DropdownLabel
 MultipleSelect.Section = DropdownSection

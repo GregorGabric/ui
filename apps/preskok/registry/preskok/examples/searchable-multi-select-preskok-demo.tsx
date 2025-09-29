@@ -1,70 +1,93 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import type { Selection } from "react-aria-components"
+import { useState } from "react"
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query"
+import { type Selection } from "react-aria-components"
 
 import { MultipleSelect } from "@/registry/preskok/ui/preskok-ui/searchable-multiple-select"
 
-export default function SearchableMultiSelectPreskokDemo() {
-  const [selectedItems, setSelectedItems] = useState<Selection>(new Set())
-  const [items, setItems] = useState<typeof technologies>([])
-  const [isLoading, setIsLoading] = useState(false)
+const queryClient = new QueryClient()
 
-  // Simulate an async fetch for items and initial selection
-  useEffect(() => {
-    let cancelled = false
-    setIsLoading(true)
-    const timer = setTimeout(() => {
-      if (cancelled) return
-      setItems(technologies)
-      // Selected items coming from the "API"
-      setSelectedItems(new Set(["react", "vue", "angular"]))
-      setIsLoading(false)
-    }, 1000)
+export default function Wrapper() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SearchableMultiSelectPreskokDemo />
+    </QueryClientProvider>
+  )
+}
 
-    return () => {
-      cancelled = true
-      clearTimeout(timer)
-    }
-  }, [])
+function SearchableMultiSelectPreskokDemo() {
+  const [selectedItems, setSelectedItems] = useState<Selection>()
+  const [singleSelectedItem, setSingleSelectedItem] = useState<Selection>()
+  const [countSelectedItems, setCountSelectedItems] = useState<Selection>()
+
+  const query = useQuery({
+    queryKey: ["todos"],
+    queryFn: async () => {
+      // wait for a second
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      return {
+        data: technologies,
+        selectedItems: new Set(["react", "vue", "angular"]),
+        singleSelectedItem: new Set(["react"]),
+        countSelectedItems: new Set([
+          "react",
+          "vue",
+          "angular",
+          "nextjs",
+          "svelte",
+        ]),
+      }
+    },
+  })
 
   return (
-    <div className="flex justify-center gap-4 rounded-lg p-8 sm:h-[350px]">
+    <div className="flex flex-col justify-center gap-8 rounded-lg p-8">
+      {/* Multiple selection mode with chips */}
       <MultipleSelect
+        selectionMode="multiple"
+        displayVariant="chips"
+        isPending={query.isLoading}
         description={JSON.stringify(selectedItems, null, 2)}
-        label="Select Technologies"
-        items={items}
+        label="Multiple Selection (Chips Display)"
+        items={query.data?.data}
         selectedKeys={selectedItems}
-        onSelectionChange={(s) => {
-          console.log(s, "outside")
-          setSelectedItems(s)
-        }}
+        onSelectionChange={setSelectedItems}
         placeholder="Choose technologies..."
         className="max-w-sm"
-        renderEmptyState={(q) => (
-          <div className="text-muted-foreground p-3 text-sm">
-            {isLoading ? (
-              "Loading…"
-            ) : q ? (
-              <>
-                No results found for: <strong>{q}</strong>
-              </>
-            ) : (
-              "No options"
-            )}
-          </div>
-        )}
-      >
-        {(fruit) => (
-          <MultipleSelect.Item
-            id={fruit.id}
-            textValue={fruit.label}
-            key={fruit.id}
-          >
-            {fruit.label}
-          </MultipleSelect.Item>
-        )}
-      </MultipleSelect>
+      />
+
+      {/* Single selection mode */}
+      <MultipleSelect
+        selectionMode="single"
+        isPending={query.isLoading}
+        description={JSON.stringify(singleSelectedItem, null, 2)}
+        label="Single Selection (Text Display)"
+        items={query.data?.data}
+        selectedKeys={singleSelectedItem}
+        onSelectionChange={setSingleSelectedItem}
+        placeholder="Choose one technology..."
+        className="max-w-sm"
+      />
+
+      {/* Multiple selection with count display */}
+      <MultipleSelect
+        selectionMode="multiple"
+        displayVariant="count"
+        isPending={query.isLoading}
+        description={JSON.stringify(countSelectedItems, null, 2)}
+        label="Multiple Selection (Count Display)"
+        items={query.data?.data}
+        selectedKeys={countSelectedItems}
+        onSelectionChange={setCountSelectedItems}
+        placeholder="Choose technologies..."
+        className="max-w-sm"
+      />
     </div>
   )
 }
