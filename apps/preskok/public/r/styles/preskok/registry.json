@@ -305,7 +305,8 @@
       ],
       "registryDependencies": [
         "button",
-        "field"
+        "field",
+        "use-media-query"
       ],
       "files": [
         {

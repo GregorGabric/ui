@@ -344,7 +344,7 @@ export const Index: Record<string, any> = {
     name: "number-field",
     description: "A number input field with stepper buttons and validation",
     type: "registry:ui",
-    registryDependencies: ["button","field"],
+    registryDependencies: ["button","field","use-media-query"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/number-field.tsx",
       type: "registry:ui",
