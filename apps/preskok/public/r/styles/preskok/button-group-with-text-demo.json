@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-with-text-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "button-group",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/button-group-with-text-demo.tsx",
+      "content": "\"use client\"\n\nimport { ChevronDownIcon } from \"lucide-react\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  ButtonGroup,\n  ButtonGroupText,\n} from \"@/registry/preskok/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupWithTextDemo() {\n  return (\n    <ButtonGroup>\n      <ButtonGroupText>Deploy</ButtonGroupText>\n      <Button intent=\"outline\">\n        Options\n        <ChevronDownIcon />\n      </Button>\n    </ButtonGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

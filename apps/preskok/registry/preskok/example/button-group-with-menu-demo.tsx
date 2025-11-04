@@ -11,7 +11,11 @@ import {
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { ButtonGroup } from "@/registry/preskok/ui/preskok-ui/button-group"
-import { Menu, MenuItem } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 
 export default function ButtonGroupWithMenuDemo() {
   return (
@@ -24,7 +28,7 @@ export default function ButtonGroupWithMenuDemo() {
         <Button intent="secondary">
           <MoreHorizontalIcon />
         </Button>
-        <Menu.Content placement="bottom end">
+        <MenuContent placement="bottom end">
           <MenuItem href="#">
             <RotateCcwIcon />
             Redeploy
@@ -41,7 +45,7 @@ export default function ButtonGroupWithMenuDemo() {
             <SettingsIcon />
             Settings
           </MenuItem>
-        </Menu.Content>
+        </MenuContent>
       </Menu>
     </ButtonGroup>
   )

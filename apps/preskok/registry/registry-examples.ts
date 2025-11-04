@@ -1086,4 +1086,224 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "field-demo",
+    type: "registry:example",
+    registryDependencies: ["field"],
+    files: [
+      {
+        path: "example/field-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "menu-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["menu", "button"],
+    files: [
+      {
+        path: "examples/menu-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "text-basic-demo",
+    type: "registry:example",
+    registryDependencies: ["text"],
+    files: [
+      {
+        path: "example/text-basic-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "text-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["text"],
+    files: [
+      {
+        path: "examples/text-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "toolbar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["toolbar"],
+    files: [
+      {
+        path: "examples/toolbar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-basic-demo",
+    type: "registry:example",
+    registryDependencies: ["input"],
+    files: [
+      {
+        path: "example/input-basic-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-controlled-demo",
+    type: "registry:example",
+    registryDependencies: ["input"],
+    files: [
+      {
+        path: "example/input-controlled-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-group-demo",
+    type: "registry:example",
+    registryDependencies: ["input"],
+    files: [
+      {
+        path: "example/input-group-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-label-description-demo",
+    type: "registry:example",
+    registryDependencies: ["input", "field"],
+    files: [
+      {
+        path: "example/input-label-description-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-text-field-demo",
+    type: "registry:example",
+    registryDependencies: ["input", "text-field"],
+    files: [
+      {
+        path: "example/input-text-field-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "input-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["input", "button", "loader"],
+    files: [
+      {
+        path: "examples/input-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-group-demo",
+    type: "registry:example",
+    registryDependencies: ["button-group", "button"],
+    files: [
+      {
+        path: "example/button-group-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-group-orientation-demo",
+    type: "registry:example",
+    registryDependencies: ["button-group", "button"],
+    files: [
+      {
+        path: "example/button-group-orientation-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-group-with-menu-demo",
+    type: "registry:example",
+    registryDependencies: ["button-group", "button", "menu"],
+    files: [
+      {
+        path: "example/button-group-with-menu-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-group-with-text-demo",
+    type: "registry:example",
+    registryDependencies: ["button-group", "button"],
+    files: [
+      {
+        path: "example/button-group-with-text-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "button-group-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["button-group", "button"],
+    files: [
+      {
+        path: "examples/button-group-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "meter-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["meter"],
+    files: [
+      {
+        path: "examples/meter-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "command-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["command"],
+    files: [
+      {
+        path: "examples/command-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "preskok-icon-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["preskok-icon"],
+    files: [
+      {
+        path: "examples/preskok-icon-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "preskok-auth-button-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["preskok-auth-button", "button"],
+    files: [
+      {
+        path: "examples/preskok-auth-button-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

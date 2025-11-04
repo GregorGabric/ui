@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-text-field-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "input",
+    "text-field"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/input-text-field-demo.tsx",
+      "content": "\"use client\"\n\nimport { Description, Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function InputTextFieldDemo() {\n  return (\n    <TextField>\n      <Label htmlFor=\"name\">Name</Label>\n      <Input id=\"name\" aria-label=\"Name\" placeholder=\"Your name\" />\n      <Description>Please enter your full name.</Description>\n    </TextField>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

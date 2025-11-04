@@ -41,6 +41,19 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "button-group",
+    type: "registry:ui",
+    description:
+      "A component for grouping related buttons with horizontal or vertical orientation",
+    dependencies: ["tailwind-merge", "tailwind-variants"],
+    files: [
+      {
+        path: "ui/preskok-ui/button-group.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "card",
     type: "registry:ui",
     description:
@@ -153,6 +166,18 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "text",
+    type: "registry:ui",
+    description: "A simple typography component for consistent text styling",
+    dependencies: ["tailwind-merge"],
+    files: [
+      {
+        path: "ui/preskok-ui/text.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "switch",
     type: "registry:ui",
     description: "An accessible switch component for boolean inputs",
@@ -214,6 +239,19 @@ export const preskokUi: Registry["items"] = [
     files: [
       {
         path: "ui/preskok-ui/checkbox.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "input",
+    type: "registry:ui",
+    description:
+      "Input and InputGroup components for text input with icons, loaders, and buttons",
+    dependencies: ["react-aria-components"],
+    files: [
+      {
+        path: "ui/preskok-ui/input.tsx",
         type: "registry:ui",
       },
     ],
@@ -788,6 +826,32 @@ export const preskokUi: Registry["items"] = [
     ],
   },
 
+  // ===== MEDIA & BRAND COMPONENTS =====
+  {
+    name: "preskok-icon",
+    type: "registry:ui",
+    description: "The official Preskok brand icon component",
+    files: [
+      {
+        path: "ui/preskok-ui/preskok-icon.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "preskok-auth-button",
+    type: "registry:ui",
+    description:
+      "A branded authentication button component for Preskok integration",
+    registryDependencies: ["button"],
+    files: [
+      {
+        path: "ui/preskok-ui/preskok-auth-button.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+
   // ===== ADVANCED NAVIGATION & LAYOUT =====
   {
     name: "navbar",
@@ -1163,6 +1227,19 @@ export const preskokUi: Registry["items"] = [
   },
 
   // ===== ADVANCED MENU COMPONENTS =====
+  {
+    name: "command",
+    type: "registry:ui",
+    description: "A command palette component for searchable command lists",
+    dependencies: ["cmdk", "lucide-react", "tailwind-merge"],
+    registryDependencies: ["dialog"],
+    files: [
+      {
+        path: "ui/preskok-ui/command.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
   {
     name: "command-menu",
     type: "registry:ui",

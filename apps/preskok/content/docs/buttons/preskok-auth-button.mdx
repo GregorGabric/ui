@@ -1,0 +1,93 @@
+---
+title: Preskok Auth Button
+description: A branded authentication button component for Preskok integration.
+---
+
+<ComponentPreview
+  name="preskok-auth-button-preskok-demo"
+  description="Preskok authentication button with various intents and options."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add preskok-auth-button
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="preskok-auth-button" title="registry/preskok/ui/preskok-ui/preskok-auth-button.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { PreskokAuthButton } from "@/registry/preskok/ui/preskok-ui/preskok-auth-button"
+
+export function PreskokAuthButtonDemo() {
+  return (
+    <PreskokAuthButton
+      onPress={() => {
+        // Handle Preskok authentication
+      }}
+    />
+  )
+}
+```
+
+## Props
+
+All standard Button props are supported, plus:
+
+| Prop    | Type     | Default                    | Description                         |
+| ------- | -------- | -------------------------- | ----------------------------------- |
+| `label` | `string` | `"Continue with Preskok"` | Custom label for accessibility      |
+| `intent`| `string` | `"outline"`                | Button intent (primary, secondary, etc.) |
+
+## Examples
+
+### Different Intents
+
+```tsx
+<PreskokAuthButton intent="outline" />
+<PreskokAuthButton intent="primary" />
+<PreskokAuthButton intent="secondary" />
+```
+
+### Custom Label
+
+```tsx
+<PreskokAuthButton label="Sign in with Preskok" />
+```
+
+### With Handler
+
+```tsx
+<PreskokAuthButton
+  onPress={() => {
+    window.location.href = '/auth/preskok'
+  }}
+/>
+```
+

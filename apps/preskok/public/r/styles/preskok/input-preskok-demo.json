@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "input",
+    "button",
+    "loader"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/input-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { MailIcon, SearchIcon } from \"lucide-react\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Input, InputGroup } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { Loader } from \"@/registry/preskok/ui/preskok-ui/loader\"\n\nexport default function InputPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <div>\n        <label className=\"mb-2 block text-sm font-medium\">Basic Input</label>\n        <Input placeholder=\"Enter your email\" />\n      </div>\n\n      <div>\n        <label className=\"mb-2 block text-sm font-medium\">\n          Input with Icon\n        </label>\n        <InputGroup>\n          <MailIcon data-slot=\"icon\" />\n          <Input placeholder=\"you@example.com\" />\n        </InputGroup>\n      </div>\n\n      <div>\n        <label className=\"mb-2 block text-sm font-medium\">\n          Input with Loading State\n        </label>\n        <InputGroup>\n          <Input placeholder=\"Searching...\" />\n          <Loader data-slot=\"loader\" variant=\"spin\" />\n        </InputGroup>\n      </div>\n\n      <div>\n        <label className=\"mb-2 block text-sm font-medium\">\n          Input with Button\n        </label>\n        <InputGroup>\n          <Input placeholder=\"Enter search term\" />\n          <Button intent=\"primary\">\n            <SearchIcon className=\"size-4\" />\n          </Button>\n        </InputGroup>\n      </div>\n\n      <div>\n        <label className=\"mb-2 block text-sm font-medium\">\n          Input with Text Prefix\n        </label>\n        <InputGroup>\n          <span data-slot=\"text\" className=\"text-muted-foreground\">\n            https://\n          </span>\n          <Input placeholder=\"example.com\" />\n        </InputGroup>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -9,6 +9,7 @@
     "tooltip",
     "context-menu",
     "dropdown",
+    "command",
     "command-menu",
     "disclosure",
     "menu"

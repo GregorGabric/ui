@@ -1,0 +1,69 @@
+---
+title: Preskok Icon
+description: The official Preskok brand icon component.
+---
+
+<ComponentPreview
+  name="preskok-icon-preskok-demo"
+  description="Preskok brand icon at different sizes."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add preskok-icon
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="preskok-icon" title="registry/preskok/ui/preskok-ui/preskok-icon.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { PreskokIcon } from "@/registry/preskok/ui/preskok-ui/preskok-icon"
+
+export function PreskokIconDemo() {
+  return <PreskokIcon className="size-12" />
+}
+```
+
+## Props
+
+| Prop        | Type     | Default | Description                      |
+| ----------- | -------- | ------- | -------------------------------- |
+| `className` | `string` | -       | Additional CSS classes for sizing |
+
+## Examples
+
+The icon scales based on the size classes you provide:
+
+```tsx
+<PreskokIcon className="size-8" />   // Small (32px)
+<PreskokIcon className="size-12" />  // Medium (48px)
+<PreskokIcon className="size-16" />  // Large (64px)
+<PreskokIcon className="size-24" />  // Extra Large (96px)
+```
+

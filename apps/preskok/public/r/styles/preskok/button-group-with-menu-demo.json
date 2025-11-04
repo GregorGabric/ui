@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-with-menu-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "button-group",
+    "button",
+    "menu"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/button-group-with-menu-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  FileTextIcon,\n  MoreHorizontalIcon,\n  RocketIcon,\n  RotateCcwIcon,\n  SettingsIcon,\n  UndoIcon,\n} from \"lucide-react\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { ButtonGroup } from \"@/registry/preskok/ui/preskok-ui/button-group\"\nimport { Menu, MenuItem } from \"@/registry/preskok/ui/preskok-ui/menu\"\n\nexport default function ButtonGroupWithMenuDemo() {\n  return (\n    <ButtonGroup>\n      <Button intent=\"secondary\">\n        <RocketIcon />\n        Deploy\n      </Button>\n      <Menu>\n        <Button intent=\"secondary\">\n          <MoreHorizontalIcon />\n        </Button>\n        <Menu.Content placement=\"bottom end\">\n          <MenuItem href=\"#\">\n            <RotateCcwIcon />\n            Redeploy\n          </MenuItem>\n          <MenuItem href=\"#\">\n            <UndoIcon />\n            Rollback\n          </MenuItem>\n          <MenuItem href=\"#\">\n            <FileTextIcon />\n            View logs\n          </MenuItem>\n          <MenuItem href=\"#\">\n            <SettingsIcon />\n            Settings\n          </MenuItem>\n        </Menu.Content>\n      </Menu>\n    </ButtonGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
