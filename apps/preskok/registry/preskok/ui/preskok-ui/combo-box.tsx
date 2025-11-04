@@ -95,7 +95,7 @@ const ComboBoxInput = (props: InputProps) => {
         {!context?.inputValue && (
           <ChevronsUpDownIcon
             data-slot="chevron"
-            className="text-muted-fg -mr-1 size-5 sm:size-4"
+            className="text-muted-foreground -mr-1 size-5 sm:size-4"
           />
         )}
       </Button>

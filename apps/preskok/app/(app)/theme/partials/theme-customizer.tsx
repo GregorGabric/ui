@@ -43,7 +43,7 @@ const ColorSelect = ({
       <SelectContent>
         {filteredKeys.map((key) => (
           <SelectItem
-            className="hover:**:data-[slot=icon]:inset-ring-fg/30 capitalize"
+            className="hover:**:data-[slot=icon]:inset-ring-foreground/30 capitalize"
             textValue={key}
             key={key}
             id={key}

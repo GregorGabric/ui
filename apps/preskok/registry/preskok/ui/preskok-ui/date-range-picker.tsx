@@ -60,9 +60,9 @@ export function DateRangePickerTrigger({
     <InputGroup
       className={cx(
         "flex items-center rounded-lg",
-        "border-input hover:border-muted-fg/30 border",
+        "border-input hover:border-muted-foreground/30 border",
         "focus-within:border-ring/70 focus-within:bg-primary-subtle/5 focus-within:ring-ring/20 focus-within:hover:border-ring/80 focus-within:ring-3 focus-within:outline-hidden",
-        "invalid:border-danger-subtle-fg/70 invalid:bg-danger-subtle/5 focus-within:invalid:border-danger-subtle-fg/70 focus-within:invalid:bg-danger-subtle/5 focus-within:invalid:ring-danger-subtle-fg/20 invalid:hover:border-danger-subtle-fg/80 focus-within:invalid:hover:border-danger-subtle-fg/80",
+        "invalid:border-danger-subtle-foreground/70 invalid:bg-danger-subtle/5 focus-within:invalid:border-danger-subtle-foreground/70 focus-within:invalid:bg-danger-subtle/5 focus-within:invalid:ring-danger-subtle-foreground/20 invalid:hover:border-danger-subtle-foreground/80 focus-within:invalid:hover:border-danger-subtle-foreground/80",
         "disabled:bg-muted disabled:opacity-50",
         className
       )}
@@ -71,14 +71,14 @@ export function DateRangePickerTrigger({
       <DateInput slot="start" />
       <span
         aria-hidden="true"
-        className="bg-fg group-disabled:text-opacity-50 pointer-events-none -mx-3 block h-0.5 w-2 shrink-0 self-center rounded-full sm:-mx-2 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
+        className="bg-foreground group-disabled:text-opacity-50 pointer-events-none -mx-3 block h-0.5 w-2 shrink-0 self-center rounded-full sm:-mx-2 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
       />
       <DateInput slot="end" />
       <Button
         data-slot="date-picker-trigger"
         className={twJoin(
-          "touch-target focus-visible:text-fg grid place-content-center outline-hidden",
-          "pressed:text-fg text-muted-fg hover:text-fg focus-visible:text-fg",
+          "touch-target focus-visible:text-foreground grid place-content-center outline-hidden",
+          "pressed:text-foreground text-muted-foreground hover:text-foreground focus-visible:text-foreground",
           "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6",
           "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4"
         )}

@@ -89,8 +89,8 @@ const ModalContent = ({
           size === "fullscreen"
             ? "sm:rounded-md sm:[--visual-viewport-vertical-padding:16px]"
             : "sm:rounded-xl sm:[--visual-viewport-vertical-padding:32px]",
-          "bg-overlay text-overlay-fg relative overflow-hidden",
-          "ring-fg/5 dark:ring-border rounded-t-2xl shadow-lg ring",
+          "bg-overlay text-overlay-foreground relative overflow-hidden",
+          "ring-foreground/5 dark:ring-border rounded-t-2xl shadow-lg ring",
           sizes[size],
 
           "entering:slide-in-from-bottom sm:entering:zoom-in-95 sm:entering:slide-in-from-bottom-0 entering:animate-in entering:duration-300 entering:ease-out",

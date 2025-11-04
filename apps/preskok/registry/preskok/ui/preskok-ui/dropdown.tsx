@@ -25,7 +25,7 @@ const dropdownSectionStyles = tv({
   slots: {
     section: "col-span-full grid grid-cols-[auto_1fr]",
     header:
-      "col-span-full px-3 py-2 font-medium text-muted-fg text-sm/6 sm:px-2.5 sm:py-1.5 sm:text-xs/3",
+      "col-span-full px-3 py-2 font-medium text-muted-foreground text-sm/6 sm:px-2.5 sm:py-1.5 sm:text-xs/3",
   },
 })
 
@@ -53,43 +53,43 @@ const dropdownItemStyles = tv({
     "min-w-0 [--mr-icon:--spacing(2)] sm:[--mr-icon:--spacing(1.5)]",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] px-3 py-2 supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:px-2.5 sm:py-1.5",
     "not-has-[[slot=description]]:items-center",
-    "group relative cursor-default select-none rounded-[calc(var(--radius-xl)-(--spacing(1)))] text-base/6 text-fg outline-0 sm:text-sm/6",
+    "group relative cursor-default select-none rounded-[calc(var(--radius-xl)-(--spacing(1)))] text-base/6 text-foreground outline-0 sm:text-sm/6",
     "**:data-[slot=avatar]:*:mr-(--mr-icon) **:data-[slot=avatar]:mr-(--mr-icon) **:data-[slot=avatar]:[--avatar-size:--spacing(6)] sm:**:data-[slot=avatar]:[--avatar-size:--spacing(5)]",
-    "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:h-5 **:data-[slot=icon]:w-5 **:data-[slot=icon]:shrink-0 has-[[slot=description]]:**:data-[slot=icon]:h-[1lh] sm:**:data-[slot=icon]:h-4 sm:**:data-[slot=icon]:w-4 [&_[data-slot='icon']:not([class*='text-'])]:text-muted-fg",
+    "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:h-5 **:data-[slot=icon]:w-5 **:data-[slot=icon]:shrink-0 has-[[slot=description]]:**:data-[slot=icon]:h-[1lh] sm:**:data-[slot=icon]:h-4 sm:**:data-[slot=icon]:w-4 [&_[data-slot='icon']:not([class*='text-'])]:text-muted-foreground",
     "[&>[slot=label]+[data-slot=icon]]:absolute [&>[slot=label]+[data-slot=icon]]:right-1",
     "forced-color-adjust-none forced-colors:text-[CanvasText] forced-colors:**:data-[slot=icon]:text-[CanvasText] forced-colors:group-focus:**:data-[slot=icon]:text-[CanvasText]",
   ],
   variants: {
     intent: {
       danger: [
-        "text-danger-subtle-fg focus:text-danger-subtle-fg [&_[data-slot='icon']:not([class*='text-'])]:text-danger-subtle-fg/70",
-        "*:[[slot=description]]:text-danger-subtle-fg/80 focus:*:[[slot=description]]:text-danger-subtle-fg focus:*:[[slot=label]]:text-danger-subtle-fg",
-        "focus:bg-danger-subtle focus:text-danger-subtle-fg forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-danger-subtle-fg",
+        "text-danger-subtle-foreground focus:text-danger-subtle-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-danger-subtle-foreground/70",
+        "*:[[slot=description]]:text-danger-subtle-foreground/80 focus:*:[[slot=description]]:text-danger-subtle-foreground focus:*:[[slot=label]]:text-danger-subtle-foreground",
+        "focus:bg-danger-subtle focus:text-danger-subtle-foreground forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-danger-subtle-foreground",
       ],
       warning: [
-        "text-warning-subtle-fg focus:text-warning-subtle-fg [&_[data-slot='icon']:not([class*='text-'])]:text-warning-subtle-fg/70",
-        "*:[[slot=description]]:text-warning-subtle-fg/80 focus:*:[[slot=description]]:text-warning-subtle-fg focus:*:[[slot=label]]:text-warning-subtle-fg",
-        "focus:bg-warning-subtle focus:text-warning-subtle-fg focus:[&_[data-slot='icon']:not([class*='text-'])]:text-warning-subtle-fg",
+        "text-warning-subtle-foreground focus:text-warning-subtle-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-warning-subtle-foreground/70",
+        "*:[[slot=description]]:text-warning-subtle-foreground/80 focus:*:[[slot=description]]:text-warning-subtle-foreground focus:*:[[slot=label]]:text-warning-subtle-foreground",
+        "focus:bg-warning-subtle focus:text-warning-subtle-foreground focus:[&_[data-slot='icon']:not([class*='text-'])]:text-warning-subtle-foreground",
       ],
     },
     isDisabled: {
-      true: "text-muted-fg forced-colors:text-[GrayText]",
+      true: "text-muted-foreground forced-colors:text-[GrayText]",
     },
     isSelected: {
-      true: "**:data-[slot=icon]:text-accent-fg",
+      true: "**:data-[slot=icon]:text-accent-foreground",
     },
     isFocused: {
       true: [
-        "**:data-[slot=icon]:text-accent-fg **:[kbd]:text-accent-fg",
-        "bg-accent text-accent-fg forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
-        "[&_.text-muted-fg]:text-accent-fg/80 *:[[slot=description]]:text-accent-fg *:[[slot=label]]:text-accent-fg",
+        "**:data-[slot=icon]:text-accent-foreground **:[kbd]:text-accent-foreground",
+        "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
+        "[&_.text-muted-foreground]:text-accent-foreground/80 *:[[slot=description]]:text-accent-foreground *:[[slot=label]]:text-accent-foreground",
       ],
     },
     isHovered: {
       true: [
-        "**:data-[slot=icon]:text-accent-fg **:[kbd]:text-accent-fg",
-        "bg-accent text-accent-fg forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
-        "[&_.text-muted-fg]:text-accent-fg/80 *:[[slot=description]]:text-accent-fg *:[[slot=label]]:text-accent-fg",
+        "**:data-[slot=icon]:text-accent-foreground **:[kbd]:text-accent-foreground",
+        "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
+        "[&_.text-muted-foreground]:text-accent-foreground/80 *:[[slot=description]]:text-accent-foreground *:[[slot=label]]:text-accent-foreground",
       ],
     },
   },
@@ -163,7 +163,7 @@ const DropdownDescription = ({
     slot="description"
     ref={ref}
     className={twMerge(
-      "text-muted-fg col-start-2 text-sm font-normal",
+      "text-muted-foreground col-start-2 text-sm font-normal",
       className
     )}
     {...props}
@@ -173,7 +173,10 @@ const DropdownDescription = ({
 const DropdownSeparator = ({ className, ...props }: SeparatorProps) => (
   <Separator
     orientation="horizontal"
-    className={twMerge("bg-fg/10 col-span-full -mx-1 my-1 h-px", className)}
+    className={twMerge(
+      "bg-foreground/10 col-span-full -mx-1 my-1 h-px",
+      className
+    )}
     {...props}
   />
 )
@@ -186,7 +189,7 @@ const DropdownKeyboard = ({ className, ...props }: DropdownKeyboardProps) => {
   return (
     <Keyboard
       className={twMerge(
-        "group-hover:text-primary-fg group-focus:text-primary-fg absolute right-2 pl-2",
+        "group-hover:text-primary-foreground group-focus:text-primary-foreground absolute right-2 pl-2",
         className
       )}
       {...props}

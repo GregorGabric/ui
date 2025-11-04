@@ -14,7 +14,7 @@ export function GeneratedTheme({
         )}
         {...props}
       >
-        <div className="from-bg sticky inset-x-0 top-0 h-10 w-full bg-linear-to-b from-5% to-transparent" />
+        <div className="from-background sticky inset-x-0 top-0 h-10 w-full bg-linear-to-b from-5% to-transparent" />
         <div className="-mt-12 -mb-12 flex flex-col gap-y-6">
           <ColorBox>
             <ColorBoxItem variable="background" />
@@ -74,7 +74,7 @@ export function GeneratedTheme({
           </ColorBox>
         </div>
 
-        <div className="from-bg sticky inset-x-0 bottom-0 h-10 w-full bg-linear-to-t from-5% to-transparent" />
+        <div className="from-background sticky inset-x-0 bottom-0 h-10 w-full bg-linear-to-t from-5% to-transparent" />
       </div>
     </div>
   )

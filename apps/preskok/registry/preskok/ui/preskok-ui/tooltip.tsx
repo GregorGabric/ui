@@ -14,15 +14,15 @@ import { tv } from "tailwind-variants"
 
 const tooltipStyles = tv({
   base: [
-    "group origin-(--trigger-anchor-point) rounded-lg border border-(--tooltip-border) px-2.5 py-1.5 text-sm/6 will-change-transform [--tooltip-border:var(--color-muted-fg)]/30 dark:shadow-none *:[strong]:font-medium",
+    "group origin-(--trigger-anchor-point) rounded-lg border border-(--tooltip-border) px-2.5 py-1.5 text-sm/6 will-change-transform [--tooltip-border:var(--color-muted-foreground)]/30 dark:shadow-none *:[strong]:font-medium",
   ],
   variants: {
     inverse: {
       true: [
-        "border-transparent bg-fg text-bg",
-        "**:[.text-muted-fg]:text-bg/60",
+        "border-transparent bg-foreground text-background",
+        "**:[.text-muted-foreground]:text-background/60",
       ],
-      false: "bg-overlay text-overlay-fg",
+      false: "bg-overlay text-overlay-foreground",
     },
     isEntering: {
       true: [
@@ -81,7 +81,7 @@ const TooltipContent = ({
             className={twJoin(
               "group-placement-left:-rotate-90 group-placement-bottom:rotate-180 group-placement-right:rotate-90 block forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]",
               inverse
-                ? "fill-fg stroke-transparent"
+                ? "fill-foreground stroke-transparent"
                 : "fill-overlay stroke-(--tooltip-border)"
             )}
           >

@@ -35,7 +35,7 @@ export function UserMenu() {
         <MenuSection>
           <MenuHeader separator>
             <span className="block">Kurt Cobain</span>
-            <span className="text-muted-fg font-normal">@cobain</span>
+            <span className="text-muted-foreground font-normal">@cobain</span>
           </MenuHeader>
         </MenuSection>
 

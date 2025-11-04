@@ -113,7 +113,7 @@ export function DatePickerTrigger({ className, ...props }: GroupProps) {
         data-slot="date-picker-trigger"
         className={twJoin(
           "touch-target grid place-content-center outline-hidden",
-          "pressed:text-fg text-muted-fg hover:text-fg focus-visible:text-fg",
+          "pressed:text-foreground text-muted-foreground hover:text-foreground focus-visible:text-foreground",
           "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6",
           "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4"
         )}
