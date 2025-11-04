@@ -4,8 +4,10 @@
   "type": "registry:ui",
   "description": "An accessible link component with multiple styling options",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

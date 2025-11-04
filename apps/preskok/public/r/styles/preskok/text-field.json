@@ -9,7 +9,8 @@
   ],
   "registryDependencies": [
     "field",
-    "loader"
+    "loader",
+    "primitive"
   ],
   "files": [
     {

@@ -4,8 +4,10 @@
   "type": "registry:ui",
   "description": "A meter component for displaying scalar values within a range",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

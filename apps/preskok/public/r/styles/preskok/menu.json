@@ -6,13 +6,13 @@
   "dependencies": [
     "lucide-react",
     "react-aria-components",
-    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [
     "button",
     "dropdown",
-    "popover"
+    "popover",
+    "primitive"
   ],
   "files": [
     {

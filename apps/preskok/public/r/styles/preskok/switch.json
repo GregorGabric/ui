@@ -4,8 +4,10 @@
   "type": "registry:ui",
   "description": "An accessible switch component for boolean inputs",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

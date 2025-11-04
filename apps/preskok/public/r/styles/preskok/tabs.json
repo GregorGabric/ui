@@ -4,8 +4,10 @@
   "type": "registry:ui",
   "description": "A tabs component with accessible tab navigation",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

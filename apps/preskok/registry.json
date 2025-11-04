@@ -150,8 +150,10 @@
       "type": "registry:ui",
       "description": "An accessible link component with multiple styling options",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -236,8 +238,10 @@
       "type": "registry:ui",
       "description": "An accessible switch component for boolean inputs",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -269,6 +273,9 @@
         "react-aria-components",
         "tailwind-variants"
       ],
+      "registryDependencies": [
+        "primitive"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/field.tsx",
@@ -295,11 +302,11 @@
       "type": "registry:ui",
       "description": "Checkbox and CheckboxGroup components with field integration",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "field"
+        "field",
+        "primitive"
       ],
       "files": [
         {
@@ -314,6 +321,9 @@
       "description": "Input and InputGroup components for text input with icons, loaders, and buttons",
       "dependencies": [
         "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -343,13 +353,13 @@
       "description": "A number input field with stepper buttons and validation",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "button",
         "field",
-        "use-media-query"
+        "use-media-query",
+        "primitive"
       ],
       "files": [
         {
@@ -363,11 +373,11 @@
       "type": "registry:ui",
       "description": "Radio and RadioGroup components with field integration",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "field"
+        "field",
+        "primitive"
       ],
       "files": [
         {
@@ -382,12 +392,12 @@
       "description": "A search input field with loading state and clear functionality",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "field",
-        "loader"
+        "loader",
+        "primitive"
       ],
       "files": [
         {
@@ -401,12 +411,12 @@
       "type": "registry:ui",
       "description": "A range slider component with tooltip and inline output options",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "field",
-        "tooltip"
+        "tooltip",
+        "primitive"
       ],
       "files": [
         {
@@ -425,7 +435,8 @@
       ],
       "registryDependencies": [
         "field",
-        "loader"
+        "loader",
+        "primitive"
       ],
       "files": [
         {
@@ -439,11 +450,11 @@
       "type": "registry:ui",
       "description": "A multi-line text input component with field integration",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "field"
+        "field",
+        "primitive"
       ],
       "files": [
         {
@@ -461,7 +472,8 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "field"
+        "field",
+        "primitive"
       ],
       "files": [
         {
@@ -475,11 +487,11 @@
       "type": "registry:ui",
       "description": "A popover component for displaying content in an overlay",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "dialog"
+        "dialog",
+        "primitive"
       ],
       "files": [
         {
@@ -494,11 +506,11 @@
       "description": "A comprehensive dialog component with header, body, and footer sections",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "button"
+        "button",
+        "primitive"
       ],
       "files": [
         {
@@ -516,7 +528,8 @@
         "tailwind-variants"
       ],
       "registryDependencies": [
-        "dialog"
+        "dialog",
+        "primitive"
       ],
       "files": [
         {
@@ -588,13 +601,13 @@
       "dependencies": [
         "lucide-react",
         "react-aria-components",
-        "tailwind-merge",
         "tailwind-variants"
       ],
       "registryDependencies": [
         "button",
         "dropdown",
-        "popover"
+        "popover",
+        "primitive"
       ],
       "files": [
         {
@@ -626,8 +639,10 @@
       "description": "A list box component for displaying selectable options",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -642,14 +657,14 @@
       "description": "A select component with searchable options and custom styling",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "button",
         "field",
         "list-box",
-        "popover"
+        "popover",
+        "primitive"
       ],
       "files": [
         {
@@ -663,13 +678,13 @@
       "type": "registry:ui",
       "description": "A combo box component with filtering and custom input",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "field",
         "list-box",
-        "popover"
+        "popover",
+        "primitive"
       ],
       "files": [
         {
@@ -684,11 +699,11 @@
       "description": "A breadcrumb navigation component with customizable separators",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "link"
+        "link",
+        "primitive"
       ],
       "files": [
         {
@@ -717,11 +732,11 @@
       "description": "Disclosure and accordion components for collapsible content",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "button"
+        "button",
+        "primitive"
       ],
       "files": [
         {
@@ -736,8 +751,10 @@
       "description": "A grid list component for displaying items in a grid layout",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -751,8 +768,10 @@
       "type": "registry:ui",
       "description": "A tabs component with accessible tab navigation",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -767,11 +786,11 @@
       "description": "A tree component for hierarchical data display",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "checkbox"
+        "checkbox",
+        "primitive"
       ],
       "files": [
         {
@@ -841,7 +860,8 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "field"
+        "field",
+        "primitive"
       ],
       "files": [
         {
@@ -861,7 +881,8 @@
       "registryDependencies": [
         "calendar",
         "date-field",
-        "popover"
+        "popover",
+        "primitive"
       ],
       "files": [
         {
@@ -881,7 +902,8 @@
       "registryDependencies": [
         "calendar",
         "date-field",
-        "popover"
+        "popover",
+        "primitive"
       ],
       "files": [
         {
@@ -913,11 +935,11 @@
       "type": "registry:ui",
       "description": "A tag group component for displaying and managing tags",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "field"
+        "field",
+        "primitive"
       ],
       "files": [
         {
@@ -931,13 +953,13 @@
       "type": "registry:ui",
       "description": "A multi-select component with search and filtering capabilities",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "field",
         "list-box",
-        "popover"
+        "popover",
+        "primitive"
       ],
       "files": [
         {
@@ -958,7 +980,8 @@
         "dropdown",
         "field",
         "popover",
-        "tag-group"
+        "tag-group",
+        "primitive"
       ],
       "files": [
         {
@@ -1006,11 +1029,11 @@
       "description": "A toggle group component for single or multiple selection",
       "dependencies": [
         "react-aria-components",
-        "tailwind-merge",
         "tailwind-variants"
       ],
       "registryDependencies": [
-        "toggle"
+        "toggle",
+        "primitive"
       ],
       "files": [
         {
@@ -1048,7 +1071,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button"
+        "button",
+        "primitive"
       ],
       "files": [
         {
@@ -1088,13 +1112,13 @@
       "description": "A comprehensive navigation bar with responsive design",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "button",
         "link",
-        "separator"
+        "separator",
+        "primitive"
       ],
       "files": [
         {
@@ -1109,15 +1133,15 @@
       "description": "A comprehensive sidebar component with collapsible sections",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "button",
         "disclosure",
         "link",
         "sheet",
-        "tooltip"
+        "tooltip",
+        "primitive"
       ],
       "files": [
         {
@@ -1132,12 +1156,12 @@
       "description": "A pagination component with page navigation controls",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "button",
-        "list-box"
+        "list-box",
+        "primitive"
       ],
       "files": [
         {
@@ -1151,12 +1175,12 @@
       "type": "registry:ui",
       "description": "A toolbar component for grouping action buttons",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "separator",
-        "toggle"
+        "toggle",
+        "primitive"
       ],
       "files": [
         {
@@ -1170,8 +1194,10 @@
       "type": "registry:ui",
       "description": "A meter component for displaying scalar values within a range",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -1185,8 +1211,10 @@
       "type": "registry:ui",
       "description": "A progress bar component for showing completion status",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -1250,11 +1278,11 @@
       "dependencies": [
         "lucide-react",
         "react-aria-components",
-        "recharts",
-        "tailwind-merge"
+        "recharts"
       ],
       "registryDependencies": [
-        "toggle-group"
+        "toggle-group",
+        "primitive"
       ],
       "files": [
         {
@@ -1358,11 +1386,11 @@
       "type": "registry:ui",
       "description": "A color area component for 2D color selection",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "color-thumb"
+        "color-thumb",
+        "primitive"
       ],
       "files": [
         {
@@ -1382,7 +1410,8 @@
       "registryDependencies": [
         "color-picker",
         "field",
-        "loader"
+        "loader",
+        "primitive"
       ],
       "files": [
         {
@@ -1414,8 +1443,10 @@
       "type": "registry:ui",
       "description": "A color swatch component for displaying colors",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "primitive"
       ],
       "files": [
         {
@@ -1429,11 +1460,11 @@
       "type": "registry:ui",
       "description": "A color swatch picker for selecting from predefined colors",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "color-swatch"
+        "color-swatch",
+        "primitive"
       ],
       "files": [
         {
@@ -1588,13 +1619,13 @@
       "description": "A command menu component with search and keyboard navigation",
       "dependencies": [
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "dropdown",
         "loader",
-        "menu"
+        "menu",
+        "primitive"
       ],
       "files": [
         {
@@ -1608,11 +1639,11 @@
       "type": "registry:ui",
       "description": "A comprehensive table component with sorting, resizing, and selection",
       "dependencies": [
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
-        "checkbox"
+        "checkbox",
+        "primitive"
       ],
       "files": [
         {

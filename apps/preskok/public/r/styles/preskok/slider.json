@@ -4,12 +4,12 @@
   "type": "registry:ui",
   "description": "A range slider component with tooltip and inline output options",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "field",
-    "tooltip"
+    "tooltip",
+    "primitive"
   ],
   "files": [
     {

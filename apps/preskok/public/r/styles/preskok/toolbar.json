@@ -4,12 +4,12 @@
   "type": "registry:ui",
   "description": "A toolbar component for grouping action buttons",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "separator",
-    "toggle"
+    "toggle",
+    "primitive"
   ],
   "files": [
     {

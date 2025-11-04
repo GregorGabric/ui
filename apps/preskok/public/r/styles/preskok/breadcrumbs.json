@@ -5,11 +5,11 @@
   "description": "A breadcrumb navigation component with customizable separators",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "link"
+    "link",
+    "primitive"
   ],
   "files": [
     {

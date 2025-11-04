@@ -4,8 +4,10 @@
   "type": "registry:ui",
   "description": "A color swatch component for displaying colors",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

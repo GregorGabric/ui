@@ -8,7 +8,8 @@
     "react-aria-components"
   ],
   "registryDependencies": [
-    "field"
+    "field",
+    "primitive"
   ],
   "files": [
     {

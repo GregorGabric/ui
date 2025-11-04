@@ -10,7 +10,8 @@
   "registryDependencies": [
     "calendar",
     "date-field",
-    "popover"
+    "popover",
+    "primitive"
   ],
   "files": [
     {

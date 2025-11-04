@@ -5,15 +5,15 @@
   "description": "A comprehensive sidebar component with collapsible sections",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "button",
     "disclosure",
     "link",
     "sheet",
-    "tooltip"
+    "tooltip",
+    "primitive"
   ],
   "files": [
     {

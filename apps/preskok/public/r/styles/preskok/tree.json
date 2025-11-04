@@ -5,11 +5,11 @@
   "description": "A tree component for hierarchical data display",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "checkbox"
+    "checkbox",
+    "primitive"
   ],
   "files": [
     {

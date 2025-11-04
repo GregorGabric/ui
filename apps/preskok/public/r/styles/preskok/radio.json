@@ -4,11 +4,11 @@
   "type": "registry:ui",
   "description": "Radio and RadioGroup components with field integration",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "field"
+    "field",
+    "primitive"
   ],
   "files": [
     {

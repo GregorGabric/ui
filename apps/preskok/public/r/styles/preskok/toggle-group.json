@@ -5,11 +5,11 @@
   "description": "A toggle group component for single or multiple selection",
   "dependencies": [
     "react-aria-components",
-    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [
-    "toggle"
+    "toggle",
+    "primitive"
   ],
   "files": [
     {

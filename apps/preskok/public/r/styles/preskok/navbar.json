@@ -5,13 +5,13 @@
   "description": "A comprehensive navigation bar with responsive design",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "button",
     "link",
-    "separator"
+    "separator",
+    "primitive"
   ],
   "files": [
     {

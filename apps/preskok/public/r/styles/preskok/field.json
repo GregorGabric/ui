@@ -7,6 +7,9 @@
     "react-aria-components",
     "tailwind-variants"
   ],
+  "registryDependencies": [
+    "primitive"
+  ],
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/field.tsx",

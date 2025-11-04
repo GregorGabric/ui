@@ -5,8 +5,10 @@
   "description": "A list box component for displaying selectable options",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

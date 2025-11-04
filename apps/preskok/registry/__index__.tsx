@@ -164,7 +164,7 @@ export const Index: Record<string, any> = {
     name: "link",
     description: "An accessible link component with multiple styling options",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/link.tsx",
       type: "registry:ui",
@@ -272,7 +272,7 @@ export const Index: Record<string, any> = {
     name: "switch",
     description: "An accessible switch component for boolean inputs",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/switch.tsx",
       type: "registry:ui",
@@ -308,7 +308,7 @@ export const Index: Record<string, any> = {
     name: "field",
     description: "Core field components including Input, Label, Description, and FieldError",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/field.tsx",
       type: "registry:ui",
@@ -344,7 +344,7 @@ export const Index: Record<string, any> = {
     name: "checkbox",
     description: "Checkbox and CheckboxGroup components with field integration",
     type: "registry:ui",
-    registryDependencies: ["field"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/checkbox.tsx",
       type: "registry:ui",
@@ -362,7 +362,7 @@ export const Index: Record<string, any> = {
     name: "input",
     description: "Input and InputGroup components for text input with icons, loaders, and buttons",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/input.tsx",
       type: "registry:ui",
@@ -398,7 +398,7 @@ export const Index: Record<string, any> = {
     name: "number-field",
     description: "A number input field with stepper buttons and validation",
     type: "registry:ui",
-    registryDependencies: ["button","field","use-media-query"],
+    registryDependencies: ["button","field","use-media-query","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/number-field.tsx",
       type: "registry:ui",
@@ -416,7 +416,7 @@ export const Index: Record<string, any> = {
     name: "radio",
     description: "Radio and RadioGroup components with field integration",
     type: "registry:ui",
-    registryDependencies: ["field"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/radio.tsx",
       type: "registry:ui",
@@ -434,7 +434,7 @@ export const Index: Record<string, any> = {
     name: "search-field",
     description: "A search input field with loading state and clear functionality",
     type: "registry:ui",
-    registryDependencies: ["field","loader"],
+    registryDependencies: ["field","loader","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/search-field.tsx",
       type: "registry:ui",
@@ -452,7 +452,7 @@ export const Index: Record<string, any> = {
     name: "slider",
     description: "A range slider component with tooltip and inline output options",
     type: "registry:ui",
-    registryDependencies: ["field","tooltip"],
+    registryDependencies: ["field","tooltip","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/slider.tsx",
       type: "registry:ui",
@@ -470,7 +470,7 @@ export const Index: Record<string, any> = {
     name: "text-field",
     description: "A comprehensive text input field with prefix, suffix, and password reveal",
     type: "registry:ui",
-    registryDependencies: ["field","loader"],
+    registryDependencies: ["field","loader","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/text-field.tsx",
       type: "registry:ui",
@@ -488,7 +488,7 @@ export const Index: Record<string, any> = {
     name: "textarea",
     description: "A multi-line text input component with field integration",
     type: "registry:ui",
-    registryDependencies: ["field"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/textarea.tsx",
       type: "registry:ui",
@@ -506,7 +506,7 @@ export const Index: Record<string, any> = {
     name: "time-field",
     description: "A time input field with segmented time entry",
     type: "registry:ui",
-    registryDependencies: ["field"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/time-field.tsx",
       type: "registry:ui",
@@ -524,7 +524,7 @@ export const Index: Record<string, any> = {
     name: "popover",
     description: "A popover component for displaying content in an overlay",
     type: "registry:ui",
-    registryDependencies: ["dialog"],
+    registryDependencies: ["dialog","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/popover.tsx",
       type: "registry:ui",
@@ -542,7 +542,7 @@ export const Index: Record<string, any> = {
     name: "dialog",
     description: "A comprehensive dialog component with header, body, and footer sections",
     type: "registry:ui",
-    registryDependencies: ["button"],
+    registryDependencies: ["button","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/dialog.tsx",
       type: "registry:ui",
@@ -560,7 +560,7 @@ export const Index: Record<string, any> = {
     name: "modal",
     description: "A modal dialog component with overlay and blur effects",
     type: "registry:ui",
-    registryDependencies: ["dialog"],
+    registryDependencies: ["dialog","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/modal.tsx",
       type: "registry:ui",
@@ -632,7 +632,7 @@ export const Index: Record<string, any> = {
     name: "menu",
     description: "A comprehensive menu component with submenus and sections",
     type: "registry:ui",
-    registryDependencies: ["button","dropdown","popover"],
+    registryDependencies: ["button","dropdown","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/menu.tsx",
       type: "registry:ui",
@@ -668,7 +668,7 @@ export const Index: Record<string, any> = {
     name: "list-box",
     description: "A list box component for displaying selectable options",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/list-box.tsx",
       type: "registry:ui",
@@ -686,7 +686,7 @@ export const Index: Record<string, any> = {
     name: "select",
     description: "A select component with searchable options and custom styling",
     type: "registry:ui",
-    registryDependencies: ["button","field","list-box","popover"],
+    registryDependencies: ["button","field","list-box","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/select.tsx",
       type: "registry:ui",
@@ -704,7 +704,7 @@ export const Index: Record<string, any> = {
     name: "combo-box",
     description: "A combo box component with filtering and custom input",
     type: "registry:ui",
-    registryDependencies: ["field","list-box","popover"],
+    registryDependencies: ["field","list-box","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/combo-box.tsx",
       type: "registry:ui",
@@ -722,7 +722,7 @@ export const Index: Record<string, any> = {
     name: "breadcrumbs",
     description: "A breadcrumb navigation component with customizable separators",
     type: "registry:ui",
-    registryDependencies: ["link"],
+    registryDependencies: ["link","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/breadcrumbs.tsx",
       type: "registry:ui",
@@ -758,7 +758,7 @@ export const Index: Record<string, any> = {
     name: "disclosure",
     description: "Disclosure and accordion components for collapsible content",
     type: "registry:ui",
-    registryDependencies: ["button"],
+    registryDependencies: ["button","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/disclosure.tsx",
       type: "registry:ui",
@@ -776,7 +776,7 @@ export const Index: Record<string, any> = {
     name: "grid-list",
     description: "A grid list component for displaying items in a grid layout",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/grid-list.tsx",
       type: "registry:ui",
@@ -794,7 +794,7 @@ export const Index: Record<string, any> = {
     name: "tabs",
     description: "A tabs component with accessible tab navigation",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/tabs.tsx",
       type: "registry:ui",
@@ -812,7 +812,7 @@ export const Index: Record<string, any> = {
     name: "tree",
     description: "A tree component for hierarchical data display",
     type: "registry:ui",
-    registryDependencies: ["checkbox"],
+    registryDependencies: ["checkbox","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/tree.tsx",
       type: "registry:ui",
@@ -902,7 +902,7 @@ export const Index: Record<string, any> = {
     name: "date-field",
     description: "A date field component with input segments for date and time entry",
     type: "registry:ui",
-    registryDependencies: ["field"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-field.tsx",
       type: "registry:ui",
@@ -920,7 +920,7 @@ export const Index: Record<string, any> = {
     name: "date-picker",
     description: "A date picker component with calendar popup for date selection",
     type: "registry:ui",
-    registryDependencies: ["calendar","date-field","popover"],
+    registryDependencies: ["calendar","date-field","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-picker.tsx",
       type: "registry:ui",
@@ -938,7 +938,7 @@ export const Index: Record<string, any> = {
     name: "date-range-picker",
     description: "A date range picker component with calendar popup",
     type: "registry:ui",
-    registryDependencies: ["calendar","date-field","popover"],
+    registryDependencies: ["calendar","date-field","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-range-picker.tsx",
       type: "registry:ui",
@@ -974,7 +974,7 @@ export const Index: Record<string, any> = {
     name: "tag-group",
     description: "A tag group component for displaying and managing tags",
     type: "registry:ui",
-    registryDependencies: ["field"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/tag-group.tsx",
       type: "registry:ui",
@@ -992,7 +992,7 @@ export const Index: Record<string, any> = {
     name: "multi-select",
     description: "A multi-select component with search and filtering capabilities",
     type: "registry:ui",
-    registryDependencies: ["field","list-box","popover"],
+    registryDependencies: ["field","list-box","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/multi-select.tsx",
       type: "registry:ui",
@@ -1010,7 +1010,7 @@ export const Index: Record<string, any> = {
     name: "multiple-select",
     description: "A multiple select component with tag-based selection",
     type: "registry:ui",
-    registryDependencies: ["dropdown","field","popover","tag-group"],
+    registryDependencies: ["dropdown","field","popover","tag-group","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/multiple-select.tsx",
       type: "registry:ui",
@@ -1064,7 +1064,7 @@ export const Index: Record<string, any> = {
     name: "toggle-group",
     description: "A toggle group component for single or multiple selection",
     type: "registry:ui",
-    registryDependencies: ["toggle"],
+    registryDependencies: ["toggle","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/toggle-group.tsx",
       type: "registry:ui",
@@ -1100,7 +1100,7 @@ export const Index: Record<string, any> = {
     name: "carousel",
     description: "A carousel component with navigation and pagination",
     type: "registry:ui",
-    registryDependencies: ["button"],
+    registryDependencies: ["button","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/carousel.tsx",
       type: "registry:ui",
@@ -1154,7 +1154,7 @@ export const Index: Record<string, any> = {
     name: "navbar",
     description: "A comprehensive navigation bar with responsive design",
     type: "registry:ui",
-    registryDependencies: ["button","link","separator"],
+    registryDependencies: ["button","link","separator","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/navbar.tsx",
       type: "registry:ui",
@@ -1172,7 +1172,7 @@ export const Index: Record<string, any> = {
     name: "sidebar",
     description: "A comprehensive sidebar component with collapsible sections",
     type: "registry:ui",
-    registryDependencies: ["button","disclosure","link","sheet","tooltip"],
+    registryDependencies: ["button","disclosure","link","sheet","tooltip","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/sidebar.tsx",
       type: "registry:ui",
@@ -1190,7 +1190,7 @@ export const Index: Record<string, any> = {
     name: "pagination",
     description: "A pagination component with page navigation controls",
     type: "registry:ui",
-    registryDependencies: ["button","list-box"],
+    registryDependencies: ["button","list-box","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/pagination.tsx",
       type: "registry:ui",
@@ -1208,7 +1208,7 @@ export const Index: Record<string, any> = {
     name: "toolbar",
     description: "A toolbar component for grouping action buttons",
     type: "registry:ui",
-    registryDependencies: ["separator","toggle"],
+    registryDependencies: ["separator","toggle","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/toolbar.tsx",
       type: "registry:ui",
@@ -1226,7 +1226,7 @@ export const Index: Record<string, any> = {
     name: "meter",
     description: "A meter component for displaying scalar values within a range",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/meter.tsx",
       type: "registry:ui",
@@ -1244,7 +1244,7 @@ export const Index: Record<string, any> = {
     name: "progress-bar",
     description: "A progress bar component for showing completion status",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/progress-bar.tsx",
       type: "registry:ui",
@@ -1316,7 +1316,7 @@ export const Index: Record<string, any> = {
     name: "chart",
     description: "Core chart components and utilities for data visualization",
     type: "registry:ui",
-    registryDependencies: ["toggle-group"],
+    registryDependencies: ["toggle-group","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/chart.tsx",
       type: "registry:ui",
@@ -1424,7 +1424,7 @@ export const Index: Record<string, any> = {
     name: "color-area",
     description: "A color area component for 2D color selection",
     type: "registry:ui",
-    registryDependencies: ["color-thumb"],
+    registryDependencies: ["color-thumb","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/color-area.tsx",
       type: "registry:ui",
@@ -1442,7 +1442,7 @@ export const Index: Record<string, any> = {
     name: "color-field",
     description: "A color input field with hex color validation",
     type: "registry:ui",
-    registryDependencies: ["color-picker","field","loader"],
+    registryDependencies: ["color-picker","field","loader","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/color-field.tsx",
       type: "registry:ui",
@@ -1478,7 +1478,7 @@ export const Index: Record<string, any> = {
     name: "color-swatch",
     description: "A color swatch component for displaying colors",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/color-swatch.tsx",
       type: "registry:ui",
@@ -1496,7 +1496,7 @@ export const Index: Record<string, any> = {
     name: "color-swatch-picker",
     description: "A color swatch picker for selecting from predefined colors",
     type: "registry:ui",
-    registryDependencies: ["color-swatch"],
+    registryDependencies: ["color-swatch","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/color-swatch-picker.tsx",
       type: "registry:ui",
@@ -1658,7 +1658,7 @@ export const Index: Record<string, any> = {
     name: "command-menu",
     description: "A command menu component with search and keyboard navigation",
     type: "registry:ui",
-    registryDependencies: ["dropdown","loader","menu"],
+    registryDependencies: ["dropdown","loader","menu","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/command-menu.tsx",
       type: "registry:ui",
@@ -1676,7 +1676,7 @@ export const Index: Record<string, any> = {
     name: "table",
     description: "A comprehensive table component with sorting, resizing, and selection",
     type: "registry:ui",
-    registryDependencies: ["checkbox"],
+    registryDependencies: ["checkbox","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/table.tsx",
       type: "registry:ui",

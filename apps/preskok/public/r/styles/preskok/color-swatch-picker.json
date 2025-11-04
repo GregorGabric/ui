@@ -4,11 +4,11 @@
   "type": "registry:ui",
   "description": "A color swatch picker for selecting from predefined colors",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "color-swatch"
+    "color-swatch",
+    "primitive"
   ],
   "files": [
     {

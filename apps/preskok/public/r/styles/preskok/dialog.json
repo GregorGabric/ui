@@ -5,11 +5,11 @@
   "description": "A comprehensive dialog component with header, body, and footer sections",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "button"
+    "button",
+    "primitive"
   ],
   "files": [
     {

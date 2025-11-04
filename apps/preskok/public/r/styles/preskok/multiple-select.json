@@ -11,7 +11,8 @@
     "dropdown",
     "field",
     "popover",
-    "tag-group"
+    "tag-group",
+    "primitive"
   ],
   "files": [
     {

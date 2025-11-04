@@ -4,13 +4,13 @@
   "type": "registry:ui",
   "description": "A multi-select component with search and filtering capabilities",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "field",
     "list-box",
-    "popover"
+    "popover",
+    "primitive"
   ],
   "files": [
     {

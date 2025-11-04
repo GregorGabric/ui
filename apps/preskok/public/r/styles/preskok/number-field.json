@@ -5,13 +5,13 @@
   "description": "A number input field with stepper buttons and validation",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "button",
     "field",
-    "use-media-query"
+    "use-media-query",
+    "primitive"
   ],
   "files": [
     {

@@ -5,13 +5,13 @@
   "description": "A command menu component with search and keyboard navigation",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "dropdown",
     "loader",
-    "menu"
+    "menu",
+    "primitive"
   ],
   "files": [
     {

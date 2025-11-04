@@ -5,12 +5,12 @@
   "description": "A search input field with loading state and clear functionality",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "field",
-    "loader"
+    "loader",
+    "primitive"
   ],
   "files": [
     {

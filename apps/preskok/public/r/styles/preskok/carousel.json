@@ -8,7 +8,8 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "button"
+    "button",
+    "primitive"
   ],
   "files": [
     {

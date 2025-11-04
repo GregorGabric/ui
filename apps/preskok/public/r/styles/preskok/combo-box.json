@@ -4,13 +4,13 @@
   "type": "registry:ui",
   "description": "A combo box component with filtering and custom input",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "field",
     "list-box",
-    "popover"
+    "popover",
+    "primitive"
   ],
   "files": [
     {

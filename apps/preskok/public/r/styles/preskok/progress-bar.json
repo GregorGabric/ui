@@ -4,8 +4,10 @@
   "type": "registry:ui",
   "description": "A progress bar component for showing completion status",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "primitive"
   ],
   "files": [
     {

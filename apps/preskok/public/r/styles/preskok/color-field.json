@@ -10,7 +10,8 @@
   "registryDependencies": [
     "color-picker",
     "field",
-    "loader"
+    "loader",
+    "primitive"
   ],
   "files": [
     {

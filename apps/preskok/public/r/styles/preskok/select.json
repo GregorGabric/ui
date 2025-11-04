@@ -5,14 +5,14 @@
   "description": "A select component with searchable options and custom styling",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "button",
     "field",
     "list-box",
-    "popover"
+    "popover",
+    "primitive"
   ],
   "files": [
     {

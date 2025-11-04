@@ -6,11 +6,11 @@
   "dependencies": [
     "lucide-react",
     "react-aria-components",
-    "recharts",
-    "tailwind-merge"
+    "recharts"
   ],
   "registryDependencies": [
-    "toggle-group"
+    "toggle-group",
+    "primitive"
   ],
   "files": [
     {

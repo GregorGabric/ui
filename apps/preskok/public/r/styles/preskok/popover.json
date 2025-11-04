@@ -4,11 +4,11 @@
   "type": "registry:ui",
   "description": "A popover component for displaying content in an overlay",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "dialog"
+    "dialog",
+    "primitive"
   ],
   "files": [
     {

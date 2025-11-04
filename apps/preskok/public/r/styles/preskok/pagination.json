@@ -5,12 +5,12 @@
   "description": "A pagination component with page navigation controls",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
     "button",
-    "list-box"
+    "list-box",
+    "primitive"
   ],
   "files": [
     {

@@ -4,11 +4,11 @@
   "type": "registry:ui",
   "description": "A color area component for 2D color selection",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "color-thumb"
+    "color-thumb",
+    "primitive"
   ],
   "files": [
     {

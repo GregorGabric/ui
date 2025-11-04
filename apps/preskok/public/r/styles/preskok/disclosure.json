@@ -5,11 +5,11 @@
   "description": "Disclosure and accordion components for collapsible content",
   "dependencies": [
     "lucide-react",
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "button"
+    "button",
+    "primitive"
   ],
   "files": [
     {

@@ -4,11 +4,11 @@
   "type": "registry:ui",
   "description": "A comprehensive table component with sorting, resizing, and selection",
   "dependencies": [
-    "react-aria-components",
-    "tailwind-merge"
+    "react-aria-components"
   ],
   "registryDependencies": [
-    "checkbox"
+    "checkbox",
+    "primitive"
   ],
   "files": [
     {
