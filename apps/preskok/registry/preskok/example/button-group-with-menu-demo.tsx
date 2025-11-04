@@ -21,28 +21,28 @@ export default function ButtonGroupWithMenuDemo() {
   return (
     <ButtonGroup>
       <Button intent="secondary">
-        <RocketIcon />
+        <RocketIcon data-slot="icon" />
         Deploy
       </Button>
       <Menu>
         <Button intent="secondary">
-          <MoreHorizontalIcon />
+          <MoreHorizontalIcon data-slot="icon" />
         </Button>
         <MenuContent placement="bottom end">
           <MenuItem href="#">
-            <RotateCcwIcon />
+            <RotateCcwIcon data-slot="icon" />
             Redeploy
           </MenuItem>
           <MenuItem href="#">
-            <UndoIcon />
+            <UndoIcon data-slot="icon" />
             Rollback
           </MenuItem>
           <MenuItem href="#">
-            <FileTextIcon />
+            <FileTextIcon data-slot="icon" />
             View logs
           </MenuItem>
           <MenuItem href="#">
-            <SettingsIcon />
+            <SettingsIcon data-slot="icon" />
             Settings
           </MenuItem>
         </MenuContent>
