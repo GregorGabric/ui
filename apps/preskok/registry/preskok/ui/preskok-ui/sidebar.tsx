@@ -438,7 +438,7 @@ const SidebarItem = ({
             "p-2 has-[a]:p-0",
             "[--sidebar-current-background:var(--color-sidebar-primary)] [--sidebar-current-foreground:var(--color-sidebar-primary-foreground)]",
             isCurrent &&
-              "[&_.text-muted-foreground]:text-foreground/80 font-medium text-(--sidebar-current-foreground) hover:bg-(--sidebar-current-background) hover:text-(--sidebar-current-foreground) [&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground) hover:[&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground)",
+              "[&_.text-muted-foreground]:text-foreground/80 bg-(--sidebar-current-background) font-medium text-(--sidebar-current-foreground) hover:bg-(--sidebar-current-background) hover:text-(--sidebar-current-foreground) [&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground) hover:[&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground)",
             isFocusVisible &&
               "inset-ring-sidebar-ring inset-ring outline-hidden",
             (isPressed || isHovered) &&
@@ -722,7 +722,7 @@ const SidebarRail = ({
       tabIndex={-1}
       onClick={toggleSidebar}
       className={twMerge(
-        "absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 outline-hidden transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-transparent sm:flex",
+        "absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 outline-hidden group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-transparent sm:flex",
         "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
         "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
         "group-data-[collapsible=hidden]:hover:bg-sidebar-accent group-data-[collapsible=hidden]:translate-x-0 group-data-[collapsible=hidden]:after:left-full",

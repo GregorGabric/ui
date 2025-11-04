@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/example/input-group-demo.tsx",
-      "content": "\"use client\"\n\nimport { MailIcon } from \"lucide-react\"\n\nimport { Input, InputGroup } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { Text } from \"@/registry/preskok/ui/preskok-ui/text\"\n\nexport default function InputGroupDemo() {\n  return (\n    <div className=\"space-y-6\">\n      <InputGroup>\n        <MailIcon />\n        <Input type=\"email\" />\n      </InputGroup>\n      <InputGroup className=\"[--input-gutter-end:--spacing(12)] [--input-gutter-start:--spacing(16)]\">\n        <Text>https://</Text>\n        <Input />\n        <Text>.com</Text>\n      </InputGroup>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { MailIcon } from \"lucide-react\"\n\nimport { Input, InputGroup } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { Text } from \"@/registry/preskok/ui/preskok-ui/text\"\n\nexport default function InputGroupDemo() {\n  return (\n    <div className=\"space-y-6\">\n      <InputGroup>\n        <MailIcon data-slot=\"icon\" />\n        <Input type=\"email\" />\n      </InputGroup>\n      <InputGroup className=\"[--input-gutter-end:--spacing(12)] [--input-gutter-start:--spacing(16)]\">\n        <Text>https://</Text>\n        <Input />\n        <Text>.com</Text>\n      </InputGroup>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

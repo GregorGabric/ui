@@ -3,10 +3,7 @@ title: Input
 description: Input and InputGroup components for text input with icons, loaders, and buttons.
 ---
 
-<ComponentPreview
-  name="input-basic-demo"
-  description="A basic input field."
-/>
+<ComponentPreview name="input-basic-demo" description="A basic input field." />
 
 ## Installation
 
@@ -102,7 +99,7 @@ A wrapper that allows you to add icons, loaders, text, or buttons alongside the 
 
 ```tsx
 <InputGroup>
-  <MailIcon />
+  <MailIcon data-slot="icon" />
   <Input type="email" />
 </InputGroup>
 ```
@@ -111,8 +108,7 @@ A wrapper that allows you to add icons, loaders, text, or buttons alongside the 
 
 All standard HTML input props are supported, plus:
 
-| Prop        | Type                               | Default | Description            |
-| ----------- | ---------------------------------- | ------- | ---------------------- |
-| `className` | `string`                           | -       | Additional CSS classes |
-| `ref`       | `React.Ref<HTMLInputElement>`      | -       | Input element ref      |
-
+| Prop        | Type                          | Default | Description            |
+| ----------- | ----------------------------- | ------- | ---------------------- |
+| `className` | `string`                      | -       | Additional CSS classes |
+| `ref`       | `React.Ref<HTMLInputElement>` | -       | Input element ref      |

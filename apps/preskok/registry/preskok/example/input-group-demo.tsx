@@ -9,7 +9,7 @@ export default function InputGroupDemo() {
   return (
     <div className="space-y-6">
       <InputGroup>
-        <MailIcon />
+        <MailIcon data-slot="icon" />
         <Input type="email" />
       </InputGroup>
       <InputGroup className="[--input-gutter-end:--spacing(12)] [--input-gutter-start:--spacing(16)]">

@@ -1,4 +1,11 @@
 {
   "title": "Buttons",
-  "pages": ["button", "button-group", "toggle", "toggle-group", "file-trigger", "preskok-auth-button"]
+  "pages": [
+    "button",
+    "button-group",
+    "toggle",
+    "toggle-group",
+    "file-trigger",
+    "preskok-auth-button"
+  ]
 }
