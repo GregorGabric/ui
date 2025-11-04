@@ -42,9 +42,6 @@ import { twJoin, twMerge } from "tailwind-merge"
 
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
 
-// Import individual chart components
-import { AreaChart } from "./area-chart"
-import { BarChart } from "./bar-chart"
 // Import legacy chart helpers
 import {
   ChartContainer as LegacyChartContainer,
@@ -54,8 +51,6 @@ import {
   ChartTooltip as LegacyChartTooltip,
   ChartTooltipContent as LegacyChartTooltipContent,
 } from "./chart-helpers"
-import { LineChart } from "./line-chart"
-import { PieChart } from "./pie-chart"
 import { Separator } from "./separator"
 
 // #region Chart Types
@@ -681,9 +676,6 @@ export type {
 }
 
 export {
-  // Individual chart components
-  AreaChart,
-  BarChart,
   // Chart utilities
   CartesianGrid,
   Chart,
@@ -703,8 +695,6 @@ export {
   LegacyChartStyle,
   LegacyChartTooltip,
   LegacyChartTooltipContent,
-  LineChart,
-  PieChart,
   XAxis,
   YAxis,
 }

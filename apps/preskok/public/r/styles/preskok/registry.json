@@ -925,30 +925,6 @@
       ]
     },
     {
-      "name": "searchable-multi-select",
-      "type": "registry:ui",
-      "description": "A searchable multi-select component with filtering and tag-based selection",
-      "dependencies": [
-        "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
-      ],
-      "registryDependencies": [
-        "dropdown",
-        "field",
-        "list-box",
-        "popover",
-        "search-field",
-        "use-controllable-state"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "tag-field",
       "type": "registry:ui",
       "description": "A tag input field for adding and removing tags",
@@ -5072,32 +5048,6 @@
       "files": [
         {
           "path": "registry/preskok/examples/drop-zone-preskok-demo.tsx",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "multiple-select-preskok-demo",
-      "type": "registry:example",
-      "registryDependencies": [
-        "multiple-select"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/multiple-select-preskok-demo.tsx",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "searchable-multi-select-preskok-demo",
-      "type": "registry:example",
-      "registryDependencies": [
-        "searchable-multi-select"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/searchable-multi-select-preskok-demo.tsx",
           "type": "registry:example"
         }
       ]

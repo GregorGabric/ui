@@ -18,7 +18,12 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Container } from "@/registry/preskok/ui/preskok-ui/container"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import { Sheet } from "@/registry/preskok/ui/preskok-ui/sheet"
 import { Blocks } from "@/app/(app)/theme/partials/blocks"
 import { GeneratedTheme } from "@/app/(app)/theme/partials/generated-theme"
@@ -78,23 +83,25 @@ export function ThemeContainer() {
               </CardDescription>
               <CardAction className="hidden lg:inline-flex">
                 <Menu>
-                  <Button>
-                    Get theme
-                    <ChevronDownIcon />
-                  </Button>
-                  <Menu.Content
+                  <MenuTrigger>
+                    <Button>
+                      Get theme
+                      <ChevronDownIcon />
+                    </Button>
+                  </MenuTrigger>
+                  <MenuContent
                     placement="bottom right"
                     className="min-w-(--trigger-width)"
                   >
-                    <Menu.Item onAction={copy}>
+                    <MenuItem onAction={copy}>
                       <CopyIcon />
                       Copy
-                    </Menu.Item>
-                    <Menu.Item onAction={handleOpen}>
+                    </MenuItem>
+                    <MenuItem onAction={handleOpen}>
                       <PanelRightIcon />
                       Show theme
-                    </Menu.Item>
-                  </Menu.Content>
+                    </MenuItem>
+                  </MenuContent>
                 </Menu>
               </CardAction>
             </CardHeader>
@@ -108,38 +115,40 @@ export function ThemeContainer() {
         </Suspense>
       </Container>
 
-      <Sheet.Content
-        onOpenChange={setOpen}
-        isOpen={open}
-        className="bg-shiki-bg sm:max-w-md"
-        side="right"
-      >
-        <Sheet.Header
-          title="Theme"
-          description="Copy the theme below and paste it into your CSS file."
-        />
-        <Sheet.Body className="border-y pb-4">
-          <Card className="bg-neutral-950 p-4">
-            <pre className="overflow-x-auto text-xs text-white">
-              <code>{generateTheme(selectedColors)}</code>
-            </pre>
-          </Card>
-        </Sheet.Body>
-        <Sheet.Footer className="gap-x-1">
-          <Sheet.Close onPress={handleClose} className="hidden sm:flex">
-            Close
-          </Sheet.Close>
-          <Button
-            onPress={() => {
-              copy()
-              handleClose()
-            }}
-          >
-            <CopyIcon />
-            Copy
-          </Button>
-        </Sheet.Footer>
-      </Sheet.Content>
+      <Sheet>
+        <Sheet.Content
+          onOpenChange={setOpen}
+          isOpen={open}
+          className="bg-shiki-bg sm:max-w-md"
+          side="right"
+        >
+          <Sheet.Header
+            title="Theme"
+            description="Copy the theme below and paste it into your CSS file."
+          />
+          <Sheet.Body className="border-y pb-4">
+            <Card className="bg-neutral-950 p-4">
+              <pre className="overflow-x-auto text-xs text-white">
+                <code>{generateTheme(selectedColors)}</code>
+              </pre>
+            </Card>
+          </Sheet.Body>
+          <Sheet.Footer className="gap-x-1">
+            <Sheet.Close onPress={handleClose} className="hidden sm:flex">
+              Close
+            </Sheet.Close>
+            <Button
+              onPress={() => {
+                copy()
+                handleClose()
+              }}
+            >
+              <CopyIcon />
+              Copy
+            </Button>
+          </Sheet.Footer>
+        </Sheet.Content>
+      </Sheet>
     </>
   )
 }

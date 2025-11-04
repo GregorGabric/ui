@@ -1,67 +1,76 @@
 "use client"
 
-import { ComboBox } from "@/registry/preskok/ui/preskok-ui/combo-box"
+import {
+  ComboBox,
+  ComboBoxContent,
+  ComboBoxInput,
+  ComboBoxItem,
+} from "@/registry/preskok/ui/preskok-ui/combo-box"
 
-type VehicleMake = {
-  id: string
-  name: string
-  country: string
-}
-
-const vehicleMakes: Array<VehicleMake> = [
-  { id: "toyota", name: "Toyota", country: "Japan" },
-  { id: "honda", name: "Honda", country: "Japan" },
-  { id: "ford", name: "Ford", country: "USA" },
-  { id: "chevrolet", name: "Chevrolet", country: "USA" },
-  { id: "bmw", name: "BMW", country: "Germany" },
-  { id: "mercedes", name: "Mercedes-Benz", country: "Germany" },
-  { id: "audi", name: "Audi", country: "Germany" },
-  { id: "hyundai", name: "Hyundai", country: "South Korea" },
-  { id: "kia", name: "Kia", country: "South Korea" },
-  { id: "volkswagen", name: "Volkswagen", country: "Germany" },
-]
-
-export default function ComboboxDemo() {
+export function Component() {
   return (
-    <div className="space-y-4">
-      <ComboBox label="Vehicle Make" placeholder="Search makes...">
-        <ComboBox.Input />
-        <ComboBox.List items={vehicleMakes}>
-          {(item: VehicleMake) => (
-            <ComboBox.Option id={item.id} textValue={item.name}>
-              <div className="flex w-full items-center justify-between">
-                <span>{item.name}</span>
-                <span className="text-muted-foreground text-xs">
-                  {item.country}
-                </span>
-              </div>
-            </ComboBox.Option>
-          )}
-        </ComboBox.List>
-      </ComboBox>
-
-      <ComboBox
-        label="Vehicle Model"
-        placeholder="Search models..."
-        defaultInputValue="Camry"
-      >
-        <ComboBox.Input />
-        <ComboBox.List
-          items={[
-            { id: "camry", name: "Camry" },
-            { id: "corolla", name: "Corolla" },
-            { id: "rav4", name: "RAV4" },
-            { id: "highlander", name: "Highlander" },
-            { id: "prius", name: "Prius" },
-          ]}
-        >
-          {(item) => (
-            <ComboBox.Option id={item.id} textValue={item.name}>
-              {item.name}
-            </ComboBox.Option>
-          )}
-        </ComboBox.List>
-      </ComboBox>
-    </div>
+    <ComboBox name="user" aria-label="Users">
+      <ComboBoxInput placeholder="Select a user" />
+      <ComboBoxContent items={users}>
+        {(item) => (
+          <ComboBoxItem id={item.id} textValue={item.name}>
+            {item.name}
+          </ComboBoxItem>
+        )}
+      </ComboBoxContent>
+    </ComboBox>
   )
 }
+
+const users = [
+  {
+    id: 1,
+    name: "Barbara Kirlin Sr.",
+    image_url: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: 2,
+    name: "Rosemarie Koch",
+    image_url: "https://i.pravatar.cc/150?img=2",
+  },
+  {
+    id: 3,
+    name: "Mrs. Reva Heaney Jr.",
+    image_url: "https://i.pravatar.cc/150?img=3",
+  },
+  {
+    id: 4,
+    name: "Ms. Ettie Abshire DVM",
+    image_url: "https://i.pravatar.cc/150?img=4",
+  },
+  {
+    id: 5,
+    name: "Bria Ziemann",
+    image_url: "https://i.pravatar.cc/150?img=5",
+  },
+  {
+    id: 6,
+    name: "Heloise Borer Sr.",
+    image_url: "https://i.pravatar.cc/150?img=6",
+  },
+  {
+    id: 7,
+    name: "Miss Jacinthe Gerlach DVM",
+    image_url: "https://i.pravatar.cc/150?img=7",
+  },
+  {
+    id: 8,
+    name: "Miss Stephania Schaefer Sr.",
+    image_url: "https://i.pravatar.cc/150?img=8",
+  },
+  {
+    id: 9,
+    name: "Kevon Hackett MD",
+    image_url: "https://i.pravatar.cc/150?img=9",
+  },
+  {
+    id: 10,
+    name: "Tom Ledner",
+    image_url: "https://i.pravatar.cc/150?img=10",
+  },
+]

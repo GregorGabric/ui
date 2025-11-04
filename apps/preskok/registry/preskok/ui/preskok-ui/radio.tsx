@@ -1,9 +1,6 @@
 "use client"
 
-import type {
-  RadioGroupProps as RadioGroupPrimitiveProps,
-  RadioProps as RadioPrimitiveProps,
-} from "react-aria-components"
+import type { RadioGroupProps, RadioProps } from "react-aria-components"
 import {
   composeRenderProps,
   RadioGroup as RadioGroupPrimitive,
@@ -11,79 +8,35 @@ import {
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
-import { Description, FieldError, Label, type FieldProps } from "./field"
+import { Label } from "./field"
 
-interface RadioGroupProps
-  extends RadioGroupPrimitiveProps,
-    Omit<FieldProps, "placeholder"> {}
-
-const RadioGroup = ({
-  className,
-  label,
-  description,
-  errorMessage,
-  children,
-  ...props
-}: RadioGroupProps) => {
+export function RadioGroup({ className, ...props }: RadioGroupProps) {
   return (
     <RadioGroupPrimitive
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "space-y-3 has-[[slot=description]]:space-y-6 has-[[slot=description]]:**:data-[slot=label]:font-medium **:[[slot=description]]:block"
+      data-slot="control"
+      className={cx(
+        "space-y-3 **:data-[slot=label]:font-normal",
+        "has-[slot=description]:space-y-6 has-[slot=description]:**:data-[slot=label]:font-medium",
+        className
       )}
-    >
-      {(values) => (
-        <>
-          {label && <Label>{label}</Label>}
-          {description && <Description>{description}</Description>}
-          {typeof children === "function" ? children(values) : children}
-          <FieldError>{errorMessage}</FieldError>
-        </>
-      )}
-    </RadioGroupPrimitive>
+    />
   )
 }
 
-interface RadioProps
-  extends RadioPrimitiveProps,
-    Pick<FieldProps, "label" | "description"> {}
-
-const Radio = ({
-  className,
-  children,
-  description,
-  label,
-  ...props
-}: RadioProps) => {
+export function Radio({ className, children, ...props }: RadioProps) {
   return (
     <RadioPrimitive
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "group block disabled:opacity-50"
-      )}
+      className={cx("group block disabled:opacity-50", className)}
     >
       {composeRenderProps(
         children,
         (children, { isSelected, isFocusVisible, isInvalid }) => {
           const isStringChild = typeof children === "string"
-          const hasCustomChildren = typeof children !== "undefined"
-
-          const content = hasCustomChildren ? (
-            isStringChild ? (
-              <Label>{children}</Label>
-            ) : (
-              children
-            )
-          ) : (
-            <>
-              {label && <Label>{label}</Label>}
-              {description && <Description>{description}</Description>}
-            </>
-          )
+          const content = isStringChild ? <Label>{children}</Label> : children
 
           return (
             <div
@@ -98,17 +51,17 @@ const Radio = ({
               <span
                 data-slot="indicator"
                 className={twMerge([
-                  "inset-ring-foreground/10 bg-secondary text-background hover:before:bg-foreground/10 sm:before:size-1.7 relative isolate flex size-4.5 shrink-0 items-center justify-center rounded-full inset-ring transition before:absolute before:inset-auto before:size-2 before:shrink-0 before:rounded-full before:content-[''] sm:size-4",
+                  "inset-ring-input text-bg hover:before:bg-muted-fg/20 sm:before:size-1.7 relative isolate flex size-4.5 shrink-0 items-center justify-center rounded-full inset-ring transition before:absolute before:inset-auto before:size-2 before:shrink-0 before:rounded-full before:content-[''] sm:size-4",
                   isSelected && [
-                    "bg-primary text-primary-foreground before:bg-background hover:before:bg-muted/90 dark:inset-ring-primary",
-                    "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-foreground",
+                    "inset-ring-primary bg-primary text-primary-fg before:bg-bg hover:before:bg-muted/90",
+                    "group-invalid:inset-ring-danger-subtle-fg/70 group-invalid:bg-danger group-invalid:text-danger-fg",
                   ],
                   isFocusVisible && [
                     "inset-ring-primary ring-ring/20 ring-3",
-                    "group-invalid:inset-ring-danger/70 group-invalid:text-danger-foreground group-invalid:ring-danger/20",
+                    "group-invalid:inset-ring-danger-subtle-fg/70 group-invalid:text-danger-fg group-invalid:ring-danger-subtle-fg/20",
                   ],
                   isInvalid &&
-                    "inset-ring-danger/70 bg-danger/20 text-danger-foreground ring-danger/20",
+                    "inset-ring-danger-subtle-fg/70 bg-danger-subtle/5 text-danger-fg ring-danger-subtle-fg/20",
                 ])}
               />
               {content}
@@ -119,6 +72,3 @@ const Radio = ({
     </RadioPrimitive>
   )
 }
-
-export { Radio, RadioGroup }
-export type { RadioGroupProps, RadioProps }

@@ -4,7 +4,7 @@ import { LayoutDashboardIcon } from "lucide-react"
 import AreaChartPreskokDemo from "@/registry/preskok/examples/area-chart-preskok-demo"
 import BarChartPreskokDemo from "@/registry/preskok/examples/bar-chart-preskok-demo"
 import DropdownPreskokDemo from "@/registry/preskok/examples/dropdown-preskok-demo"
-import DialogPreskokDemo from "@/registry/preskok/examples/modal-preskok-demo"
+import { ModalPreskokDemo } from "@/registry/preskok/examples/modal-preskok-demo"
 import RangeCalendarPreskokDemo from "@/registry/preskok/examples/range-calendar-preskok-demo"
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
 import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
@@ -13,11 +13,23 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@/registry/preskok/ui/preskok-ui/checkbox"
-import { ComboBox } from "@/registry/preskok/ui/preskok-ui/combo-box"
+import {
+  ComboBox,
+  ComboBoxContent,
+  ComboBoxInput,
+  ComboBoxItem,
+} from "@/registry/preskok/ui/preskok-ui/combo-box"
 import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { Link } from "@/registry/preskok/ui/preskok-ui/link"
 import { Radio, RadioGroup } from "@/registry/preskok/ui/preskok-ui/radio"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectDescription,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
@@ -58,18 +70,8 @@ export function Blocks() {
             </Card.Description>
           </Card.Header>
           <Card.Content className="space-y-6">
-            <TextField
-              isRequired
-              label="Email"
-              placeholder="Enter your email"
-            />
-            <TextField
-              isRequired
-              label="Password"
-              isRevealable
-              type="password"
-              placeholder="Enter your password"
-            />
+            <TextField isRequired name="email" />
+            <TextField isRequired name="password" type="password" />
             <div className="flex items-center justify-between">
               <Checkbox>Remember me</Checkbox>
               <Link intent="primary" className="text-sm" href="#">
@@ -84,30 +86,30 @@ export function Blocks() {
         <Card className="flex items-center justify-center gap-2 p-6">
           <div className="space-y-2">
             <div className="flex flex-col gap-2 md:flex-row">
-              <DialogPreskokDemo />
+              <ModalPreskokDemo />
               <DropdownPreskokDemo />
             </div>
             <Select aria-label="Select a role" placeholder="Select a role">
-              <Select.Trigger />
-              <Select.List items={roles}>
+              <SelectTrigger />
+              <SelectContent items={roles}>
                 {(item: { id: string; name: string; description?: string }) => (
-                  <Select.Option id={item.id} textValue={item.name}>
-                    <Select.Label>{item.name}</Select.Label>
-                    <Select.Description>{item.description}</Select.Description>
-                  </Select.Option>
+                  <SelectItem id={item.id} textValue={item.name}>
+                    <SelectLabel>{item.name}</SelectLabel>
+                    <SelectDescription>{item.description}</SelectDescription>
+                  </SelectItem>
                 )}
-              </Select.List>
+              </SelectContent>
             </Select>
-            <ComboBox placeholder="Select a user" aria-label="Select a user">
-              <ComboBox.Input />
-              <ComboBox.List items={users}>
+            <ComboBox aria-label="Select a user">
+              <ComboBoxInput placeholder="Select a user" />
+              <ComboBoxContent items={users}>
                 {(item: { id: string; name: string; image_url?: string }) => (
-                  <ComboBox.Option id={item.id} textValue={item.name}>
+                  <ComboBoxItem id={item.id} textValue={item.name}>
                     <Avatar src={item.image_url} />
                     {item.name}
-                  </ComboBox.Option>
+                  </ComboBoxItem>
                 )}
-              </ComboBox.List>
+              </ComboBoxContent>
             </ComboBox>
           </div>
         </Card>
@@ -119,38 +121,37 @@ export function Blocks() {
             defaultValue="highSecurity"
             aria-label="Security settings"
           >
-            <Radio
-              value="highSecurity"
-              label="High security"
-              description="Set all protections to maximum."
-            />
+            <Radio value="highSecurity">
+              <Label>High security</Label>
+              <Description>Set all protections to maximum.</Description>
+            </Radio>
             <CheckboxGroup
               aria-label="Advanced Security Features"
               defaultValue={["encryption", "firewall"]}
               className="ml-6"
             >
-              <Checkbox
-                value="encryption"
-                label="Encryption"
-                description="Encrypt all data at rest and in transit."
-              />
-              <Checkbox
-                value="firewall"
-                label="Firewall"
-                description="Enable network firewall."
-              />
+              <Checkbox value="encryption">
+                <Label>Encryption</Label>
+                <Description>
+                  Encrypt all data at rest and in transit.
+                </Description>
+              </Checkbox>
+              <Checkbox value="firewall">
+                <Label>Firewall</Label>
+                <Description>Enable network firewall.</Description>
+              </Checkbox>
             </CheckboxGroup>
 
-            <Radio
-              value="balancedSecurity"
-              label="Balanced security"
-              description="Balance between protection and performance."
-            />
-            <Radio
-              value="lowSecurity"
-              label="Low security"
-              description="Minimal protection enabled."
-            />
+            <Radio value="balancedSecurity">
+              <Label>Balanced security</Label>
+              <Description>
+                Balance between protection and performance.
+              </Description>
+            </Radio>
+            <Radio value="lowSecurity">
+              <Label>Low security</Label>
+              <Description>Minimal protection enabled.</Description>
+            </Radio>
           </RadioGroup>
         </Card>
         <Card className="grid place-content-center">

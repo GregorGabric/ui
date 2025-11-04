@@ -1,38 +1,46 @@
 "use client"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
-import { Modal } from "@/registry/preskok/ui/preskok-ui/modal"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
+import {
+  Modal,
+  ModalBody,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/registry/preskok/ui/preskok-ui/modal"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
-export default function ModalPreskokDemo() {
+export function ModalPreskokDemo() {
   return (
     <Modal>
       <Button intent="outline">Rename</Button>
-      <Modal.Content isBlurred>
+      <ModalContent>
         {({ close }) => (
           <>
-            <Modal.Header>
-              <Modal.Title>Rename project</Modal.Title>
-              <Modal.Description>
+            <ModalHeader>
+              <ModalTitle>Rename project</ModalTitle>
+              <ModalDescription>
                 Change how this project will appear across the dashboard.
-              </Modal.Description>
-            </Modal.Header>
-            <Modal.Body>
-              <TextField
-                autoFocus
-                aria-label="Name"
-                placeholder="Enter a name"
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.Close>Cancel</Modal.Close>
+              </ModalDescription>
+            </ModalHeader>
+            <ModalBody>
+              <TextField aria-label="Name">
+                <Input placeholder="Enter a name" />
+              </TextField>
+            </ModalBody>
+            <ModalFooter>
+              <ModalClose>Cancel</ModalClose>
               <Button onPress={close} intent="primary">
                 Save changes
               </Button>
-            </Modal.Footer>
+            </ModalFooter>
           </>
         )}
-      </Modal.Content>
+      </ModalContent>
     </Modal>
   )
 }

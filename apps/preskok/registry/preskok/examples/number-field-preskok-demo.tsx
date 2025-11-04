@@ -6,12 +6,12 @@ export default function NumberFieldPreskokDemo() {
   return (
     <div className="space-y-4">
       <NumberField
-        label="Quantity"
+        name="quantity"
         defaultValue={1}
         minValue={0}
         maxValue={10}
       />
-      <NumberField label="Price" prefix="$" defaultValue={9.99} />
+      <NumberField name="price" defaultValue={9.99} />
     </div>
   )
 }

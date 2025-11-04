@@ -1,6 +1,7 @@
 import { Search } from "lucide-react"
 
-import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 
 export function SearchForm({ ...props }: React.ComponentProps<"form">) {
   return (

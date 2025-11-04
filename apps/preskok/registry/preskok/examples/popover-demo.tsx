@@ -4,15 +4,16 @@ import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Popover,
   PopoverContent,
+  PopoverTrigger,
 } from "@/registry/preskok/ui/preskok-ui/popover"
 
 export default function PopoverDemo() {
   return (
     <div className="flex items-center gap-4">
       <Popover>
-        <Popover.Trigger className={buttonStyles({ intent: "outline" })}>
+        <PopoverTrigger className={buttonStyles({ intent: "outline" })}>
           Vehicle Info
-        </Popover.Trigger>
+        </PopoverTrigger>
         <PopoverContent className="w-80">
           <div className="space-y-3">
             <div>
@@ -43,9 +44,9 @@ export default function PopoverDemo() {
       </Popover>
 
       <Popover>
-        <Popover.Trigger className={buttonStyles({ intent: "outline" })}>
+        <PopoverTrigger className={buttonStyles({ intent: "outline" })}>
           Financing Options
-        </Popover.Trigger>
+        </PopoverTrigger>
         <PopoverContent className="w-72">
           <div className="space-y-3">
             <h4 className="font-semibold">Financing Calculator</h4>

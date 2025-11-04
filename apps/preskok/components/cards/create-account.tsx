@@ -52,14 +52,9 @@ export function CardsCreateAccount() {
             </span>
           </div>
         </div>
-        <TextField label="Email" placeholder="me@preskok.si" />
+        <TextField aria-label="Email" />
 
-        <TextField
-          defaultValue="password"
-          type="password"
-          label="Password"
-          isRevealable
-        />
+        <TextField aria-label="Password" type="password" />
       </CardContent>
       <CardFooter>
         <Button className="w-full">Create account</Button>

@@ -1,22 +1,49 @@
 "use client"
 
+import { Form } from "react-aria-components"
+
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Description,
   FieldError,
-  FieldGroup,
-  Input,
+  Fieldset,
   Label,
+  Legend,
 } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
+import { Text } from "@/registry/preskok/ui/preskok-ui/text"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
-export default function FieldPreskokDemo() {
+export function Component() {
   return (
-    <div className="max-w-sm space-y-2">
-      <Label htmlFor="email">Dealer Email</Label>
-      <FieldGroup>
-        <Input id="email" placeholder="you@example.com" />
-      </FieldGroup>
-      <Description>We will never share your email.</Description>
-      <FieldError>Invalid email</FieldError>
-    </div>
+    <Form>
+      <Fieldset>
+        <Legend>Profile information</Legend>
+        <Text>
+          Update your account's profile information and email address.
+        </Text>
+
+        <TextField isRequired name="name">
+          <Label>Name</Label>
+          <Input />
+          <FieldError />
+          <Description>This is your public display name.</Description>
+        </TextField>
+        <TextField isRequired name="email">
+          <Label>Email</Label>
+          <Description>This is your public display name.</Description>
+          <Input type="email" />
+          <FieldError />
+        </TextField>
+        <TextField isRequired name="password">
+          <Label>Password</Label>
+          <Input type="password" />
+          <FieldError />
+        </TextField>
+        <div data-slot="control">
+          <Button type="submit">Register</Button>
+        </div>
+      </Fieldset>
+    </Form>
   )
 }

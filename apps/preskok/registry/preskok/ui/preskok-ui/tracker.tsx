@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 import { Pressable } from "react-aria-components"
 import { twJoin, twMerge } from "tailwind-merge"
 
-import { Tooltip } from "./tooltip"
+import { Tooltip, TooltipContent } from "./tooltip"
 
 interface TrackerBlockProps {
   key?: string | number
@@ -34,7 +34,7 @@ const Block = ({
     </div>
   ) : (
     <Tooltip isOpen={open} onOpenChange={setOpen} delay={0} closeDelay={0}>
-      <Pressable onPress={() => setOpen(true)}>
+      <Pressable onClick={() => setOpen(true)}>
         <div className="size-full overflow-hidden px-[0.5px] transition first:rounded-l-[4px] first:pl-0 last:rounded-r-[4px] last:pr-0 sm:px-px">
           <div
             className={twJoin(
@@ -45,15 +45,15 @@ const Block = ({
           />
         </div>
       </Pressable>
-      <Tooltip.Content
-        showArrow={false}
+      <TooltipContent
+        arrow={false}
         offset={10}
         placement="top"
-        intent="inverse"
+        inverse
         className="px-2 py-1.5 text-xs"
       >
         {tooltip}
-      </Tooltip.Content>
+      </TooltipContent>
     </Tooltip>
   )
 }

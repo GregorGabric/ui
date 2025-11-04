@@ -25,7 +25,14 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuHeader,
+  MenuItem,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import { Table } from "@/registry/preskok/ui/preskok-ui/table"
 
 const data: Array<Payment> = [
@@ -136,21 +143,21 @@ export const columns: Array<ColumnDef<Payment>> = [
 
       return (
         <Menu>
-          <Menu.Trigger className="size-8 p-0">
+          <MenuTrigger className="size-8 p-0">
             <span className="sr-only">Open menu</span>
             <MoreHorizontalIcon />
-          </Menu.Trigger>
-          <Menu.Content aria-label="Actions" placement="bottom end">
-            <Menu.Header>Actions</Menu.Header>
-            <Menu.Item
+          </MenuTrigger>
+          <MenuContent aria-label="Actions" placement="bottom end">
+            <MenuHeader>Actions</MenuHeader>
+            <MenuItem
               onAction={() => navigator.clipboard.writeText(payment.id)}
             >
               Copy payment ID
-            </Menu.Item>
-            <Menu.Separator />
-            <Menu.Item>View customer</Menu.Item>
-            <Menu.Item>View payment details</Menu.Item>
-          </Menu.Content>
+            </MenuItem>
+            <MenuSeparator />
+            <MenuItem>View customer</MenuItem>
+            <MenuItem>View payment details</MenuItem>
+          </MenuContent>
         </Menu>
       )
     },

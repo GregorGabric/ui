@@ -1,270 +1,152 @@
 "use client"
 
-import React, {
-  Children,
-  isValidElement,
-  useEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type RefObject,
-} from "react"
-import { ChevronsUpDownIcon } from "lucide-react"
-import type {
-  ComboBoxProps,
-  GroupProps,
-  Key,
-  ListBoxProps,
-  Selection,
+import React, { useMemo, useRef } from "react"
+import { PlusIcon } from "lucide-react"
+import {
+  Autocomplete,
+  Select,
+  SelectValue,
+  useFilter,
+  type SelectProps,
 } from "react-aria-components"
-import { Button, ComboBox, Group, ListBox } from "react-aria-components"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
-import { DropdownItem, DropdownLabel, DropdownSection } from "./dropdown"
-import { Description, FieldGroup, Input, Label, type FieldProps } from "./field"
+import { Button } from "./button"
+import { fieldStyles } from "./field"
+import { ListBox, ListBoxItem } from "./list-box"
 import { PopoverContent } from "./popover"
+import { SearchField, SearchInput } from "./search-field"
 import { Tag, TagGroup, TagList } from "./tag-group"
 
-interface MultipleSelectProps<T>
-  extends Omit<ListBoxProps<T>, "renderEmptyState">,
-    Pick<
-      ComboBoxProps<T & { selectedKeys: Selection }>,
-      "isRequired" | "validate" | "validationBehavior"
-    >,
-    FieldProps,
-    Pick<GroupProps, "isDisabled" | "isInvalid"> {
+interface OptionBase {
+  id: string | number
+  name: string
+}
+
+interface MultipleSelectProps<T extends OptionBase>
+  extends Omit<SelectProps<T, "multiple">, "selectionMode" | "children"> {
+  placeholder?: string
   className?: string
-  errorMessage?: string
-  maxItems?: number
-  renderEmptyState?: (inputValue: string) => React.ReactNode
+  children?: React.ReactNode
+  name?: string
 }
 
-function mapToNewObject<T extends object>(
-  array: Array<T>
-): Array<{ id: T[keyof T]; textValue: T[keyof T] }> {
-  return array.map((item) => {
-    const idProperty = Object.keys(item).find(
-      (key) => key === "id" || key === "key"
-    )
-    const textProperty = Object.keys(item).find(
-      (key) => key !== "id" && key !== "key"
-    )
-    return {
-      id: item[idProperty as keyof T],
-      textValue: item[textProperty as keyof T],
-    }
-  })
+interface MultipleSelectContentProps<T extends OptionBase> {
+  items: Iterable<T>
+  children: (item: T) => React.ReactNode
 }
 
-const MultipleSelect = <T extends object>({
+function MultipleSelectContent<T extends OptionBase>(
+  _props: MultipleSelectContentProps<T>
+) {
+  return null
+}
+;(MultipleSelectContent as any).displayName = "MultipleSelectContent"
+
+function MultipleSelect<T extends OptionBase>({
+  placeholder = "No selected items",
   className,
-  maxItems = Number.POSITIVE_INFINITY,
-  renderEmptyState,
   children,
+  name,
   ...props
-}: MultipleSelectProps<T>) => {
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const triggerButtonRef = useRef<HTMLButtonElement>(null)
-  const [inputValue, setInputValue] = useState("")
-  const [selectedKeys, onSelectionChange] = useState<Selection>(
-    new Set(props.selectedKeys)
-  )
+}: MultipleSelectProps<T>) {
+  const triggerRef = useRef<HTMLDivElement | null>(null)
+  const { contains } = useFilter({ sensitivity: "base" })
 
-  const isMax = [...selectedKeys].length >= maxItems
-
-  useEffect(() => {
-    setInputValue("")
-    return () => {
-      inputRef.current?.focus()
-    }
-  }, [props?.selectedKeys, selectedKeys])
-
-  const addItem = (e: Key | null) => {
-    if (!e || isMax) {
-      return
-    }
-    onSelectionChange?.((s) => new Set([...s, e]))
-    // @ts-expect-error incompatible type Key and Selection
-    props.onSelectionChange?.((s) => new Set([...s, e]))
-  }
-
-  const removeItem = (e: Set<Key>) => {
-    onSelectionChange?.(
-      (s) => new Set([...s].filter((i) => i !== e.values().next().value))
+  const { before, after, list } = useMemo(() => {
+    const arr = React.Children.toArray(children)
+    const idx = arr.findIndex(
+      (c) =>
+        React.isValidElement(c) &&
+        (c.type as any)?.displayName === "MultipleSelectContent"
     )
-    props.onSelectionChange?.(
-      // @ts-expect-error incompatible type Key and Selection
-      (s) => new Set([...s].filter((i) => i !== e.values().next().value))
-    )
-  }
-
-  const onKeyDownCapture = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace" && inputValue === "") {
-      onSelectionChange?.((s) => new Set([...s].slice(0, -1)))
-      // @ts-expect-error incompatible type Key and Selection
-      props.onSelectionChange?.((s) => new Set([...s].slice(0, -1)))
+    if (idx === -1) {
+      return {
+        before: arr,
+        after: [],
+        list: null as null | MultipleSelectContentProps<T>,
+      }
     }
-  }
-
-  const parsedItems = props.items
-    ? mapToNewObject(props.items as Array<T>)
-    : mapToNewObject(
-        Children.map(
-          children as React.ReactNode,
-          (child) => isValidElement(child) && child.props
-        ) as Array<T>
-      )
-
-  const availableItemsToSelect = props.items
-    ? parsedItems.filter((item) => ![...selectedKeys].includes(item.id as Key))
-    : parsedItems
-
-  const filteredChildren = props.items
-    ? parsedItems.filter((item) => ![...selectedKeys].includes(item.id as Key))
-    : Children.map(
-        children as React.ReactNode,
-        (child) => isValidElement(child) && child.props
-      )?.filter((item: T & any) => ![...selectedKeys].includes(item.id))
+    const el = arr[idx] as React.ReactElement<MultipleSelectContentProps<T>>
+    return {
+      before: arr.slice(0, idx),
+      after: arr.slice(idx + 1),
+      list: el.props,
+    }
+  }, [children])
 
   return (
-    <Group
-      isDisabled={props.isDisabled}
-      isInvalid={props.isInvalid}
-      className={composeTailwindRenderProps(
-        className,
-        "group flex h-fit min-w-[16rem] flex-col gap-y-1"
-      )}
+    <Select
+      name={name}
+      data-slot="control"
+      className={cx(fieldStyles(), className)}
+      selectionMode="multiple"
+      {...props}
     >
-      {({ isInvalid, isDisabled }) => (
+      {before}
+      {list && (
         <>
-          {props.label && (
-            <Label onClick={() => inputRef.current?.focus()}>
-              {props.label}
-            </Label>
-          )}
-          <FieldGroup
-            ref={triggerRef as RefObject<HTMLDivElement>}
-            isDisabled={isDisabled}
-            isInvalid={isInvalid}
+          <div
+            data-slot="control"
+            ref={triggerRef}
+            className="flex w-full items-center gap-2 rounded-lg border p-1"
           >
-            <TagGroup
-              onRemove={removeItem}
-              aria-hidden
-              aria-label="Selected items"
-            >
-              <TagList
-                className="gap-1 px-1.5 py-1 outline-hidden [[role='row']]:last:-mr-1"
-                items={[...selectedKeys].map((key) => ({
-                  id: key,
-                  textValue: parsedItems.find((item) => item.id === key)
-                    ?.textValue as string,
-                }))}
-              >
-                {(item: { id: Key; textValue: Key }) => (
-                  <Tag
-                    className="bg-secondary/50 text-secondary-foreground rounded-[calc(var(--radius-sm)-1px)]"
-                    isDisabled={isDisabled}
-                    textValue={item.textValue as string}
-                  >
-                    {item.textValue as string}
-                  </Tag>
-                )}
-              </TagList>
-            </TagGroup>
-            <ComboBox
-              isRequired={props.isRequired}
-              validate={props.validate}
-              validationBehavior={props.validationBehavior}
-              isReadOnly={isMax}
-              isDisabled={isDisabled}
-              className="flex flex-1"
-              aria-label="Search"
-              onSelectionChange={addItem}
-              inputValue={inputValue}
-              onInputChange={isMax ? () => {} : setInputValue}
-            >
-              <div className="flex w-full flex-row items-center justify-between pr-2">
-                <Input
-                  className="px-0 sm:px-0"
-                  onFocus={() => triggerButtonRef.current?.click()}
-                  ref={inputRef as RefObject<HTMLInputElement>}
-                  onBlur={() => {
-                    setInputValue("")
+            <SelectValue<T> className="flex-1">
+              {({ selectedItems, state }) => (
+                <TagGroup
+                  aria-label="Selected items"
+                  onRemove={(keys) => {
+                    if (Array.isArray(state.value)) {
+                      state.setValue(state.value.filter((k) => !keys.has(k)))
+                    }
                   }}
-                  onKeyDownCapture={onKeyDownCapture}
-                  placeholder={isMax ? "Maximum reached" : props.placeholder}
-                />
-                <Button
-                  ref={triggerButtonRef}
-                  aria-label="Open"
-                  className="text-muted-foreground ml-auto inline-flex items-center justify-center rounded-lg outline-hidden"
                 >
-                  <ChevronsUpDownIcon
-                    data-slot="chevron"
-                    className="text-muted-foreground group-open:text-foreground size-4"
-                  />
-                </Button>
-              </div>
-              <PopoverContent
-                className="min-w-(--trigger-width) scroll-py-1 overflow-y-auto overscroll-contain"
-                triggerRef={triggerRef}
+                  <TagList
+                    items={selectedItems.filter((i) => i != null)}
+                    renderEmptyState={() => (
+                      <i className="text-muted-fg pl-2 text-sm">
+                        {placeholder}
+                      </i>
+                    )}
+                  >
+                    {(item) => <Tag className="rounded-md">{item.name}</Tag>}
+                  </TagList>
+                </TagGroup>
+              )}
+            </SelectValue>
+            <Button
+              intent="secondary"
+              size="sq-xs"
+              className="self-end rounded-[calc(var(--radius-lg)-(--spacing(1)))]"
+            >
+              <PlusIcon data-slot="icon" />
+            </Button>
+          </div>
+          <PopoverContent
+            triggerRef={triggerRef}
+            placement="bottom"
+            className="flex w-full flex-col"
+          >
+            <Autocomplete filter={contains}>
+              <SearchField autoFocus className="rounded-none outline-hidden">
+                <SearchInput className="border-none outline-hidden focus:ring-0" />
+              </SearchField>
+              <ListBox
+                className="rounded-t-none border-0 border-t bg-transparent shadow-none"
+                items={list.items}
               >
-                <ListBox
-                  className={composeTailwindRenderProps(
-                    className,
-                    "grid max-h-96 w-full grid-cols-[auto_1fr] flex-col gap-y-1 p-1 outline-hidden *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
-                  )}
-                  renderEmptyState={() =>
-                    renderEmptyState ? (
-                      renderEmptyState(inputValue)
-                    ) : (
-                      <Description className="block p-3">
-                        {inputValue ? (
-                          <>
-                            No results found for:{" "}
-                            <strong className="text-foreground font-medium">
-                              {inputValue}
-                            </strong>
-                          </>
-                        ) : (
-                          "No options"
-                        )}
-                      </Description>
-                    )
-                  }
-                  items={(availableItemsToSelect as Array<T>) ?? props.items}
-                  {...props}
-                >
-                  {filteredChildren?.map((item: any) => (
-                    <MultipleSelect.Item
-                      key={item.id as Key}
-                      id={item.id as Key}
-                      textValue={item.textValue as string}
-                    >
-                      {item.textValue as string}
-                    </MultipleSelect.Item>
-                  )) ?? children}
-                </ListBox>
-              </PopoverContent>
-            </ComboBox>
-          </FieldGroup>
-          {props.description && <Description>{props.description}</Description>}
-          {props.errorMessage && isInvalid && (
-            <Description className="text-danger text-sm/5">
-              {props.errorMessage}
-            </Description>
-          )}
+                {list.children}
+              </ListBox>
+            </Autocomplete>
+          </PopoverContent>
         </>
       )}
-    </Group>
+      {after}
+    </Select>
   )
 }
 
-MultipleSelect.Item = DropdownItem
-MultipleSelect.Label = DropdownLabel
-MultipleSelect.Section = DropdownSection
+const MultipleSelectItem = ListBoxItem
 
-export { MultipleSelect }
-export type { MultipleSelectProps }
+export { MultipleSelect, MultipleSelectContent, MultipleSelectItem }

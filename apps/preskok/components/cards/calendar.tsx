@@ -21,7 +21,7 @@ export function CardsCalendar() {
       </CardHeader>
       <CardContent className="w-full">
         <div className="flex flex-col gap-4">
-          <DateRangePicker className="max-w-max" label="Shipment window" />
+          <DateRangePicker className="max-w-max" aria-label="Shipment window" />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="rounded-md border p-3">
               <div className="text-muted-foreground text-xs">

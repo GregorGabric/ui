@@ -1,0 +1,111 @@
+---
+title: Input
+description: Input and InputGroup components for text input with icons, loaders, and buttons.
+---
+
+<ComponentPreview
+  name="input-basic-demo"
+  description="A basic input field."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add input
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="input"
+  title="registry/preskok/ui/preskok-ui/input.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
+
+export function InputDemo() {
+  return <Input aria-label="Name" placeholder="Your name" />
+}
+```
+
+## Examples
+
+### Controlled Input
+
+<ComponentPreview
+  name="input-controlled-demo"
+  description="Controlled input with state management."
+/>
+
+### Input Group
+
+<ComponentPreview
+  name="input-group-demo"
+  description="Input with icons and prefix/suffix text."
+/>
+
+### With Label and Description
+
+<ComponentPreview
+  name="input-label-description-demo"
+  description="Input with separate label and description components."
+/>
+
+### With TextField
+
+<ComponentPreview
+  name="input-text-field-demo"
+  description="Input wrapped in a TextField for better form integration."
+/>
+
+## Components
+
+### Input
+
+The base input primitive with consistent styling.
+
+### InputGroup
+
+A wrapper that allows you to add icons, loaders, text, or buttons alongside the input.
+
+```tsx
+<InputGroup>
+  <MailIcon />
+  <Input type="email" />
+</InputGroup>
+```
+
+## Props
+
+All standard HTML input props are supported, plus:
+
+| Prop        | Type                               | Default | Description            |
+| ----------- | ---------------------------------- | ------- | ---------------------- |
+| `className` | `string`                           | -       | Additional CSS classes |
+| `ref`       | `React.Ref<HTMLInputElement>`      | -       | Input element ref      |
+

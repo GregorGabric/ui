@@ -744,28 +744,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "multiple-select-preskok-demo",
-    type: "registry:example",
-    registryDependencies: ["multiple-select"],
-    files: [
-      {
-        path: "examples/multiple-select-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "searchable-multi-select-preskok-demo",
-    type: "registry:example",
-    registryDependencies: ["searchable-multi-select"],
-    files: [
-      {
-        path: "examples/searchable-multi-select-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "multi-select-preskok-demo",
     type: "registry:example",
     registryDependencies: ["multiple-select"],

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Key } from "react-aria-components"
 
 import {
   Card,
@@ -11,7 +12,12 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 import { AreaChart } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 export const description = "An interactive area chart"
 
@@ -124,7 +130,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ChartAreaInteractive() {
-  const [timeRange, setTimeRange] = React.useState("90d")
+  const [timeRange, setTimeRange] = React.useState<Key | null>("90d")
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date)
@@ -149,22 +155,26 @@ export function ChartAreaInteractive() {
             Showing total visitors for the last 3 months
           </CardDescription>
         </div>
-        <Select selectedKey={timeRange} onSelectionChange={setTimeRange}>
-          <Select.Trigger
+        <Select
+          value={timeRange}
+          selectionMode="single"
+          onChange={setTimeRange}
+        >
+          <SelectTrigger
             className="hidden w-[160px] rounded-lg sm:ml-auto sm:flex"
             aria-label="Select a value"
           />
-          <Select.List className="rounded-xl">
-            <Select.Option id="90d" className="rounded-lg">
-              <Select.Label>Last 3 months</Select.Label>
-            </Select.Option>
-            <Select.Option id="30d" className="rounded-lg">
-              <Select.Label>Last 30 days</Select.Label>
-            </Select.Option>
-            <Select.Option id="7d" className="rounded-lg">
-              <Select.Label>Last 7 days</Select.Label>
-            </Select.Option>
-          </Select.List>
+          <SelectContent className="rounded-xl">
+            <SelectItem textValue="90d" className="rounded-lg">
+              Last 3 months
+            </SelectItem>
+            <SelectItem textValue="30d" className="rounded-lg">
+              Last 30 days
+            </SelectItem>
+            <SelectItem textValue="7d" className="rounded-lg">
+              Last 7 days
+            </SelectItem>
+          </SelectContent>
         </Select>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
@@ -185,7 +195,6 @@ export function ChartAreaInteractive() {
                 day: "numeric",
               })
             },
-            indicator: "dot",
           }}
           legend={true}
           hideGridLines={false}

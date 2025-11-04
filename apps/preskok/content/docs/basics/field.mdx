@@ -1,11 +1,11 @@
 ---
 title: Field
-description: Form field primitives for label, input group, description and error.
+description: Core field components including Label, Description, FieldError, Fieldset, and Legend.
 ---
 
 <ComponentPreview
-  name="field-preskok-demo"
-  description="A labeled input with helper text and error message."
+  name="field-demo"
+  description="Complete form example with field components."
 />
 
 ## Installation
@@ -17,28 +17,42 @@ npx @preskok-org/ui@latest add field
 ## Usage
 
 ```tsx
+import { Form } from "react-aria-components"
 import {
   Description,
   FieldError,
-  FieldGroup,
-  Input,
+  Fieldset,
   Label,
+  Legend,
 } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 export function Example() {
   return (
-    <div>
-      <Label htmlFor="email">Email</Label>
-      <FieldGroup>
-        <Input id="email" placeholder="you@example.com" />
-      </FieldGroup>
-      <Description>We will never share your email.</Description>
-      <FieldError>Invalid email</FieldError>
-    </div>
+    <Form>
+      <Fieldset>
+        <Legend>Profile information</Legend>
+        <TextField isRequired name="email">
+          <Label>Email</Label>
+          <Input type="email" />
+          <Description>We will never share your email.</Description>
+          <FieldError />
+        </TextField>
+      </Fieldset>
+    </Form>
   )
 }
 ```
 
 ## Components
 
-- **Label**, **FieldGroup**, **Input**, **Description**, **FieldError**
+- **Label** - Form field label
+- **Description** - Helper text for fields
+- **FieldError** - Error message display
+- **Fieldset** - Groups related form fields
+- **Legend** - Title for fieldset groups
+
+## Note
+
+The `Input` component has been moved to a separate component. See the [Input](/docs/text/input) documentation for usage.

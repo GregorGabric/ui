@@ -1,25 +1,11 @@
 "use client"
 
-import { MultipleSelect } from "@/registry/preskok/ui/preskok-ui/multiple-select"
-
-export function MultiSelectPreskokDemo() {
-  return (
-    <MultipleSelect
-      className="max-w-min min-w-2xs"
-      placeholder="Select fruits"
-      aria-label="Fruits"
-      items={fruits}
-    >
-      {(item) => {
-        return (
-          <MultipleSelect.Item textValue={item.name}>
-            {item.name}
-          </MultipleSelect.Item>
-        )
-      }}
-    </MultipleSelect>
-  )
-}
+import { FieldError, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import {
+  MultipleSelect,
+  MultipleSelectContent,
+  MultipleSelectItem,
+} from "@/registry/preskok/ui/preskok-ui/multiple-select"
 
 const fruits = [
   { id: 1, name: "Apple" },
@@ -43,3 +29,21 @@ const fruits = [
   { id: 19, name: "Ugli Fruit" },
   { id: 20, name: "Watermelon" },
 ]
+
+export function Component() {
+  return (
+    <MultipleSelect className="mx-auto w-full max-w-2xs">
+      <Label>Select fruits</Label>
+      <MultipleSelectContent items={fruits}>
+        {(item) => {
+          return (
+            <MultipleSelectItem id={item.id} textValue={item.name}>
+              {item.name}
+            </MultipleSelectItem>
+          )
+        }}
+      </MultipleSelectContent>
+      <FieldError />
+    </MultipleSelect>
+  )
+}

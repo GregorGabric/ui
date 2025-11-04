@@ -43,26 +43,23 @@ export function CardsForms() {
       <CardContent>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-3 md:flex-row">
-            <TextField label="Company" placeholder="ACME Mobility GmbH" />
-            <TextField label="Work Email" placeholder="logistics@company.com" />
+            <TextField aria-label="Company" />
+            <TextField aria-label="Work Email" />
           </div>
           <div className="flex flex-col gap-3">
             <TextField
-              label="Card Number"
-              placeholder="1234 1234 1234 1234"
+              aria-label="Card Number"
               inputMode="numeric"
               className="w-full"
             />
             <div className="flex gap-3">
               <TextField
-                label="Expiry"
-                placeholder="MM/YY"
+                aria-label="Expiry"
                 inputMode="numeric"
                 className="w-[120px]"
               />
               <TextField
-                label="CVC"
-                placeholder="CVC"
+                aria-label="CVC"
                 inputMode="numeric"
                 className="w-[100px]"
               />

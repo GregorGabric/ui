@@ -12,8 +12,16 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
-import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectSection,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
 import {
   Tab,
@@ -170,21 +178,21 @@ export default function SettingsPage() {
                     <Label htmlFor="timezone">Timezone</Label>
                     <FieldControl>
                       <Select placeholder="Select a timezone">
-                        <Select.Trigger id="timezone" />
-                        <Select.List>
+                        <SelectTrigger id="timezone" />
+                        <SelectContent>
                           {timezones.map((timezone) => (
-                            <Select.Section
+                            <SelectSection
                               key={timezone.label}
                               title={timezone.label}
                             >
                               {timezone.timezones.map((time) => (
-                                <Select.Option key={time.value} id={time.value}>
-                                  <Select.Label>{time.label}</Select.Label>
-                                </Select.Option>
+                                <SelectItem key={time.value} id={time.value}>
+                                  <SelectLabel>{time.label}</SelectLabel>
+                                </SelectItem>
                               ))}
-                            </Select.Section>
+                            </SelectSection>
                           ))}
-                        </Select.List>
+                        </SelectContent>
                       </Select>
                     </FieldControl>
                   </Field>

@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/tag-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { useListData } from \"react-stately\"\n\nimport { TagField } from \"@/registry/preskok/ui/preskok-ui/tag-field\"\n\nexport default function TagFieldPreskokDemo() {\n  const list = useListData({ initialItems: [{ id: 1, name: \"ui\" }] })\n  return (\n    <TagField\n      label=\"Tags\"\n      placeholder=\"Add tag and press Enter\"\n      list={list}\n      max={5}\n      description=\"Up to 5 tags\"\n      name=\"tags\"\n    />\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { TagField } from \"@/registry/preskok/ui/preskok-ui/tag-field\"\n\nexport function Component() {\n  return (\n    <TagField>\n      <Label>Coupon codes</Label>\n      <Input placeholder=\"Add codes, press Enter\" />\n    </TagField>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

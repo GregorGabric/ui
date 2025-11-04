@@ -10,55 +10,63 @@ import {
 } from "lucide-react"
 
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuHeader,
+  MenuItem,
+  MenuSection,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 
 export function UserMenu() {
   return (
     <Menu>
-      <Menu.Trigger aria-label="Open Menu">
+      <MenuTrigger aria-label="Open Menu">
         <Avatar
           alt="cobain"
           size="md"
           isSquare
           src="https://intentui.com/images/avatar/cobain.jpg"
         />
-      </Menu.Trigger>
-      <Menu.Content placement="bottom right" className="min-w-60 sm:min-w-56">
-        <Menu.Section>
-          <Menu.Header separator>
+      </MenuTrigger>
+      <MenuContent placement="bottom right" className="min-w-60 sm:min-w-56">
+        <MenuSection>
+          <MenuHeader separator>
             <span className="block">Kurt Cobain</span>
             <span className="text-muted-fg font-normal">@cobain</span>
-          </Menu.Header>
-        </Menu.Section>
+          </MenuHeader>
+        </MenuSection>
 
-        <Menu.Item href="#dashboard">
+        <MenuItem href="#dashboard">
           <LayoutDashboardIcon />
           Dashboard
-        </Menu.Item>
-        <Menu.Item href="#settings">
+        </MenuItem>
+        <MenuItem href="#settings">
           <SettingsIcon />
           Settings
-        </Menu.Item>
-        <Menu.Item href="#security">
+        </MenuItem>
+        <MenuItem href="#security">
           <ShieldIcon />
           Security
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem>
           <CommandIcon />
           Command Menu
-        </Menu.Item>
+        </MenuItem>
 
-        <Menu.Item href="#contact">
+        <MenuItem href="#contact">
           <HeadphonesIcon />
           Customer Support
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item href="#logout">
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem href="#logout">
           <LogOutIcon />
           Log out
-        </Menu.Item>
-      </Menu.Content>
+        </MenuItem>
+      </MenuContent>
     </Menu>
   )
 }

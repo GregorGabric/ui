@@ -1,6 +1,5 @@
 "use client"
 
-import React from "react"
 import { ChevronsUpDownIcon } from "lucide-react"
 import type {
   ListBoxProps,
@@ -15,7 +14,7 @@ import {
 } from "react-aria-components"
 import { twJoin } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 import {
   DropdownDescription,
@@ -24,42 +23,26 @@ import {
   DropdownSection,
   DropdownSeparator,
 } from "./dropdown"
-import type { FieldProps } from "./field"
-import { Description, FieldError, Label } from "./field"
+import { fieldStyles } from "./field"
 import { PopoverContent } from "./popover"
 
-interface SelectProps<T extends object>
-  extends SelectPrimitiveProps<T>,
-    FieldProps {
-  items?: Iterable<T>
+interface SelectProps<
+  T extends object,
+  M extends "single" | "multiple" = "single",
+> extends SelectPrimitiveProps<T, M> {
+  items?: Iterable<T, M>
 }
 
-const Select = <T extends object>({
-  label,
-  children,
-  description,
-  errorMessage,
+const Select = <T extends object, M extends "single" | "multiple" = "single">({
   className,
   ...props
-}: SelectProps<T>) => {
+}: SelectProps<T, M>) => {
   return (
     <SelectPrimitive
-      data-slot="select"
+      data-slot="control"
+      className={cx(fieldStyles({ className: "group/select" }), className)}
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "group/select flex w-full flex-col gap-y-1 *:data-[slot=label]:font-medium"
-      )}
-    >
-      {(values) => (
-        <>
-          {label && <Label>{label}</Label>}
-          {typeof children === "function" ? children(values) : children}
-          {description && <Description>{description}</Description>}
-          <FieldError>{errorMessage}</FieldError>
-        </>
-      )}
-    </SelectPrimitive>
+    />
   )
 }
 
@@ -69,7 +52,7 @@ interface SelectListProps<T extends object>
   popover?: Omit<PopoverProps, "children">
 }
 
-const SelectList = <T extends object>({
+const SelectContent = <T extends object>({
   items,
   className,
   popover,
@@ -77,18 +60,19 @@ const SelectList = <T extends object>({
 }: SelectListProps<T>) => {
   return (
     <PopoverContent
-      className={composeTailwindRenderProps(
-        popover?.className,
-        "min-w-(--trigger-width) scroll-py-1 overflow-y-auto overscroll-contain"
+      placement={popover?.placement ?? "bottom"}
+      className={cx(
+        "min-w-(--trigger-width) scroll-py-1 overflow-y-auto overscroll-contain",
+        popover?.className
       )}
       {...popover}
     >
       <ListBox
         layout="stack"
         orientation="vertical"
-        className={composeTailwindRenderProps(
-          className,
-          "grid max-h-96 w-full grid-cols-[auto_1fr] flex-col gap-y-1 p-1 outline-hidden *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
+        className={cx(
+          "grid max-h-96 w-full grid-cols-[auto_1fr] flex-col gap-y-1 p-1 outline-hidden *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
+          className
         )}
         items={items}
         {...props}
@@ -108,50 +92,52 @@ const SelectTrigger = ({
   ...props
 }: SelectTriggerProps) => {
   return (
-    <Button
-      className={composeTailwindRenderProps(
-        className,
-        twJoin([
-          "inset-ring-input text-foreground flex w-full min-w-0 cursor-default items-center gap-x-2 rounded-lg px-3.5 py-2 text-start shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] inset-ring outline-hidden transition duration-200 sm:py-1.5 sm:pr-2 sm:pl-3 sm:text-sm/6 sm:*:text-sm/6 dark:shadow-none",
-          "group-open/select:inset-ring-ring/70 group-open/select:ring-ring/20 group-open/select:ring-3",
-          "forced-colors:group-disabled/select/select:text-[GrayText] group-disabled/select:opacity-50 forced-colors:group-disabled/select:inset-ring-[GrayText]",
-          "focus:inset-ring-ring/70 focus:ring-ring/20 focus:ring-3",
-          "hover:inset-ring-[color-mix(in_oklab,var(--color-input)_50%,var(--color-muted-foreground)_25%)]",
-          "group-open/select:invalid:inset-ring-danger/70 group-open/select:invalid:ring-danger/20 group-invalid/select:inset-ring-danger/70 group-invalid/select:ring-danger/20 group-focus/select:group-invalid/select:inset-ring-danger/70 group-focus/select:group-invalid/select:ring-danger/20 group-open/select:invalid:ring-3",
-          "pressed:*:data-[slot=icon]:text-(--btn-icon-active) *:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 sm:*:data-[slot=icon]:my-1 sm:*:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
-          "*:data-[slot=loader]:-mx-0.5 *:data-[slot=loader]:my-0.5 *:data-[slot=loader]:size-5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:my-1 sm:*:data-[slot=loader]:size-4",
-          "forced-colors:group-invalid/select:inset-ring-[Mark] forced-colors:group-focus/select:inset-ring-[Highlight] forced-colors:group-focus/select:group-invalid/select:inset-ring-[Mark]",
-          className,
-        ])
-      )}
-    >
-      {(values) => (
-        <>
-          {props.prefix && (
-            <span className="text-muted-foreground">{props.prefix}</span>
-          )}
-          {typeof children === "function" ? children(values) : children}
+    <span data-slot="control" className="relative block w-full">
+      <Button
+        className={cx(
+          "group/select-trigger border-input text-fg flex w-full min-w-0 cursor-default items-center gap-x-2 rounded-lg border px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] text-start outline-hidden transition duration-200 sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6 sm:*:text-sm/6 dark:shadow-none",
+          "focus:border-ring/70 focus:bg-primary-subtle/5 focus:ring-ring/20 focus:enabled:hover:border-ring/80 focus:ring-3",
+          "enabled:hover:border-muted-fg/30",
+          "group-open/select:border-ring/70 group-open/select:bg-primary-subtle/5 group-open/select:ring-ring/20 group-open/select:ring-3",
+          "group-open/select:invalid:border-danger-subtle-fg/70 group-open/select:invalid:bg-danger-subtle/5 group-open/select:invalid:ring-danger-subtle-fg/20 group-invalid/select:border-danger-subtle-fg/70 group-invalid/select:bg-danger-subtle/5 group-invalid/select:ring-danger-subtle-fg/20 group-invalid/select:enabled:hover:border-danger-subtle-fg/80 group-focus/select:group-invalid/select:border-danger-subtle-fg/70 group-focus/select:group-invalid/select:ring-danger-subtle-fg/20 group-focus/select:group-invalid/select:enabled:hover:border-danger-subtle-fg/80 group-open/select:invalid:ring-3",
+          "pressed:*:data-[slot=icon]:text-(--btn-icon-active) *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 enabled:hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
+          "*:data-[slot=loader]:size-5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:size-4",
+          "forced-colors:group-invalid/select:border-[Mark] forced-colors:group-focus/select:border-[Highlight] forced-colors:group-focus/select:group-invalid/select:border-[Mark]",
+          "group-disabled/select:bg-muted group-disabled/select:opacity-50 forced-colors:group-disabled/select:border-[GrayText] forced-colors:group-disabled/select:text-[GrayText]",
+          "in-disabled:bg-muted in-disabled:opacity-50 forced-colors:in-disabled:border-[GrayText] forced-colors:in-disabled:text-[GrayText]",
+          "dark:scheme-dark",
+          className
+        )}
+      >
+        {(values) => (
+          <>
+            {props.prefix && (
+              <span className="text-muted-fg">{props.prefix}</span>
+            )}
+            {typeof children === "function" ? children(values) : children}
 
-          {!children && (
-            <>
-              <SelectValue
-                data-slot="select-value"
-                className={twJoin([
-                  "data-placeholder:text-muted-foreground grid flex-1 grid-cols-[auto_1fr] items-center truncate sm:text-sm/6 [&_[slot=description]]:hidden",
-                  "has-data-[slot=avatar]:gap-x-2 has-data-[slot=icon]:gap-x-2",
-                  "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4",
-                  "*:data-[slot=avatar]:*:size-5 *:data-[slot=avatar]:size-5 sm:*:data-[slot=avatar]:*:size-4.5 sm:*:data-[slot=avatar]:size-4.5",
-                ])}
-              />
-              <ChevronsUpDownIcon
-                data-slot="chevron"
-                className="text-muted-foreground group-open/select:text-foreground -mr-1 shrink-0 group-disabled/select:opacity-50 sm:mr-0"
-              />
-            </>
-          )}
-        </>
-      )}
-    </Button>
+            {!children && (
+              <>
+                <SelectValue
+                  data-slot="select-value"
+                  className={twJoin([
+                    "data-placeholder:text-muted-fg truncate text-start sm:text-sm/6 [&_[slot=description]]:hidden",
+                    "has-data-[slot=avatar]:grid has-data-[slot=avatar]:grid-cols-[1fr_auto] has-data-[slot=avatar]:items-center has-data-[slot=avatar]:gap-x-2",
+                    "has-data-[slot=icon]:grid has-data-[slot=icon]:grid-cols-[1fr_auto] has-data-[slot=icon]:items-center has-data-[slot=icon]:gap-x-2",
+                    "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4",
+                    "*:data-[slot=avatar]:[--avatar-size:--spacing(5)] sm:*:data-[slot=avatar]:[--avatar-size:--spacing(4.5)]",
+                  ])}
+                />
+                <ChevronsUpDownIcon
+                  data-slot="chevron"
+                  className="text-muted-fg -mr-1 ml-auto size-5 sm:size-4"
+                />
+              </>
+            )}
+          </>
+        )}
+      </Button>
+    </span>
   )
 }
 
@@ -159,15 +145,16 @@ const SelectSection = DropdownSection
 const SelectSeparator = DropdownSeparator
 const SelectLabel = DropdownLabel
 const SelectDescription = DropdownDescription
-const SelectOption = DropdownItem
+const SelectItem = DropdownItem
 
-Select.Description = SelectDescription
-Select.Option = SelectOption
-Select.Label = SelectLabel
-Select.Separator = SelectSeparator
-Select.Section = SelectSection
-Select.Trigger = SelectTrigger
-Select.List = SelectList
-
-export { Select }
+export {
+  Select,
+  SelectContent,
+  SelectDescription,
+  SelectItem,
+  SelectLabel,
+  SelectSection,
+  SelectSeparator,
+  SelectTrigger,
+}
 export type { SelectProps, SelectTriggerProps }

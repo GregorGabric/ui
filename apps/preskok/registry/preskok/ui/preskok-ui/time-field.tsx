@@ -1,65 +1,24 @@
 "use client"
 
-import React from "react"
 import {
   TimeField as TimeFieldPrimitive,
-  type TimeFieldProps as TimeFieldPrimitiveProps,
+  type TimeFieldProps,
   type TimeValue,
-  type ValidationResult,
 } from "react-aria-components"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
-import { DateInput } from "./date-field"
-import { Description, FieldError, FieldGroup, Label } from "./field"
+import { fieldStyles } from "./field"
 
-interface TimeFieldProps<T extends TimeValue>
-  extends TimeFieldPrimitiveProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: ValidationResult) => string)
-  prefix?: React.ReactNode | string
-  suffix?: React.ReactNode | string
-}
-
-const TimeField = <T extends TimeValue>({
-  prefix,
-  suffix,
-  label,
+export function TimeField<T extends TimeValue>({
   className,
-  description,
-  errorMessage,
   ...props
-}: TimeFieldProps<T>) => {
+}: TimeFieldProps<T>) {
   return (
     <TimeFieldPrimitive
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "group/time-field flex flex-col gap-y-1 *:data-[slot=label]:font-medium"
-      )}
-    >
-      {label && <Label>{label}</Label>}
-      <FieldGroup>
-        {prefix && typeof prefix === "string" ? (
-          <span className="text-muted-foreground ml-2">{prefix}</span>
-        ) : (
-          prefix
-        )}
-        <DateInput className="flex w-fit min-w-28 justify-around whitespace-nowrap" />
-        {suffix ? (
-          typeof suffix === "string" ? (
-            <span className="text-muted-foreground mr-2">{suffix}</span>
-          ) : (
-            suffix
-          )
-        ) : null}
-      </FieldGroup>
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </TimeFieldPrimitive>
+      data-slot="control"
+      className={cx(fieldStyles({ className: "w-fit" }), className)}
+    />
   )
 }
-
-export { TimeField }
-export type { TimeFieldProps }

@@ -29,7 +29,15 @@ import {
 
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
 import { Link } from "@/registry/preskok/ui/preskok-ui/link"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuHeader,
+  MenuItem,
+  MenuSection,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Sidebar,
   SidebarContent,
@@ -80,36 +88,33 @@ export default function AppSidebar(
                   </SidebarLink>
                   {(!isCollapsed || isFocused) && (
                     <Menu>
-                      <Menu.Trigger
-                        data-slot="menu-trigger"
-                        aria-label="Manage"
-                      >
+                      <MenuTrigger data-slot="menu-trigger" aria-label="Manage">
                         <MoreHorizontalIcon />
-                      </Menu.Trigger>
-                      <Menu.Content
+                      </MenuTrigger>
+                      <MenuContent
                         popover={{ offset: 0, placement: "right top" }}
                       >
-                        <Menu.Item href="#new-order">
+                        <MenuItem href="#new-order">
                           <PlusIcon />
                           Create New Order
-                        </Menu.Item>
-                        <Menu.Item href="#view-all">
+                        </MenuItem>
+                        <MenuItem href="#view-all">
                           <ListIcon />
                           View All Orders
-                        </Menu.Item>
-                        <Menu.Item href="#pending-orders">
+                        </MenuItem>
+                        <MenuItem href="#pending-orders">
                           <ClockIcon />
                           Pending Orders
-                        </Menu.Item>
-                        <Menu.Item href="#completed-orders">
+                        </MenuItem>
+                        <MenuItem href="#completed-orders">
                           <CircleCheckIcon />
                           Completed Orders
-                        </Menu.Item>
-                        <Menu.Item href="#export-orders">
+                        </MenuItem>
+                        <MenuItem href="#export-orders">
                           <ArrowUpIcon />
                           Export Orders
-                        </Menu.Item>
-                      </Menu.Content>
+                        </MenuItem>
+                      </MenuContent>
                     </Menu>
                   )}
                 </>
@@ -123,33 +128,33 @@ export default function AppSidebar(
                   </SidebarLink>
                   {(!isCollapsed || isFocused) && (
                     <Menu>
-                      <Menu.Trigger aria-label="Manage">
+                      <MenuTrigger aria-label="Manage">
                         <MoreHorizontalIcon />
-                      </Menu.Trigger>
-                      <Menu.Content
+                      </MenuTrigger>
+                      <MenuContent
                         popover={{ offset: 0, placement: "right top" }}
                       >
-                        <Menu.Item href="#new-product">
+                        <MenuItem href="#new-product">
                           <PlusIcon />
                           Add New Product
-                        </Menu.Item>
-                        <Menu.Item href="#archive">
+                        </MenuItem>
+                        <MenuItem href="#archive">
                           <ArchiveIcon />
                           Archive Product
-                        </Menu.Item>
-                        <Menu.Item href="#manage-categories">
+                        </MenuItem>
+                        <MenuItem href="#manage-categories">
                           <HashIcon />
                           Manage Categories
-                        </Menu.Item>
-                        <Menu.Item href="#import">
+                        </MenuItem>
+                        <MenuItem href="#import">
                           <ArrowDownIcon />
                           Import Products
-                        </Menu.Item>
-                        <Menu.Item href="#export">
+                        </MenuItem>
+                        <MenuItem href="#export">
                           <ArrowUpIcon />
                           Export Products
-                        </Menu.Item>
-                      </Menu.Content>
+                        </MenuItem>
+                      </MenuContent>
                     </Menu>
                   )}
                 </>
@@ -210,7 +215,7 @@ export default function AppSidebar(
 
       <SidebarFooter>
         <Menu>
-          <Menu.Trigger className="group" aria-label="Profile">
+          <MenuTrigger className="group" aria-label="Profile">
             <Avatar
               isSquare
               src="https://intentui.com/images/avatar/cobain.jpg"
@@ -222,44 +227,44 @@ export default function AppSidebar(
               </span>
             </div>
             <ChevronsUpDownIcon data-slot="chevron" />
-          </Menu.Trigger>
-          <Menu.Content
+          </MenuTrigger>
+          <MenuContent
             className="min-w-(--trigger-width) in-data-[sidebar-collapsible=collapsed]:min-w-56"
             placement="bottom right"
           >
-            <Menu.Section>
-              <Menu.Header separator>
+            <MenuSection>
+              <MenuHeader separator>
                 <span className="block">Kurt Cobain</span>
                 <span className="text-muted-foreground font-normal">
                   @cobain
                 </span>
-              </Menu.Header>
-            </Menu.Section>
+              </MenuHeader>
+            </MenuSection>
 
-            <Menu.Item href="#dashboard">
+            <MenuItem href="#dashboard">
               <LayoutDashboardIcon />
               Dashboard
-            </Menu.Item>
-            <Menu.Item href="#settings">
+            </MenuItem>
+            <MenuItem href="#settings">
               <SettingsIcon />
               Settings
-            </Menu.Item>
-            <Menu.Item href="#security">
+            </MenuItem>
+            <MenuItem href="#security">
               <ShieldIcon />
               Security
-            </Menu.Item>
-            <Menu.Separator />
+            </MenuItem>
+            <MenuSeparator />
 
-            <Menu.Item href="#contact">
+            <MenuItem href="#contact">
               <HeadphonesIcon />
               Customer Support
-            </Menu.Item>
-            <Menu.Separator />
-            <Menu.Item href="#logout">
+            </MenuItem>
+            <MenuSeparator />
+            <MenuItem href="#logout">
               <LogOutIcon />
               Log out
-            </Menu.Item>
-          </Menu.Content>
+            </MenuItem>
+          </MenuContent>
         </Menu>
       </SidebarFooter>
       <SidebarRail />

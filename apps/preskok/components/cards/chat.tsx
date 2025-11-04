@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowUpIcon, CheckIcon, PlusIcon } from "lucide-react"
+import { CheckIcon, PlusIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
@@ -14,7 +14,10 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { CommandMenu } from "@/registry/preskok/ui/preskok-ui/command-menu"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
-import { Tooltip } from "@/registry/preskok/ui/preskok-ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/tooltip"
 
 const users = [
   {
@@ -112,7 +115,7 @@ export function CardsChat() {
               <PlusIcon />
               <span className="sr-only">New message</span>
             </Button>
-            <Tooltip.Content>New message</Tooltip.Content>
+            <TooltipContent>New message</TooltipContent>
           </Tooltip>
         </CardHeader>
         <CardContent>
@@ -153,18 +156,11 @@ export function CardsChat() {
           >
             <TextField
               aria-label="Message"
-              placeholder="Type a message about a shipment..."
               className="w-full"
               value={input}
               onChange={(value) => {
                 setInput(value)
               }}
-              suffix={
-                <Button type="submit" isDisabled={inputLength === 0}>
-                  <ArrowUpIcon className="size-3.5" />
-                  <span className="sr-only">Send</span>
-                </Button>
-              }
             />
           </form>
         </CardFooter>

@@ -970,24 +970,6 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  "searchable-multi-select": {
-    name: "searchable-multi-select",
-    description: "A searchable multi-select component with filtering and tag-based selection",
-    type: "registry:ui",
-    registryDependencies: ["dropdown","field","list-box","popover","search-field","use-controllable-state"],
-    files: [{
-      path: "registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx",
-      type: "registry:ui",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/searchable-multiple-select.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "tag-field": {
     name: "tag-field",
     description: "A tag input field for adding and removing tags",
@@ -4992,42 +4974,6 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/drop-zone-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "multiple-select-preskok-demo": {
-    name: "multiple-select-preskok-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["multiple-select"],
-    files: [{
-      path: "registry/preskok/examples/multiple-select-preskok-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/multiple-select-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "searchable-multi-select-preskok-demo": {
-    name: "searchable-multi-select-preskok-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["searchable-multi-select"],
-    files: [{
-      path: "registry/preskok/examples/searchable-multi-select-preskok-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/searchable-multi-select-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

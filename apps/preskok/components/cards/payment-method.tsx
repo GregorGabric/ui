@@ -9,9 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { Input, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 import { Radio, RadioGroup } from "@/registry/preskok/ui/preskok-ui/radio"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 const plans = [
   {
@@ -68,34 +74,34 @@ export function CardsPaymentMethod() {
           <div className="flex flex-col gap-3">
             <Label htmlFor="month">Expires</Label>
             <Select aria-label="Month">
-              <Select.Trigger id="month" className="w-full" />
-              <Select.List>
-                <Select.Option id="1">January</Select.Option>
-                <Select.Option id="2">February</Select.Option>
-                <Select.Option id="3">March</Select.Option>
-                <Select.Option id="4">April</Select.Option>
-                <Select.Option id="5">May</Select.Option>
-                <Select.Option id="6">June</Select.Option>
-                <Select.Option id="7">July</Select.Option>
-                <Select.Option id="8">August</Select.Option>
-                <Select.Option id="9">September</Select.Option>
-                <Select.Option id="10">October</Select.Option>
-                <Select.Option id="11">November</Select.Option>
-                <Select.Option id="12">December</Select.Option>
-              </Select.List>
+              <SelectTrigger id="month" className="w-full" />
+              <SelectContent>
+                <SelectItem id="1">January</SelectItem>
+                <SelectItem id="2">February</SelectItem>
+                <SelectItem id="3">March</SelectItem>
+                <SelectItem id="4">April</SelectItem>
+                <SelectItem id="5">May</SelectItem>
+                <SelectItem id="6">June</SelectItem>
+                <SelectItem id="7">July</SelectItem>
+                <SelectItem id="8">August</SelectItem>
+                <SelectItem id="9">September</SelectItem>
+                <SelectItem id="10">October</SelectItem>
+                <SelectItem id="11">November</SelectItem>
+                <SelectItem id="12">December</SelectItem>
+              </SelectContent>
             </Select>
           </div>
           <div className="flex flex-col gap-3">
             <Label htmlFor="year">Year</Label>
             <Select aria-label="Year">
-              <Select.Trigger id="year" className="w-full" />
-              <Select.List>
+              <SelectTrigger id="year" className="w-full" />
+              <SelectContent>
                 {Array.from({ length: 10 }, (_, i) => (
-                  <Select.Option key={i} id={`${new Date().getFullYear() + i}`}>
+                  <SelectItem key={i} id={`${new Date().getFullYear() + i}`}>
                     {new Date().getFullYear() + i}
-                  </Select.Option>
+                  </SelectItem>
                 ))}
-              </Select.List>
+              </SelectContent>
             </Select>
           </div>
           <div className="flex flex-col gap-3">

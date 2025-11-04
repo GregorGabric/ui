@@ -6,14 +6,20 @@ import { twMerge } from "tailwind-merge"
 
 import { useTheme } from "@/components/theme-provider"
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 import { neutralColors } from "./colors"
 import colors from "./colors.json"
 
 interface ColorSelectProps extends React.ComponentProps<typeof Select> {
   selectedKey: string
-  onSelectionChange: (key: Key | null) => void
+  onSelectionChange: (key: Key | Key[] | null) => void
   label: string
   className?: string
   placeholder: string
@@ -24,8 +30,6 @@ const ColorSelect = ({
   className,
   selectedKey,
   onSelectionChange,
-  label,
-  placeholder,
   filterKeys,
   ...props
 }: ColorSelectProps) => {
@@ -34,17 +38,11 @@ const ColorSelect = ({
     : Object.keys(colors)
   const { theme } = useTheme()
   return (
-    <Select
-      {...props}
-      selectedKey={selectedKey}
-      onSelectionChange={onSelectionChange}
-      label={label}
-      placeholder={placeholder}
-    >
-      <Select.Trigger className="capitalize" />
-      <Select.List>
+    <Select {...props} value={selectedKey} onChange={onSelectionChange}>
+      <SelectTrigger className="capitalize" />
+      <SelectContent>
         {filteredKeys.map((key) => (
-          <Select.Option
+          <SelectItem
             className="hover:**:data-[slot=icon]:inset-ring-fg/30 capitalize"
             textValue={key}
             key={key}
@@ -69,10 +67,10 @@ const ColorSelect = ({
                 } as React.CSSProperties
               }
             />
-            <Select.Label>{key}</Select.Label>
-          </Select.Option>
+            <SelectLabel>{key}</SelectLabel>
+          </SelectItem>
         ))}
-      </Select.List>
+      </SelectContent>
     </Select>
   )
 }
@@ -127,49 +125,51 @@ export function ThemeCustomizer({
       <div className="grid grid-cols-2 gap-x-3 gap-y-6">
         <ColorSelect
           selectedKey={selectedColors.gray}
-          onSelectionChange={handleSelectionChange("gray")}
+          onSelectionChange={(key) => handleSelectionChange("gray")(key as Key)}
           label="Gray Color"
           placeholder="Select gray color"
           filterKeys={neutralColors}
         />
         <ColorSelect
           selectedKey={selectedColors.primary}
-          onSelectionChange={handleSelectionChange("primary")}
+          onSelectionChange={(key) =>
+            handleSelectionChange("primary")(key as Key)
+          }
           label="Primary Color"
           placeholder="Select primary color"
           filterKeys={filteredPrimaryColors}
         />
         <ColorSelect
           selectedKey={selectedColors.accent}
-          onSelectionChange={handleSelectionChange("accent")}
+          onSelectionChange={(key) =>
+            handleSelectionChange("accent")(key as Key)
+          }
           label="Accent Color"
           placeholder="Select accent color"
           filterKeys={filteredAccentColors}
         />
         <Select
-          selectedKey={selectedColors.radius}
-          onSelectionChange={handleSelectionChange("radius")}
-          label="Radius"
-          placeholder="Select radius"
+          value={selectedColors.radius}
+          onChange={handleSelectionChange("radius")}
         >
-          <Select.Trigger className="capitalize" />
-          <Select.List>
+          <SelectTrigger className="capitalize" />
+          <SelectContent>
             {filteredRadius.map((radius) => (
-              <Select.Option
+              <SelectItem
                 className="tracking-tight tabular-nums"
                 textValue={radius}
                 key={radius}
                 id={radius}
               >
-                <Select.Label>
+                <SelectLabel>
                   {radius.replace("rem", "")}
                   {radius === "0.5rem" && (
                     <Badge className="ml-2">Default</Badge>
                   )}
-                </Select.Label>
-              </Select.Option>
+                </SelectLabel>
+              </SelectItem>
             ))}
-          </Select.List>
+          </SelectContent>
         </Select>
       </div>
     </div>

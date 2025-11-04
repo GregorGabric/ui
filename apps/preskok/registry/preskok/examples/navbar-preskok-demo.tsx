@@ -5,7 +5,11 @@ import { ChevronDownIcon, SearchIcon, ShoppingBagIcon } from "lucide-react"
 import { UserMenu } from "@/registry/preskok/examples/user-menu"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Link } from "@/registry/preskok/ui/preskok-ui/link"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Navbar,
   NavbarGap,
@@ -101,16 +105,16 @@ export default function AppNavbar(props: NavbarProps) {
               Categories
               <ChevronDownIcon className="col-start-3" />
             </NavbarItem>
-            <Menu.Content
+            <MenuContent
               className="min-w-(--trigger-width) sm:min-w-56"
               items={categories}
             >
               {(item) => (
-                <Menu.Item id={item.id} textValue={item.label} href={item.url}>
+                <MenuItem id={item.id} textValue={item.label} href={item.url}>
                   {item.label}
-                </Menu.Item>
+                </MenuItem>
               )}
-            </Menu.Content>
+            </MenuContent>
           </Menu>
         </NavbarSection>
         <NavbarSpacer />

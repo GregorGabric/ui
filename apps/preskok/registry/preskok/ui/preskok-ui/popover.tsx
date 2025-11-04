@@ -1,6 +1,5 @@
 "use client"
 
-import React from "react"
 import type {
   DialogTriggerProps,
   PopoverProps as PopoverPrimitiveProps,
@@ -11,7 +10,8 @@ import {
   Popover as PopoverPrimitive,
 } from "react-aria-components"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
+
 import {
   DialogBody,
   DialogClose,
@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/preskok/ui/preskok-ui/dialog"
+} from "./dialog"
 
 type PopoverProps = DialogTriggerProps
 const Popover = (props: PopoverProps) => {
@@ -33,35 +33,36 @@ const PopoverBody = DialogBody
 const PopoverFooter = DialogFooter
 
 interface PopoverContentProps extends PopoverPrimitiveProps {
-  showArrow?: boolean
+  arrow?: boolean
   ref?: React.Ref<HTMLDivElement>
 }
 
 const PopoverContent = ({
   children,
-  showArrow = false,
+  arrow = false,
   className,
   ref,
   ...props
 }: PopoverContentProps) => {
-  const offset = props.offset ?? (showArrow ? 12 : 8)
+  const offset = props.offset ?? (arrow ? 12 : 8)
   return (
     <PopoverPrimitive
       ref={ref}
       offset={offset}
-      className={composeTailwindRenderProps(className, [
-        "group/popover bg-overlay text-overlay-foreground max-w-xs min-w-(--trigger-width) rounded-xl border shadow-xs outline-hidden transition-transform [--gutter:--spacing(6)] sm:text-sm dark:backdrop-saturate-200 **:[[role=dialog]]:[--gutter:--spacing(4)]",
+      className={cx(
+        "group/popover border-fg/10 bg-overlay text-overlay-fg max-w-xs min-w-(--trigger-width) origin-(--trigger-anchor-point) rounded-(--popover-radius) border shadow-xs outline-hidden transition-transform [--gutter:--spacing(6)] [--popover-radius:var(--radius-xl)] sm:text-sm dark:backdrop-saturate-200 **:[[role=dialog]]:[--gutter:--spacing(4)]",
         "entering:fade-in entering:animate-in",
         "exiting:fade-out exiting:animate-out",
         "placement-left:entering:slide-in-from-right-1 placement-right:entering:slide-in-from-left-1 placement-top:entering:slide-in-from-bottom-1 placement-bottom:entering:slide-in-from-top-1",
         "placement-left:exiting:slide-out-to-right-1 placement-right:exiting:slide-out-to-left-1 placement-top:exiting:slide-out-to-bottom-1 placement-bottom:exiting:slide-out-to-top-1",
         "forced-colors:bg-[Canvas]",
-      ])}
+        className
+      )}
       {...props}
     >
       {(values) => (
         <>
-          {showArrow && (
+          {arrow && (
             <OverlayArrow className="group">
               <svg
                 width={12}
@@ -84,14 +85,15 @@ const PopoverTrigger = DialogTrigger
 const PopoverClose = DialogClose
 const PopoverDescription = DialogDescription
 
-Popover.Trigger = PopoverTrigger
-Popover.Close = PopoverClose
-Popover.Description = PopoverDescription
-Popover.Content = PopoverContent
-Popover.Body = PopoverBody
-Popover.Footer = PopoverFooter
-Popover.Header = PopoverHeader
-Popover.Title = PopoverTitle
-
-export { Popover, PopoverContent }
+export {
+  Popover,
+  PopoverBody,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+}
 export type { PopoverContentProps, PopoverProps }

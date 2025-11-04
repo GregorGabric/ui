@@ -10,7 +10,12 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
@@ -85,11 +90,11 @@ export function CardsShare() {
                   </div>
                 </div>
                 <Select selectedKey="edit" aria-label="Edit">
-                  <Select.Trigger className="ml-auto pr-2" />
-                  <Select.List>
-                    <Select.Option id="edit">Can edit</Select.Option>
-                    <Select.Option id="view">Can view</Select.Option>
-                  </Select.List>
+                  <SelectTrigger className="ml-auto pr-2" />
+                  <SelectContent>
+                    <SelectItem id="edit">Can edit</SelectItem>
+                    <SelectItem id="view">Can view</SelectItem>
+                  </SelectContent>
                 </Select>
               </div>
             ))}

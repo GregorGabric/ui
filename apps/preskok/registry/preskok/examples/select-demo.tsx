@@ -1,6 +1,11 @@
 "use client"
 
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 export const cars = [
   { id: 1, name: "Audi" },
@@ -12,14 +17,14 @@ export const cars = [
 export default function SelectDemo() {
   return (
     <Select aria-label="Cars" placeholder="Select a car">
-      <Select.Trigger />
-      <Select.List items={cars}>
+      <SelectTrigger />
+      <SelectContent items={cars}>
         {(item) => (
-          <Select.Option id={item.id} textValue={item.name}>
+          <SelectItem id={item.id} textValue={item.name}>
             {item.name}
-          </Select.Option>
+          </SelectItem>
         )}
-      </Select.List>
+      </SelectContent>
     </Select>
   )
 }

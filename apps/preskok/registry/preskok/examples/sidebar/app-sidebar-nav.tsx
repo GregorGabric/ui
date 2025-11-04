@@ -9,7 +9,16 @@ import {
 
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
 import { Breadcrumbs } from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuHeader,
+  MenuItem,
+  MenuLabel,
+  MenuSection,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   SidebarNav,
   SidebarTrigger,
@@ -35,43 +44,43 @@ export default function AppSidebarNav() {
 function UserMenu() {
   return (
     <Menu>
-      <Menu.Trigger className="ml-auto md:hidden" aria-label="Open Menu">
+      <MenuTrigger className="ml-auto md:hidden" aria-label="Open Menu">
         <Avatar
           isSquare
           alt="kurt cobain"
           src="https://intentui.com/images/avatar/cobain.jpg"
         />
-      </Menu.Trigger>
-      <Menu.Content popover={{ placement: "bottom end" }} className="min-w-64">
-        <Menu.Section>
-          <Menu.Header separator>
+      </MenuTrigger>
+      <MenuContent popover={{ placement: "bottom end" }} className="min-w-64">
+        <MenuSection>
+          <MenuHeader separator>
             <span className="block">Kurt Cobain</span>
             <span className="text-muted-foreground font-normal">@cobain</span>
-          </Menu.Header>
-        </Menu.Section>
-        <Menu.Item href="#dashboard">
+          </MenuHeader>
+        </MenuSection>
+        <MenuItem href="#dashboard">
           <LayoutDashboardIcon />
-          <Menu.Label>Dashboard</Menu.Label>
-        </Menu.Item>
-        <Menu.Item href="#settings">
+          <MenuLabel>Dashboard</MenuLabel>
+        </MenuItem>
+        <MenuItem href="#settings">
           <SettingsIcon />
-          <Menu.Label>Settings</Menu.Label>
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item>
+          <MenuLabel>Settings</MenuLabel>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem>
           <Command />
-          <Menu.Label>Command Menu</Menu.Label>
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item href="#contact-s">
-          <Menu.Label>Contact Support</Menu.Label>
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item href="#logout">
+          <MenuLabel>Command Menu</MenuLabel>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem href="#contact-s">
+          <MenuLabel>Contact Support</MenuLabel>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem href="#logout">
           <LogOutIcon />
-          <Menu.Label>Log out</Menu.Label>
-        </Menu.Item>
-      </Menu.Content>
+          <MenuLabel>Log out</MenuLabel>
+        </MenuItem>
+      </MenuContent>
     </Menu>
   )
 }

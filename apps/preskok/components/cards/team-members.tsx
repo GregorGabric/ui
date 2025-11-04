@@ -3,7 +3,6 @@
 import { ChevronDown } from "lucide-react"
 
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
-// Button not needed; Menu.Trigger renders a button
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
@@ -12,7 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { Menu } from "@/registry/preskok/ui/preskok-ui/menu"
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 
 const teamMembers = [
   {
@@ -85,21 +89,23 @@ export function CardsTeamMembers() {
               </div>
             </div>
             <Menu>
-              <Button intent="plain" className="ml-auto shadow-none">
-                {member.role} <ChevronDown />
-              </Button>
-              <Menu.Content placement="bottom end">
+              <MenuTrigger>
+                <Button intent="plain" className="ml-auto shadow-none">
+                  {member.role} <ChevronDown />
+                </Button>
+              </MenuTrigger>
+              <MenuContent placement="bottom end">
                 {roles.map((role) => (
-                  <Menu.Item key={role.name}>
+                  <MenuItem key={role.name}>
                     <div className="flex flex-col">
                       <p className="text-sm font-medium">{role.name}</p>
                       <p className="text-muted-foreground">
                         {role.description}
                       </p>
                     </div>
-                  </Menu.Item>
+                  </MenuItem>
                 ))}
-              </Menu.Content>
+              </MenuContent>
             </Menu>
           </div>
         ))}

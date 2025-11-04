@@ -1,140 +1,152 @@
 "use client"
 
-import React from "react"
-import { ChevronsUpDownIcon } from "lucide-react"
-import type {
-  ComboBoxProps as AriaComboBoxProps,
-  InputProps as AriaInputProps,
-  ListBoxProps as AriaListBoxProps,
-  PopoverProps as AriaPopoverProps,
-  ValidationResult as AriaValidationResult,
-} from "react-aria-components"
+import React, { useMemo, useRef } from "react"
+import { PlusIcon } from "lucide-react"
 import {
-  ComboBox as AriaComboBox,
-  Input as AriaInput,
-  ListBox as AriaListBox,
-  composeRenderProps,
-  Text,
+  Autocomplete,
+  Select,
+  SelectValue,
+  useFilter,
+  type SelectProps,
 } from "react-aria-components"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/button"
-import {
-  FieldError,
-  FieldGroup,
-  Label,
-} from "@/registry/preskok/ui/preskok-ui/field"
-import {
-  ListBoxCollection,
-  ListBoxHeader,
-  ListBoxItem,
-  ListBoxSection,
-} from "@/registry/preskok/ui/preskok-ui/list-box"
-import { Popover } from "@/registry/preskok/ui/preskok-ui/popover"
+import { cx } from "@/registry/preskok/lib/primitive"
 
-const ComboboxPrimitive = AriaComboBox
+import { Button } from "./button"
+import { fieldStyles } from "./field"
+import { ListBox, ListBoxItem } from "./list-box"
+import { PopoverContent } from "./popover"
+import { SearchField, SearchInput } from "./search-field"
+import { Tag, TagGroup, TagList } from "./tag-group"
 
-const ComboboxItem = ListBoxItem
-
-const ComboboxHeader = ListBoxHeader
-
-const ComboboxSection = ListBoxSection
-
-const ComboboxCollection = ListBoxCollection
-
-const ComboboxInput = ({ className, ...props }: AriaInputProps) => (
-  <AriaInput
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "bg-background placeholder:text-muted-foreground flex h-10 w-full px-3 py-2 outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium",
-        /* Disabled */
-        "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const ComboboxPopover = ({ className, ...props }: AriaPopoverProps) => (
-  <Popover
-    className={composeRenderProps(className, (className) =>
-      cn("w-[calc(var(--trigger-width)+4px)]", className)
-    )}
-    {...props}
-  />
-)
-
-const ComboboxListBox = <T extends object>({
-  className,
-  ...props
-}: AriaListBoxProps<T>) => (
-  <AriaListBox
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_calc(var(--radius)-2px))]",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-interface ComboboxProps<T extends object>
-  extends Omit<AriaComboBoxProps<T>, "children"> {
-  label?: string
-  description?: string | null
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
-  children: React.ReactNode | ((item: T) => React.ReactNode)
+interface OptionBase {
+  id: string | number
+  name: string
 }
 
-function Combobox<T extends object>({
-  label,
-  description,
-  errorMessage,
+interface MultipleSelectProps<T extends OptionBase>
+  extends Omit<SelectProps<T, "multiple">, "selectionMode" | "children"> {
+  placeholder?: string
+  className?: string
+  children?: React.ReactNode
+  name?: string
+}
+
+interface MultipleSelectContentProps<T extends OptionBase> {
+  items: Iterable<T>
+  children: (item: T) => React.ReactNode
+}
+
+function MultipleSelectContent<T extends OptionBase>(
+  _props: MultipleSelectContentProps<T>
+) {
+  return null
+}
+;(MultipleSelectContent as any).displayName = "MultipleSelectContent"
+
+function MultipleSelect<T extends OptionBase>({
+  placeholder = "No selected items",
   className,
   children,
+  name,
   ...props
-}: ComboboxProps<T>) {
+}: MultipleSelectProps<T>) {
+  const triggerRef = useRef<HTMLDivElement | null>(null)
+  const { contains } = useFilter({ sensitivity: "base" })
+
+  const { before, after, list } = useMemo(() => {
+    const arr = React.Children.toArray(children)
+    const idx = arr.findIndex(
+      (c) =>
+        React.isValidElement(c) &&
+        (c.type as any)?.displayName === "MultipleSelectContent"
+    )
+    if (idx === -1) {
+      return {
+        before: arr,
+        after: [],
+        list: null as null | MultipleSelectContentProps<T>,
+      }
+    }
+    const el = arr[idx] as React.ReactElement<MultipleSelectContentProps<T>>
+    return {
+      before: arr.slice(0, idx),
+      after: arr.slice(idx + 1),
+      list: el.props,
+    }
+  }, [children])
+
   return (
-    <ComboboxPrimitive
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
+    <Select
+      name={name}
+      data-slot="control"
+      className={cx(fieldStyles(), className)}
+      selectionMode="multiple"
       {...props}
     >
-      <Label>{label}</Label>
-      <FieldGroup className="p-0">
-        <ComboboxInput />
-        <Button variant="ghost" size="icon" className="mr-1 size-6 p-1">
-          <ChevronsUpDownIcon
-            aria-hidden="true"
-            className="size-4 opacity-50"
-          />
-        </Button>
-      </FieldGroup>
-      {description && (
-        <Text className="text-muted-foreground text-sm" slot="description">
-          {description}
-        </Text>
+      {before}
+      {list && (
+        <>
+          <div
+            data-slot="control"
+            ref={triggerRef}
+            className="flex w-full items-center gap-2 rounded-lg border p-1"
+          >
+            <SelectValue<T> className="flex-1">
+              {({ selectedItems, state }) => (
+                <TagGroup
+                  aria-label="Selected items"
+                  onRemove={(keys) => {
+                    if (Array.isArray(state.value)) {
+                      state.setValue(state.value.filter((k) => !keys.has(k)))
+                    }
+                  }}
+                >
+                  <TagList
+                    items={selectedItems.filter((i) => i != null)}
+                    renderEmptyState={() => (
+                      <i className="text-muted-fg pl-2 text-sm">
+                        {placeholder}
+                      </i>
+                    )}
+                  >
+                    {(item) => <Tag className="rounded-md">{item.name}</Tag>}
+                  </TagList>
+                </TagGroup>
+              )}
+            </SelectValue>
+            <Button
+              intent="secondary"
+              size="sq-xs"
+              className="self-end rounded-[calc(var(--radius-lg)-(--spacing(1)))]"
+            >
+              <PlusIcon data-slot="icon" />
+            </Button>
+          </div>
+          <PopoverContent
+            triggerRef={triggerRef}
+            placement="bottom"
+            className="flex w-full flex-col"
+          >
+            <Autocomplete filter={contains}>
+              <SearchField autoFocus className="rounded-none outline-hidden">
+                <SearchInput className="border-none outline-hidden focus:ring-0" />
+              </SearchField>
+              <ListBox
+                className="rounded-t-none border-0 border-t bg-transparent shadow-none"
+                items={list.items}
+              >
+                {list.children}
+              </ListBox>
+            </Autocomplete>
+          </PopoverContent>
+        </>
       )}
-      <FieldError>{errorMessage}</FieldError>
-      <ComboboxPopover>
-        <ComboboxListBox>{children}</ComboboxListBox>
-      </ComboboxPopover>
-    </ComboboxPrimitive>
+      {after}
+    </Select>
   )
 }
 
-export {
-  Combobox,
-  ComboboxCollection,
-  ComboboxHeader,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxListBox,
-  ComboboxPopover,
-  ComboboxPrimitive,
-  ComboboxSection,
-}
-export type { ComboboxProps }
+const MultipleSelectItem = ListBoxItem
+
+export { MultipleSelect, MultipleSelectContent, MultipleSelectItem }

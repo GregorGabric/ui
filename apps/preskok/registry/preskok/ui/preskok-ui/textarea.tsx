@@ -1,52 +1,31 @@
 "use client"
 
-import { TextArea, TextField, type TextFieldProps } from "react-aria-components"
+import { TextArea, type TextAreaProps } from "react-aria-components"
 import { twJoin } from "tailwind-merge"
 
 import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
 
-import { Description, FieldError, Label, type FieldProps } from "./field"
-
-interface TextareaProps extends Omit<TextFieldProps, "className">, FieldProps {
-  className?: string | ((v: TextFieldProps) => string)
-}
-
-const Textarea = ({
-  className,
-  placeholder,
-  label,
-  description,
-  errorMessage,
-  ...props
-}: TextareaProps) => {
+const Textarea = ({ className, ...props }: TextAreaProps) => {
   return (
-    <TextField
-      {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "group flex flex-col gap-y-1 *:data-[slot=label]:font-medium"
-      )}
-    >
-      {label && <Label>{label}</Label>}
+    <span data-slot="control" className="relative block w-full">
       <TextArea
-        placeholder={placeholder}
+        {...props}
         className={composeTailwindRenderProps(
           className,
           twJoin([
-            "border-input placeholder-muted-foreground field-sizing-content max-h-96 min-h-16 w-full min-w-0 rounded-lg border px-2.5 py-2 text-base shadow-xs outline-hidden transition duration-200 sm:text-sm/6",
-            "focus:border-ring/70 focus:ring-ring/20 focus:ring-3",
-            "focus:invalid:border-danger/70 focus:invalid:ring-danger/20 focus:invalid:ring-3",
-            "invalid:border-danger/70",
-            "disabled:opacity-50 disabled:forced-colors:border-[GrayText]",
-            "invalid:hover:border-danger/70 hover:border-current/20",
+            "relative block field-sizing-content min-h-16 w-full appearance-none rounded-lg px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)]",
+            "text-foreground placeholder:text-muted-foreground text-base/6 sm:text-sm/6",
+            "border-input enabled:hover:border-muted-foreground/30 border",
+            "focus:border-ring/70 focus:bg-primary/5 focus:ring-ring/20 focus:enabled:hover:border-ring/80 focus:ring-3 focus:outline-hidden",
+            "invalid:border-danger/70 invalid:bg-danger/5 focus:invalid:border-danger/70 focus:invalid:bg-danger/5 focus:invalid:ring-danger/20 invalid:enabled:hover:border-danger/80 invalid:focus:enabled:hover:border-danger/80",
+            "disabled:bg-muted disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",
+            "in-disabled:bg-muted in-disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",
+            "dark:scheme-dark",
           ])
         )}
       />
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </TextField>
+    </span>
   )
 }
 
 export { Textarea }
-export type { TextareaProps }

@@ -1,75 +1,44 @@
 "use client"
 
 import { SearchIcon, XIcon } from "lucide-react"
-import type { SearchFieldProps as SearchFieldPrimitiveProps } from "react-aria-components"
+import type { InputProps, SearchFieldProps } from "react-aria-components"
 import {
   Button,
   SearchField as SearchFieldPrimitive,
 } from "react-aria-components"
+import { twJoin } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
-import {
-  Description,
-  FieldError,
-  FieldGroup,
-  Input,
-  Label,
-  type FieldProps,
-} from "@/registry/preskok/ui/preskok-ui/field"
-import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
+import { cx } from "@/registry/preskok/lib/primitive"
+import { fieldStyles } from "@/registry/preskok/ui/preskok-ui/field"
 
-interface SearchFieldProps extends SearchFieldPrimitiveProps, FieldProps {
-  isPending?: boolean
-}
+import { Input, InputGroup } from "./input"
 
-const SearchField = ({
-  children,
-  className,
-  placeholder,
-  label,
-  description,
-  errorMessage,
-  isPending,
-  ...props
-}: SearchFieldProps) => {
+export function SearchField({ className, ...props }: SearchFieldProps) {
   return (
     <SearchFieldPrimitive
-      aria-label={placeholder ?? props["aria-label"] ?? "Search..."}
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "group/search-field relative flex flex-col gap-y-1 *:data-[slot=label]:font-medium"
+      aria-label={props["aria-label"] ?? "Search"}
+      className={cx(
+        fieldStyles({ className: "group/search-field" }),
+        className
       )}
-    >
-      {(values) => (
-        <>
-          {label && <Label>{label}</Label>}
-          {typeof children === "function" ? (
-            children(values)
-          ) : children ? (
-            children
-          ) : (
-            <FieldGroup>
-              {isPending ? (
-                <Loader variant="spin" />
-              ) : (
-                <SearchIcon data-slot="icon" />
-              )}
-              <Input placeholder={placeholder ?? "Search..."} />
-
-              <Button className="pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center group-empty/search-field:invisible">
-                <XIcon />
-              </Button>
-            </FieldGroup>
-          )}
-
-          {description && <Description>{description}</Description>}
-          <FieldError>{errorMessage}</FieldError>
-        </>
-      )}
-    </SearchFieldPrimitive>
+    />
   )
 }
 
-export { SearchField }
-export type { SearchFieldProps }
+export function SearchInput(props: InputProps) {
+  return (
+    <InputGroup className="[--input-gutter-end:--spacing(8)]">
+      <SearchIcon data-slot="icon" />
+      <Input {...props} />
+      <Button
+        className={twJoin(
+          "touch-target pressed:text-fg text-muted-fg hover:text-fg grid place-content-center group-empty/search-field:invisible",
+          "px-3 py-2 sm:px-2.5 sm:py-1.5 sm:text-sm/5"
+        )}
+      >
+        <XIcon className="size-5 sm:size-4" data-slot="icon" />
+      </Button>
+    </InputGroup>
+  )
+}

@@ -1,0 +1,63 @@
+---
+title: Text
+description: A simple typography component for consistent text styling.
+---
+
+<ComponentPreview
+  name="text-basic-demo"
+  description="Basic text component usage."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add text
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="text"
+  title="registry/preskok/ui/preskok-ui/text.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Text } from "@/registry/preskok/ui/preskok-ui/text"
+
+export function TextDemo() {
+  return <Text>The quick brown fox jumps over the lazy dog</Text>
+}
+```
+
+## Props
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+All standard HTML paragraph props are also supported.
+
