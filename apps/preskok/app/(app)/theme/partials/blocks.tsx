@@ -8,7 +8,14 @@ import { ModalPreskokDemo } from "@/registry/preskok/examples/modal-preskok-demo
 import RangeCalendarPreskokDemo from "@/registry/preskok/examples/range-calendar-preskok-demo"
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
 import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
-import { Card } from "@/registry/preskok/ui/preskok-ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
 import {
   Checkbox,
   CheckboxGroup,
@@ -63,25 +70,25 @@ export function Blocks() {
           </div>
         </Card>
         <Card>
-          <Card.Header>
-            <Card.Title>Login</Card.Title>
-            <Card.Description>
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>
               Don&apos;t lose the level, just keep on going.
-            </Card.Description>
-          </Card.Header>
-          <Card.Content className="space-y-6">
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
             <TextField isRequired name="email" />
             <TextField isRequired name="password" type="password" />
             <div className="flex items-center justify-between">
               <Checkbox>Remember me</Checkbox>
-              <Link intent="primary" className="text-sm" href="#">
+              <Link className="text-sm" href="#">
                 Forgot password?
               </Link>
             </div>
-          </Card.Content>
-          <Card.Footer>
+          </CardContent>
+          <CardFooter>
             <Button className="w-full">Login</Button>
-          </Card.Footer>
+          </CardFooter>
         </Card>
         <Card className="flex items-center justify-center gap-2 p-6">
           <div className="space-y-2">

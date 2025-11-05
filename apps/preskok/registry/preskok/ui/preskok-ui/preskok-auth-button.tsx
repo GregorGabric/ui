@@ -1,3 +1,5 @@
+"use client"
+
 import React, { type PropsWithChildren } from "react"
 
 import type { ButtonProps } from "@/registry/preskok/ui/preskok-ui/button"

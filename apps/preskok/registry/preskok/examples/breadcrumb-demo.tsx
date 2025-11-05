@@ -1,24 +1,27 @@
 "use client"
 
-import { Breadcrumbs } from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
+import {
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
 
 export default function BreadcrumbDemo() {
   return (
     <div className="space-y-4">
       <Breadcrumbs>
-        <Breadcrumbs.Item href="/">Dealership</Breadcrumbs.Item>
-        <Breadcrumbs.Item href="/inventory">Inventory</Breadcrumbs.Item>
-        <Breadcrumbs.Item href="/inventory/sedans">Sedans</Breadcrumbs.Item>
-        <Breadcrumbs.Item>2024 Toyota Camry</Breadcrumbs.Item>
+        <BreadcrumbsItem href="/">Dealership</BreadcrumbsItem>
+        <BreadcrumbsItem href="/inventory">Inventory</BreadcrumbsItem>
+        <BreadcrumbsItem href="/inventory/sedans">Sedans</BreadcrumbsItem>
+        <BreadcrumbsItem>2024 Toyota Camry</BreadcrumbsItem>
       </Breadcrumbs>
 
       <Breadcrumbs separator="slash">
-        <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-        <Breadcrumbs.Item href="/services">Services</Breadcrumbs.Item>
-        <Breadcrumbs.Item href="/services/maintenance">
+        <BreadcrumbsItem href="/">Home</BreadcrumbsItem>
+        <BreadcrumbsItem href="/services">Services</BreadcrumbsItem>
+        <BreadcrumbsItem href="/services/maintenance">
           Maintenance
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Item>Oil Change</Breadcrumbs.Item>
+        </BreadcrumbsItem>
+        <BreadcrumbsItem>Oil Change</BreadcrumbsItem>
       </Breadcrumbs>
     </div>
   )

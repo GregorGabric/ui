@@ -1,3 +1,5 @@
+"use client"
+
 import { twMerge } from "tailwind-merge"
 
 const Text = ({ className, ...props }: React.ComponentProps<"p">) => {

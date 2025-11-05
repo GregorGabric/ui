@@ -12,7 +12,13 @@ import {
   CardFooter,
   CardHeader,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { CommandMenu } from "@/registry/preskok/ui/preskok-ui/command-menu"
+import {
+  CommandMenu,
+  CommandMenuFooter,
+  CommandMenuItem,
+  CommandMenuList,
+  CommandMenuSearch,
+} from "@/registry/preskok/ui/preskok-ui/command-menu"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 import {
   Tooltip,
@@ -171,8 +177,8 @@ export function CardsChat() {
         aria-label="New message"
         size="md"
       >
-        <CommandMenu.Search placeholder="Search user..." />
-        <CommandMenu.List
+        <CommandMenuSearch placeholder="Search user..." />
+        <CommandMenuList
           onAction={(key) => {
             const user = users.find((u) => u.email === key)
             if (!user) {
@@ -188,7 +194,7 @@ export function CardsChat() {
           }}
         >
           {users.map((user) => (
-            <CommandMenu.Item
+            <CommandMenuItem
               key={user.email}
               id={user.email}
               textValue={user.name}
@@ -206,10 +212,10 @@ export function CardsChat() {
               {selectedUsers.includes(user) ? (
                 <CheckIcon className="text-primary ml-auto flex size-4" />
               ) : null}
-            </CommandMenu.Item>
+            </CommandMenuItem>
           ))}
-        </CommandMenu.List>
-        <CommandMenu.Footer className="flex items-center sm:justify-between">
+        </CommandMenuList>
+        <CommandMenuFooter className="flex items-center sm:justify-between">
           {selectedUsers.length > 0 ? (
             <div className="flex -space-x-2 overflow-hidden">
               {selectedUsers.map((user) => (
@@ -234,7 +240,7 @@ export function CardsChat() {
           >
             Continue
           </Button>
-        </CommandMenu.Footer>
+        </CommandMenuFooter>
       </CommandMenu>
     </>
   )

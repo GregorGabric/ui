@@ -24,7 +24,14 @@ import {
   MenuItem,
   MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
-import { Sheet } from "@/registry/preskok/ui/preskok-ui/sheet"
+import {
+  Sheet,
+  SheetBody,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+} from "@/registry/preskok/ui/preskok-ui/sheet"
 import { Blocks } from "@/app/(app)/theme/partials/blocks"
 import { GeneratedTheme } from "@/app/(app)/theme/partials/generated-theme"
 import { ThemeCustomizer } from "@/app/(app)/theme/partials/theme-customizer"
@@ -116,27 +123,27 @@ export function ThemeContainer() {
       </Container>
 
       <Sheet>
-        <Sheet.Content
+        <SheetContent
           onOpenChange={setOpen}
           isOpen={open}
           className="bg-shiki-background sm:max-w-md"
           side="right"
         >
-          <Sheet.Header
+          <SheetHeader
             title="Theme"
             description="Copy the theme below and paste it into your CSS file."
           />
-          <Sheet.Body className="border-y pb-4">
+          <SheetBody className="border-y pb-4">
             <Card className="bg-neutral-950 p-4">
               <pre className="overflow-x-auto text-xs text-white">
                 <code>{generateTheme(selectedColors)}</code>
               </pre>
             </Card>
-          </Sheet.Body>
-          <Sheet.Footer className="gap-x-1">
-            <Sheet.Close onPress={handleClose} className="hidden sm:flex">
+          </SheetBody>
+          <SheetFooter className="gap-x-1">
+            <SheetClose onPress={handleClose} className="hidden sm:flex">
               Close
-            </Sheet.Close>
+            </SheetClose>
             <Button
               onPress={() => {
                 copy()
@@ -146,8 +153,8 @@ export function ThemeContainer() {
               <CopyIcon />
               Copy
             </Button>
-          </Sheet.Footer>
-        </Sheet.Content>
+          </SheetFooter>
+        </SheetContent>
       </Sheet>
     </>
   )

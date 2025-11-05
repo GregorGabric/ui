@@ -3,7 +3,13 @@
 import { useMemo } from "react"
 
 import { BarChart } from "@/registry/preskok/ui/preskok-ui/bar-chart"
-import { Card } from "@/registry/preskok/ui/preskok-ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
 
 type SalesPoint = {
   day: string
@@ -26,14 +32,14 @@ export default function BarChartPreskokDemo() {
 
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Vehicle sales last 7d</Card.Title>
-        <Card.Description>
+      <CardHeader>
+        <CardTitle>Vehicle sales last 7d</CardTitle>
+        <CardDescription>
           Sales volume across SUV, Sedan, and Truck segments for the last 7
           days.
-        </Card.Description>
-      </Card.Header>
-      <Card.Content>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <BarChart
           className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={salesData}
@@ -45,7 +51,7 @@ export default function BarChartPreskokDemo() {
             truck: { label: "Truck" },
           }}
         />
-      </Card.Content>
+      </CardContent>
     </Card>
   )
 }

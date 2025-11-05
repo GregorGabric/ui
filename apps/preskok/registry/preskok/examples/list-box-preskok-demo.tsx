@@ -1,6 +1,6 @@
 "use client"
 
-import { ListBox } from "@/registry/preskok/ui/preskok-ui/list-box"
+import { ListBox, ListBoxItem } from "@/registry/preskok/ui/preskok-ui/list-box"
 
 export default function ListBoxPreskokDemo() {
   return (
@@ -10,7 +10,7 @@ export default function ListBoxPreskokDemo() {
       selectionMode="single"
       aria-label="Cars"
     >
-      {(item) => <ListBox.Item id={item.id}>{item.name}</ListBox.Item>}
+      {(item) => <ListBoxItem id={item.id}>{item.name}</ListBoxItem>}
     </ListBox>
   )
 }

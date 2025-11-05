@@ -41,12 +41,12 @@ export function NavDocuments({
         {items.map((item) => (
           <SidebarItem key={item.name}>
             <SidebarLink href={item.url}>
-              <item.icon className="size-4" />
+              <item.icon data-slot="icon" className="size-4" />
               <SidebarLabel>{item.name}</SidebarLabel>
             </SidebarLink>
             <DropdownMenu>
               <DropdownMenuTrigger data-slot="menu-trigger">
-                <MoreHorizontalIcon className="size-4" />
+                <MoreHorizontalIcon data-slot="icon" className="size-4" />
                 <span className="sr-only">More</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -55,16 +55,16 @@ export function NavDocuments({
                 align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem>
-                  <FolderIcon className="size-4" />
+                  <FolderIcon data-slot="icon" className="size-4" />
                   <span>Open</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Share2Icon className="size-4" />
+                  <Share2Icon data-slot="icon" className="size-4" />
                   <span>Share</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive">
-                  <TrashIcon className="size-4" />
+                  <TrashIcon data-slot="icon" className="size-4" />
                   <span>Delete</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -73,7 +73,10 @@ export function NavDocuments({
         ))}
         <SidebarItem>
           <SidebarLink className="text-sidebar-foreground/70">
-            <MoreHorizontalIcon className="text-sidebar-foreground/70 size-4" />
+            <MoreHorizontalIcon
+              data-slot="icon"
+              className="text-sidebar-foreground/70 size-4"
+            />
             <SidebarLabel>More</SidebarLabel>
           </SidebarLink>
         </SidebarItem>

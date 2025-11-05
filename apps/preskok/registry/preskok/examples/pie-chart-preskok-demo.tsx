@@ -2,7 +2,13 @@
 
 import { useMemo } from "react"
 
-import { Card } from "@/registry/preskok/ui/preskok-ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
 import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
 
 export default function PieChartPreskokDemo() {
@@ -18,13 +24,13 @@ export default function PieChartPreskokDemo() {
 
   return (
     <Card>
-      <Card.Header className="text-center">
-        <Card.Title>Vehicle category breakdown</Card.Title>
-        <Card.Description>
+      <CardHeader className="text-center">
+        <CardTitle>Vehicle category breakdown</CardTitle>
+        <CardDescription>
           Share of inventory by vehicle category.
-        </Card.Description>
-      </Card.Header>
-      <Card.Content>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <PieChart
           className="mx-auto h-56"
           data={data}
@@ -37,7 +43,7 @@ export default function PieChartPreskokDemo() {
             EV: { label: "EV" },
           }}
         />
-      </Card.Content>
+      </CardContent>
     </Card>
   )
 }

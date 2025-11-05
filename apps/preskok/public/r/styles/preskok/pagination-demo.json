@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/pagination-demo.tsx",
-      "content": "\"use client\"\n\nimport { Pagination } from \"@/registry/preskok/ui/preskok-ui/pagination\"\n\nexport default function PaginationDemo() {\n  return (\n    <Pagination>\n      <Pagination.List>\n        <Pagination.Item segment=\"first\" href=\"#\" />\n        <Pagination.Item segment=\"previous\" href=\"#\" />\n        <Pagination.Item href=\"#\">1</Pagination.Item>\n        <Pagination.Item href=\"#\" isCurrent>\n          2\n        </Pagination.Item>\n        <Pagination.Item segment=\"ellipsis\" />\n        <Pagination.Item segment=\"next\" href=\"#\" />\n        <Pagination.Item segment=\"last\" href=\"#\" />\n      </Pagination.List>\n    </Pagination>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  Pagination,\n  PaginationFirst,\n  PaginationGap,\n  PaginationItem,\n  PaginationLast,\n  PaginationList,\n  PaginationNext,\n  PaginationPrevious,\n} from \"@/registry/preskok/ui/preskok-ui/pagination\"\n\nexport default function PaginationDemo() {\n  return (\n    <Pagination>\n      <PaginationList>\n        <PaginationFirst href=\"#\" />\n        <PaginationPrevious href=\"#\" />\n        <PaginationItem href=\"#\">1</PaginationItem>\n        <PaginationItem href=\"#\" isCurrent>\n          2\n        </PaginationItem>\n        <PaginationGap />\n        <PaginationNext href=\"#\" />\n        <PaginationLast href=\"#\" />\n      </PaginationList>\n    </Pagination>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

@@ -33,7 +33,14 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
-import { Table } from "@/registry/preskok/ui/preskok-ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@/registry/preskok/ui/preskok-ui/table"
 
 const data: Array<Payment> = [
   {
@@ -208,14 +215,13 @@ export function CardsPayments() {
       <CardContent className="flex flex-col gap-4 p-4">
         <div className="rounded-md border">
           <Table aria-label="Payments">
-            <Table.Header>
+            <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
-                <Table.Row key={headerGroup.id}>
+                <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <Table.Column
+                      <TableColumn
                         key={header.id}
-                        isNumeric={header.id === "amount"}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={header.id}
                         isRowHeader={header.id === "email"}
@@ -226,16 +232,16 @@ export function CardsPayments() {
                               header.column.columnDef.header,
                               header.getContext()
                             )}
-                      </Table.Column>
+                      </TableColumn>
                     )
                   })}
-                </Table.Row>
+                </TableRow>
               ))}
-            </Table.Header>
-            <Table.Body>
+            </TableHeader>
+            <TableBody>
               {table.getRowModel().rows.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <Table.Row
+                  <TableRow
                     key={row.id}
                     id={row.original.id}
                     data-state={
@@ -243,8 +249,7 @@ export function CardsPayments() {
                     }
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <Table.Cell
-                        isNumeric={cell.column.id === "amount"}
+                      <TableCell
                         key={cell.id}
                         className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
                         data-name={cell.column.id}
@@ -262,21 +267,21 @@ export function CardsPayments() {
                             cell.getContext()
                           )
                         )}
-                      </Table.Cell>
+                      </TableCell>
                     ))}
-                  </Table.Row>
+                  </TableRow>
                 ))
               ) : (
-                <Table.Row>
-                  <Table.Cell
+                <TableRow>
+                  <TableCell
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
                     No results.
-                  </Table.Cell>
-                </Table.Row>
+                  </TableCell>
+                </TableRow>
               )}
-            </Table.Body>
+            </TableBody>
           </Table>
         </div>
         <div className="flex items-center justify-end gap-2">

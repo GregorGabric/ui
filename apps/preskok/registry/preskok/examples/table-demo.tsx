@@ -2,7 +2,14 @@
 
 import { useState } from "react"
 
-import { Table } from "@/registry/preskok/ui/preskok-ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@/registry/preskok/ui/preskok-ui/table"
 
 interface Vehicle {
   id: string
@@ -63,34 +70,34 @@ const columns = [
 ]
 
 export default function TableDemo() {
-  const [selectedKeys, setSelectedKeys] = useState(new Set<string>())
+  const [selectedKeys, setSelectedKeys] = useState()
 
   return (
     <Table
       aria-label="Vehicle inventory"
       selectionMode="multiple"
       selectedKeys={selectedKeys}
-      onSelectionChange={setSelectedKeys}
+      // onSelectionChange={setSelectedKeys}
     >
-      <Table.Header columns={columns}>
+      <TableHeader columns={columns}>
         {(column) => (
-          <Table.Column key={column.key} isRowHeader={column.isRowHeader}>
+          <TableColumn key={column.key} isRowHeader={column.isRowHeader}>
             {column.name}
-          </Table.Column>
+          </TableColumn>
         )}
-      </Table.Header>
-      <Table.Body items={vehicles}>
+      </TableHeader>
+      <TableBody items={vehicles}>
         {(item) => (
-          <Table.Row key={item.id}>
-            <Table.Cell>{item.make}</Table.Cell>
-            <Table.Cell>{item.model}</Table.Cell>
-            <Table.Cell>{item.year}</Table.Cell>
-            <Table.Cell>${item.price.toLocaleString()}</Table.Cell>
-            <Table.Cell>{item.mileage.toLocaleString()} mi</Table.Cell>
-            <Table.Cell>{item.fuelType}</Table.Cell>
-          </Table.Row>
+          <TableRow key={item.id}>
+            <TableCell>{item.make}</TableCell>
+            <TableCell>{item.model}</TableCell>
+            <TableCell>{item.year}</TableCell>
+            <TableCell>${item.price.toLocaleString()}</TableCell>
+            <TableCell>{item.mileage.toLocaleString()} mi</TableCell>
+            <TableCell>{item.fuelType}</TableCell>
+          </TableRow>
         )}
-      </Table.Body>
+      </TableBody>
     </Table>
   )
 }

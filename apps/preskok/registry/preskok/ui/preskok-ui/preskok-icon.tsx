@@ -1,3 +1,4 @@
+"use client"
 export function PreskokIcon({ className }: { className?: string }) {
   return (
     <svg

@@ -23,13 +23,13 @@ export function NavMain({
     <SidebarSectionGroup>
       <SidebarSection className="flex flex-col gap-2">
         <SidebarItem>
-          <PlusIcon className="size-4" />
+          <PlusIcon data-slot="icon" className="size-4" />
           <SidebarLabel>Quick Create</SidebarLabel>
         </SidebarItem>
         {items.map((item) => (
           <SidebarItem key={item.title}>
             <SidebarLink>
-              {item.icon && <item.icon className="size-4" />}
+              {item.icon && <item.icon data-slot="icon" className="size-4" />}
               <SidebarLabel>{item.title}</SidebarLabel>
             </SidebarLink>
           </SidebarItem>

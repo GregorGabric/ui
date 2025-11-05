@@ -10,6 +10,7 @@ import {
   SidebarSection,
   SidebarSectionGroup,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
+import { SidebarGroup } from "@/registry/preskok/ui/sidebar"
 
 export function NavSecondary({
   items,
@@ -27,7 +28,7 @@ export function NavSecondary({
         {items.map((item) => (
           <SidebarItem key={item.title}>
             <SidebarLink href={item.url}>
-              <item.icon />
+              <item.icon data-slot="icon" />
               <SidebarLabel>{item.title}</SidebarLabel>
             </SidebarLink>
           </SidebarItem>
