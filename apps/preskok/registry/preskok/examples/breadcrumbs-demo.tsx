@@ -1,16 +1,19 @@
 "use client"
 
-import { Breadcrumbs } from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
+import {
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
 
 export default function BreadcrumbsDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="/products/electronics">
+      <BreadcrumbsItem href="/">Home</BreadcrumbsItem>
+      <BreadcrumbsItem href="/products">Products</BreadcrumbsItem>
+      <BreadcrumbsItem href="/products/electronics">
         Electronics
-      </Breadcrumbs.Item>
-      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>
+      </BreadcrumbsItem>
+      <BreadcrumbsItem>Laptop</BreadcrumbsItem>
     </Breadcrumbs>
   )
 }

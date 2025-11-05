@@ -2,7 +2,13 @@
 
 import { useMemo } from "react"
 
-import { Card } from "@/registry/preskok/ui/preskok-ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
 import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
 
 export default function LineChartPreskokDemo() {
@@ -18,18 +24,18 @@ export default function LineChartPreskokDemo() {
 
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Dealership performance</Card.Title>
-        <Card.Description>Sales vs Leads per month</Card.Description>
-      </Card.Header>
-      <Card.Content>
+      <CardHeader>
+        <CardTitle>Dealership performance</CardTitle>
+        <CardDescription>Sales vs Leads per month</CardDescription>
+      </CardHeader>
+      <CardContent>
         <LineChart
           className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={data}
           dataKey="month"
           config={{ sales: { label: "Sales" }, leads: { label: "Leads" } }}
         />
-      </Card.Content>
+      </CardContent>
     </Card>
   )
 }

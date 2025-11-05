@@ -8,7 +8,10 @@ import {
 } from "lucide-react"
 
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
-import { Breadcrumbs } from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
+import {
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
 import {
   Menu,
   MenuContent,
@@ -30,10 +33,10 @@ export default function AppSidebarNav() {
       <span className="flex items-center gap-x-4">
         <SidebarTrigger className="-ml-2" />
         <Breadcrumbs className="hidden md:flex">
-          <Breadcrumbs.Item href="/blocks/sidebar/sidebar-01">
+          <BreadcrumbsItem href="/blocks/sidebar/sidebar-01">
             Dashboard
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Item>Newsletter</Breadcrumbs.Item>
+          </BreadcrumbsItem>
+          <BreadcrumbsItem>Newsletter</BreadcrumbsItem>
         </Breadcrumbs>
       </span>
       <UserMenu />

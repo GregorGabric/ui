@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/breadcrumbs-demo.tsx",
-      "content": "\"use client\"\n\nimport { Breadcrumbs } from \"@/registry/preskok/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbsDemo() {\n  return (\n    <Breadcrumbs>\n      <Breadcrumbs.Item href=\"/\">Home</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"/products\">Products</Breadcrumbs.Item>\n      <Breadcrumbs.Item href=\"/products/electronics\">\n        Electronics\n      </Breadcrumbs.Item>\n      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>\n    </Breadcrumbs>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  Breadcrumbs,\n  BreadcrumbsItem,\n} from \"@/registry/preskok/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbsDemo() {\n  return (\n    <Breadcrumbs>\n      <BreadcrumbsItem href=\"/\">Home</BreadcrumbsItem>\n      <BreadcrumbsItem href=\"/products\">Products</BreadcrumbsItem>\n      <BreadcrumbsItem href=\"/products/electronics\">\n        Electronics\n      </BreadcrumbsItem>\n      <BreadcrumbsItem>Laptop</BreadcrumbsItem>\n    </Breadcrumbs>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

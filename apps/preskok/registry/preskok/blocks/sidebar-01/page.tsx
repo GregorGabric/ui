@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/registry/preskok/blocks/sidebar-01/components/app-sidebar"
+import AppSidebar from "@/registry/preskok/blocks/sidebar-01/components/app-sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,

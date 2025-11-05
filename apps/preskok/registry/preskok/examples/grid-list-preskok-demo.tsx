@@ -1,6 +1,9 @@
 "use client"
 
-import { GridList } from "@/registry/preskok/ui/preskok-ui/grid-list"
+import {
+  GridList,
+  GridListItem,
+} from "@/registry/preskok/ui/preskok-ui/grid-list"
 
 export function Component() {
   return (
@@ -10,7 +13,7 @@ export function Component() {
       aria-label="Select your favorite bands"
       className="min-w-64"
     >
-      {(item) => <GridList.Item id={item.id}>{item.name}</GridList.Item>}
+      {(item) => <GridListItem id={item.id}>{item.name}</GridListItem>}
     </GridList>
   )
 }
