@@ -128,7 +128,7 @@ export const generateTheme = (
     ? "50"
     : determineForeground(isNeutralAccent, isShade400Accent, true)
 
-  const dangerColor =
+  const destructiveColor =
     primary === "red"
       ? adjustLightness(getColorValue("red", "600"), -4)
       : getColorValue("red", "600")
@@ -178,8 +178,8 @@ export const generateTheme = (
     --warning: ${warningColor};
     --warning-foreground: ${getColorValue("amber", "950")};
     
-    --danger: ${dangerColor};
-    --danger-foreground: ${getColorValue("red", "50")};
+    --destructive: ${destructiveColor};
+    --destructive-foreground: ${getColorValue("red", "50")};
     
     --border: ${adjustLightness(getColorValue(gray, "300"), +4)};
     --input: ${getColorValue(gray, "300")};
@@ -222,8 +222,8 @@ export const generateTheme = (
     --warning: ${warningColor};
     --warning-foreground: ${getColorValue("amber", "950")};
     
-    --danger: ${dangerColor};
-    --danger-foreground: ${getColorValue("red", "50")};
+    --destructive: ${destructiveColor};
+    --destructive-foreground: ${getColorValue("red", "50")};
     
     --border: ${adjustLightness(getColorValue(gray, "700"), -10)};
     --input: ${adjustLightness(getColorValue(gray, "700"), -5)};

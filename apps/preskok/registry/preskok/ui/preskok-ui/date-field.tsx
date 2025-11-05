@@ -42,7 +42,7 @@ export function DateInput({
           "border-input enabled:hover:border-muted-foreground/30 border",
           "focus-within:border-ring/70 focus-within:bg-primary-subtle/5 focus-within:ring-ring/20 focus-within:hover:border-ring/80 focus-within:ring-3 focus-within:outline-hidden",
           "group-open:border-ring/70 group-open:bg-primary-subtle/5 group-open:ring-ring/20 group-open:enabled:hover:border-ring/80 group-open:ring-3 group-open:outline-hidden",
-          "invalid:border-danger-subtle-foreground/70 invalid:bg-danger-subtle/5 focus-within:invalid:border-danger-subtle-foreground/70 focus-within:invalid:bg-danger-subtle/5 focus-within:invalid:ring-danger-subtle-foreground/20 focus-within:invalid:hover:border-danger-subtle-foreground/80 invalid:enabled:hover:border-danger-subtle-foreground/80",
+          "invalid:border-destructive-foreground/70 invalid:bg-destructive/0 focus-within:invalid:border-destructive-foreground/70 focus-within:invalid:bg-destructive/0 focus-within:invalid:ring-destructive-foreground/20 focus-within:invalid:hover:border-destructive-foreground/80 invalid:enabled:hover:border-destructive-foreground/80",
           "disabled:bg-muted disabled:opacity-50 forced-colors:disabled:text-[GrayText]",
           "in-disabled:bg-muted in-disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",
           "dark:scheme-dark",
@@ -55,7 +55,7 @@ export function DateInput({
             segment={segment}
             className={twJoin(
               "type-literal:px-0 text-foreground data-placeholder:not-data-focused:text-muted-foreground inline shrink-0 rounded px-1 tracking-wider caret-transparent outline-0 sm:p-0.5 sm:px-1.5 sm:py-0.5 sm:text-sm",
-              "focus:bg-primary-subtle focus:text-primary-subtle-foreground focus:data-invalid:bg-danger-subtle focus:data-invalid:text-danger-subtle-foreground forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]",
+              "focus:bg-primary/10 focus:text-primary focus:data-invalid:bg-destructive/10 focus:data-invalid:text-destructive forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]",
               "forced-color-adjust-none forced-colors:text-[ButtonText]",
               "disabled:opacity-50 forced-colors:disabled:text-[GrayText]",
               "in-disabled:bg-muted in-disabled:opacity-50"

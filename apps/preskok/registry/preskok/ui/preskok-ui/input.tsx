@@ -24,7 +24,7 @@ export function Input({ className, ref, ...props }: InputProps) {
           "text-foreground placeholder:text-muted-foreground text-base/6 sm:text-sm/6",
           "border-input enabled:hover:border-muted-foreground/30 border",
           "focus:border-ring/70 focus:ring-ring/20 focus:enabled:hover:border-ring/80 focus:bg-(--input-focus-background) focus:ring-3 focus:outline-hidden",
-          "invalid:border-danger-subtle-foreground/70 invalid:bg-danger-subtle/5 focus:invalid:border-danger-subtle-foreground/70 focus:invalid:bg-danger-subtle/5 focus:invalid:ring-danger-subtle-foreground/20 invalid:enabled:hover:border-danger-subtle-foreground/80 focus:invalid:enabled:hover:border-danger-subtle-foreground/80",
+          "invalid:border-destructive-foreground/70 invalid:bg-destructive/5 focus:invalid:border-destructive-foreground/70 focus:invalid:bg-destructive/5 focus:invalid:ring-destructive-foreground/20 invalid:enabled:hover:border-destructive-foreground/80 focus:invalid:enabled:hover:border-destructive-foreground/80",
           "[&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden",
           "disabled:bg-muted disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",
           "in-disabled:bg-muted in-disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",

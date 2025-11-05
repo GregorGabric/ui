@@ -41,11 +41,11 @@ export function RangeCalendar<T extends DateValue>({
                     <CalendarCell
                       date={date}
                       className={twMerge([
-                        "shrink-0 [--cell-foreground:var(--color-primary-subtle-foreground)] [--cell:var(--color-primary-subtle)]",
+                        "shrink-0 [--cell-foreground:var(--color-primary-foreground)] [--cell:var(--color-primary)]",
                         "group/calendar-cell selection-start:rounded-s-lg data-outside-month:text-muted-foreground relative size-11 cursor-default [line-height:2.286rem] outline-hidden data-selection-end:rounded-e-lg sm:size-9 sm:text-sm",
                         "selected:bg-(--cell) selected:text-(--cell-foreground)",
                         "selected:after:bg-primary-foreground focus-visible:after:bg-primary-foreground",
-                        "invalid:selected:bg-danger-subtle",
+                        "invalid:selected:bg-destructive/10",
                         "[td:first-child_&]:rounded-s-lg [td:last-child_&]:rounded-e-lg",
                         "forced-colors:selected:bg-[Highlight] forced-colors:selected:text-[HighlightText] forced-colors:invalid:selected:bg-[Mark]",
                         date.compare(now) === 0 &&
@@ -63,7 +63,7 @@ export function RangeCalendar<T extends DateValue>({
                           className={twMerge(
                             "flex size-full items-center justify-center rounded-lg tabular-nums forced-color-adjust-none",
                             isSelected && (isSelectionStart || isSelectionEnd)
-                              ? "bg-primary text-primary-foreground group-invalid/calendar-cell:bg-danger group-invalid/calendar-cell:text-danger-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:group-invalid/calendar-cell:bg-[Mark]"
+                              ? "bg-primary text-primary-foreground group-invalid/calendar-cell:bg-destructive group-invalid/calendar-cell:text-destructive-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:group-invalid/calendar-cell:bg-[Mark]"
                               : isSelected
                                 ? [
                                     // hover
@@ -71,7 +71,7 @@ export function RangeCalendar<T extends DateValue>({
                                     // pressed
                                     "group-pressed/calendar-cell:bg-(--cell)",
                                     // invalid
-                                    "group-invalid/calendar-cell:text-danger-subtle-foreground group-invalid/calendar-cell:group-hover/calendar-cell:bg-danger/15 group-invalid/calendar-cell:group-pressed/calendar-cell:bg-danger/30",
+                                    "group-invalid/calendar-cell:text-destructive group-invalid/calendar-cell:group-hover/calendar-cell:bg-destructive/10 group-invalid/calendar-cell:group-pressed/calendar-cell:bg-destructive/30",
                                     // forced-colors
                                     "forced-colors:group-pressed/calendar-cell:bg-[Highlight] forced-colors:group-invalid/calendar-cell:group-pressed/calendar-cell:bg-[Mark] forced-colors:text-[HighlightText] forced-colors:group-hover/calendar-cell:bg-[Highlight] forced-colors:group-invalid:group-hover/calendar-cell:bg-[Mark]",
                                   ]

@@ -22,7 +22,7 @@ const InputOTP = ({
       containerClassName
     )}
     className={twMerge(
-      "bg-danger mt-auto h-[2.5rem] disabled:cursor-not-allowed",
+      "bg-destructive mt-auto h-[2.5rem] disabled:cursor-not-allowed",
       className
     )}
     {...props}

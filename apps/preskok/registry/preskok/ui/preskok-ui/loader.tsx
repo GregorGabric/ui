@@ -16,7 +16,7 @@ const loaderStyles = tv({
       secondary: "text-muted-foreground",
       success: "text-success",
       warning: "text-warning",
-      danger: "text-danger",
+      danger: "text-destructive",
     },
     size: {
       sm: "size-4",

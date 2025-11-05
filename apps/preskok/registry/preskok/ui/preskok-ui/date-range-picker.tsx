@@ -62,7 +62,7 @@ export function DateRangePickerTrigger({
         "flex items-center rounded-lg",
         "border-input hover:border-muted-foreground/30 border",
         "focus-within:border-ring/70 focus-within:bg-primary/5 focus-within:ring-ring/20 focus-within:hover:border-ring/80 focus-within:ring-3 focus-within:outline-hidden",
-        "invalid:border-danger-subtle-foreground/70 invalid:bg-danger-subtle/5 focus-within:invalid:border-danger-subtle-foreground/70 focus-within:invalid:bg-danger-subtle/5 focus-within:invalid:ring-danger-subtle-foreground/20 invalid:hover:border-danger-subtle-foreground/80 focus-within:invalid:hover:border-danger-subtle-foreground/80",
+        "invalid:border-destructive/70 invalid:bg-destructive/0 focus-within:invalid:border-destructive/70 focus-within:invalid:bg-destructive/0 focus-within:invalid:ring-destructive/20 invalid:hover:border-destructive/80 focus-within:invalid:hover:border-destructive/80",
         "disabled:bg-muted disabled:opacity-50",
         "pr-10",
         className

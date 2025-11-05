@@ -49,8 +49,8 @@ export function GeneratedTheme({
             <ColorBoxItem variable="warning-foreground" />
           </ColorBox>
           <ColorBox>
-            <ColorBoxItem variable="danger" />
-            <ColorBoxItem variable="danger-foreground" />
+            <ColorBoxItem variable="destructive" />
+            <ColorBoxItem variable="destructive-foreground" />
           </ColorBox>
           <ColorBox>
             <ColorBoxItem variable="border" />

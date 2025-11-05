@@ -31,7 +31,7 @@ const buttonStyles = tv({
       warning:
         "[--btn-background:var(--color-warning)] [--btn-foreground:var(--color-warning-foreground)] [--btn-icon:color-mix(in_oklab,var(--warning-foreground)_60%,var(--warning))] [--btn-overlay:var(--color-warning)]/85",
       danger:
-        "[--btn-background:var(--color-danger)] [--btn-foreground:var(--color-danger-foreground)] [--btn-icon:color-mix(in_oklab,var(--danger-foreground)_60%,var(--danger))] [--btn-overlay:var(--color-danger)]/85",
+        "[--btn-background:var(--color-destructive)] [--btn-foreground:var(--color-destructive-foreground)] [--btn-icon:color-mix(in_oklab,var(--destructive-foreground)_60%,var(--destructive))] [--btn-overlay:var(--color-destructive)]/85",
       outline:
         "inset-ring-border [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
       plain:

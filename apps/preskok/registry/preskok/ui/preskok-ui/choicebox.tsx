@@ -101,9 +101,9 @@ const choiceboxItemStyles = tv({
       false: "cursor-default",
     },
     isFocused: {
-      true: "inset-ring-ring/70 ring-3 ring-ring/20 invalid:ring-danger/20",
+      true: "inset-ring-ring/70 ring-3 ring-ring/20 invalid:ring-destructive/20",
     },
-    isInvalid: { true: "ring-3 ring-danger/20" },
+    isInvalid: { true: "ring-3 ring-destructive/20" },
     isOneColumn: {
       true: "col-span-full",
     },

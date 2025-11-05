@@ -62,7 +62,7 @@ const Calendar = <T extends DateValue>({
                   twMerge(
                     "text-foreground hover:bg-secondary-foreground/15 relative flex size-11 cursor-default items-center justify-center rounded-lg tabular-nums outline-hidden sm:size-9 sm:text-sm/6 forced-colors:text-[ButtonText] forced-colors:outline-0",
                     isSelected &&
-                      "bg-primary pressed:bg-primary text-primary-foreground hover:bg-primary/90 data-invalid:bg-danger data-invalid:text-danger-foreground forced-colors:bg-[Highlight] forced-colors:text-[Highlight] forced-colors:data-invalid:bg-[Mark]",
+                      "bg-primary pressed:bg-primary text-primary-foreground hover:bg-primary/90 data-invalid:bg-destructive data-invalid:text-destructive-foreground forced-colors:bg-[Highlight] forced-colors:text-[Highlight] forced-colors:data-invalid:bg-[Mark]",
                     isDisabled &&
                       "text-muted-foreground forced-colors:text-[GrayText]",
                     date.compare(now) === 0 &&

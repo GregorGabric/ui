@@ -63,7 +63,7 @@ const data = deliveries.map((d) => ({
     d.status === "on-time"
       ? "bg-success"
       : d.status === "issue"
-        ? "bg-danger"
+        ? "bg-destructive"
         : "bg-warning",
   tooltip: `${d.status} @ ${new Date(d.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
 }))

@@ -124,7 +124,7 @@ const MenuItem = ({ className, intent, children, ...props }: MenuItemProps) => {
             className: hasSubmenu
               ? twMerge(
                   intent === "danger" &&
-                    "open:bg-danger-subtle open:text-danger-subtle-foreground",
+                    "open:bg-destructive open:text-destructive-foreground",
                   intent === "warning" &&
                     "open:bg-warning-subtle open:text-warning-subtle-foreground",
                   intent === undefined &&
