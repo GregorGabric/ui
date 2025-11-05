@@ -1,19 +1,33 @@
 "use client"
 
-import { Meter } from "@/registry/preskok/ui/preskok-ui/meter"
+import { useEffect, useState } from "react"
 
-export default function MeterPreskokDemo() {
+import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import {
+  Meter,
+  MeterHeader,
+  MeterTrack,
+  MeterValue,
+} from "@/registry/preskok/ui/preskok-ui/meter"
+
+export function Component() {
+  const [value, setValue] = useState(1)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValue((prev) => (prev < 100 ? prev + 1 : 100))
+    }, 50)
+
+    return () => clearInterval(interval)
+  }, [])
   return (
-    <div className="space-y-6">
-      <Meter label="Storage Used" value={25} />
-
-      <Meter label="CPU Usage" value={68} />
-
-      <Meter label="Memory" value={85} />
-
-      <Meter label="Bandwidth" value={45} maxValue={100} />
-
-      <Meter label="Disk Space" value={92} />
-    </div>
+    <Meter value={value}>
+      <MeterHeader>
+        <Label>Storage space</Label>
+        <MeterValue />
+      </MeterHeader>
+      <MeterTrack />
+      <Description>Current storage space usage</Description>
+    </Meter>
   )
 }

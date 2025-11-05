@@ -9,25 +9,23 @@ import {
 
 export default function TabsDemo() {
   return (
-    <Tabs aria-label="Car Catalog">
+    <Tabs aria-label="Car Marketplace" className={"w-full"}>
       <TabList>
         <Tab id="m">Models</Tab>
-        <Tab id="s">Specifications</Tab>
-        <Tab id="f">Features</Tab>
-        <Tab id="v">Videos</Tab>
+        <Tab id="s">Specs</Tab>
+        <Tab id="r">Reviews</Tab>
       </TabList>
       <TabPanel id="m">
-        Browse through a wide selection of car models for all preferences and
-        budgets.
+        Browse through a wide selection of car models from various manufacturers
+        and price ranges.
       </TabPanel>
       <TabPanel id="s">
-        Check the detailed specifications for your selected car models.
+        Check detailed specifications including engine, performance, and
+        features for each vehicle.
       </TabPanel>
-      <TabPanel id="f">
-        Discover premium features available across different car models.
-      </TabPanel>
-      <TabPanel id="v">
-        Watch car review videos to learn about performance and handling.
+      <TabPanel id="r">
+        Read reviews and ratings from experts and owners to help make your
+        decision.
       </TabPanel>
     </Tabs>
   )

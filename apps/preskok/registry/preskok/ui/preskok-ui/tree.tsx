@@ -15,19 +15,19 @@ import {
 } from "react-aria-components"
 import { twJoin, twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Checkbox } from "./checkbox"
 
 const Tree = <T extends object>({ className, ...props }: TreeProps<T>) => {
   return (
     <TreePrimitive
-      className={composeTailwindRenderProps(
-        className,
+      className={cx(
         twJoin(
           "flex cursor-default flex-col gap-y-2 overflow-auto outline-hidden forced-color-adjust-none",
           "[--tree-active-background:var(--color-secondary)] [--tree-active-foreground:var(--color-secondary-foreground)]"
-        )
+        ),
+        className
       )}
       {...props}
     />
@@ -40,14 +40,17 @@ const TreeItem = <T extends object>({
 }: TreeItemProps<T>) => {
   return (
     <TreeItemPrimitive
-      className={composeTailwindRenderProps(className, [
-        "shrink-0 rounded-lg px-2 py-1.5 pr-2",
-        "group/tree-item relative flex rounded-lg select-none focus:outline-hidden",
-        "focus:bg-(--tree-active-background) focus:text-(--tree-active-foreground) focus:**:[.text-muted-foreground]:text-(--tree-active-foreground)",
-        "**:data-[slot=avatar]:mr-(--mr-icon) **:data-[slot=avatar]:size-6 **:data-[slot=avatar]:*:mr-1.5 **:data-[slot=avatar]:*:size-6 sm:**:data-[slot=avatar]:size-5 sm:**:data-[slot=avatar]:*:size-5",
-        "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
-        "href" in props ? "cursor-pointer" : "cursor-default",
-      ])}
+      className={cx(
+        [
+          "shrink-0 rounded-lg px-2 py-1.5 pr-2",
+          "group/tree-item relative flex rounded-lg select-none focus:outline-hidden",
+          "focus:bg-(--tree-active-background) focus:text-(--tree-active-foreground) focus:**:[.text-muted-foreground]:text-(--tree-active-foreground)",
+          "**:data-[slot=avatar]:mr-(--mr-icon) **:data-[slot=avatar]:size-6 **:data-[slot=avatar]:*:mr-1.5 **:data-[slot=avatar]:*:size-6 sm:**:data-[slot=avatar]:size-5 sm:**:data-[slot=avatar]:*:size-5",
+          "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
+          "href" in props ? "cursor-pointer" : "cursor-default",
+        ],
+        className
+      )}
       {...props}
     />
   )
@@ -109,8 +112,9 @@ const TreeIndicator = ({
       )}
     >
       <ChevronRightIcon
+        data-slot="icon"
         className={twJoin(
-          "size-4 transition-transform duration-200 ease-in-out",
+          "size-5 transition-transform duration-200 ease-in-out",
           values.isExpanded && "rotate-90"
         )}
       />

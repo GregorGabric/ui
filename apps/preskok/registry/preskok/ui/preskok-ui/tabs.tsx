@@ -1,6 +1,5 @@
 "use client"
 
-import React from "react"
 import type {
   TabListProps as TabListPrimitiveProps,
   TabPanelProps as TabPanelPrimitiveProps,
@@ -9,28 +8,40 @@ import type {
 } from "react-aria-components"
 import {
   composeRenderProps,
+  SelectionIndicator,
   TabList as TabListPrimitive,
   TabPanel as TabPanelPrimitive,
   Tab as TabPrimitive,
+  TabsContext,
   Tabs as TabsPrimitive,
+  useSlottedContext,
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 interface TabsProps extends TabsPrimitiveProps {
   ref?: React.RefObject<HTMLDivElement>
 }
-const Tabs = ({ className, ref, ...props }: TabsProps) => {
+const Tabs = ({
+  className,
+  ref,
+  orientation = "horizontal",
+  ...props
+}: TabsProps) => {
   return (
-    <TabsPrimitive
-      className={composeTailwindRenderProps(
-        className,
-        "group/tabs orientation-vertical:w-[800px] orientation-vertical:flex-row orientation-horizontal:flex-col flex gap-4 forced-color-adjust-none"
-      )}
-      ref={ref}
-      {...props}
-    />
+    <TabsContext value={{ orientation: orientation }}>
+      <TabsPrimitive
+        orientation={orientation}
+        className={cx(
+          orientation === "vertical" ? "w-full flex-row" : "flex-col",
+          "group/tabs flex gap-4 forced-color-adjust-none",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    </TabsContext>
   )
 }
 
@@ -45,13 +56,16 @@ const TabList = <T extends object>({
   return (
     <TabListPrimitive
       ref={ref}
+      data-slot="tab-list"
       {...props}
       className={composeRenderProps(className, (className, { orientation }) =>
         twMerge([
-          "flex forced-color-adjust-none",
+          "[--tab-list-gutter:--spacing(1)]",
+          "relative flex forced-color-adjust-none",
           orientation === "horizontal" &&
-            "border-border flex-row gap-x-5 border-b",
-          orientation === "vertical" && "flex-col items-start gap-y-4 border-l",
+            "flex-row gap-x-(--tab-list-gutter) rounded-(--tab-list-rounded) border-b py-(--tab-list-gutter)",
+          orientation === "vertical" &&
+            "min-w-56 shrink-0 flex-col items-start gap-y-(--tab-list-gutter) border-l px-(--tab-list-gutter) [--tab-list-gutter:--spacing(2)]",
           className,
         ])
       )}
@@ -63,32 +77,38 @@ interface TabProps extends TabPrimitiveProps {
   ref?: React.RefObject<HTMLDivElement>
 }
 const Tab = ({ children, className, ref, ...props }: TabProps) => {
+  const { orientation } = useSlottedContext(TabsContext)!
   return (
     <TabPrimitive
-      ref={ref}
       {...props}
-      className={composeTailwindRenderProps(className, [
-        "text-foreground hover:text-foreground relative flex cursor-default items-center rounded-full text-sm font-medium whitespace-nowrap outline-hidden transition *:data-[slot=icon]:mr-2 *:data-[slot=icon]:size-4",
-        "group-orientation-vertical/tabs:w-full group-orientation-vertical/tabs:py-0 group-orientation-vertical/tabs:pr-2 group-orientation-vertical/tabs:pl-4",
-        "group-orientation-horizontal/tabs:pb-3",
-        "selected:text-foreground text-muted-foreground focus:ring-0",
+      data-slot="tab"
+      ref={ref}
+      className={cx(
+        "group/tab rounded-lg [--tab-gutter:var(--tab-gutter-x)]",
+        orientation === "horizontal"
+          ? "[--tab-gutter-x:--spacing(2.5)] [--tab-gutter-y:--spacing(1)] first:-ml-(--tab-gutter) last:-mr-(--tab-gutter)"
+          : "w-full justify-start [--tab-gutter-x:--spacing(4)] [--tab-gutter-y:--spacing(1.5)]",
+        "relative isolate flex cursor-default items-center text-sm/6 font-medium whitespace-nowrap outline-hidden transition",
+        "px-(--tab-gutter-x) py-(--tab-gutter-y)",
+        "*:data-[slot=icon]:text-muted-foreground selected:*:data-[slot=icon]:text-primary *:data-[slot=icon]:mr-2 *:data-[slot=icon]:-ml-0.5 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center",
+        "selected:text-primary text-muted-foreground hover:bg-secondary selected:hover:bg-primary/20 hover:text-foreground selected:hover:text-primary focus:ring-0",
         "disabled:opacity-50",
-        "href" in props && "cursor-pointer",
-      ])}
+        "href" in props ? "cursor-pointer" : "cursor-default",
+        className
+      )}
     >
-      {({ isSelected }) => (
+      {(values) => (
         <>
-          {children}
-          {isSelected && (
-            <span
-              data-slot="selected-indicator"
-              className={twMerge(
-                "bg-foreground absolute rounded",
-                "group-orientation-horizontal/tabs:-bottom-px group-orientation-horizontal/tabs:inset-x-0 group-orientation-horizontal/tabs:h-0.5 group-orientation-horizontal/tabs:w-full",
-                "group-orientation-vertical/tabs:left-0 group-orientation-vertical/tabs:h-[calc(100%-10%)] group-orientation-vertical/tabs:w-0.5 group-orientation-vertical/tabs:transform"
-              )}
-            />
-          )}
+          {typeof children === "function" ? children(values) : children}
+          <SelectionIndicator
+            data-slot="selected-indicator"
+            className={twMerge(
+              "bg-primary/80 absolute transition-[translate,width,height] duration-200",
+              orientation === "horizontal"
+                ? "right-(--tab-gutter-x) -bottom-[calc(var(--tab-gutter-y)+1px)] left-(--tab-gutter-x) h-[2px]"
+                : "top-(--tab-gutter-y) bottom-(--tab-gutter-y) -left-[calc(var(--tab-gutter-x)-var(--tab-list-gutter)+1px)] w-[2px]"
+            )}
+          />
         </>
       )}
     </TabPrimitive>
@@ -103,9 +123,10 @@ const TabPanel = ({ className, ref, ...props }: TabPanelProps) => {
     <TabPanelPrimitive
       {...props}
       ref={ref}
-      className={composeTailwindRenderProps(
-        className,
-        "text-foreground flex-1 text-sm focus-visible:outline-hidden"
+      data-slot="tab-panel"
+      className={cx(
+        "text-foreground flex-1 text-sm/6 focus-visible:outline-hidden",
+        className
       )}
     />
   )

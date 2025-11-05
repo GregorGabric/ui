@@ -44,7 +44,7 @@ export default function ScrollAreaDemo() {
         </div>
       </ScrollArea>
 
-      <ScrollArea className="h-32 w-full rounded border p-4">
+      <ScrollArea className="h-32 w-64 rounded border p-4">
         <div className="flex space-x-4">
           {Array.from({ length: 20 }, (_, i) => (
             <div

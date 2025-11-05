@@ -1,6 +1,6 @@
 "use client"
 
-import React, {
+import {
   createContext,
   use,
   useCallback,
@@ -37,37 +37,24 @@ import type {
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent"
 import type { ContentType as TooltipContentType } from "recharts/types/component/Tooltip"
-import type { CurveType } from "recharts/types/shape/Curve"
 import { twJoin, twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
-
-// Import legacy chart helpers
-import {
-  ChartContainer as LegacyChartContainer,
-  ChartLegend as LegacyChartLegend,
-  ChartLegendContent as LegacyChartLegendContent,
-  ChartStyle as LegacyChartStyle,
-  ChartTooltip as LegacyChartTooltip,
-  ChartTooltipContent as LegacyChartTooltipContent,
-} from "./chart-helpers"
-import { Separator } from "./separator"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 // #region Chart Types
 type ChartType = "default" | "stacked" | "percent"
 type ChartLayout = "horizontal" | "vertical" | "radial"
 type IntervalType = "preserveStartEnd" | "equidistantPreserveStart"
 
-export type ChartConfig = Record<
-  string,
-  {
+type ChartConfig = {
+  [k in string]: {
     label?: React.ReactNode
     icon?: React.ComponentType
   } & (
     | { color?: ChartColorKeys | (string & {}); theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
   )
->
+}
 
 const CHART_COLORS = {
   "chart-1": "var(--chart-1)",
@@ -93,9 +80,9 @@ const DEFAULT_COLORS = [
 
 type ChartContextProps = {
   config: ChartConfig
-  data: Array<Record<string, unknown>>
+  data?: Record<string, any>[]
   layout: ChartLayout
-  dataKey: string
+  dataKey?: string
   selectedLegend: string | null
   onLegendSelect: (legendItem: string | null) => void
 }
@@ -121,8 +108,8 @@ export function valueToPercent(value: number) {
 }
 
 const constructCategoryColors = (
-  categories: Array<string>,
-  colors: ReadonlyArray<ChartColorKeys>
+  categories: string[],
+  colors: readonly ChartColorKeys[]
 ): Map<string, ChartColorKeys> => {
   const categoryColors = new Map<string, ChartColorKeys>()
 
@@ -177,7 +164,9 @@ function getPayloadConfigFromPayload(
     ] as string
   }
 
-  return configLabelKey in config ? config[configLabelKey] : config[key]
+  return configLabelKey in config
+    ? config[configLabelKey]
+    : config[key as keyof typeof config]
 }
 
 // #endregion
@@ -187,17 +176,23 @@ function getPayloadConfigFromPayload(
 interface BaseChartProps<TValue extends ValueType, TName extends NameType>
   extends React.HTMLAttributes<HTMLDivElement> {
   config: ChartConfig
-  data: Array<Record<string, unknown>>
+  data: Record<string, any>[]
   dataKey: string
-  colors?: ReadonlyArray<ChartColorKeys | (string & {})>
+  colors?: readonly (ChartColorKeys | (string & {}))[]
   type?: ChartType
-  lineType?: CurveType
   intervalType?: IntervalType
   layout?: ChartLayout
   valueFormatter?: (value: number) => string
 
   tooltip?: TooltipContentType<TValue, TName> | boolean
-  tooltipProps?: Omit<ChartTooltipProps<TValue, TName>, "content">
+  tooltipProps?: Omit<ChartTooltipProps<TValue, TName>, "content"> & {
+    hideLabel?: boolean
+    labelSeparator?: boolean
+    hideIndicator?: boolean
+    indicator?: "line" | "dot" | "dashed"
+    nameKey?: string
+    labelKey?: string
+  }
 
   cartesianGridProps?: CartesianGridProps
 
@@ -228,13 +223,12 @@ const Chart = ({
   ref,
   layout = "horizontal",
   ...props
-}: Omit<React.ComponentProps<"div">, "children"> & {
-  config: ChartConfig
-  data: Array<Record<string, unknown>>
-  layout?: ChartLayout
-  dataKey: string
-  children: ReactElement | ((props: ChartContextProps) => ReactElement)
-}) => {
+}: Omit<React.ComponentProps<"div">, "children"> &
+  Pick<ChartContextProps, "data" | "dataKey"> & {
+    config: ChartConfig
+    layout?: ChartLayout
+    children: ReactElement | ((props: ChartContextProps) => ReactElement)
+  }) => {
   const uniqueId = useId()
   const chartId = useMemo(
     () => `chart-${id || uniqueId.replace(/:/g, "")}`,
@@ -247,12 +241,15 @@ const Chart = ({
     setSelectedLegend(legendItem)
   }, [])
 
+  const _data = data ?? []
+  const _dataKey = dataKey ?? "value"
+
   const value = {
     config,
     selectedLegend,
     onLegendSelect,
-    data,
-    dataKey,
+    data: _data,
+    dataKey: _dataKey,
     layout,
   }
 
@@ -262,8 +259,12 @@ const Chart = ({
         data-chart={chartId}
         ref={ref}
         className={twMerge(
-          "z-20 flex aspect-video w-full justify-center text-xs",
-          "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/80 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+          "z-20 flex w-full justify-center text-xs",
+          "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/80 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+          // dot
+          "[&_.recharts-dot[fill='#fff']]:fill-(--line-color)",
+          // when hover over the line chart, the active dot should not have a fill or stroke
+          "[&_.recharts-active-dot>.recharts-dot]:stroke-foreground/10",
           className
         )}
         {...props}
@@ -276,9 +277,6 @@ const Chart = ({
     </ChartContext>
   )
 }
-
-// Use legacy ChartContainer from chart-helpers
-const ChartContainer = LegacyChartContainer
 
 const THEMES = { light: "", dark: ".dark" } as const
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
@@ -328,12 +326,8 @@ const ChartTooltip = <TValue extends ValueType, TName extends NameType>(
     <TooltipPrimitive
       wrapperStyle={{ outline: "none" }}
       isAnimationActive={true}
-      animationDuration={100}
-      offset={20}
-      position={{
-        y: layout === "horizontal" ? 0 : undefined,
-        x: layout === "vertical" ? 60 + 20 : undefined,
-      }}
+      animationDuration={500}
+      offset={10}
       cursor={{
         stroke: "var(--muted)",
         strokeWidth: layout === "radial" ? 0.1 : 1,
@@ -364,22 +358,28 @@ const XAxis = ({
   className,
   intervalType = "preserveStartEnd",
   minTickGap = 5,
+  domain = ["auto", "auto"],
   ...props
 }: XAxisProps) => {
   const { dataKey, data, layout } = useChart()
 
+  const ticks =
+    displayEdgeLabelsOnly && data?.length && dataKey
+      ? [data[0]?.[dataKey], data[data.length - 1]?.[dataKey]]
+      : undefined
+
+  const tick = {
+    transform: layout === "horizontal" ? "translate(32, 6)" : undefined,
+  }
   return (
     <XAxisPrimitive
-      className={twMerge("text-muted-foreground text-xs", className)}
+      className={twMerge(
+        "text-muted-foreground **:[text]:fill-muted-foreground text-xs",
+        className
+      )}
       interval={displayEdgeLabelsOnly ? "preserveStartEnd" : intervalType}
-      tick={{
-        transform: layout === "horizontal" ? "translate(32, 6)" : undefined,
-      }}
-      ticks={
-        displayEdgeLabelsOnly && data.length >= 2
-          ? [data[0]?.[dataKey], data[data.length - 1]?.[dataKey]]
-          : undefined
-      }
+      tick={tick}
+      ticks={ticks}
       tickLine={false}
       axisLine={false}
       minTickGap={minTickGap}
@@ -400,8 +400,11 @@ const YAxis = ({
 
   return (
     <YAxisPrimitive
-      className={twMerge("text-muted-foreground text-xs", className)}
-      width={(width ?? layout === "horizontal") ? 35 : 80}
+      className={twMerge(
+        "text-muted-foreground **:[text]:fill-muted-foreground text-xs",
+        className
+      )}
+      width={(width ?? layout === "horizontal") ? 40 : 80}
       domain={domain}
       tick={{
         transform:
@@ -475,7 +478,7 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
     const value =
       !labelKey && typeof label === "string"
-        ? config[label]?.label || label
+        ? config[label as keyof typeof config]?.label || label
         : itemConfig?.label
 
     if (labelFormatter) {
@@ -509,13 +512,24 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
     <div
       ref={ref}
       className={twMerge(
-        "inset-ring-border bg-overlay text-overlay-foreground dark:inset-ring-foreground/10 dark:supports-[backdrop-blur]:bg-overlay/70 grid min-w-[12rem] items-start rounded-lg p-3 text-xs inset-ring dark:supports-[backdrop-blur]:backdrop-blur-xl",
+        "bg-overlay/70 text-overlay-foreground grid min-w-[12rem] items-start rounded-lg p-3 py-2 text-xs ring ring-current/10 backdrop-blur-lg",
         className
       )}
     >
-      {!nestLabel ? <span>{tooltipLabel}</span> : null}
-      {labelSeparator && <Separator className="bg-foreground/10 mt-2 mb-2.5" />}
-      <div className="grid gap-1.5">
+      {!hideLabel && (
+        <>
+          {!nestLabel ? (
+            <span className="font-medium">{tooltipLabel}</span>
+          ) : null}
+          {labelSeparator && (
+            <span
+              aria-hidden
+              className="bg-background/10 mt-2 mb-3 block h-px w-full"
+            />
+          )}
+        </>
+      )}
+      <div className="grid gap-3">
         {payload.map((item, index) => {
           const key = `${nameKey || item.name || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
@@ -523,10 +537,13 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
 
           return (
             <div
-              key={`${key}-${index}`}
+              key={key}
               className={twMerge(
-                "*:data-[slot=icon]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 *:data-[slot=icon]:size-2.5",
-                indicator === "dot" && "items-center"
+                "*:data-[slot=icon]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2",
+                indicator === "dot" &&
+                  "items-center *:data-[slot=icon]:size-2.5",
+                indicator === "line" &&
+                  "*:data-[slot=icon]:h-full *:data-[slot=icon]:w-2.5"
               )}
             >
               {formatter && item?.value !== undefined && item.name ? (
@@ -589,7 +606,7 @@ type ChartLegendContentProps = ToggleButtonGroupProps &
     payload?: ReadonlyArray<LegendPayload>
     hideIcon?: boolean
     nameKey?: string
-    ref?: React.Ref<unknown>
+    ref?: React.Ref<any>
   }
 
 const ChartLegendContent = ({
@@ -610,8 +627,7 @@ const ChartLegendContent = ({
   return (
     <ToggleButtonGroup
       ref={ref}
-      className={composeTailwindRenderProps(
-        className,
+      className={cx(
         twJoin(
           "flex flex-wrap items-center gap-x-1",
           verticalAlign === "top" ? "pb-3" : "pt-3",
@@ -620,7 +636,8 @@ const ChartLegendContent = ({
             : align === "left"
               ? "justify-start"
               : "justify-center"
-        )
+        ),
+        className
       )}
       selectedKeys={selectedLegend ? [selectedLegend] : undefined}
       onSelectionChange={(v) => {
@@ -666,6 +683,7 @@ const ChartLegendContent = ({
 export type {
   BaseChartProps,
   ChartColorKeys,
+  ChartConfig,
   ChartLayout,
   ChartLegendContentProps,
   ChartLegendProps,
@@ -676,11 +694,9 @@ export type {
 }
 
 export {
-  // Chart utilities
   CartesianGrid,
   Chart,
   CHART_COLORS,
-  ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
@@ -688,13 +704,6 @@ export {
   constructCategoryColors,
   DEFAULT_COLORS,
   getColorValue,
-  // Legacy components (aliases)
-  LegacyChartContainer,
-  LegacyChartLegend,
-  LegacyChartLegendContent,
-  LegacyChartStyle,
-  LegacyChartTooltip,
-  LegacyChartTooltipContent,
   XAxis,
   YAxis,
 }

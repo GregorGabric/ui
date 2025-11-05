@@ -15,7 +15,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/date-range-picker-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport { DateRangePicker } from \"@/registry/preskok/ui/preskok-ui/date-range-picker\"\n\nexport default function DateRangePickerPreskokDemo() {\n  return (\n    <div className=\"max-w-sm\">\n      <DateRangePicker\n        label=\"Date range\"\n        visibleDuration={{ months: 2 }}\n        defaultValue={{\n          start: parseDate(\"2024-02-10\"),\n          end: parseDate(\"2024-02-20\"),\n        }}\n      />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  DateRangePicker,\n  DateRangePickerTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/date-range-picker\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport function Component() {\n  return (\n    <DateRangePicker>\n      <Label>Event date</Label>\n      <DateRangePickerTrigger />\n    </DateRangePicker>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

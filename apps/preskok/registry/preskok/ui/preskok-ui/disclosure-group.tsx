@@ -28,11 +28,11 @@ const DisclosureGroup = ({ className, ...props }: DisclosureGroupProps) => {
           "[--disclosure-gutter-x:--spacing(4)]",
           "[--disclosure-radius:var(--radius-lg)]",
           "[--disclosure-collapsed-border:var(--color-border)]",
-          "[--disclosure-expanded-border:var(--color-muted-fg)]/30",
-          "[--disclosure-collapsed-bg:var(--color-bg)]",
-          "[--disclosure-collapsed-fg:var(--color-muted-fg)]",
-          "[--disclosure-expanded-bg:var(--color-secondary)]/20",
-          "[--disclosure-expanded-fg:var(--color-fg)]",
+          "[--disclosure-expanded-border:var(--color-muted-foreground)]/30",
+          "[--disclosure-collapsed-background:var(--color-background)]",
+          "[--disclosure-collapsed-foreground:var(--color-muted-foreground)]",
+          "[--disclosure-expanded-background:var(--color-secondary)]/20",
+          "[--disclosure-expanded-foreground:var(--color-foreground)]",
           "flex flex-col gap-y-2",
         ],
         className
@@ -49,10 +49,10 @@ const Disclosure = ({ className, ...props }: DisclosureProps) => {
         className,
         (className, { isExpanded, isFocusVisibleWithin }) =>
           twMerge(
-            "group/disclosure-item w-full rounded-(--disclosure-radius,--spacing(0)) bg-(--disclosure-collapsed-bg,transparent) inset-ring inset-ring-(--disclosure-collapsed-border,transparent) duration-200",
+            "group/disclosure-item w-full rounded-(--disclosure-radius,--spacing(0)) bg-(--disclosure-collapsed-background,transparent) inset-ring inset-ring-(--disclosure-collapsed-border,transparent) duration-200",
             (isExpanded || isFocusVisibleWithin) &&
-              "bg-(--disclosure-expanded-bg) inset-ring-(--disclosure-expanded-border,transparent)",
-            "has-data-hovered:bg-(--disclosure-expanded-bg) has-data-hovered:inset-ring-(--disclosure-expanded-border,transparent)",
+              "bg-(--disclosure-expanded-background) inset-ring-(--disclosure-expanded-border,transparent)",
+            "has-data-hovered:bg-(--disclosure-expanded-background) has-data-hovered:inset-ring-(--disclosure-expanded-border,transparent)",
             className
           )
       )}
@@ -84,8 +84,8 @@ const DisclosureTrigger = ({
             "**:data-[slot=icon]:shrink-0 [&_[data-slot='icon']:not([class*='size-'])]:size-5 sm:[&_[data-slot='icon']:not([class*='size-'])]:size-4",
             "disabled:opacity-50",
             state.isExpanded
-              ? "rounded-t-(--disclosure-radius) rounded-b-none text-(--disclosure-expanded-fg)"
-              : "rounded-(--disclosure-radius) text-(--disclosure-collapsed-fg) hover:text-(--disclosure-expanded-fg)",
+              ? "rounded-t-(--disclosure-radius) rounded-b-none text-(--disclosure-expanded-foreground)"
+              : "rounded-(--disclosure-radius) text-(--disclosure-collapsed-foreground) hover:text-(--disclosure-expanded-foreground)",
           ],
           className
         )}
@@ -125,7 +125,7 @@ const DisclosurePanel = ({ className, ...props }: DisclosurePanelProps) => {
     >
       <div
         data-slot="disclosure-panel-content"
-        className="justify-start self-stretch px-(--disclosure-gutter-x,--spacing(0)) pt-2 pb-(--disclosure-gutter-x,--spacing(0)) text-pretty text-(--disclosure-collapsed-fg)"
+        className="justify-start self-stretch px-(--disclosure-gutter-x,--spacing(0)) pt-2 pb-(--disclosure-gutter-x,--spacing(0)) text-pretty text-(--disclosure-collapsed-foreground)"
       >
         {props.children}
       </div>

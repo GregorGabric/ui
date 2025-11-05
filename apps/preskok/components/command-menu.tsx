@@ -1,336 +1,358 @@
 "use client"
 
-import { createContext, use, useEffect } from "react"
-import { SearchIcon } from "lucide-react"
-import type {
-  AutocompleteProps,
-  CollectionRenderer,
-  MenuProps,
-  MenuTriggerProps,
-  SearchFieldProps,
-} from "react-aria-components"
+import * as React from "react"
+import { useRouter } from "next/navigation"
+import { type DialogProps } from "@radix-ui/react-dialog"
+import { IconArrowRight } from "@tabler/icons-react"
+import { CornerDownLeftIcon, SquareDashedIcon } from "lucide-react"
+
+import { type Color, type ColorPalette } from "@/lib/colors"
+import { source } from "@/lib/source"
+import { cn } from "@/lib/utils"
+import { useConfig } from "@/hooks/use-config"
+import { useIsMac } from "@/hooks/use-is-mac"
+import { useMutationObserver } from "@/hooks/use-mutation-observer"
+import { copyToClipboardWithMeta } from "@/components/copy-button"
+import { Button } from "@/registry/preskok/ui/button"
 import {
-  Autocomplete,
-  Button,
-  Collection,
-  CollectionRendererContext,
-  DefaultCollectionRenderer,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/registry/preskok/ui/command"
+import {
   Dialog,
-  Header,
-  Input,
-  Menu as MenuPrimitive,
-  MenuSection,
-  Modal,
-  ModalContext,
-  ModalOverlay,
-  OverlayTriggerStateContext,
-  SearchField,
-  useFilter,
-} from "react-aria-components"
-import { twJoin, twMerge } from "tailwind-merge"
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/registry/preskok/ui/dialog"
+import { Separator } from "@/registry/preskok/ui/separator"
 
-import { cx } from "@/registry/preskok/lib/primitive"
-import { DropdownKeyboard } from "@/registry/preskok/ui/preskok-ui/dropdown"
-import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
-import {
-  MenuDescription,
-  MenuItem,
-  MenuLabel,
-  MenuSeparator,
-  type MenuSectionProps,
-} from "@/registry/preskok/ui/preskok-ui/menu"
-
-interface CommandMenuProviderProps {
-  isPending?: boolean
-  escapeButton?: boolean
-}
-
-const CommandMenuContext = createContext<CommandMenuProviderProps | undefined>(
-  undefined
-)
-
-const useCommandMenu = () => {
-  const context = use(CommandMenuContext)
-
-  if (!context) {
-    throw new Error(
-      "useCommandMenu must be used within a <CommandMenuProvider />"
-    )
-  }
-
-  return context
-}
-
-const sizes = {
-  xs: "sm:max-w-xs",
-  sm: "sm:max-w-sm",
-  md: "sm:max-w-md",
-  lg: "sm:max-w-lg",
-  xl: "sm:max-w-xl",
-  "2xl": "sm:max-w-2xl",
-  "3xl": "sm:max-w-3xl",
-}
-
-interface CommandMenuProps
-  extends AutocompleteProps,
-    MenuTriggerProps,
-    CommandMenuProviderProps {
-  isDismissable?: boolean
-  "aria-label"?: string
-  shortcut?: string
-  isBlurred?: boolean
-  className?: string
-  size?: keyof typeof sizes
-}
-
-const CommandMenu = ({
-  onOpenChange,
-  className,
-  isDismissable = true,
-  escapeButton = true,
-  isPending,
-  size = "lg",
-  isBlurred,
-  shortcut,
+export function CommandMenu({
+  tree,
+  colors,
+  blocks,
   ...props
-}: CommandMenuProps) => {
-  const { contains } = useFilter({ sensitivity: "base" })
-  const filter = (textValue: string, inputValue: string) =>
-    contains(textValue, inputValue)
-  useEffect(() => {
-    if (!shortcut) return
+}: DialogProps & {
+  tree: typeof source.pageTree
+  colors: ColorPalette[]
+  blocks?: { name: string; description: string; categories: string[] }[]
+}) {
+  const router = useRouter()
+  const isMac = useIsMac()
+  const [config] = useConfig()
+  const [open, setOpen] = React.useState(false)
+  const [selectedType, setSelectedType] = React.useState<
+    "color" | "page" | "component" | "block" | null
+  >(null)
+  const [copyPayload, setCopyPayload] = React.useState("")
+  const packageManager = config.packageManager || "pnpm"
 
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === shortcut && (e.metaKey || e.ctrlKey)) {
-        onOpenChange?.(true)
+  const handlePageHighlight = React.useCallback(
+    (isComponent: boolean, item: { url: string; name?: React.ReactNode }) => {
+      if (isComponent) {
+        const componentName = item.url.split("/").pop()
+        setSelectedType("component")
+        setCopyPayload(
+          `${packageManager} dlx shadcn@latest add ${componentName}`
+        )
+      } else {
+        setSelectedType("page")
+        setCopyPayload("")
+      }
+    },
+    [packageManager, setSelectedType, setCopyPayload]
+  )
+
+  const handleColorHighlight = React.useCallback(
+    (color: Color) => {
+      setSelectedType("color")
+      setCopyPayload(color.className)
+    },
+    [setSelectedType, setCopyPayload]
+  )
+
+  const handleBlockHighlight = React.useCallback(
+    (block: { name: string; description: string; categories: string[] }) => {
+      setSelectedType("block")
+      setCopyPayload(`${packageManager} dlx shadcn@latest add ${block.name}`)
+    },
+    [setSelectedType, setCopyPayload, packageManager]
+  )
+
+  const runCommand = React.useCallback((command: () => unknown) => {
+    setOpen(false)
+    command()
+  }, [])
+
+  React.useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
+        if (
+          (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+          e.target instanceof HTMLInputElement ||
+          e.target instanceof HTMLTextAreaElement ||
+          e.target instanceof HTMLSelectElement
+        ) {
+          return
+        }
+
+        e.preventDefault()
+        setOpen((open) => !open)
+      }
+
+      if (e.key === "c" && (e.metaKey || e.ctrlKey)) {
+        runCommand(() => {
+          if (selectedType === "color") {
+            copyToClipboardWithMeta(copyPayload, {
+              name: "copy_color",
+              properties: { color: copyPayload },
+            })
+          }
+
+          if (selectedType === "block") {
+            copyToClipboardWithMeta(copyPayload, {
+              name: "copy_npm_command",
+              properties: { command: copyPayload, pm: packageManager },
+            })
+          }
+
+          if (selectedType === "page" || selectedType === "component") {
+            copyToClipboardWithMeta(copyPayload, {
+              name: "copy_npm_command",
+              properties: { command: copyPayload, pm: packageManager },
+            })
+          }
+        })
       }
     }
 
-    document.addEventListener("keydown", onKeyDown)
-    return () => document.removeEventListener("keydown", onKeyDown)
-  }, [shortcut, onOpenChange])
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [copyPayload, runCommand, selectedType, packageManager])
+
   return (
-    <CommandMenuContext
-      value={{ isPending: isPending, escapeButton: escapeButton }}
-    >
-      <ModalContext
-        value={{ isOpen: props.isOpen, onOpenChange: onOpenChange }}
-      >
-        <ModalOverlay
-          isDismissable={isDismissable}
-          className={twJoin(
-            "fixed inset-0 z-50 h-(--visual-viewport-height,100vh) w-screen overflow-hidden bg-black/15",
-            "grid grid-rows-[1fr_auto] justify-items-center text-center sm:grid-rows-[1fr_auto_3fr]",
-            "entering:fade-in entering:animate-in entering:duration-300 entering:ease-out",
-            "exiting:fade-out exiting:animate-out exiting:ease-in",
-            isBlurred && "backdrop-blur-[1px] backdrop-filter"
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="secondary"
+          className={cn(
+            "bg-surface text-surface-foreground/60 dark:bg-card relative h-8 w-full justify-start pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
           )}
+          onClick={() => setOpen(true)}
           {...props}
         >
-          <Modal
-            className={cx(
-              "bg-overlay text-overlay-fg ring-muted-fg/15 dark:ring-border row-start-2 text-left shadow-lg ring outline-none md:row-start-1",
-              "max-h-[calc(var(--visual-viewport-height)*0.8)] w-full sm:fixed sm:top-[10%] sm:left-1/2 sm:-translate-x-1/2",
-              "rounded-t-2xl md:rounded-xl",
-              sizes[size],
-              "entering:slide-in-from-bottom sm:entering:zoom-in-95 sm:entering:slide-in-from-bottom-0 entering:animate-in entering:duration-300 entering:ease-out",
-              "exiting:slide-out-to-bottom sm:exiting:zoom-out-95 sm:exiting:slide-out-to-bottom-0 exiting:animate-out exiting:ease-in",
-              className
-            )}
-          >
-            <Dialog
-              aria-label={props["aria-label"] ?? "Command Menu"}
-              className="flex max-h-[inherit] flex-col overflow-hidden outline-hidden"
-            >
-              <Autocomplete filter={filter} {...props} />
-            </Dialog>
-          </Modal>
-        </ModalOverlay>
-      </ModalContext>
-    </CommandMenuContext>
-  )
-}
-
-interface CommandMenuSearchProps extends SearchFieldProps {
-  placeholder?: string
-  className?: string
-}
-
-const CommandMenuSearch = ({
-  className,
-  placeholder,
-  ...props
-}: CommandMenuSearchProps) => {
-  const state = use(OverlayTriggerStateContext)!
-  const { isPending, escapeButton } = useCommandMenu()
-  return (
-    <SearchField
-      aria-label="Quick search"
-      autoFocus
-      className={cx("flex w-full items-center px-2.5 py-1", className)}
-      {...props}
-    >
-      {isPending ? (
-        <Loader className="size-4.5" variant="spin" />
-      ) : (
-        <SearchIcon
-          data-slot="command-menu-search-icon"
-          className="text-muted-fg size-5 shrink-0"
-        />
-      )}
-      <Input
-        placeholder={placeholder ?? "Search..."}
-        className="text-fg placeholder-muted-fg w-full min-w-0 bg-transparent px-2.5 py-2 text-base outline-hidden focus:outline-hidden sm:px-2 sm:py-1.5 sm:text-sm [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden"
-      />
-      {escapeButton && (
-        <Button
-          onPress={() => state?.close()}
-          className="hover:bg-muted hidden cursor-default rounded border text-current/90 lg:inline lg:px-1.5 lg:py-0.5 lg:text-xs"
-        >
-          Esc
+          <span className="hidden lg:inline-flex">Search documentation...</span>
+          <span className="inline-flex lg:hidden">Search...</span>
+          <div className="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
+            <CommandMenuKbd>{isMac ? "⌘" : "Ctrl"}</CommandMenuKbd>
+            <CommandMenuKbd className="aspect-square">K</CommandMenuKbd>
+          </div>
         </Button>
-      )}
-    </SearchField>
+      </DialogTrigger>
+      <DialogContent
+        showCloseButton={false}
+        className="rounded-xl border-none bg-clip-padding p-2 pb-11 shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"
+      >
+        <DialogHeader className="sr-only">
+          <DialogTitle>Search documentation...</DialogTitle>
+          <DialogDescription>Search for a command to run...</DialogDescription>
+        </DialogHeader>
+        <Command className="**:data-[slot=command-input-wrapper]:bg-input/50 **:data-[slot=command-input-wrapper]:border-input rounded-none bg-transparent **:data-[slot=command-input]:!h-9 **:data-[slot=command-input]:py-0 **:data-[slot=command-input-wrapper]:mb-0 **:data-[slot=command-input-wrapper]:!h-9 **:data-[slot=command-input-wrapper]:rounded-md **:data-[slot=command-input-wrapper]:border">
+          <CommandInput placeholder="Search documentation..." />
+          <CommandList className="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
+            <CommandEmpty className="text-muted-foreground py-12 text-center text-sm">
+              No results found.
+            </CommandEmpty>
+            {tree.children.map((group) => (
+              <CommandGroup
+                key={group.$id}
+                heading={group.name}
+                className="!p-0 [&_[cmdk-group-heading]]:scroll-mt-16 [&_[cmdk-group-heading]]:!p-3 [&_[cmdk-group-heading]]:!pb-1"
+              >
+                {group.type === "folder" &&
+                  group.children.map((item) => {
+                    if (item.type === "page") {
+                      const isComponent = item.url.includes("/components/")
+
+                      return (
+                        <CommandMenuItem
+                          key={item.url}
+                          value={
+                            item.name?.toString()
+                              ? `${group.name} ${item.name}`
+                              : ""
+                          }
+                          keywords={isComponent ? ["component"] : undefined}
+                          onHighlight={() =>
+                            handlePageHighlight(isComponent, item)
+                          }
+                          onSelect={() => {
+                            runCommand(() => router.push(item.url))
+                          }}
+                        >
+                          {isComponent ? (
+                            <div className="border-muted-foreground aspect-square size-4 rounded-full border border-dashed" />
+                          ) : (
+                            <IconArrowRight />
+                          )}
+                          {item.name}
+                        </CommandMenuItem>
+                      )
+                    }
+                    return null
+                  })}
+              </CommandGroup>
+            ))}
+            {colors.map((colorPalette) => (
+              <CommandGroup
+                key={colorPalette.name}
+                heading={
+                  colorPalette.name.charAt(0).toUpperCase() +
+                  colorPalette.name.slice(1)
+                }
+                className="!p-0 [&_[cmdk-group-heading]]:!p-3"
+              >
+                {colorPalette.colors.map((color) => (
+                  <CommandMenuItem
+                    key={color.hex}
+                    value={color.className}
+                    keywords={["color", color.name, color.className]}
+                    onHighlight={() => handleColorHighlight(color)}
+                    onSelect={() => {
+                      runCommand(() =>
+                        copyToClipboardWithMeta(color.oklch, {
+                          name: "copy_color",
+                          properties: { color: color.oklch },
+                        })
+                      )
+                    }}
+                  >
+                    <div
+                      className="border-ghost aspect-square size-4 rounded-sm bg-(--color) after:rounded-sm"
+                      style={{ "--color": color.oklch } as React.CSSProperties}
+                    />
+                    {color.className}
+                    <span className="text-muted-foreground ml-auto font-mono text-xs font-normal tabular-nums">
+                      {color.oklch}
+                    </span>
+                  </CommandMenuItem>
+                ))}
+              </CommandGroup>
+            ))}
+            {blocks?.length ? (
+              <CommandGroup
+                heading="Blocks"
+                className="!p-0 [&_[cmdk-group-heading]]:!p-3"
+              >
+                {blocks.map((block) => (
+                  <CommandMenuItem
+                    key={block.name}
+                    value={block.name}
+                    onHighlight={() => {
+                      handleBlockHighlight(block)
+                    }}
+                    keywords={[
+                      "block",
+                      block.name,
+                      block.description,
+                      ...block.categories,
+                    ]}
+                    onSelect={() => {
+                      runCommand(() =>
+                        router.push(
+                          `/blocks/${block.categories[0]}#${block.name}`
+                        )
+                      )
+                    }}
+                  >
+                    <SquareDashedIcon />
+                    {block.description}
+                    <span className="text-muted-foreground ml-auto font-mono text-xs font-normal tabular-nums">
+                      {block.name}
+                    </span>
+                  </CommandMenuItem>
+                ))}
+              </CommandGroup>
+            ) : null}
+          </CommandList>
+        </Command>
+        <div className="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800">
+          <div className="flex items-center gap-2">
+            <CommandMenuKbd>
+              <CornerDownLeftIcon />
+            </CommandMenuKbd>{" "}
+            {selectedType === "page" || selectedType === "component"
+              ? "Go to Page"
+              : null}
+            {selectedType === "color" ? "Copy OKLCH" : null}
+          </div>
+          {copyPayload && (
+            <>
+              <Separator orientation="vertical" className="!h-4" />
+              <div className="flex items-center gap-1">
+                <CommandMenuKbd>{isMac ? "⌘" : "Ctrl"}</CommandMenuKbd>
+                <CommandMenuKbd>C</CommandMenuKbd>
+                {copyPayload}
+              </div>
+            </>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
-const CommandMenuList = <T extends object>({
+function CommandMenuItem({
+  children,
   className,
+  onHighlight,
   ...props
-}: MenuProps<T>) => {
-  return (
-    <CollectionRendererContext.Provider value={renderer}>
-      <MenuPrimitive
-        className={cx(
-          "grid max-h-full flex-1 grid-cols-[auto_1fr] content-start overflow-y-auto border-t p-2 sm:max-h-110 *:[[role=group]]:mb-6 *:[[role=group]]:last:mb-0",
-          className
-        )}
-        {...props}
-      />
-    </CollectionRendererContext.Provider>
-  )
-}
+}: React.ComponentProps<typeof CommandItem> & {
+  onHighlight?: () => void
+  "data-selected"?: string
+  "aria-selected"?: string
+}) {
+  const ref = React.useRef<HTMLDivElement>(null)
 
-const CommandMenuSection = <T extends object>({
-  className,
-  ref,
-  ...props
-}: MenuSectionProps<T>) => {
+  useMutationObserver(ref, (mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "aria-selected" &&
+        ref.current?.getAttribute("aria-selected") === "true"
+      ) {
+        onHighlight?.()
+      }
+    })
+  })
+
   return (
-    <MenuSection
+    <CommandItem
       ref={ref}
-      className={twMerge(
-        "col-span-full grid grid-cols-[auto_1fr] content-start gap-y-[calc(var(--spacing)*0.25)]",
+      className={cn(
+        "data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium",
         className
       )}
       {...props}
     >
-      {"label" in props && (
-        <Header className="text-muted-fg col-span-full mb-1 block min-w-(--trigger-width) truncate px-2.5 text-xs">
-          {props.label}
-        </Header>
-      )}
-      <Collection items={props.items}>{props.children}</Collection>
-    </MenuSection>
+      {children}
+    </CommandItem>
   )
 }
 
-const CommandMenuItem = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof MenuItem>) => {
-  const textValue =
-    props.textValue ||
-    (typeof props.children === "string" ? props.children : undefined)
+function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {
   return (
-    <MenuItem
-      {...props}
-      textValue={textValue}
-      className={cx("items-center gap-y-0.5", className)}
-    />
-  )
-}
-
-interface CommandMenuDescriptionProps
-  extends React.ComponentProps<typeof MenuDescription> {}
-
-const CommandMenuDescription = ({
-  className,
-  ...props
-}: CommandMenuDescriptionProps) => {
-  return (
-    <MenuDescription
-      className={twMerge("col-start-3 row-start-1 ml-auto", className)}
-      {...props}
-    />
-  )
-}
-
-const renderer: CollectionRenderer = {
-  CollectionRoot(props) {
-    if (props.collection.size === 0) {
-      return (
-        <div className="text-muted-fg col-span-full p-4 text-center text-sm">
-          No results found.
-        </div>
-      )
-    }
-    return <DefaultCollectionRenderer.CollectionRoot {...props} />
-  },
-  CollectionBranch: DefaultCollectionRenderer.CollectionBranch,
-}
-
-const CommandMenuSeparator = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof MenuSeparator>) => (
-  <MenuSeparator className={twMerge("-mx-2", className)} {...props} />
-)
-
-const CommandMenuFooter = ({
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
-  return (
-    <div
-      className={twMerge(
-        "text-muted-fg col-span-full flex-none border-t px-2 py-1.5 text-sm",
-        "*:[kbd]:inset-ring-fg/10 *:[kbd]:bg-secondary *:[kbd]:mx-1 *:[kbd]:inline-grid *:[kbd]:h-4 *:[kbd]:min-w-4 *:[kbd]:place-content-center *:[kbd]:rounded-xs *:[kbd]:inset-ring",
+    <kbd
+      className={cn(
+        "bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&_svg:not([class*='size-'])]:size-3",
         className
       )}
       {...props}
     />
   )
-}
-
-const CommandMenuLabel = MenuLabel
-const CommandMenuShortcut = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof DropdownKeyboard>) => (
-  <DropdownKeyboard
-    className={twMerge(
-      "*:inset-ring-muted-fg/20 *:bg-bg gap-0.5 font-sans text-[10.5px] uppercase *:grid *:size-5.5 *:place-content-center *:rounded-xs *:inset-ring",
-      className
-    )}
-    {...props}
-  />
-)
-
-export {
-  CommandMenu,
-  CommandMenuDescription,
-  CommandMenuFooter,
-  CommandMenuItem,
-  CommandMenuLabel,
-  CommandMenuList,
-  CommandMenuSearch,
-  CommandMenuSection,
-  CommandMenuSeparator,
-  CommandMenuShortcut,
-}
-export type {
-  CommandMenuDescriptionProps,
-  CommandMenuProps,
-  CommandMenuSearchProps,
 }

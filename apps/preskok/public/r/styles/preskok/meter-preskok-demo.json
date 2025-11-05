@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/meter-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Meter } from \"@/registry/preskok/ui/preskok-ui/meter\"\n\nexport default function MeterPreskokDemo() {\n  return (\n    <div className=\"space-y-6\">\n      <Meter label=\"Storage Used\" value={25} />\n\n      <Meter label=\"CPU Usage\" value={68} />\n\n      <Meter label=\"Memory\" value={85} />\n\n      <Meter label=\"Bandwidth\" value={45} maxValue={100} />\n\n      <Meter label=\"Disk Space\" value={92} />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { useEffect, useState } from \"react\"\n\nimport { Description, Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport {\n  Meter,\n  MeterHeader,\n  MeterTrack,\n  MeterValue,\n} from \"@/registry/preskok/ui/preskok-ui/meter\"\n\nexport function Component() {\n  const [value, setValue] = useState(1)\n\n  useEffect(() => {\n    const interval = setInterval(() => {\n      setValue((prev) => (prev < 100 ? prev + 1 : 100))\n    }, 50)\n\n    return () => clearInterval(interval)\n  }, [])\n  return (\n    <Meter value={value}>\n      <MeterHeader>\n        <Label>Storage space</Label>\n        <MeterValue />\n      </MeterHeader>\n      <MeterTrack />\n      <Description>Current storage space usage</Description>\n    </Meter>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

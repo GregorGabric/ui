@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/description-list-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { DescriptionList } from \"@/registry/preskok/ui/preskok-ui/description-list\"\n\nexport default function DescriptionListPreskokDemo() {\n  return (\n    <DescriptionList className=\"max-w-xl\">\n      <DescriptionList.Term>Listing</DescriptionList.Term>\n      <DescriptionList.Details>Preskok UI</DescriptionList.Details>\n\n      <DescriptionList.Term>Status</DescriptionList.Term>\n      <DescriptionList.Details>Active</DescriptionList.Details>\n\n      <DescriptionList.Term>Owner</DescriptionList.Term>\n      <DescriptionList.Details>Design Systems</DescriptionList.Details>\n    </DescriptionList>\n  )\n}\n",
+      "content": "import {\n  DescriptionDetails,\n  DescriptionList,\n  DescriptionTerm,\n} from \"@/registry/preskok/ui/preskok-ui/description-list\"\n\nexport default function DescriptionListPreskokDemo() {\n  return (\n    <DescriptionList className=\"max-w-xl\">\n      <DescriptionTerm>Model</DescriptionTerm>\n      <DescriptionDetails>Tesla Model 3</DescriptionDetails>\n      <DescriptionTerm>Year</DescriptionTerm>\n      <DescriptionDetails>2024</DescriptionDetails>\n      <DescriptionTerm>Mileage</DescriptionTerm>\n      <DescriptionDetails>15,000 miles</DescriptionDetails>\n      <DescriptionTerm>Manufacturer</DescriptionTerm>\n      <DescriptionDetails>Tesla</DescriptionDetails>\n      <DescriptionTerm>Price</DescriptionTerm>\n      <DescriptionDetails>$45,000</DescriptionDetails>\n      <DescriptionTerm>Condition</DescriptionTerm>\n      <DescriptionDetails>Like New</DescriptionDetails>\n    </DescriptionList>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

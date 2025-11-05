@@ -13,21 +13,21 @@ import {
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
-const labelStyles = tv({
+export const labelStyles = tv({
   base: "select-none text-base/6 text-foreground in-disabled:opacity-50 group-disabled:opacity-50 sm:text-sm/6",
 })
 
-const descriptionStyles = tv({
+export const descriptionStyles = tv({
   base: "block text-muted-foreground text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50",
 })
 
-const fieldErrorStyles = tv({
-  base: "block text-danger text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50 forced-colors:text-[Mark]",
+export const fieldErrorStyles = tv({
+  base: "block text-danger-subtle-foreground text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50 forced-colors:text-[Mark]",
 })
 
-const fieldStyles = tv({
+export const fieldStyles = tv({
   base: [
     "w-full",
     "[&>[data-slot=label]+[data-slot=control]]:mt-2",
@@ -64,7 +64,7 @@ const FieldError = ({ className, ...props }: FieldErrorProps) => {
   return (
     <FieldErrorPrimitive
       {...props}
-      className={composeTailwindRenderProps(className, fieldErrorStyles())}
+      className={cx(fieldErrorStyles(), className)}
     />
   )
 }
@@ -97,5 +97,4 @@ const Legend = ({ className, ...props }: React.ComponentProps<"legend">) => {
   )
 }
 
-export { Description, FieldError, Fieldset, Legend, Label }
-export { labelStyles, descriptionStyles, fieldErrorStyles, fieldStyles }
+export { Description, FieldError, Fieldset, Label, Legend }

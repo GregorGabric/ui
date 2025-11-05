@@ -44,7 +44,7 @@ const generateCompoundVariants = (sides: Array<Sides>) => {
 
 const sheetContentStyles = tv({
   base: [
-    "fixed z-50 grid gap-4 border-muted-fg/20 bg-overlay text-overlay-fg shadow-lg dark:border-border",
+    "fixed z-50 grid gap-4 border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg dark:border-border",
     "transform-gpu transition ease-in-out will-change-transform",
   ],
   variants: {
@@ -63,8 +63,8 @@ const sheetContentStyles = tv({
         "entering:slide-in-from-right exiting:slide-out-to-right-80 inset-y-0 right-0 h-auto w-3/4 overflow-y-auto border-l sm:max-w-80",
     },
     isFloat: {
-      false: "border-fg/20 dark:border-border",
-      true: "ring-fg/5 dark:ring-border",
+      false: "border-foreground/20 dark:border-border",
+      true: "ring-foreground/5 dark:ring-border",
     },
   },
   compoundVariants: generateCompoundVariants([

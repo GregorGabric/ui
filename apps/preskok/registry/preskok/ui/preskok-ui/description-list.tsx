@@ -1,4 +1,5 @@
-import React from "react"
+"use client"
+
 import { twMerge } from "tailwind-merge"
 
 const DescriptionList = ({
@@ -42,6 +43,7 @@ const DescriptionDetails = ({
   return (
     <dd
       {...props}
+      data-slot="description-details"
       className={twMerge(
         "text-foreground pt-1 pb-3 sm:border-t sm:py-3 sm:nth-2:border-none",
         className
@@ -50,6 +52,4 @@ const DescriptionDetails = ({
   )
 }
 
-DescriptionList.Term = DescriptionTerm
-DescriptionList.Details = DescriptionDetails
-export { DescriptionList }
+export { DescriptionDetails, DescriptionList, DescriptionTerm }

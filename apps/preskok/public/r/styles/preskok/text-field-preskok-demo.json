@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/text-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function TextFieldPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <TextField label=\"Dealer Email\" placeholder=\"you@example.com\" />\n      <TextField label=\"With prefix\" prefix=\"https://\" placeholder=\"mysite\" />\n      <TextField label=\"Password\" isRevealable placeholder=\"••••••\" />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport function Component() {\n  return (\n    <TextField aria-label=\"Name\">\n      <Input placeholder=\"Some Name Here\" />\n    </TextField>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

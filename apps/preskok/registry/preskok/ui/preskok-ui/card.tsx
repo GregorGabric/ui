@@ -8,7 +8,7 @@ const Card = ({
     <div
       data-slot="card"
       className={twMerge(
-        "group/card text-fg **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--gutter) rounded-lg border py-(--gutter) shadow-xs [--gutter:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
+        "group/card text-foreground **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--gutter) rounded-lg border py-(--gutter) shadow-xs [--gutter:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
         className
       )}
       {...props}
@@ -65,7 +65,7 @@ const CardDescription = ({
       {...props}
       data-slot="card-description"
       className={twMerge(
-        "text-muted-fg row-start-2 text-sm/6 text-pretty",
+        "text-muted-foreground row-start-2 text-sm/6 text-pretty",
         className
       )}
       {...props}

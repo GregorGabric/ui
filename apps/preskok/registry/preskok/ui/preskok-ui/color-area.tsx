@@ -1,20 +1,18 @@
-"use client"
-
 import type { ColorAreaProps } from "react-aria-components"
 import { ColorArea as ColorAreaPrimitive } from "react-aria-components"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 import { ColorThumb } from "./color-thumb"
 
-const ColorArea = ({ className, ...props }: ColorAreaProps) => {
+export function ColorArea({ className, ...props }: ColorAreaProps) {
   return (
     <ColorAreaPrimitive
       {...props}
       data-slot="color-area"
-      className={composeTailwindRenderProps(
-        className,
-        "bg-muted size-56 shrink-0 rounded-md forced-colors:bg-[GrayText]"
+      className={cx(
+        "bg-muted disabled:bg-muted-foreground size-56 shrink-0 rounded-md forced-colors:bg-[GrayText]",
+        className
       )}
       style={({ defaultStyle, isDisabled }) => ({
         ...defaultStyle,
@@ -25,5 +23,3 @@ const ColorArea = ({ className, ...props }: ColorAreaProps) => {
     </ColorAreaPrimitive>
   )
 }
-
-export { ColorArea }

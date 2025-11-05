@@ -130,7 +130,7 @@ const CommandMenu = ({
         >
           <Modal
             className={cx(
-              "bg-overlay text-overlay-fg ring-muted-fg/15 dark:ring-border row-start-2 text-left shadow-lg ring outline-none md:row-start-1",
+              "bg-overlay text-overlay-foreground ring-muted-foreground/15 dark:ring-border row-start-2 text-left shadow-lg ring outline-none md:row-start-1",
               "max-h-[calc(var(--visual-viewport-height)*0.8)] w-full sm:fixed sm:top-[10%] sm:left-1/2 sm:-translate-x-1/2",
               "rounded-t-2xl md:rounded-xl",
               sizes[size],
@@ -176,12 +176,12 @@ const CommandMenuSearch = ({
       ) : (
         <SearchIcon
           data-slot="command-menu-search-icon"
-          className="text-muted-fg size-5 shrink-0"
+          className="text-muted-foreground size-5 shrink-0"
         />
       )}
       <Input
         placeholder={placeholder ?? "Search..."}
-        className="text-fg placeholder-muted-fg w-full min-w-0 bg-transparent px-2.5 py-2 text-base outline-hidden focus:outline-hidden sm:px-2 sm:py-1.5 sm:text-sm [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden"
+        className="text-foreground placeholder-muted-foreground w-full min-w-0 bg-transparent px-2.5 py-2 text-base outline-hidden focus:outline-hidden sm:px-2 sm:py-1.5 sm:text-sm [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden"
       />
       {escapeButton && (
         <Button
@@ -227,7 +227,7 @@ const CommandMenuSection = <T extends object>({
       {...props}
     >
       {"label" in props && (
-        <Header className="text-muted-fg col-span-full mb-1 block min-w-(--trigger-width) truncate px-2.5 text-xs">
+        <Header className="text-muted-foreground col-span-full mb-1 block min-w-(--trigger-width) truncate px-2.5 text-xs">
           {props.label}
         </Header>
       )}
@@ -271,7 +271,7 @@ const renderer: CollectionRenderer = {
   CollectionRoot(props) {
     if (props.collection.size === 0) {
       return (
-        <div className="text-muted-fg col-span-full p-4 text-center text-sm">
+        <div className="text-muted-foreground col-span-full p-4 text-center text-sm">
           No results found.
         </div>
       )
@@ -295,8 +295,8 @@ const CommandMenuFooter = ({
   return (
     <div
       className={twMerge(
-        "text-muted-fg col-span-full flex-none border-t px-2 py-1.5 text-sm",
-        "*:[kbd]:inset-ring-fg/10 *:[kbd]:bg-secondary *:[kbd]:mx-1 *:[kbd]:inline-grid *:[kbd]:h-4 *:[kbd]:min-w-4 *:[kbd]:place-content-center *:[kbd]:rounded-xs *:[kbd]:inset-ring",
+        "text-muted-foreground col-span-full flex-none border-t px-2 py-1.5 text-sm",
+        "*:[kbd]:inset-ring-foreground/10 *:[kbd]:bg-secondary *:[kbd]:mx-1 *:[kbd]:inline-grid *:[kbd]:h-4 *:[kbd]:min-w-4 *:[kbd]:place-content-center *:[kbd]:rounded-xs *:[kbd]:inset-ring",
         className
       )}
       {...props}
@@ -311,7 +311,7 @@ const CommandMenuShortcut = ({
 }: React.ComponentProps<typeof DropdownKeyboard>) => (
   <DropdownKeyboard
     className={twMerge(
-      "*:inset-ring-muted-fg/20 *:bg-bg gap-0.5 font-sans text-[10.5px] uppercase *:grid *:size-5.5 *:place-content-center *:rounded-xs *:inset-ring",
+      "*:inset-ring-muted-foreground/20 *:bg-background gap-0.5 font-sans text-[10.5px] uppercase *:grid *:size-5.5 *:place-content-center *:rounded-xs *:inset-ring",
       className
     )}
     {...props}

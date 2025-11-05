@@ -1,100 +1,73 @@
 "use client"
 
-import React from "react"
-import { XIcon } from "lucide-react"
+import { XCircleIcon } from "lucide-react"
 import type {
-  TagGroupProps as TagGroupPrimitiveProps,
+  TagGroupProps,
   TagListProps,
-  TagProps as TagPrimitiveProps,
+  TagProps,
 } from "react-aria-components"
 import {
   Button,
-  composeRenderProps,
-  TagGroup as TagGroupPrimitive,
-  TagList as TagListPrimitive,
-  Tag as TagPrimitive,
+  Tag as PrimitiveTag,
+  TagGroup as PrimitiveTagGroup,
+  TagList as PrimitiveTagList,
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
-import { Description, Label } from "./field"
-
-interface TagGroupProps extends TagGroupPrimitiveProps {
-  errorMessage?: string
-  label?: string
-  description?: string
-  ref?: React.RefObject<HTMLDivElement>
-}
-
-const TagGroup = ({ children, ref, className, ...props }: TagGroupProps) => {
+export function TagGroup({ className, ...props }: TagGroupProps) {
   return (
-    <TagGroupPrimitive
-      ref={ref}
-      className={twMerge("flex flex-col flex-wrap", className)}
+    <PrimitiveTagGroup
+      data-slot="control"
+      className={twMerge(
+        "flex flex-col gap-y-1 *:data-[slot=label]:font-medium",
+        className
+      )}
       {...props}
-    >
-      {props.label && <Label className="mb-1">{props.label}</Label>}
-      {children}
-      {props.description && <Description>{props.description}</Description>}
-    </TagGroupPrimitive>
-  )
-}
-
-const TagList = <T extends object>({
-  className,
-  ...props
-}: TagListProps<T>) => {
-  return (
-    <TagListPrimitive
-      {...props}
-      className={composeTailwindRenderProps(className, "flex flex-wrap gap-1")}
     />
   )
 }
 
-type TagProps = TagPrimitiveProps
-
-const Tag = ({ className, children, ...props }: TagProps) => {
-  const textValue = typeof children === "string" ? children : undefined
+export function TagList<T extends object>({
+  className,
+  ...props
+}: TagListProps<T>) {
   return (
-    <TagPrimitive
-      textValue={textValue}
+    <PrimitiveTagList
+      className={cx("flex flex-wrap gap-1", className)}
       {...props}
-      className={composeRenderProps(
-        className,
-        (
-          className,
-          { isFocusVisible, isSelected, isDisabled, allowsRemoving }
-        ) =>
-          twMerge(
-            "inset-ring-border inline-flex cursor-default items-center gap-x-1.5 rounded-full px-2 py-0.5 text-sm/5 font-medium inset-ring outline-hidden sm:text-xs/5 forced-colors:outline",
-            isSelected &&
-              "inset-ring-primary bg-primary text-primary-foreground focus-visible:bg-primary/90",
-            isFocusVisible &&
-              "bg-secondary text-secondary-foreground inset-ring inset-ring-current/10",
-            isDisabled && "opacity-50",
-            allowsRemoving && "pr-2",
-            className
-          )
+    />
+  )
+}
+
+export function Tag({ children, className, ...props }: TagProps) {
+  const textValue = typeof children === "string" ? children : undefined
+
+  return (
+    <PrimitiveTag
+      textValue={textValue}
+      className={cx(
+        "inset-ring-input dark:bg-input/30 inset-ring outline-hidden",
+        "inline-flex items-center gap-x-1.5 py-0.5 text-xs/5 font-medium forced-colors:outline",
+        "*:data-[slot=icon]:size-3 *:data-[slot=icon]:shrink-0",
+        "cursor-default rounded-full px-2",
+        "selected:inset-ring-ring/70 selected:bg-primary-subtle selected:text-primary-subtle-foreground",
+        "disabled:opacity-50 disabled:forced-colors:text-[GrayText]",
+        className
       )}
+      {...props}
     >
       {({ allowsRemoving }) => (
         <>
           {children}
           {allowsRemoving && (
-            <Button
-              slot="remove"
-              className="text-muted-foreground hover:text-foreground -mx-0.5 grid size-3.5 shrink-0 place-content-center rounded-full outline-hidden"
-            >
-              <XIcon data-slot="close" className="size-3" />
+            <Button slot="remove" className="">
+              <XCircleIcon data-slot="icon" className="-mr-1 size-4" />
             </Button>
           )}
         </>
       )}
-    </TagPrimitive>
+    </PrimitiveTag>
   )
 }
-
-export { Tag, TagGroup, TagList }
-export type { TagGroupProps, TagListProps, TagProps }

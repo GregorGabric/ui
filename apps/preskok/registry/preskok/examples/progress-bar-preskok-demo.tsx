@@ -1,7 +1,36 @@
 "use client"
 
-import { ProgressBar } from "@/registry/preskok/ui/preskok-ui/progress-bar"
+import { useEffect, useState } from "react"
 
-export default function ProgressBarPreskokDemo() {
-  return <ProgressBar label="Uploading" value={42} />
+import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import {
+  ProgressBar,
+  ProgressBarHeader,
+  ProgressBarTrack,
+  ProgressBarValue,
+} from "@/registry/preskok/ui/preskok-ui/progress-bar"
+
+export function Component() {
+  const [value, setValue] = useState(1)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValue((prev) => (prev < 100 ? prev + 1 : 100))
+    }, 200)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <ProgressBar value={value}>
+      <ProgressBarHeader>
+        <Label>Loading…</Label>
+        <ProgressBarValue />
+      </ProgressBarHeader>
+      <ProgressBarTrack />
+      <Description>
+        This is an example of a progress bar indicating 50% completion.
+      </Description>
+    </ProgressBar>
+  )
 }

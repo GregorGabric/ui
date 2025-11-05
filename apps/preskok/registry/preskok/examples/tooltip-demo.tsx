@@ -16,7 +16,7 @@ export default function TooltipDemo() {
         <Button intent="primary">Vehicle Details</Button>
         <TooltipContent>
           <strong className="font-semibold">Vehicle specifications</strong>
-          <p className="text-muted-fg mt-1 max-w-2xs text-sm text-pretty">
+          <p className="text-muted-foreground mt-1 max-w-2xs text-sm text-pretty">
             View detailed vehicle specifications and features.
           </p>
         </TooltipContent>
@@ -26,7 +26,7 @@ export default function TooltipDemo() {
         <Button intent="outline">Payment Calculator</Button>
         <TooltipContent>
           <strong className="font-semibold">Payment calculator</strong>
-          <p className="text-muted-fg mt-1 max-w-2xs text-sm text-pretty">
+          <p className="text-muted-foreground mt-1 max-w-2xs text-sm text-pretty">
             Calculate monthly payment based on down payment, interest rate, and
             loan term.
           </p>
@@ -39,7 +39,7 @@ export default function TooltipDemo() {
         </Button>
         <TooltipContent>
           <strong className="font-semibold">Certified vehicle</strong>
-          <p className="text-muted-fg mt-1 max-w-2xs text-sm text-pretty">
+          <p className="text-muted-foreground mt-1 max-w-2xs text-sm text-pretty">
             This vehicle has been certified by our inspection team and comes
             with a 30-day warranty.
           </p>
@@ -54,7 +54,7 @@ export default function TooltipDemo() {
           </TooltipTrigger>
           <TooltipContent>
             <strong className="font-semibold">Fuel economy</strong>
-            <p className="text-muted-fg mt-1 max-w-2xs text-sm text-pretty">
+            <p className="text-muted-foreground mt-1 max-w-2xs text-sm text-pretty">
               EPA estimated fuel economy: 28 city / 35 highway / 31 combined.
             </p>
           </TooltipContent>

@@ -1,4 +1,10 @@
-import { Card } from "@/registry/preskok/ui/preskok-ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/preskok/ui/preskok-ui/card"
 import { Tracker } from "@/registry/preskok/ui/preskok-ui/tracker"
 
 const deliveries = [
@@ -65,15 +71,15 @@ const data = deliveries.map((d) => ({
 export function Component() {
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Recent deliveries</Card.Title>
-        <Card.Description>
+      <CardHeader>
+        <CardTitle>Recent deliveries</CardTitle>
+        <CardDescription>
           Visual timeline of vehicle delivery outcomes by hour
-        </Card.Description>
-      </Card.Header>
-      <Card.Content>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <Tracker data={data} />
-      </Card.Content>
+      </CardContent>
     </Card>
   )
 }

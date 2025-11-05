@@ -11,17 +11,17 @@ import {
 
 export default function DialogPreskokDemo() {
   return (
-    <DialogTrigger>
-      <button className="bg-primary text-primary-foreground rounded-md px-3 py-1.5">
+    <Dialog>
+      <DialogTrigger
+        className={"bg-primary text-primary-foreground rounded-md px-3 py-1.5"}
+      >
         Open dialog
-      </button>
-      <Dialog>
-        <DialogHeader title="Dialog title" description="Optional description" />
-        <DialogBody>Content inside the dialog.</DialogBody>
-        <DialogFooter>
-          <DialogClose>Close</DialogClose>
-        </DialogFooter>
-      </Dialog>
-    </DialogTrigger>
+      </DialogTrigger>
+      <DialogHeader title="Dialog title" description="Optional description" />
+      <DialogBody>Content inside the dialog.</DialogBody>
+      <DialogFooter>
+        <DialogClose>Close</DialogClose>
+      </DialogFooter>
+    </Dialog>
   )
 }

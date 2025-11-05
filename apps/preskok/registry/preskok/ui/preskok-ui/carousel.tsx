@@ -1,20 +1,13 @@
 "use client"
 
-import React, {
-  createContext,
-  use,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { createContext, use, useCallback, useEffect, useState } from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Button, type ButtonProps } from "./button"
 
@@ -127,36 +120,24 @@ const Carousel = ({
     api.on("select", onSelect)
 
     return () => {
-      api.off("select", onSelect)
+      api?.off("select", onSelect)
     }
   }, [api, onSelect])
 
-  const value = useMemo(
-    () => ({
-      carouselRef,
-      api: api,
-      opts,
-      orientation:
-        orientation ?? (opts?.axis === "y" ? "vertical" : "horizontal"),
-      scrollPrev,
-      scrollNext,
-      canScrollPrev,
-      canScrollNext,
-    }),
-    [
-      api,
-      canScrollNext,
-      canScrollPrev,
-      carouselRef,
-      opts,
-      orientation,
-      scrollNext,
-      scrollPrev,
-    ]
-  )
-
   return (
-    <CarouselContext value={value}>
+    <CarouselContext.Provider
+      value={{
+        carouselRef,
+        api: api,
+        opts,
+        orientation:
+          orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+        scrollPrev,
+        scrollNext,
+        canScrollPrev,
+        canScrollNext,
+      }}
+    >
       <div
         onKeyDownCapture={handleKeyDown}
         className={twMerge("relative", className)}
@@ -166,7 +147,7 @@ const Carousel = ({
       >
         {children}
       </div>
-    </CarouselContext>
+    </CarouselContext.Provider>
   )
 }
 
@@ -196,7 +177,7 @@ const CarouselItem = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       className={twMerge(
-        "xd24r group relative min-w-0 shrink-0 grow-0 basis-full focus:outline-hidden focus-visible:outline-hidden",
+        "group/carousel-item relative min-w-0 shrink-0 grow-0 basis-full focus:outline-hidden focus-visible:outline-hidden",
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
@@ -249,23 +230,18 @@ const CarouselButton = ({
       ref={ref}
       size={size}
       isCircle={isCircle}
-      className={composeTailwindRenderProps(
-        className,
-        orientation === "vertical" ? "rotate-90" : ""
+      className={cx(
+        [orientation === "vertical" ? "rotate-90" : "", "shrink-0"],
+        className
       )}
       isDisabled={!canScroll}
       onPress={scroll}
       {...props}
     >
-      <Icon className="size-4" />
+      <Icon data-slot="icon" className="size-4" />
     </Button>
   )
 }
-
-Carousel.Content = CarouselContent
-Carousel.Handler = CarouselHandler
-Carousel.Item = CarouselItem
-Carousel.Button = CarouselButton
 
 export {
   Carousel,

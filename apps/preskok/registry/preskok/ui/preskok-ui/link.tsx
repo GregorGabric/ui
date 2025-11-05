@@ -19,7 +19,7 @@ const Link = ({ className, ref, ...props }: LinkProps) => {
         [
           "font-medium text-(--text)",
           "focus-visible:outline-ring outline-0 outline-offset-2 focus-visible:outline-2 forced-colors:outline-[Highlight]",
-          "disabled:text-muted-fg disabled:cursor-default forced-colors:disabled:text-[GrayText]",
+          "disabled:text-muted-foreground disabled:cursor-default forced-colors:disabled:text-[GrayText]",
           "href" in props && "cursor-pointer",
         ],
         className

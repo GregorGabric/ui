@@ -11,7 +11,7 @@ import {
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 type ToggleSize =
   | "xs"
@@ -38,37 +38,59 @@ const useToggleGroupContext = () => use(ToggleGroupContext)
 
 interface ToggleGroupProps extends ToggleButtonGroupProps {
   size?: ToggleSize
+  isCircle?: boolean
 }
 
 const ToggleGroup = ({
   size = "md",
   orientation = "horizontal",
   selectionMode = "single",
+  isCircle,
   className,
   ...props
 }: ToggleGroupProps) => {
   return (
     <ToggleGroupContext.Provider value={{ size, selectionMode, orientation }}>
       <ToggleButtonGroup
+        data-slot="control"
         selectionMode={selectionMode}
-        className={composeTailwindRenderProps(className, [
-          "group/toggle-group inset-ring-border inline-flex overflow-hidden rounded-lg p-0.5 inset-ring",
-          orientation === "horizontal" ? "flex-row" : "flex-col",
-          selectionMode === "single" ? "gap-0.5" : "gap-0",
-        ])}
+        className={cx(
+          [
+            "[--toggle-group-radius:var(--radius-lg)] [--toggle-gutter:--spacing(0.5)]",
+            "[--toggle-foreground:var(--color-foreground)] [--toggle-selected-background:var(--color-primary)] [--toggle-selected-foreground:var(--color-primary-foreground)]",
+            "[--toggle-focused-background:var(--color-secondary)] [--toggle-focused-foreground:var(--color-secondary-foreground)]",
+            "[--toggle-hover-background:var(--toggle-focused-background)] [--toggle-hover-foreground:var(--toggle-focused-foreground)]",
+            "[--toggle-icon:color-mix(in_oklab,var(--toggle-focused-foreground)_50%,var(--toggle-focused-background))]",
+            "inset-ring-border inline-flex overflow-hidden p-(--toggle-gutter) inset-ring",
+            orientation === "horizontal" ? "flex-row" : "flex-col",
+            selectionMode === "single" ? "gap-(--toggle-gutter)" : "gap-0",
+            isCircle ? "rounded-full" : "rounded-(--toggle-group-radius)",
+            selectionMode === "single" &&
+              isCircle &&
+              "*:data-[slot=toggle-group-item]:rounded-full",
+            selectionMode === "multiple" &&
+              isCircle &&
+              "*:data-[slot=toggle-group-item]:first:rounded-l-full *:data-[slot=toggle-group-item]:last:rounded-r-full",
+          ],
+          className
+        )}
         {...props}
       />
     </ToggleGroupContext.Provider>
   )
 }
 
-interface ToggleGroupItemProps extends ToggleButtonProps {}
+interface ToggleGroupItemProps extends ToggleButtonProps {
+  size?: ToggleSize
+}
 
 const toggleGroupItemStyles = tv({
   base: [
-    "[--toggle-group-item-icon:color-mix(in_oklab,var(--secondary-foreground)_50%,var(--secondary))]",
-    "relative isolate inline-flex flex-row items-center font-medium outline-hidden",
-    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--toggle-group-item-icon) sm:*:data-[slot=icon]:my-1",
+    "relative isolate",
+    "inline-flex flex-row items-center font-medium text-(--toggle-foreground) outline-hidden",
+    "inset-ring inset-ring-transparent",
+    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90",
+    "forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
   ],
   variants: {
     orientation: {
@@ -76,50 +98,47 @@ const toggleGroupItemStyles = tv({
       vertical: "justify-start",
     },
     selectionMode: {
-      single: "rounded-[calc(var(--radius-lg)-2px)]",
+      single: "rounded-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
       multiple: "rounded-none",
     },
     size: {
       xs: [
-        "gap-x-1 px-2.5 py-1.5 text-sm sm:px-2 sm:py-[--spacing(1.4)] sm:text-xs/4",
-        "*:data-[slot=icon]:size-3.5 sm:*:data-[slot=icon]:size-3",
-        "*:data-[slot=loader]:size-3.5 sm:*:data-[slot=loader]:size-3",
+        "min-h-8 gap-x-1.5 px-2.5 py-1.5 text-sm sm:min-h-7 sm:px-2 sm:py-1.5 sm:text-xs/4",
+        "*:data-[slot=icon]:-mx-px *:data-[slot=icon]:size-3.5 sm:*:data-[slot=icon]:size-3",
+        "*:data-[slot=loader]:-mx-px *:data-[slot=loader]:size-3.5 sm:*:data-[slot=loader]:size-3",
       ],
       sm: [
-        "gap-x-1.5 px-3 py-2 sm:px-2.5 sm:py-1.5 sm:text-sm/5",
+        "min-h-9 gap-x-1.5 px-3 py-1.5 sm:min-h-8 sm:px-2.5 sm:py-1.5 sm:text-sm/5",
         "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4",
         "*:data-[slot=loader]:size-4.5 sm:*:data-[slot=loader]:size-4",
       ],
       md: [
-        "gap-x-2 px-3.5 py-2 sm:px-3 sm:py-1.5 sm:text-sm/6",
+        "min-h-10 gap-x-2 px-3.5 py-2 sm:min-h-9 sm:px-3 sm:py-1.5 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4",
       ],
       lg: [
-        "gap-x-2 px-4 py-2.5 sm:px-3.5 sm:py-2 sm:text-sm/6",
+        "min-h-11 gap-x-2 px-4 py-2.5 sm:min-h-10 sm:px-3.5 sm:py-2 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4.5",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4.5",
       ],
       "sq-xs":
-        "size-8 *:data-[slot=icon]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:*:data-[slot=loader]:size-3",
+        "touch-target size-8 *:data-[slot=icon]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:*:data-[slot=loader]:size-3",
       "sq-sm":
-        "size-9 *:data-[slot=icon]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4",
+        "touch-target size-9 *:data-[slot=icon]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4",
       "sq-md":
-        "size-10 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4",
+        "touch-target size-10 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
       "sq-lg":
-        "size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
-    },
-    isPressed: {
-      true: "bg-primary/90 text-primary-foreground",
+        "touch-target size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-5 sm:*:data-[slot=loader]:size-5",
     },
     isSelected: {
-      true: "bg-primary text-primary-foreground [--toggle-group-item-icon:var(--primary-foreground)] hover:bg-primary/90",
+      true: "inset-ring-foreground/20 bg-(--toggle-selected-background) text-(--toggle-selected-foreground) [--toggle-icon:var(--primary-foreground)] hover:bg-(--toggle-selected-background)/90",
     },
     isFocused: {
-      true: "not-selected:bg-secondary not-selected:text-secondary-foreground not-selected:[--toggle-group-item-icon:var(--secondary-foreground)]",
+      true: "not-selected:bg-(--toggle-focused-background) not-selected:text-(--toggle-focused-foreground) not-selected:[--toggle-icon:var(--toggle-focused-foreground)]",
     },
     isHovered: {
-      true: "enabled:not-selected:bg-secondary enabled:not-selected:text-secondary-foreground enabled:not-selected:[--toggle-group-item-icon:var(--secondary-foreground)]",
+      true: "enabled:not-selected:bg-(--toggle-hover-background) enabled:not-selected:text-(--toggle-hover-foreground) enabled:not-selected:[--toggle-icon:var(--toggle-hover-foreground)]",
     },
     isDisabled: {
       true: "opacity-50 forced-colors:text-[GrayText]",
@@ -127,24 +146,19 @@ const toggleGroupItemStyles = tv({
   },
   defaultVariants: {
     size: "md",
-    isCircle: false,
   },
   compoundVariants: [
-    {
-      size: ["xs", "sq-xs"],
-      className: "rounded-[calc(var(--radius-md)-1px)]",
-    },
     {
       selectionMode: "multiple",
       orientation: "horizontal",
       className:
-        "not-first:-ml-px first:rounded-l-[calc(var(--radius-lg)-2px)] last:rounded-r-[calc(var(--radius-lg)-2px)]",
+        "not-first:-ml-px first:rounded-l-[calc(var(--toggle-group-radius)-var(--toggle-gutter))] last:rounded-r-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
     },
     {
       selectionMode: "multiple",
       orientation: "vertical",
       className:
-        "not-first:-mt-px first:rounded-t-[calc(var(--radius-lg)-2px)] last:rounded-b-[calc(var(--radius-lg)-2px)]",
+        "not-first:-mt-px first:rounded-t-[calc(var(--toggle-group-radius)-var(--toggle-gutter))] last:rounded-b-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
     },
   ],
 })

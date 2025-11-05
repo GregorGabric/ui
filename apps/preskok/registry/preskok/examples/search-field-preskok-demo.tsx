@@ -1,7 +1,14 @@
 "use client"
 
-import { SearchField } from "@/registry/preskok/ui/preskok-ui/search-field"
+import {
+  SearchField,
+  SearchInput,
+} from "@/registry/preskok/ui/preskok-ui/search-field"
 
-export default function SearchFieldPreskokDemo() {
-  return <SearchField label="Search" placeholder="Search..." />
+export function Component() {
+  return (
+    <SearchField aria-label="Search">
+      <SearchInput placeholder="Search" />
+    </SearchField>
+  )
 }

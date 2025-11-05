@@ -1,23 +1,25 @@
 "use client"
 
-import React, {
+import {
   createContext,
   use,
   useCallback,
+  useId,
   useMemo,
   useState,
 } from "react"
 import { MenuIcon } from "lucide-react"
+import { LayoutGroup, motion } from "motion/react"
 import type { LinkProps } from "react-aria-components"
 import { Link } from "react-aria-components"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Button, type ButtonProps } from "./button"
 import { Separator } from "./separator"
-import { Sheet } from "./sheet"
+import { Sheet, SheetBody, SheetContent } from "./sheet"
 
 interface NavbarContextProps {
   open: boolean
@@ -50,15 +52,13 @@ const NavbarProvider = ({
   className,
   ...props
 }: NavbarProviderProps) => {
-  const isMobile = useMediaQuery("(max-width: 767px)")
   const [openInternal, setOpenInternal] = useState(defaultOpen)
   const open = openProp ?? openInternal
 
   const setOpen = useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
       if (setOpenProp) {
-        setOpenProp(typeof value === "function" ? value(open) : value)
-        return
+        return setOpenProp?.(typeof value === "function" ? value(open) : value)
       }
 
       setOpenInternal(value)
@@ -70,15 +70,22 @@ const NavbarProvider = ({
     setOpen((open) => !open)
   }, [setOpen])
 
+  const isMobile = useMediaQuery("(max-width: 767px)")
+
   const contextValue = useMemo<NavbarContextProps>(
     () => ({
       open,
       setOpen,
-      isMobile,
+      isMobile: isMobile ?? false,
       toggleNavbar,
     }),
     [open, setOpen, isMobile, toggleNavbar]
   )
+
+  if (isMobile === undefined) {
+    return null
+  }
+
   return (
     <NavbarContext value={contextValue}>
       <div
@@ -93,15 +100,30 @@ const NavbarProvider = ({
   )
 }
 
-interface NavbarProps extends React.ComponentProps<"div"> {
-  intent?: "default" | "float" | "inset"
-  isSticky?: boolean
-  side?: "left" | "right"
+type Intent = "default" | "float" | "inset"
+type Placement = "top" | "bottom"
+type Side = "left" | "right"
+
+interface StickyWithPlacement extends React.ComponentProps<"div"> {
+  isSticky: true
+  placement?: Placement
+  side?: Side
+  intent?: Intent
 }
+
+interface NonStickyWithoutPlacement extends React.ComponentProps<"div"> {
+  isSticky?: false
+  placement?: never
+  side?: Side
+  intent?: Intent
+}
+
+type NavbarProps = StickyWithPlacement | NonStickyWithoutPlacement
 
 const Navbar = ({
   children,
   isSticky,
+  placement = "top",
   intent = "default",
   side = "left",
   className,
@@ -117,17 +139,18 @@ const Navbar = ({
           aria-hidden
           data-navbar={intent}
           data-navbar-sticky={isSticky}
+          data-placement={placement ?? undefined}
         />
         <Sheet isOpen={open} onOpenChange={setOpen} {...props}>
-          <Sheet.Content
+          <SheetContent
             side={side}
             aria-label="Mobile Navbar"
-            className="[&>button]:hidden"
+            className="entering:blur-in exiting:blur-out [&>button]:hidden"
           >
-            <Sheet.Body className="p-[calc(var(--gutter)---spacing(2))] sm:p-[calc(var(--gutter)---spacing(4))]">
+            <SheetBody className="p-[calc(var(--gutter)---spacing(2))] sm:p-[calc(var(--gutter)---spacing(4))]">
               {children}
-            </Sheet.Body>
-          </Sheet.Content>
+            </SheetBody>
+          </SheetContent>
         </Sheet>
       </>
     )
@@ -137,27 +160,31 @@ const Navbar = ({
     <div
       data-navbar={intent}
       ref={ref}
+      data-placement={placement ?? undefined}
       data-navbar-sticky={isSticky}
       className={twMerge([
         "group/navbar-intent relative isolate",
         isSticky && "sticky top-0 z-40",
-        intent === "float" && "md:px-22 md:pt-10",
+        placement === "top" && intent === "float" && "md:pt-8",
+        placement === "bottom" && intent === "float" && "bottom-0 md:pb-8",
+        intent === "float" &&
+          "mx-auto w-full max-w-7xl px-4 xl:max-w-(--breakpoint-xl)",
       ])}
       {...props}
     >
       <div
         className={twMerge(
-          "relative isolate hidden md:block",
+          "relative isolate hidden py-(--navbar-gutter) [--navbar-gutter:--spacing(2.5)] md:block",
           intent === "float" &&
-            "*:data-[navbar=content]:bg-navbar *:data-[navbar=content]:max-w-7xl *:data-[navbar=content]:rounded-xl *:data-[navbar=content]:border *:data-[navbar=content]:px-4 *:data-[navbar=content]:shadow-xs",
-          ["default", "inset"].includes(intent) && "px-6",
+            "bg-background *:data-[navbar=content]:bg-navbar rounded-xl py-0 *:data-[navbar=content]:max-w-7xl *:data-[navbar=content]:rounded-xl *:data-[navbar=content]:border *:data-[navbar=content]:px-4 *:data-[navbar=content]:py-(--navbar-gutter) *:data-[navbar=content]:shadow-xs",
+          ["default", "inset"].includes(intent) && "px-4",
           intent === "default" && "bg-navbar border-b",
           className
         )}
       >
         <div
           data-navbar="content"
-          className="mx-auto w-full max-w-(--breakpoint-2xl) items-center py-2.5 md:flex"
+          className="mx-auto w-full max-w-(--breakpoint-2xl) items-center md:flex"
         >
           {children}
         </div>
@@ -170,17 +197,20 @@ const NavbarSection = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
+  const id = useId()
   return (
-    <div
-      data-slot="navbar-section"
-      className={twMerge(
-        "col-span-full grid grid-cols-[auto_1fr] flex-col gap-3 gap-y-0.5 md:flex md:flex-none md:grid-cols-none md:flex-row md:items-center md:gap-2.5",
-        className
-      )}
-      {...props}
-    >
-      {props.children}
-    </div>
+    <LayoutGroup id={id}>
+      <div
+        data-slot="navbar-section"
+        className={twMerge(
+          "col-span-full grid grid-cols-[auto_1fr] flex-col gap-3 gap-y-0.5 md:flex md:flex-none md:grid-cols-none md:flex-row md:items-center md:gap-2.5",
+          className
+        )}
+        {...props}
+      >
+        {props.children}
+      </div>
+    </LayoutGroup>
   )
 }
 
@@ -193,20 +223,23 @@ const NavbarItem = ({ className, isCurrent, ...props }: NavbarItemProps) => {
     <Link
       data-slot="navbar-item"
       aria-current={isCurrent ? "page" : undefined}
-      className={composeTailwindRenderProps(className, [
-        "href" in props ? "cursor-pointer" : "cursor-default",
-        "group/sidebar-item hover:bg-secondary",
-        "aria-[current=page]:text-foreground aria-[current=page]*:data-[slot=icon]:text-foreground",
-        "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] supports-[grid-template-columns:subgrid]:grid-cols-subgrid md:supports-[grid-template-columns:subgrid]:grid-cols-none",
-        "relative min-w-0 items-center gap-x-3 rounded-lg p-2 text-left text-base/6 font-medium sm:text-sm/5 md:gap-x-2.5",
-        "*:data-[slot=icon]:text-muted-foreground *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 sm:*:data-[slot=icon]:size-4",
-        "*:data-[slot=loader]:size-5 *:data-[slot=loader]:shrink-0 sm:*:data-[slot=loader]:size-4",
-        "*:not-nth-2:last:data-[slot=icon]:row-start-1 *:not-nth-2:last:data-[slot=icon]:ml-auto *:not-nth-2:last:data-[slot=icon]:size-5 sm:*:not-nth-2:last:data-[slot=icon]:size-4",
-        "*:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:size-5",
-        "*:data-[slot=icon]:text-muted-foreground pressed:*:data-[slot=icon]:text-foreground hover:*:data-[slot=icon]:text-foreground",
-        "focus-visible:inset-ring-ring focus-visible:ring-ring/20 outline-hidden focus-visible:ring-2 focus-visible:inset-ring",
-        "text-left disabled:cursor-default disabled:opacity-50",
-      ])}
+      className={cx(
+        [
+          "href" in props ? "cursor-pointer" : "cursor-default",
+          "group/sidebar-item pressed:bg-secondary pressed:text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground",
+          "aria-[current=page]:text-foreground aria-[current=page]*:data-[slot=icon]:text-foreground",
+          "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] supports-[grid-template-columns:subgrid]:grid-cols-subgrid md:supports-[grid-template-columns:subgrid]:grid-cols-none",
+          "relative min-w-0 items-center gap-x-3 rounded-lg p-2 text-left text-base/6 font-medium md:gap-x-(--navbar-gutter) md:px-(--navbar-gutter) md:py-[calc(var(--navbar-gutter)---spacing(0.5))] md:text-sm/5",
+          "*:data-[slot=icon]:text-muted-foreground *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 md:*:data-[slot=icon]:size-4",
+          "*:data-[slot=loader]:size-5 *:data-[slot=loader]:shrink-0 md:*:data-[slot=loader]:size-4",
+          "*:not-nth-2:last:data-[slot=icon]:row-start-1 *:not-nth-2:last:data-[slot=icon]:ml-auto *:not-nth-2:last:data-[slot=icon]:size-5 md:*:not-nth-2:last:data-[slot=icon]:size-4",
+          "*:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-6 md:*:data-[slot=avatar]:size-5",
+          "*:data-[slot=icon]:text-muted-foreground pressed:*:data-[slot=icon]:text-foreground hover:*:data-[slot=icon]:text-foreground",
+          "focus-visible:inset-ring-ring focus-visible:ring-ring/20 outline-hidden focus-visible:ring-2 focus-visible:inset-ring",
+          "text-left disabled:cursor-default disabled:opacity-50",
+        ],
+        className
+      )}
       {...props}
     >
       {(values) => (
@@ -216,12 +249,14 @@ const NavbarItem = ({ className, isCurrent, ...props }: NavbarItemProps) => {
             : props.children}
 
           {(isCurrent || values.isCurrent) && (
-            <span
-              data-navbar="current-indicator"
+            <motion.span
+              data-slot="current-indicator"
+              layoutId="current-indicator"
+              transition={{ type: "spring", stiffness: 500, damping: 40 }}
               className={twJoin(
                 "bg-foreground absolute rounded-full [--gutter:--spacing(0.5)]",
-                "inset-y-2 -left-4 w-(--gutter) md:inset-y-auto md:w-auto",
-                "md:inset-x-2 md:-bottom-[--spacing(3.4)] md:h-(--gutter) md:group-data-[navbar=inset]/navbar-intent:-bottom-[--spacing(3.1)]"
+                "inset-y-[calc(var(--navbar-gutter)---spacing(0.5))] -left-4 w-(--gutter) md:inset-y-auto md:w-auto",
+                "md:inset-x-2 md:-bottom-(--navbar-gutter) md:h-(--gutter)"
               )}
             />
           )}
@@ -249,7 +284,7 @@ const NavbarStart = ({
   return (
     <div
       ref={ref}
-      className={twMerge("p-2 py-4 md:p-2", className)}
+      className={twMerge("relative p-2 py-4 md:p-0.5", className)}
       {...props}
     />
   )
@@ -287,7 +322,11 @@ const NavbarMobile = ({
       data-slot="navbar-mobile"
       className={twMerge(
         "group/navbar-mobile flex items-center gap-x-3 px-4 py-2.5 md:hidden",
-        "group-has-data-navbar-sticky/navbar:bg-navbar group-has-data-navbar-sticky/navbar:sticky group-has-data-navbar-sticky/navbar:top-0 group-has-data-navbar-sticky/navbar:border-b",
+        "group-has-data-navbar-sticky/navbar:bg-navbar group-has-data-navbar-sticky/navbar:sticky",
+        // top
+        "group-has-data-navbar-sticky/navbar:group-has-data-[placement=top]/navbar:top-0 group-has-data-navbar-sticky/navbar:group-has-data-[placement=top]/navbar:border-b",
+        // bottom
+        "group-has-data-navbar-sticky/navbar:group-has-data-[placement=bottom]/navbar:bottom-0 group-has-data-navbar-sticky/navbar:group-has-data-[placement=bottom]/navbar:border-t",
         className
       )}
       {...props}
@@ -311,7 +350,7 @@ const NavbarInset = ({
       )}
       {...props}
     >
-      <div className="bg-background md:ring-foreground/15 md:dark:bg-navbar md:dark:ring-border grow p-6 md:rounded-lg md:p-12 md:shadow-xs md:ring-1">
+      <div className="bg-background md:ring-foreground/15 md:dark:bg-navbar md:dark:ring-border md:dark:group-has-data-navbar-inset/navbar:bg-muted grow p-6 md:rounded-lg md:p-16 md:shadow-xs md:ring-1">
         <div className="mx-auto max-w-7xl">{children}</div>
       </div>
     </div>
@@ -336,14 +375,14 @@ const NavbarTrigger = ({
       intent="plain"
       aria-label={props["aria-label"] || "Toggle Navbar"}
       size="sq-sm"
-      className={composeTailwindRenderProps(className, "-ml-2 min-lg:hidden")}
+      className={cx("-ml-2 min-lg:hidden", className)}
       onPress={(event) => {
         onPress?.(event)
         toggleNavbar()
       }}
       {...props}
     >
-      <MenuIcon className="size-5" />
+      <MenuIcon data-slot="icon" className="size-5" />
       <span className="sr-only">Toggle Navbar</span>
     </Button>
   )
@@ -372,6 +411,7 @@ export {
   NavbarSpacer,
   NavbarStart,
   NavbarTrigger,
+  useNavbar,
 }
 export type {
   NavbarItemProps,

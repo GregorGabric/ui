@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/keyboard-preskok-demo.tsx",
-      "content": "import { Keyboard } from \"@/registry/preskok/ui/preskok-ui/keyboard\"\n\nexport default function KeyboardPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Keyboard keys={[\"⌘\", \"K\"]} />\n      <Keyboard keys={[\"⇧\", \"⌘\", \"P\"]} />\n    </div>\n  )\n}\n",
+      "content": "import { Keyboard } from \"@/registry/preskok/ui/preskok-ui/keyboard\"\n\nexport default function KeyboardPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Keyboard>⌘K</Keyboard>\n      <Keyboard>⇧⌘P</Keyboard>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

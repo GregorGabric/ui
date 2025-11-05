@@ -13,7 +13,7 @@ import {
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Link } from "./link"
 
@@ -54,11 +54,9 @@ const BreadcrumbsItem = ({
 
   return (
     <Breadcrumb
+      className={cx("flex items-center gap-2 text-sm", className)}
+      data-slot="breadcrumb-item"
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        "flex items-center gap-2 text-sm"
-      )}
     >
       {({ isCurrent }) => (
         <>
@@ -79,15 +77,13 @@ const Separator = ({
 }) => {
   return (
     <span className="*:text-muted-foreground *:shrink-0 *:data-[slot=icon]:size-3.5">
-      {separator === "chevron" && <ChevronRightIcon />}
+      {separator === "chevron" && <ChevronRightIcon data-slot="icon" />}
       {separator === "slash" && (
         <span className="text-muted-foreground">/</span>
       )}
     </span>
   )
 }
-
-Breadcrumbs.Item = BreadcrumbsItem
 
 export { Breadcrumbs, BreadcrumbsItem }
 export type { BreadcrumbsItemProps, BreadcrumbsProps }

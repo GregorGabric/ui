@@ -1,19 +1,36 @@
 "use client"
 
-import { ContextMenu } from "@/registry/preskok/ui/preskok-ui/context-menu"
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/context-menu"
 
 export default function ContextMenuPreskokDemo() {
   return (
     <ContextMenu>
-      <ContextMenu.Trigger className="rounded border px-3 py-2">
+      <ContextMenuTrigger className="grid h-28 w-56 place-content-center rounded-lg border-2 border-dashed">
         Right click me
-      </ContextMenu.Trigger>
-      <ContextMenu.Content>
-        <ContextMenu.Item>Copy</ContextMenu.Item>
-        <ContextMenu.Item>Paste</ContextMenu.Item>
-        <ContextMenu.Separator />
-        <ContextMenu.Item isDanger>Delete</ContextMenu.Item>
-      </ContextMenu.Content>
+      </ContextMenuTrigger>
+      <ContextMenuContent className="min-w-56">
+        <ContextMenuItem>Back</ContextMenuItem>
+        <ContextMenuItem isDisabled>Forward</ContextMenuItem>
+        <ContextMenuItem>Reload</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>Bookmark</ContextMenuItem>
+        <ContextMenuItem>Save as</ContextMenuItem>
+        <ContextMenuItem>
+          Select all
+          <ContextMenuShortcut keys="⌘A" />
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>View source</ContextMenuItem>
+        <ContextMenuItem>Inspect Accessibility</ContextMenuItem>
+        <ContextMenuItem>Inspect</ContextMenuItem>
+      </ContextMenuContent>
     </ContextMenu>
   )
 }
