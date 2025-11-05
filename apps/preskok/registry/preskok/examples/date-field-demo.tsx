@@ -1,17 +1,16 @@
 "use client"
 
-import { parseDate } from "@internationalized/date"
-
-import { DateField } from "@/registry/preskok/ui/preskok-ui/date-field"
+import {
+  DateField,
+  DateInput,
+} from "@/registry/preskok/ui/preskok-ui/date-field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export default function DateFieldDemo() {
   return (
-    <div className="max-w-xs">
-      <DateField
-        label="Date"
-        granularity="day"
-        defaultValue={parseDate("2023-10-15")}
-      />
-    </div>
+    <DateField isInvalid>
+      <Label>Event date</Label>
+      <DateInput />
+    </DateField>
   )
 }

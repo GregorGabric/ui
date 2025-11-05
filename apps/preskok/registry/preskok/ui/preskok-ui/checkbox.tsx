@@ -73,14 +73,14 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
                   "size-4.5 *:data-[slot=check-indicator]:size-4",
                   (isSelected || isIndeterminate) && [
                     "inset-ring-primary bg-primary text-primary-foreground",
-                    "group-invalid:inset-ring-destructive-foreground/70 group-invalid:bg-destructive group-invalid:text-destructive-foreground dark:group-invalid:inset-ring-destructive-foreground/70",
+                    "group-invalid:inset-ring-destructive/70 group-invalid:bg-destructive group-invalid:text-destructive-foreground dark:group-invalid:inset-ring-destructive/70",
                   ],
                   isFocusVisible && [
                     "inset-ring-primary ring-ring/20 ring-3",
-                    "group-invalid:inset-ring-destructive-foreground/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive-foreground/20",
+                    "group-invalid:inset-ring-destructive/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive/20",
                   ],
                   isInvalid &&
-                    "inset-ring-destructive-foreground/70 bg-destructive/5 text-destructive-foreground ring-destructive-foreground/20 group-hover:inset-ring-destructive-foreground/70",
+                    "inset-ring-destructive/70 bg-destructive/0 text-destructive-foreground ring-destructive/20 group-hover:inset-ring-destructive/70",
                 ])}
               >
                 {indicator}

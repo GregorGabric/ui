@@ -62,8 +62,8 @@ const dropdownItemStyles = tv({
   variants: {
     intent: {
       danger: [
-        "text-destructive-foreground focus:text-destructive-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-destructive-foreground/70",
-        "*:[[slot=description]]:text-destructive-foreground/80 focus:*:[[slot=description]]:text-destructive-foreground focus:*:[[slot=label]]:text-destructive-foreground",
+        "text-destructive-foreground focus:text-destructive-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-destructive/70",
+        "*:[[slot=description]]:text-destructive/80 focus:*:[[slot=description]]:text-destructive-foreground focus:*:[[slot=label]]:text-destructive-foreground",
         "focus:bg-destructive focus:text-destructive-foreground forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-destructive-foreground",
       ],
       warning: [

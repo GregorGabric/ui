@@ -1,26 +1,25 @@
 "use client"
 
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
   Tag,
   TagGroup,
   TagList,
 } from "@/registry/preskok/ui/preskok-ui/tag-group"
 
-const items = [
-  { id: 1, name: "Bug" },
-  { id: 2, name: "Feature" },
-  { id: 3, name: "UX" },
+export const androidBrands = [
+  { id: "1", name: "Samsung", available: false },
+  { id: "2", name: "OnePlus", available: true },
+  { id: "3", name: "Google", available: true },
+  { id: "4", name: "Xiaomi", available: false },
 ]
 
 export default function TagGroupPreskokDemo() {
   return (
-    <TagGroup
-      label="Labels"
-      description="Select applicable labels"
-      selectionMode="multiple"
-    >
-      <TagList items={items}>
-        {(item) => <Tag id={item.id}>{item.name}</Tag>}
+    <TagGroup selectionMode="multiple">
+      <Label>Android Brands</Label>
+      <TagList items={androidBrands}>
+        {(item) => <Tag>{item.name}</Tag>}
       </TagList>
     </TagGroup>
   )

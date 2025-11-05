@@ -24,7 +24,7 @@ export const descriptionStyles = tv({
 })
 
 export const fieldErrorStyles = tv({
-  base: "block text-destructive-foreground text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50 forced-colors:text-[Mark]",
+  base: "block text-destructive/80 text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50 forced-colors:text-[Mark]",
 })
 
 export const fieldStyles = tv({

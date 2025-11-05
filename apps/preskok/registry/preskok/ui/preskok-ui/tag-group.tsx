@@ -52,7 +52,7 @@ export function Tag({ children, className, ...props }: TagProps) {
         "inline-flex items-center gap-x-1.5 py-0.5 text-xs/5 font-medium forced-colors:outline",
         "*:data-[slot=icon]:size-3 *:data-[slot=icon]:shrink-0",
         "cursor-default rounded-full px-2",
-        "selected:inset-ring-ring/70 selected:bg-primary-subtle selected:text-primary-subtle-foreground",
+        "selected:inset-ring-ring/70 selected:bg-primary/10 selected:text-primary",
         "disabled:opacity-50 disabled:forced-colors:text-[GrayText]",
         className
       )}

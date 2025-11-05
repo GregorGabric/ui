@@ -70,7 +70,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
         className,
         (className, { isHovered, isFocusVisible, isSelected }) =>
           twMerge(
-            "[--grid-list-item-background-active:var(--color-primary-subtle)] [--grid-list-item-text-active:var(--color-primary-subtle-foreground)]",
+            "[--grid-list-item-background-active:color-mix(in_oklab,var(--color-primary)_10%,transparent)] [--grid-list-item-text-active:var(--color-primary)]",
             "group inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
             "relative min-w-0 outline-hidden [--mr-icon:--spacing(2)]",
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",

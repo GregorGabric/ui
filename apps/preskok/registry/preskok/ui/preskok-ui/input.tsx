@@ -19,12 +19,12 @@ export function Input({ className, ref, ...props }: InputProps) {
       <InputPrimitive
         ref={ref}
         className={cx(
-          "[--input-focus-background:theme(--color-primary-subtle/5%)]",
+          "[--input-focus-background:theme(--color-primary/5%)]",
           "relative block w-full appearance-none rounded-lg px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)]",
           "text-foreground placeholder:text-muted-foreground text-base/6 sm:text-sm/6",
           "border-input enabled:hover:border-muted-foreground/30 border",
           "focus:border-ring/70 focus:ring-ring/20 focus:enabled:hover:border-ring/80 focus:bg-(--input-focus-background) focus:ring-3 focus:outline-hidden",
-          "invalid:border-destructive-foreground/70 invalid:bg-destructive/5 focus:invalid:border-destructive-foreground/70 focus:invalid:bg-destructive/5 focus:invalid:ring-destructive-foreground/20 invalid:enabled:hover:border-destructive-foreground/80 focus:invalid:enabled:hover:border-destructive-foreground/80",
+          "invalid:border-destructive/70 invalid:bg-destructive/0 focus:invalid:border-destructive/70 focus:invalid:bg-destructive/0 focus:invalid:ring-destructive/20 invalid:enabled:hover:border-destructive/80 focus:invalid:enabled:hover:border-destructive/80",
           "[&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden",
           "disabled:bg-muted disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",
           "in-disabled:bg-muted in-disabled:opacity-50 forced-colors:in-disabled:text-[GrayText]",

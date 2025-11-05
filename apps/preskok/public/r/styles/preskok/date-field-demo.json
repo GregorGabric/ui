@@ -11,7 +11,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/date-field-demo.tsx",
-      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport { DateField } from \"@/registry/preskok/ui/preskok-ui/date-field\"\n\nexport default function DateFieldDemo() {\n  return (\n    <div className=\"max-w-xs\">\n      <DateField\n        label=\"Date\"\n        granularity=\"day\"\n        defaultValue={parseDate(\"2023-10-15\")}\n      />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  DateField,\n  DateInput,\n} from \"@/registry/preskok/ui/preskok-ui/date-field\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport default function DateFieldDemo() {\n  return (\n    <DateField isInvalid>\n      <Label>Event date</Label>\n      <DateInput />\n    </DateField>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

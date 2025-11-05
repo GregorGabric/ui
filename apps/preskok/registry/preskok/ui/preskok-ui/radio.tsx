@@ -54,14 +54,14 @@ export function Radio({ className, children, ...props }: RadioProps) {
                   "inset-ring-input text-background hover:before:bg-muted-foreground/20 sm:before:size-1.7 relative isolate flex size-4.5 shrink-0 items-center justify-center rounded-full inset-ring transition before:absolute before:inset-auto before:size-2 before:shrink-0 before:rounded-full before:content-[''] sm:size-4",
                   isSelected && [
                     "inset-ring-primary bg-primary text-primary-foreground before:bg-background hover:before:bg-muted/90",
-                    "group-invalid:inset-ring-destructive-foreground/70 group-invalid:bg-destructive group-invalid:text-destructive-foreground",
+                    "group-invalid:inset-ring-destructive/70 group-invalid:bg-destructive group-invalid:text-destructive-foreground",
                   ],
                   isFocusVisible && [
                     "inset-ring-primary ring-ring/20 ring-3",
-                    "group-invalid:inset-ring-destructive-foreground/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive-foreground/20",
+                    "group-invalid:inset-ring-destructive/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive/20",
                   ],
                   isInvalid &&
-                    "inset-ring-destructive-foreground/70 bg-destructive/5 text-destructive-foreground ring-destructive-foreground/20",
+                    "inset-ring-destructive/70 bg-destructive/0 text-destructive-foreground ring-destructive/20",
                 ])}
               />
               {content}
