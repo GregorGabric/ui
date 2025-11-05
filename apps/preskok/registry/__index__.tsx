@@ -1078,18 +1078,18 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  "choicebox": {
-    name: "choicebox",
+  "choice-box": {
+    name: "choice-box",
     description: "A choice box component for selecting from a grid of options",
     type: "registry:ui",
-    registryDependencies: ["checkbox"],
+    registryDependencies: ["checkbox","primitive"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/choicebox.tsx",
+      path: "registry/preskok/ui/preskok-ui/choice-box.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/choicebox.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/choice-box.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

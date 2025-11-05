@@ -809,7 +809,7 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
-    name: "choicebox",
+    name: "choice-box",
     type: "registry:ui",
     description: "A choice box component for selecting from a grid of options",
     dependencies: [
@@ -818,10 +818,10 @@ export const preskokUi: Registry["items"] = [
       "tailwind-merge",
       "tailwind-variants",
     ],
-    registryDependencies: ["checkbox"],
+    registryDependencies: ["checkbox", "primitive"],
     files: [
       {
-        path: "ui/preskok-ui/choicebox.tsx",
+        path: "ui/preskok-ui/choice-box.tsx",
         type: "registry:ui",
       },
     ],

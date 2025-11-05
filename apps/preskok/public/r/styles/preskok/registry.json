@@ -1043,7 +1043,7 @@
       ]
     },
     {
-      "name": "choicebox",
+      "name": "choice-box",
       "type": "registry:ui",
       "description": "A choice box component for selecting from a grid of options",
       "dependencies": [
@@ -1053,11 +1053,12 @@
         "tailwind-variants"
       ],
       "registryDependencies": [
-        "checkbox"
+        "checkbox",
+        "primitive"
       ],
       "files": [
         {
-          "path": "registry/preskok/ui/preskok-ui/choicebox.tsx",
+          "path": "registry/preskok/ui/preskok-ui/choice-box.tsx",
           "type": "registry:ui"
         }
       ]

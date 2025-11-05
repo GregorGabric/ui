@@ -1,0 +1,185 @@
+---
+title: Choice Box
+description: Grid or stacked option selector with single or multiple selection modes.
+---
+
+<ComponentPreview
+  name="choicebox-preskok-demo"
+  description="Multiple selection choice box with car package options."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add choice-box
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="choice-box"
+  title="registry/preskok/ui/preskok-ui/choice-box.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  ChoiceBox,
+  ChoiceBoxItem,
+  ChoiceBoxLabel,
+  ChoiceBoxDescription,
+} from "@/registry/preskok/ui/preskok-ui/choice-box"
+
+export function ChoiceBoxExample() {
+  return (
+    <ChoiceBox aria-label="Select car packages" selectionMode="multiple">
+      <ChoiceBoxItem
+        textValue="sedan"
+        label="Sedan"
+        description="Comfortable family car with excellent fuel economy."
+      />
+      <ChoiceBoxItem
+        textValue="suv"
+        label="SUV"
+        description="Versatile vehicle with enhanced cargo space and off-road capability."
+      />
+      <ChoiceBoxItem
+        textValue="luxury"
+        label="Luxury"
+        description="Premium features with leather interior and advanced technology package."
+      />
+    </ChoiceBox>
+  )
+}
+```
+
+## Components
+
+### ChoiceBox
+
+The root container component for the choice box.
+
+| Prop            | Type                                    | Default     | Description                                |
+| --------------- | --------------------------------------- | ----------- | ------------------------------------------ |
+| `columns`       | `1 \| 2 \| 3 \| 4 \| 5 \| 6`           | `1`         | Number of columns for grid layout          |
+| `gap`           | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`      | `0`         | Gap between items                          |
+| `selectionMode` | `"single" \| "multiple"`                | `"single"`  | Selection mode                             |
+| `isReadOnly`    | `boolean`                               | `false`     | Whether the choice box is read-only        |
+| `className`     | `string`                                | -           | Additional CSS classes                     |
+
+All standard `GridList` props from React Aria Components are also supported.
+
+### ChoiceBoxItem
+
+An individual choice item within the choice box.
+
+| Prop          | Type      | Default | Description                                |
+| ------------- | --------- | ------- | ------------------------------------------ |
+| `label`       | `string`  | -       | Label text for the item                    |
+| `description` | `string`  | -       | Description text displayed below the label |
+| `className`   | `string`  | -       | Additional CSS classes                     |
+
+All standard `GridListItem` props from React Aria Components are also supported.
+
+### ChoiceBoxLabel
+
+The label text component for choice items.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+All standard `Text` props from React Aria Components are also supported.
+
+### ChoiceBoxDescription
+
+The description text component for choice items.
+
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
+
+All standard `Text` props from React Aria Components are also supported.
+
+## Examples
+
+### Single Selection
+
+```tsx
+<ChoiceBox aria-label="Select plan" selectionMode="single">
+  <ChoiceBoxItem textValue="basic" label="Basic" />
+  <ChoiceBoxItem textValue="pro" label="Pro" />
+  <ChoiceBoxItem textValue="enterprise" label="Enterprise" />
+</ChoiceBox>
+```
+
+### Multiple Selection
+
+```tsx
+<ChoiceBox aria-label="Select features" selectionMode="multiple">
+  <ChoiceBoxItem textValue="feature1" label="Feature 1" />
+  <ChoiceBoxItem textValue="feature2" label="Feature 2" />
+  <ChoiceBoxItem textValue="feature3" label="Feature 3" />
+</ChoiceBox>
+```
+
+### Grid Layout
+
+```tsx
+<ChoiceBox aria-label="Select plan" columns={3} gap={4}>
+  <ChoiceBoxItem textValue="basic" label="Basic" />
+  <ChoiceBoxItem textValue="pro" label="Pro" />
+  <ChoiceBoxItem textValue="enterprise" label="Enterprise" />
+</ChoiceBox>
+```
+
+### With Descriptions
+
+```tsx
+<ChoiceBox aria-label="Select plan">
+  <ChoiceBoxItem
+    textValue="basic"
+    label="Basic"
+    description="Perfect for personal projects"
+  />
+  <ChoiceBoxItem
+    textValue="pro"
+    label="Pro"
+    description="Great for small teams"
+  />
+</ChoiceBox>
+```
+
+### Custom Children
+
+```tsx
+<ChoiceBox aria-label="Select option">
+  <ChoiceBoxItem textValue="option1">
+    <ChoiceBoxLabel>Option 1</ChoiceBoxLabel>
+    <ChoiceBoxDescription>Custom content here</ChoiceBoxDescription>
+  </ChoiceBoxItem>
+</ChoiceBox>
+```

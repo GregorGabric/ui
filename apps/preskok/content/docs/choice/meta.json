@@ -1,4 +1,4 @@
 {
   "title": "Choice Pickers",
-  "pages": ["select", "combo-box", "radio"]
+  "pages": ["select", "combo-box", "radio", "choice-box"]
 }
