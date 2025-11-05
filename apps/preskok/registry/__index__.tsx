@@ -760,12 +760,12 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["button","primitive"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/disclosure.tsx",
+      path: "registry/preskok/ui/preskok-ui/disclosure-group.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/disclosure.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/disclosure-group.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4326,6 +4326,24 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/link-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "link-button-preskok-demo": {
+    name: "link-button-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["link","button"],
+    files: [{
+      path: "registry/preskok/examples/link-button-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/link-button-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

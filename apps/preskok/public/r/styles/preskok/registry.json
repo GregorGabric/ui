@@ -740,7 +740,7 @@
       ],
       "files": [
         {
-          "path": "registry/preskok/ui/preskok-ui/disclosure.tsx",
+          "path": "registry/preskok/ui/preskok-ui/disclosure-group.tsx",
           "type": "registry:ui"
         }
       ]
@@ -4615,6 +4615,20 @@
       "files": [
         {
           "path": "registry/preskok/examples/link-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "link-button-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "link",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/link-button-preskok-demo.tsx",
           "type": "registry:example"
         }
       ]

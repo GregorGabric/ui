@@ -40,30 +40,30 @@ export function UserMenu() {
         </MenuSection>
 
         <MenuItem href="#dashboard">
-          <LayoutDashboardIcon />
+          <LayoutDashboardIcon data-slot="icon" />
           Dashboard
         </MenuItem>
         <MenuItem href="#settings">
-          <SettingsIcon />
+          <SettingsIcon data-slot="icon" />
           Settings
         </MenuItem>
         <MenuItem href="#security">
-          <ShieldIcon />
+          <ShieldIcon data-slot="icon" />
           Security
         </MenuItem>
         <MenuSeparator />
         <MenuItem>
-          <CommandIcon />
+          <CommandIcon data-slot="icon" />
           Command Menu
         </MenuItem>
 
         <MenuItem href="#contact">
-          <HeadphonesIcon />
+          <HeadphonesIcon data-slot="icon" />
           Customer Support
         </MenuItem>
         <MenuSeparator />
         <MenuItem href="#logout">
-          <LogOutIcon />
+          <LogOutIcon data-slot="icon" />
           Log out
         </MenuItem>
       </MenuContent>

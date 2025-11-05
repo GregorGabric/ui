@@ -269,6 +269,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "link-button-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["link", "button"],
+    files: [
+      {
+        path: "examples/link-button-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "list-box-preskok-demo",
     type: "registry:example",
     registryDependencies: ["list-box", "dropdown"],

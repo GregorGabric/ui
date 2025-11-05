@@ -567,7 +567,7 @@ export const preskokUi: Registry["items"] = [
     registryDependencies: ["button", "primitive"],
     files: [
       {
-        path: "ui/preskok-ui/disclosure.tsx",
+        path: "ui/preskok-ui/disclosure-group.tsx",
         type: "registry:ui",
       },
     ],

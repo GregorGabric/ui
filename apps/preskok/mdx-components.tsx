@@ -19,7 +19,7 @@ import {
   DisclosurePanel as AccordionContent,
   Disclosure as AccordionItem,
   DisclosureTrigger as AccordionTrigger,
-} from "@/registry/preskok/ui/preskok-ui/disclosure"
+} from "@/registry/preskok/ui/preskok-ui/disclosure-group"
 import { Note as Alert } from "@/registry/preskok/ui/preskok-ui/note"
 import {
   Tabs,

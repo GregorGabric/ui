@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link-button-preskok-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "link",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/link-button-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { buttonStyles } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Link } from \"@/registry/preskok/ui/preskok-ui/link\"\n\nexport default function LinkButtonPreskokDemo() {\n  return (\n    <div className=\"flex gap-2\">\n      <Link className={buttonStyles()} href=\"#use-as-button\">\n        Link\n      </Link>\n      <Link\n        className={buttonStyles({ intent: \"outline\" })}\n        href=\"#use-as-button\"\n      >\n        Link\n      </Link>\n      <Link\n        className={buttonStyles({ intent: \"plain\", isCircle: true })}\n        href=\"#use-as-button\"\n      >\n        Link\n      </Link>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

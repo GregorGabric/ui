@@ -42,26 +42,29 @@ const generateCompoundVariants = (sides: Array<Sides>) => {
   }))
 }
 
-const contentStyles = tv({
-  base: "fixed z-50 grid gap-4 border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg transition ease-in-out dark:border-border",
+const sheetContentStyles = tv({
+  base: [
+    "fixed z-50 grid gap-4 border-muted-fg/20 bg-overlay text-overlay-fg shadow-lg dark:border-border",
+    "transform-gpu transition ease-in-out will-change-transform",
+  ],
   variants: {
     isEntering: {
-      true: "fade-in animate-in duration-300",
+      true: "fade-in animate-in duration-500",
     },
     isExiting: {
-      true: "fade-out animate-out",
+      true: "fade-in animate-out duration-300",
     },
     side: {
       top: "entering:slide-in-from-top exiting:slide-out-to-top inset-x-0 top-0 rounded-b-2xl border-b",
       bottom:
         "entering:slide-in-from-bottom exiting:slide-out-to-bottom inset-x-0 bottom-0 rounded-t-2xl border-t",
-      left: "entering:slide-in-from-left exiting:slide-out-to-left inset-y-0 left-0 h-auto w-3/4 overflow-y-auto border-r sm:max-w-sm",
+      left: "entering:slide-in-from-left exiting:slide-out-to-left-80 inset-y-0 left-0 h-auto w-3/4 overflow-y-auto border-r sm:max-w-80",
       right:
-        "entering:slide-in-from-right exiting:slide-out-to-right inset-y-0 right-0 h-auto w-3/4 overflow-y-auto border-l sm:max-w-sm",
+        "entering:slide-in-from-right exiting:slide-out-to-right-80 inset-y-0 right-0 h-auto w-3/4 overflow-y-auto border-l sm:max-w-80",
     },
     isFloat: {
-      false: "border-foreground/20 dark:border-border",
-      true: "ring-foreground/5 dark:ring-border",
+      false: "border-fg/20 dark:border-border",
+      true: "ring-fg/5 dark:ring-border",
     },
   },
   compoundVariants: generateCompoundVariants([
@@ -106,16 +109,16 @@ const SheetContent = ({
       className={({ isExiting, isEntering }) =>
         twJoin(
           "fixed inset-0 z-50 h-(--visual-viewport-height,100vh) w-screen overflow-hidden bg-black/15",
-          isEntering && "fade-in animate-in duration-300",
-          isExiting && "fade-out animate-out duration-200",
-          isBlurred && "backdrop-blur-sm backdrop-filter"
+          isEntering && "fade-in animate-in duration-500",
+          isExiting && "fade-out animate-out duration-300",
+          isBlurred && "backdrop-blur-[1px] backdrop-filter"
         )
       }
       {...props}
     >
       <Modal
         className={composeRenderProps(className, (className, renderProps) =>
-          contentStyles({
+          sheetContentStyles({
             ...renderProps,
             side,
             isFloat,
@@ -148,15 +151,6 @@ const SheetTitle = DialogTitle
 const SheetDescription = DialogDescription
 const SheetBody = DialogBody
 const SheetClose = DialogClose
-
-Sheet.Trigger = SheetTrigger
-Sheet.Footer = SheetFooter
-Sheet.Header = SheetHeader
-Sheet.Title = SheetTitle
-Sheet.Description = SheetDescription
-Sheet.Body = SheetBody
-Sheet.Close = SheetClose
-Sheet.Content = SheetContent
 
 export {
   Sheet,

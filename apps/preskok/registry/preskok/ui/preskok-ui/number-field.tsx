@@ -1,6 +1,3 @@
-"use client"
-
-import React from "react"
 import { MinusIcon, PlusIcon } from "lucide-react"
 import {
   Button,
@@ -53,7 +50,7 @@ const StepperButton = ({
   return (
     <Button
       className={cx(
-        "pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center disabled:opacity-50",
+        "pressed:text-fg text-muted-fg hover:text-fg grid place-content-center disabled:opacity-50",
         "bg-input/20 pressed:bg-input/60 size-full min-w-11 grow sm:min-w-8.5",
         "*:data-[slot=stepper-icon]:size-5 sm:*:data-[slot=stepper-icon]:size-4",
         className
@@ -62,9 +59,9 @@ const StepperButton = ({
       {...props}
     >
       {slot === "increment" ? (
-        <PlusIcon className="size-5" data-slot="stepper-icon" />
+        <PlusIcon data-slot="stepper-icon" />
       ) : (
-        <MinusIcon className="size-5" data-slot="stepper-icon" />
+        <MinusIcon data-slot="stepper-icon" />
       )}
     </Button>
   )

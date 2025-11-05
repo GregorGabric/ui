@@ -1,17 +1,16 @@
 "use client"
 
-import { NumberField } from "@/registry/preskok/ui/preskok-ui/number-field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import {
+  NumberField,
+  NumberInput,
+} from "@/registry/preskok/ui/preskok-ui/number-field"
 
 export default function NumberFieldPreskokDemo() {
   return (
-    <div className="space-y-4">
-      <NumberField
-        name="quantity"
-        defaultValue={1}
-        minValue={0}
-        maxValue={10}
-      />
-      <NumberField name="price" defaultValue={9.99} />
-    </div>
+    <NumberField>
+      <Label>Cookies</Label>
+      <NumberInput />
+    </NumberField>
   )
 }

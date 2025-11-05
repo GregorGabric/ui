@@ -1,44 +1,31 @@
 "use client"
 
-import React from "react"
 import {
   Link as LinkPrimitive,
   type LinkProps as LinkPrimitiveProps,
 } from "react-aria-components"
-import { twJoin } from "tailwind-merge"
 
-import { composeTailwindRenderProps } from "@/registry/preskok/lib/primitive"
+import { cx } from "@/registry/preskok/lib/primitive"
 
 interface LinkProps extends LinkPrimitiveProps {
-  intent?: "primary" | "secondary" | "unstyled"
   ref?: React.RefObject<HTMLAnchorElement>
 }
 
-const Link = ({ className, ref, intent = "unstyled", ...props }: LinkProps) => {
+const Link = ({ className, ref, ...props }: LinkProps) => {
   return (
     <LinkPrimitive
       ref={ref}
+      className={cx(
+        [
+          "font-medium text-(--text)",
+          "focus-visible:outline-ring outline-0 outline-offset-2 focus-visible:outline-2 forced-colors:outline-[Highlight]",
+          "disabled:text-muted-fg disabled:cursor-default forced-colors:disabled:text-[GrayText]",
+          "href" in props && "cursor-pointer",
+        ],
+        className
+      )}
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        twJoin([
-          "focus-visible:outline-ring outline-0 outline-offset-2 transition-[color,_opacity] focus-visible:outline-2 forced-colors:outline-[Highlight]",
-          "disabled:cursor-default disabled:opacity-60 forced-colors:disabled:text-[GrayText]",
-          intent === "unstyled" && "text-current",
-          intent === "primary" && "text-primary hover:text-primary/80",
-          intent === "secondary" &&
-            "text-muted-foreground hover:text-foreground",
-        ])
-      )}
-    >
-      {(values) => (
-        <>
-          {typeof props.children === "function"
-            ? props.children(values)
-            : props.children}
-        </>
-      )}
-    </LinkPrimitive>
+    />
   )
 }
 

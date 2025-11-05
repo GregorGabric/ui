@@ -43,9 +43,18 @@ npx @preskok-org/ui@latest add tooltip
 ## Usage
 
 ```tsx
-import { Tooltip } from "@/registry/preskok/ui/preskok-ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export function TooltipDemo() {
-  return <Tooltip label="More info">Hover me</Tooltip>
+  return (
+    <Tooltip>
+      <TooltipTrigger aria-label="mileage">Mileage ?</TooltipTrigger>
+      <TooltipContent>34 mpg</TooltipContent>
+    </Tooltip>
+  )
 }
 ```

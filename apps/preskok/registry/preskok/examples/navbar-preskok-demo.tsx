@@ -97,8 +97,7 @@ export default function AppNavbar(props: NavbarProps) {
           <NavbarItem href="#" isCurrent>
             Home
           </NavbarItem>
-          <NavbarItem href="#">Shop</NavbarItem>
-          <NavbarItem href="#">Offers</NavbarItem>
+
           <NavbarItem href="#">Orders</NavbarItem>
           <Menu>
             <NavbarItem>
@@ -120,10 +119,10 @@ export default function AppNavbar(props: NavbarProps) {
         <NavbarSpacer />
         <NavbarSection className="max-md:hidden">
           <Button intent="plain" size="sq-sm" aria-label="Search for products">
-            <SearchIcon />
+            <SearchIcon data-slot="icon" />
           </Button>
           <Button intent="plain" size="sq-sm" aria-label="Your Bag">
-            <ShoppingBagIcon />
+            <ShoppingBagIcon data-slot="icon" />
           </Button>
           <Separator orientation="vertical" className="mr-3 ml-1 h-5" />
           <UserMenu />
@@ -133,10 +132,10 @@ export default function AppNavbar(props: NavbarProps) {
         <NavbarTrigger />
         <NavbarSpacer />
         <Button intent="plain" size="sq-sm" aria-label="Search for products">
-          <SearchIcon />
+          <SearchIcon data-slot="icon" />
         </Button>
         <Button intent="plain" size="sq-sm" aria-label="Your Bag">
-          <ShoppingBagIcon />
+          <ShoppingBagIcon data-slot="icon" />
         </Button>
         <NavbarSeparator className="mr-2.5" />
         <UserMenu />

@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/number-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { NumberField } from \"@/registry/preskok/ui/preskok-ui/number-field\"\n\nexport default function NumberFieldPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <NumberField\n        name=\"quantity\"\n        defaultValue={1}\n        minValue={0}\n        maxValue={10}\n      />\n      <NumberField name=\"price\" defaultValue={9.99} />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport {\n  NumberField,\n  NumberInput,\n} from \"@/registry/preskok/ui/preskok-ui/number-field\"\n\nexport default function NumberFieldPreskokDemo() {\n  return (\n    <NumberField>\n      <Label>Cookies</Label>\n      <NumberInput />\n    </NumberField>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

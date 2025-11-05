@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/link-preskok-demo.tsx",
-      "content": "import { Link } from \"@/registry/preskok/ui/preskok-ui/link\"\n\nexport default function LinkPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Link href=\"#\" intent=\"primary\">\n        Primary link\n      </Link>\n      <Link href=\"#\" intent=\"secondary\">\n        Secondary link\n      </Link>\n      <Link href=\"#\" intent=\"unstyled\">\n        Unstyled link\n      </Link>\n    </div>\n  )\n}\n",
+      "content": "import { Link } from \"@/registry/preskok/ui/preskok-ui/link\"\n\nexport default function LinkPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Link href=\"#\">Primary link</Link>\n      <Link href=\"#\">Secondary link</Link>\n      <Link href=\"#\">Unstyled link</Link>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

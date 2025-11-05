@@ -137,8 +137,8 @@
   --overlay: oklch(1 0 0);
   --overlay-foreground: oklch(0.147 0.004 49.25);
 
-  --accent: oklch(0.546 0.245 262.881);
-  --accent-foreground: oklch(1 0 0);
+  --accent: oklch(92% 0.004 286.32);
+  --accent-foreground: oklch(14.1% 0.005 285.823);
 
   --muted: oklch(0.97 0.001 106.424);
   --muted-foreground: oklch(0.553 0.013 58.071);

@@ -8,6 +8,13 @@ description: Navigate to internal or external destinations with accessible links
   description="Link variants: primary, secondary, unstyled."
 />
 
+## Use as button
+
+<ComponentPreview
+  name="link-button-preskok-demo"
+  description="Link variants: primary, secondary, unstyled."
+/>
+
 ## Installation
 
 ```bash
@@ -19,11 +26,7 @@ npx @preskok-org/ui@latest add link
 ```tsx
 import { Link } from "@/registry/preskok/ui/preskok-ui/link"
 
-export function Example() {
-  return (
-    <Link href="#" intent="primary">
-      Docs
-    </Link>
-  )
+function Demo() {
+  return <Link href="#basic">Label</Link>
 }
 ```
