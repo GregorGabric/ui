@@ -37,10 +37,10 @@ export function Component() {
               <HomeIcon data-slot="icon" />
               <CommandMenuLabel>Home</CommandMenuLabel>
             </CommandMenuItem>
-            <CommandMenuItem textValue="Docs" href="#">
+            <CommandMenuItem textValue="Vehicle Inventory" href="#">
               <NotebookIcon data-slot="icon" />
-              <CommandMenuLabel>Docs</CommandMenuLabel>
-              <CommandMenuShortcut keys="⌘k" />
+              <CommandMenuLabel>Vehicle Inventory</CommandMenuLabel>
+              <CommandMenuShortcut keys="⌘v" />
             </CommandMenuItem>
             <CommandMenuItem textValue="Components" href="#">
               <BoxIcon data-slot="icon" />
@@ -79,27 +79,27 @@ export function Component() {
 const users = [
   {
     id: 1,
-    name: "Barbara Kirlin Sr.",
+    name: "Mike Johnson",
     image_url: "https://i.pravatar.cc/150?img=1",
   },
   {
     id: 2,
-    name: "Rosemarie Koch",
+    name: "Sarah Martinez",
     image_url: "https://i.pravatar.cc/150?img=2",
   },
   {
     id: 3,
-    name: "Mrs. Reva Heaney Jr.",
+    name: "David Chen",
     image_url: "https://i.pravatar.cc/150?img=3",
   },
   {
     id: 5,
-    name: "Bria Ziemann",
+    name: "Emily Rodriguez",
     image_url: "https://i.pravatar.cc/150?img=5",
   },
   {
     id: 6,
-    name: "Heloise Borer Sr.",
+    name: "James Wilson",
     image_url: "https://i.pravatar.cc/150?img=6",
   },
 ]
