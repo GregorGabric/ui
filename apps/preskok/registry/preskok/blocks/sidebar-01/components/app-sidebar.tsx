@@ -68,7 +68,7 @@ export default function AppSidebar(
         >
           <PreskokIcon className="size-6" />
           <SidebarLabel className="font-medium">
-            Intent <span className="text-muted-fg">UI</span>
+            Preskok <span className="text-muted-foreground">UI</span>
           </SidebarLabel>
         </Link>
       </SidebarHeader>
@@ -234,7 +234,7 @@ export default function AppSidebar(
               />
               <div className="text-sm in-data-[collapsible=dock]:hidden">
                 <SidebarLabel>Kurt Cobain</SidebarLabel>
-                <span className="text-muted-fg -mt-0.5 block">
+                <span className="text-muted-foreground -mt-0.5 block">
                   kurt@domain.com
                 </span>
               </div>
@@ -248,7 +248,9 @@ export default function AppSidebar(
             <MenuSection>
               <MenuHeader separator>
                 <span className="block">Kurt Cobain</span>
-                <span className="text-muted-fg font-normal">@cobain</span>
+                <span className="text-muted-foreground font-normal">
+                  @cobain
+                </span>
               </MenuHeader>
             </MenuSection>
             <MenuItem href="#dashboard">
