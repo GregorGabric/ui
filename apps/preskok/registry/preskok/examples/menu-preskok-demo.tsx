@@ -1,6 +1,6 @@
 "use client"
 
-import { Pencil, Trash2 } from "lucide-react"
+import { PencilIcon, TrashIcon } from "lucide-react"
 
 import {
   Menu,
@@ -20,13 +20,17 @@ export default function MenuPreskokDemo() {
           <MenuLabel>View</MenuLabel>
         </MenuItem>
         <MenuItem>
-          <Pencil data-slot="icon" />
+          <PencilIcon data-slot="icon" />
           <MenuLabel>Edit</MenuLabel>
         </MenuItem>
         <MenuSeparator />
         <MenuItem intent="danger">
-          <Trash2 data-slot="icon" />
+          <TrashIcon data-slot="icon" />
           <MenuLabel>Delete</MenuLabel>
+        </MenuItem>
+        <MenuItem intent="warning">
+          <TrashIcon data-slot="icon" />
+          <MenuLabel>Warning</MenuLabel>
         </MenuItem>
       </MenuContent>
     </Menu>

@@ -62,14 +62,14 @@ const dropdownItemStyles = tv({
   variants: {
     intent: {
       danger: [
-        "text-destructive-foreground focus:text-destructive-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-destructive/70",
-        "*:[[slot=description]]:text-destructive/80 focus:*:[[slot=description]]:text-destructive-foreground focus:*:[[slot=label]]:text-destructive-foreground",
-        "focus:bg-destructive/10 focus:text-destructive-foreground forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-destructive-foreground",
+        "text-destructive focus:text-destructive [&_[data-slot='icon']:not([class*='text-'])]:text-destructive/70",
+        "*:[[slot=description]]:text-destructive/80 focus:*:[[slot=description]]:text-destructive focus:*:[[slot=label]]:text-destructive",
+        "focus:bg-destructive/10 focus:text-destructive forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-destructive",
       ],
       warning: [
-        "text-warning-foreground focus:text-warning-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-warning/70",
-        "*:[[slot=description]]:text-warning/80 focus:*:[[slot=description]]:text-warning-foreground focus:*:[[slot=label]]:text-warning-foreground",
-        "focus:bg-warning/10 focus:text-warning-foreground focus:[&_[data-slot='icon']:not([class*='text-'])]:text-warning-foreground",
+        "text-warning focus:text-warning [&_[data-slot='icon']:not([class*='text-'])]:text-warning/70",
+        "*:[[slot=description]]:text-warning/80 focus:*:[[slot=description]]:text-warning focus:*:[[slot=label]]:text-warning",
+        "focus:bg-warning/10 focus:text-warning focus:[&_[data-slot='icon']:not([class*='text-'])]:text-warning",
       ],
     },
     isDisabled: {
