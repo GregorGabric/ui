@@ -80,7 +80,7 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
                     "group-invalid:inset-ring-destructive/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive/20",
                   ],
                   isInvalid &&
-                    "inset-ring-destructive/70 bg-destructive/0 text-destructive-foreground ring-destructive/20 group-hover:inset-ring-destructive/70",
+                    "inset-ring-destructive/70 text-destructive-foreground ring-destructive/20 group-hover:inset-ring-destructive/70",
                 ])}
               >
                 {indicator}

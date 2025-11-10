@@ -96,10 +96,10 @@ const SelectTrigger = ({
       <Button
         className={cx(
           "group/select-trigger border-input text-foreground flex w-full min-w-0 cursor-default items-center gap-x-2 rounded-lg border px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] text-start outline-hidden transition duration-200 sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6 sm:*:text-sm/6 dark:shadow-none",
-          "focus:border-ring/70 focus:bg-primary/5 focus:ring-ring/20 focus:enabled:hover:border-ring/80 focus:ring-3",
+          "focus:border-ring/70 focus:ring-ring/20 focus:enabled:hover:border-ring/80 focus:ring-3",
           "enabled:hover:border-muted-foreground/30",
-          "group-open/select:border-ring/70 group-open/select:bg-primary/5 group-open/select:ring-ring/20 group-open/select:ring-3",
-          "group-open/select:invalid:border-destructive/70 group-open/select:invalid:bg-destructive/0 group-open/select:invalid:ring-destructive/20 group-invalid/select:border-destructive/70 group-invalid/select:bg-destructive/0 group-invalid/select:ring-destructive/20 group-invalid/select:enabled:hover:border-destructive/80 group-focus/select:group-invalid/select:border-destructive/70 group-focus/select:group-invalid/select:ring-destructive/20 group-focus/select:group-invalid/select:enabled:hover:border-destructive/80 group-open/select:invalid:ring-3",
+          "group-open/select:border-ring/70 group-open/select:ring-ring/20 group-open/select:ring-3",
+          "group-open/select:invalid:border-destructive/70 group-open/select:invalid:ring-destructive/20 group-invalid/select:border-destructive/70 group-invalid/select:ring-destructive/20 group-invalid/select:enabled:hover:border-destructive/80 group-focus/select:group-invalid/select:border-destructive/70 group-focus/select:group-invalid/select:ring-destructive/20 group-focus/select:group-invalid/select:enabled:hover:border-destructive/80 group-open/select:invalid:ring-3",
           "pressed:*:data-[slot=icon]:text-(--btn-icon-active) *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 enabled:hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
           "*:data-[slot=loader]:size-5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:size-4",
           "forced-colors:group-invalid/select:border-[Mark] forced-colors:group-focus/select:border-[Highlight] forced-colors:group-focus/select:group-invalid/select:border-[Mark]",

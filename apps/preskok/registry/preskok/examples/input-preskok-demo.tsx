@@ -5,6 +5,7 @@ import { MailIcon, SearchIcon } from "lucide-react"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Input, InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
 import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
+import { Text } from "@/registry/preskok/ui/preskok-ui/text"
 
 export default function InputPreskokDemo() {
   return (
@@ -50,11 +51,10 @@ export default function InputPreskokDemo() {
         <label className="mb-2 block text-sm font-medium">
           Input with Text Prefix
         </label>
-        <InputGroup>
-          <span data-slot="text" className="text-muted-foreground">
-            https://
-          </span>
-          <Input placeholder="example.com" />
+        <InputGroup className="[--input-gutter-end:--spacing(12)] [--input-gutter-start:--spacing(16)]">
+          <Text>https://</Text>
+          <Input />
+          <Text>.com</Text>
         </InputGroup>
       </div>
     </div>

@@ -50,7 +50,7 @@ const DropdownSection = <T extends object>({
 
 const dropdownItemStyles = tv({
   base: [
-    "min-w-0 [--mr-icon:--spacing(2)] sm:[--mr-icon:--spacing(1.5)]",
+    "min-w-0 [--mr-icon:--spacing(2.5)] sm:[--mr-icon:--spacing(2)]",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] px-3 py-2 supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:px-2.5 sm:py-1.5",
     "not-has-[[slot=description]]:items-center",
     "group relative cursor-default select-none rounded-[calc(var(--radius-xl)-(--spacing(1)))] text-base/6 text-foreground outline-0 sm:text-sm/6",
@@ -64,16 +64,16 @@ const dropdownItemStyles = tv({
       danger: [
         "text-destructive-foreground focus:text-destructive-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-destructive/70",
         "*:[[slot=description]]:text-destructive/80 focus:*:[[slot=description]]:text-destructive-foreground focus:*:[[slot=label]]:text-destructive-foreground",
-        "focus:bg-destructive focus:text-destructive-foreground forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-destructive-foreground",
+        "focus:bg-destructive/10 focus:text-destructive-foreground forced-colors:focus:text-[Mark] focus:[&_[data-slot='icon']:not([class*='text-'])]:text-destructive-foreground",
       ],
       warning: [
-        "text-warning-subtle-foreground focus:text-warning-subtle-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-warning-subtle-foreground/70",
-        "*:[[slot=description]]:text-warning-subtle-foreground/80 focus:*:[[slot=description]]:text-warning-subtle-foreground focus:*:[[slot=label]]:text-warning-subtle-foreground",
-        "focus:bg-warning-subtle focus:text-warning-subtle-foreground focus:[&_[data-slot='icon']:not([class*='text-'])]:text-warning-subtle-foreground",
+        "text-warning-foreground focus:text-warning-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-warning/70",
+        "*:[[slot=description]]:text-warning/80 focus:*:[[slot=description]]:text-warning-foreground focus:*:[[slot=label]]:text-warning-foreground",
+        "focus:bg-warning/10 focus:text-warning-foreground focus:[&_[data-slot='icon']:not([class*='text-'])]:text-warning-foreground",
       ],
     },
     isDisabled: {
-      true: "text-muted-foreground forced-colors:text-[GrayText]",
+      true: "opacity-50 forced-colors:text-[GrayText]",
     },
     isSelected: {
       true: "**:data-[slot=icon]:text-accent-foreground",

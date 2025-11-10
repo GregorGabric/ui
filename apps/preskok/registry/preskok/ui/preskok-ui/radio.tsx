@@ -61,7 +61,7 @@ export function Radio({ className, children, ...props }: RadioProps) {
                     "group-invalid:inset-ring-destructive/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive/20",
                   ],
                   isInvalid &&
-                    "inset-ring-destructive/70 bg-destructive/0 text-destructive-foreground ring-destructive/20",
+                    "inset-ring-destructive/70 text-destructive-foreground ring-destructive/20",
                 ])}
               />
               {content}
