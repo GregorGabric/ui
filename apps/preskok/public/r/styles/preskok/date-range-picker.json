@@ -8,9 +8,10 @@
     "react-aria-components"
   ],
   "registryDependencies": [
-    "calendar",
+    "date-picker",
+    "field",
+    "input",
     "date-field",
-    "popover",
     "primitive"
   ],
   "files": [

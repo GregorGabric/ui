@@ -687,7 +687,16 @@ export const preskokUi: Registry["items"] = [
     description:
       "A date picker component with calendar popup for date selection",
     dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["calendar", "date-field", "popover", "primitive"],
+    registryDependencies: [
+      "calendar",
+      "popover",
+      "primitive",
+      "modal",
+      "range-calendar",
+      "date-field",
+      "field",
+      "input",
+    ],
     files: [
       {
         path: "ui/preskok-ui/date-picker.tsx",
@@ -700,7 +709,13 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A date range picker component with calendar popup",
     dependencies: ["@internationalized/date", "react-aria-components"],
-    registryDependencies: ["calendar", "date-field", "popover", "primitive"],
+    registryDependencies: [
+      "date-picker",
+      "field",
+      "input",
+      "date-field",
+      "primitive",
+    ],
     files: [
       {
         path: "ui/preskok-ui/date-range-picker.tsx",

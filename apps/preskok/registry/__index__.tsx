@@ -920,7 +920,7 @@ export const Index: Record<string, any> = {
     name: "date-picker",
     description: "A date picker component with calendar popup for date selection",
     type: "registry:ui",
-    registryDependencies: ["calendar","date-field","popover","primitive"],
+    registryDependencies: ["calendar","popover","primitive","modal","range-calendar","date-field","field","input"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-picker.tsx",
       type: "registry:ui",
@@ -938,7 +938,7 @@ export const Index: Record<string, any> = {
     name: "date-range-picker",
     description: "A date range picker component with calendar popup",
     type: "registry:ui",
-    registryDependencies: ["calendar","date-field","popover","primitive"],
+    registryDependencies: ["date-picker","field","input","date-field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-range-picker.tsx",
       type: "registry:ui",

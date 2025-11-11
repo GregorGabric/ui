@@ -9,9 +9,13 @@
   ],
   "registryDependencies": [
     "calendar",
-    "date-field",
     "popover",
-    "primitive"
+    "primitive",
+    "modal",
+    "range-calendar",
+    "date-field",
+    "field",
+    "input"
   ],
   "files": [
     {

@@ -880,9 +880,13 @@
       ],
       "registryDependencies": [
         "calendar",
-        "date-field",
         "popover",
-        "primitive"
+        "primitive",
+        "modal",
+        "range-calendar",
+        "date-field",
+        "field",
+        "input"
       ],
       "files": [
         {
@@ -900,9 +904,10 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "calendar",
+        "date-picker",
+        "field",
+        "input",
         "date-field",
-        "popover",
         "primitive"
       ],
       "files": [
