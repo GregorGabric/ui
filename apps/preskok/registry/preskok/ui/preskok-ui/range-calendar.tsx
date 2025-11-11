@@ -41,7 +41,7 @@ export function RangeCalendar<T extends DateValue>({
                     <CalendarCell
                       date={date}
                       className={twMerge([
-                        "shrink-0 [--cell-foreground:var(--color-primary-foreground)] [--cell:var(--color-primary)]",
+                        "shrink-0 [--cell-foreground:var(--color-primary)] [--cell:var(--color-primary)]/15",
                         "group/calendar-cell selection-start:rounded-s-lg data-outside-month:text-muted-foreground relative size-11 cursor-default [line-height:2.286rem] outline-hidden data-selection-end:rounded-e-lg sm:size-9 sm:text-sm",
                         "selected:bg-(--cell) selected:text-(--cell-foreground)",
                         "selected:after:bg-primary-foreground focus-visible:after:bg-primary-foreground",

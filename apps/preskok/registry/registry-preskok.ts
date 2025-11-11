@@ -696,6 +696,7 @@ export const preskokUi: Registry["items"] = [
       "date-field",
       "field",
       "input",
+      "use-media-query",
     ],
     files: [
       {

@@ -886,7 +886,8 @@
         "range-calendar",
         "date-field",
         "field",
-        "input"
+        "input",
+        "use-media-query"
       ],
       "files": [
         {
