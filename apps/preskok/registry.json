@@ -4118,6 +4118,16 @@
       ]
     },
     {
+      "name": "use-media-query",
+      "type": "registry:hook",
+      "files": [
+        {
+          "path": "registry/preskok/hooks/use-media-query.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "theme-daylight",
       "type": "registry:theme",
       "cssVars": {
