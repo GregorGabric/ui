@@ -15,7 +15,7 @@
   --font-mono:
     var(--font-geist-mono), "ui-monospace", "SFMono-Regular", "Menlo", "Monaco",
     "Consolas", '"Liberation Mono"', '"Courier New"', "monospace";
-  --color-shiki-bg: var(--shiki-bg);
+  --color-shiki-background: var(--shiki-background);
   --color-shiki-border: var(--input);
 
   --color-border: var(--border);
@@ -23,53 +23,53 @@
 
   --color-ring: var(--ring);
 
-  --color-bg: var(--background);
+  --color-background: var(--background);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-fg: var(--color-foreground);
+  --color-foreground: var(--color-foreground);
 
   --color-primary: var(--primary);
-  --color-primary-fg: var(--primary-foreground);
+  --color-primary-foreground: var(--primary-foreground);
 
   --color-secondary: var(--secondary);
-  --color-secondary-fg: var(--secondary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
 
   --color-accent: var(--accent);
-  --color-accent-fg: var(--accent-foreground);
+  --color-accent-foreground: var(--accent-foreground);
 
   --color-success: var(--success);
-  --color-success-fg: var(--success-foreground);
+  --color-success-foreground: var(--success-foreground);
 
   --color-danger: var(--danger);
-  --color-danger-fg: var(--danger-foreground);
+  --color-danger-foreground: var(--danger-foreground);
 
   --color-warning: var(--warning);
-  --color-warning-fg: var(--warning-foreground);
+  --color-warning-foreground: var(--warning-foreground);
 
   --color-muted: var(--muted);
-  --color-muted-fg: var(--muted-foreground);
+  --color-muted-foreground: var(--muted-foreground);
 
   --color-card: var(--card);
-  --color-card-fg: var(--card-foreground);
+  --color-card-foreground: var(--card-foreground);
 
   --color-popover: var(--popover);
-  --color-popover-fg: var(--popover-foreground);
+  --color-popover-foreground: var(--popover-foreground);
 
   --color-destructive: var(--destructive);
-  --color-destructive-fg: var(--destructive-foreground);
+  --color-destructive-foreground: var(--destructive-foreground);
 
   --color-overlay: var(--overlay);
-  --color-overlay-fg: var(--overlay-foreground);
+  --color-overlay-foreground: var(--overlay-foreground);
 
   --color-navbar: var(--navbar);
-  --color-navbar-fg: var(--navbar-foreground);
+  --color-navbar-foreground: var(--navbar-foreground);
 
   --color-sidebar: var(--sidebar);
-  --color-sidebar-fg: var(--sidebar-foreground);
+  --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-fg: var(--sidebar-primary-foreground);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-fg: var(--sidebar-accent-foreground);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
@@ -123,7 +123,7 @@
 :root {
   --background: oklch(1 0 0);
 
-  --shiki-bg: #ffffff;
+  --shiki-background: #ffffff;
   --shiki-light: #000000;
 
   --foreground: oklch(0.147 0.004 49.25);
@@ -204,8 +204,8 @@
 }
 
 .dark {
-  --shiki-bg: #09090b;
-  --shiki-dark: var(--shiki-bg);
+  --shiki-background: #09090b;
+  --shiki-dark: var(--shiki-background);
 
   --background: oklch(0.097 0.004 49.25);
   --foreground: oklch(0.985 0.001 106.423);
@@ -351,7 +351,7 @@
 }
 
 @utility section-soft {
-  @apply from-bg to-surface/40 dark:bg-bg 3xl:fixed:bg-none bg-gradient-to-b;
+  @apply from-background to-surface/40 dark:bg-background 3xl:fixed:bg-none bg-gradient-to-b;
 }
 
 @utility theme-container {
@@ -406,7 +406,7 @@
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
-  background-color: var(--shiki-bg) !important;
+  background-color: var(--shiki-background) !important;
 }
 
 .react-aria-DropIndicator[data-drop-target] {

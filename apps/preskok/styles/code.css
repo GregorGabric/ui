@@ -1,5 +1,5 @@
 /* .shiki {
-  background-color: var(--shiki-light-bg);
+  background-color: var(--shiki-light-background);
 }
 
 .shiki span {
@@ -9,7 +9,7 @@
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
-  background-color: var(--color-shiki-bg) !important;
+  background-color: var(--color-shiki-background) !important;
 }
 
 [data-rehype-pretty-code-figure] {
