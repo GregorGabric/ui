@@ -444,7 +444,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "Core dropdown components used by other menu-like components",
     dependencies: ["react-aria-components", "tailwind-merge"],
-    registryDependencies: ["keyboard", "separator"],
+    registryDependencies: ["keyboard"],
     files: [
       {
         path: "ui/preskok-ui/dropdown.tsx",
@@ -503,13 +503,7 @@ export const preskokUi: Registry["items"] = [
     description:
       "A select component with searchable options and custom styling",
     dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: [
-      "button",
-      "field",
-      "list-box",
-      "popover",
-      "primitive",
-    ],
+    registryDependencies: ["primitive", "field", "popover", "dropdown"],
     files: [
       {
         path: "ui/preskok-ui/select.tsx",
@@ -660,6 +654,7 @@ export const preskokUi: Registry["items"] = [
       "lucide-react",
       "react-aria-components",
     ],
+    registryDependencies: ["button", "select"],
     files: [
       {
         path: "ui/preskok-ui/calendar.tsx",

@@ -8,11 +8,10 @@
     "react-aria-components"
   ],
   "registryDependencies": [
-    "button",
+    "primitive",
     "field",
-    "list-box",
     "popover",
-    "primitive"
+    "dropdown"
   ],
   "files": [
     {

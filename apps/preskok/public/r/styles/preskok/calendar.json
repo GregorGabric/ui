@@ -8,6 +8,10 @@
     "lucide-react",
     "react-aria-components"
   ],
+  "registryDependencies": [
+    "button",
+    "select"
+  ],
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/calendar.tsx",

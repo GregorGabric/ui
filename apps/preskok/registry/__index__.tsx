@@ -614,7 +614,7 @@ export const Index: Record<string, any> = {
     name: "dropdown",
     description: "Core dropdown components used by other menu-like components",
     type: "registry:ui",
-    registryDependencies: ["keyboard","separator"],
+    registryDependencies: ["keyboard"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/dropdown.tsx",
       type: "registry:ui",
@@ -686,7 +686,7 @@ export const Index: Record<string, any> = {
     name: "select",
     description: "A select component with searchable options and custom styling",
     type: "registry:ui",
-    registryDependencies: ["button","field","list-box","popover","primitive"],
+    registryDependencies: ["primitive","field","popover","dropdown"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/select.tsx",
       type: "registry:ui",
@@ -884,7 +884,7 @@ export const Index: Record<string, any> = {
     name: "calendar",
     description: "A calendar component with single and range selection support",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["button","select"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/calendar.tsx",
       type: "registry:ui",

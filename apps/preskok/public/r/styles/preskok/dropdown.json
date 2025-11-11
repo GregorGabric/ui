@@ -8,8 +8,7 @@
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "keyboard",
-    "separator"
+    "keyboard"
   ],
   "files": [
     {

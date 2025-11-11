@@ -584,8 +584,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "keyboard",
-        "separator"
+        "keyboard"
       ],
       "files": [
         {
@@ -660,11 +659,10 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "button",
+        "primitive",
         "field",
-        "list-box",
         "popover",
-        "primitive"
+        "dropdown"
       ],
       "files": [
         {
@@ -843,6 +841,10 @@
         "@internationalized/date",
         "lucide-react",
         "react-aria-components"
+      ],
+      "registryDependencies": [
+        "button",
+        "select"
       ],
       "files": [
         {
