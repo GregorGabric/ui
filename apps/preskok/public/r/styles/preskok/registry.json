@@ -957,21 +957,28 @@
       ]
     },
     {
-      "name": "multi-select",
+      "name": "multiselect",
       "type": "registry:ui",
-      "description": "A multi-select component with search and filtering capabilities",
+      "description": "A multi-select component built on base-ui combobox component",
       "dependencies": [
-        "react-aria-components"
+        "@base-ui-components/react",
+        "class-variance-authority",
+        "lucide-react"
       ],
       "registryDependencies": [
-        "field",
-        "list-box",
-        "popover",
-        "primitive"
+        "button",
+        "loader",
+        "primitive",
+        "badge",
+        "use-controllable-state"
       ],
       "files": [
         {
-          "path": "registry/preskok/ui/preskok-ui/multi-select.tsx",
+          "path": "registry/preskok/ui/preskok-ui/multiselect/combobox-base.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/preskok/ui/preskok-ui/multiselect/multiselect.tsx",
           "type": "registry:ui"
         }
       ]

@@ -1,11 +1,8 @@
 "use client"
 
-import { FieldError, Label } from "@/registry/preskok/ui/preskok-ui/field"
-import {
-  MultipleSelect,
-  MultipleSelectContent,
-  MultipleSelectItem,
-} from "@/registry/preskok/ui/preskok-ui/multiple-select"
+import { useState } from "react"
+
+import { Multiselect } from "@/registry/preskok/ui/preskok-ui/multiselect/multiselect"
 
 const fruits = [
   { id: 1, name: "Apple" },
@@ -31,19 +28,34 @@ const fruits = [
 ]
 
 export function Component() {
+  const [selectedItems, setSelectedItems] = useState<
+    (typeof fruits)[number] | undefined
+  >()
+  const [selectedItemsArray, setSelectedItemsArray] = useState<
+    (typeof fruits)[number][]
+  >([])
+
   return (
-    <MultipleSelect className="mx-auto w-full max-w-2xs">
-      <Label>Select fruits</Label>
-      <MultipleSelectContent items={fruits}>
-        {(item) => {
-          return (
-            <MultipleSelectItem id={item.id} textValue={item.name}>
-              {item.name}
-            </MultipleSelectItem>
-          )
-        }}
-      </MultipleSelectContent>
-      <FieldError />
-    </MultipleSelect>
+    <div className="flex gap-4">
+      <Multiselect
+        items={fruits}
+        itemLabel="name"
+        itemValue="id"
+        value={selectedItems}
+        onValueChange={setSelectedItems}
+        onClear={() => setSelectedItems(undefined)}
+      />
+
+      <Multiselect
+        items={fruits}
+        itemLabel="name"
+        itemValue="id"
+        value={selectedItemsArray}
+        onValueChange={setSelectedItemsArray}
+        onClear={() => setSelectedItemsArray([])}
+        title="Selected fruits"
+        multiple
+      />
+    </div>
   )
 }

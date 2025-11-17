@@ -748,15 +748,28 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
-    name: "multi-select",
+    name: "multiselect",
     type: "registry:ui",
-    description:
-      "A multi-select component with search and filtering capabilities",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["field", "list-box", "popover", "primitive"],
+    description: "A multi-select component built on base-ui combobox component",
+    dependencies: [
+      "@base-ui-components/react",
+      "class-variance-authority",
+      "lucide-react",
+    ],
+    registryDependencies: [
+      "button",
+      "loader",
+      "primitive",
+      "badge",
+      "use-controllable-state",
+    ],
     files: [
       {
-        path: "ui/preskok-ui/multi-select.tsx",
+        path: "ui/preskok-ui/multiselect/combobox-base.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/preskok-ui/multiselect/multiselect.tsx",
         type: "registry:ui",
       },
     ],

@@ -6,7 +6,7 @@ import { useLayoutEffect } from "./use-layout-effect"
 const useInsertionEffect: typeof useLayoutEffect =
   (React as any)[" useInsertionEffect ".trim().toString()] || useLayoutEffect
 
-type ChangeHandler<T> = (state: T) => void
+export type ChangeHandler<T> = (state: T) => void
 type SetStateFn<T> = React.Dispatch<React.SetStateAction<T>>
 
 interface UseControllableStateParams<T> {

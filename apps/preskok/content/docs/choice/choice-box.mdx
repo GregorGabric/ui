@@ -48,9 +48,9 @@ npx @preskok-org/ui@latest add choice-box
 ```tsx
 import {
   ChoiceBox,
+  ChoiceBoxDescription,
   ChoiceBoxItem,
   ChoiceBoxLabel,
-  ChoiceBoxDescription,
 } from "@/registry/preskok/ui/preskok-ui/choice-box"
 
 export function ChoiceBoxExample() {
@@ -82,13 +82,13 @@ export function ChoiceBoxExample() {
 
 The root container component for the choice box.
 
-| Prop            | Type                                    | Default     | Description                                |
-| --------------- | --------------------------------------- | ----------- | ------------------------------------------ |
-| `columns`       | `1 \| 2 \| 3 \| 4 \| 5 \| 6`           | `1`         | Number of columns for grid layout          |
-| `gap`           | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`      | `0`         | Gap between items                          |
-| `selectionMode` | `"single" \| "multiple"`                | `"single"`  | Selection mode                             |
-| `isReadOnly`    | `boolean`                               | `false`     | Whether the choice box is read-only        |
-| `className`     | `string`                                | -           | Additional CSS classes                     |
+| Prop            | Type                              | Default    | Description                         |
+| --------------- | --------------------------------- | ---------- | ----------------------------------- |
+| `columns`       | `1 \| 2 \| 3 \| 4 \| 5 \| 6`      | `1`        | Number of columns for grid layout   |
+| `gap`           | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | `0`        | Gap between items                   |
+| `selectionMode` | `"single" \| "multiple"`          | `"single"` | Selection mode                      |
+| `isReadOnly`    | `boolean`                         | `false`    | Whether the choice box is read-only |
+| `className`     | `string`                          | -          | Additional CSS classes              |
 
 All standard `GridList` props from React Aria Components are also supported.
 
@@ -96,11 +96,11 @@ All standard `GridList` props from React Aria Components are also supported.
 
 An individual choice item within the choice box.
 
-| Prop          | Type      | Default | Description                                |
-| ------------- | --------- | ------- | ------------------------------------------ |
-| `label`       | `string`  | -       | Label text for the item                    |
-| `description` | `string`  | -       | Description text displayed below the label |
-| `className`   | `string`  | -       | Additional CSS classes                     |
+| Prop          | Type     | Default | Description                                |
+| ------------- | -------- | ------- | ------------------------------------------ |
+| `label`       | `string` | -       | Label text for the item                    |
+| `description` | `string` | -       | Description text displayed below the label |
+| `className`   | `string` | -       | Additional CSS classes                     |
 
 All standard `GridListItem` props from React Aria Components are also supported.
 

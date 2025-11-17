@@ -30,7 +30,10 @@ npx @preskok-org/ui@latest add preskok-auth-button
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="preskok-auth-button" title="registry/preskok/ui/preskok-ui/preskok-auth-button.tsx" />
+<ComponentSource
+  name="preskok-auth-button"
+  title="registry/preskok/ui/preskok-ui/preskok-auth-button.tsx"
+/>
 
 <Step>Update the import paths to match your project setup.</Step>
 
@@ -60,10 +63,10 @@ export function PreskokAuthButtonDemo() {
 
 All standard Button props are supported, plus:
 
-| Prop    | Type     | Default                    | Description                         |
-| ------- | -------- | -------------------------- | ----------------------------------- |
-| `label` | `string` | `"Continue with Preskok"` | Custom label for accessibility      |
-| `intent`| `string` | `"outline"`                | Button intent (primary, secondary, etc.) |
+| Prop     | Type     | Default                   | Description                              |
+| -------- | -------- | ------------------------- | ---------------------------------------- |
+| `label`  | `string` | `"Continue with Preskok"` | Custom label for accessibility           |
+| `intent` | `string` | `"outline"`               | Button intent (primary, secondary, etc.) |
 
 ## Examples
 
@@ -86,13 +89,7 @@ All standard Button props are supported, plus:
 ```tsx
 <PreskokAuthButton
   onPress={() => {
-    window.location.href = '/auth/preskok'
+    window.location.href = "/auth/preskok"
   }}
 />
 ```
-
-
-
-
-
-
