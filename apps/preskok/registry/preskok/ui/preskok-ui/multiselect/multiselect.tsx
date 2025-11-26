@@ -1,6 +1,6 @@
-import { ChevronsUpDownIcon, XIcon } from "lucide-react"
 import type { SyntheticEvent } from "react"
 import * as React from "react"
+import { ChevronsUpDownIcon, XIcon } from "lucide-react"
 
 import {
   ChangeHandler,

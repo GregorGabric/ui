@@ -30,7 +30,7 @@ export function Radio({ className, children, ...props }: RadioProps) {
   return (
     <RadioPrimitive
       {...props}
-      className={cx("group block disabled:opacity-50", className)}
+      className={cx("group/radio block disabled:opacity-50", className)}
     >
       {composeRenderProps(
         children,
@@ -54,11 +54,11 @@ export function Radio({ className, children, ...props }: RadioProps) {
                   "inset-ring-input text-background hover:before:bg-muted-foreground/20 sm:before:size-1.7 relative isolate flex size-4.5 shrink-0 items-center justify-center rounded-full inset-ring transition before:absolute before:inset-auto before:size-2 before:shrink-0 before:rounded-full before:content-[''] sm:size-4",
                   isSelected && [
                     "inset-ring-primary bg-primary text-primary-foreground before:bg-background hover:before:bg-muted/90",
-                    "group-invalid:inset-ring-destructive/70 group-invalid:bg-destructive group-invalid:text-destructive-foreground",
+                    "group-invalid/radio:inset-ring-destructive/70 group-invalid/radio:bg-destructive group-invalid/radio:text-destructive-foreground",
                   ],
                   isFocusVisible && [
                     "inset-ring-primary ring-ring/20 ring-3",
-                    "group-invalid:inset-ring-destructive/70 group-invalid:text-destructive-foreground group-invalid:ring-destructive/20",
+                    "group-invalid/radio:inset-ring-destructive/70 group-invalid/radio:text-destructive-foreground group-invalid/radio:ring-destructive/20",
                   ],
                   isInvalid &&
                     "inset-ring-destructive/70 text-destructive-foreground ring-destructive/20",
