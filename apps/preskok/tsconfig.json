@@ -11,7 +11,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -21,7 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "react": ["./node_modules/@types/react"]
+      "react": ["./node_modules/@types/react"],
+      "fumadocs-mdx:collections/*": [".source/*"]
     }
   },
   "include": [
@@ -30,7 +31,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "scripts/build-registry.mts",
-    "next.config.mjs"
+    "next.config.mjs",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

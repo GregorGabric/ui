@@ -1,10 +1,5 @@
-import {
-  defineConfig,
-  defineDocs,
-  frontmatterSchema,
-} from "fumadocs-mdx/config"
+import { defineConfig, defineDocs } from "fumadocs-mdx/config"
 import rehypePrettyCode from "rehype-pretty-code"
-import { z } from "zod"
 
 import { transformers } from "@/lib/highlight-code"
 
@@ -33,14 +28,17 @@ export default defineConfig({
 export const docs = defineDocs({
   dir: "content/docs",
   docs: {
-    // @ts-expect-error - TODO: fix the type.
-    schema: frontmatterSchema.extend({
-      links: z
-        .object({
-          doc: z.string().optional(),
-          api: z.string().optional(),
-        })
-        .optional(),
-    }),
+    postprocess: {
+      extractLinkReferences: true,
+    },
+    // TODO: Upgrade to zod 4 first
+    // schema: frontmatterSchema.extend({
+    //   links: z
+    //     .object({
+    //       doc: z.string().optional(),
+    //       api: z.string().optional(),
+    //     })
+    //     .optional(),
+    // }),
   },
 })

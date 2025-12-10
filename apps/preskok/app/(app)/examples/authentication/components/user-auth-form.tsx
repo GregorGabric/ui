@@ -28,17 +28,10 @@ export function UserAuthForm({
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
+            <TextField aria-label="Email" type="email" isDisabled={isLoading} />
             <TextField
-              label="Email"
-              aria-label="Email"
-              type="email"
-              isDisabled={isLoading}
-            />
-            <TextField
-              label="Password"
               aria-label="password"
               type="password"
-              isRevealable
               isDisabled={isLoading}
             />
           </div>

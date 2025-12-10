@@ -6,7 +6,7 @@ import {
   IconArrowRight,
   IconArrowUpRight,
 } from "@tabler/icons-react"
-import { findNeighbour } from "fumadocs-core/server"
+import { findNeighbour } from "fumadocs-core/page-tree"
 
 import { source } from "@/lib/source"
 import { absoluteUrl } from "@/lib/utils"
@@ -82,7 +82,7 @@ export default async function Page(props: {
   const doc = page.data
   // @ts-expect-error - revisit fumadocs types.
   const MDX = doc.body
-  const neighbours = await findNeighbour(source.pageTree, page.url)
+  const neighbours = findNeighbour(source.pageTree, page.url)
 
   // @ts-expect-error - revisit fumadocs types.
   const links = doc.links
