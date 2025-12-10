@@ -63,10 +63,10 @@ export function InputGroup({ className, ...props }: GroupProps) {
         "[&>[data-slot=keyboard]:first-child:not([class*='left-'])]:left-3 sm:[&>[data-slot=keyboard]:first-child:not([class*='left-'])]:left-2.5 [&>[data-slot=keyboard]:last-child:not([class*='right-'])]:right-3 sm:[&>[data-slot=keyboard]:last-child:not([class*='right-'])]:right-2.5",
 
         // button
-        "has-[>button:first-child]:[&_input]:pl-(--input-gutter-start,--spacing(16)) has-[>button:last-child]:[&_input]:pr-(--input-gutter-end,--spacing(16)) sm:has-[>button:first-child]:[&_input]:pl-(--input-gutter-start,--spacing(14)) sm:has-[>button:last-child]:[&_input]:pr-(--input-gutter-end,--spacing(14))",
-        "[&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none",
-        "[&>button[data-intent=outline]]:border-input *:[button]:absolute *:[button]:top-0 *:[button]:z-10 *:[button]:min-h-11 sm:*:[button]:min-h-9",
-        "[&>button:first-child]:left-0 [&>button:last-child]:right-0",
+        "has-[>button:first-child:not([data-slot=date-picker-trigger])]:[&_input]:pl-(--input-gutter-start,--spacing(16)) has-[>button:last-child:not([data-slot=date-picker-trigger])]:[&_input]:pr-(--input-gutter-end,--spacing(16)) sm:has-[>button:first-child:not([data-slot=date-picker-trigger])]:[&_input]:pl-(--input-gutter-start,--spacing(14)) sm:has-[>button:last-child:not([data-slot=date-picker-trigger])]:[&_input]:pr-(--input-gutter-end,--spacing(14))",
+        "[&>button:first-child:not([data-slot=date-picker-trigger])]:rounded-r-none [&>button:last-child:not([data-slot=date-picker-trigger])]:rounded-l-none",
+        "[&>button[data-intent=outline]]:border-input [&>button:not([data-slot=date-picker-trigger])]:absolute [&>button:not([data-slot=date-picker-trigger])]:top-0 [&>button:not([data-slot=date-picker-trigger])]:z-10 [&>button:not([data-slot=date-picker-trigger])]:min-h-11 sm:[&>button:not([data-slot=date-picker-trigger])]:min-h-9",
+        "[&>button:first-child:not([data-slot=date-picker-trigger])]:left-0 [&>button:last-child:not([data-slot=date-picker-trigger])]:right-0",
 
         "[&>[data-slot='icon']:not([class*='text-'])]:text-muted-foreground [&>[data-slot='loader']:not([class*='text-'])]:text-muted-foreground [&>[data-slot='text']:not([class*='text-'])]:text-muted-foreground",
         className

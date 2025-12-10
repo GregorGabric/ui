@@ -8,15 +8,13 @@ import type {
   GroupProps,
   PopoverProps,
 } from "react-aria-components"
-import {
-  Button,
-  DatePicker as DatePickerPrimitive,
-} from "react-aria-components"
+import { DatePicker as DatePickerPrimitive } from "react-aria-components"
 import { twJoin } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cx } from "@/registry/preskok/lib/primitive"
-import { DateInput } from "@/registry/preskok/ui/preskok-ui/date-field"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import { DateInput as PrimitiveDateInput } from "@/registry/preskok/ui/preskok-ui/date-field"
 import { fieldStyles } from "@/registry/preskok/ui/preskok-ui/field"
 import { InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
 
@@ -105,21 +103,46 @@ export function DatePickerOverlay({
 export function DatePickerTrigger({ className, ...props }: GroupProps) {
   return (
     <InputGroup
-      className={cx("*:data-[slot=control]:w-full", className)}
+      className={cx(
+        "flex items-center rounded-lg",
+        "border-input hover:border-muted-foreground/30 border",
+        "focus-visible:focus-within:border-ring/70 focus-visible:focus-within:ring-ring/20 focus-visible:focus-within:hover:border-ring/80 focus-visible:focus-within:ring-3 focus-visible:focus-within:outline-hidden",
+        "invalid:border-destructive/70 focus-visible:focus-within:invalid:border-destructive/70 focus-visible:focus-within:invalid:ring-destructive/20 invalid:hover:border-destructive/80 focus-visible:focus-within:invalid:hover:border-destructive/80",
+        "disabled:bg-muted disabled:opacity-50",
+        className
+      )}
       {...props}
     >
-      <DateInput />
+      <div className="flex w-fit flex-1 items-center overflow-x-auto overflow-y-clip [scrollbar-width:none]">
+        <DateInput className="px-3 pr-2" />
+      </div>
       <Button
+        intent="plain"
+        size="sq-xs"
         data-slot="date-picker-trigger"
         className={twJoin(
-          "touch-target grid place-content-center outline-hidden",
+          "touch-target focus-visible:text-foreground grid place-content-center outline-hidden",
           "pressed:text-foreground text-muted-foreground hover:text-foreground focus-visible:text-foreground",
-          "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6",
-          "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4"
+          "mr-1 shrink-0"
         )}
       >
-        <CalendarDaysIcon data-slot="icon" />
+        <CalendarDaysIcon data-slot="icon" className="size-4" />
       </Button>
     </InputGroup>
+  )
+}
+
+function DateInput({
+  className,
+  ...props
+}: React.ComponentProps<typeof PrimitiveDateInput>) {
+  return (
+    <PrimitiveDateInput
+      className={cx(
+        "rounded-none border-none focus-visible:focus-within:ring-0",
+        className
+      )}
+      {...props}
+    />
   )
 }

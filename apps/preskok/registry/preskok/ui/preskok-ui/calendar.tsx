@@ -70,7 +70,19 @@ const Calendar = <T extends DateValue>({
                     className
                   )
               )}
-            />
+            >
+              {({ formattedDate, isFocusVisible }) => (
+                <span
+                  className={twMerge(
+                    "flex size-full items-center justify-center rounded-lg tabular-nums forced-color-adjust-none",
+                    isFocusVisible &&
+                      "outline-ring outline outline-2 outline-offset-2 forced-colors:outline-[Highlight]"
+                  )}
+                >
+                  {formattedDate}
+                </span>
+              )}
+            </CalendarCell>
           )}
         </CalendarGridBody>
       </CalendarGrid>

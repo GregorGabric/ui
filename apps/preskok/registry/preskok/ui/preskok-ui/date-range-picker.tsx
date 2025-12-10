@@ -3,7 +3,6 @@
 import type { DateDuration } from "@internationalized/date"
 import { CalendarRangeIcon } from "lucide-react"
 import {
-  Button,
   DateRangePicker as DateRangePickerPrimitive,
   type DateRangePickerProps as DateRangePickerPrimitiveProps,
   type DateValue,
@@ -12,6 +11,7 @@ import {
 import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { DateInput as PrimitiveDateInput } from "@/registry/preskok/ui/preskok-ui/date-field"
 import { InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
 
@@ -64,27 +64,29 @@ export function DateRangePickerTrigger({
         "focus-within:border-ring/70 focus-within:ring-ring/20 focus-within:hover:border-ring/80 focus-within:ring-3 focus-within:outline-hidden",
         "invalid:border-destructive/70 focus-within:invalid:border-destructive/70 focus-within:invalid:ring-destructive/20 invalid:hover:border-destructive/80 focus-within:invalid:hover:border-destructive/80",
         "disabled:bg-muted disabled:opacity-50",
-        "pr-10",
         className
       )}
       {...props}
     >
-      <DateInput slot="start" />
-      <span
-        aria-hidden="true"
-        className="bg-foreground group-disabled:text-opacity-50 pointer-events-none -mx-3 block h-0.5 w-2 shrink-0 self-center rounded-full sm:-mx-2 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
-      />
-      <DateInput slot="end" />
+      <div className="flex w-fit flex-1 items-center overflow-x-auto overflow-y-clip [scrollbar-width:none]">
+        <DateInput slot="start" className="px-3 pr-2" />
+        <span
+          aria-hidden="true"
+          className="bg-foreground/80 group-disabled:text-opacity-50 forced-colors:group-disabled:text- [GrayText] pointer-events-none -mx-3 block h-0.5 w-2 shrink-0 self-center rounded-full sm:-mx-2 forced-colors:text-[ButtonText]"
+        />
+        <DateInput slot="end" className="flex-1 pr-3 pl-2" />
+      </div>
       <Button
+        intent="plain"
+        size="sq-xs"
         data-slot="date-picker-trigger"
         className={twJoin(
           "touch-target focus-visible:text-foreground grid place-content-center outline-hidden",
           "pressed:text-foreground text-muted-foreground hover:text-foreground focus-visible:text-foreground",
-          "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6",
-          "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4"
+          "mr-1 shrink-0"
         )}
       >
-        <CalendarRangeIcon data-slot="icon" />
+        <CalendarRangeIcon data-slot="icon" className="size-4" />
       </Button>
     </InputGroup>
   )

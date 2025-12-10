@@ -16,7 +16,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/date-picker-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport { DatePicker } from \"@/registry/preskok/ui/preskok-ui/date-picker\"\n\nexport default function DatePickerPreskokDemo() {\n  return (\n    <div className=\"max-w-xs\">\n      <DatePicker\n        label=\"Pick a date\"\n        granularity=\"day\"\n        defaultValue={parseDate(\"2024-01-20\")}\n      />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  DatePicker,\n  DatePickerTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/date-picker\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport default function DatePickerPreskokDemo() {\n  return (\n    <div className=\"max-w-xs\">\n      <DatePicker>\n        <Label>Event date</Label>\n        <DatePickerTrigger />\n      </DatePicker>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

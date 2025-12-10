@@ -1,17 +1,18 @@
 "use client"
 
-import { parseDate } from "@internationalized/date"
-
-import { DatePicker } from "@/registry/preskok/ui/preskok-ui/date-picker"
+import {
+  DatePicker,
+  DatePickerTrigger,
+} from "@/registry/preskok/ui/preskok-ui/date-picker"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export default function DatePickerPreskokDemo() {
   return (
     <div className="max-w-xs">
-      <DatePicker
-        label="Pick a date"
-        granularity="day"
-        defaultValue={parseDate("2024-01-20")}
-      />
+      <DatePicker>
+        <Label>Event date</Label>
+        <DatePickerTrigger />
+      </DatePicker>
     </div>
   )
 }

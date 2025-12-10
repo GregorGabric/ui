@@ -24,8 +24,8 @@ export function RangeCalendar<T extends DateValue>({
       visibleDuration={visibleDuration}
       {...props}
     >
-      <CalendarHeader isRange />
-      <div className="flex snap-x items-start justify-stretch gap-6 overflow-auto sm:gap-10">
+      <CalendarHeader isRange data-slot="calendar-header" />
+      <div className="flex snap-x items-start justify-stretch gap-6 overflow-clip [overflow-clip-margin:4px] sm:gap-10">
         {Array.from({ length: visibleDuration?.months ?? 1 }).map(
           (_, index) => {
             const id = index + 1
@@ -58,10 +58,13 @@ export function RangeCalendar<T extends DateValue>({
                         isSelectionStart,
                         isSelectionEnd,
                         isDisabled,
+                        isFocusVisible,
                       }) => (
                         <span
                           className={twMerge(
                             "flex size-full items-center justify-center rounded-lg tabular-nums forced-color-adjust-none",
+                            isFocusVisible &&
+                              "outline-ring outline outline-2 outline-offset-2 forced-colors:outline-[Highlight]",
                             isSelected && (isSelectionStart || isSelectionEnd)
                               ? "bg-primary text-primary-foreground group-invalid/calendar-cell:bg-destructive group-invalid/calendar-cell:text-destructive-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:group-invalid/calendar-cell:bg-[Mark]"
                               : isSelected

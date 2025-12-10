@@ -8,9 +8,11 @@ import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function Component() {
   return (
-    <DateRangePicker>
-      <Label>Event date</Label>
-      <DateRangePickerTrigger />
-    </DateRangePicker>
+    <div className="max-w-xs">
+      <DateRangePicker visibleDuration={{ months: 2 }}>
+        <Label>Event date</Label>
+        <DateRangePickerTrigger />
+      </DateRangePicker>
+    </div>
   )
 }
