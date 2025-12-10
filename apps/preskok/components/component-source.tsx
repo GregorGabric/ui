@@ -83,7 +83,10 @@ function ComponentCode({
   title: string | undefined
 }) {
   return (
-    <figure data-rehype-pretty-code-figure="" className="[&>pre]:max-h-96">
+    <figure
+      data-rehype-pretty-code-figure=""
+      className="mt-0! [&>pre]:max-h-96"
+    >
       {title && (
         <figcaption
           data-rehype-pretty-code-title=""
