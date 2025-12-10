@@ -18,7 +18,7 @@ export function CodeTabs({ children }: React.ComponentProps<typeof Tabs>) {
       onSelectionChange={(key) => {
         setConfig({ ...config, installationType: key as "cli" | "manual" })
       }}
-      className="relative mt-6 w-full"
+      className="relative mt-6 w-full **:[&[data-slot=tab]]:px-2.5"
     >
       {children}
     </Tabs>

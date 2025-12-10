@@ -12,9 +12,9 @@ import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
 
 const buttonStyles = tv({
   base: [
-    "[--btn-icon-active:var(--btn-foreground)] [--btn-outline:var(--btn-background)] [--btn-ring:var(--btn-background)]/20",
+    "[--btn-border:var(--color-foreground)]/15 [--btn-icon-active:var(--btn-foreground)] [--btn-outline:var(--btn-background)] [--btn-ring:var(--btn-background)]/20",
     "bg-(--btn-background) pressed:bg-(--btn-overlay) text-(--btn-foreground) outline-(--btn-outline) ring-(--btn-ring) hover:bg-(--btn-overlay) focus-visible:bg-(--btn-overlay)",
-    "relative inset-ring inset-ring-foreground/15 isolate inline-flex items-center justify-center font-medium",
+    "relative border border-(--btn-border) isolate inline-flex items-center justify-center font-medium",
     "focus:outline-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-background active:scale-[98%] transition-transform duration-150",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) pressed:*:data-[slot=icon]:text-(--btn-icon-active) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:my-1 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
     "[&_svg.lucide]:-mx-0.5 [&_svg.lucide]:my-0.5 [&_svg.lucide]:shrink-0 [&_svg.lucide]:self-center [&_svg.lucide]:text-(--btn-icon) pressed:[&_svg.lucide]:text-(--btn-icon-active) focus-visible:[&_svg.lucide]:text-(--btn-icon-active)/80 hover:[&_svg.lucide]:text-(--btn-icon-active)/90 sm:[&_svg.lucide]:my-1",
@@ -33,9 +33,9 @@ const buttonStyles = tv({
       danger:
         "[--btn-background:var(--color-destructive)] [--btn-foreground:var(--color-destructive-foreground)] [--btn-icon:color-mix(in_oklab,var(--destructive-foreground)_60%,var(--destructive))] [--btn-overlay:var(--color-destructive)]/85",
       outline:
-        "inset-ring-border [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
+        "border-border [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
       plain:
-        "inset-ring-transparent [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
+        "border-transparent [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
     },
     size: {
       xs: [
@@ -77,7 +77,7 @@ const buttonStyles = tv({
       false: "rounded-lg",
     },
     isDisabled: {
-      true: "inset-ring-0 opacity-50 forced-colors:text-[GrayText]",
+      true: "opacity-50 forced-colors:text-[GrayText]",
     },
     isPending: {
       true: "opacity-50",

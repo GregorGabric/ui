@@ -15,8 +15,7 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
-} from "@/registry/preskok/ui/tooltip"
+} from "@/registry/preskok/ui/preskok-ui/tooltip"
 
 export function CodeBlockCommand({
   __npm__,
@@ -73,6 +72,7 @@ export function CodeBlockCommand({
   return (
     <div className="overflow-x-auto">
       <Tabs
+        data-slot="tabs"
         selectedKey={packageManager}
         className="gap-0"
         onSelectionChange={(key) => {
@@ -92,7 +92,7 @@ export function CodeBlockCommand({
                 <Tab
                   key={key}
                   id={key}
-                  className="group-orientation-horizontal/tabs:pb-1 selected:border-border h-7 border border-dashed border-transparent px-2 py-1 pt-0.5 [&>span]:hidden"
+                  className="group-orientation-horizontal/tabs:pb-1 selected:border-border h-7 border border-dashed border-transparent py-1 pt-0.5 first:ml-0 [&>span]:hidden"
                 >
                   {key}
                 </Tab>
@@ -118,18 +118,16 @@ export function CodeBlockCommand({
         </div>
       </Tabs>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            data-slot="copy-button"
-            size="sq-xs"
-            intent="plain"
-            className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
-            onClick={copyCommand}
-          >
-            <span className="sr-only">Copy</span>
-            {hasCopied ? <CheckIcon /> : <ClipboardIcon />}
-          </Button>
-        </TooltipTrigger>
+        <Button
+          data-slot="copy-button"
+          size="sq-xs"
+          intent="plain"
+          className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
+          onPress={copyCommand}
+        >
+          <span className="sr-only">Copy</span>
+          {hasCopied ? <CheckIcon /> : <ClipboardIcon />}
+        </Button>
         <TooltipContent>
           {hasCopied ? "Copied" : "Copy to Clipboard"}
         </TooltipContent>

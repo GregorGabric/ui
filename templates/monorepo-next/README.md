@@ -1,6 +1,6 @@
-# shadcn/ui monorepo template
+# @preskok-org/ui monorepo template
 
-This template is for creating a monorepo with shadcn/ui.
+This template is for creating a monorepo with @preskok-org/ui.
 
 ## Usage
 

@@ -499,8 +499,8 @@ export const DialogRoot = Root`
     expect(result.replacedPackages).toEqual(["@radix-ui/react-dialog"])
   })
 
-  it("should handle real-world shadcn/ui patterns from registry files", async () => {
-    // This test captures all the actual import patterns found in the shadcn/ui registry
+  it("should handle real-world @preskok-org/ui patterns from registry files", async () => {
+    // This test captures all the actual import patterns found in the @preskok-org/ui registry
     const input = `import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"
@@ -571,7 +571,7 @@ export const Button = SlotPrimitive.Slot`
   })
 
   it("should handle the special sheet.tsx pattern from registry", async () => {
-    // In shadcn/ui, sheet.tsx imports from react-dialog instead of a dedicated sheet package
+    // In @preskok-org/ui, sheet.tsx imports from react-dialog instead of a dedicated sheet package
     const input = `import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { cn } from "@/lib/utils"
 
@@ -610,7 +610,7 @@ export const FormControl = SlotPrimitive.Slot`
     ])
   })
 
-  it("should handle all 26 packages used in shadcn/ui registry", async () => {
+  it("should handle all 26 packages used in @preskok-org/ui registry", async () => {
     // Test that we correctly handle all packages found in the registry analysis
     const allPackages = [
       "@radix-ui/react-accordion",

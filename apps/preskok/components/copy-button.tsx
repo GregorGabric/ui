@@ -10,8 +10,7 @@ import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
-} from "@/registry/preskok/ui/tooltip"
+} from "@/registry/preskok/ui/preskok-ui/tooltip"
 
 export function copyToClipboardWithMeta(value: string, event?: Event) {
   void navigator.clipboard.writeText(value)
@@ -41,35 +40,33 @@ export function CopyButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          data-slot="copy-button"
-          size="sq-sm"
-          intent={intent}
-          className={cn(
-            "bg-code absolute top-3 right-2 z-10 size-7 hover:opacity-100 focus-visible:opacity-100",
-            className
-          )}
-          onClick={() => {
-            copyToClipboardWithMeta(
-              value,
-              event
-                ? {
-                    name: event,
-                    properties: {
-                      code: value,
-                    },
-                  }
-                : undefined
-            )
-            setHasCopied(true)
-          }}
-          {...props}
-        >
-          <span className="sr-only">Copy</span>
-          {hasCopied ? <CheckIcon /> : <ClipboardIcon />}
-        </Button>
-      </TooltipTrigger>
+      <Button
+        data-slot="copy-button"
+        size="sq-sm"
+        intent={intent}
+        className={cn(
+          "bg-code absolute top-3 right-2 z-10 size-7 hover:opacity-100 focus-visible:opacity-100",
+          className
+        )}
+        onPress={() => {
+          copyToClipboardWithMeta(
+            value,
+            event
+              ? {
+                  name: event,
+                  properties: {
+                    code: value,
+                  },
+                }
+              : undefined
+          )
+          setHasCopied(true)
+        }}
+        {...props}
+      >
+        <span className="sr-only">Copy</span>
+        {hasCopied ? <CheckIcon /> : <ClipboardIcon />}
+      </Button>
       <TooltipContent>
         {hasCopied ? "Copied" : "Copy to Clipboard"}
       </TooltipContent>
