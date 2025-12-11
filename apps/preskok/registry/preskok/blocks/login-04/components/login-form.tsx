@@ -1,6 +1,8 @@
 import { cn } from "@/registry/preskok/lib/utils"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Card, CardContent } from "@/registry/preskok/ui/preskok-ui/card"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 import { PreskokAuthButton } from "@/registry/preskok/ui/preskok-ui/preskok-auth-button"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
@@ -21,35 +23,32 @@ export function LoginForm({
                 </p>
               </div>
               <div className="grid gap-3">
-                <TextField
-                  label="Email"
-                  aria-label="Email"
-                  type="email"
-                  isRequired
-                />
+                <TextField>
+                  <Label>Email</Label>
+                  <Input aria-label="Email" type="email" required />
+                </TextField>
               </div>
               <div className="grid gap-3">
-                <div className="flex items-center">
-                  <span className="text-sm font-medium">Password</span>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <TextField
-                  aria-label="Password"
-                  type="password"
-                  isRevealable
-                  isRequired
-                />
+                <TextField>
+                  <Label>
+                    <div className="flex items-center">
+                      <span className="text-sm font-medium">Password</span>
+                      <a
+                        href="#"
+                        className="ml-auto text-sm underline-offset-2 hover:underline"
+                      >
+                        Forgot your password?
+                      </a>
+                    </div>
+                  </Label>
+                  <Input aria-label="Password" type="password" required />
+                </TextField>
               </div>
               <Button type="submit" className="w-full">
                 Login
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                <span className="bg-card text-muted-foreground relative z-10 px-2">
+                <span className="text-muted-foreground relative z-10 px-2">
                   Or continue with
                 </span>
               </div>
