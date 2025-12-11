@@ -15,7 +15,6 @@ import {
   Menu,
   MenuContent,
   MenuItem,
-  MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
 
 const teamMembers = [
@@ -89,11 +88,10 @@ export function CardsTeamMembers() {
               </div>
             </div>
             <Menu>
-              <MenuTrigger>
-                <Button intent="plain" className="ml-auto shadow-none">
-                  {member.role} <ChevronDown />
-                </Button>
-              </MenuTrigger>
+              <Button intent="plain" className="ml-auto shadow-none">
+                {member.role} <ChevronDown />
+              </Button>
+
               <MenuContent placement="bottom end">
                 {roles.map((role) => (
                   <MenuItem key={role.name}>

@@ -16,17 +16,15 @@ import {
   MenuContent,
   MenuHeader,
   MenuItem,
-  MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
 
 export default function DropdownPreskokDemo() {
   return (
     <Menu>
-      <MenuTrigger>
-        <Button intent="outline" className="gap-1">
-          Options <ChevronDownIcon className="size-4" />
-        </Button>
-      </MenuTrigger>
+      <Button intent="outline" className="gap-1">
+        Options <ChevronDownIcon className="size-4" />
+      </Button>
+
       <MenuContent className="min-w-56">
         <MenuHeader>Account</MenuHeader>
         <MenuItem id="profile">

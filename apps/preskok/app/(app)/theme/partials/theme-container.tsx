@@ -22,7 +22,6 @@ import {
   Menu,
   MenuContent,
   MenuItem,
-  MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Sheet,
@@ -42,7 +41,7 @@ export function ThemeContainer() {
   const [selectedColors, setSelectedColors] = useState({
     primary: "blue",
     gray: "zinc",
-    accent: "blue",
+    accent: "zinc",
     radius: "0.5rem",
   })
 
@@ -76,7 +75,7 @@ export function ThemeContainer() {
               <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
               <div className="mt-3 flex justify-end">
                 <Button className="flex w-full lg:hidden" onPress={handleOpen}>
-                  <Code2Icon />
+                  <Code2Icon data-slot="icon" />
                   Get theme
                 </Button>
               </div>
@@ -90,22 +89,21 @@ export function ThemeContainer() {
               </CardDescription>
               <CardAction className="hidden lg:inline-flex">
                 <Menu>
-                  <MenuTrigger>
-                    <Button>
-                      Get theme
-                      <ChevronDownIcon />
-                    </Button>
-                  </MenuTrigger>
+                  <Button>
+                    Get theme
+                    <ChevronDownIcon data-slot="icon" />
+                  </Button>
+
                   <MenuContent
                     placement="bottom right"
                     className="min-w-(--trigger-width)"
                   >
                     <MenuItem onAction={copy}>
-                      <CopyIcon />
+                      <CopyIcon data-slot="icon" />
                       Copy
                     </MenuItem>
                     <MenuItem onAction={handleOpen}>
-                      <PanelRightIcon />
+                      <PanelRightIcon data-slot="icon" />
                       Show theme
                     </MenuItem>
                   </MenuContent>
