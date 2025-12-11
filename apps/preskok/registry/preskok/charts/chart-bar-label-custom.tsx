@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, LabelList } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 
 import {
   Card,
@@ -12,12 +12,6 @@ import {
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import {
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from "@/registry/preskok/ui/preskok-ui/chart"
-import {
-  BarChart,
   ChartConfig,
   ChartContainer,
   ChartTooltip,
@@ -58,12 +52,7 @@ export function ChartBarLabelCustom() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart
-            dataKey="desktop"
-            config={chartConfig}
-            data={chartData}
-            layout="vertical"
-          >
+          <BarChart accessibilityLayer data={chartData} layout="vertical">
             <CartesianGrid horizontal={false} />
             <YAxis
               dataKey="month"
@@ -78,12 +67,7 @@ export function ChartBarLabelCustom() {
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
             />
-            <Bar
-              dataKey="desktop"
-              // layout="vertical"
-              fill="var(--color-desktop)"
-              radius={4}
-            >
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4}>
               <LabelList
                 dataKey="month"
                 position="insideLeft"

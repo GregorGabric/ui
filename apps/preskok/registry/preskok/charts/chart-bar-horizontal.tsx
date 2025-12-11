@@ -1,6 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
+import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 import {
   Card,
@@ -10,8 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import { BarChart } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A horizontal bar chart"
 
@@ -39,31 +44,20 @@ export function ChartBarHorizontal() {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <BarChart
-          data={chartData}
-          dataKey="month"
-          config={chartConfig}
-          layout="vertical"
-          type="default"
-          tooltip={true}
-          tooltipProps={{
-            cursor: false,
-            // hideLabel: true,
-          }}
-          hideXAxis={true}
-          xAxisProps={{
-            type: "number",
-            dataKey: "desktop",
-          }}
-          yAxisProps={{
-            type: "category",
-            tickLine: false,
-            tickMargin: 10,
-            axisLine: false,
-            // tickFormatter: (value) => value.slice(0, 3),
-          }}
-          barRadius={5}
-        />
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData} layout="vertical">
+            <XAxis type="number" dataKey="desktop" hide />
+            <YAxis
+              type="category"
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} />
+          </BarChart>
+        </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium">

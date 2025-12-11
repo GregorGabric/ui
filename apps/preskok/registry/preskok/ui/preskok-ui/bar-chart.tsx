@@ -38,10 +38,11 @@ interface BarChartProps<TValue extends ValueType, TName extends NameType>
   >
 }
 
+const defaultValueFormatter = (value: number) => value.toString()
+
 const BarChart = <TValue extends ValueType, TName extends NameType>({
   data = [],
   dataKey,
-  lineType = "linear",
   colors = DEFAULT_COLORS,
   type = "default",
   className,
@@ -64,7 +65,7 @@ const BarChart = <TValue extends ValueType, TName extends NameType>({
   barRadius,
   barProps,
 
-  valueFormatter = (value: number) => value.toString(),
+  valueFormatter = defaultValueFormatter,
 
   // XAxis
   displayEdgeLabelsOnly = false,

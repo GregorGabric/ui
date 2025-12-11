@@ -70,7 +70,6 @@ export function ChartAreaAxes() {
             tickMargin: 8,
             tickCount: 3,
           }}
-          showYAxis={true}
         />
       </CardContent>
       <CardFooter>

@@ -4,18 +4,14 @@ import { ChevronDownIcon } from "lucide-react"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
-  DropdownDescription,
-  DropdownItem,
-  DropdownKeyboard,
-  DropdownLabel,
-  DropdownSection,
-  DropdownSeparator,
-} from "@/registry/preskok/ui/preskok-ui/dropdown"
-import {
   Menu,
   MenuContent,
+  MenuDescription,
   MenuHeader,
   MenuItem,
+  MenuLabel,
+  MenuSeparator,
+  MenuShortcut,
 } from "@/registry/preskok/ui/preskok-ui/menu"
 
 export default function DropdownPreskokDemo() {
@@ -24,25 +20,24 @@ export default function DropdownPreskokDemo() {
       <Button intent="outline" className="gap-1">
         Options <ChevronDownIcon className="size-4" />
       </Button>
-
       <MenuContent className="min-w-56">
         <MenuHeader>Account</MenuHeader>
         <MenuItem id="profile">
-          <DropdownLabel>Profile</DropdownLabel>
-          <DropdownDescription>View your profile</DropdownDescription>
-          <DropdownKeyboard keys="⌘P">⌘P</DropdownKeyboard>
+          <MenuLabel>Profile</MenuLabel>
+          <MenuDescription>View your profile</MenuDescription>
+          <MenuShortcut keys="⌘P">⌘P</MenuShortcut>
         </MenuItem>
         <MenuItem id="settings">
-          <DropdownLabel>Settings</DropdownLabel>
-          <DropdownDescription>Manage preferences</DropdownDescription>
-          <DropdownKeyboard keys="⌘,">⌘,</DropdownKeyboard>
+          <MenuLabel>Settings</MenuLabel>
+          <MenuDescription>Manage preferences</MenuDescription>
+          <MenuShortcut keys="⌘,">⌘,</MenuShortcut>
         </MenuItem>
-        <DropdownSeparator />
-        <DropdownSection title="Danger">
-          <DropdownItem id="delete" aria-label="Delete">
-            Delete account
-          </DropdownItem>
-        </DropdownSection>
+
+        <MenuSeparator />
+
+        <MenuItem intent="danger" id="delete" aria-label="Delete">
+          <MenuLabel>Delete Account</MenuLabel>
+        </MenuItem>
       </MenuContent>
     </Menu>
   )

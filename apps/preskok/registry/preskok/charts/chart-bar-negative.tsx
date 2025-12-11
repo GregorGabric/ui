@@ -11,13 +11,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { CartesianGrid } from "@/registry/preskok/ui/preskok-ui/chart"
+import {
+  CartesianGrid,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart"
 import {
   BarChart,
   ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
 } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A bar chart with negative values"
@@ -51,11 +53,18 @@ export function ChartBarNegative() {
             dataKey="visitors"
             config={chartConfig}
             layout="vertical"
+            tooltip={false}
           >
             <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel hideIndicator />}
+              content={
+                <ChartTooltipContent
+                  hideLabel
+                  hideIndicator
+                  accessibilityLayer={false}
+                />
+              }
             />
             <Bar dataKey="visitors">
               <LabelList position="top" dataKey="month" fillOpacity={1} />

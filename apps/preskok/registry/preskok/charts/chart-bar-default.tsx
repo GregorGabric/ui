@@ -1,6 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   Card,
@@ -10,8 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import { BarChart } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "A bar chart"
 
@@ -39,26 +44,23 @@ export function ChartBarDefault() {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <BarChart
-          data={chartData}
-          dataKey="month"
-          config={chartConfig}
-          type="default"
-          tooltip={true}
-          tooltipProps={{
-            cursor: false,
-            hideLabel: true,
-          }}
-          hideGridLines={false}
-          cartesianGridProps={{ vertical: false }}
-          xAxisProps={{
-            tickLine: false,
-            tickMargin: 10,
-            axisLine: false,
-            tickFormatter: (value) => value.slice(0, 3),
-          }}
-          barRadius={8}
-        />
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+          </BarChart>
+        </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium">

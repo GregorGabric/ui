@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   Card,
@@ -9,8 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import { BarChart } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 
 export const description = "An interactive bar chart"
 
@@ -165,44 +170,44 @@ export function ChartBarInteractive() {
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
-        <BarChart
-          data={chartData}
-          dataKey="date"
+        <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
-          type="default"
-          tooltip={true}
-          tooltipProps={{
-            className: "w-[150px]",
-            nameKey: "views",
-            labelFormatter: (value) => {
-              return new Date(value).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })
-            },
-          }}
-          hideGridLines={false}
-          cartesianGridProps={{ vertical: false }}
-          xAxisProps={{
-            tickLine: false,
-            axisLine: false,
-            tickMargin: 8,
-            minTickGap: 32,
-            tickFormatter: (value) => {
-              const date = new Date(value)
-              return date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })
-            },
-          }}
-          barProps={{
-            dataKey: activeChart,
-            fill: `var(--color-${activeChart})`,
-          }}
-        />
+        >
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              minTickGap={32}
+              tickFormatter={(value) => {
+                const date = new Date(value)
+                return date.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                })
+              }}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  nameKey="views"
+                  labelFormatter={(value) => {
+                    return new Date(value).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })
+                  }}
+                />
+              }
+            />
+            <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} />
+          </BarChart>
+        </ChartContainer>
       </CardContent>
     </Card>
   )
