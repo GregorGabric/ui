@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text-field",
-  "type": "registry:ui",
   "description": "A comprehensive text input field with prefix, suffix, and password reveal",
   "dependencies": [
     "lucide-react",
@@ -18,5 +17,6 @@
       "content": "\"use client\"\n\nimport type { TextFieldProps } from \"react-aria-components\"\nimport { TextField as TextFieldPrimitive } from \"react-aria-components\"\n\nimport { cx } from \"@/registry/preskok/lib/primitive\"\n\nimport { fieldStyles } from \"./field\"\n\nconst TextField = ({ className, ...props }: TextFieldProps) => {\n  return (\n    <TextFieldPrimitive\n      data-slot=\"control\"\n      className={cx(fieldStyles(), className)}\n      {...props}\n    />\n  )\n}\n\nexport { TextField }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button-group-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "button-group",
     "button"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  ButtonGroup,\n  ButtonGroupText,\n} from \"@/registry/preskok/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupPreskokDemo() {\n  return (\n    <div className=\"space-y-6\">\n      <div>\n        <h3 className=\"mb-3 text-sm font-medium\">Horizontal Button Group</h3>\n        <ButtonGroup>\n          <Button intent=\"outline\">First</Button>\n          <Button intent=\"outline\">Second</Button>\n          <Button intent=\"outline\">Third</Button>\n        </ButtonGroup>\n      </div>\n\n      <div>\n        <h3 className=\"mb-3 text-sm font-medium\">Vertical Button Group</h3>\n        <ButtonGroup orientation=\"vertical\">\n          <Button intent=\"outline\">Top</Button>\n          <Button intent=\"outline\">Middle</Button>\n          <Button intent=\"outline\">Bottom</Button>\n        </ButtonGroup>\n      </div>\n\n      <div>\n        <h3 className=\"mb-3 text-sm font-medium\">With Text Label</h3>\n        <ButtonGroup>\n          <ButtonGroupText>Actions:</ButtonGroupText>\n          <Button intent=\"outline\">Save</Button>\n          <Button intent=\"outline\">Cancel</Button>\n          <Button intent=\"primary\">Submit</Button>\n        </ButtonGroup>\n      </div>\n\n      <div>\n        <h3 className=\"mb-3 text-sm font-medium\">Mixed Intents</h3>\n        <ButtonGroup>\n          <Button intent=\"outline\">Cancel</Button>\n          <Button intent=\"secondary\">Draft</Button>\n          <Button intent=\"primary\">Publish</Button>\n        </ButtonGroup>\n      </div>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

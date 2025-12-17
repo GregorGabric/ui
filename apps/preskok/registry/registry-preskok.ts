@@ -928,8 +928,7 @@ export const preskokUi: Registry["items"] = [
     name: "pagination",
     type: "registry:ui",
     description: "A pagination component with page navigation controls",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["button", "list-box", "primitive"],
+    registryDependencies: ["button", "primitive", "link"],
     files: [
       {
         path: "ui/preskok-ui/pagination.tsx",

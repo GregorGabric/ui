@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "loader-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "loader"
   ],
@@ -11,5 +10,6 @@
       "content": "import { Loader } from \"@/registry/preskok/ui/preskok-ui/loader\"\n\nexport default function LoaderPreskokDemo() {\n  return (\n    <div className=\"flex items-center gap-6\">\n      <Loader />\n      <Loader size=\"md\" />\n      <Loader size=\"lg\" intent=\"primary\" />\n      <Loader size=\"lg\" variant=\"bars\" intent=\"secondary\" />\n      <Loader size=\"lg\" variant=\"ring\" intent=\"success\" />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "mode-toggle",
-  "type": "registry:example",
   "dependencies": [
     "next-themes"
   ],
@@ -15,5 +14,6 @@
       "content": "\"use client\"\n\nimport { MoonIcon, SunIcon } from \"lucide-react\"\nimport { useTheme } from \"next-themes\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  Menu,\n  MenuContent,\n  MenuItem,\n  MenuTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/menu\"\n\nexport default function ModeToggle() {\n  const { setTheme } = useTheme()\n\n  return (\n    <Menu>\n      <MenuTrigger>\n        <Button intent=\"outline\" size=\"sq-md\" aria-label=\"Toggle theme\">\n          <SunIcon className=\"h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90\" />\n          <MoonIcon className=\"absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0\" />\n        </Button>\n      </MenuTrigger>\n      <MenuContent>\n        <MenuItem onAction={() => setTheme(\"light\")}>\n          <SunIcon className=\"h-4 w-4\" />\n          Light\n        </MenuItem>\n        <MenuItem onAction={() => setTheme(\"dark\")}>\n          <MoonIcon className=\"h-4 w-4\" />\n          Dark\n        </MenuItem>\n        <MenuItem onAction={() => setTheme(\"system\")}>\n          <span className=\"flex h-4 w-4 items-center justify-center\">\n            <span className=\"h-2 w-2 rounded-full bg-current\" />\n          </span>\n          System\n        </MenuItem>\n      </MenuContent>\n    </Menu>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

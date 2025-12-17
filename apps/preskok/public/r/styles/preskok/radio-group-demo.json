@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "radio-group-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "radio"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { Description, Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Radio, RadioGroup } from \"@/registry/preskok/ui/preskok-ui/radio\"\n\nexport default function RadioGroupDemo() {\n  return (\n    <RadioGroup name=\"vehicleType\">\n      <Label>Vehicle Type</Label>\n      <Description>\n        Select the type of vehicle you&apos;re interested in\n      </Description>\n\n      <Radio value=\"sedan\">\n        <Label>Sedan</Label>\n        <Description>Comfortable 4-door vehicle with trunk storage</Description>\n      </Radio>\n      <Radio value=\"suv\">\n        <Label>SUV</Label>\n        <Description>Spacious vehicle with higher ground clearance</Description>\n      </Radio>\n      <Radio value=\"electric\">\n        <Label>Electric</Label>\n        <Description>\n          Zero-emission vehicle with lower operating costs\n        </Description>\n      </Radio>\n    </RadioGroup>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

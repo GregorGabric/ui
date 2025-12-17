@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "keyboard",
-  "type": "registry:ui",
   "description": "A component for displaying keyboard shortcuts and key combinations",
   "dependencies": [
     "tailwind-merge"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { Keyboard as KeyboardPrimitive } from \"react-aria-components\"\nimport { twMerge } from \"tailwind-merge\"\n\ninterface KeyboardProps\n  extends React.ComponentProps<typeof KeyboardPrimitive> {}\n\nconst Keyboard = ({ className, ...props }: KeyboardProps) => {\n  return (\n    <KeyboardPrimitive\n      data-slot=\"keyboard\"\n      className={twMerge(\n        \"group-hover:text-foreground group-focus:text-foreground forced-colors:group-focus:text-[HighlightText hidden font-mono text-[0.80rem]/6 text-current/60 group-focus:opacity-90 group-disabled:opacity-50 lg:inline\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Keyboard }\nexport type { KeyboardProps }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

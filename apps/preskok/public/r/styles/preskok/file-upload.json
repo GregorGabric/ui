@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "file-upload",
-  "type": "registry:ui",
   "description": "A file upload component that allows you to upload files",
   "files": [
     {
@@ -9,5 +8,6 @@
       "content": "import type { ComponentProps } from \"react\"\nimport { Slot } from \"@radix-ui/react-slot\"\n\nimport { cn } from \"@/lib/utils\"\n\ninterface FileUploadProps extends ComponentProps<\"label\"> {\n  asChild?: boolean\n}\n\nconst FileUpload = ({ className, asChild, ref, ...rest }: FileUploadProps) => {\n  const Component = asChild ? Slot : \"label\"\n\n  return (\n    <Component\n      ref={ref}\n      className={cn(\n        \"border-stroke-sub-300 bg-background-white-0 flex w-full cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed p-8 text-center\",\n        \"transition duration-200 ease-out\",\n        // hover\n        \"hover:bg-background-weak-50\",\n        className\n      )}\n      {...rest}\n    />\n  )\n}\n\ninterface FileUploadButtonProps extends ComponentProps<\"div\"> {\n  asChild?: boolean\n}\n\nconst FileUploadButton = ({\n  className,\n  asChild,\n  ref,\n  ...rest\n}: FileUploadButtonProps) => {\n  const Component = asChild ? Slot : \"div\"\n\n  return (\n    <Component\n      ref={ref}\n      className={cn(\n        \"bg-background-white-0 text-label-sm text-text-sub-600 inline-flex h-8 items-center justify-center gap-2.5 rounded-lg px-2.5 whitespace-nowrap\",\n        \"ring-stroke-soft-200 pointer-events-none ring-1 ring-inset\",\n        className\n      )}\n      {...rest}\n    />\n  )\n}\n\ntype AsProp<T extends React.ElementType> = {\n  as?: T\n}\n\ntype PropsToOmit<T extends React.ElementType, P> = keyof (AsProp<T> & P)\n\ntype PolymorphicComponentProp<\n  T extends React.ElementType,\n  Props = object,\n> = React.PropsWithChildren<Props & AsProp<T>> &\n  Omit<React.ComponentPropsWithoutRef<T>, PropsToOmit<T, Props>>\n\nexport type PolymorphicRef<T extends React.ElementType> =\n  React.ComponentPropsWithRef<T>[\"ref\"]\n\ntype PolymorphicComponentPropWithRef<\n  T extends React.ElementType,\n  Props = object,\n> = PolymorphicComponentProp<T, Props> & { ref?: PolymorphicRef<T> }\n\nexport type PolymorphicComponentPropsWithRef<\n  T extends React.ElementType,\n  P = object,\n> = PolymorphicComponentPropWithRef<T, P>\n\nexport type PolymorphicComponentProps<\n  T extends React.ElementType,\n  P = object,\n> = PolymorphicComponentProp<T, P>\n\nexport type PolymorphicComponent<P> = <T extends React.ElementType>(\n  props: PolymorphicComponentPropsWithRef<T, P>\n) => React.ReactNode\n\nfunction FileUploadIcon<T extends React.ElementType>({\n  className,\n  as,\n  ...rest\n}: PolymorphicComponentProps<T>) {\n  const Component = as ?? \"div\"\n\n  return (\n    <Component\n      className={cn(\"text-text-sub-600 size-6\", className)}\n      {...rest}\n    />\n  )\n}\n\nexport {\n  FileUploadButton as Button,\n  FileUploadIcon as Icon,\n  FileUpload as Root,\n}\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

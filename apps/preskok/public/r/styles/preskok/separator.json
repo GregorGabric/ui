@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "separator",
-  "type": "registry:ui",
   "description": "A separator component for dividing content horizontally or vertically",
   "dependencies": [
     "react-aria-components",
@@ -13,5 +12,6 @@
       "content": "\"use client\"\n\nimport {\n  Separator as Divider,\n  type SeparatorProps,\n} from \"react-aria-components\"\nimport { twMerge } from \"tailwind-merge\"\n\nconst Separator = ({\n  orientation = \"horizontal\",\n  className,\n  ...props\n}: SeparatorProps) => {\n  return (\n    <Divider\n      {...props}\n      className={twMerge(\n        \"bg-border shrink-0 forced-colors:bg-[ButtonBorder]\",\n        orientation === \"horizontal\" ? \"h-px w-full\" : \"h-full w-px\",\n        className\n      )}\n    />\n  )\n}\n\nexport { Separator }\nexport type { SeparatorProps }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

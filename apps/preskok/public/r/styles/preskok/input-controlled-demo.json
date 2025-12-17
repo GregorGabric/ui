@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input-controlled-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "input"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { Text } from \"@/registry/preskok/ui/preskok-ui/text\"\n\nexport default function InputControlledDemo() {\n  const [text, setText] = useState(\"\")\n  return (\n    <div>\n      <Input\n        aria-label=\"Name\"\n        value={text}\n        onChange={(e) => setText(e.target.value)}\n      />\n      {text && <Text className=\"mt-6\">{text}</Text>}\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

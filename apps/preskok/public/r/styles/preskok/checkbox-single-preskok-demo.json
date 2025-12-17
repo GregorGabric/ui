@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "checkbox-single-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "checkbox"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { Checkbox } from \"@/registry/preskok/ui/preskok-ui/checkbox\"\n\nexport default function CheckboxSinglePreskokDemo() {\n  return <Checkbox>Accept terms and conditions</Checkbox>\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

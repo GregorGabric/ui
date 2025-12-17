@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "progress-circle-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "progress-circle",
     "progress-bar"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { ProgressCircle } from \"@/registry/preskok/ui/preskok-ui/progress-circle\"\n\nexport default function ProgressCirclePreskokDemo() {\n  return <ProgressCircle value={75} />\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text-field-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "text-field",
     "field",
@@ -13,5 +12,6 @@
       "content": "\"use client\"\n\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport function Component() {\n  return (\n    <TextField aria-label=\"Name\">\n      <Input placeholder=\"Some Name Here\" />\n    </TextField>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

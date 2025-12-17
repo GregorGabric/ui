@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "number-format",
-  "type": "registry:ui",
   "description": "A number format component that allows you to format numbers in a variety of ways",
   "dependencies": [
     "react-number-format"
@@ -30,5 +29,6 @@
       "content": "import { CurrencyCodeAndSymbolMap } from \"../locale-context/locale-helpers\"\n\ntype CurrencyCodeOrSymbolExpectedOutputOptions =\n  | \"currency_code\"\n  | \"currency_symbol\"\n\ninterface GetCurrencyCodeOrSymbolParams {\n  inputValue: string\n  expectedOutput?: CurrencyCodeOrSymbolExpectedOutputOptions\n}\n\n/**\n * getCurrencyCodeOrSymbol is a helper function to get currency code or symbol from a string value. If no match is found\n * we return an empty string.\n *\n * @param {string} inputValue -> string value that might be a currency code or symbol.\n * @param {'currency_code' | 'currency_symbol'} expectedOutput -> optional expected output type (default: 'currency_code').\n * @returns {string} - currency code or symbol or an empty string if no match is found\n */\nexport const getCurrencyCodeOrSymbol = ({\n  inputValue,\n  expectedOutput = \"currency_code\",\n}: GetCurrencyCodeOrSymbolParams): string => {\n  let currencyCodeOrSymbolStringValue = \"\"\n  const trimmedAndLowerCaseInput = inputValue.trim().toLowerCase()\n\n  const currencyCodeOrSymbolLookup = Object.keys(CurrencyCodeAndSymbolMap).find(\n    (key) =>\n      key.toLowerCase() === trimmedAndLowerCaseInput ||\n      CurrencyCodeAndSymbolMap[\n        key as keyof typeof CurrencyCodeAndSymbolMap\n      ].toLowerCase() === trimmedAndLowerCaseInput\n  )\n\n  if (currencyCodeOrSymbolLookup) {\n    if (expectedOutput === \"currency_code\") {\n      currencyCodeOrSymbolStringValue = currencyCodeOrSymbolLookup\n    } else {\n      currencyCodeOrSymbolStringValue =\n        CurrencyCodeAndSymbolMap[\n          currencyCodeOrSymbolLookup as keyof typeof CurrencyCodeAndSymbolMap\n        ]\n    }\n  }\n\n  return currencyCodeOrSymbolStringValue\n}\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

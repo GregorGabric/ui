@@ -1,12 +1,12 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sidebar-group-action",
-  "type": "registry:internal",
   "files": [
     {
       "path": "registry/preskok/internal/sidebar-group-action.tsx",
       "content": "\"use client\"\n\nimport { FrameIcon, MapIcon, PieChartIcon, PlusIcon } from \"lucide-react\"\nimport { toast, Toaster } from \"sonner\"\n\nimport {\n  Sidebar,\n  SidebarContent,\n  SidebarProvider,\n  SidebarSection,\n  SidebarSectionGroup,\n} from \"@/registry/preskok/ui/preskok-ui/sidebar\"\n\nexport default function AppSidebar() {\n  return (\n    <SidebarProvider>\n      <Toaster\n        position=\"bottom-left\"\n        toastOptions={{\n          className: \"ml-[160px]\",\n        }}\n      />\n      <Sidebar>\n        <SidebarContent>\n          <SidebarSectionGroup>\n            <SidebarSection>\n              <button\n                title=\"Add Project\"\n                onClick={() => toast(\"You clicked the group action!\")}\n                className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2\"\n              >\n                <PlusIcon /> <span className=\"sr-only\">Add Project</span>\n              </button>\n              <a\n                href=\"#\"\n                className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2\"\n              >\n                <FrameIcon />\n                <span>Design Engineering</span>\n              </a>\n              <a\n                href=\"#\"\n                className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2\"\n              >\n                <PieChartIcon />\n                <span>Sales & Marketing</span>\n              </a>\n              <a\n                href=\"#\"\n                className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2\"\n              >\n                <MapIcon />\n                <span>Travel</span>\n              </a>\n            </SidebarSection>\n          </SidebarSectionGroup>\n        </SidebarContent>\n      </Sidebar>\n    </SidebarProvider>\n  )\n}\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:internal"
 }

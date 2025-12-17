@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "container",
-  "type": "registry:ui",
   "description": "A responsive container component with optional constraints",
   "dependencies": [
     "tailwind-merge"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport React from \"react\"\nimport { twMerge } from \"tailwind-merge\"\n\ninterface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {\n  constrained?: boolean\n  ref?: React.RefObject<HTMLDivElement>\n}\n\nconst Container = ({\n  className,\n  constrained = false,\n  ref,\n  ...props\n}: ContainerProps) => (\n  <div\n    className={twMerge(\n      \"mx-auto w-full max-w-7xl 2xl:max-w-(--breakpoint-2xl)\",\n      constrained ? \"sm:px-6\" : \"px-4 sm:px-6\",\n      className\n    )}\n    {...props}\n    ref={ref}\n  />\n)\n\nexport { Container }\nexport type { ContainerProps }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

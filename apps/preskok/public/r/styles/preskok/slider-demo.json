@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slider-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "slider"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { Slider } from \"@/registry/preskok/ui/preskok-ui/slider\"\n\nexport default function SliderDemo() {\n  return (\n    <Slider\n      label=\"Engine Power\"\n      defaultValue={250}\n      minValue={100}\n      maxValue={500}\n      step={10}\n    />\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

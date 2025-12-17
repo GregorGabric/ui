@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "choicebox-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "choicebox",
     "checkbox"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport {\n  ChoiceBox,\n  ChoiceBoxItem,\n} from \"@/registry/preskok/ui/preskok-ui/choice-box\"\n\nexport default function ChoiceBoxPreskokDemo() {\n  return (\n    <ChoiceBox aria-label=\"Select car packages\" selectionMode=\"multiple\">\n      <ChoiceBoxItem\n        textValue=\"sedan\"\n        label=\"Sedan\"\n        description=\"Comfortable family car with excellent fuel economy.\"\n      />\n      <ChoiceBoxItem\n        textValue=\"suv\"\n        label=\"SUV\"\n        description=\"Versatile vehicle with enhanced cargo space and off-road capability.\"\n      />\n      <ChoiceBoxItem\n        textValue=\"luxury\"\n        label=\"Luxury\"\n        description=\"Premium features with leather interior and advanced technology package.\"\n      />\n      <ChoiceBoxItem\n        textValue=\"electric\"\n        label=\"Electric\"\n        description=\"Zero-emission vehicle with cutting-edge battery technology.\"\n      />\n    </ChoiceBox>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

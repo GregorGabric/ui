@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-swatch-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "color-swatch"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { ColorSwatch } from \"@/registry/preskok/ui/preskok-ui/color-swatch\"\n\nexport default function ColorSwatchPreskokDemo() {\n  return <ColorSwatch aria-label=\"Color\" />\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-picker-preskok-demo",
-  "type": "registry:example",
   "dependencies": [
     "@internationalized/date"
   ],
@@ -19,5 +18,6 @@
       "content": "\"use client\"\n\nimport {\n  DatePicker,\n  DatePickerTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/date-picker\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport default function DatePickerPreskokDemo() {\n  return (\n    <div className=\"max-w-xs\">\n      <DatePicker>\n        <Label>Event date</Label>\n        <DatePickerTrigger />\n      </DatePicker>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

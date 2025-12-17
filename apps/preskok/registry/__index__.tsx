@@ -1194,7 +1194,7 @@ export const Index: Record<string, any> = {
     name: "pagination",
     description: "A pagination component with page navigation controls",
     type: "registry:ui",
-    registryDependencies: ["button","list-box","primitive"],
+    registryDependencies: ["button","primitive","link"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/pagination.tsx",
       type: "registry:ui",

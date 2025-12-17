@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "drawer-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "drawer",
     "button",
@@ -13,5 +12,6 @@
       "content": "\"use client\"\n\nimport { buttonStyles } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Drawer } from \"@/registry/preskok/ui/preskok-ui/drawer\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function DrawerDemo() {\n  return (\n    <Drawer>\n      <Drawer.Trigger className={buttonStyles({ intent: \"outline\" })}>\n        Vehicle Inquiry\n      </Drawer.Trigger>\n      <Drawer.Content>\n        <Drawer.Header>\n          <Drawer.Title>Contact Dealer</Drawer.Title>\n          <Drawer.Description>\n            Get more information about this vehicle or schedule a test drive.\n          </Drawer.Description>\n        </Drawer.Header>\n        <Drawer.Body className=\"space-y-4\">\n          <TextField\n            label=\"Full Name\"\n            placeholder=\"Enter your full name\"\n            isRequired\n          />\n          <TextField\n            label=\"Email Address\"\n            type=\"email\"\n            placeholder=\"your.email@example.com\"\n            isRequired\n          />\n          <TextField\n            label=\"Phone Number\"\n            type=\"tel\"\n            placeholder=\"+1 (555) 123-4567\"\n          />\n          <div className=\"bg-muted rounded p-3\">\n            <h4 className=\"text-sm font-medium\">Vehicle of Interest</h4>\n            <p className=\"text-muted-foreground text-sm\">\n              2024 Toyota Camry LE - Stock #TC240156\n            </p>\n            <p className=\"text-muted-foreground text-sm\">Price: $28,400</p>\n          </div>\n        </Drawer.Body>\n        <Drawer.Footer>\n          <Drawer.Close className=\"w-full\">Send Inquiry</Drawer.Close>\n        </Drawer.Footer>\n      </Drawer.Content>\n    </Drawer>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

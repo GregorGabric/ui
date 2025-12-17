@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "file-trigger",
-  "type": "registry:ui",
   "description": "A file input trigger component with button styling",
   "dependencies": [
     "react-aria-components",
@@ -16,5 +15,6 @@
       "content": "\"use client\"\n\nimport React from \"react\"\nimport { CameraIcon, FolderIcon, PaperclipIcon } from \"lucide-react\"\nimport {\n  FileTrigger as FileTriggerPrimitive,\n  type FileTriggerProps as FileTriggerPrimitiveProps,\n} from \"react-aria-components\"\nimport type { VariantProps } from \"tailwind-variants\"\n\nimport { Button, type buttonStyles } from \"./button\"\nimport { Loader } from \"./loader\"\n\ninterface FileTriggerProps\n  extends FileTriggerPrimitiveProps,\n    VariantProps<typeof buttonStyles> {\n  isDisabled?: boolean\n  ref?: React.RefObject<HTMLInputElement>\n  className?: string\n}\n\nconst FileTrigger = ({\n  intent = \"outline\",\n  size = \"md\",\n  isCircle = false,\n  ref,\n  className,\n  ...props\n}: FileTriggerProps) => {\n  return (\n    <FileTriggerPrimitive ref={ref} {...props}>\n      <Button\n        className={className}\n        isDisabled={props.isDisabled}\n        intent={intent}\n        size={size}\n        isCircle={isCircle}\n      >\n        {!props.isPending ? (\n          props.defaultCamera ? (\n            <CameraIcon />\n          ) : props.acceptDirectory ? (\n            <FolderIcon />\n          ) : (\n            <PaperclipIcon />\n          )\n        ) : (\n          <Loader />\n        )}\n        {props.children ? (\n          props.children\n        ) : (\n          <>\n            {props.allowsMultiple\n              ? \"Browse a files\"\n              : props.acceptDirectory\n                ? \"Browse\"\n                : \"Browse a file\"}\n            ...\n          </>\n        )}\n      </Button>\n    </FileTriggerPrimitive>\n  )\n}\n\nexport { FileTrigger }\nexport type { FileTriggerProps }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

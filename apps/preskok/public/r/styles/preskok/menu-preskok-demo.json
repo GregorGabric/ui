@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "menu-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "menu",
     "button"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { PencilIcon, TrashIcon } from \"lucide-react\"\n\nimport {\n  Menu,\n  MenuContent,\n  MenuItem,\n  MenuLabel,\n  MenuSeparator,\n  MenuTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/menu\"\n\nexport default function MenuPreskokDemo() {\n  return (\n    <Menu>\n      <MenuTrigger>Open</MenuTrigger>\n      <MenuContent popover={{ placement: \"bottom\" }}>\n        <MenuItem>\n          <MenuLabel>View</MenuLabel>\n        </MenuItem>\n        <MenuItem>\n          <PencilIcon data-slot=\"icon\" />\n          <MenuLabel>Edit</MenuLabel>\n        </MenuItem>\n        <MenuSeparator />\n        <MenuItem intent=\"danger\">\n          <TrashIcon data-slot=\"icon\" />\n          <MenuLabel>Delete</MenuLabel>\n        </MenuItem>\n        <MenuItem intent=\"warning\">\n          <TrashIcon data-slot=\"icon\" />\n          <MenuLabel>Warning</MenuLabel>\n        </MenuItem>\n      </MenuContent>\n    </Menu>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

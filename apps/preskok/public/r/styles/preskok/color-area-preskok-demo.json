@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-area-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "color-area",
     "color-slider",
@@ -14,5 +13,6 @@
       "content": "\"use client\"\n\nimport { ColorArea } from \"@/registry/preskok/ui/preskok-ui/color-area\"\nimport { ColorField } from \"@/registry/preskok/ui/preskok-ui/color-field\"\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorAreaPreskokDemo() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <ColorArea\n        defaultValue=\"hsb(0, 100%, 50%)\"\n        colorSpace=\"hsb\"\n        xChannel=\"saturation\"\n        yChannel=\"brightness\"\n      />\n      <ColorSlider\n        defaultValue=\"hsb(0, 100%, 50%)\"\n        colorSpace=\"hsb\"\n        channel=\"hue\"\n      />\n      <ColorField\n        defaultValue=\"hsb(0, 100%, 50%)\"\n        aria-label=\"Hex\"\n        placeholder=\"#000000\"\n      />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

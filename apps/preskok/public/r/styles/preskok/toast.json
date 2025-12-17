@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toast",
-  "type": "registry:ui",
   "description": "A toast notification component using Sonner",
   "dependencies": [
     "sonner"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport React from \"react\"\nimport { Toaster as ToasterPrimitive, type ToasterProps } from \"sonner\"\n\nconst Toast = ({ ...props }: ToasterProps) => {\n  return (\n    <ToasterPrimitive\n      theme={\"system\"}\n      className=\"toaster group\"\n      richColors\n      toastOptions={{\n        className:\n          \"*:data-icon:self-start font-sans has-data-description:*:data-icon:mt-1 *:data-icon:mt-0.5 backdrop-blur-2xl\",\n      }}\n      style={\n        {\n          \"--normal-background\": \"var(--color-overlay)\",\n          \"--normal-text\": \"var(--color-overlay-foreground)\",\n          \"--normal-border\": \"var(--color-border)\",\n\n          \"--success-background\": \"var(--color-success-background)\",\n          \"--success-border\": \"var(--color-success-border)\",\n          \"--success-text\": \"var(--color-success-text)\",\n\n          \"--error-background\": \"var(--color-error-background)\",\n          \"--error-border\": \"var(--color-error-border)\",\n          \"--error-text\": \"var(--color-error-text)\",\n\n          \"--warning-background\": \"var(--color-warning-background)\",\n          \"--warning-border\": \"var(--color-warning-border)\",\n          \"--warning-text\": \"var(--color-warning-text)\",\n\n          \"--info-background\": \"var(--color-info-background)\",\n          \"--info-border\": \"var(--color-info-border)\",\n          \"--info-text\": \"var(--color-info-text)\",\n        } as React.CSSProperties\n      }\n      {...props}\n    />\n  )\n}\n\nexport { Toast }\nexport type { ToasterProps }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-midnight",
-  "type": "registry:theme",
   "cssVars": {
     "light": {
       "background": "240 5% 6%",
@@ -55,5 +54,6 @@
       "chart-4": "240 1% 42%",
       "chart-5": "240 2% 26%"
     }
-  }
+  },
+  "type": "registry:theme"
 }

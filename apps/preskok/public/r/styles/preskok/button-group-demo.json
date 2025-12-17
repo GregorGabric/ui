@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button-group-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "button-group",
     "button"
@@ -12,5 +11,6 @@
       "content": "import { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { ButtonGroup } from \"@/registry/preskok/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupDemo() {\n  return (\n    <ButtonGroup>\n      <Button intent=\"secondary\">Down</Button>\n      <Button intent=\"secondary\">Up</Button>\n    </ButtonGroup>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

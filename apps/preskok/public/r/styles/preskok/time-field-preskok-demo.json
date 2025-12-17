@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "time-field-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "time-field",
     "field"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { TimeField } from \"@/registry/preskok/ui/preskok-ui/time-field\"\n\nexport default function TimeFieldPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <TimeField label=\"Start time\" />\n      <TimeField label=\"End time\" />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "show-more",
-  "type": "registry:ui",
   "description": "A show more/less component for collapsible content",
   "dependencies": [
     "lucide-react",
@@ -17,5 +16,6 @@
       "content": "\"use client\"\n\nimport React from \"react\"\nimport { composeRenderProps, Text, ToggleButton } from \"react-aria-components\"\nimport { tv } from \"tailwind-variants\"\n\nimport { buttonStyles } from \"./button\"\n\nconst showMoreStyles = tv({\n  base: \"text-sm leading-6 before:border-border after:border-border\",\n  variants: {\n    orientation: {\n      vertical: \"mx-1 h-auto self-stretch\",\n      horizontal: \"my-0.5 h-px w-full self-stretch\",\n    },\n  },\n  compoundVariants: [\n    {\n      orientation: \"vertical\",\n      className:\n        \"mx-2 flex flex-col items-center before:mb-2 before:flex-1 before:border-l after:mt-2 after:flex-1 after:border-r\",\n    },\n    {\n      orientation: \"horizontal\",\n      className:\n        \"my-2 flex items-center self-stretch before:mr-2 before:flex-1 before:border-t after:ml-2 after:flex-1 after:border-t\",\n    },\n  ],\n  defaultVariants: {\n    orientation: \"horizontal\",\n  },\n})\n\ninterface ShowMoreProps extends React.ComponentProps<typeof ToggleButton> {\n  className?: string\n  orientation?: \"horizontal\" | \"vertical\"\n  as?: \"text\" | \"button\"\n  text?: string\n}\n\nconst ShowMore = ({\n  as = \"button\",\n  children,\n  orientation = \"horizontal\",\n  className,\n  ...props\n}: ShowMoreProps) => {\n  return (\n    <div className={showMoreStyles({ orientation, className })}>\n      {as === \"button\" ? (\n        <ToggleButton\n          {...props}\n          className={buttonStyles({\n            isCircle: true,\n            intent: \"outline\",\n            size: \"sm\",\n          })}\n        >\n          {composeRenderProps(children, (children) => children)}\n        </ToggleButton>\n      ) : (\n        <Text slot=\"description\">{props.text}</Text>\n      )}\n    </div>\n  )\n}\n\nexport { ShowMore }\nexport type { ShowMoreProps }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

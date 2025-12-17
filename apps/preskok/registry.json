@@ -1170,14 +1170,10 @@
       "name": "pagination",
       "type": "registry:ui",
       "description": "A pagination component with page navigation controls",
-      "dependencies": [
-        "lucide-react",
-        "react-aria-components"
-      ],
       "registryDependencies": [
         "button",
-        "list-box",
-        "primitive"
+        "primitive",
+        "link"
       ],
       "files": [
         {

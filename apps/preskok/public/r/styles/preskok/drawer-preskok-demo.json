@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "drawer-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "drawer",
     "button"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { buttonStyles } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Drawer } from \"@/registry/preskok/ui/preskok-ui/drawer\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function DrawerPreskokDemo() {\n  return (\n    <Drawer>\n      <Drawer.Trigger className={buttonStyles({ intent: \"outline\" })}>\n        Schedule Test Drive\n      </Drawer.Trigger>\n      <Drawer.Content>\n        <Drawer.Header>\n          <Drawer.Title>Schedule Test Drive</Drawer.Title>\n          <Drawer.Description>\n            Book your test drive experience with our latest vehicle models.\n          </Drawer.Description>\n        </Drawer.Header>\n        <Drawer.Body className=\"space-y-4\">\n          <TextField label=\"Full Name\" type=\"text\" placeholder=\"John Smith\" />\n          <TextField\n            label=\"Phone Number\"\n            type=\"tel\"\n            placeholder=\"+1 (555) 123-4567\"\n          />\n        </Drawer.Body>\n        <Drawer.Footer>\n          <Drawer.Close className=\"w-full\">Book Test Drive</Drawer.Close>\n        </Drawer.Footer>\n      </Drawer.Content>\n    </Drawer>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

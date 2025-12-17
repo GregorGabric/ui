@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-daylight",
-  "type": "registry:theme",
   "cssVars": {
     "light": {
       "background": "36 39% 88%",
@@ -55,5 +54,6 @@
       "chart-4": "31 41% 48%",
       "chart-5": "35 43% 53%"
     }
-  }
+  },
+  "type": "registry:theme"
 }

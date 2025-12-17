@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "badge-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "badge"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { Badge, badgeStyles } from \"@/registry/preskok/ui/preskok-ui/badge\"\n\nfunction toTitleCase(text: string) {\n  return text.charAt(0).toUpperCase() + text.slice(1)\n}\n\nexport default function BadgePreskokDemo() {\n  const intents = Object.keys(badgeStyles.variants.intent) as Array<\n    keyof typeof badgeStyles.variants.intent\n  >\n\n  return (\n    <div className=\"flex flex-wrap items-center gap-2\">\n      {intents.map((intent) => (\n        <Badge key={intent} intent={intent}>\n          {toTitleCase(intent)}\n        </Badge>\n      ))}\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "time-field",
-  "type": "registry:ui",
   "description": "A time input field with segmented time entry",
   "dependencies": [
     "@internationalized/date",
@@ -17,5 +16,6 @@
       "content": "\"use client\"\n\nimport {\n  TimeField as TimeFieldPrimitive,\n  type TimeFieldProps,\n  type TimeValue,\n} from \"react-aria-components\"\n\nimport { cx } from \"@/registry/preskok/lib/primitive\"\n\nimport { fieldStyles } from \"./field\"\n\nexport function TimeField<T extends TimeValue>({\n  className,\n  ...props\n}: TimeFieldProps<T>) {\n  return (\n    <TimeFieldPrimitive\n      {...props}\n      data-slot=\"control\"\n      className={cx(fieldStyles({ className: \"w-fit\" }), className)}\n    />\n  )\n}\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

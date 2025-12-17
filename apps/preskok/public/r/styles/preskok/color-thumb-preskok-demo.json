@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-thumb-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "color-slider",
     "color-thumb"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { ColorArea } from \"@/registry/preskok/ui/preskok-ui/color-area\"\n\nexport default function ColorThumbPreskokDemo() {\n  return <ColorArea xChannel=\"alpha\" yChannel=\"blue\" />\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

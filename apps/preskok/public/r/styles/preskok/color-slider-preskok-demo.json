@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-slider-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "color-picker",
     "color-slider"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { ColorSlider } from \"@/registry/preskok/ui/preskok-ui/color-slider\"\n\nexport default function ColorSliderPreskokDemo() {\n  return (\n    <ColorSlider\n      label=\"Fill color\"\n      channel=\"hue\"\n      defaultValue=\"hsl(0, 100%, 50%)\"\n    />\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

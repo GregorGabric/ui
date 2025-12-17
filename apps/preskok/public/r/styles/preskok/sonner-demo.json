@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sonner-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "toast",
     "button"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport { toast } from \"sonner\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Toast } from \"@/registry/preskok/ui/preskok-ui/toast\"\n\nexport default function SonnerDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"flex flex-wrap gap-2\">\n        <Button\n          intent=\"outline\"\n          size=\"sm\"\n          onPress={() =>\n            toast.success(\"Test drive scheduled!\", {\n              description: \"We'll contact you within 24 hours to confirm.\",\n            })\n          }\n        >\n          Success Toast\n        </Button>\n\n        <Button\n          intent=\"outline\"\n          size=\"sm\"\n          onPress={() =>\n            toast.error(\"Vehicle unavailable\", {\n              description: \"This vehicle has been sold. View similar options?\",\n            })\n          }\n        >\n          Error Toast\n        </Button>\n\n        <Button\n          intent=\"outline\"\n          size=\"sm\"\n          onPress={() =>\n            toast.info(\"Price drop alert!\", {\n              description: \"The 2024 Honda Accord is now $2,000 less.\",\n            })\n          }\n        >\n          Info Toast\n        </Button>\n\n        <Button\n          intent=\"outline\"\n          size=\"sm\"\n          onPress={() =>\n            toast.warning(\"Low inventory\", {\n              description: \"Only 2 vehicles left in this configuration.\",\n            })\n          }\n        >\n          Warning Toast\n        </Button>\n\n        <Button\n          intent=\"outline\"\n          size=\"sm\"\n          onPress={() =>\n            toast(\"Vehicle saved to favorites\", {\n              description: \"2024 Toyota Camry LE added to your watchlist.\",\n              action: {\n                label: \"View\",\n                onClick: () => console.log(\"View favorites\"),\n              },\n            })\n          }\n        >\n          Action Toast\n        </Button>\n\n        <Button\n          intent=\"outline\"\n          size=\"sm\"\n          onPress={() =>\n            toast.promise(new Promise((resolve) => setTimeout(resolve, 2000)), {\n              loading: \"Processing financing application...\",\n              success: \"Application approved! Check your email for next steps.\",\n              error: \"Application failed. Please try again.\",\n            })\n          }\n        >\n          Promise Toast\n        </Button>\n      </div>\n\n      <Toast />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

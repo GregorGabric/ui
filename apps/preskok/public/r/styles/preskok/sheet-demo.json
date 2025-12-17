@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sheet-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "sheet",
     "button",
@@ -13,5 +12,6 @@
       "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  Checkbox,\n  CheckboxLabel,\n} from \"@/registry/preskok/ui/preskok-ui/checkbox\"\nimport { Description, Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport {\n  Sheet,\n  SheetBody,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n} from \"@/registry/preskok/ui/preskok-ui/sheet\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function SheetDemo() {\n  return (\n    <Sheet>\n      <Button intent=\"outline\">Book Service</Button>\n      <SheetContent>\n        {({ close }) => (\n          <>\n            <SheetHeader>\n              <SheetTitle>Schedule Service Appointment</SheetTitle>\n              <SheetDescription>\n                Book your vehicle maintenance or repair service with our\n                certified technicians.\n              </SheetDescription>\n            </SheetHeader>\n            <SheetBody className=\"space-y-4\">\n              <TextField>\n                <Label>Vehicle Make & Model</Label>\n                <Input type=\"text\" placeholder=\"e.g., Toyota Camry 2020\" />\n              </TextField>\n              <TextField>\n                <Label>License Plate</Label>\n                <Input type=\"text\" placeholder=\"Enter license plate number\" />\n              </TextField>\n              <TextField>\n                <Label>Phone Number</Label>\n                <Input type=\"tel\" placeholder=\"Enter your contact number\" />\n              </TextField>\n              <Checkbox>\n                <CheckboxLabel>Enable service reminders</CheckboxLabel>\n                <Description>\n                  Receive notifications for upcoming maintenance schedules.\n                </Description>\n              </Checkbox>\n            </SheetBody>\n            <SheetFooter>\n              <SheetClose>Cancel</SheetClose>\n              <Button onPress={close} intent=\"primary\" type=\"submit\">\n                Book Appointment\n              </Button>\n            </SheetFooter>\n          </>\n        )}\n      </SheetContent>\n    </Sheet>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

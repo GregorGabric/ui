@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-picker-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "color-picker"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { ColorPicker } from \"@/registry/preskok/ui/preskok-ui/color-picker\"\n\nexport default function ColorPickerPreskokDemo() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <ColorPicker label=\"Pick color\" defaultValue=\"hsl(216, 98%, 52%)\" />\n      <ColorPicker label=\"With Eyedropper\" eyeDropper />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

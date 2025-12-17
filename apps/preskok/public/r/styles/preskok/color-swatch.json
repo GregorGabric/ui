@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-swatch",
-  "type": "registry:ui",
   "description": "A color swatch component for displaying colors",
   "dependencies": [
     "react-aria-components"
@@ -15,5 +14,6 @@
       "content": "\"use client\"\n\nimport type { ColorSwatchProps } from \"react-aria-components\"\nimport { ColorSwatch as ColorSwatchPrimitive } from \"react-aria-components\"\n\nimport { cx } from \"@/registry/preskok/lib/primitive\"\n\nexport function ColorSwatch({ className, ...props }: ColorSwatchProps) {\n  return (\n    <ColorSwatchPrimitive\n      data-slot=\"color-swatch\"\n      className={cx(\n        \"size-[calc(var(--color-swatch-size)+--spacing(1))] shrink-0 rounded-[calc(var(--radius-lg)-1px)] inset-ring-1 inset-ring-current/20 [--color-swatch-size:--spacing(9)] sm:size-(--color-swatch-size)\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

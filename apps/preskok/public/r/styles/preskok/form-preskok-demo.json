@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "form-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "form",
     "field",
@@ -11,8 +10,9 @@
   "files": [
     {
       "path": "registry/preskok/examples/form-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Form } from \"@/registry/preskok/ui/preskok-ui/form\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function FormPreskokDemo() {\n  return (\n    <Form\n      className=\"w-full max-w-sm space-y-4\"\n      onSubmit={(e) => e.preventDefault()}\n    >\n      <TextField label=\"Name\" name=\"name\" isRequired placeholder=\"Jane Doe\" />\n      <TextField\n        label=\"Dealer Email\"\n        name=\"email\"\n        type=\"email\"\n        isRequired\n        placeholder=\"jane@example.com\"\n      />\n      <Button type=\"submit\">Submit</Button>\n    </Form>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  Description,\n  FieldError,\n  Label,\n} from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Form } from \"@/registry/preskok/ui/preskok-ui/form\"\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\nimport { TextField } from \"@/registry/preskok/ui/preskok-ui/text-field\"\n\nexport default function FormPreskokDemo() {\n  return (\n    <Form\n      className=\"w-full max-w-sm space-y-4\"\n      onSubmit={(e) => e.preventDefault()}\n    >\n      <TextField isRequired name=\"name\">\n        <Label>Name</Label>\n        <Input />\n        <FieldError />\n      </TextField>\n      <TextField isRequired type=\"password\" name=\"password\">\n        <Label>Password</Label>\n        <Description>This is your password.</Description>\n        <Input type=\"password\" />\n        <FieldError />\n      </TextField>\n      <TextField isRequired name=\"email\">\n        <Label>Email</Label>\n        <Description>This is your public display name.</Description>\n        <Input type=\"email\" />\n        <FieldError />\n      </TextField>\n      <Button type=\"submit\">Submit</Button>\n    </Form>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

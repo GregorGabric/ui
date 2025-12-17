@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tabs-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "tabs"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport {\n  Tab,\n  TabList,\n  TabPanel,\n  Tabs,\n} from \"@/registry/preskok/ui/preskok-ui/tabs\"\n\nexport default function TabsDemo() {\n  return (\n    <Tabs aria-label=\"Car Marketplace\" className={\"w-full\"}>\n      <TabList>\n        <Tab id=\"m\">Models</Tab>\n        <Tab id=\"s\">Specs</Tab>\n        <Tab id=\"r\">Reviews</Tab>\n      </TabList>\n      <TabPanel id=\"m\">\n        Browse through a wide selection of car models from various manufacturers\n        and price ranges.\n      </TabPanel>\n      <TabPanel id=\"s\">\n        Check detailed specifications including engine, performance, and\n        features for each vehicle.\n      </TabPanel>\n      <TabPanel id=\"r\">\n        Read reviews and ratings from experts and owners to help make your\n        decision.\n      </TabPanel>\n    </Tabs>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

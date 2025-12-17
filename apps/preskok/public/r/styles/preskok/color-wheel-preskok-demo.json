@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-wheel-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "color-wheel"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport { ColorWheel } from \"@/registry/preskok/ui/preskok-ui/color-wheel\"\n\nexport default function ColorWheelPreskokDemo() {\n  return <ColorWheel aria-label=\"Hue\" />\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "grid-list-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "grid-list",
     "checkbox"
@@ -12,5 +11,6 @@
       "content": "\"use client\"\n\nimport {\n  GridList,\n  GridListItem,\n} from \"@/registry/preskok/ui/preskok-ui/grid-list\"\n\nexport function Component() {\n  return (\n    <GridList\n      selectionMode=\"single\"\n      items={items}\n      aria-label=\"Select your favorite bands\"\n      className=\"min-w-64\"\n    >\n      {(item) => <GridListItem id={item.id}>{item.name}</GridListItem>}\n    </GridList>\n  )\n}\n\nconst items = [\n  { id: \"1\", name: \"The Beatles\" },\n  { id: \"2\", name: \"Led Zeppelin\" },\n  { id: \"3\", name: \"Pink Floyd\" },\n  { id: \"4\", name: \"Queen\" },\n  { id: \"5\", name: \"The Rolling Stones\" },\n  { id: \"6\", name: \"The Who\" },\n]\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

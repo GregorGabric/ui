@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scroll-area",
-  "type": "registry:ui",
   "description": "A scroll area component with custom scrollbars",
   "files": [
     {
@@ -9,5 +8,6 @@
       "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as ScrollAreaPrimitive from \"@radix-ui/react-scroll-area\"\nimport { twMerge } from \"tailwind-merge\"\n\nconst ScrollArea = React.forwardRef<\n  React.ComponentRef<typeof ScrollAreaPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>\n>(({ className, children, ...props }, ref) => (\n  <ScrollAreaPrimitive.Root\n    ref={ref}\n    className={twMerge(\"overflow-hidden\", className)}\n    {...props}\n  >\n    {children}\n    <ScrollAreaPrimitive.Corner />\n    <ScrollBar orientation=\"vertical\" />\n  </ScrollAreaPrimitive.Root>\n))\n\nScrollArea.displayName = ScrollAreaPrimitive.Root.displayName\n\nconst ScrollViewport = React.forwardRef<\n  React.ComponentRef<typeof ScrollAreaPrimitive.Viewport>,\n  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Viewport>\n>(({ className, children, ...props }, ref) => (\n  <ScrollAreaPrimitive.Viewport\n    ref={ref}\n    className={twMerge(\"size-full rounded-[inherit]\", className)}\n    {...props}\n  >\n    {children}\n  </ScrollAreaPrimitive.Viewport>\n))\n\nScrollViewport.displayName = ScrollAreaPrimitive.Viewport.displayName\n\nconst ScrollBar = React.forwardRef<\n  React.ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>,\n  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>\n>(({ className, orientation = \"vertical\", ...props }, ref) => (\n  <ScrollAreaPrimitive.Scrollbar\n    ref={ref}\n    orientation={orientation}\n    className={twMerge(\n      \"data-[state=hidden]:animate-fd-fade-out flex select-none\",\n      orientation === \"vertical\" && \"h-full w-1.5\",\n      orientation === \"horizontal\" && \"h-1.5 flex-col\",\n      className\n    )}\n    {...props}\n  >\n    <ScrollAreaPrimitive.ScrollAreaThumb className=\"bg-fd-border relative flex-1 rounded-full\" />\n  </ScrollAreaPrimitive.Scrollbar>\n))\nScrollBar.displayName = ScrollAreaPrimitive.Scrollbar.displayName\n\nexport { ScrollArea, ScrollBar, ScrollViewport }\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

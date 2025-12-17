@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "number-field-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "number-field",
     "button",
@@ -13,5 +12,6 @@
       "content": "\"use client\"\n\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport {\n  NumberField,\n  NumberInput,\n} from \"@/registry/preskok/ui/preskok-ui/number-field\"\n\nexport default function NumberFieldPreskokDemo() {\n  return (\n    <NumberField>\n      <Label>Cookies</Label>\n      <NumberInput />\n    </NumberField>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

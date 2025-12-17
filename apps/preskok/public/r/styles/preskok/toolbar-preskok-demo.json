@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toolbar-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "toolbar"
   ],
@@ -11,5 +10,6 @@
       "content": "\"use client\"\n\nimport {\n  AlignCenterIcon,\n  AlignLeftIcon,\n  AlignRightIcon,\n  BoldIcon,\n  ItalicIcon,\n  UnderlineIcon,\n} from \"lucide-react\"\n\nimport {\n  Toolbar,\n  ToolbarGroup,\n  ToolbarItem,\n  ToolbarSeparator,\n} from \"@/registry/preskok/ui/preskok-ui/toolbar\"\n\nexport default function ToolbarPreskokDemo() {\n  return (\n    <div className=\"space-y-6\">\n      <div>\n        <h3 className=\"mb-3 text-sm font-medium\">Horizontal Toolbar</h3>\n        <Toolbar aria-label=\"Text formatting\">\n          <ToolbarGroup aria-label=\"Text style\">\n            <ToolbarItem aria-label=\"Bold\">\n              <BoldIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Italic\">\n              <ItalicIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Underline\">\n              <UnderlineIcon className=\"size-4\" />\n            </ToolbarItem>\n          </ToolbarGroup>\n          <ToolbarSeparator />\n          <ToolbarGroup aria-label=\"Text alignment\">\n            <ToolbarItem aria-label=\"Align left\">\n              <AlignLeftIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Align center\">\n              <AlignCenterIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Align right\">\n              <AlignRightIcon className=\"size-4\" />\n            </ToolbarItem>\n          </ToolbarGroup>\n        </Toolbar>\n      </div>\n\n      <div>\n        <h3 className=\"mb-3 text-sm font-medium\">Vertical Toolbar</h3>\n        <Toolbar orientation=\"vertical\" aria-label=\"Text formatting\">\n          <ToolbarGroup aria-label=\"Text style\">\n            <ToolbarItem aria-label=\"Bold\">\n              <BoldIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Italic\">\n              <ItalicIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Underline\">\n              <UnderlineIcon className=\"size-4\" />\n            </ToolbarItem>\n          </ToolbarGroup>\n          <ToolbarSeparator />\n          <ToolbarGroup aria-label=\"Text alignment\">\n            <ToolbarItem aria-label=\"Align left\">\n              <AlignLeftIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Align center\">\n              <AlignCenterIcon className=\"size-4\" />\n            </ToolbarItem>\n            <ToolbarItem aria-label=\"Align right\">\n              <AlignRightIcon className=\"size-4\" />\n            </ToolbarItem>\n          </ToolbarGroup>\n        </Toolbar>\n      </div>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

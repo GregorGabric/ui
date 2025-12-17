@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "search-field-preskok-demo",
-  "type": "registry:example",
   "registryDependencies": [
     "search-field",
     "field",
@@ -13,5 +12,6 @@
       "content": "\"use client\"\n\nimport {\n  SearchField,\n  SearchInput,\n} from \"@/registry/preskok/ui/preskok-ui/search-field\"\n\nexport function Component() {\n  return (\n    <SearchField aria-label=\"Search\">\n      <SearchInput placeholder=\"Search\" />\n    </SearchField>\n  )\n}\n",
       "type": "registry:example"
     }
-  ]
+  ],
+  "type": "registry:example"
 }
