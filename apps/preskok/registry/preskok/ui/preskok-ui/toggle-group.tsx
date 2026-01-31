@@ -23,8 +23,10 @@ type ToggleSize =
   | "sq-md"
   | "sq-lg"
 
-interface ToggleGroupContextValue
-  extends Pick<ToggleButtonGroupProps, "selectionMode" | "orientation"> {
+interface ToggleGroupContextValue extends Pick<
+  ToggleButtonGroupProps,
+  "selectionMode" | "orientation"
+> {
   size?: ToggleSize
 }
 
@@ -145,7 +147,7 @@ const toggleGroupItemStyles = tv({
     },
   },
   defaultVariants: {
-    size: "xs",
+    size: "md",
   },
   compoundVariants: [
     {
