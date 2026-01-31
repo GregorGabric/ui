@@ -50,16 +50,16 @@ const ToggleGroup = ({
   ...props
 }: ToggleGroupProps) => {
   return (
-    <ToggleGroupContext.Provider value={{ size, selectionMode, orientation }}>
+    <ToggleGroupContext value={{ size, selectionMode, orientation }}>
       <ToggleButtonGroup
         data-slot="control"
         selectionMode={selectionMode}
         className={cx(
           [
             "[--toggle-group-radius:var(--radius-lg)] [--toggle-gutter:--spacing(0.5)]",
-            "[--toggle-foreground:var(--color-foreground)] [--toggle-selected-background:var(--color-primary)] [--toggle-selected-foreground:var(--color-primary-foreground)]",
-            "[--toggle-focused-background:var(--color-secondary)] [--toggle-focused-foreground:var(--color-secondary-foreground)]",
-            "[--toggle-hover-background:var(--toggle-focused-background)] [--toggle-hover-foreground:var(--toggle-focused-foreground)]",
+            "[--toggle-foreground:var(--color-foreground)] [--toggle-selected-background:var(--color-muted)]/90 [--toggle-selected-foreground:var(--color-foreground)]",
+            "[--toggle-focused-background:var(--color-muted)] [--toggle-focused-foreground:var(--color-foreground)]",
+            "[--toggle-hover-background:var(--toggle-focused-background)]/70 [--toggle-hover-foreground:var(--toggle-focused-foreground)]",
             "[--toggle-icon:color-mix(in_oklab,var(--toggle-focused-foreground)_50%,var(--toggle-focused-background))]",
             "inset-ring-border inline-flex overflow-hidden p-(--toggle-gutter) inset-ring",
             orientation === "horizontal" ? "flex-row" : "flex-col",
@@ -76,7 +76,7 @@ const ToggleGroup = ({
         )}
         {...props}
       />
-    </ToggleGroupContext.Provider>
+    </ToggleGroupContext>
   )
 }
 
@@ -103,22 +103,22 @@ const toggleGroupItemStyles = tv({
     },
     size: {
       xs: [
-        "min-h-8 gap-x-1.5 px-2.5 py-1.5 text-sm sm:min-h-7 sm:px-2 sm:py-1.5 sm:text-xs/4",
+        "min-h-8 gap-x-1.5 px-1.5 py-1 text-sm sm:min-h-7 sm:px-1 sm:py-1 sm:text-xs/4",
         "*:data-[slot=icon]:-mx-px *:data-[slot=icon]:size-3.5 sm:*:data-[slot=icon]:size-3",
         "*:data-[slot=loader]:-mx-px *:data-[slot=loader]:size-3.5 sm:*:data-[slot=loader]:size-3",
       ],
       sm: [
-        "min-h-9 gap-x-1.5 px-3 py-1.5 sm:min-h-8 sm:px-2.5 sm:py-1.5 sm:text-sm/5",
+        "min-h-9 gap-x-1.5 px-2 py-1 sm:min-h-8 sm:px-1.5 sm:py-1 sm:text-sm/5",
         "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4",
         "*:data-[slot=loader]:size-4.5 sm:*:data-[slot=loader]:size-4",
       ],
       md: [
-        "min-h-10 gap-x-2 px-3.5 py-2 sm:min-h-9 sm:px-3 sm:py-1.5 sm:text-sm/6",
+        "min-h-10 gap-x-2 px-2.5 py-1.5 sm:min-h-9 sm:px-2 sm:py-1 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4",
       ],
       lg: [
-        "min-h-11 gap-x-2 px-4 py-2.5 sm:min-h-10 sm:px-3.5 sm:py-2 sm:text-sm/6",
+        "min-h-11 gap-x-2 px-3 py-2 sm:min-h-10 sm:px-2.5 sm:py-1.5 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4.5",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4.5",
       ],
@@ -145,7 +145,7 @@ const toggleGroupItemStyles = tv({
     },
   },
   defaultVariants: {
-    size: "md",
+    size: "xs",
   },
   compoundVariants: [
     {

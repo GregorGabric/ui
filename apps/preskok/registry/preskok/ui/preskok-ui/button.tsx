@@ -35,7 +35,7 @@ const buttonStyles = tv({
       outline:
         "border-border [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
       plain:
-        "border-transparent [--btn-background:transparent] [--btn-icon:var(--color-muted-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
+        "border-transparent [--btn-background:transparent] [--btn-icon:var(--color-foreground)] [--btn-outline:var(--color-ring)] [--btn-overlay:var(--color-muted)] [--btn-ring:var(--color-ring)]/20",
     },
     size: {
       xs: [
@@ -98,8 +98,7 @@ const buttonStyles = tv({
 })
 
 interface ButtonProps
-  extends ButtonPrimitiveProps,
-    VariantProps<typeof buttonStyles> {
+  extends ButtonPrimitiveProps, VariantProps<typeof buttonStyles> {
   ref?: React.Ref<HTMLButtonElement>
 }
 
