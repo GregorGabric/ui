@@ -1080,6 +1080,10 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/preskok/ui/preskok-ui/editor/hooks/use-editor-context.ts",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/preskok/ui/preskok-ui/editor/hooks/use-editor.ts",
       type: "registry:ui",
       target: ""

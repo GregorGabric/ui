@@ -4,6 +4,7 @@ import type { Content, Editor as TiptapEditor } from "@tiptap/react"
 import { EditorContent, EditorContext } from "@tiptap/react"
 
 import { cn } from "@/lib/utils"
+import { useEditorContext } from "@/registry/preskok/ui/preskok-ui/editor/hooks/use-editor-context"
 import { Separator } from "@/registry/preskok/ui/separator"
 
 import { LinkBubbleMenu } from "./components/bubble-menu/link-bubble-menu"
@@ -13,9 +14,8 @@ import { SectionFour } from "./components/section/four"
 import { SectionOne } from "./components/section/one"
 import { SectionThree } from "./components/section/three"
 import { SectionTwo } from "./components/section/two"
-import type { UseMinimalTiptapEditorProps } from "./hooks/use-editor"
+import type { UseEditorProps } from "./hooks/use-editor"
 import { useEditor } from "./hooks/use-editor"
-import { useTiptapEditor } from "./hooks/use-tiptap-editor"
 
 const DEFAULT_ACTIVE_LEVELS: Array<1 | 2 | 3 | 4 | 5 | 6> = [1, 2, 3, 4, 5, 6]
 const DEFAULT_TEXT_STYLE_ACTIONS: Array<
@@ -30,10 +30,7 @@ const DEFAULT_INSERT_ACTIONS: Array<"blockquote" | "horizontalRule"> = [
   "horizontalRule",
 ]
 
-export interface MinimalTiptapProps extends Omit<
-  UseMinimalTiptapEditorProps,
-  "onUpdate"
-> {
+export interface MinimalTiptapProps extends Omit<UseEditorProps, "onUpdate"> {
   value?: Content
   onChange?: (value: Content) => void
   className?: string
@@ -121,7 +118,7 @@ export const MainEditor = ({
   className,
   editorContentClassName,
 }: MinimalTiptapProps & { editor: TiptapEditor }) => {
-  const { editor } = useTiptapEditor(providedEditor)
+  const { editor } = useEditorContext(providedEditor)
 
   if (!editor) {
     return null

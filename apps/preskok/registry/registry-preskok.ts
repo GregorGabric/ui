@@ -867,6 +867,10 @@ export const preskokUi: Registry["items"] = [
         type: "registry:ui",
       },
       {
+        path: "ui/preskok-ui/editor/hooks/use-editor-context.ts",
+        type: "registry:ui",
+      },
+      {
         path: "ui/preskok-ui/editor/hooks/use-editor.ts",
         type: "registry:ui",
       },
