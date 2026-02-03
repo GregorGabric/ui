@@ -12,8 +12,10 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/tag-group"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
-interface TagInputProps
-  extends Pick<TextFieldProps, "children" | "aria-label" | "aria-labelledby"> {
+interface TagInputProps extends Pick<
+  TextFieldProps,
+  "children" | "aria-label" | "aria-labelledby"
+> {
   value?: Selection
   onChange?: (next: Selection) => void
   defaultValue?: string[]

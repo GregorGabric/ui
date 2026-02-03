@@ -31,7 +31,8 @@ const awesomeCardVariants = cva(
 )
 
 interface AwesomeCardProps
-  extends React.ComponentProps<"div">,
+  extends
+    React.ComponentProps<"div">,
     VariantProps<typeof awesomeCardVariants> {
   icon?: React.ReactNode
   badge?: string

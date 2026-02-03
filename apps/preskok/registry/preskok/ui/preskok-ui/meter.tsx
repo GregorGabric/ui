@@ -17,8 +17,7 @@ interface MeterRenderProps extends PrimitiveMeterRenderProps {
 const MeterContext = createContext<MeterRenderProps | null>(null)
 
 interface MeterProps
-  extends PrimitiveMeterProps,
-    Pick<MeterRenderProps, "color"> {}
+  extends PrimitiveMeterProps, Pick<MeterRenderProps, "color"> {}
 
 export function Meter({ className, children, color, ...props }: MeterProps) {
   return (

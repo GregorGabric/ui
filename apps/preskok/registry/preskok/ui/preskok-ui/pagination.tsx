@@ -57,7 +57,8 @@ const PaginationList = ({
 }
 
 interface PaginationItemProps
-  extends Omit<LinkProps, "children">,
+  extends
+    Omit<LinkProps, "children">,
     Pick<ButtonProps, "isCircle" | "size" | "intent"> {
   className?: string
   isCurrent?: boolean
@@ -90,7 +91,8 @@ const PaginationItem = ({
 }
 
 interface PaginationAttributesProps
-  extends Omit<LinkProps, "className">,
+  extends
+    Omit<LinkProps, "className">,
     Pick<ButtonProps, "size" | "isCircle" | "intent"> {
   className?: string
 }

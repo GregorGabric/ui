@@ -27,8 +27,10 @@ import {
 } from "./dropdown"
 import { PopoverContent } from "./popover"
 
-interface ComboBoxProps<T extends object>
-  extends Omit<ComboboxPrimitiveProps<T>, "children"> {
+interface ComboBoxProps<T extends object> extends Omit<
+  ComboboxPrimitiveProps<T>,
+  "children"
+> {
   children: React.ReactNode
 }
 
@@ -46,7 +48,8 @@ const ComboBox = <T extends object>({
 }
 
 interface ComboBoxListProps<T extends object>
-  extends Omit<ListBoxProps<T>, "layout" | "orientation">,
+  extends
+    Omit<ListBoxProps<T>, "layout" | "orientation">,
     Pick<PopoverProps, "placement"> {
   popover?: Omit<PopoverProps, "children">
 }

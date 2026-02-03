@@ -24,8 +24,10 @@ interface OptionBase {
   name: string
 }
 
-interface MultipleSelectProps<T extends OptionBase>
-  extends Omit<SelectProps<T, "multiple">, "selectionMode" | "children"> {
+interface MultipleSelectProps<T extends OptionBase> extends Omit<
+  SelectProps<T, "multiple">,
+  "selectionMode" | "children"
+> {
   placeholder?: string
   className?: string
   children?: React.ReactNode

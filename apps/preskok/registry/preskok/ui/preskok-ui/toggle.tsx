@@ -80,8 +80,7 @@ const toggleStyles = tv({
 })
 
 interface ToggleProps
-  extends ToggleButtonProps,
-    VariantProps<typeof toggleStyles> {
+  extends ToggleButtonProps, VariantProps<typeof toggleStyles> {
   ref?: React.Ref<HTMLButtonElement>
 }
 const Toggle = ({ className, size, ref, ...props }: ToggleProps) => {

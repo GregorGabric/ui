@@ -173,8 +173,10 @@ function getPayloadConfigFromPayload(
 
 // #region Base Chart Components
 
-interface BaseChartProps<TValue extends ValueType, TName extends NameType>
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface BaseChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends React.HTMLAttributes<HTMLDivElement> {
   config: ChartConfig
   data: Record<string, any>[]
   dataKey: string

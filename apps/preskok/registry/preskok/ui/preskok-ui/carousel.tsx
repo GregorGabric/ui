@@ -45,8 +45,7 @@ interface CarouselRootProps {
 }
 
 interface CarouselProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    CarouselRootProps {
+  extends React.HTMLAttributes<HTMLDivElement>, CarouselRootProps {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"

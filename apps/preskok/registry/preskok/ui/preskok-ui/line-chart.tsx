@@ -24,8 +24,10 @@ import {
   type BaseChartProps,
 } from "./chart"
 
-interface LineChartProps<TValue extends ValueType, TName extends NameType>
-  extends BaseChartProps<TValue, TName> {
+interface LineChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends BaseChartProps<TValue, TName> {
   connectNulls?: boolean
   lineProps?: LineProps
   chartProps?: Omit<

@@ -33,7 +33,7 @@ const vehicleFeatures = [
 export default function ScrollAreaDemo() {
   return (
     <div className="space-y-4">
-      <ScrollArea className="h-48 w-64 rounded border p-4">
+      <ScrollArea className="h-48 w-64 rounded border p-2">
         <h4 className="mb-4 text-sm font-medium">Available Features</h4>
         <div className="space-y-2">
           {vehicleFeatures.map((feature, index) => (
@@ -44,7 +44,7 @@ export default function ScrollAreaDemo() {
         </div>
       </ScrollArea>
 
-      <ScrollArea className="h-32 w-64 rounded border p-4">
+      <ScrollArea className="h-32 w-64 rounded border p-2">
         <div className="flex space-x-4">
           {Array.from({ length: 20 }, (_, i) => (
             <div

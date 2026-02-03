@@ -64,8 +64,7 @@ const ChoiceBoxContext = createContext<{
 const useChoiceBoxContext = () => use(ChoiceBoxContext)
 
 interface ChoiceBoxProps<T extends object>
-  extends GridListProps<T>,
-    VariantProps<typeof choiceBoxStyles> {
+  extends GridListProps<T>, VariantProps<typeof choiceBoxStyles> {
   isReadOnly?: boolean
 }
 
@@ -139,8 +138,7 @@ const choiceBoxItemStyles = tv({
 })
 
 interface ChoiceBoxItemProps
-  extends GridListItemProps,
-    VariantProps<typeof choiceBoxItemStyles> {
+  extends GridListItemProps, VariantProps<typeof choiceBoxItemStyles> {
   label?: string
   description?: string
 }

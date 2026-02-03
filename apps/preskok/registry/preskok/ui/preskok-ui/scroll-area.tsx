@@ -1,59 +1,139 @@
 "use client"
 
-import * as React from "react"
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area"
-import { twMerge } from "tailwind-merge"
+import { useLayoutEffect, useRef } from "react"
+import { twJoin, twMerge } from "tailwind-merge"
 
-const ScrollArea = React.forwardRef<
-  React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
->(({ className, children, ...props }, ref) => (
-  <ScrollAreaPrimitive.Root
-    ref={ref}
-    className={twMerge("overflow-hidden", className)}
-    {...props}
-  >
-    {children}
-    <ScrollAreaPrimitive.Corner />
-    <ScrollBar orientation="vertical" />
-  </ScrollAreaPrimitive.Root>
-))
+type ScrollAreaOrientation = "vertical" | "horizontal" | "both"
 
-ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
+export interface ScrollAreaProps extends React.ComponentPropsWithRef<"div"> {
+  scrollFade?: boolean
+  scrollbarGutter?: boolean
+  orientation?: ScrollAreaOrientation
+}
 
-const ScrollViewport = React.forwardRef<
-  React.ComponentRef<typeof ScrollAreaPrimitive.Viewport>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Viewport>
->(({ className, children, ...props }, ref) => (
-  <ScrollAreaPrimitive.Viewport
-    ref={ref}
-    className={twMerge("size-full rounded-[inherit]", className)}
-    {...props}
-  >
-    {children}
-  </ScrollAreaPrimitive.Viewport>
-))
+export function ScrollArea({
+  ref: forwardedRef,
+  className,
+  children,
+  scrollFade = false,
+  scrollbarGutter = false,
+  orientation = "both",
+  ...props
+}: ScrollAreaProps) {
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number | null>(null)
+  const isThrottledRef = useRef(false)
+  const throttleTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-ScrollViewport.displayName = ScrollAreaPrimitive.Viewport.displayName
+  const allowY = orientation === "vertical" || orientation === "both"
+  const allowX = orientation === "horizontal" || orientation === "both"
 
-const ScrollBar = React.forwardRef<
-  React.ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>
->(({ className, orientation = "vertical", ...props }, ref) => (
-  <ScrollAreaPrimitive.Scrollbar
-    ref={ref}
-    orientation={orientation}
-    className={twMerge(
-      "data-[state=hidden]:animate-fd-fade-out flex select-none",
-      orientation === "vertical" && "h-full w-1.5",
-      orientation === "horizontal" && "h-1.5 flex-col",
-      className
-    )}
-    {...props}
-  >
-    <ScrollAreaPrimitive.ScrollAreaThumb className="bg-fd-border relative flex-1 rounded-full" />
-  </ScrollAreaPrimitive.Scrollbar>
-))
-ScrollBar.displayName = ScrollAreaPrimitive.Scrollbar.displayName
+  useLayoutEffect(() => {
+    const el = viewportRef.current
+    if (!el) {
+      return
+    }
 
-export { ScrollArea, ScrollBar, ScrollViewport }
+    const update = () => {
+      const rawHasY = el.scrollHeight > el.clientHeight + 1
+      const rawHasX = el.scrollWidth > el.clientWidth + 1
+
+      const hasY = allowY && rawHasY
+      const hasX = allowX && rawHasX
+
+      el.toggleAttribute("data-has-overflow-y", hasY)
+      el.toggleAttribute("data-has-overflow-x", hasX)
+
+      const yStart = hasY ? Math.max(0, el.scrollTop) : 0
+      const yEnd = hasY
+        ? Math.max(0, el.scrollHeight - el.clientHeight - el.scrollTop)
+        : 0
+      const xStart = hasX ? Math.max(0, el.scrollLeft) : 0
+      const xEnd = hasX
+        ? Math.max(0, el.scrollWidth - el.clientWidth - el.scrollLeft)
+        : 0
+
+      el.style.setProperty("--scroll-area-overflow-y-start", `${yStart}px`)
+      el.style.setProperty("--scroll-area-overflow-y-end", `${yEnd}px`)
+      el.style.setProperty("--scroll-area-overflow-x-start", `${xStart}px`)
+      el.style.setProperty("--scroll-area-overflow-x-end", `${xEnd}px`)
+    }
+
+    const scheduleUpdate = () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+      rafRef.current = requestAnimationFrame(update)
+    }
+
+    const throttledScrollUpdate = () => {
+      if (isThrottledRef.current) {
+        return
+      }
+      isThrottledRef.current = true
+      scheduleUpdate()
+      if (throttleTimeoutRef.current) {
+        clearTimeout(throttleTimeoutRef.current)
+      }
+      throttleTimeoutRef.current = setTimeout(() => {
+        isThrottledRef.current = false
+        throttleTimeoutRef.current = null
+      }, 16)
+    }
+
+    const ro = new ResizeObserver(scheduleUpdate)
+    ro.observe(el)
+
+    el.addEventListener("scroll", throttledScrollUpdate, { passive: true })
+    update()
+
+    return () => {
+      el.removeEventListener("scroll", throttledScrollUpdate)
+      ro.disconnect()
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+      if (throttleTimeoutRef.current) {
+        clearTimeout(throttleTimeoutRef.current)
+      }
+    }
+  }, [allowX, allowY])
+
+  return (
+    <div
+      ref={forwardedRef}
+      className={twMerge("size-full min-h-0", className)}
+      {...props}
+    >
+      <div
+        ref={viewportRef}
+        className={twJoin(
+          "h-full overscroll-auto rounded-[inherit] transition-shadow outline-none data-has-overflow-x:overscroll-x-contain data-has-overflow-y:overscroll-y-contain",
+
+          orientation === "vertical"
+            ? "overflow-x-hidden overflow-y-auto"
+            : orientation === "horizontal"
+              ? "overflow-x-auto overflow-y-hidden"
+              : "overflow-auto",
+          scrollFade
+            ? [
+                allowY &&
+                  "mask-t-from-[calc(100%-min(var(--fade-size,--spacing(6)),var(--scroll-area-overflow-y-start,0)))] mask-b-from-[calc(100%-min(var(--fade-size,--spacing(6)),var(--scroll-area-overflow-y-end,0)))]",
+                allowX &&
+                  "mask-r-from-[calc(100%-min(var(--fade-size,--spacing(6)),var(--scroll-area-overflow-x-end,0)))] mask-l-from-[calc(100%-min(var(--fade-size,--spacing(6)),var(--scroll-area-overflow-x-start,0)))]",
+              ]
+            : "",
+          scrollbarGutter
+            ? [
+                allowY && "data-has-overflow-y:pe-2.5",
+                allowX && "data-has-overflow-x:pb-2.5",
+              ]
+            : ""
+        )}
+        data-slot="scroll-area-viewport"
+      >
+        {children}
+      </div>
+    </div>
+  )
+}

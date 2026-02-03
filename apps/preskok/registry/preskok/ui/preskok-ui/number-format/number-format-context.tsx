@@ -255,8 +255,10 @@ export type ConvertCustomLocaleToNumericPropsFnSignature = (
   locale: Locale
 ) => NumericFormatProps
 
-export interface FormatNumberToStringReturnType
-  extends Pick<FormatNumberToStringOptions, "invalidNumberText"> {
+export interface FormatNumberToStringReturnType extends Pick<
+  FormatNumberToStringOptions,
+  "invalidNumberText"
+> {
   isValid: boolean
   value: string | null
 }

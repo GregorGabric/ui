@@ -23,8 +23,9 @@ import { ModalContent } from "./modal"
 import { PopoverContent } from "./popover"
 import { RangeCalendar } from "./range-calendar"
 
-export interface DatePickerProps<T extends DateValue>
-  extends DatePickerPrimitiveProps<T> {
+export interface DatePickerProps<
+  T extends DateValue,
+> extends DatePickerPrimitiveProps<T> {
   popover?: Omit<PopoverProps, "children">
 }
 

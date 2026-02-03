@@ -19,8 +19,7 @@ import { Description } from "./field"
 import { Popover, PopoverContent, type PopoverContentProps } from "./popover"
 
 interface ColorPickerProps
-  extends ColorPickerPrimitiveProps,
-    Pick<PopoverContentProps, "placement"> {
+  extends ColorPickerPrimitiveProps, Pick<PopoverContentProps, "placement"> {
   label?: string
   className?: string
   children?: React.ReactNode

@@ -33,7 +33,8 @@ const videoPlayerVariants = cva(
 )
 
 export interface VideoPlayerProps
-  extends React.ComponentProps<"video">,
+  extends
+    React.ComponentProps<"video">,
     VariantProps<typeof videoPlayerVariants> {
   src: string
   poster?: string

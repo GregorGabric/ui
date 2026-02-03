@@ -391,8 +391,10 @@ const SidebarSection = ({ className, ...props }: SidebarSectionProps) => {
   )
 }
 
-interface SidebarItemProps
-  extends Omit<React.ComponentProps<typeof Link>, "children"> {
+interface SidebarItemProps extends Omit<
+  React.ComponentProps<typeof Link>,
+  "children"
+> {
   isCurrent?: boolean
   children?:
     | React.ReactNode

@@ -18,8 +18,9 @@ import { InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
 import { DatePickerOverlay } from "./date-picker"
 import { fieldStyles } from "./field"
 
-export interface DateRangePickerProps<T extends DateValue>
-  extends DateRangePickerPrimitiveProps<T> {
+export interface DateRangePickerProps<
+  T extends DateValue,
+> extends DateRangePickerPrimitiveProps<T> {
   visibleDuration?: DateDuration
   pageBehavior?: "visible" | "single"
   popover?: Omit<PopoverProps, "children">

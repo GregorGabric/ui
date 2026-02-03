@@ -40,8 +40,7 @@ const badgeStyles = tv({
 })
 
 interface BadgeProps
-  extends ComponentProps<"span">,
-    VariantProps<typeof badgeStyles> {
+  extends ComponentProps<"span">, VariantProps<typeof badgeStyles> {
   className?: string
   children: React.ReactNode
 }

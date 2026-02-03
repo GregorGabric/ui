@@ -13,11 +13,10 @@ import {
   useNumberFormatContext,
 } from "@/registry/preskok/ui/preskok-ui/number-format/number-format-context"
 
-interface NumberFormatPropsUnified
-  extends Omit<
-    NumericFormatProps,
-    "onChange" | "onPasteCapture" | "onValueChange"
-  > {
+interface NumberFormatPropsUnified extends Omit<
+  NumericFormatProps,
+  "onChange" | "onPasteCapture" | "onValueChange"
+> {
   value: number | string | undefined | null
   isCurrency?: boolean
   onValue?: (value: number | null) => void

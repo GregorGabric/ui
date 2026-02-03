@@ -25,8 +25,10 @@ import {
   type BaseChartProps,
 } from "./chart"
 
-interface AreaChartProps<TValue extends ValueType, TName extends NameType>
-  extends BaseChartProps<TValue, TName> {
+interface AreaChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends BaseChartProps<TValue, TName> {
   chartProps?: Omit<
     ComponentProps<typeof AreaChartPrimitive>,
     "data" | "stackOffset"

@@ -36,8 +36,10 @@ import {
   SelectTrigger,
 } from "./select"
 
-interface CalendarProps<T extends DateValue>
-  extends Omit<CalendarPrimitiveProps<T>, "visibleDuration"> {
+interface CalendarProps<T extends DateValue> extends Omit<
+  CalendarPrimitiveProps<T>,
+  "visibleDuration"
+> {
   className?: string
 }
 

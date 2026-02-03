@@ -3,8 +3,9 @@
 import React from "react"
 import { twMerge } from "tailwind-merge"
 
-interface HeadingProps
-  extends React.ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6"> {
+interface HeadingProps extends React.ComponentProps<
+  "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+> {
   level?: 1 | 2 | 3 | 4 | 5 | 6
 }
 

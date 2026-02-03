@@ -24,8 +24,10 @@ import {
   type BaseChartProps,
 } from "./chart"
 
-interface BarChartProps<TValue extends ValueType, TName extends NameType>
-  extends BaseChartProps<TValue, TName> {
+interface BarChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends BaseChartProps<TValue, TName> {
   barCategoryGap?: number
   barRadius?: number
   barGap?: number
