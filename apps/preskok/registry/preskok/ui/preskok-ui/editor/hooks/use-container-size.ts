@@ -1,3 +1,5 @@
+"use client"
+
 import type { ComponentRef } from "react"
 import { useCallback, useEffect, useState } from "react"
 
@@ -19,7 +21,9 @@ export function useContainerSize(element: ComponentRef<any> | null): DOMRect {
   )
 
   const handleResize = useCallback(() => {
-    if (!element) return
+    if (!element) {
+      return
+    }
 
     const newRect = element.getBoundingClientRect()
 
@@ -37,7 +41,9 @@ export function useContainerSize(element: ComponentRef<any> | null): DOMRect {
   }, [element])
 
   useEffect(() => {
-    if (!element) return
+    if (!element) {
+      return
+    }
 
     const resizeObserver = new ResizeObserver(handleResize)
     resizeObserver.observe(element)

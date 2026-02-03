@@ -1,7 +1,7 @@
 import type { Editor } from "@tiptap/react"
 import { ChevronDownIcon, MinusIcon, PlusIcon, QuoteIcon } from "lucide-react"
 
-import { LinkEditPopover } from "@/registry/preskok/ui/preskok-ui/minimal-tiptap/components/link/link-edit-popover"
+import { LinkEditPopover } from "@/registry/preskok/ui/preskok-ui/editor/components/link/link-edit-popover"
 import type { ToggleProps } from "@/registry/preskok/ui/preskok-ui/toggle"
 
 import type { FormatAction } from "../../types"

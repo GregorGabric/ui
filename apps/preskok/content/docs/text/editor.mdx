@@ -1,0 +1,61 @@
+---
+title: Editor
+description: A minimal rich text editor built on Tiptap.
+---
+
+<ComponentPreview
+  name="editor-demo"
+  description="A minimal rich text editor with formatting tools."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add editor
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="editor"
+  title="registry/preskok/ui/preskok-ui/minimal-tiptap/minimal-tiptap.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Editor } from "@/registry/preskok/ui/preskok-ui/minimal-tiptap/minimal-tiptap"
+
+export function EditorDemo() {
+  return <Editor placeholder="Start writing..." />
+}
+```
+
+## Examples
+
+<ComponentPreview
+  name="editor-demo"
+  description="A complete editor with starter content."
+/>

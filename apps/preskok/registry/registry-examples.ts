@@ -1263,6 +1263,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "editor-demo",
+    type: "registry:example",
+    registryDependencies: ["editor"],
+    files: [
+      {
+        path: "example/editor-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "button-group-preskok-demo",
     type: "registry:example",
     registryDependencies: ["button-group", "button"],

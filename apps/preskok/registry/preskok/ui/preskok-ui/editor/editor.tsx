@@ -1,6 +1,6 @@
 import "./styles/index.css"
 
-import type { Content, Editor } from "@tiptap/react"
+import type { Content, Editor as TiptapEditor } from "@tiptap/react"
 import { EditorContent, EditorContext } from "@tiptap/react"
 
 import { cn } from "@/lib/utils"
@@ -13,8 +13,8 @@ import { SectionFour } from "./components/section/four"
 import { SectionOne } from "./components/section/one"
 import { SectionThree } from "./components/section/three"
 import { SectionTwo } from "./components/section/two"
-import type { UseMinimalTiptapEditorProps } from "./hooks/use-minimal-tiptap"
-import { useMinimalTiptapEditor } from "./hooks/use-minimal-tiptap"
+import type { UseMinimalTiptapEditorProps } from "./hooks/use-editor"
+import { useEditor } from "./hooks/use-editor"
 import { useTiptapEditor } from "./hooks/use-tiptap-editor"
 
 const DEFAULT_ACTIVE_LEVELS: Array<1 | 2 | 3 | 4 | 5 | 6> = [1, 2, 3, 4, 5, 6]
@@ -40,7 +40,7 @@ export interface MinimalTiptapProps extends Omit<
   editorContentClassName?: string
 }
 
-const Toolbar = ({ editor }: { editor: Editor }) => (
+const Toolbar = ({ editor }: { editor: TiptapEditor }) => (
   <div className="border-border flex shrink-0 overflow-x-auto border-b px-2 py-1.5">
     <div className="flex w-max items-center gap-px">
       <SectionOne editor={editor} activeLevels={DEFAULT_ACTIVE_LEVELS} />
@@ -88,14 +88,14 @@ const Toolbar = ({ editor }: { editor: Editor }) => (
   </div>
 )
 
-export const MinimalTiptapEditor = ({
+export const Editor = ({
   value,
   onChange,
   className,
   editorContentClassName,
   ...props
 }: MinimalTiptapProps) => {
-  const editor = useMinimalTiptapEditor({
+  const editor = useEditor({
     value,
     onUpdate: onChange,
     ...props,
@@ -107,7 +107,7 @@ export const MinimalTiptapEditor = ({
 
   return (
     <EditorContext value={{ editor }}>
-      <MainMinimalTiptapEditor
+      <MainEditor
         editor={editor}
         className={className}
         editorContentClassName={editorContentClassName}
@@ -116,11 +116,11 @@ export const MinimalTiptapEditor = ({
   )
 }
 
-export const MainMinimalTiptapEditor = ({
+export const MainEditor = ({
   editor: providedEditor,
   className,
   editorContentClassName,
-}: MinimalTiptapProps & { editor: Editor }) => {
+}: MinimalTiptapProps & { editor: TiptapEditor }) => {
   const { editor } = useTiptapEditor(providedEditor)
 
   if (!editor) {

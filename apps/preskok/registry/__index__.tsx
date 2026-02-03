@@ -970,6 +970,132 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "editor": {
+    name: "editor",
+    description: "A minimal rich text editor built on Tiptap",
+    type: "registry:ui",
+    registryDependencies: ["button","field","input","menu","popover","separator","switch","text-field","toggle","toggle-group","tooltip"],
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/editor/editor.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/utils.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/extensions/horizontal-rule.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/extensions/reset-marks-on-enter.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/extensions/unset-all-marks.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/extensions/color.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/types.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/styles/index.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/styles/partials/typography.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/styles/partials/placeholder.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/styles/partials/lists.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/section/three.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/section/two.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/section/four.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/section/one.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/section/five.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/toolbar-button.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/measured-container.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/link/link-edit-block.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/link/link-popover-block.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/link/link-edit-popover.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/toolbar-section.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/shortcut-key.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/components/bubble-menu/link-bubble-menu.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/hooks/use-throttle.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/hooks/use-container-size.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/hooks/use-editor.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/editor/hooks/use-theme.ts",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/editor/editor.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "tag-group": {
     name: "tag-group",
     description: "A tag group component for displaying and managing tags",
@@ -5950,6 +6076,24 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/example/button-group-with-text-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "editor-demo": {
+    name: "editor-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["editor"],
+    files: [{
+      path: "registry/preskok/example/editor-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/example/editor-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

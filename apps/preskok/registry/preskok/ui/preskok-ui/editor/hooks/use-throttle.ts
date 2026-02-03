@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useRef } from "react"
 
 export function useThrottle<T extends (...args: Array<any>) => void>(

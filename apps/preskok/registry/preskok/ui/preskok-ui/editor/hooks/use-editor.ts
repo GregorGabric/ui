@@ -1,9 +1,11 @@
+"use client"
+
 import * as React from "react"
 import { TextStyle } from "@tiptap/extension-text-style"
 import { Typography } from "@tiptap/extension-typography"
 import { Placeholder, Selection } from "@tiptap/extensions"
 import type { Content, Editor, UseEditorOptions } from "@tiptap/react"
-import { useEditor } from "@tiptap/react"
+import { useEditor as useTiptapEditor } from "@tiptap/react"
 import { StarterKit } from "@tiptap/starter-kit"
 
 import { cn } from "@/lib/utils"
@@ -12,10 +14,10 @@ import { Color } from "../extensions/color"
 import { HorizontalRule } from "../extensions/horizontal-rule"
 import { ResetMarksOnEnter } from "../extensions/reset-marks-on-enter"
 import { UnsetAllMarks } from "../extensions/unset-all-marks"
-import { useThrottle } from "../hooks/use-throttle"
 import { getOutput } from "../utils"
+import { useThrottle } from "./use-throttle"
 
-export interface UseMinimalTiptapEditorProps extends UseEditorOptions {
+export interface UseEditorProps extends UseEditorOptions {
   value?: Content
   output?: "html" | "json" | "text"
   placeholder?: string
@@ -66,7 +68,7 @@ const createExtensions = ({ placeholder }: { placeholder: string }) => [
   Placeholder.configure({ placeholder: () => placeholder }),
 ]
 
-export const useMinimalTiptapEditor = ({
+export const useEditor = ({
   value,
   output = "html",
   placeholder = "",
@@ -75,7 +77,7 @@ export const useMinimalTiptapEditor = ({
   onUpdate,
   onBlur,
   ...props
-}: UseMinimalTiptapEditorProps) => {
+}: UseEditorProps) => {
   const throttledSetValue = useThrottle(
     (value: Content) => onUpdate?.(value),
     throttleDelay
@@ -102,7 +104,7 @@ export const useMinimalTiptapEditor = ({
     [output, onBlur]
   )
 
-  const editor = useEditor({
+  const editor = useTiptapEditor({
     immediatelyRender: false,
     extensions: createExtensions({ placeholder }),
     editorProps: {

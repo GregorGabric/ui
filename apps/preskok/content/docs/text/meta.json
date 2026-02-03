@@ -1,4 +1,11 @@
 {
   "title": "Text Inputs",
-  "pages": ["input", "text-field", "textarea", "search-field", "input-otp"]
+  "pages": [
+    "input",
+    "text-field",
+    "textarea",
+    "editor",
+    "search-field",
+    "input-otp"
+  ]
 }
