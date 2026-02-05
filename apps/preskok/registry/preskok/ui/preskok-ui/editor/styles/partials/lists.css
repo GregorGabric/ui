@@ -1,23 +1,23 @@
-.minimal-tiptap-editor .ProseMirror ol {
+.rich-text-editor .ProseMirror ol {
   @apply list-decimal;
 }
 
-.minimal-tiptap-editor .ProseMirror ol ol {
+.rich-text-editor .ProseMirror ol ol {
   list-style: lower-alpha;
 }
 
-.minimal-tiptap-editor .ProseMirror ol ol ol {
+.rich-text-editor .ProseMirror ol ol ol {
   list-style: lower-roman;
 }
 
-.minimal-tiptap-editor .ProseMirror ul {
+.rich-text-editor .ProseMirror ul {
   list-style: disc;
 }
 
-.minimal-tiptap-editor .ProseMirror ul ul {
+.rich-text-editor .ProseMirror ul ul {
   list-style: circle;
 }
 
-.minimal-tiptap-editor .ProseMirror ul ul ul {
+.rich-text-editor .ProseMirror ul ul ul {
   list-style: square;
 }

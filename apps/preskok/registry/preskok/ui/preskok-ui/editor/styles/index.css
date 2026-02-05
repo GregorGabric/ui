@@ -66,93 +66,93 @@
   --mt-accent-purple-subtler: #352c63;
 }
 
-.minimal-tiptap-editor .ProseMirror {
+.rich-text-editor .ProseMirror {
   @apply flex max-w-full cursor-text flex-col;
   @apply z-0 outline-0;
 }
 
-.minimal-tiptap-editor .ProseMirror > div.editor {
+.rich-text-editor .ProseMirror > div.editor {
   @apply block flex-1 whitespace-pre-wrap;
 }
 
-.minimal-tiptap-editor .ProseMirror .block-node:not(:last-child),
-.minimal-tiptap-editor .ProseMirror .list-node:not(:last-child),
-.minimal-tiptap-editor .ProseMirror .text-node:not(:last-child) {
+.rich-text-editor .ProseMirror .block-node:not(:last-child),
+.rich-text-editor .ProseMirror .list-node:not(:last-child),
+.rich-text-editor .ProseMirror .text-node:not(:last-child) {
   @apply mb-2.5;
 }
 
-.minimal-tiptap-editor .ProseMirror ol,
-.minimal-tiptap-editor .ProseMirror ul {
+.rich-text-editor .ProseMirror ol,
+.rich-text-editor .ProseMirror ul {
   @apply pl-6;
 }
 
-.minimal-tiptap-editor .ProseMirror blockquote,
-.minimal-tiptap-editor .ProseMirror dl,
-.minimal-tiptap-editor .ProseMirror ol,
-.minimal-tiptap-editor .ProseMirror p,
-.minimal-tiptap-editor .ProseMirror pre,
-.minimal-tiptap-editor .ProseMirror ul {
+.rich-text-editor .ProseMirror blockquote,
+.rich-text-editor .ProseMirror dl,
+.rich-text-editor .ProseMirror ol,
+.rich-text-editor .ProseMirror p,
+.rich-text-editor .ProseMirror pre,
+.rich-text-editor .ProseMirror ul {
   @apply m-0;
 }
 
-.minimal-tiptap-editor .ProseMirror li {
+.rich-text-editor .ProseMirror li {
   @apply leading-7;
 }
 
-.minimal-tiptap-editor .ProseMirror p {
+.rich-text-editor .ProseMirror p {
   @apply break-words;
 }
 
-.minimal-tiptap-editor .ProseMirror li .text-node:has(+ .list-node),
-.minimal-tiptap-editor .ProseMirror li > .list-node,
-.minimal-tiptap-editor .ProseMirror li > .text-node,
-.minimal-tiptap-editor .ProseMirror li p {
+.rich-text-editor .ProseMirror li .text-node:has(+ .list-node),
+.rich-text-editor .ProseMirror li > .list-node,
+.rich-text-editor .ProseMirror li > .text-node,
+.rich-text-editor .ProseMirror li p {
   @apply mb-0;
 }
 
-.minimal-tiptap-editor .ProseMirror blockquote {
+.rich-text-editor .ProseMirror blockquote {
   @apply relative pl-3.5;
 }
 
-.minimal-tiptap-editor .ProseMirror blockquote::before,
-.minimal-tiptap-editor .ProseMirror blockquote.is-empty::before {
+.rich-text-editor .ProseMirror blockquote::before,
+.rich-text-editor .ProseMirror blockquote.is-empty::before {
   @apply bg-accent-foreground/15 absolute top-0 bottom-0 left-0 h-full w-1 rounded-sm content-[''];
 }
 
-.minimal-tiptap-editor .ProseMirror hr {
+.rich-text-editor .ProseMirror hr {
   @apply my-3 h-0.5 w-full border-none bg-[var(--mt-hr)];
 }
 
-.minimal-tiptap-editor .ProseMirror-focused hr.ProseMirror-selectednode {
+.rich-text-editor .ProseMirror-focused hr.ProseMirror-selectednode {
   @apply outline-muted-foreground rounded-full outline-2 outline-offset-1;
 }
 
-.minimal-tiptap-editor .ProseMirror .ProseMirror-gapcursor {
+.rich-text-editor .ProseMirror .ProseMirror-gapcursor {
   @apply pointer-events-none absolute hidden;
 }
 
-.minimal-tiptap-editor .ProseMirror .ProseMirror-hideselection {
+.rich-text-editor .ProseMirror .ProseMirror-hideselection {
   @apply caret-transparent;
 }
 
-.minimal-tiptap-editor .ProseMirror.resize-cursor {
+.rich-text-editor .ProseMirror.resize-cursor {
   @apply cursor-col-resize;
 }
 
-.minimal-tiptap-editor .ProseMirror .selection {
+.rich-text-editor .ProseMirror .selection {
   @apply inline-block;
 }
 
-.minimal-tiptap-editor .ProseMirror s span {
+.rich-text-editor .ProseMirror s span {
   @apply line-through;
 }
 
-.minimal-tiptap-editor .ProseMirror .selection,
-.minimal-tiptap-editor .ProseMirror *::selection {
+.rich-text-editor .ProseMirror .selection,
+.rich-text-editor .ProseMirror *::selection {
   @apply bg-primary/25;
 }
 
 /* Override native selection when custom selection is present */
-.minimal-tiptap-editor .ProseMirror .selection::selection {
+.rich-text-editor .ProseMirror .selection::selection {
   background: transparent;
 }

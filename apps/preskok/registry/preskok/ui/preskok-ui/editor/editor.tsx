@@ -137,7 +137,7 @@ export const MainEditor = ({
       <EditorContent
         editor={editor}
         className={cn(
-          "minimal-tiptap-editor h-full px-5 py-4 focus:outline-hidden",
+          "rich-text-editor h-full px-5 py-4 focus:outline-hidden",
           editorContentClassName
         )}
       />
