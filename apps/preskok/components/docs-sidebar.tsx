@@ -24,6 +24,7 @@ export function DocsSidebar({
       collapsible="none"
       {...props}
     >
+      <div className="via-border absolute top-12 right-2 bottom-0 hidden h-full w-px bg-gradient-to-b from-transparent to-transparent lg:flex" />
       <SidebarContent className="no-scrollbar px-2 pb-12">
         <div className="h-(--top-spacing) shrink-0" />
         <SidebarSectionGroup>

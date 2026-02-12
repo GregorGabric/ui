@@ -222,7 +222,7 @@ export function CardsPayments() {
                     return (
                       <TableColumn
                         key={header.id}
-                        className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=select]:w-10 data-[name=status]:w-24 [&:has([role=checkbox])]:pl-3"
+                        className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=status]:w-24"
                         data-name={header.id}
                         isRowHeader={header.id === "email"}
                       >

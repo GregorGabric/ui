@@ -24,11 +24,11 @@ import {
 export function NavDocuments({
   items,
 }: {
-  items: {
+  items: Array<{
     name: string
     url: string
     icon: Icon
-  }[]
+  }>
 }) {
   const { isMobile } = useSidebar()
 
