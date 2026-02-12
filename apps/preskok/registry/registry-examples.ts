@@ -888,6 +888,39 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "table-demo-sort",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [
+      {
+        path: "examples/table-demo-sort.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "table-demo-drag",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [
+      {
+        path: "examples/table-demo-drag.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "table-demo-resizable",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [
+      {
+        path: "examples/table-demo-resizable.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "tabs-demo",
     type: "registry:example",
     registryDependencies: ["tabs"],

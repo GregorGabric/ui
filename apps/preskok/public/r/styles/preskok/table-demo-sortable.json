@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-demo-sortable",
+  "registryDependencies": [
+    "table"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/table-demo-sort.tsx",
+      "content": "\"use client\"\n\nimport { useAsyncList } from \"@react-stately/data\"\n\nimport { Loader } from \"@/registry/preskok/ui/preskok-ui/loader\"\nimport {\n  Table,\n  TableBody,\n  TableCell,\n  TableColumn,\n  TableHeader,\n  TableRow,\n} from \"@/registry/preskok/ui/preskok-ui/table\"\n\ninterface Character {\n  title: string\n  director: number\n  producer: number\n  release_date: number\n}\n\nexport function TableDemoSort() {\n  const list = useAsyncList<Character>({\n    async load({ signal }) {\n      const res = await fetch(\"https://swapi.py4e.com/api/films\", {\n        signal,\n      })\n      const json = await res.json()\n      return {\n        items: json.results,\n      }\n    },\n    async sort({ items, sortDescriptor }) {\n      return {\n        items: items.sort((a, b) => {\n          // @ts-expect-error\n          const first = a[sortDescriptor.column]\n          // @ts-expect-error\n          const second = b[sortDescriptor.column]\n          let cmp =\n            (Number.parseInt(first) || first) <\n            (Number.parseInt(second) || second)\n              ? -1\n              : 1\n          if (sortDescriptor.direction === \"descending\") {\n            cmp *= -1\n          }\n          return cmp\n        }),\n      }\n    },\n  })\n  return (\n    <div className=\"rounded-lg border p-4\">\n      <Table\n        aria-label=\"Movies\"\n        sortDescriptor={list.sortDescriptor}\n        onSortChange={list.sort}\n      >\n        <TableHeader>\n          <TableColumn id=\"title\" isRowHeader>\n            Title\n          </TableColumn>\n          <TableColumn id=\"director\" allowsSorting>\n            Director\n          </TableColumn>\n          <TableColumn id=\"producer\">Producer</TableColumn>\n          <TableColumn id=\"release_date\" allowsSorting>\n            Release Date\n          </TableColumn>\n        </TableHeader>\n        <TableBody\n          items={list.items}\n          renderEmptyState={() => (\n            <div className=\"grid place-content-center p-10\">\n              <Loader />\n            </div>\n          )}\n        >\n          {(item) => (\n            <TableRow id={item.title}>\n              <TableCell className=\"whitespace-nowrap\">{item.title}</TableCell>\n              <TableCell className=\"whitespace-nowrap\">\n                {item.director}\n              </TableCell>\n              <TableCell className=\"whitespace-nowrap\">\n                {item.producer}\n              </TableCell>\n              <TableCell>{item.release_date}</TableCell>\n            </TableRow>\n          )}\n        </TableBody>\n      </Table>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

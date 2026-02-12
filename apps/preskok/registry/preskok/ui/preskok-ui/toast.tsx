@@ -9,6 +9,7 @@ const Toast = ({ ...props }: ToasterProps) => {
       theme={"system"}
       className="toaster group"
       richColors
+      expand={false}
       toastOptions={{
         className:
           "*:data-icon:self-start font-sans has-data-description:*:data-icon:mt-1 *:data-icon:mt-0.5 backdrop-blur-2xl",

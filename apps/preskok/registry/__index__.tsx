@@ -5474,6 +5474,60 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "table-demo-sort": {
+    name: "table-demo-sort",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [{
+      path: "registry/preskok/examples/table-demo-sort.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/table-demo-sort.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "table-demo-drag": {
+    name: "table-demo-drag",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [{
+      path: "registry/preskok/examples/table-demo-drag.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/table-demo-drag.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "table-demo-resizable": {
+    name: "table-demo-resizable",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["table"],
+    files: [{
+      path: "registry/preskok/examples/table-demo-resizable.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/table-demo-resizable.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "tabs-demo": {
     name: "tabs-demo",
     description: "",

@@ -65,7 +65,7 @@ const Table = ({
   ...props
 }: TableProps) => {
   return (
-    <TableContext.Provider value={{ allowResize, bleed, grid, striped }}>
+    <TableContext value={{ allowResize, bleed, grid, striped }}>
       <div className="flow-root">
         <div
           className={twMerge(
@@ -89,7 +89,7 @@ const Table = ({
           </div>
         </div>
       </div>
-    </TableContext.Provider>
+    </TableContext>
   )
 }
 
@@ -127,9 +127,9 @@ const TableColumn = ({
         [
           "text-muted-foreground text-left font-medium",
           "allows-sorting:cursor-default relative outline-hidden data-dragging:cursor-grabbing",
-          "px-4 py-(--gutter-y)",
+          "px-2 py-(--gutter-y)",
           "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          !bleed && "sm:first:pl-1 sm:last:pr-1",
+          !bleed && "sm:first:pl-2 sm:last:pr-3",
           grid && "border-l first:border-l-0",
           isResizable && "truncate overflow-hidden",
         ],
@@ -190,18 +190,26 @@ const TableHeader = <T extends object>({
       {allowsDragging && (
         <Column
           data-slot="table-column"
+          width={32}
+          minWidth={32}
+          style={{ width: 32 }}
           className={twMerge(
-            "first:pl-(--gutter,--spacing(2))",
-            !bleed && "sm:first:pl-1 sm:last:pr-1"
+            "px-2 py-(--gutter-y)",
+            "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
+            !bleed && "sm:first:pl-2 sm:last:pr-3"
           )}
         />
       )}
       {selectionBehavior === "toggle" && (
         <Column
+          width={32}
+          minWidth={32}
+          style={{ width: 32 }}
           data-slot="table-column"
           className={twMerge(
-            "first:pl-(--gutter,--spacing(2))",
-            !bleed && "sm:first:pl-1 sm:last:pr-1"
+            "px-2 py-(--gutter-y)",
+            "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
+            !bleed && "sm:first:pl-2 sm:last:pr-3"
           )}
         >
           {selectionMode === "multiple" && <Checkbox slot="selection" />}
@@ -254,6 +262,7 @@ const TableRow = <T extends object>({
             isSelected &&
               "text-foreground bg-(--table-selected-background) hover:bg-(--table-selected-background)/50",
             striped && "even:bg-muted",
+            !striped && "border-b last:border-b-0",
             (props.href || props.onAction || selectionMode === "multiple") &&
               "hover:text-foreground hover:bg-(--table-selected-background)",
             (props.href || props.onAction || selectionMode === "multiple") &&
@@ -265,7 +274,7 @@ const TableRow = <T extends object>({
       )}
     >
       {allowsDragging && (
-        <TableCell className="px-0">
+        <TableCell className={"cursor-grab"}>
           <Button
             slot="drag"
             className="focus-visible:ring-ring grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring"
@@ -295,7 +304,7 @@ const TableRow = <T extends object>({
         </TableCell>
       )}
       {selectionBehavior === "toggle" && (
-        <TableCell className="px-0">
+        <TableCell>
           <Checkbox slot="selection" />
         </TableCell>
       )}
@@ -308,7 +317,7 @@ interface TableCellProps extends CellProps {
   ref?: React.Ref<HTMLTableCellElement>
 }
 const TableCell = ({ className, ref, ...props }: TableCellProps) => {
-  const { allowResize, bleed, grid, striped } = useTableContext()
+  const { allowResize, bleed, grid } = useTableContext()
   return (
     <Cell
       ref={ref}
@@ -316,10 +325,9 @@ const TableCell = ({ className, ref, ...props }: TableCellProps) => {
       {...props}
       className={cx(
         twJoin(
-          "group group-has-data-focus-visible-within:text-foreground px-4 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          !striped && "border-b",
+          "group group-has-data-focus-visible-within:text-foreground px-2 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
           grid && "border-l first:border-l-0",
-          !bleed && "sm:first:pl-1 sm:last:pr-1",
+          !bleed && "sm:first:pl-2 sm:last:pr-3",
           allowResize && "truncate overflow-hidden"
         ),
         className

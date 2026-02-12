@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-
 import {
   Table,
   TableBody,
@@ -27,7 +25,7 @@ const vehicles: Array<Vehicle> = [
     make: "Toyota",
     model: "Camry",
     year: 2024,
-    price: 28400,
+    price: 28_400,
     mileage: 0,
     fuelType: "Gasoline",
   },
@@ -36,8 +34,8 @@ const vehicles: Array<Vehicle> = [
     make: "Honda",
     model: "Accord",
     year: 2023,
-    price: 26800,
-    mileage: 15000,
+    price: 26_800,
+    mileage: 15_000,
     fuelType: "Hybrid",
   },
   {
@@ -45,7 +43,7 @@ const vehicles: Array<Vehicle> = [
     make: "Ford",
     model: "F-150",
     year: 2024,
-    price: 35200,
+    price: 35_200,
     mileage: 5000,
     fuelType: "Gasoline",
   },
@@ -54,7 +52,7 @@ const vehicles: Array<Vehicle> = [
     make: "Tesla",
     model: "Model 3",
     year: 2023,
-    price: 42000,
+    price: 42_000,
     mileage: 8000,
     fuelType: "Electric",
   },
@@ -70,34 +68,29 @@ const columns = [
 ]
 
 export default function TableDemo() {
-  const [selectedKeys, setSelectedKeys] = useState()
-
   return (
-    <Table
-      aria-label="Vehicle inventory"
-      selectionMode="multiple"
-      selectedKeys={selectedKeys}
-      // onSelectionChange={setSelectedKeys}
-    >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.key} isRowHeader={column.isRowHeader}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={vehicles}>
-        {(item) => (
-          <TableRow key={item.id}>
-            <TableCell>{item.make}</TableCell>
-            <TableCell>{item.model}</TableCell>
-            <TableCell>{item.year}</TableCell>
-            <TableCell>${item.price.toLocaleString()}</TableCell>
-            <TableCell>{item.mileage.toLocaleString()} mi</TableCell>
-            <TableCell>{item.fuelType}</TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <div className="rounded-md border">
+      <Table aria-label="Vehicle inventory" selectionMode="multiple">
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn key={column.key} isRowHeader={column.isRowHeader}>
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={vehicles}>
+          {(item) => (
+            <TableRow key={item.id}>
+              <TableCell>{item.make}</TableCell>
+              <TableCell>{item.model}</TableCell>
+              <TableCell>{item.year}</TableCell>
+              <TableCell>${item.price.toLocaleString()}</TableCell>
+              <TableCell>{item.mileage.toLocaleString()} mi</TableCell>
+              <TableCell>{item.fuelType}</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   )
 }

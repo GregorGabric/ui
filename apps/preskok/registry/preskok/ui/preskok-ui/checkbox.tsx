@@ -30,10 +30,7 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
   return (
     <CheckboxPrimitive
       data-slot="control"
-      className={cx(
-        "group block [--indicator-mt:--spacing(0.75)] disabled:opacity-50 sm:[--indicator-mt:--spacing(1)]",
-        className
-      )}
+      className={cx("group block disabled:opacity-50", className)}
       {...props}
     >
       {composeRenderProps(
@@ -58,8 +55,9 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
           return (
             <div
               className={twMerge(
-                "grid grid-cols-[1.125rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1rem_1fr]",
-                "*:data-[slot=indicator]:col-start-1 *:data-[slot=indicator]:row-start-1 *:data-[slot=indicator]:mt-(--indicator-mt)",
+                "flex items-center",
+                "has-[*:nth-child(2)]:grid has-[*:nth-child(2)]:grid-cols-[1.125rem_1fr] has-[*:nth-child(2)]:gap-x-3 has-[*:nth-child(2)]:gap-y-1 has-[*:nth-child(2)]:sm:grid-cols-[1rem_1fr]",
+                "*:data-[slot=indicator]:col-start-1 *:data-[slot=indicator]:row-start-1 *:data-[slot=indicator]:my-auto",
                 "*:data-[slot=label]:col-start-2 *:data-[slot=label]:row-start-1",
                 "*:[[slot=description]]:col-start-2 *:[[slot=description]]:row-start-2",
                 "has-[[slot=description]]:**:data-[slot=label]:font-medium"

@@ -124,10 +124,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
 
           {values.selectionMode === "multiple" &&
             values.selectionBehavior === "toggle" && (
-              <Checkbox
-                className="[--indicator-mt:0] *:gap-x-0 sm:[--indicator-mt:0]"
-                slot="selection"
-              />
+              <Checkbox className="*:gap-x-0" slot="selection" />
             )}
           {typeof children === "function" ? children(values) : children}
         </>
