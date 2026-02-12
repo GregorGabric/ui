@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorField } from \"@/registry/preskok/ui/preskok-ui/color-field\"\n\nexport default function ColorFieldPreskokDemo() {\n  return (\n    <ColorField\n      label=\"Brand color\"\n      placeholder=\"#2563eb\"\n      defaultValue=\"#2563eb\"\n      description=\"Choose a hex color.\"\n    />\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { ColorField } from \"@/registry/preskok/ui/preskok-ui/color-field\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Input } from \"@/registry/preskok/ui/preskok-ui/input\"\n\nexport default function ColorFieldPreskokDemo() {\n  return (\n    <ColorField>\n      <Label>Color</Label>\n      <Input placeholder=\"#000\" />\n    </ColorField>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

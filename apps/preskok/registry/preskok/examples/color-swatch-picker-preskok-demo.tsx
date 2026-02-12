@@ -3,13 +3,15 @@
 import { useState } from "react"
 import { parseColor } from "@react-stately/color"
 
+import { ColorSwatch } from "@/registry/preskok/ui/preskok-ui/color-swatch"
 import {
   ColorSwatchPicker,
   ColorSwatchPickerItem,
 } from "@/registry/preskok/ui/preskok-ui/color-swatch-picker"
 
-export default function ColorSwatchPickerPreskokDemo() {
-  const [value, setValue] = useState(parseColor("#0d6efd"))
+export default function ColorSwatchPreskokDemo() {
+  const [value, setValue] = useState(() => parseColor("#000000"))
+
   return (
     <ColorSwatchPicker
       aria-label="Pick color"
@@ -17,12 +19,24 @@ export default function ColorSwatchPickerPreskokDemo() {
       onChange={setValue}
       className="grid grid-cols-3 gap-2 lg:grid-cols-6"
     >
-      <ColorSwatchPickerItem color="#3b83f614" />
-      <ColorSwatchPickerItem color="#10b981" />
-      <ColorSwatchPickerItem color="#f97316" />
-      <ColorSwatchPickerItem color="#8b5cf6" />
-      <ColorSwatchPickerItem color="#ef4444" />
-      <ColorSwatchPickerItem color="#6366f1" />
+      <ColorSwatchPickerItem color="#ffffff">
+        <ColorSwatch />
+      </ColorSwatchPickerItem>
+      <ColorSwatchPickerItem color="#f59e0b">
+        <ColorSwatch />
+      </ColorSwatchPickerItem>
+      <ColorSwatchPickerItem color="#84cc16">
+        <ColorSwatch />
+      </ColorSwatchPickerItem>
+      <ColorSwatchPickerItem color="#000000">
+        <ColorSwatch />
+      </ColorSwatchPickerItem>
+      <ColorSwatchPickerItem color="#ec4899">
+        <ColorSwatch />
+      </ColorSwatchPickerItem>
+      <ColorSwatchPickerItem color="#f43f5e">
+        <ColorSwatch />
+      </ColorSwatchPickerItem>
     </ColorSwatchPicker>
   )
 }

@@ -174,7 +174,7 @@ const DropdownSeparator = ({ className, ...props }: SeparatorProps) => (
   <Separator
     orientation="horizontal"
     className={twMerge(
-      "bg-foreground/10 col-span-full -mx-1 my-1 h-px",
+      "bg-foreground/10 col-span-full -mx-1 my-0 h-px",
       className
     )}
     {...props}

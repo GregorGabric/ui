@@ -1,14 +1,14 @@
 "use client"
 
 import { ColorField } from "@/registry/preskok/ui/preskok-ui/color-field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 
 export default function ColorFieldPreskokDemo() {
   return (
-    <ColorField
-      label="Brand color"
-      placeholder="#2563eb"
-      defaultValue="#2563eb"
-      description="Choose a hex color."
-    />
+    <ColorField>
+      <Label>Color</Label>
+      <Input placeholder="#000" />
+    </ColorField>
   )
 }

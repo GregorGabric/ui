@@ -50,7 +50,7 @@ export function ColorSwatchPickerItem({
         <>
           {values.isSelected && (
             <span
-              className="pointer-events-none absolute bottom-1.5 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-current/50"
+              className="bg-background ring-foreground/50 pointer-events-none absolute bottom-1.5 left-1/2 size-1.5 -translate-x-1/2 rounded-full ring"
               aria-hidden
             />
           )}
