@@ -5393,19 +5393,6 @@
       ]
     },
     {
-      "name": "field-preskok-demo",
-      "type": "registry:example",
-      "registryDependencies": [
-        "field"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/field-preskok-demo.tsx",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "slider-demo",
       "type": "registry:example",
       "registryDependencies": [

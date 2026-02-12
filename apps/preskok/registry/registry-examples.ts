@@ -788,18 +788,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "field-preskok-demo",
-    type: "registry:example",
-    registryDependencies: ["field"],
-    files: [
-      {
-        path: "examples/field-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  // New missing demos
-  {
     name: "slider-demo",
     type: "registry:example",
     registryDependencies: ["slider"],

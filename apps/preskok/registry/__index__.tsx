@@ -5312,24 +5312,6 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  "field-preskok-demo": {
-    name: "field-preskok-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["field"],
-    files: [{
-      path: "registry/preskok/examples/field-preskok-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/field-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "slider-demo": {
     name: "slider-demo",
     description: "",

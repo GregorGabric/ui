@@ -23,21 +23,22 @@ export default function FieldDemo() {
           Update your account's profile information and email address.
         </Text>
 
-        <TextField isRequired name="name">
-          <Label>Name</Label>
-          <Input />
+        <TextField isRequired name="firstName">
+          <Label>First Name</Label>
+          <Input placeholder="Your first name" />
           <FieldError />
           <Description>This is your public display name.</Description>
         </TextField>
+
         <TextField isRequired name="email">
           <Label>Email</Label>
-          <Description>This is your public display name.</Description>
-          <Input type="email" />
+          <Description>This is your email address.</Description>
+          <Input type="email" placeholder="Your email" />
           <FieldError />
         </TextField>
         <TextField isRequired name="password">
           <Label>Password</Label>
-          <Input type="password" />
+          <Input type="password" placeholder="Your password" />
           <FieldError />
         </TextField>
         <div data-slot="control">

@@ -438,12 +438,10 @@ html.dark .shiki span {
   border-radius: var(--radius-lg);
   border-width: 0px;
   border-color: var(--border);
-  margin-top: calc(var(--spacing) * 6);
   overflow: hidden;
   font-size: var(--text-sm);
   outline: none;
   position: relative;
-  @apply md:-mx-4;
 
   &:has([data-rehype-pretty-code-title]) [data-slot="copy-button"] {
     top: calc(var(--spacing) * 1.5) !important;

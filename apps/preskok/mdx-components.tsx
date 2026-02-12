@@ -48,7 +48,7 @@ export const mdxComponents = {
           .replace(/\?/g, "")
           .toLowerCase()}
         className={cn(
-          "font-heading mt-12 mb-4 scroll-m-28 text-2xl font-medium tracking-tight first:mt-0 lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl",
+          "font-heading mt-12 mb-4 scroll-m-28 text-2xl font-medium tracking-tight first:mt-0 lg:mt-10 [&+p]:!mt-4 *:[code]:text-2xl",
           className
         )}
         {...props}
@@ -317,7 +317,7 @@ export const mdxComponents = {
   }: React.ComponentProps<typeof TabsContent>) => (
     <TabsContent
       className={cn(
-        "relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-medium *:[figure]:first:mt-0 [&>.steps]:mt-6",
+        "relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-medium *:[figure]:first:mt-0",
         className
       )}
       {...props}
