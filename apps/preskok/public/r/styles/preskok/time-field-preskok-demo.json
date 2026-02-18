@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/time-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { TimeField } from \"@/registry/preskok/ui/preskok-ui/time-field\"\n\nexport default function TimeFieldPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <TimeField label=\"Start time\" />\n      <TimeField label=\"End time\" />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { DateInput } from \"@/registry/preskok/ui/preskok-ui/date-field\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { TimeField } from \"@/registry/preskok/ui/preskok-ui/time-field\"\n\nexport default function TimeFieldPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <TimeField>\n        <Label>Start time</Label>\n        <DateInput />\n      </TimeField>\n      <TimeField>\n        <Label>End time</Label>\n        <DateInput />\n      </TimeField>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

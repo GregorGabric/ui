@@ -44,129 +44,77 @@ export function CalendarDemo() {
 
 ## Examples
 
-### Basic Calendar
+### Basic
 
-```tsx
-import { useState } from "react"
-import { getLocalTimeZone, today } from "@internationalized/date"
+<ComponentPreview
+  name="calendar-preskok-demo"
+  description="Select a single date in a basic calendar."
+/>
 
-function BasicCalendar() {
-  const [date, setDate] = useState(today(getLocalTimeZone()))
+### Controlled
 
-  return <Calendar value={date} onChange={setDate} aria-label="Select a date" />
-}
-```
-
-### With Date Range
-
-```tsx
-import { useState } from "react"
-import { getLocalTimeZone, today } from "@internationalized/date"
-
-function CalendarWithRange() {
-  const [range, setRange] = useState({
-    start: today(getLocalTimeZone()),
-    end: today(getLocalTimeZone()).add({ days: 7 }),
-  })
-
-  return (
-    <Calendar
-      selectionMode="range"
-      value={range}
-      onChange={setRange}
-      aria-label="Select date range"
-    />
-  )
-}
-```
-
-### With Disabled Dates
-
-```tsx
-function CalendarWithDisabledDates() {
-  const [date, setDate] = useState(null)
-
-  const isDateUnavailable = (date) => {
-    // Disable weekends
-    const dayOfWeek = date.toDate(getLocalTimeZone()).getDay()
-    return dayOfWeek === 0 || dayOfWeek === 6
-  }
-
-  return (
-    <Calendar
-      value={date}
-      onChange={setDate}
-      isDateUnavailable={isDateUnavailable}
-      aria-label="Select a weekday"
-    />
-  )
-}
-```
-
-### With Min/Max Dates
-
-```tsx
-function CalendarWithLimits() {
-  const [date, setDate] = useState(null)
-  const today = today(getLocalTimeZone())
-
-  return (
-    <Calendar
-      value={date}
-      onChange={setDate}
-      minValue={today}
-      maxValue={today.add({ months: 3 })}
-      aria-label="Select future date"
-    />
-  )
-}
-```
-
-### Multiple Months
-
-```tsx
-function MultiMonthCalendar() {
-  const [date, setDate] = useState(null)
-
-  return (
-    <Calendar
-      value={date}
-      onChange={setDate}
-      visibleDuration={{ months: 2 }}
-      aria-label="Select a date"
-    />
-  )
-}
-```
+<ComponentPreview
+  name="calendar-controlled-preskok-demo"
+  description="Control calendar state and display the selected date."
+/>
 
 ### Controlled Month/Year
 
-```tsx
-function CalendarWithControls() {
-  const [date, setDate] = useState(null)
-  const [focusedDate, setFocusedDate] = useState(today(getLocalTimeZone()))
+<ComponentPreview
+  name="calendar-controlled-month-year-preskok-demo"
+  description="Control focused month/year externally and jump to today."
+/>
 
-  return (
-    <Calendar
-      value={date}
-      onChange={setDate}
-      focusedValue={focusedDate}
-      onFocusChange={setFocusedDate}
-      aria-label="Select a date"
-    />
-  )
-}
-```
+### Disabled
+
+<ComponentPreview
+  name="calendar-disabled-preskok-demo"
+  description="Show a disabled calendar with a preset date."
+/>
+
+### Unavailable Dates
+
+<ComponentPreview
+  name="calendar-with-disabled-dates-preskok-demo"
+  description="Disable weekend dates via isDateUnavailable."
+/>
+
+### Min/Max Dates
+
+<ComponentPreview
+  name="calendar-min-max-preskok-demo"
+  description="Constrain selection to a three-month booking window."
+/>
+
+### Validation
+
+<ComponentPreview
+  name="calendar-validation-preskok-demo"
+  description="Validate weekday-only booking within a constrained range."
+/>
+
+### Date Range
+
+<ComponentPreview
+  name="calendar-with-range-preskok-demo"
+  description="Select a start and end date in a range calendar."
+/>
+
+### Multiple Months
+
+<ComponentPreview
+  name="calendar-multiple-months-preskok-demo"
+  description="Display two calendar months at once for range planning."
+/>
 
 ## Features
 
-- **Flexible date selection** - Single dates, ranges, or multiple dates
+- **Single date selection** - Select one date with clear focus and state handling
 - **Month/year navigation** - Dropdown selectors for quick navigation
 - **Date validation** - Min/max dates and custom unavailable dates
 - **Internationalization** - Full i18n support with locale-aware formatting
 - **Keyboard navigation** - Complete keyboard accessibility
 - **Custom styling** - Extensive customization options
-- **Multiple months** - Display multiple months simultaneously
 - **Time zones** - Proper time zone handling with @internationalized/date
 - **Screen reader support** - Comprehensive accessibility features
 

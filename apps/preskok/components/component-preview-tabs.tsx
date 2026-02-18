@@ -61,7 +61,7 @@ export function ComponentPreviewTabs({
           <div
             data-align={align}
             className={cn(
-              "preview flex h-[500px] w-full justify-center overflow-auto p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start md:h-[800px]"
+              "preview flex h-[500px] w-full justify-center overflow-auto p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start group-first:md:h-[700px]"
             )}
           >
             {component}
@@ -70,7 +70,7 @@ export function ComponentPreviewTabs({
         <div
           data-slot="code"
           data-active={tab === "code"}
-          className="absolute inset-0 hidden overflow-hidden data-[active=true]:block **:[figure]:!m-0 **:[pre]:h-[450px]"
+          className="absolute inset-0 hidden overflow-auto data-[active=true]:block **:[figure]:!m-0 **:[figure]:h-full"
         >
           {source}
         </div>

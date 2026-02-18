@@ -46,9 +46,61 @@ npx @preskok-org/ui@latest add range-calendar
 ## Usage
 
 ```tsx
+import { parseDate } from "@internationalized/date"
+
 import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 
 export function RangeCalendarDemo() {
-  return <RangeCalendar />
+  return (
+    <RangeCalendar
+      defaultValue={{
+        start: parseDate("2026-04-10"),
+        end: parseDate("2026-04-16"),
+      }}
+      aria-label="Trip dates"
+    />
+  )
 }
 ```
+
+## Props
+
+- **visibleDuration**: `DateDuration` — Number of months shown at once.
+- Inherits all `react-aria-components` `RangeCalendar` props.
+
+## Features
+
+- **Range-first interaction** with contiguous date highlighting.
+- **Single or multi-month layouts** with built-in navigation.
+- **Date constraints** via `minValue`, `maxValue`, and `isDateUnavailable`.
+- **Keyboard and screen reader support** from React Aria primitives.
+
+## Examples
+
+### Basic
+
+<ComponentPreview
+  name="range-calendar-preskok-demo"
+  description="Select a date range in a basic range calendar."
+/>
+
+### Controlled
+
+<ComponentPreview
+  name="range-calendar-controlled-preskok-demo"
+  description="Control range state and display selected dates."
+/>
+
+### Disabled
+
+<ComponentPreview
+  name="range-calendar-disabled-preskok-demo"
+  description="Show a disabled range calendar with preset values."
+/>
+
+### Validation
+
+<ComponentPreview
+  name="range-calendar-validation-preskok-demo"
+  description="Constrain range selection window and disable weekends."
+/>

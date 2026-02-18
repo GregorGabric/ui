@@ -31,6 +31,7 @@ export function DateRangePicker<T extends DateValue>({
   popover,
   children,
   visibleDuration = { months: 1 },
+  pageBehavior = "visible",
   ...props
 }: DateRangePickerProps<T>) {
   return (
@@ -45,6 +46,7 @@ export function DateRangePicker<T extends DateValue>({
           <DatePickerOverlay
             {...popover}
             visibleDuration={visibleDuration}
+            pageBehavior={pageBehavior}
             range
           />
         </>

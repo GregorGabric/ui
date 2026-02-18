@@ -19,29 +19,60 @@ npx @preskok-org/ui@latest add date-picker
 ```tsx
 import { parseDate } from "@internationalized/date"
 
-import { DatePicker } from "@/registry/preskok/ui/preskok-ui/date-picker"
+import {
+  DatePicker,
+  DatePickerTrigger,
+} from "@/registry/preskok/ui/preskok-ui/date-picker"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function Example() {
   return (
-    <DatePicker
-      label="Pick a date"
-      granularity="day"
-      defaultValue={parseDate("2024-01-20")}
-    />
+    <DatePicker defaultValue={parseDate("2024-01-20")}>
+      <Label>Pick a date</Label>
+      <DatePickerTrigger />
+    </DatePicker>
   )
 }
 ```
 
 ## Props
 
-- **label**: string — Field label.
-- **description**: string — Help text.
-- **errorMessage**: string | (validation) => string — Error text.
-- **placement**: Popover placement.
-- Inherits all `react-aria-components` DatePicker props.
+- **popover**: `PopoverProps` (without children) — Desktop overlay options.
+- Inherits all `react-aria-components` `DatePicker` props.
+- Compose field content using `Label`, `DatePickerTrigger`, and optional `FieldError`.
 
 ## Features
 
 - **Responsive overlay**: popover on desktop, modal on mobile
 - **Keyboard and screen reader support**
 - **Validation and error messaging**
+
+## Examples
+
+### Basic
+
+<ComponentPreview
+  name="date-picker-preskok-demo"
+  description="Pick a date using an input and calendar overlay."
+/>
+
+### Controlled
+
+<ComponentPreview
+  name="date-picker-controlled-preskok-demo"
+  description="Control picker state and display the selected date."
+/>
+
+### Disabled
+
+<ComponentPreview
+  name="date-picker-disabled-preskok-demo"
+  description="Show a disabled date picker with a read-only value."
+/>
+
+### Validation
+
+<ComponentPreview
+  name="date-picker-validation-preskok-demo"
+  description="Validate date input with constraints and inline errors."
+/>

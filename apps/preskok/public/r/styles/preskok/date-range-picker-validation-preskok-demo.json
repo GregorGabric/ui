@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-range-picker-validation-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "date-range-picker",
+    "calendar",
+    "popover",
+    "modal",
+    "field",
+    "form",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-range-picker-validation-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { getLocalTimeZone, today } from \"@internationalized/date\"\nimport type { DateValue } from \"react-aria-components\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  DateRangePicker,\n  DateRangePickerTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/date-range-picker\"\nimport { FieldError, Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Form } from \"@/registry/preskok/ui/preskok-ui/form\"\n\nexport default function DateRangePickerValidationPreskokDemo() {\n  const timeZone = getLocalTimeZone()\n\n  const getDayDifference = (start: DateValue, end: DateValue) => {\n    const diffMs =\n      end.toDate(timeZone).getTime() - start.toDate(timeZone).getTime()\n    return Math.round(diffMs / 86_400_000)\n  }\n\n  return (\n    <Form onSubmit={(e) => e.preventDefault()} className=\"max-w-xs\">\n      <DateRangePicker\n        validate={(range) => {\n          if (!range?.start || !range?.end) {\n            return null\n          }\n\n          return getDayDifference(range.start, range.end) > 7\n            ? \"Maximum booking duration is 1 week.\"\n            : null\n        }}\n        defaultValue={{\n          start: today(timeZone),\n          end: today(timeZone).add({ weeks: 2 }),\n        }}\n        className=\"mb-2\"\n      >\n        <Label>Room booking</Label>\n        <DateRangePickerTrigger />\n        <FieldError />\n      </DateRangePicker>\n      <Button type=\"submit\">Book Room</Button>\n    </Form>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

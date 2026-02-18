@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "menu-submenu-demo",
+  "registryDependencies": [
+    "menu",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/menu-submenu-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  Menu,\n  MenuContent,\n  MenuItem,\n  MenuLabel,\n  MenuSeparator,\n  MenuSubMenu,\n} from \"@/registry/preskok/ui/preskok-ui/menu\"\n\nexport default function MenuSubmenuDemo() {\n  return (\n    <Menu>\n      <Button intent=\"outline\">Open</Button>\n      <MenuContent popover={{ placement: \"bottom\" }}>\n        <MenuItem>\n          <MenuLabel>Add Vehicle</MenuLabel>\n        </MenuItem>\n        <MenuSubMenu>\n          <MenuItem>\n            <MenuLabel>Service</MenuLabel>\n          </MenuItem>\n          <MenuContent>\n            <MenuItem>\n              <MenuLabel>Schedule Maintenance</MenuLabel>\n            </MenuItem>\n            <MenuItem>\n              <MenuLabel>Check Recall Status</MenuLabel>\n            </MenuItem>\n            <MenuSeparator />\n            <MenuSubMenu>\n              <MenuItem>\n                <MenuLabel>Roadside Assistance</MenuLabel>\n              </MenuItem>\n              <MenuContent>\n                <MenuItem>\n                  <MenuLabel>Request Tow Truck</MenuLabel>\n                </MenuItem>\n                <MenuItem>\n                  <MenuLabel>Battery Jump Start</MenuLabel>\n                </MenuItem>\n              </MenuContent>\n            </MenuSubMenu>\n          </MenuContent>\n        </MenuSubMenu>\n        <MenuSeparator />\n        <MenuItem>\n          <MenuLabel>Retire Vehicle</MenuLabel>\n        </MenuItem>\n      </MenuContent>\n    </Menu>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -4588,6 +4588,48 @@
       ]
     },
     {
+      "name": "range-calendar-controlled-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/range-calendar-controlled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "range-calendar-disabled-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/range-calendar-disabled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "range-calendar-validation-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/range-calendar-validation-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "search-field-preskok-demo",
       "type": "registry:example",
       "registryDependencies": [
@@ -4671,6 +4713,45 @@
       "files": [
         {
           "path": "registry/preskok/examples/time-field-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "time-field-hour-cycle-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "time-field",
+        "date-field",
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/time-field-hour-cycle-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "time-field-validation-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "time-field",
+        "date-field",
+        "field",
+        "form",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/time-field-validation-preskok-demo.tsx",
           "type": "registry:example"
         }
       ]
@@ -4914,6 +4995,116 @@
       "files": [
         {
           "path": "registry/preskok/examples/calendar-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-with-range-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-with-range-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-with-disabled-dates-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-with-disabled-dates-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-min-max-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-min-max-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-multiple-months-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "range-calendar",
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-multiple-months-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-controlled-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-controlled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-controlled-month-year-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-controlled-month-year-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-disabled-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-disabled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-validation-preskok-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/calendar-validation-preskok-demo.tsx",
           "type": "registry:example"
         }
       ]
@@ -5251,6 +5442,68 @@
       ]
     },
     {
+      "name": "date-picker-controlled-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-picker",
+        "calendar",
+        "popover",
+        "modal",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/date-picker-controlled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-disabled-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-picker",
+        "calendar",
+        "popover",
+        "modal",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/date-picker-disabled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-validation-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-picker",
+        "calendar",
+        "popover",
+        "modal",
+        "field",
+        "form",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/date-picker-validation-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "date-range-picker-preskok-demo",
       "type": "registry:example",
       "dependencies": [
@@ -5266,6 +5519,68 @@
       "files": [
         {
           "path": "registry/preskok/examples/date-range-picker-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-range-picker-controlled-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-range-picker",
+        "calendar",
+        "popover",
+        "modal",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/date-range-picker-controlled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-range-picker-disabled-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-range-picker",
+        "calendar",
+        "popover",
+        "modal",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/date-range-picker-disabled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-range-picker-validation-preskok-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@internationalized/date"
+      ],
+      "registryDependencies": [
+        "date-range-picker",
+        "calendar",
+        "popover",
+        "modal",
+        "field",
+        "form",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/date-range-picker-validation-preskok-demo.tsx",
           "type": "registry:example"
         }
       ]
@@ -5466,6 +5781,35 @@
       "files": [
         {
           "path": "registry/preskok/examples/radio-group-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-validation-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "radio",
+        "field",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/radio-validation-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-controlled-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "radio",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/radio-controlled-demo.tsx",
           "type": "registry:example"
         }
       ]
@@ -5819,6 +6163,48 @@
       "files": [
         {
           "path": "registry/preskok/examples/menu-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menu-submenu-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menu",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/menu-submenu-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menu-description-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menu",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/menu-description-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menu-multiple-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menu",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/menu-multiple-demo.tsx",
           "type": "registry:example"
         }
       ]

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-min-max-preskok-demo",
+  "registryDependencies": [
+    "calendar"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/calendar-min-max-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { getLocalTimeZone, today } from \"@internationalized/date\"\n\nimport { Calendar } from \"@/registry/preskok/ui/preskok-ui/calendar\"\n\nexport default function CalendarMinMaxPreskokDemo() {\n  const timeZone = getLocalTimeZone()\n  const minDate = today(timeZone)\n  const maxDate = minDate.add({ months: 3 })\n  const [date, setDate] = useState(() => minDate)\n\n  return (\n    <Calendar\n      value={date}\n      onChange={setDate}\n      minValue={minDate}\n      maxValue={maxDate}\n      aria-label=\"Select future date\"\n    />\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

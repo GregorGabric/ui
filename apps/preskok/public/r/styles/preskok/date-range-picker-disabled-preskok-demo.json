@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-range-picker-disabled-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "date-range-picker",
+    "calendar",
+    "popover",
+    "modal",
+    "field"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-range-picker-disabled-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport {\n  DateRangePicker,\n  DateRangePickerTrigger,\n} from \"@/registry/preskok/ui/preskok-ui/date-range-picker\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\n\nexport default function DateRangePickerDisabledPreskokDemo() {\n  return (\n    <div className=\"max-w-xs\">\n      <DateRangePicker\n        isDisabled\n        defaultValue={{\n          start: parseDate(\"2026-05-03\"),\n          end: parseDate(\"2026-05-07\"),\n        }}\n      >\n        <Label>Closed period</Label>\n        <DateRangePickerTrigger />\n      </DateRangePicker>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

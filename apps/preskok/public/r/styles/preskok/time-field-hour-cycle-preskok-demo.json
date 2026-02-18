@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-field-hour-cycle-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "time-field",
+    "date-field",
+    "field",
+    "switch"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/time-field-hour-cycle-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { Time } from \"@internationalized/date\"\n\nimport { DateInput } from \"@/registry/preskok/ui/preskok-ui/date-field\"\nimport { Label } from \"@/registry/preskok/ui/preskok-ui/field\"\nimport { Switch, SwitchLabel } from \"@/registry/preskok/ui/preskok-ui/switch\"\nimport { TimeField } from \"@/registry/preskok/ui/preskok-ui/time-field\"\n\nexport default function TimeFieldHourCyclePreskokDemo() {\n  const [hourCycle, setHourCycle] = useState<12 | 24>(24)\n  const [value, setValue] = useState(new Time(13, 45))\n\n  return (\n    <div className=\"flex flex-col gap-y-6\">\n      <Switch\n        isSelected={hourCycle === 24}\n        onChange={() =>\n          setHourCycle((prevHourCycle) => (prevHourCycle === 24 ? 12 : 24))\n        }\n      >\n        <SwitchLabel>{hourCycle} hour</SwitchLabel>\n      </Switch>\n      <TimeField\n        value={value}\n        onChange={(newValue) => {\n          if (newValue) {\n            setValue(newValue)\n          }\n        }}\n        hourCycle={hourCycle}\n      >\n        <Label>Event time</Label>\n        <DateInput />\n      </TimeField>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

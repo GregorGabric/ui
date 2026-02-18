@@ -19,32 +19,68 @@ npx @preskok-org/ui@latest add date-range-picker
 ```tsx
 import { parseDate } from "@internationalized/date"
 
-import { DateRangePicker } from "@/registry/preskok/ui/preskok-ui/date-range-picker"
+import {
+  DateRangePicker,
+  DateRangePickerTrigger,
+} from "@/registry/preskok/ui/preskok-ui/date-range-picker"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function Example() {
   return (
     <DateRangePicker
-      label="Date range"
       visibleDuration={{ months: 2 }}
       defaultValue={{
         start: parseDate("2024-02-10"),
         end: parseDate("2024-02-20"),
       }}
-    />
+    >
+      <Label>Date range</Label>
+      <DateRangePickerTrigger />
+    </DateRangePicker>
   )
 }
 ```
 
 ## Props
 
-- **label**: string
-- **description**: string
-- **errorMessage**: string | (validation) => string
-- **visibleDuration**: DateDuration — months visible
-- **contentPlacement**: placement of overlay
+- **visibleDuration**: `DateDuration` — Number of months shown.
+- **pageBehavior**: `"visible" | "single"` — Paging behavior for multi-month view.
+- **popover**: `PopoverProps` (without children) — Desktop overlay options.
+- Inherits all `react-aria-components` `DateRangePicker` props.
+- Compose field content using `Label`, `DateRangePickerTrigger`, and optional `FieldError`.
 
 ## Features
 
 - **Two inputs** with separator
 - **Responsive popover/modal overlay**
 - **Keyboard and screen reader support**
+
+## Examples
+
+### Basic
+
+<ComponentPreview
+  name="date-range-picker-preskok-demo"
+  description="Pick a start and end date with a calendar overlay."
+/>
+
+### Controlled
+
+<ComponentPreview
+  name="date-range-picker-controlled-preskok-demo"
+  description="Control range state and display selected dates."
+/>
+
+### Disabled
+
+<ComponentPreview
+  name="date-range-picker-disabled-preskok-demo"
+  description="Show a disabled range picker with preset values."
+/>
+
+### Validation
+
+<ComponentPreview
+  name="date-range-picker-validation-preskok-demo"
+  description="Validate room booking duration to one week maximum."
+/>

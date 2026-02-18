@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "menu-description-demo",
+  "registryDependencies": [
+    "menu",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/menu-description-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport {\n  Menu,\n  MenuContent,\n  MenuDescription,\n  MenuItem,\n  MenuLabel,\n  MenuSeparator,\n} from \"@/registry/preskok/ui/preskok-ui/menu\"\n\nexport default function MenuDescriptionDemo() {\n  return (\n    <Menu>\n      <Button intent=\"outline\">Open</Button>\n      <MenuContent className=\"min-w-72\" popover={{ placement: \"bottom\" }}>\n        <MenuItem id=\"new-listing\">\n          <MenuLabel>New Listing</MenuLabel>\n          <MenuDescription>\n            Add a vehicle to the dealership inventory.\n          </MenuDescription>\n        </MenuItem>\n        <MenuItem id=\"book-test-drive\">\n          <MenuLabel>Book Test Drive</MenuLabel>\n          <MenuDescription>\n            Reserve a time slot and assign a sales advisor.\n          </MenuDescription>\n        </MenuItem>\n        <MenuSeparator />\n        <MenuItem id=\"mark-sold\">\n          <MenuLabel>Mark as Sold</MenuLabel>\n          <MenuDescription>\n            Move the vehicle from available to completed sales.\n          </MenuDescription>\n        </MenuItem>\n      </MenuContent>\n    </Menu>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,4 +1,4 @@
-import { type Registry } from "@preskok-org/ui/registry"
+import type { Registry } from "@preskok-org/ui/registry"
 
 export const examples: Registry["items"] = [
   {
@@ -115,6 +115,39 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "range-calendar-controlled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["range-calendar", "calendar"],
+    files: [
+      {
+        path: "examples/range-calendar-controlled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "range-calendar-disabled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["range-calendar", "calendar"],
+    files: [
+      {
+        path: "examples/range-calendar-disabled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "range-calendar-validation-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["range-calendar", "calendar"],
+    files: [
+      {
+        path: "examples/range-calendar-validation-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "search-field-preskok-demo",
     type: "registry:example",
     registryDependencies: ["search-field", "field", "loader"],
@@ -179,6 +212,36 @@ export const examples: Registry["items"] = [
         type: "registry:example",
       },
     ],
+  },
+  {
+    name: "time-field-hour-cycle-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["time-field", "date-field", "field", "switch"],
+    files: [
+      {
+        path: "examples/time-field-hour-cycle-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "time-field-validation-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "time-field",
+      "date-field",
+      "field",
+      "form",
+      "button",
+    ],
+    files: [
+      {
+        path: "examples/time-field-validation-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
   },
   {
     name: "file-trigger-preskok-demo",
@@ -389,6 +452,95 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/calendar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-with-range-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["range-calendar", "calendar"],
+    files: [
+      {
+        path: "examples/calendar-with-range-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-with-disabled-dates-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["calendar"],
+    files: [
+      {
+        path: "examples/calendar-with-disabled-dates-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-min-max-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["calendar"],
+    files: [
+      {
+        path: "examples/calendar-min-max-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-multiple-months-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["range-calendar", "calendar"],
+    files: [
+      {
+        path: "examples/calendar-multiple-months-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-controlled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["calendar"],
+    files: [
+      {
+        path: "examples/calendar-controlled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-controlled-month-year-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["calendar", "button"],
+    files: [
+      {
+        path: "examples/calendar-controlled-month-year-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "calendar-disabled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["calendar"],
+    files: [
+      {
+        path: "examples/calendar-disabled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "calendar-validation-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["calendar"],
+    files: [
+      {
+        path: "examples/calendar-validation-preskok-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -671,6 +823,62 @@ export const examples: Registry["items"] = [
     dependencies: ["@internationalized/date"],
   },
   {
+    name: "date-picker-controlled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+    ],
+    files: [
+      {
+        path: "examples/date-picker-controlled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-picker-disabled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+    ],
+    files: [
+      {
+        path: "examples/date-picker-disabled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-picker-validation-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+      "form",
+      "button",
+    ],
+    files: [
+      {
+        path: "examples/date-picker-validation-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
     name: "date-range-picker-preskok-demo",
     type: "registry:example",
     registryDependencies: [
@@ -683,6 +891,62 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/date-range-picker-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-range-picker-controlled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-range-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+    ],
+    files: [
+      {
+        path: "examples/date-range-picker-controlled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-range-picker-disabled-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-range-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+    ],
+    files: [
+      {
+        path: "examples/date-range-picker-disabled-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+    dependencies: ["@internationalized/date"],
+  },
+  {
+    name: "date-range-picker-validation-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "date-range-picker",
+      "calendar",
+      "popover",
+      "modal",
+      "field",
+      "form",
+      "button",
+    ],
+    files: [
+      {
+        path: "examples/date-range-picker-validation-preskok-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -849,6 +1113,28 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/radio-group-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "radio-validation-demo",
+    type: "registry:example",
+    registryDependencies: ["radio", "field", "button"],
+    files: [
+      {
+        path: "examples/radio-validation-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "radio-controlled-demo",
+    type: "registry:example",
+    registryDependencies: ["radio", "field"],
+    files: [
+      {
+        path: "examples/radio-controlled-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -1136,6 +1422,39 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/menu-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "menu-submenu-demo",
+    type: "registry:example",
+    registryDependencies: ["menu", "button"],
+    files: [
+      {
+        path: "examples/menu-submenu-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "menu-description-demo",
+    type: "registry:example",
+    registryDependencies: ["menu", "button"],
+    files: [
+      {
+        path: "examples/menu-description-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "menu-multiple-demo",
+    type: "registry:example",
+    registryDependencies: ["menu", "button"],
+    files: [
+      {
+        path: "examples/menu-multiple-demo.tsx",
         type: "registry:example",
       },
     ],

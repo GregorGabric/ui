@@ -46,9 +46,32 @@ npx @preskok-org/ui@latest add time-field
 ## Usage
 
 ```tsx
+import { DateInput } from "@/registry/preskok/ui/preskok-ui/date-field"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { TimeField } from "@/registry/preskok/ui/preskok-ui/time-field"
 
 export function TimeFieldDemo() {
-  return <TimeField label="Time" />
+  return (
+    <TimeField>
+      <Label>Time</Label>
+      <DateInput />
+    </TimeField>
+  )
 }
 ```
+
+## Examples
+
+### Hour Cycle Toggle
+
+<ComponentPreview
+  name="time-field-hour-cycle-preskok-demo"
+  description="Switch between 12-hour and 24-hour time entry."
+/>
+
+### Validation With Business Hours
+
+<ComponentPreview
+  name="time-field-validation-preskok-demo"
+  description="Required time field with opening-hours validation and a 12/24-hour format toggle."
+/>

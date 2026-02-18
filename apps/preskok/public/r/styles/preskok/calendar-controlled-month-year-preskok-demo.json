@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-controlled-month-year-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "calendar",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/calendar-controlled-month-year-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport type { CalendarDate } from \"@internationalized/date\"\nimport { getLocalTimeZone, today } from \"@internationalized/date\"\n\nimport { Button } from \"@/registry/preskok/ui/preskok-ui/button\"\nimport { Calendar } from \"@/registry/preskok/ui/preskok-ui/calendar\"\n\nexport default function CalendarControlledMonthYearPreskokDemo() {\n  const timeZone = getLocalTimeZone()\n  const [date, setDate] = useState<CalendarDate | null>(null)\n  const [focusedDate, setFocusedDate] = useState(() => today(timeZone))\n\n  return (\n    <div className=\"space-y-3\">\n      <Calendar\n        value={date}\n        onChange={setDate}\n        focusedValue={focusedDate}\n        onFocusChange={setFocusedDate}\n        aria-label=\"Select date with controlled focus\"\n      />\n      <Button\n        intent=\"outline\"\n        size=\"sm\"\n        onPress={() => setFocusedDate(today(timeZone))}\n      >\n        Jump to current month\n      </Button>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}
