@@ -1,5 +1,6 @@
 "use client"
 
+import { useCallback } from "react"
 import { usePathname } from "next/navigation"
 
 import type { source } from "@/lib/source"
@@ -17,6 +18,18 @@ export function DocsSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar> & { tree: typeof source.pageTree }) {
   const pathname = usePathname()
+  const normalizedPathname = normalizePath(pathname)
+  const currentItemRef = useCallback((node: HTMLAnchorElement | null) => {
+    if (!node) {
+      return
+    }
+
+    node.scrollIntoView({
+      behavior: "instant",
+      block: "nearest",
+      inline: "nearest",
+    })
+  }, [])
 
   return (
     <Sidebar
@@ -25,7 +38,7 @@ export function DocsSidebar({
       {...props}
     >
       <div className="via-border absolute top-12 right-2 bottom-0 hidden h-full w-px bg-gradient-to-b from-transparent to-transparent lg:flex" />
-      <SidebarContent className="no-scrollbar px-2 pb-12">
+      <SidebarContent className="no-scrollbar px-2 pb-20">
         <div className="h-(--top-spacing) shrink-0" />
         <SidebarSectionGroup>
           {tree.children.map((group) => {
@@ -33,18 +46,26 @@ export function DocsSidebar({
             return (
               <SidebarSection key={group.$id} label={label}>
                 {group.type === "folder" &&
-                  group.children.map((page) =>
-                    page.type === "page" ? (
+                  group.children.map((page) => {
+                    if (page.type !== "page") {
+                      return null
+                    }
+
+                    const isCurrent =
+                      normalizePath(page.url) === normalizedPathname
+
+                    return (
                       <SidebarItem
                         key={page.url}
                         href={page.url}
-                        isCurrent={page.url === pathname}
-                        className="relative h-[30px] w-fit text-[0.8rem] font-medium"
+                        isCurrent={isCurrent}
+                        ref={isCurrent ? currentItemRef : undefined}
+                        className="relative h-[30px] w-fit scroll-mb-16 text-[0.8rem] font-medium"
                       >
                         <SidebarLabel>{page.name}</SidebarLabel>
                       </SidebarItem>
-                    ) : null
-                  )}
+                    )
+                  })}
               </SidebarSection>
             )
           })}
@@ -52,4 +73,12 @@ export function DocsSidebar({
       </SidebarContent>
     </Sidebar>
   )
+}
+
+function normalizePath(path: string) {
+  if (path === "/") {
+    return path
+  }
+
+  return path.replace(/\/+$/, "")
 }
