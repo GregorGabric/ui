@@ -151,7 +151,7 @@ const SidebarProvider = ({
           } as React.CSSProperties
         }
         className={twMerge(
-          "@container **:data-[slot=icon]:shrink-0",
+          "@container **:data-[slot=icon]:shrink-0 [&_.lucide]:shrink-0",
           "text-sidebar-foreground flex w-full",
           "group/sidebar-root peer/sidebar-root has-data-[intent=inset]:bg-sidebar dark:has-data-[intent=inset]:bg-background",
           className
@@ -265,7 +265,6 @@ const Sidebar = ({
           ],
           className
         )}
-        {...props}
       >
         <div
           data-sidebar="default"
@@ -312,7 +311,12 @@ const SidebarFooter = ({
     <div
       data-slot="sidebar-footer"
       className={twMerge([
-        "**:data-[slot=chevron]:text-muted-foreground mt-auto flex shrink-0 items-center justify-center p-4",
+        "mt-auto flex shrink-0 flex-col gap-2 p-4",
+        "**:data-[slot=chevron]:text-muted-foreground [&_[data-slot=chevron]]:ml-auto",
+        "[&_[data-slot=menu-trigger]]:flex [&_[data-slot=menu-trigger]]:w-full [&_[data-slot=menu-trigger]]:items-center [&_[data-slot=menu-trigger]]:gap-2 [&_[data-slot=menu-trigger]]:rounded-lg [&_[data-slot=menu-trigger]]:p-2 [&_[data-slot=menu-trigger]]:text-left",
+        "in-data-[state=collapsed]:items-center in-data-[state=collapsed]:p-2",
+        "in-data-[state=collapsed]:[&_[data-slot=menu-trigger]]:w-auto in-data-[state=collapsed]:[&_[data-slot=menu-trigger]]:justify-center",
+        "in-data-[state=collapsed]:[&_[data-slot=chevron]]:hidden in-data-[state=collapsed]:[&_[data-slot=menu-trigger]>div]:hidden",
         "in-data-[intent=inset]:px-6 in-data-[intent=inset]:py-4",
         className,
       ])}
@@ -377,7 +381,7 @@ const SidebarSection = ({ className, ...props }: SidebarSectionProps) => {
       {...props}
     >
       {state !== "collapsed" && "label" in props && (
-        <Header className="text-sidebar-foreground/70 ring-sidebar-ring mb-1 flex shrink-0 items-center rounded-md px-2 text-xs/6 font-medium transition-[margin,opa] duration-200 ease-linear outline-none group-data-[collapsible=dock]:-mt-8 group-data-[collapsible=dock]:opacity-0 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0">
+        <Header className="text-sidebar-foreground/70 ring-sidebar-ring mb-1 flex shrink-0 items-center rounded-md px-2 text-xs/6 font-medium transition-[margin,opacity] duration-200 ease-linear outline-none group-data-[collapsible=dock]:-mt-8 group-data-[collapsible=dock]:opacity-0 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 [&_.lucide]:size-4 [&_.lucide]:shrink-0">
           {props.label}
         </Header>
       )}
@@ -431,20 +435,20 @@ const SidebarItem = ({
             "href" in props ? "cursor-pointer" : "cursor-default",
             "text-sidebar-foreground w-full min-w-0 items-center rounded-lg text-left text-base/6 font-medium",
             "group/sidebar-item relative col-span-full overflow-hidden focus-visible:outline-hidden",
-            "[&_[data-slot='icon']:not([class*='text-'])]:text-muted-foreground **:data-[slot=icon]:shrink-0 [&_[data-slot='icon']:not([class*='size-'])]:size-5 sm:[&_[data-slot='icon']:not([class*='size-'])]:size-4",
+            "[&_[data-slot='icon']:not([class*='text-'])]:text-muted-foreground [&_.lucide:not([class*='text-'])]:text-muted-foreground **:data-[slot=icon]:shrink-0 [&_.lucide]:shrink-0 [&_[data-slot='icon']:not([class*='size-'])]:size-5 sm:[&_[data-slot='icon']:not([class*='size-'])]:size-4",
             "**:last:data-[slot=icon]:size-5 sm:**:last:data-[slot=icon]:size-4",
-            "[&_[data-slot='icon']:not([class*='size-'])]:size-4 [&_[data-slot='icon']:not([class*='size-'])]:*:size-5",
+            "[&_.lucide:not([class*='size-'])]:size-4 [&_[data-slot='icon']:not([class*='size-'])]:size-4 [&_[data-slot='icon']:not([class*='size-'])]:*:size-5",
             "*:data-[slot=avatar]:*:size-5 *:data-[slot=avatar]:size-5",
-            "has-[[data-slot=avatar]]:has-[[data-slot=sidebar-label]]:gap-x-2 has-[[data-slot=icon]]:has-[[data-slot=sidebar-label]]:gap-x-2",
-            "grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] **:last:data-[slot=icon]:ml-auto supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:text-sm/5",
+            "has-[[data-slot=avatar]]:has-[[data-slot=sidebar-label]]:gap-x-2 has-[[data-slot=icon]]:has-[[data-slot=sidebar-label]]:gap-x-2 has-[svg.lucide]:has-[[data-slot=sidebar-label]]:gap-x-2",
+            "grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] **:last:data-[slot=icon]:ml-auto supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:text-sm/5 [&_svg.lucide:last-child]:ml-auto",
             "p-2 has-[a]:p-0",
             "[--sidebar-current-background:var(--color-sidebar-primary)] [--sidebar-current-foreground:var(--color-sidebar-primary-foreground)]",
             isCurrent &&
-              "[&_.text-muted-foreground]:text-foreground/80 bg-(--sidebar-current-background) font-medium text-(--sidebar-current-foreground) hover:bg-(--sidebar-current-background) hover:text-(--sidebar-current-foreground) [&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground) hover:[&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground)",
+              "[&_.text-muted-foreground]:text-foreground/80 bg-(--sidebar-current-background) font-medium text-(--sidebar-current-foreground) hover:bg-(--sidebar-current-background) hover:text-(--sidebar-current-foreground) [&_.lucide:not([class*='text-'])]:text-(--sidebar-current-foreground) hover:[&_.lucide:not([class*='text-'])]:text-(--sidebar-current-foreground) [&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground) hover:[&_[data-slot='icon']:not([class*='text-'])]:text-(--sidebar-current-foreground)",
             isFocusVisible &&
               "inset-ring-sidebar-ring inset-ring outline-hidden",
             (isPressed || isHovered) &&
-              "bg-sidebar-accent text-sidebar-accent-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-sidebar-accent-foreground",
+              "bg-sidebar-accent text-sidebar-accent-foreground [&_[data-slot='icon']:not([class*='text-'])]:text-sidebar-accent-foreground [&_.lucide:not([class*='text-'])]:text-sidebar-accent-foreground",
             isDisabled && "opacity-50",
             className,
           ])
@@ -485,7 +489,7 @@ const SidebarItem = ({
     <Tooltip delay={0}>
       {link}
       <TooltipContent
-        className="**:data-[slot=icon]:hidden **:data-[slot=sidebar-label-mask]:hidden"
+        className="**:data-[slot=icon]:hidden **:data-[slot=sidebar-label-mask]:hidden [&_.lucide]:hidden"
         inverse
         placement="right"
         arrow
@@ -602,14 +606,14 @@ const SidebarDisclosureTrigger = ({
             twMerge(
               "text-sidebar-foreground flex w-full min-w-0 items-center rounded-lg text-left text-base/6 font-medium",
               "group/sidebar-disclosure-trigger relative col-span-full overflow-hidden focus-visible:outline-hidden",
-              "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
+              "**:data-[slot=icon]:text-muted-foreground [&_.lucide:not([class*='text-'])]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4 [&_.lucide]:shrink-0 [&_.lucide:not([class*='size-'])]:size-5 sm:[&_.lucide:not([class*='size-'])]:size-4",
               "**:last:data-[slot=icon]:size-5 sm:**:last:data-[slot=icon]:size-4",
               "**:data-[slot=avatar]:size-6 sm:**:data-[slot=avatar]:size-5",
-              "**:data-[slot=chevron]:text-muted-foreground col-span-full gap-3 p-2 **:last:data-[slot=icon]:ml-auto sm:gap-2 sm:text-sm/5",
+              "**:data-[slot=chevron]:text-muted-foreground col-span-full gap-3 p-2 **:last:data-[slot=icon]:ml-auto sm:gap-2 sm:text-sm/5 [&_svg.lucide:last-child]:ml-auto",
 
               isFocusVisible && "inset-ring-ring/70 inset-ring",
               (isPressed || isHovered) &&
-                "bg-sidebar-accent text-sidebar-accent-foreground **:data-[slot=chevron]:text-sidebar-accent-foreground **:data-[slot=icon]:text-sidebar-accent-foreground **:last:data-[slot=icon]:text-sidebar-accent-foreground",
+                "bg-sidebar-accent text-sidebar-accent-foreground **:data-[slot=chevron]:text-sidebar-accent-foreground **:data-[slot=icon]:text-sidebar-accent-foreground **:last:data-[slot=icon]:text-sidebar-accent-foreground [&_.lucide]:text-sidebar-accent-foreground",
               isDisabled && "opacity-50",
               className
             )
@@ -801,7 +805,7 @@ const SidebarMenuTrigger = ({
         !alwaysVisible &&
           "pressed:opacity-100 group/sidebar-item:pressed:opacity-100 opacity-0 group-hover/sidebar-item:opacity-100 group-focus-visible/sidebar-item:opacity-100",
         "absolute right-0 flex h-full w-[calc(var(--sidebar-width)-90%)] items-center justify-end pr-2.5 outline-hidden",
-        "**:data-[slot=icon]:shrink-0 [&_[data-slot='icon']:not([class*='size-'])]:size-5 sm:[&_[data-slot='icon']:not([class*='size-'])]:size-4",
+        "**:data-[slot=icon]:shrink-0 [&_.lucide]:shrink-0 [&_.lucide:not([class*='size-'])]:size-5 sm:[&_.lucide:not([class*='size-'])]:size-4 [&_[data-slot='icon']:not([class*='size-'])]:size-5 sm:[&_[data-slot='icon']:not([class*='size-'])]:size-4",
         "pressed:text-foreground text-muted-foreground hover:text-foreground",
         className
       )}

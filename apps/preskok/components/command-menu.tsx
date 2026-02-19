@@ -320,7 +320,7 @@ function CommandMenuItem({
   const ref = React.useRef<HTMLDivElement>(null)
 
   useMutationObserver(ref, (mutations) => {
-    mutations.forEach((mutation) => {
+    for (const mutation of mutations) {
       if (
         mutation.type === "attributes" &&
         mutation.attributeName === "aria-selected" &&
@@ -328,7 +328,7 @@ function CommandMenuItem({
       ) {
         onHighlight?.()
       }
-    })
+    }
   })
 
   return (

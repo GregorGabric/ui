@@ -62,16 +62,16 @@ function UserMenu() {
           </MenuHeader>
         </MenuSection>
         <MenuItem href="#dashboard">
-          <LayoutDashboardIcon />
+          <LayoutDashboardIcon data-slot="icon" />
           <MenuLabel>Dashboard</MenuLabel>
         </MenuItem>
         <MenuItem href="#settings">
-          <SettingsIcon />
+          <SettingsIcon data-slot="icon" />
           <MenuLabel>Settings</MenuLabel>
         </MenuItem>
         <MenuSeparator />
         <MenuItem>
-          <Command />
+          <Command data-slot="icon" />
           <MenuLabel>Command Menu</MenuLabel>
         </MenuItem>
         <MenuSeparator />
@@ -80,7 +80,7 @@ function UserMenu() {
         </MenuItem>
         <MenuSeparator />
         <MenuItem href="#logout">
-          <LogOutIcon />
+          <LogOutIcon data-slot="icon" />
           <MenuLabel>Log out</MenuLabel>
         </MenuItem>
       </MenuContent>

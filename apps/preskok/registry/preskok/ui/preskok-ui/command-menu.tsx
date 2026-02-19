@@ -97,7 +97,9 @@ const CommandMenu = ({
   const filter = (textValue: string, inputValue: string) =>
     contains(textValue, inputValue)
   useEffect(() => {
-    if (!shortcut) return
+    if (!shortcut) {
+      return
+    }
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === shortcut && (e.metaKey || e.ctrlKey)) {
@@ -109,12 +111,8 @@ const CommandMenu = ({
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [shortcut, onOpenChange])
   return (
-    <CommandMenuContext
-      value={{ isPending: isPending, escapeButton: escapeButton }}
-    >
-      <ModalContext
-        value={{ isOpen: props.isOpen, onOpenChange: onOpenChange }}
-      >
+    <CommandMenuContext value={{ isPending, escapeButton }}>
+      <ModalContext value={{ isOpen: props.isOpen, onOpenChange }}>
         <ModalOverlay
           isDismissable={isDismissable}
           className={twJoin(
@@ -198,7 +196,7 @@ const CommandMenuList = <T extends object>({
   ...props
 }: MenuProps<T>) => {
   return (
-    <CollectionRendererContext.Provider value={renderer}>
+    <CollectionRendererContext value={renderer}>
       <MenuPrimitive
         className={cx(
           "grid max-h-full flex-1 grid-cols-[auto_1fr] content-start overflow-y-auto border-t p-2 sm:max-h-110 *:[[role=group]]:mb-6 *:[[role=group]]:last:mb-0",
@@ -206,7 +204,7 @@ const CommandMenuList = <T extends object>({
         )}
         {...props}
       />
-    </CollectionRendererContext.Provider>
+    </CollectionRendererContext>
   )
 }
 

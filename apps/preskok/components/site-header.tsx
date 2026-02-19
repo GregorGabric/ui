@@ -13,6 +13,7 @@ import { Separator } from "@/registry/preskok/ui/separator"
 export function SiteHeader() {
   const colors = getColors()
   const pageTree = source.pageTree
+  console.log(pageTree)
 
   return (
     <header className="bg-background sticky top-0 z-50 container w-full">

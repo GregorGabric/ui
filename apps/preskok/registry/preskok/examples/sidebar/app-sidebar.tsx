@@ -23,7 +23,6 @@ import {
   SettingsIcon,
   ShieldIcon,
   ShoppingBagIcon,
-  SquareTerminalIcon,
   TicketIcon,
 } from "lucide-react"
 
@@ -38,6 +37,7 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
+import { PreskokIcon } from "@/registry/preskok/ui/preskok-ui/preskok-icon"
 import {
   Sidebar,
   SidebarContent,
@@ -50,6 +50,7 @@ import {
   SidebarItem,
   SidebarLabel,
   SidebarLink,
+  SidebarMenuTrigger,
   SidebarRail,
   SidebarSection,
   SidebarSectionGroup,
@@ -65,9 +66,9 @@ export default function AppSidebar(
           className="flex items-center gap-x-2 group-data-[collapsible=dock]:size-10 group-data-[collapsible=dock]:justify-center"
           href="/docs/components/layouts/sidebar"
         >
-          <SquareTerminalIcon className="size-7" />
+          <PreskokIcon className="size-6" />
           <SidebarLabel className="font-medium">
-            Intent <span className="text-muted-foreground">UI</span>
+            Preskok <span className="text-muted-foreground">UI</span>
           </SidebarLabel>
         </Link>
       </SidebarHeader>
@@ -75,7 +76,7 @@ export default function AppSidebar(
         <SidebarSectionGroup>
           <SidebarSection label="Overview">
             <SidebarItem tooltip="Overview" isCurrent href="#">
-              <LayoutDashboardIcon />
+              <LayoutDashboardIcon data-slot="icon" />
               <SidebarLabel>Overview</SidebarLabel>
             </SidebarItem>
 
@@ -83,35 +84,35 @@ export default function AppSidebar(
               {({ isCollapsed, isFocused }) => (
                 <>
                   <SidebarLink href="#">
-                    <ShoppingBagIcon />
+                    <ShoppingBagIcon data-slot="icon" />
                     <SidebarLabel>Orders</SidebarLabel>
                   </SidebarLink>
                   {(!isCollapsed || isFocused) && (
                     <Menu>
-                      <MenuTrigger data-slot="menu-trigger" aria-label="Manage">
-                        <MoreHorizontalIcon />
-                      </MenuTrigger>
+                      <SidebarMenuTrigger aria-label="Manage">
+                        <MoreHorizontalIcon data-slot="icon" />
+                      </SidebarMenuTrigger>
                       <MenuContent
                         popover={{ offset: 0, placement: "right top" }}
                       >
                         <MenuItem href="#new-order">
-                          <PlusIcon />
+                          <PlusIcon data-slot="icon" />
                           Create New Order
                         </MenuItem>
                         <MenuItem href="#view-all">
-                          <ListIcon />
+                          <ListIcon data-slot="icon" />
                           View All Orders
                         </MenuItem>
                         <MenuItem href="#pending-orders">
-                          <ClockIcon />
+                          <ClockIcon data-slot="icon" />
                           Pending Orders
                         </MenuItem>
                         <MenuItem href="#completed-orders">
-                          <CircleCheckIcon />
+                          <CircleCheckIcon data-slot="icon" />
                           Completed Orders
                         </MenuItem>
                         <MenuItem href="#export-orders">
-                          <ArrowUpIcon />
+                          <ArrowUpIcon data-slot="icon" />
                           Export Orders
                         </MenuItem>
                       </MenuContent>
@@ -128,30 +129,30 @@ export default function AppSidebar(
                   </SidebarLink>
                   {(!isCollapsed || isFocused) && (
                     <Menu>
-                      <MenuTrigger aria-label="Manage">
-                        <MoreHorizontalIcon />
-                      </MenuTrigger>
+                      <SidebarMenuTrigger aria-label="Manage">
+                        <MoreHorizontalIcon data-slot="icon" />
+                      </SidebarMenuTrigger>
                       <MenuContent
                         popover={{ offset: 0, placement: "right top" }}
                       >
                         <MenuItem href="#new-product">
-                          <PlusIcon />
+                          <PlusIcon data-slot="icon" />
                           Add New Product
                         </MenuItem>
                         <MenuItem href="#archive">
-                          <ArchiveIcon />
+                          <ArchiveIcon data-slot="icon" />
                           Archive Product
                         </MenuItem>
                         <MenuItem href="#manage-categories">
-                          <HashIcon />
+                          <HashIcon data-slot="icon" />
                           Manage Categories
                         </MenuItem>
                         <MenuItem href="#import">
-                          <ArrowDownIcon />
+                          <ArrowDownIcon data-slot="icon" />
                           Import Products
                         </MenuItem>
                         <MenuItem href="#export">
-                          <ArrowUpIcon />
+                          <ArrowUpIcon data-slot="icon" />
                           Export Products
                         </MenuItem>
                       </MenuContent>
@@ -161,7 +162,7 @@ export default function AppSidebar(
               )}
             </SidebarItem>
             <SidebarItem href="#" badge="4 Pending" tooltip="Payments">
-              <CreditCardIcon />
+              <CreditCardIcon data-slot="icon" />
               <SidebarLabel>Payments</SidebarLabel>
             </SidebarItem>
           </SidebarSection>
@@ -169,36 +170,37 @@ export default function AppSidebar(
           <SidebarDisclosureGroup defaultExpandedKeys={[1]}>
             <SidebarDisclosure id={1}>
               <SidebarDisclosureTrigger>
-                <MoreHorizontalIcon />
+                <MoreHorizontalIcon data-slot="icon" />
                 <SidebarLabel>Support</SidebarLabel>
               </SidebarDisclosureTrigger>
+
               <SidebarDisclosurePanel>
                 <SidebarItem href="#" tooltip="Tickets">
-                  <TicketIcon />
+                  <TicketIcon data-slot="icon" />
                   <SidebarLabel>Tickets</SidebarLabel>
                 </SidebarItem>
                 <SidebarItem href="#" tooltip="Chat Support">
-                  <MessageSquareIcon />
+                  <MessageSquareIcon data-slot="icon" />
                   <SidebarLabel>Chat Support</SidebarLabel>
                 </SidebarItem>
                 <SidebarItem href="#" tooltip="FAQ">
-                  <CircleHelpIcon />
+                  <CircleHelpIcon data-slot="icon" />
                   <SidebarLabel>FAQ</SidebarLabel>
                 </SidebarItem>
                 <SidebarItem href="#" tooltip="Sales Docs">
-                  <FileTextIcon />
+                  <FileTextIcon data-slot="icon" />
                   <SidebarLabel>Sales Docs</SidebarLabel>
                 </SidebarItem>
               </SidebarDisclosurePanel>
             </SidebarDisclosure>
             <SidebarDisclosure id={2}>
               <SidebarDisclosureTrigger>
-                <PackageIcon />
+                <PackageIcon data-slot="icon" />
                 <SidebarLabel>Inventory</SidebarLabel>
               </SidebarDisclosureTrigger>
               <SidebarDisclosurePanel>
                 <SidebarItem href="#" tooltip="Warehouse">
-                  <BuildingIcon />
+                  <BuildingIcon data-slot="icon" />
                   <SidebarLabel>Warehouse</SidebarLabel>
                 </SidebarItem>
                 <SidebarItem href="#" tooltip="Stock Levels">
@@ -215,21 +217,22 @@ export default function AppSidebar(
 
       <SidebarFooter>
         <Menu>
-          <MenuTrigger className="group" aria-label="Profile">
+          <MenuTrigger aria-label="Profile">
             <Avatar
+              className="size-8 *:size-8"
               isSquare
               src="https://intentui.com/images/avatar/cobain.jpg"
             />
-            <div className="text-sm in-data-[sidebar-collapsible=dock]:hidden">
-              <SidebarLabel>Kurt Cobain</SidebarLabel>
-              <span className="text-muted-foreground -mt-0.5 block">
+            <div className="min-w-0 text-sm">
+              <SidebarLabel className="truncate">Kurt Cobain</SidebarLabel>
+              <span className="text-muted-foreground -mt-0.5 block truncate">
                 kurt@cobain.com
               </span>
             </div>
             <ChevronsUpDownIcon data-slot="chevron" />
           </MenuTrigger>
           <MenuContent
-            className="min-w-(--trigger-width) in-data-[sidebar-collapsible=collapsed]:min-w-56"
+            className="min-w-(--trigger-width) in-data-[state=collapsed]:min-w-56"
             placement="bottom right"
           >
             <MenuSection>
@@ -242,26 +245,26 @@ export default function AppSidebar(
             </MenuSection>
 
             <MenuItem href="#dashboard">
-              <LayoutDashboardIcon />
+              <LayoutDashboardIcon data-slot="icon" />
               Dashboard
             </MenuItem>
             <MenuItem href="#settings">
-              <SettingsIcon />
+              <SettingsIcon data-slot="icon" />
               Settings
             </MenuItem>
             <MenuItem href="#security">
-              <ShieldIcon />
+              <ShieldIcon data-slot="icon" />
               Security
             </MenuItem>
             <MenuSeparator />
 
             <MenuItem href="#contact">
-              <HeadphonesIcon />
+              <HeadphonesIcon data-slot="icon" />
               Customer Support
             </MenuItem>
             <MenuSeparator />
             <MenuItem href="#logout">
-              <LogOutIcon />
+              <LogOutIcon data-slot="icon" />
               Log out
             </MenuItem>
           </MenuContent>
