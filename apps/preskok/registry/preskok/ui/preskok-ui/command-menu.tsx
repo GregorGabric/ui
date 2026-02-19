@@ -158,7 +158,7 @@ const CommandMenuSearch = ({
   placeholder,
   ...props
 }: CommandMenuSearchProps) => {
-  const state = use(OverlayTriggerStateContext)!
+  const state = use(OverlayTriggerStateContext)
   const { isPending, escapeButton } = useCommandMenu()
   return (
     <SearchField
@@ -248,9 +248,7 @@ const CommandMenuItem = ({
   )
 }
 
-interface CommandMenuDescriptionProps extends React.ComponentProps<
-  typeof MenuDescription
-> {}
+type CommandMenuDescriptionProps = React.ComponentProps<typeof MenuDescription>
 
 const CommandMenuDescription = ({
   className,

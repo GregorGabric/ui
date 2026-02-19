@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { IconArrowRight } from "@tabler/icons-react"
-import { CornerDownLeftIcon, SquareDashedIcon } from "lucide-react"
+import { CornerDownLeftIcon } from "lucide-react"
 
 import type { ColorPalette } from "@/lib/colors"
 import type { source } from "@/lib/source"
@@ -26,7 +26,7 @@ import { Separator } from "@/registry/preskok/ui/separator"
 interface BlockItem {
   name: string
   description: string
-  categories: string[]
+  categories: Array<string>
 }
 
 function isTextInputTarget(target: EventTarget | null) {
@@ -65,8 +65,8 @@ export function CommandMenu({
   blocks,
 }: {
   tree: typeof source.pageTree
-  colors: ColorPalette[]
-  blocks?: BlockItem[]
+  colors: Array<ColorPalette>
+  blocks?: Array<BlockItem>
 }) {
   const router = useRouter()
   const isMac = useIsMac()
@@ -209,7 +209,7 @@ export function CommandMenu({
               </CommandMenuSection>
             )
           })}
-          {colors.map((palette) => (
+          {/* {colors.map((palette) => (
             <CommandMenuSection
               key={palette.name}
               label={
@@ -240,8 +240,8 @@ export function CommandMenu({
                 </CommandMenuItem>
               ))}
             </CommandMenuSection>
-          ))}
-          {blocks?.length ? (
+          ))} */}
+          {/* {blocks?.length ? (
             <CommandMenuSection label="Blocks">
               {blocks.map((block) => (
                 <CommandMenuItem
@@ -263,7 +263,7 @@ export function CommandMenu({
                 </CommandMenuItem>
               ))}
             </CommandMenuSection>
-          ) : null}
+          ) : null} */}
         </CommandMenuList>
         <CommandMenuFooter className="flex items-center gap-2 text-xs">
           <div className="flex items-center gap-2">
