@@ -29,10 +29,10 @@ const fruits = [
 
 export function Component() {
   const [selectedItems, setSelectedItems] = useState<
-    (typeof fruits)[number] | undefined
-  >()
+    (typeof fruits)[number] | null
+  >(null)
   const [selectedItemsArray, setSelectedItemsArray] = useState<
-    (typeof fruits)[number][]
+    Array<(typeof fruits)[number]>
   >([])
 
   return (
@@ -43,7 +43,7 @@ export function Component() {
         itemValue="id"
         value={selectedItems}
         onValueChange={setSelectedItems}
-        onClear={() => setSelectedItems(undefined)}
+        onClear={() => setSelectedItems(null)}
       />
 
       <Multiselect

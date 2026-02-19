@@ -34,9 +34,14 @@ import {
   IconPlus,
   IconTrendingUp,
 } from "@tabler/icons-react"
-import {
+import type {
   ColumnDef,
   ColumnFiltersState,
+  Row,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table"
+import {
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -44,20 +49,17 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  Row,
-  SortingState,
   useReactTable,
-  VisibilityState,
 } from "@tanstack/react-table"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { useIsMobile } from "@/registry/preskok/hooks/use-mobile"
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
+import type { ChartConfig } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
 import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -80,7 +82,14 @@ import {
   SelectTrigger,
 } from "@/registry/preskok/ui/preskok-ui/select"
 import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
-import { Table } from "@/registry/preskok/ui/preskok-ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@/registry/preskok/ui/preskok-ui/table"
 import {
   Tab,
   TabList,
@@ -118,7 +127,7 @@ function DragHandle({ id }: { id: number }) {
   )
 }
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
+const columns: Array<ColumnDef<z.infer<typeof schema>>> = [
   {
     id: "drag",
     header: () => null,
@@ -131,7 +140,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         <Checkbox
           isSelected={table.getIsAllPageRowsSelected()}
           isIndeterminate={table.getIsSomePageRowsSelected()}
-          onChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          onChange={(value) => table.toggleAllPageRowsSelected(value)}
           aria-label="Select all"
         />
       </div>
@@ -140,7 +149,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
       <div className="flex items-center justify-center">
         <Checkbox
           isSelected={row.getIsSelected()}
-          onChange={(value) => row.toggleSelected(!!value)}
+          onChange={(value) => row.toggleSelected(value)}
           aria-label="Select row"
         />
       </div>
@@ -188,11 +197,16 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(resolve, 1000)
+            }),
+            {
+              loading: `Saving ${row.original.header}`,
+              success: "Done",
+              error: "Error",
+            }
+          )
         }}
       >
         <Label htmlFor={`${row.original.id}-target`} className="sr-only">
@@ -213,11 +227,16 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(resolve, 1000)
+            }),
+            {
+              loading: `Saving ${row.original.header}`,
+              success: "Done",
+              error: "Error",
+            }
+          )
         }}
       >
         <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
@@ -279,7 +298,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           <MenuItem>Make a copy</MenuItem>
           <MenuItem>Favorite</MenuItem>
           <MenuSeparator />
-          <MenuItem isDanger>Delete</MenuItem>
+          <MenuItem intent="danger">Delete</MenuItem>
         </MenuContent>
       </Menu>
     ),
@@ -292,29 +311,29 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   })
 
   return (
-    <Table.Row
+    <TableRow
       data-state={row.getIsSelected() && "selected"}
       data-dragging={isDragging}
       ref={setNodeRef}
       className="group hover:bg-muted/50 relative z-0 border-b last:border-b-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       style={{
         transform: CSS.Transform.toString(transform),
-        transition: transition,
+        transition,
       }}
     >
       {row.getVisibleCells().map((cell) => (
-        <Table.Cell key={cell.id}>
+        <TableCell key={cell.id}>
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </Table.Cell>
+        </TableCell>
       ))}
-    </Table.Row>
+    </TableRow>
   )
 }
 
 export function DataTable({
   data: initialData,
 }: {
-  data: z.infer<typeof schema>[]
+  data: Array<z.infer<typeof schema>>
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
@@ -335,7 +354,7 @@ export function DataTable({
     useSensor(KeyboardSensor, {})
   )
 
-  const dataIds = React.useMemo<UniqueIdentifier[]>(
+  const dataIds = React.useMemo<Array<UniqueIdentifier>>(
     () => data?.map(({ id }) => id) || [],
     [data]
   )
@@ -422,8 +441,7 @@ export function DataTable({
                 .getAllColumns()
                 .filter(
                   (column) =>
-                    typeof column.accessorFn !== "undefined" &&
-                    column.getCanHide()
+                    column.accessorFn !== undefined && column.getCanHide()
                 )
                 .map((column) => {
                   return (
@@ -459,25 +477,25 @@ export function DataTable({
             id={sortableId}
           >
             <Table>
-              <Table.Header className="bg-muted sticky top-0 z-10">
+              <TableHeader className="bg-muted sticky top-0 z-10">
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <Table.Row key={headerGroup.id}>
+                  <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <Table.Column key={header.id}>
+                        <TableColumn key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
                                 header.column.columnDef.header,
                                 header.getContext()
                               )}
-                        </Table.Column>
+                        </TableColumn>
                       )
                     })}
-                  </Table.Row>
+                  </TableRow>
                 ))}
-              </Table.Header>
-              <Table.Body className="**:data-[slot=table-cell]:first:w-8">
+              </TableHeader>
+              <TableBody className="**:data-[slot=table-cell]:first:w-8">
                 {table.getRowModel().rows?.length ? (
                   <SortableContext
                     items={dataIds}
@@ -488,16 +506,16 @@ export function DataTable({
                     ))}
                   </SortableContext>
                 ) : (
-                  <Table.Row>
-                    <Table.Cell
+                  <TableRow>
+                    <TableCell
                       className="h-24 text-center"
                       colSpan={columns.length}
                     >
                       No results.
-                    </Table.Cell>
-                  </Table.Row>
+                    </TableCell>
+                  </TableRow>
                 )}
-              </Table.Body>
+              </TableBody>
             </Table>
           </DndContext>
         </div>

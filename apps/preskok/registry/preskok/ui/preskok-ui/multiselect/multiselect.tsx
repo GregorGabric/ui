@@ -1,14 +1,14 @@
 import type { SyntheticEvent } from "react"
 import * as React from "react"
+import type { ComboboxRootProps } from "@base-ui-components/react/combobox"
 import { ChevronsUpDownIcon, XIcon } from "lucide-react"
 
-import {
-  ChangeHandler,
-  useControllableState,
-} from "@/registry/preskok/hooks/use-controllable-state"
+import type { ChangeHandler } from "@/registry/preskok/hooks/use-controllable-state"
+import { useControllableState } from "@/registry/preskok/hooks/use-controllable-state"
 import { cn } from "@/registry/preskok/lib/utils"
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
+import type { ComboboxProps } from "@/registry/preskok/ui/preskok-ui/multiselect/combobox-base"
 import {
   ActiveCountIndicatorWrapper,
   Combobox,
@@ -20,18 +20,18 @@ import {
   ComboboxItem,
   ComboboxItemIndicator,
   ComboboxList,
-  ComboboxProps,
   ComboboxTrigger,
 } from "@/registry/preskok/ui/preskok-ui/multiselect/combobox-base"
 
 const DEFAULT_PLACEHOLDER = "Select..."
 
-interface MultiselectProps<
-  TOption,
-  Multiple extends boolean | undefined = false,
-> extends ComboboxProps<TOption, Multiple> {
-  itemLabel?: keyof NonNullable<TOption>
-  itemValue?: keyof NonNullable<TOption>
+type MultiselectOptionKey<TOption> = keyof Extract<NonNullable<TOption>, object>
+type NoInferT<T> = [T][T extends unknown ? 0 : never]
+
+interface MultiselectSharedProps<TOption> {
+  items: MultiselectItems<TOption>
+  itemLabel?: MultiselectOptionKey<TOption>
+  itemValue?: MultiselectOptionKey<TOption>
 
   title?: string
   placeholder?: string
@@ -43,13 +43,103 @@ interface MultiselectProps<
   isFetching?: boolean
 }
 
+type MultiselectItems<TOption> = NonNullable<
+  ComboboxRootProps<TOption, false>["items"]
+>
+
+type MultiselectBaseProps<TOption, Multiple extends boolean | undefined> = Omit<
+  ComboboxRootProps<TOption, Multiple>,
+  "items" | "multiple" | "value" | "onValueChange"
+>
+
+type SingleChangeDetails<TOption> = Parameters<
+  NonNullable<ComboboxRootProps<TOption, false>["onValueChange"]>
+>[1]
+
+type SingleValue<TOption> = Parameters<
+  NonNullable<ComboboxRootProps<TOption, false>["onValueChange"]>
+>[0]
+
+type MultipleChangeDetails<TOption> = Parameters<
+  NonNullable<ComboboxRootProps<TOption, true>["onValueChange"]>
+>[1]
+
+type MultipleValue<TOption> = Parameters<
+  NonNullable<ComboboxRootProps<TOption, true>["onValueChange"]>
+>[0]
+
+type MultiselectSingleProps<TOption> = MultiselectBaseProps<TOption, false> & {
+  multiple?: false
+  value?: SingleValue<NoInferT<TOption>> | undefined
+  onValueChange?: (
+    value: SingleValue<NoInferT<TOption>>,
+    eventDetails?: SingleChangeDetails<TOption>
+  ) => void
+}
+
+type MultiselectMultipleProps<TOption> = MultiselectBaseProps<TOption, true> & {
+  multiple: true
+  value?: MultipleValue<NoInferT<TOption>> | undefined
+  onValueChange?: (
+    value: MultipleValue<NoInferT<TOption>>,
+    eventDetails?: MultipleChangeDetails<TOption>
+  ) => void
+}
+
+type MultiselectProps<TOption> =
+  | (MultiselectSingleProps<TOption> & MultiselectSharedProps<TOption>)
+  | (MultiselectMultipleProps<TOption> & MultiselectSharedProps<TOption>)
+
+function getMultipleComboboxProps<TOption>(
+  props: MultiselectMultipleProps<TOption> & MultiselectSharedProps<TOption>
+): MultiselectBaseProps<TOption, true> {
+  const {
+    itemLabel: _itemLabel,
+    itemValue: _itemValue,
+    title: _title,
+    placeholder: _placeholder,
+    filteringPlaceholder: _filteringPlaceholder,
+    hasFooter: _hasFooter,
+    onClear: _onClear,
+    onApply: _onApply,
+    isPending: _isPending,
+    isFetching: _isFetching,
+    ...comboboxProps
+  } = props
+
+  return comboboxProps
+}
+
+function getSingleComboboxProps<TOption>(
+  props: MultiselectSingleProps<TOption> & MultiselectSharedProps<TOption>
+): MultiselectBaseProps<TOption, false> {
+  const {
+    itemLabel: _itemLabel,
+    itemValue: _itemValue,
+    title: _title,
+    placeholder: _placeholder,
+    filteringPlaceholder: _filteringPlaceholder,
+    hasFooter: _hasFooter,
+    onClear: _onClear,
+    onApply: _onApply,
+    isPending: _isPending,
+    isFetching: _isFetching,
+    multiple: _multiple,
+    ...comboboxProps
+  } = props
+
+  return comboboxProps
+}
+
 /**
  * Creates a function to render item labels based on the itemLabel prop.
  */
-function createItemRenderer<TOption>(itemLabel?: keyof TOption) {
+function createItemRenderer<TOption>(
+  itemLabel?: MultiselectOptionKey<TOption>
+) {
   return (item: TOption): string => {
     if (itemLabel && typeof item === "object" && item !== null) {
-      const val = item[itemLabel]
+      const val = (item as Extract<NonNullable<TOption>, object>)[itemLabel]
       return String(val)
     }
     return String(item)
@@ -60,7 +150,7 @@ function createItemRenderer<TOption>(itemLabel?: keyof TOption) {
  * Creates a function to compare items for equality based on the itemValue prop.
  */
 function createItemComparator<TOption>(
-  itemValueKey?: keyof NonNullable<TOption>
+  itemValueKey?: MultiselectOptionKey<TOption>
 ) {
   return (itemValue: TOption, selectedValue: TOption): boolean => {
     if (
@@ -79,54 +169,82 @@ function createItemComparator<TOption>(
   }
 }
 
-/**
- * Normalizes the value to ensure it matches items from the items array.
- */
-function normalizeValue<TOption, Multiple extends boolean | undefined>(
-  value: ComboboxProps<TOption, Multiple>["value"],
-  items: ComboboxProps<TOption, Multiple>["items"],
-  multiple: Multiple,
-  isItemEqualToValue: (item: TOption, selected: TOption) => boolean
-): typeof value {
-  if (!items || items.length === 0 || value == null) {
-    return value
+function isItemGroup<TOption>(
+  item: unknown
+): item is { items: Array<TOption> } {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "items" in item &&
+    Array.isArray((item as { items?: unknown }).items)
+  )
+}
+
+function flattenItems<TOption>(items: ComboboxProps<TOption>["items"]) {
+  if (!items?.length) {
+    return [] as Array<TOption>
   }
 
   const flatItems: Array<TOption> = []
+
   for (const item of items) {
-    if (typeof item === "object" && item !== null && "items" in item) {
-      flatItems.push(...(item as { items: Array<TOption> }).items)
-    } else {
-      flatItems.push(item)
-    }
-  }
-
-  if (multiple) {
-    const currentValue = Array.isArray(value) ? value : []
-    if (currentValue.length === 0) {
-      return value
+    if (isItemGroup<TOption>(item)) {
+      flatItems.push(...item.items)
+      continue
     }
 
-    const normalized = currentValue
-      .map(
-        (selectedItem) =>
-          flatItems.find((item) =>
-            isItemEqualToValue(item, selectedItem as TOption)
-          ) ?? selectedItem
-      )
-      .filter((item) =>
-        flatItems.some((currentItem) =>
-          isItemEqualToValue(currentItem, item as TOption)
-        )
-      ) as typeof value
-
-    return normalized
+    flatItems.push(item as TOption)
   }
 
-  const matchingItem = flatItems.find((item) =>
-    isItemEqualToValue(item, value as TOption)
-  )
-  return (matchingItem ?? value) as typeof value
+  return flatItems
+}
+
+/**
+ * Normalizes single-select value to match item references in the items array.
+ */
+function normalizeSingleValue<TOption>(
+  value: SingleValue<TOption>,
+  items: ComboboxProps<TOption>["items"],
+  isItemEqualToValue: (item: TOption, selected: TOption) => boolean
+): SingleValue<TOption> {
+  if (value == null) {
+    return value
+  }
+
+  const flatItems = flattenItems<TOption>(items)
+  if (flatItems.length === 0) {
+    return value
+  }
+
+  const matchingItem = flatItems.find((item) => isItemEqualToValue(item, value))
+
+  return matchingItem ?? value
+}
+
+/**
+ * Normalizes multi-select values to match item references in the items array.
+ */
+function normalizeMultipleValue<TOption>(
+  value: MultipleValue<TOption> | undefined,
+  items: ComboboxProps<TOption>["items"],
+  isItemEqualToValue: (item: TOption, selected: TOption) => boolean
+): MultipleValue<TOption> | undefined {
+  if (!value?.length) {
+    return value
+  }
+
+  const flatItems = flattenItems<TOption>(items)
+  if (!flatItems.length) {
+    return value
+  }
+
+  return value.map((selectedItem) => {
+    const matchingItem = flatItems.find((item) =>
+      isItemEqualToValue(item, selectedItem)
+    )
+
+    return matchingItem ?? selectedItem
+  })
 }
 
 interface ClearButtonProps {
@@ -145,7 +263,7 @@ function ClearButton({ onClick, disabled, className }: ClearButtonProps) {
 
   return (
     <span
-      onClick={onClick}
+      onMouseDown={onClick}
       className={cn(
         "m-0 flex shrink-0 cursor-pointer appearance-none items-center justify-center border-0 bg-transparent p-0",
         className
@@ -157,12 +275,11 @@ function ClearButton({ onClick, disabled, className }: ClearButtonProps) {
   )
 }
 
-interface ComboboxTriggerInnerProps<
-  TOption,
-  Multiple extends boolean | undefined,
-> {
-  multiple: Multiple
-  normalizedValue: ComboboxProps<TOption, Multiple>["value"]
+interface ComboboxTriggerInnerProps<TOption> {
+  multiple: boolean
+  normalizedValue:
+    | ComboboxProps<TOption>["value"]
+    | ComboboxProps<TOption, true>["value"]
   title?: string
   placeholder?: string
   selectedValueLabel?: string | null
@@ -173,7 +290,7 @@ interface ComboboxTriggerInnerProps<
 /**
  * Renders the trigger content based on selection state.
  */
-function ComboboxTriggerInner<TOption, Multiple extends boolean | undefined>({
+function ComboboxTriggerInner<TOption>({
   multiple,
   normalizedValue,
   title,
@@ -181,7 +298,7 @@ function ComboboxTriggerInner<TOption, Multiple extends boolean | undefined>({
   selectedValueLabel,
   disabled,
   onClear,
-}: ComboboxTriggerInnerProps<TOption, Multiple>) {
+}: ComboboxTriggerInnerProps<TOption>) {
   const isSingleSelectWithValue = !multiple && normalizedValue != null
 
   if (isSingleSelectWithValue) {
@@ -191,7 +308,7 @@ function ComboboxTriggerInner<TOption, Multiple extends boolean | undefined>({
         {title && (
           <span
             className={cn("shrink-0 truncate text-left", {
-              "border-border border-r pr-2": !!selectedValueLabel,
+              "border-border border-r pr-2": Boolean(selectedValueLabel),
             })}
           >
             {title}
@@ -213,32 +330,36 @@ function ComboboxTriggerInner<TOption, Multiple extends boolean | undefined>({
  * Multiselect - A fully controlled multiselect component
  * Extends Base UI Combobox with filter-specific UI (sticky search, footer, title).
  */
-export function Multiselect<
-  TOption,
-  Multiple extends boolean | undefined = false,
->({
-  items,
-  value,
-  onValueChange,
-  open,
-  defaultOpen = false,
-  onOpenChange,
-  itemLabel,
-  itemValue: itemValueKey,
-  title,
-  placeholder = DEFAULT_PLACEHOLDER,
-  filteringPlaceholder,
-  hasFooter = true,
-  onClear,
-  onApply,
-  disabled = false,
-  isPending = false,
-  isFetching = false,
-  multiple,
-  ...rest
-}: MultiselectProps<TOption, Multiple>) {
+export function Multiselect<TOption>(props: MultiselectProps<TOption>) {
+  const {
+    items,
+    value,
+    onValueChange,
+    open,
+    defaultOpen = false,
+    onOpenChange,
+    itemLabel,
+    itemValue: itemValueKey,
+    title,
+    placeholder = DEFAULT_PLACEHOLDER,
+    filteringPlaceholder,
+    hasFooter = true,
+    onClear,
+    onApply,
+    disabled = false,
+    isPending = false,
+    isFetching = false,
+    multiple,
+  } = props
+
+  const hasOpenProp = open !== undefined
+  const hasValueProp = value !== undefined
+
+  const isMultiple = multiple === true
+  const openProp = hasOpenProp && open === undefined ? false : open
+
   const [isOpen, setIsOpen] = useControllableState({
-    prop: open,
+    prop: openProp,
     defaultProp: defaultOpen,
     onChange: onOpenChange as ChangeHandler<boolean>,
     caller: "Multiselect",
@@ -246,24 +367,98 @@ export function Multiselect<
 
   const defaultRenderItem = createItemRenderer(itemLabel)
 
-  const isItemEqualToValue = createItemComparator(
-    itemValueKey as keyof NonNullable<TOption>
+  const isItemEqualToValue = createItemComparator(itemValueKey)
+
+  const controlledValue = React.useMemo(() => {
+    if (!hasValueProp) {
+      return value
+    }
+
+    if (isMultiple) {
+      return Array.isArray(value) ? value : []
+    }
+
+    return value ?? null
+  }, [hasValueProp, isMultiple, value])
+
+  const normalizedSingleValue = React.useMemo(() => {
+    let singleValue: SingleValue<TOption> = null
+
+    if (!isMultiple && !Array.isArray(controlledValue)) {
+      singleValue = controlledValue ?? null
+    }
+
+    return normalizeSingleValue(singleValue, items, isItemEqualToValue)
+  }, [controlledValue, isMultiple, items, isItemEqualToValue])
+
+  const normalizedMultipleValue = React.useMemo(() => {
+    if (!isMultiple) {
+      return normalizeMultipleValue(undefined, items, isItemEqualToValue)
+    }
+
+    const multipleValue = Array.isArray(controlledValue) ? controlledValue : []
+    return normalizeMultipleValue(multipleValue, items, isItemEqualToValue)
+  }, [controlledValue, isMultiple, items, isItemEqualToValue])
+
+  const normalizedValue = isMultiple
+    ? normalizedMultipleValue
+    : normalizedSingleValue
+
+  const emitSingleValueChange = React.useCallback(
+    (
+      nextValue: SingleValue<TOption>,
+      details?: SingleChangeDetails<TOption>
+    ) => {
+      const handler =
+        onValueChange as MultiselectSingleProps<TOption>["onValueChange"]
+
+      if (!handler) {
+        return
+      }
+
+      handler(nextValue, details)
+    },
+    [onValueChange]
   )
 
-  const normalizedValue = normalizeValue(
-    value as ComboboxProps<NonNullable<TOption>, Multiple>["value"],
-    items,
-    multiple,
-    isItemEqualToValue
-  ) as ComboboxProps<TOption, Multiple>["value"]
+  const emitMultipleValueChange = React.useCallback(
+    (
+      nextValue: MultipleValue<TOption>,
+      details?: MultipleChangeDetails<TOption>
+    ) => {
+      const handler =
+        onValueChange as MultiselectMultipleProps<TOption>["onValueChange"]
 
-  const handleClearAll = React.useCallback(
-    (event: SyntheticEvent<HTMLElement>) => {
-      event.stopPropagation()
+      if (!handler) {
+        return
+      }
+
+      handler(nextValue, details)
+    },
+    [onValueChange]
+  )
+
+  const clearSelection = React.useCallback(
+    (event?: SyntheticEvent<HTMLElement>) => {
+      event?.preventDefault()
+      event?.stopPropagation()
+
+      if (isMultiple) {
+        emitMultipleValueChange([])
+      } else {
+        emitSingleValueChange(null)
+      }
+
       onClear?.()
       setIsOpen(false)
     },
-    [onClear, setIsOpen]
+    [
+      emitMultipleValueChange,
+      emitSingleValueChange,
+      isMultiple,
+      onClear,
+      setIsOpen,
+    ]
   )
 
   const handleApply = React.useCallback(() => {
@@ -271,57 +466,51 @@ export function Multiselect<
     setIsOpen(false)
   }, [onApply, setIsOpen])
 
-  const handleValueChange = React.useCallback(
-    (
-      newValue: Parameters<NonNullable<typeof onValueChange>>[0],
-      reason?: Parameters<NonNullable<typeof onValueChange>>[1]
-    ) => {
-      if (!onValueChange) {
+  const handleSingleValueChange = React.useCallback<
+    NonNullable<ComboboxProps<TOption>["onValueChange"]>
+  >(
+    (newValue, reason) => {
+      const nextValue = newValue ?? null
+
+      if (
+        normalizedSingleValue != null &&
+        nextValue != null &&
+        isItemEqualToValue(nextValue, normalizedSingleValue)
+      ) {
+        emitSingleValueChange(null, reason)
         return
       }
 
-      // In single-select mode, if clicking the already-selected item, reset to null
-      if (!multiple && normalizedValue != null) {
-        const isSameValue = isItemEqualToValue(
-          newValue as NonNullable<TOption>,
-          normalizedValue as NonNullable<TOption>
-        )
-        if (isSameValue) {
-          onValueChange(
-            null as Parameters<typeof onValueChange>[0],
-            reason ?? ({} as Parameters<typeof onValueChange>[1])
-          )
-          return
-        }
-      }
-
-      onValueChange(
-        newValue,
-        reason ?? ({} as Parameters<typeof onValueChange>[1])
-      )
+      emitSingleValueChange(nextValue, reason)
     },
-    [multiple, normalizedValue, isItemEqualToValue, onValueChange]
+    [emitSingleValueChange, isItemEqualToValue, normalizedSingleValue]
   )
 
-  const valueArray = Array.isArray(normalizedValue) ? normalizedValue : []
-  const isSingleSelectWithValue = !multiple && normalizedValue != null
-  const selectedValueLabel = isSingleSelectWithValue
-    ? defaultRenderItem(normalizedValue as NonNullable<TOption>)
-    : null
-  const hasClearEnabled = valueArray.length > 0
+  const handleMultipleValueChange = React.useCallback<
+    NonNullable<ComboboxProps<TOption, true>["onValueChange"]>
+  >(
+    (newValue, reason) => {
+      if (!Array.isArray(newValue)) {
+        emitMultipleValueChange([], reason)
+        return
+      }
 
-  return (
-    <Combobox
-      items={items}
-      value={normalizedValue}
-      onValueChange={handleValueChange}
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      multiple={multiple}
-      disabled={disabled}
-      isItemEqualToValue={isItemEqualToValue}
-      {...rest}
-    >
+      emitMultipleValueChange(newValue, reason)
+    },
+    [emitMultipleValueChange]
+  )
+
+  const valueArray = normalizedMultipleValue ?? []
+  const isSingleSelectWithValue = !isMultiple && normalizedSingleValue != null
+  const selectedValueLabel = isSingleSelectWithValue
+    ? defaultRenderItem(normalizedSingleValue)
+    : null
+  const hasClearEnabled = isMultiple
+    ? valueArray.length > 0
+    : isSingleSelectWithValue
+
+  const comboboxChildren = (
+    <>
       <ComboboxTrigger
         disabled={disabled}
         className={cn(
@@ -331,20 +520,20 @@ export function Multiselect<
         )}
       >
         <ComboboxTriggerInner
-          multiple={multiple}
+          multiple={isMultiple}
           normalizedValue={normalizedValue}
           title={title}
           placeholder={placeholder}
           selectedValueLabel={selectedValueLabel}
           disabled={disabled}
-          onClear={handleClearAll}
+          onClear={clearSelection}
         />
 
         <div className="flex shrink-0 items-center gap-1">
-          {hasClearEnabled && multiple && (
+          {hasClearEnabled && isMultiple && (
             <ActiveCountIndicatorWrapper>
               {valueArray.length}
-              <ClearButton onClick={handleClearAll} disabled={disabled} />
+              <ClearButton onClick={clearSelection} disabled={disabled} />
             </ActiveCountIndicatorWrapper>
           )}
           <ComboboxIcon className="flex">
@@ -363,7 +552,7 @@ export function Multiselect<
       >
         <div className="border-border bg-muted h-[var(--input-container-height)] w-full border-b p-2 text-center">
           <ComboboxInput
-            placeholder={filteringPlaceholder || `Type to search...`}
+            placeholder={filteringPlaceholder || "Type to search..."}
             isFetching={isFetching}
             className="bg-background"
             disabled={disabled}
@@ -384,9 +573,7 @@ export function Multiselect<
               )}
             >
               {(item: TOption, index: number) => {
-                const itemValue = defaultRenderItem(
-                  item as NonNullable<TOption>
-                )
+                const itemValue = defaultRenderItem(item)
 
                 return (
                   <ComboboxItem key={index} value={item}>
@@ -405,12 +592,49 @@ export function Multiselect<
           <ComboboxFooter
             className="bg-background"
             onApply={handleApply}
-            onReset={onClear}
+            onReset={() => clearSelection()}
             applyText="Apply"
             resetText="Reset"
           />
         )}
       </ComboboxContent>
+    </>
+  )
+
+  if (props.multiple) {
+    const multipleProps = getMultipleComboboxProps(props)
+
+    return (
+      <Combobox<TOption, true>
+        {...multipleProps}
+        items={items}
+        value={normalizedMultipleValue ?? []}
+        onValueChange={handleMultipleValueChange}
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        multiple
+        disabled={disabled}
+        isItemEqualToValue={isItemEqualToValue}
+      >
+        {comboboxChildren}
+      </Combobox>
+    )
+  }
+
+  const singleProps = getSingleComboboxProps(props)
+
+  return (
+    <Combobox<TOption>
+      {...singleProps}
+      items={items}
+      value={normalizedSingleValue as ComboboxProps<TOption>["value"]}
+      onValueChange={handleSingleValueChange}
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      disabled={disabled}
+      isItemEqualToValue={isItemEqualToValue}
+    >
+      {comboboxChildren}
     </Combobox>
   )
 }

@@ -2,10 +2,8 @@
 
 import type { PropsWithChildren } from "react"
 import * as React from "react"
-import {
-  Combobox as ComboboxPrimitive,
-  ComboboxRootProps,
-} from "@base-ui-components/react/combobox"
+import type { ComboboxRootProps } from "@base-ui-components/react/combobox"
+import { Combobox as ComboboxPrimitive } from "@base-ui-components/react/combobox"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Check, ChevronDownIcon, XIcon } from "lucide-react"
 
@@ -62,7 +60,9 @@ const chipsVariants = cva(
 export type ComboboxControlledProps<
   Value,
   Multiple extends boolean | undefined = false,
-> = Extract<ComboboxRootProps<Value, Multiple>, { value: unknown }>
+> = ComboboxRootProps<Value, Multiple> & {
+  value: ComboboxRootProps<Value, Multiple>["value"]
+}
 export type ComboboxProps<
   ItemValue,
   Multiple extends boolean | undefined = false,
@@ -369,7 +369,7 @@ function ComboboxClear({
       )}
       {...props}
     >
-      {children ? children : <XIcon className="size-4 opacity-100" />}
+      {children ?? <XIcon className="size-4 opacity-100" />}
     </ComboboxPrimitive.Clear>
   )
 }
@@ -385,7 +385,7 @@ function ComboboxIcon({
       className={cn("shrink-0 opacity-60 transition-opacity", className)}
       {...props}
     >
-      {children ? children : <ChevronDownIcon className="size-4 opacity-100" />}
+      {children ?? <ChevronDownIcon className="size-4 opacity-100" />}
     </ComboboxPrimitive.Icon>
   )
 }
@@ -480,7 +480,7 @@ function ComboboxChipRemove({
       )}
       {...props}
     >
-      {children ? children : <XIcon data-slot="icon" className="size-3.5" />}
+      {children ?? <XIcon data-slot="icon" className="size-3.5" />}
     </ComboboxPrimitive.ChipRemove>
   )
 }
