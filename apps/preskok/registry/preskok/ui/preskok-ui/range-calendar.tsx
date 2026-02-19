@@ -27,7 +27,7 @@ export function RangeCalendar<T extends DateValue>({
     <RangeCalendarPrimitive
       data-slot="calendar"
       visibleDuration={visibleDuration}
-      className={cx("min-w-0", className)}
+      className={cx("min-w-0 flex-1", className)}
       {...props}
     >
       <CalendarHeader isRange data-slot="calendar-header" />
@@ -57,7 +57,7 @@ export function RangeCalendar<T extends DateValue>({
                     date={date}
                     className={twMerge([
                       "shrink-0 [--cell-foreground:var(--color-primary)] [--cell:var(--color-primary)]/15",
-                      "group/calendar-cell selection-start:rounded-s-lg data-outside-month:text-muted-foreground relative size-11 cursor-default [line-height:2.286rem] outline-hidden data-selection-end:rounded-e-lg sm:size-9 sm:text-sm",
+                      "group/calendar-cell selection-start:rounded-s-lg data-outside-month:text-muted-foreground relative size-full cursor-default [line-height:2.286rem] outline-hidden data-selection-end:rounded-e-lg max-md:aspect-square sm:size-9 sm:text-sm md:size-11",
                       "selected:bg-(--cell) selected:text-(--cell-foreground)",
                       "selected:after:bg-primary-foreground focus-visible:after:bg-primary-foreground",
                       "invalid:selected:bg-destructive/10",
