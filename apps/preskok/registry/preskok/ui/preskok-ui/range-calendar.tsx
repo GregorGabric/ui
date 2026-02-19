@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, type UIEvent } from "react"
 import { getLocalTimeZone, today } from "@internationalized/date"
 import type { DateValue, RangeCalendarProps } from "react-aria-components"
 import {
@@ -14,6 +15,29 @@ import { cx } from "@/registry/preskok/lib/primitive"
 
 import { CalendarGridHeader, CalendarHeader } from "./calendar"
 
+function getClosestMonthIndex(
+  track: HTMLDivElement | null,
+  scrollLeft: number
+) {
+  if (!track) return 0
+
+  const months = Array.from(track.children) as Array<HTMLElement>
+  if (months.length === 0) return 0
+
+  let closestIndex = 0
+  let closestDistance = Number.POSITIVE_INFINITY
+
+  for (const [index, month] of months.entries()) {
+    const distance = Math.abs(month.offsetLeft - scrollLeft)
+    if (distance < closestDistance) {
+      closestDistance = distance
+      closestIndex = index
+    }
+  }
+
+  return closestIndex
+}
+
 export function RangeCalendar<T extends DateValue>({
   className,
   visibleDuration = { months: 1 },
@@ -21,7 +45,23 @@ export function RangeCalendar<T extends DateValue>({
 }: RangeCalendarProps<T>) {
   const now = today(getLocalTimeZone())
   const visibleMonths = visibleDuration?.months ?? 1
+  const monthIds = Array.from(
+    { length: visibleMonths },
+    (_, index) => index + 1
+  )
   const shouldSnap = visibleMonths > 1
+  const [activeMonth, setActiveMonth] = useState(0)
+  const activeMonthIndex = Math.min(activeMonth, visibleMonths - 1)
+
+  function handleMonthScroll(event: UIEvent<HTMLDivElement>) {
+    if (!shouldSnap) {
+      return
+    }
+
+    const track = event.currentTarget
+    const closestMonth = getClosestMonthIndex(track, track.scrollLeft)
+    setActiveMonth(Math.min(closestMonth, visibleMonths - 1))
+  }
 
   return (
     <RangeCalendarPrimitive
@@ -32,17 +72,17 @@ export function RangeCalendar<T extends DateValue>({
     >
       <CalendarHeader isRange data-slot="calendar-header" />
       <div
+        onScroll={handleMonthScroll}
         data-slot="range-calendar-months"
         data-scroll-snap={shouldSnap || undefined}
         className={twMerge(
-          "flex items-start justify-stretch gap-6 [overflow-clip-margin:4px] sm:gap-10",
+          "flex items-start justify-stretch gap-4 [overflow-clip-margin:4px]",
           "data-[scroll-snap=true]:snap-x data-[scroll-snap=true]:snap-mandatory data-[scroll-snap=true]:overflow-x-auto data-[scroll-snap=true]:overflow-y-clip data-[scroll-snap=true]:[-ms-overflow-style:none] data-[scroll-snap=true]:[scrollbar-width:none] data-[scroll-snap=true]:sm:snap-none data-[scroll-snap=true]:sm:overflow-visible data-[scroll-snap=true]:[&::-webkit-scrollbar]:hidden",
           "data-[scroll-snap=true]:[&>[data-slot=range-calendar-month]]:w-full data-[scroll-snap=true]:[&>[data-slot=range-calendar-month]]:shrink-0 data-[scroll-snap=true]:[&>[data-slot=range-calendar-month]]:snap-start data-[scroll-snap=true]:sm:[&>[data-slot=range-calendar-month]]:w-auto data-[scroll-snap=true]:sm:[&>[data-slot=range-calendar-month]]:shrink data-[scroll-snap=true]:sm:[&>[data-slot=range-calendar-month]]:snap-none",
           !shouldSnap && "overflow-clip"
         )}
       >
-        {Array.from({ length: visibleMonths }).map((_, index) => {
-          const id = index + 1
+        {monthIds.map((id) => {
           return (
             <CalendarGrid
               data-slot="range-calendar-month"
@@ -118,6 +158,42 @@ export function RangeCalendar<T extends DateValue>({
           )
         })}
       </div>
+      <RangeCalendarSwipePills
+        shouldSnap={shouldSnap}
+        monthIds={monthIds}
+        activeMonth={activeMonthIndex}
+      />
     </RangeCalendarPrimitive>
+  )
+}
+interface RangeCalendarSwipePillsProps {
+  shouldSnap: boolean
+  monthIds: Array<number>
+  activeMonth: number
+}
+
+function RangeCalendarSwipePills({
+  shouldSnap,
+  monthIds,
+  activeMonth,
+}: RangeCalendarSwipePillsProps) {
+  if (!shouldSnap) {
+    return null
+  }
+  return (
+    <div
+      aria-hidden="true"
+      data-slot="range-calendar-swipe-pills"
+      className="mt-3 flex items-center justify-center gap-1.5 sm:hidden"
+    >
+      {monthIds.map((id) => (
+        <span
+          key={`pill-${id}`}
+          data-slot="range-calendar-swipe-pill"
+          data-active={id - 1 === activeMonth || undefined}
+          className="bg-muted-foreground/20 data-[active=true]:bg-primary/75 h-1.5 w-1.5 rounded-full data-[active=true]:w-4"
+        />
+      ))}
+    </div>
   )
 }
