@@ -2,10 +2,9 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { IconArrowRight } from "@tabler/icons-react"
+import { useDocsSearch } from "fumadocs-core/search/client"
 import { CornerDownLeftIcon } from "lucide-react"
 
-import type { ColorPalette } from "@/lib/colors"
 import type { source } from "@/lib/source"
 import { cn } from "@/lib/utils"
 import { useConfig } from "@/hooks/use-config"
@@ -14,19 +13,53 @@ import { copyToClipboardWithMeta } from "@/components/copy-button"
 import { Button } from "@/registry/preskok/ui/button"
 import {
   CommandMenuFooter,
-  CommandMenuItem,
   CommandMenuLabel,
   CommandMenuList,
   CommandMenu as CommandMenuPrimitive,
+  CommandMenuItem as CommandMenuPrimitiveItem,
   CommandMenuSearch,
-  CommandMenuSection,
 } from "@/registry/preskok/ui/preskok-ui/command-menu"
 import { Separator } from "@/registry/preskok/ui/separator"
 
-interface BlockItem {
+interface PageItem {
+  id: string
   name: string
-  description: string
-  categories: Array<string>
+  section: string
+  url: string
+  isComponent: boolean
+  copyPayload: string
+}
+
+interface SearchResultItem {
+  id: string
+  type: "page" | "heading" | "text"
+  content: string
+  url: string
+  breadcrumbs: Array<string>
+  contentWithHighlights?: Array<{
+    type: "text"
+    content: string
+    styles?: {
+      highlight?: boolean
+    }
+  }>
+}
+
+interface SearchPageItem {
+  id: string
+  title: string
+  url: string
+  breadcrumbs: Array<string>
+  snippet: string
+  snippetWithHighlights?: SearchResultItem["contentWithHighlights"]
+  isComponent: boolean
+  copyPayload: string
+}
+
+function getActiveCommandItem() {
+  return document.querySelector<HTMLElement>(
+    '[data-slot="menu-item"][aria-selected="true"]'
+  )
 }
 
 function isTextInputTarget(target: EventTarget | null) {
@@ -53,26 +86,213 @@ function isTextInputTarget(target: EventTarget | null) {
   return false
 }
 
-function getActiveCommandItem() {
-  return document.querySelector<HTMLElement>(
-    '[data-slot="menu-item"][aria-selected="true"]'
-  )
+function getPageItems(tree: typeof source.pageTree, packageManager: string) {
+  const items: Array<PageItem> = []
+
+  for (const group of tree.children) {
+    if (group.type !== "folder") {
+      continue
+    }
+
+    const section = typeof group.name === "string" ? group.name : ""
+    for (const item of group.children) {
+      if (item.type !== "page") {
+        continue
+      }
+
+      const isComponent = item.url.includes("/components/")
+      const componentName = item.url.split("/").pop()
+      const copyPayload =
+        isComponent && componentName
+          ? `${packageManager} dlx shadcn@latest add ${componentName}`
+          : ""
+
+      items.push({
+        id: item.url,
+        name: typeof item.name === "string" ? item.name : item.url,
+        section,
+        url: item.url,
+        isComponent,
+        copyPayload,
+      })
+    }
+  }
+
+  return items
 }
 
-export function CommandMenu({
-  tree,
-  colors,
-  blocks,
-}: {
-  tree: typeof source.pageTree
-  colors: Array<ColorPalette>
-  blocks?: Array<BlockItem>
-}) {
+function getSearchResults(data: unknown) {
+  if (!Array.isArray(data)) {
+    return []
+  }
+
+  const results: Array<SearchResultItem> = []
+
+  for (const item of data) {
+    if (!item || typeof item !== "object") {
+      continue
+    }
+
+    const candidate = item as {
+      id?: unknown
+      type?: unknown
+      content?: unknown
+      url?: unknown
+      breadcrumbs?: unknown
+      contentWithHighlights?: unknown
+    }
+
+    if (
+      typeof candidate.id !== "string" ||
+      (candidate.type !== "page" &&
+        candidate.type !== "heading" &&
+        candidate.type !== "text") ||
+      typeof candidate.content !== "string" ||
+      typeof candidate.url !== "string"
+    ) {
+      continue
+    }
+
+    if (candidate.type === "text") {
+      const wordCount = candidate.content.trim().split(/\s+/).length
+      if (wordCount <= 1) {
+        continue
+      }
+    }
+
+    const breadcrumbs = Array.isArray(candidate.breadcrumbs)
+      ? candidate.breadcrumbs.filter(
+          (breadcrumb): breadcrumb is string => typeof breadcrumb === "string"
+        )
+      : []
+
+    const contentWithHighlights = Array.isArray(candidate.contentWithHighlights)
+      ? candidate.contentWithHighlights.filter((part) => {
+          if (!part || typeof part !== "object") {
+            return false
+          }
+
+          const chunk = part as {
+            type?: unknown
+            content?: unknown
+            styles?: unknown
+          }
+
+          if (chunk.type !== "text" || typeof chunk.content !== "string") {
+            return false
+          }
+
+          if (!chunk.styles) {
+            return true
+          }
+
+          if (typeof chunk.styles !== "object") {
+            return false
+          }
+
+          const styles = chunk.styles as {
+            highlight?: unknown
+          }
+
+          return (
+            styles.highlight === undefined ||
+            typeof styles.highlight === "boolean"
+          )
+        })
+      : undefined
+
+    results.push({
+      id: candidate.id,
+      type: candidate.type,
+      content: candidate.content,
+      url: candidate.url,
+      breadcrumbs,
+      contentWithHighlights,
+    })
+  }
+
+  return results
+}
+
+function getSearchPages(
+  results: Array<SearchResultItem>,
+  packageManager: string
+): Array<SearchPageItem> {
+  const pages = new Map<string, SearchPageItem>()
+
+  for (const result of results) {
+    const existing = pages.get(result.url)
+
+    if (!existing) {
+      const isComponent = result.url.includes("/components/")
+      const componentName = result.url.split("/").pop()
+      pages.set(result.url, {
+        id: result.id,
+        title: result.content,
+        url: result.url,
+        breadcrumbs: result.breadcrumbs,
+        snippet: "",
+        snippetWithHighlights: undefined,
+        isComponent,
+        copyPayload:
+          isComponent && componentName
+            ? `${packageManager} dlx shadcn@latest add ${componentName}`
+            : "",
+      })
+      continue
+    }
+
+    if (existing.breadcrumbs.length === 0 && result.breadcrumbs.length > 0) {
+      existing.breadcrumbs = result.breadcrumbs
+    }
+
+    if (result.type === "page") {
+      existing.title = result.content
+      continue
+    }
+
+    if (result.type === "heading" && existing.title === existing.url) {
+      existing.title = result.content
+    }
+
+    if (existing.snippet) {
+      continue
+    }
+
+    if (result.type === "text" || result.type === "heading") {
+      existing.snippet = result.content
+      existing.snippetWithHighlights = result.contentWithHighlights
+    }
+  }
+
+  return Array.from(pages.values())
+}
+
+export function CommandMenu({ tree }: { tree: typeof source.pageTree }) {
   const router = useRouter()
   const isMac = useIsMac()
   const [config] = useConfig()
   const [open, setOpen] = React.useState(false)
+  const { search, setSearch, query } = useDocsSearch({
+    type: "fetch",
+  })
   const packageManager = config.packageManager || "pnpm"
+  const pageItems = getPageItems(tree, packageManager)
+  const componentItems = pageItems.filter((item) => item.isComponent)
+  const searchResults = getSearchResults(query.data)
+  const searchPages = getSearchPages(searchResults, packageManager)
+  const hasSearchQuery = search.trim().length > 0
+  const isLoading = hasSearchQuery && query.isLoading
+  const localQuery = search.trim().toLowerCase()
+  const filteredComponentItems =
+    localQuery.length > 0
+      ? componentItems.filter((item) => {
+          return (
+            item.name.toLowerCase().includes(localQuery) ||
+            item.url.toLowerCase().includes(localQuery)
+          )
+        })
+      : componentItems
 
   function runCommand(command: () => void) {
     setOpen(false)
@@ -110,27 +330,17 @@ export function CommandMenu({
         return
       }
 
-      const type = activeItem.dataset.commandType
-      if (!type) {
+      const copyPayload = activeItem.dataset.copyPayload ?? ""
+      if (!copyPayload) {
         return
       }
-
-      const payload = activeItem.dataset.copyPayload ?? ""
 
       event.preventDefault()
       setOpen(false)
 
-      if (type === "color") {
-        copyToClipboardWithMeta(payload, {
-          name: "copy_color",
-          properties: { color: payload },
-        })
-        return
-      }
-
-      copyToClipboardWithMeta(payload, {
+      copyToClipboardWithMeta(copyPayload, {
         name: "copy_npm_command",
-        properties: { command: payload, pm: packageManager },
+        properties: { command: copyPayload, pm: packageManager },
       })
     }
 
@@ -156,127 +366,120 @@ export function CommandMenu({
       </Button>
       <CommandMenuPrimitive
         isOpen={open}
-        onOpenChange={setOpen}
+        onOpenChange={(isOpen) => {
+          setOpen(isOpen)
+
+          if (isOpen) {
+            return
+          }
+
+          setSearch("")
+        }}
         aria-label="Search documentation"
+        inputValue={search}
+        onInputChange={setSearch}
+        isPending={isLoading}
       >
         <CommandMenuSearch placeholder="Search documentation..." />
         <CommandMenuList className="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
-          {tree.children.map((group) => {
-            if (group.type !== "folder") {
-              return null
-            }
-
-            const sectionLabel =
-              typeof group.name === "string" ? group.name : undefined
-
-            return (
-              <CommandMenuSection key={group.$id} label={sectionLabel}>
-                {group.children.map((item) => {
-                  if (item.type !== "page") {
-                    return null
-                  }
-
-                  const isComponent = item.url.includes("/components/")
-                  const itemName =
-                    typeof item.name === "string" ? item.name : item.url
-                  const textValue = [sectionLabel, itemName]
-                    .filter(Boolean)
-                    .join(" ")
-                  const payload = isComponent
-                    ? `${packageManager} dlx shadcn@latest add ${item.url.split("/").pop()}`
-                    : ""
-
-                  return (
-                    <CommandMenuItem
-                      key={item.url}
-                      id={item.url}
-                      textValue={textValue}
-                      data-command-type={isComponent ? "component" : "page"}
-                      data-copy-payload={payload}
-                      onAction={() => {
-                        runCommand(() => router.push(item.url))
-                      }}
-                    >
-                      {isComponent ? (
-                        <div className="border-muted-foreground size-4 rounded-full border border-dashed" />
-                      ) : (
-                        <IconArrowRight data-slot="icon" />
-                      )}
-                      <CommandMenuLabel>{itemName}</CommandMenuLabel>
-                    </CommandMenuItem>
-                  )
-                })}
-              </CommandMenuSection>
-            )
-          })}
-          {/* {colors.map((palette) => (
-            <CommandMenuSection
-              key={palette.name}
-              label={
-                palette.name.charAt(0).toUpperCase() + palette.name.slice(1)
-              }
-            >
-              {palette.colors.map((color) => (
-                <CommandMenuItem
-                  key={color.id}
-                  id={color.id}
-                  textValue={`${color.name} ${color.className} ${color.oklch}`}
-                  data-command-type="color"
-                  data-copy-payload={color.className}
+          {hasSearchQuery ? (
+            <>
+              {filteredComponentItems.length > 0 ? (
+                <div className="text-muted-foreground col-span-full px-2.5 pb-1 text-xs font-medium">
+                  Components
+                </div>
+              ) : null}
+              {filteredComponentItems.map((item) => (
+                <CommandMenuPrimitiveItem
+                  key={`component-${item.id}`}
+                  id={`component-${item.id}`}
+                  textValue={`${item.section} ${item.name} ${item.url}`}
+                  data-command-type={item.isComponent ? "component" : "page"}
+                  data-copy-payload={item.copyPayload}
                   onAction={() => {
-                    runCommand(() =>
-                      copyToClipboardWithMeta(color.oklch, {
-                        name: "copy_color",
-                        properties: { color: color.oklch },
-                      })
-                    )
+                    runCommand(() => router.push(item.url))
                   }}
                 >
-                  <div
-                    className="border-ghost size-4 rounded-sm bg-(--color)"
-                    style={{ "--color": color.oklch } as React.CSSProperties}
-                  />
-                  <CommandMenuLabel>{color.className}</CommandMenuLabel>
-                </CommandMenuItem>
+                  <CommandMenuLabel>{item.name}</CommandMenuLabel>
+                </CommandMenuPrimitiveItem>
               ))}
-            </CommandMenuSection>
-          ))} */}
-          {/* {blocks?.length ? (
-            <CommandMenuSection label="Blocks">
-              {blocks.map((block) => (
-                <CommandMenuItem
-                  key={block.name}
-                  id={block.name}
-                  textValue={`${block.name} ${block.description} ${block.categories.join(" ")}`}
-                  data-command-type="block"
-                  data-copy-payload={`${packageManager} dlx shadcn@latest add ${block.name}`}
+              {searchPages.length > 0 ? (
+                <div className="text-muted-foreground col-span-full px-2.5 pt-3 pb-1 text-xs font-medium">
+                  Search Results
+                </div>
+              ) : null}
+              {searchPages.map((item) => (
+                <CommandMenuPrimitiveItem
+                  key={`search-page-${item.id}`}
+                  id={`search-page-${item.id}`}
+                  className="items-start py-2.5"
+                  textValue={`${item.title} ${item.url} ${item.snippet} ${item.breadcrumbs.join(" ")}`}
+                  data-command-type={item.isComponent ? "component" : "page"}
+                  data-copy-payload={item.copyPayload}
                   onAction={() => {
-                    runCommand(() =>
-                      router.push(
-                        `/blocks/${block.categories[0]}#${block.name}`
-                      )
-                    )
+                    runCommand(() => router.push(item.url))
                   }}
                 >
-                  <SquareDashedIcon data-slot="icon" />
-                  <CommandMenuLabel>{block.description}</CommandMenuLabel>
-                </CommandMenuItem>
+                  <div className="col-start-2 min-w-0 space-y-1">
+                    {item.breadcrumbs.length > 0 ? (
+                      <p className="text-muted-foreground line-clamp-1 text-[11px] font-medium">
+                        {item.breadcrumbs.join(" > ")}
+                      </p>
+                    ) : null}
+                    <CommandMenuLabel className="line-clamp-1 text-sm font-semibold">
+                      {item.title}
+                    </CommandMenuLabel>
+                    {item.snippet ? (
+                      <p className="text-muted-foreground line-clamp-2 border-l pl-2 text-sm font-normal">
+                        {item.snippetWithHighlights?.length
+                          ? item.snippetWithHighlights.map((part, index) => (
+                              <span
+                                key={`${item.id}-snippet-${index}`}
+                                className={
+                                  part.styles?.highlight
+                                    ? "bg-accent/55 text-foreground rounded-[2px]"
+                                    : undefined
+                                }
+                              >
+                                {part.content}
+                              </span>
+                            ))
+                          : item.snippet}
+                      </p>
+                    ) : null}
+                  </div>
+                </CommandMenuPrimitiveItem>
               ))}
-            </CommandMenuSection>
-          ) : null} */}
+            </>
+          ) : (
+            pageItems.map((item) => (
+              <CommandMenuPrimitiveItem
+                key={item.id}
+                id={item.id}
+                textValue={`${item.section} ${item.name} ${item.url}`}
+                data-command-type={item.isComponent ? "component" : "page"}
+                data-copy-payload={item.copyPayload}
+                onAction={() => {
+                  runCommand(() => router.push(item.url))
+                }}
+              >
+                <CommandMenuLabel>{item.name}</CommandMenuLabel>
+              </CommandMenuPrimitiveItem>
+            ))
+          )}
         </CommandMenuList>
         <CommandMenuFooter className="flex items-center gap-2 text-xs">
           <div className="flex items-center gap-2">
             <CommandMenuKbd>
               <CornerDownLeftIcon />
             </CommandMenuKbd>
-            <span>Select</span>
+            <span>Go to Page</span>
           </div>
           <Separator orientation="vertical" className="!h-4" />
           <div className="flex items-center gap-1">
             <CommandMenuKbd>{isMac ? "⌘" : "Ctrl"}</CommandMenuKbd>
             <CommandMenuKbd>C</CommandMenuKbd>
-            <span>Copy highlighted item command</span>
+            <span>Copy highlighted component command</span>
           </div>
         </CommandMenuFooter>
       </CommandMenuPrimitive>
