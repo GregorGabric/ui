@@ -34,6 +34,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "async-image": {
+    name: "async-image",
+    description: "Compound async image with lazy loading, skeleton placeholder, and error fallback.",
+    type: "registry:ui",
+    registryDependencies: ["skeleton","text"],
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/async-image.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/async-image.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "badge": {
     name: "badge",
     description: "A versatile badge component with multiple intents and styles",
@@ -4982,6 +5000,24 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/avatar-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "async-image-demo": {
+    name: "async-image-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["async-image"],
+    files: [{
+      path: "registry/preskok/examples/async-image-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/async-image-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

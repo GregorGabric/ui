@@ -1,0 +1,116 @@
+---
+title: Async Image
+description: Compound async image with lazy loading, skeleton placeholder, and error fallback.
+---
+
+<ComponentPreview
+  name="async-image-demo"
+  description="Async image with default and custom loading/error slots, and lazy-loaded grid."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add async-image
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="async-image"
+  title="registry/preskok/ui/preskok-ui/async-image.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+Basic usage with default loading skeleton and error fallback:
+
+```tsx
+import { AsyncImage } from "@/registry/preskok/ui/preskok-ui/async-image"
+
+export function AsyncImageExample() {
+  return (
+    <AsyncImage.Root
+      src="https://example.com/image.jpg"
+      alt="Description"
+      width={300}
+      height={200}
+    />
+  )
+}
+```
+
+With custom slots:
+
+```tsx
+<AsyncImage.Root
+  src="/photo.jpg"
+  alt="Photo"
+  width={400}
+  height={300}
+>
+  <AsyncImage.Loading className="flex items-center justify-center bg-muted">
+    <span>Loading…</span>
+  </AsyncImage.Loading>
+  <AsyncImage.Error>Failed to load image</AsyncImage.Error>
+</AsyncImage.Root>
+```
+
+Disable lazy loading (load immediately):
+
+```tsx
+<AsyncImage.Root
+  src="/hero.jpg"
+  alt="Hero"
+  width={800}
+  height={400}
+  lazyLoad={false}
+/>
+```
+
+## Props
+
+### AsyncImage.Root
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | — | Image URL. Empty string triggers error state. |
+| `alt` | `string` | `""` | Accessible alt text for the image. |
+| `width` | `number \| string` | — | Width of the container and image. |
+| `height` | `number \| string` | — | Height of the container and image. |
+| `imgProps` | `Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" \| "alt" \| "width" \| "height">` | — | Props passed to the underlying `<img>` when loaded. |
+| `loadingDelayMs` | `number` | `0` | Optional delay in ms before transitioning from loading to loaded (e.g. to avoid flicker). |
+| `lazyLoad` | `false \| IntersectionObserverInit` | `{ threshold: 0.01, rootMargin: "75%" }` | Lazy load when in view. Set to `false` to load immediately. |
+| `onLoadingEnd` | `() => void` | — | Called when the image has loaded successfully. |
+| `onErrorFallback` | `() => void` | — | Called when the image fails to load. |
+| `children` | `React.ReactNode` | — | Optional compound slots: `AsyncImage.Loading`, `AsyncImage.Error`, `AsyncImage.Content`. |
+
+All other div props (e.g. `className`, `style`) are forwarded to the root container.
+
+### Slots
+
+- **AsyncImage.Loading** — Rendered while `status === "loading"`. Default: skeleton placeholder.
+- **AsyncImage.Error** — Rendered when `status === "error"`. Default: icon + "Image unavailable".
+- **AsyncImage.Content** — Rendered when `status === "loaded"`. Default: the `<img>` element. Override to customize the loaded image element.

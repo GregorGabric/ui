@@ -578,6 +578,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "async-image-demo",
+    type: "registry:example",
+    registryDependencies: ["async-image"],
+    files: [
+      {
+        path: "examples/async-image-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "badge-preskok-demo",
     type: "registry:example",
     registryDependencies: ["badge"],

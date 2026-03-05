@@ -1,8 +1,4 @@
 {
   "title": "Media",
-  "pages": [
-    "avatar",
-    "carousel",
-    "preskok-icon"
-  ]
+  "pages": ["async-image", "avatar", "carousel", "preskok-icon"]
 }

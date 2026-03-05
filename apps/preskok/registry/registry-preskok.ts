@@ -15,6 +15,20 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "async-image",
+    type: "registry:ui",
+    description:
+      "Compound async image with lazy loading, skeleton placeholder, and error fallback.",
+    dependencies: ["tailwind-merge", "lucide-react"],
+    registryDependencies: ["skeleton", "text"],
+    files: [
+      {
+        path: "ui/preskok-ui/async-image.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "badge",
     type: "registry:ui",
     description: "A versatile badge component with multiple intents and styles",

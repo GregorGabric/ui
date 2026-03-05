@@ -43,6 +43,25 @@
       ]
     },
     {
+      "name": "async-image",
+      "type": "registry:ui",
+      "description": "Compound async image with lazy loading, skeleton placeholder, and error fallback.",
+      "dependencies": [
+        "tailwind-merge",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "skeleton",
+        "text"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/ui/preskok-ui/async-image.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "badge",
       "type": "registry:ui",
       "description": "A versatile badge component with multiple intents and styles",
@@ -5141,6 +5160,19 @@
       "files": [
         {
           "path": "registry/preskok/examples/avatar-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "async-image-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "async-image"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/async-image-demo.tsx",
           "type": "registry:example"
         }
       ]
