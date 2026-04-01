@@ -9,18 +9,24 @@ interface HeadingProps extends React.ComponentProps<
   level?: 1 | 2 | 3 | 4 | 5 | 6
 }
 
-const Heading = ({ className, level = 1, ...props }: HeadingProps) => {
+const win2kFontStyle: React.CSSProperties = {
+  fontFamily: '"Tahoma", "MS Sans Serif", Arial, sans-serif',
+  color: "#000000",
+}
+
+const Heading = ({ className, level = 1, style, ...props }: HeadingProps) => {
   const Element: `h${typeof level}` = `h${level}`
   return (
     <Element
       className={twMerge(
-        "text-foreground font-sans",
-        level === 1 && "text-xl font-semibold sm:text-2xl",
-        level === 2 && "text-lg font-semibold sm:text-xl",
-        level === 3 && "text-base font-semibold sm:text-lg",
-        level === 4 && "text-base font-semibold",
+        "font-sans",
+        level === 1 && "text-lg font-bold",
+        level === 2 && "text-base font-bold",
+        level === 3 && "text-sm font-bold",
+        level === 4 && "text-sm font-normal",
         className
       )}
+      style={{ ...win2kFontStyle, ...style }}
       {...props}
     />
   )
