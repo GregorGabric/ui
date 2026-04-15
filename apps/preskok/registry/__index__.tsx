@@ -484,6 +484,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "resizable": {
+    name: "resizable",
+    description: "A resizable panel group with draggable splitters, persistence, and imperative APIs",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/resizable.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/resizable.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "text-field": {
     name: "text-field",
     description: "A comprehensive text input field with prefix, suffix, and password reveal",

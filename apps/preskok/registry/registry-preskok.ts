@@ -1,4 +1,4 @@
-import { type Registry } from "@preskok-org/ui/registry"
+import type { Registry } from "@preskok-org/ui/registry"
 
 export const preskokUi: Registry["items"] = [
   // ===== FOUNDATION COMPONENTS (No Internal Dependencies) =====
@@ -337,6 +337,19 @@ export const preskokUi: Registry["items"] = [
     files: [
       {
         path: "ui/preskok-ui/slider.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "resizable",
+    type: "registry:ui",
+    description:
+      "A resizable panel group with draggable splitters, persistence, and imperative APIs",
+    dependencies: ["lucide-react", "react-resizable-panels", "tailwind-merge"],
+    files: [
+      {
+        path: "ui/preskok-ui/resizable.tsx",
         type: "registry:ui",
       },
     ],
