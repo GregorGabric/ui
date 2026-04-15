@@ -4,6 +4,7 @@
     "card",
     "container",
     "grid-list",
+    "resizable",
     "table",
     "separator",
     "description-list",

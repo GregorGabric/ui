@@ -6176,6 +6176,19 @@
       ]
     },
     {
+      "name": "resizable-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/resizable-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "resizable-demo-with-handle",
       "type": "registry:example",
       "registryDependencies": [

@@ -6266,6 +6266,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "resizable-demo": {
+    name: "resizable-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["resizable"],
+    files: [{
+      path: "registry/preskok/examples/resizable-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/resizable-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "resizable-demo-with-handle": {
     name: "resizable-demo-with-handle",
     description: "",

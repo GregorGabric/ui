@@ -1,0 +1,73 @@
+---
+title: Resizable
+description: Draggable splitters for horizontal and vertical panel layouts.
+---
+
+<ComponentPreview
+  name="resizable-demo"
+  description="Horizontal and vertical panel groups with drag handles."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx @preskok-org/ui@latest add resizable
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="resizable"
+  title="registry/preskok/ui/preskok-ui/resizable.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/registry/preskok/ui/preskok-ui/resizable"
+
+export function ResizableExample() {
+  return (
+    <ResizablePanelGroup
+      direction="horizontal"
+      className="min-h-[200px] max-w-md rounded-lg border"
+    >
+      <ResizablePanel defaultSize={50} minSize={25}>
+        <div className="flex h-full items-center justify-center p-4">One</div>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel defaultSize={50} minSize={25}>
+        <div className="flex h-full items-center justify-center p-4">Two</div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  )
+}
+```
+
+Panels are powered by [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels). Use `direction` on `ResizablePanelGroup`, optional `withHandle` on `ResizableHandle` for the grip affordance, and `defaultSize` / `minSize` on each `ResizablePanel` as needed.
