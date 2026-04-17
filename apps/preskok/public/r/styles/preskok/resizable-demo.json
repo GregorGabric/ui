@@ -1,9 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "resizable-demo",
-  "registryDependencies": [
-    "resizable"
-  ],
   "files": [
     {
       "path": "registry/preskok/examples/resizable-demo.tsx",

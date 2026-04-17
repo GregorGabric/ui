@@ -388,8 +388,8 @@ importers:
         specifier: ^5.4.4
         version: 5.4.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-resizable-panels:
-        specifier: ^2.1.7
-        version: 2.1.9(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^4.10.0
+        version: 4.10.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-stately:
         specifier: ^3.44.0
         version: 3.44.0(react@19.2.4)
@@ -404,7 +404,7 @@ importers:
         version: 6.0.1
       shadcn:
         specifier: 2.6.4
-        version: link:../../packages/shadcn
+        version: 2.6.4(@types/node@20.19.1)(typescript@5.9.2)
       shiki:
         specifier: ^1.10.1
         version: 1.29.2
@@ -7769,11 +7769,11 @@ packages:
       '@types/react':
         optional: true
 
-  react-resizable-panels@2.1.9:
-    resolution: {integrity: sha512-z77+X08YDIrgAes4jl8xhnUu1LNIRp4+E7cv4xHmLOxxUPO/ML7PSrE813b90vj7xvQ1lcf7g2uA9GeMZonjhQ==}
+  react-resizable-panels@4.10.0:
+    resolution: {integrity: sha512-frjewRQt7TCv/vCH1pJfjZ7RxAhr5pKuqVQtVgzFq/vherxBFOWyC3xMbryx5Ti2wylViGUFc93Etg4rB3E0UA==}
     peerDependencies:
-      react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-      react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   react-stately@3.44.0:
     resolution: {integrity: sha512-Il3trIp2Mo1SSa9PhQFraqOpC74zEFmwuMAlu5Fj3qdtihJOKOFqoyDl7ALRrVfnvCkau6rui155d/NMKvd+RQ==}
@@ -8067,6 +8067,10 @@ packages:
 
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
+
+  shadcn@2.6.4:
+    resolution: {integrity: sha512-DSHnwXDFgneMkpS/l2XLZ5TFxn5dZwdERE1DEnovSuHtYxWj77xXuI0eSSt/Cgd34NtJ/7g/SCTARHApSoTFmw==}
+    hasBin: true
 
   sharp@0.34.5:
     resolution: {integrity: sha512-Ou9I5Ft9WNcCbXrU9cMgPBcCK8LiwLqcbywW3t4oDV37n1pzpuNLsYiAV8eODnjbtQlSDwZ2cUEeQz4E54Hltg==}
@@ -13951,7 +13955,7 @@ snapshots:
   cosmiconfig@8.3.6(typescript@4.9.5):
     dependencies:
       import-fresh: 3.3.1
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
@@ -13969,7 +13973,7 @@ snapshots:
   cosmiconfig@8.3.6(typescript@5.9.3):
     dependencies:
       import-fresh: 3.3.1
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
@@ -17411,7 +17415,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.10
 
-  react-resizable-panels@2.1.9(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-resizable-panels@4.10.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
@@ -17872,6 +17876,38 @@ snapshots:
       es-object-atoms: 1.1.1
 
   setprototypeof@1.2.0: {}
+
+  shadcn@2.6.4(@types/node@20.19.1)(typescript@5.9.2):
+    dependencies:
+      '@antfu/ni': 23.3.1
+      '@babel/core': 7.27.4
+      '@babel/parser': 7.27.5
+      '@babel/plugin-transform-typescript': 7.27.1(@babel/core@7.27.4)
+      '@modelcontextprotocol/sdk': 1.12.3
+      commander: 10.0.1
+      cosmiconfig: 8.3.6(typescript@5.9.2)
+      deepmerge: 4.3.1
+      diff: 5.2.0
+      execa: 7.2.0
+      fast-glob: 3.3.3
+      fs-extra: 11.3.0
+      https-proxy-agent: 6.2.1
+      kleur: 4.1.5
+      msw: 2.10.2(@types/node@20.19.1)(typescript@5.9.2)
+      node-fetch: 3.3.2
+      ora: 6.3.1
+      postcss: 8.5.6
+      prompts: 2.4.2
+      recast: 0.23.11
+      stringify-object: 5.0.0
+      ts-morph: 18.0.0
+      tsconfig-paths: 4.2.0
+      zod: 3.25.67
+      zod-to-json-schema: 3.24.5(zod@3.25.67)
+    transitivePeerDependencies:
+      - '@types/node'
+      - supports-color
+      - typescript
 
   sharp@0.34.5:
     dependencies:

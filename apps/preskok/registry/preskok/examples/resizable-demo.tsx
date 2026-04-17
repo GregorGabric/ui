@@ -12,7 +12,7 @@ export default function ResizableDemo() {
       <div className="space-y-2">
         <p className="text-muted-foreground text-sm">Horizontal split</p>
         <ResizablePanelGroup
-          direction="horizontal"
+          orientation="horizontal"
           className="min-h-[180px] rounded-lg border md:min-h-[200px]"
         >
           <ResizablePanel defaultSize={50} minSize={20}>
@@ -32,7 +32,7 @@ export default function ResizableDemo() {
       <div className="space-y-2">
         <p className="text-muted-foreground text-sm">Vertical split</p>
         <ResizablePanelGroup
-          direction="vertical"
+          orientation="vertical"
           className="min-h-[240px] rounded-lg border"
         >
           <ResizablePanel defaultSize={45} minSize={20}>

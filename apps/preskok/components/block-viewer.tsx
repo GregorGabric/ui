@@ -48,7 +48,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/registry/preskok/ui/resizable"
+} from "@/registry/preskok/ui/preskok-ui/resizable"
 import { Separator } from "@/registry/preskok/ui/separator"
 import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/tabs"
 import {

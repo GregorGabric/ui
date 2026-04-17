@@ -2,14 +2,6 @@
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
-  Popover,
-  PopoverBody,
-  PopoverContent,
-  PopoverFooter,
-  PopoverHeader,
-  PopoverTitle,
-} from "@/registry/preskok/ui/preskok-ui/popover"
-import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
@@ -36,34 +28,6 @@ export default function PlaygroundPage() {
         <div className="grid flex-1 gap-8 xl:grid-cols-[22rem_minmax(0,1fr)]">
           <section className="rounded-2xl bg-white/90 p-6 shadow-sm shadow-slate-950/5">
             <div className="mb-4 space-y-1">
-              <h2 className="text-sm font-semibold text-slate-900">Popover</h2>
-              <p className="text-sm text-slate-600">
-                Existing playground control for quick visual checks.
-              </p>
-            </div>
-
-            <Popover>
-              <Button intent="outline">View Vehicle Details</Button>
-              <PopoverContent>
-                <PopoverHeader>
-                  <PopoverTitle>Vehicle Details</PopoverTitle>
-                </PopoverHeader>
-                <PopoverBody>
-                  <Button intent="outline">View Vehicle Details</Button>
-                  <Button intent="outline">View Vehicle Details 2</Button>
-                  <Button intent="outline">View Vehicle Details 3</Button>
-                  <Button intent="outline">View Vehicle Details 4</Button>
-                  <Button intent="outline">View Vehicle Details 5</Button>
-                </PopoverBody>
-                <PopoverFooter>
-                  <Button intent="outline">View Vehicle Details</Button>
-                </PopoverFooter>
-              </PopoverContent>
-            </Popover>
-          </section>
-
-          <section className="rounded-2xl bg-white/90 p-6 shadow-sm shadow-slate-950/5">
-            <div className="mb-4 space-y-1">
               <h2 className="text-sm font-semibold text-slate-900">
                 Resizable Panels
               </h2>
@@ -75,7 +39,7 @@ export default function PlaygroundPage() {
             </div>
 
             <div className="min-h-[560px] overflow-hidden rounded-2xl bg-slate-100/90 shadow-inner shadow-slate-950/5">
-              <ResizablePanelGroup direction="horizontal" className="h-full">
+              <ResizablePanelGroup orientation="horizontal" className="h-full">
                 <ResizablePanel
                   defaultSize={22}
                   minSize={16}
@@ -131,7 +95,10 @@ export default function PlaygroundPage() {
                   minSize={30}
                   className="bg-white"
                 >
-                  <ResizablePanelGroup direction="vertical" className="h-full">
+                  <ResizablePanelGroup
+                    orientation="vertical"
+                    className="h-full"
+                  >
                     <ResizablePanel defaultSize={68} minSize={40}>
                       <div className="flex h-full flex-col gap-4 p-4">
                         <div className="flex items-center justify-between gap-4">
