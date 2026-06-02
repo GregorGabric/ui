@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-otp-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/input-otp.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/input-otp-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { InputOTP } from \"@/components/ui/preskok-ui/input-otp\"\n\nexport default function InputOTPDemo() {\n  const [value, setValue] = useState(\"\")\n\n  return (\n    <div className=\"space-y-6\">\n      <div className=\"space-y-2\">\n        <label className=\"text-sm font-medium\">Vehicle Security Code</label>\n        <p className=\"text-muted-foreground text-xs\">\n          Enter the 6-digit security code from your key fob\n        </p>\n        <InputOTP value={value} onChange={setValue} maxLength={6}>\n          <InputOTP.Group>\n            <InputOTP.Slot index={0} />\n            <InputOTP.Slot index={1} />\n            <InputOTP.Slot index={2} />\n          </InputOTP.Group>\n          <InputOTP.Separator />\n          <InputOTP.Group>\n            <InputOTP.Slot index={3} />\n            <InputOTP.Slot index={4} />\n            <InputOTP.Slot index={5} />\n          </InputOTP.Group>\n        </InputOTP>\n      </div>\n\n      <div className=\"space-y-2\">\n        <label className=\"text-sm font-medium\">Dealer Access Code</label>\n        <InputOTP maxLength={4} pattern=\"^[0-9]+$\">\n          <InputOTP.Group>\n            <InputOTP.Slot index={0} />\n            <InputOTP.Slot index={1} />\n            <InputOTP.Slot index={2} />\n            <InputOTP.Slot index={3} />\n          </InputOTP.Group>\n        </InputOTP>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

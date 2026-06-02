@@ -1,6 +1,6 @@
 "use client"
 
-import { Form } from "react-aria-components"
+import { Form } from "react-aria-components/Form"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-range-picker-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/date-range-picker.json",
+    "https://ui-three-mu.vercel.app/r/calendar.json",
+    "https://ui-three-mu.vercel.app/r/popover.json",
+    "https://ui-three-mu.vercel.app/r/modal.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-range-picker-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  DateRangePicker,\n  DateRangePickerTrigger,\n} from \"@/components/ui/preskok-ui/date-range-picker\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport function Component() {\n  return (\n    <div className=\"max-w-xs\">\n      <DateRangePicker visibleDuration={{ months: 2 }}>\n        <Label>Event date</Label>\n        <DateRangePickerTrigger />\n      </DateRangePicker>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

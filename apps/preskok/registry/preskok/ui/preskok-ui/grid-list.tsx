@@ -1,19 +1,19 @@
 "use client"
 
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   GridListItemProps,
   GridListProps,
   TextProps,
-} from "react-aria-components"
+} from "react-aria-components/GridList"
 import {
   Button,
-  composeRenderProps,
   GridListHeader as GridListHeaderPrimitive,
   GridListItem as GridListItemPrimitive,
   GridList as GridListPrimitive,
   GridListSection as GridListSectionPrimitive,
   Text,
-} from "react-aria-components"
+} from "react-aria-components/GridList"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

@@ -4,13 +4,14 @@ import { createContext, use } from "react"
 import { ChevronRightIcon } from "lucide-react"
 import type {
   BreadcrumbProps,
+  BreadcrumbRenderProps,
   BreadcrumbsProps,
   LinkProps,
-} from "react-aria-components"
+} from "react-aria-components/Breadcrumbs"
 import {
   Breadcrumb,
   Breadcrumbs as BreadcrumbsPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/Breadcrumbs"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -45,11 +46,24 @@ const BreadcrumbsItem = ({
   href,
   separator = true,
   className,
+  children,
   ...props
 }: BreadcrumbsItemProps & Partial<Omit<LinkProps, "className">>) => {
   const { separator: contextSeparator } = use(BreadcrumbsProvider)
   separator = contextSeparator ?? separator
   const separatorValue = separator === true ? "chevron" : separator
+  const renderContent = (
+    values: BreadcrumbRenderProps & { defaultChildren: React.ReactNode }
+  ) => {
+    if (typeof children !== "function") {
+      return children
+    }
+
+    const render = children as (
+      values: BreadcrumbRenderProps & { defaultChildren: React.ReactNode }
+    ) => React.ReactNode
+    return render(values)
+  }
 
   return (
     <Breadcrumb
@@ -57,14 +71,24 @@ const BreadcrumbsItem = ({
       data-slot="breadcrumb-item"
       {...props}
     >
-      {({ isCurrent }) => (
-        <>
-          <Link href={href} {...props} />
-          {!isCurrent && separator !== false && (
-            <Separator separator={separatorValue} />
-          )}
-        </>
-      )}
+      {(values) => {
+        const content = renderContent(values)
+
+        return (
+          <>
+            {href ? (
+              <Link href={href}>{content}</Link>
+            ) : (
+              <span className="text-muted-foreground font-medium">
+                {content}
+              </span>
+            )}
+            {!values.isCurrent && separator !== false && (
+              <Separator separator={separatorValue} />
+            )}
+          </>
+        )
+      }}
     </Breadcrumb>
   )
 }

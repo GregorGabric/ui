@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "description-list-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/description-list.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/description-list-preskok-demo.tsx",
+      "content": "import {\n  DescriptionDetails,\n  DescriptionList,\n  DescriptionTerm,\n} from \"@/components/ui/preskok-ui/description-list\"\n\nexport default function DescriptionListPreskokDemo() {\n  return (\n    <DescriptionList className=\"max-w-xl\">\n      <DescriptionTerm>Model</DescriptionTerm>\n      <DescriptionDetails>Tesla Model 3</DescriptionDetails>\n      <DescriptionTerm>Year</DescriptionTerm>\n      <DescriptionDetails>2024</DescriptionDetails>\n      <DescriptionTerm>Mileage</DescriptionTerm>\n      <DescriptionDetails>15,000 miles</DescriptionDetails>\n      <DescriptionTerm>Manufacturer</DescriptionTerm>\n      <DescriptionDetails>Tesla</DescriptionDetails>\n      <DescriptionTerm>Price</DescriptionTerm>\n      <DescriptionDetails>$45,000</DescriptionDetails>\n      <DescriptionTerm>Condition</DescriptionTerm>\n      <DescriptionDetails>Like New</DescriptionDetails>\n    </DescriptionList>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,16 +1,12 @@
 "use client"
 
 import { createContext, use, useContext } from "react"
-import type {
-  GroupProps,
-  SeparatorProps,
-  ToolbarProps as ToolbarPrimitiveProps,
-} from "react-aria-components"
-import {
-  composeRenderProps,
-  Group,
-  Toolbar as ToolbarPrimitive,
-} from "react-aria-components"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
+import type { GroupProps } from "react-aria-components/Group"
+import { Group } from "react-aria-components/Group"
+import type { SeparatorProps } from "react-aria-components/Separator"
+import type { ToolbarProps as ToolbarPrimitiveProps } from "react-aria-components/Toolbar"
+import { Toolbar as ToolbarPrimitive } from "react-aria-components/Toolbar"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -40,10 +36,10 @@ const Toolbar = ({
         {...props}
         className={composeRenderProps(className, (className, { orientation }) =>
           twMerge(
-            "group inset-ring-border bg-overlay inline-flex flex-row gap-1.5 p-1.5 inset-ring [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            "group inset-ring-border bg-overlay inline-flex [scrollbar-width:none] flex-row gap-1.5 p-1.5 inset-ring [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
             isCircle ? "rounded-full" : "rounded-lg",
             orientation === "horizontal"
-              ? "flex-row items-center [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              ? "[scrollbar-width:none] flex-row items-center [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
               : "flex-col items-start",
             className
           )
@@ -58,7 +54,7 @@ const ToolbarGroupContext = createContext<{
   isCircle?: boolean
 }>({})
 
-interface ToolbarGroupProps extends GroupProps {}
+type ToolbarGroupProps = GroupProps
 const ToolbarGroup = ({
   isDisabled,
   className,
@@ -79,13 +75,12 @@ const ToolbarGroup = ({
   )
 }
 
-interface ToggleItemProps extends ToggleProps {}
+type ToggleItemProps = ToggleProps
 
 const ToolbarItem = ({
   isDisabled,
   isCircle,
   size = "sm",
-  intent = "outline",
   ref,
   className,
   ...props
@@ -96,7 +91,6 @@ const ToolbarItem = ({
   const effectiveIsCircle = isCircle || contextCircle
   return (
     <Toggle
-      intent={intent}
       size={size}
       ref={ref}
       data-slot="toolbar-item"

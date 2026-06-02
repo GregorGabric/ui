@@ -10,13 +10,14 @@ import {
 } from "@/components/page-header"
 import { PageNav } from "@/components/page-nav"
 import { ThemeSelector } from "@/components/theme-selector"
-import { Button } from "@/registry/preskok/ui/button"
 
 export const dynamic = "force-static"
 export const revalidate = false
 
 const title = "Examples"
 const description = "Check out some examples app built using the components."
+const getStartedLinkClass =
+  "inline-flex items-center justify-center gap-x-1.5 rounded-lg border border-foreground/15 bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-transform duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-2.5 sm:py-1.5 sm:text-sm/5"
 
 export const metadata: Metadata = {
   title,
@@ -57,12 +58,9 @@ export default function ExamplesLayout({
           Source. Open Code.
         </PageHeaderDescription>
         <PageActions>
-          <Button asChild size="sm">
-            <Link href="/docs">Get Started</Link>
-          </Button>
-          <Button asChild size="sm" variant="ghost">
-            <Link href="/blocks">Browse Blocks</Link>
-          </Button>
+          <Link href="/docs" className={getStartedLinkClass}>
+            Get Started
+          </Link>
         </PageActions>
       </PageHeader>
       <PageNav id="examples">

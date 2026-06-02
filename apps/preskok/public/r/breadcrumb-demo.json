@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/breadcrumbs.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/breadcrumb-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Breadcrumbs,\n  BreadcrumbsItem,\n} from \"@/components/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <Breadcrumbs>\n        <BreadcrumbsItem href=\"/\">Dealership</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/inventory\">Inventory</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/inventory/sedans\">Sedans</BreadcrumbsItem>\n        <BreadcrumbsItem>2024 Toyota Camry</BreadcrumbsItem>\n      </Breadcrumbs>\n\n      <Breadcrumbs separator=\"slash\">\n        <BreadcrumbsItem href=\"/\">Home</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/services\">Services</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/services/maintenance\">\n          Maintenance\n        </BreadcrumbsItem>\n        <BreadcrumbsItem>Oil Change</BreadcrumbsItem>\n      </Breadcrumbs>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

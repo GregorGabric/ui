@@ -2,13 +2,16 @@
 
 import { useState, type UIEvent } from "react"
 import { getLocalTimeZone, today } from "@internationalized/date"
-import type { DateValue, RangeCalendarProps } from "react-aria-components"
+import type {
+  DateValue,
+  RangeCalendarProps,
+} from "react-aria-components/RangeCalendar"
 import {
   CalendarCell,
   CalendarGrid,
   CalendarGridBody,
   RangeCalendar as RangeCalendarPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/RangeCalendar"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -77,7 +80,7 @@ export function RangeCalendar<T extends DateValue>({
         data-scroll-snap={shouldSnap || undefined}
         className={twMerge(
           "flex items-start justify-stretch gap-4 [overflow-clip-margin:4px]",
-          "data-[scroll-snap=true]:snap-x data-[scroll-snap=true]:snap-mandatory data-[scroll-snap=true]:overflow-x-auto data-[scroll-snap=true]:overflow-y-clip data-[scroll-snap=true]:[-ms-overflow-style:none] data-[scroll-snap=true]:[scrollbar-width:none] data-[scroll-snap=true]:sm:snap-none data-[scroll-snap=true]:sm:overflow-visible data-[scroll-snap=true]:[&::-webkit-scrollbar]:hidden",
+          "data-[scroll-snap=true]:snap-x data-[scroll-snap=true]:snap-mandatory data-[scroll-snap=true]:[scrollbar-width:none] data-[scroll-snap=true]:overflow-x-auto data-[scroll-snap=true]:overflow-y-clip data-[scroll-snap=true]:[-ms-overflow-style:none] data-[scroll-snap=true]:sm:snap-none data-[scroll-snap=true]:sm:overflow-visible data-[scroll-snap=true]:[&::-webkit-scrollbar]:hidden",
           "data-[scroll-snap=true]:[&>[data-slot=range-calendar-month]]:w-full data-[scroll-snap=true]:[&>[data-slot=range-calendar-month]]:shrink-0 data-[scroll-snap=true]:[&>[data-slot=range-calendar-month]]:snap-start data-[scroll-snap=true]:sm:[&>[data-slot=range-calendar-month]]:w-auto data-[scroll-snap=true]:sm:[&>[data-slot=range-calendar-month]]:shrink data-[scroll-snap=true]:sm:[&>[data-slot=range-calendar-month]]:snap-none",
           !shouldSnap && "overflow-clip"
         )}

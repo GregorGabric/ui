@@ -1,7 +1,5 @@
 "use client"
 
-import { useMemo } from "react"
-
 import {
   Card,
   CardContent,
@@ -11,17 +9,22 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
 
-export default function LineChartPreskokDemo() {
-  const data = useMemo(
-    () =>
-      Array.from({ length: 12 }, (_, i) => ({
-        month: `M${i + 1}`,
-        sales: Math.floor(20 + Math.random() * 80),
-        leads: Math.floor(10 + Math.random() * 50),
-      })),
-    []
-  )
+const data = [
+  { month: "M1", sales: 44, leads: 24 },
+  { month: "M2", sales: 51, leads: 28 },
+  { month: "M3", sales: 48, leads: 26 },
+  { month: "M4", sales: 63, leads: 34 },
+  { month: "M5", sales: 58, leads: 31 },
+  { month: "M6", sales: 72, leads: 39 },
+  { month: "M7", sales: 69, leads: 36 },
+  { month: "M8", sales: 76, leads: 42 },
+  { month: "M9", sales: 71, leads: 38 },
+  { month: "M10", sales: 84, leads: 45 },
+  { month: "M11", sales: 79, leads: 43 },
+  { month: "M12", sales: 91, leads: 49 },
+]
 
+export default function LineChartPreskokDemo() {
   return (
     <Card>
       <CardHeader>

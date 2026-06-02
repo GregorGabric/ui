@@ -3,7 +3,7 @@
 import {
   Link as LinkPrimitive,
   type LinkProps as LinkPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Link"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

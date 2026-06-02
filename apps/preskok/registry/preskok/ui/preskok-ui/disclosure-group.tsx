@@ -1,21 +1,21 @@
 "use client"
 
 import { use } from "react"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   ButtonProps,
   DisclosureGroupProps,
   DisclosurePanelProps,
   DisclosureProps,
-} from "react-aria-components"
+} from "react-aria-components/DisclosureGroup"
 import {
   Button,
-  composeRenderProps,
   DisclosureStateContext,
   Heading,
   Disclosure as PrimitiveDisclosure,
   DisclosureGroup as PrimitiveDisclosureGroup,
   DisclosurePanel as PrimitiveDisclosurePanel,
-} from "react-aria-components"
+} from "react-aria-components/DisclosureGroup"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

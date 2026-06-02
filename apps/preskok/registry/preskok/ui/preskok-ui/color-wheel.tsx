@@ -4,7 +4,7 @@ import {
   ColorWheel as ColorWheelPrimitive,
   ColorWheelTrack,
   type ColorWheelProps as ColorWheelPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/ColorWheel"
 
 import { ColorThumb } from "./color-thumb"
 

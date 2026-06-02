@@ -3,9 +3,9 @@
 import React from "react"
 import {
   Button as ButtonPrimitive,
-  composeRenderProps,
   type ButtonProps as ButtonPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Button"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { tv, type VariantProps } from "tailwind-variants"
 
 import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"

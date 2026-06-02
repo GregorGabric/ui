@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-media-query",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/preskok/hooks/use-media-query.ts",
+      "content": "import * as React from \"react\"\n\nexport function useMediaQuery(query: string) {\n  return React.useSyncExternalStore(\n    (onStoreChange) => {\n      const result = matchMedia(query)\n      result.addEventListener(\"change\", onStoreChange)\n      return () => result.removeEventListener(\"change\", onStoreChange)\n    },\n    () => matchMedia(query).matches,\n    () => false\n  )\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

@@ -1,6 +1,5 @@
 "use client"
 
-import { useMemo } from "react"
 import { Area, AreaChart as AreaChartPrimitive } from "recharts"
 
 import {
@@ -20,17 +19,17 @@ type DataPoint = {
   Sedan: number
 }
 
-export default function ChartPreskokDemo() {
-  const data: Array<DataPoint> = useMemo(
-    () =>
-      Array.from({ length: 7 }, (_, i) => ({
-        day: `Day ${i + 1}`,
-        SUV: Math.floor(100 + Math.random() * 300),
-        Sedan: Math.floor(50 + Math.random() * 200),
-      })),
-    []
-  )
+const data: Array<DataPoint> = [
+  { day: "Day 1", SUV: 220, Sedan: 130 },
+  { day: "Day 2", SUV: 280, Sedan: 160 },
+  { day: "Day 3", SUV: 240, Sedan: 140 },
+  { day: "Day 4", SUV: 340, Sedan: 210 },
+  { day: "Day 5", SUV: 310, Sedan: 190 },
+  { day: "Day 6", SUV: 380, Sedan: 230 },
+  { day: "Day 7", SUV: 360, Sedan: 220 },
+]
 
+export default function ChartPreskokDemo() {
   const config = {
     SUV: { label: "SUV", color: "#2563eb" },
     Sedan: { label: "Sedan", color: "#60a5fa" },

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar-rsc",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/preskok/internal/sidebar-rsc.tsx",
+      "content": "import * as React from \"react\"\nimport {\n  FrameIcon,\n  LifeBuoyIcon,\n  MapIcon,\n  PieChartIcon,\n  SendIcon,\n} from \"lucide-react\"\n\nimport {\n  Sidebar,\n  SidebarContent,\n  SidebarProvider,\n  SidebarSection,\n  SidebarSectionGroup,\n} from \"@/components/ui/preskok-ui/sidebar\"\n\nconst projects = [\n  {\n    name: \"Design Engineering\",\n    url: \"#\",\n    icon: FrameIcon,\n    badge: \"24\",\n  },\n  {\n    name: \"Sales & Marketing\",\n    url: \"#\",\n    icon: PieChartIcon,\n    badge: \"12\",\n  },\n  {\n    name: \"Travel\",\n    url: \"#\",\n    icon: MapIcon,\n    badge: \"3\",\n  },\n  {\n    name: \"Support\",\n    url: \"#\",\n    icon: LifeBuoyIcon,\n    badge: \"21\",\n  },\n  {\n    name: \"Feedback\",\n    url: \"#\",\n    icon: SendIcon,\n    badge: \"8\",\n  },\n]\n\n// Dummy fetch function\nasync function fetchProjects() {\n  await new Promise((resolve) => setTimeout(resolve, 3000))\n  return projects\n}\n\nexport default function AppSidebar() {\n  return (\n    <SidebarProvider>\n      <Sidebar>\n        <SidebarContent>\n          <SidebarSectionGroup>\n            <SidebarSection>\n              <React.Suspense fallback={<NavProjectsSkeleton />}>\n                <NavProjects />\n              </React.Suspense>\n            </SidebarSection>\n          </SidebarSectionGroup>\n        </SidebarContent>\n      </Sidebar>\n    </SidebarProvider>\n  )\n}\n\nfunction NavProjectsSkeleton() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      {Array.from({ length: 5 }).map((_, index) => (\n        <div key={index} className=\"flex items-center gap-2 rounded-md p-2\">\n          <div className=\"bg-muted h-4 w-4 animate-pulse rounded\" />\n          <div className=\"bg-muted h-4 flex-1 animate-pulse rounded\" />\n        </div>\n      ))}\n    </div>\n  )\n}\n\nasync function NavProjects() {\n  const projects = await fetchProjects()\n\n  return (\n    <div className=\"flex flex-col gap-2\">\n      {projects.map((project) => (\n        <a\n          key={project.name}\n          href={project.url}\n          className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2\"\n        >\n          <project.icon />\n          <span>{project.name}</span>\n        </a>\n      ))}\n    </div>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:internal"
+}

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { getColors } from "@/lib/colors"
 import { cn } from "@/lib/utils"
-import { ScrollArea, ScrollBar } from "@/registry/preskok/ui/scroll-area"
+import { ScrollArea } from "@/registry/preskok/ui/preskok-ui/scroll-area"
 
 export function ColorsNav({
   className,
@@ -34,7 +34,6 @@ export function ColorsNav({
             </Link>
           ))}
         </div>
-        <ScrollBar orientation="horizontal" className="invisible" />
       </ScrollArea>
     </div>
   )

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { SortDescriptor } from "react-aria-components"
+import type { SortDescriptor } from "react-aria-components/Table"
 
 import {
   Table,
@@ -71,6 +71,8 @@ const rows = [
   },
 ]
 
+type Row = (typeof rows)[number]
+
 export function TableDemoSort() {
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "name",
@@ -80,8 +82,9 @@ export function TableDemoSort() {
   let sortedRows = rows
   if (sortDescriptor) {
     sortedRows = rows.toSorted((a, b) => {
-      let first = a[sortDescriptor.column]
-      let second = b[sortDescriptor.column]
+      const column = sortDescriptor.column as keyof Row
+      const first = a[column]
+      const second = b[column]
       let cmp = first < second ? -1 : 1
       if (sortDescriptor.direction === "descending") {
         cmp = -cmp
@@ -116,7 +119,7 @@ export function TableDemoSort() {
         </TableHeader>
         <TableBody items={sortedRows}>
           {(item) => (
-            <TableRow>
+            <TableRow id={item.id}>
               <TableCell>{item.id}</TableCell>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.type}</TableCell>

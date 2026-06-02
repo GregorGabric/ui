@@ -1,9 +1,5 @@
 import { cn } from "@/lib/utils"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/registry/preskok/ui/alert"
+import { Note } from "@/registry/preskok/ui/preskok-ui/note"
 
 export function Callout({
   title,
@@ -11,20 +7,21 @@ export function Callout({
   icon,
   className,
   ...props
-}: React.ComponentProps<typeof Alert> & { icon?: React.ReactNode }) {
+}: React.ComponentProps<typeof Note> & { icon?: React.ReactNode }) {
   return (
-    <Alert
+    <Note
       className={cn(
         "bg-surface text-surface-foreground mt-6 w-auto border-none md:-mx-4",
         className
       )}
+      indicator={false}
       {...props}
     >
       {icon}
-      {title && <AlertTitle>{title}</AlertTitle>}
-      <AlertDescription className="text-card-foreground/80">
-        {children}
-      </AlertDescription>
-    </Alert>
+      <div>
+        {title && <div className="mb-1 font-medium">{title}</div>}
+        <div className="text-card-foreground/80">{children}</div>
+      </div>
+    </Note>
   )
 }

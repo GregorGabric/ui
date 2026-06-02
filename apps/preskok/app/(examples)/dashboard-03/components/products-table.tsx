@@ -20,17 +20,30 @@ import {
   MenuItem,
   MenuTrigger,
 } from "@/registry/preskok/ui/preskok-ui/menu"
-import { Pagination } from "@/registry/preskok/ui/preskok-ui/pagination"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Pagination,
+  PaginationGap,
+  PaginationItem,
+  PaginationList,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/registry/preskok/ui/preskok-ui/pagination"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 import { Tab, TabList, Tabs } from "@/registry/preskok/ui/preskok-ui/tabs"
 import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
+  TableColumn as TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/table"
+} from "@/registry/preskok/ui/preskok-ui/table"
 
 export function ProductsTable({
   products,
@@ -59,61 +72,61 @@ export function ProductsTable({
         </Tabs>
         <div className="hidden items-center gap-2 **:data-[slot=button]:size-8 **:data-[slot=select-trigger]:h-8 @3xl/page:flex">
           <Select defaultSelectedKey="all" placeholder="Select a product">
-            <Select.Trigger>
+            <SelectTrigger>
               <span className="text-muted-foreground text-sm">Category:</span>
-            </Select.Trigger>
-            <Select.List>
-              <Select.Option id="all">
-                <Select.Label>All</Select.Label>
-              </Select.Option>
-              <Select.Option id="in-stock">
-                <Select.Label>In Stock</Select.Label>
-              </Select.Option>
-              <Select.Option id="low-stock">
-                <Select.Label>Low Stock</Select.Label>
-              </Select.Option>
-              <Select.Option id="archived">
-                <Select.Label>Archived</Select.Label>
-              </Select.Option>
-            </Select.List>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem id="all">
+                <SelectLabel>All</SelectLabel>
+              </SelectItem>
+              <SelectItem id="in-stock">
+                <SelectLabel>In Stock</SelectLabel>
+              </SelectItem>
+              <SelectItem id="low-stock">
+                <SelectLabel>Low Stock</SelectLabel>
+              </SelectItem>
+              <SelectItem id="archived">
+                <SelectLabel>Archived</SelectLabel>
+              </SelectItem>
+            </SelectContent>
           </Select>
           <Select defaultSelectedKey="all" placeholder="Select a product">
-            <Select.Trigger>
+            <SelectTrigger>
               <span className="text-muted-foreground text-sm">Price:</span>
-            </Select.Trigger>
-            <Select.List>
-              <Select.Option id="all">
-                <Select.Label>$100-$200</Select.Label>
-              </Select.Option>
-              <Select.Option id="in-stock">
-                <Select.Label>$200-$300</Select.Label>
-              </Select.Option>
-              <Select.Option id="low-stock">
-                <Select.Label>$300-$400</Select.Label>
-              </Select.Option>
-              <Select.Option id="archived">
-                <Select.Label>$400-$500</Select.Label>
-              </Select.Option>
-            </Select.List>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem id="all">
+                <SelectLabel>$100-$200</SelectLabel>
+              </SelectItem>
+              <SelectItem id="in-stock">
+                <SelectLabel>$200-$300</SelectLabel>
+              </SelectItem>
+              <SelectItem id="low-stock">
+                <SelectLabel>$300-$400</SelectLabel>
+              </SelectItem>
+              <SelectItem id="archived">
+                <SelectLabel>$400-$500</SelectLabel>
+              </SelectItem>
+            </SelectContent>
           </Select>
           <Select defaultSelectedKey="all" placeholder="Select a product">
-            <Select.Trigger>
+            <SelectTrigger>
               <span className="text-muted-foreground text-sm">Status:</span>
-            </Select.Trigger>
-            <Select.List>
-              <Select.Option id="all">
-                <Select.Label>In Stock</Select.Label>
-              </Select.Option>
-              <Select.Option id="in-stock">
-                <Select.Label>Low Stock</Select.Label>
-              </Select.Option>
-              <Select.Option id="low-stock">
-                <Select.Label>Archived</Select.Label>
-              </Select.Option>
-              <Select.Option id="archived">
-                <Select.Label>Archived</Select.Label>
-              </Select.Option>
-            </Select.List>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem id="all">
+                <SelectLabel>In Stock</SelectLabel>
+              </SelectItem>
+              <SelectItem id="in-stock">
+                <SelectLabel>Low Stock</SelectLabel>
+              </SelectItem>
+              <SelectItem id="low-stock">
+                <SelectLabel>Archived</SelectLabel>
+              </SelectItem>
+              <SelectItem id="archived">
+                <SelectLabel>Archived</SelectLabel>
+              </SelectItem>
+            </SelectContent>
           </Select>
           <Button intent="outline" size="sq-sm">
             <ListFilterIcon />
@@ -126,17 +139,15 @@ export function ProductsTable({
       <CardContent>
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead className="w-12 px-4">
-                <Checkbox />
-              </TableHead>
-              <TableHead>Product</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">Stock</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date Added</TableHead>
-              <TableHead />
-            </TableRow>
+            <TableHead className="w-12 px-4">
+              <Checkbox />
+            </TableHead>
+            <TableHead isRowHeader>Product</TableHead>
+            <TableHead className="text-right">Price</TableHead>
+            <TableHead className="text-right">Stock</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Date Added</TableHead>
+            <TableHead />
           </TableHeader>
           <TableBody className="**:data-[slot=table-cell]:py-2.5">
             {products.map((product) => (
@@ -177,7 +188,7 @@ export function ProductsTable({
                     </MenuTrigger>
                     <MenuContent placement="bottom end">
                       <MenuItem>Edit</MenuItem>
-                      <MenuItem isDanger>Delete</MenuItem>
+                      <MenuItem intent="danger">Delete</MenuItem>
                     </MenuContent>
                   </Menu>
                 </TableCell>
@@ -191,16 +202,16 @@ export function ProductsTable({
           Showing 1-10 of 100 products
         </div>
         <Pagination className="mx-0 w-fit">
-          <Pagination.List>
-            <Pagination.Item segment="previous" href="#" />
-            <Pagination.Item href="#">1</Pagination.Item>
-            <Pagination.Item href="#" isCurrent>
+          <PaginationList>
+            <PaginationPrevious href="#" />
+            <PaginationItem href="#">1</PaginationItem>
+            <PaginationItem href="#" isCurrent>
               2
-            </Pagination.Item>
-            <Pagination.Item href="#">3</Pagination.Item>
-            <Pagination.Item segment="ellipsis" />
-            <Pagination.Item segment="next" href="#" />
-          </Pagination.List>
+            </PaginationItem>
+            <PaginationItem href="#">3</PaginationItem>
+            <PaginationGap />
+            <PaginationNext href="#" />
+          </PaginationList>
         </Pagination>
       </CardFooter>
     </Card>

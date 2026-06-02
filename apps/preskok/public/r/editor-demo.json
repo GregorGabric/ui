@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "editor-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/editor.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/editor-demo.tsx",
+      "content": "\"use client\"\n\nimport { Editor } from \"@/components/ui/preskok-ui/editor/editor\"\n\nconst starterContent = `\n<h2>Preskok Editor</h2>\n<p>Draft a product update with headings, lists, and links.</p>\n<ul>\n  <li>Highlight the release name and date.</li>\n  <li>Call out the top three improvements.</li>\n  <li>Link to the full changelog.</li>\n</ul>\n<blockquote>Tip: Select text to reveal formatting tools.</blockquote>\n<p><a href=\"https://preskok.com\" rel=\"noopener noreferrer\" target=\"_blank\">Visit preskok.com</a></p>\n`\n\nexport default function EditorDemo() {\n  return (\n    <div className=\"w-full max-w-2xl\">\n      <Editor\n        value={starterContent}\n        placeholder=\"Start writing...\"\n        className=\"min-h-[320px]\"\n        editorContentClassName=\"min-h-[240px]\"\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

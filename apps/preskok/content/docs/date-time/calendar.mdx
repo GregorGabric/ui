@@ -11,7 +11,7 @@ description: Advanced date selection calendar with month/year navigation, date r
 ## Installation
 
 ```bash
-npx @preskok-org/ui@latest add calendar
+npx shadcn@latest add @preskok/calendar
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ npx @preskok-org/ui@latest add calendar
 ```tsx
 import { getLocalTimeZone, today } from "@internationalized/date"
 
-import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
+import { Calendar } from "@/components/ui/preskok-ui/calendar"
 
 export function CalendarDemo() {
   const [date, setDate] = useState(today(getLocalTimeZone()))

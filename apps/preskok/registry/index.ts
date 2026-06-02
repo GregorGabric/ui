@@ -1,8 +1,5 @@
-import { registryItemSchema, type Registry } from "@preskok-org/ui/registry"
-import { z } from "zod"
+import { registryItemSchema, type Registry } from "shadcn/schema"
 
-import { blocks } from "@/registry/registry-blocks"
-import { charts } from "@/registry/registry-charts"
 import { examples } from "@/registry/registry-examples"
 import { hooks } from "@/registry/registry-hooks"
 import { internal } from "@/registry/registry-internal"
@@ -12,14 +9,25 @@ import { preskokUi } from "@/registry/registry-preskok"
 import { themes } from "@/registry/registry-themes"
 
 export const registry = {
-  name: "preskok/ui",
-  // TODO: change this
+  name: "preskok",
   homepage: "https://ui-three-mu.vercel.app",
-  items: z.array(registryItemSchema).parse(
+  items: registryItemSchema.array().parse(
     [
       {
-        name: "index",
-        type: "registry:style",
+        name: "default",
+        extends: "none",
+        type: "registry:base",
+        config: {
+          style: "preskok",
+          iconLibrary: "lucide",
+          tailwind: {
+            baseColor: "neutral",
+            cssVariables: true,
+          },
+          registries: {
+            "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json",
+          },
+        },
         dependencies: [
           "class-variance-authority",
           "lucide-react",
@@ -37,8 +45,6 @@ export const registry = {
       },
       // ...ui,
       ...preskokUi,
-      ...blocks,
-      ...charts,
       ...lib,
       ...libPreskok,
       ...hooks,
@@ -46,11 +52,6 @@ export const registry = {
       ...examples,
       ...internal,
     ].map((item) => {
-      // Temporary fix for dashboard-01.
-      if (item.name === "dashboard-01") {
-        item.dependencies?.push("@tabler/icons-react")
-      }
-
       if (item.name === "accordion" && "tailwind" in item) {
         delete item.tailwind
       }

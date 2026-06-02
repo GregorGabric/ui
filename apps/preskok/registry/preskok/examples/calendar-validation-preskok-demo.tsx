@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { getLocalTimeZone, today } from "@internationalized/date"
-import type { DateValue } from "react-aria-components"
+import type { DateValue } from "react-aria-components/Calendar"
 
 import { Calendar } from "@/registry/preskok/ui/preskok-ui/calendar"
 

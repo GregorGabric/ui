@@ -59,13 +59,28 @@ const vehicles: Array<Vehicle> = [
 ]
 
 const columns = [
-  { key: "make", name: "Make", isRowHeader: true },
-  { key: "model", name: "Model" },
-  { key: "year", name: "Year" },
-  { key: "price", name: "Price" },
-  { key: "mileage", name: "Mileage" },
-  { key: "fuelType", name: "Fuel Type" },
-]
+  { id: "make", name: "Make", isRowHeader: true },
+  { id: "model", name: "Model" },
+  { id: "year", name: "Year" },
+  { id: "price", name: "Price" },
+  { id: "mileage", name: "Mileage" },
+  { id: "fuelType", name: "Fuel Type" },
+] satisfies Array<{
+  id: keyof Omit<Vehicle, "id">
+  name: string
+  isRowHeader?: boolean
+}>
+
+const renderCell = (vehicle: Vehicle, columnId: keyof Omit<Vehicle, "id">) => {
+  switch (columnId) {
+    case "price":
+      return `$${vehicle.price.toLocaleString()}`
+    case "mileage":
+      return `${vehicle.mileage.toLocaleString()} mi`
+    default:
+      return vehicle[columnId]
+  }
+}
 
 export default function TableDemo() {
   return (
@@ -73,20 +88,15 @@ export default function TableDemo() {
       <Table aria-label="Vehicle inventory" selectionMode="multiple">
         <TableHeader columns={columns}>
           {(column) => (
-            <TableColumn key={column.key} isRowHeader={column.isRowHeader}>
+            <TableColumn id={column.id} isRowHeader={column.isRowHeader}>
               {column.name}
             </TableColumn>
           )}
         </TableHeader>
         <TableBody items={vehicles}>
           {(item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.make}</TableCell>
-              <TableCell>{item.model}</TableCell>
-              <TableCell>{item.year}</TableCell>
-              <TableCell>${item.price.toLocaleString()}</TableCell>
-              <TableCell>{item.mileage.toLocaleString()} mi</TableCell>
-              <TableCell>{item.fuelType}</TableCell>
+            <TableRow id={item.id} columns={columns}>
+              {(column) => <TableCell>{renderCell(item, column.id)}</TableCell>}
             </TableRow>
           )}
         </TableBody>

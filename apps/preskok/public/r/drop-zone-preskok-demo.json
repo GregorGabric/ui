@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drop-zone-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/drop-zone.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/drop-zone-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { DropZone } from \"@/components/ui/preskok-ui/drop-zone\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport default function DropZonePreskokDemo() {\n  const [dropped, setDropped] = useState(false)\n  return (\n    <DropZone onDrop={() => setDropped(true)}>\n      <Label>{dropped ? \"Dropped\" : \"Drop your files here\"}</Label>\n    </DropZone>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

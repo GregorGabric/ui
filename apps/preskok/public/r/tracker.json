@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tracker",
+  "description": "A tracker component for visualizing data over time with tooltips",
+  "dependencies": [
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/tooltip.json",
+    "https://ui-three-mu.vercel.app/r/default.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/tracker.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { Pressable } from \"react-aria-components/Pressable\"\nimport { twJoin, twMerge } from \"tailwind-merge\"\n\nimport { Tooltip, TooltipContent } from \"./tooltip\"\n\ninterface TrackerBlockProps {\n  key?: string | number\n  color?: string\n  tooltip?: string\n  defaultBackgroundColor?: string\n  disabledTooltip?: boolean\n}\n\nconst Block = ({\n  color,\n  tooltip,\n  disabledTooltip,\n  defaultBackgroundColor = \"bg-secondary\",\n}: TrackerBlockProps) => {\n  const [open, setOpen] = useState(false)\n\n  return disabledTooltip ? (\n    <div className=\"size-full overflow-hidden px-[0.5px] transition first:rounded-l-[4px] first:pl-0 last:rounded-r-[4px] last:pr-0 sm:px-px\">\n      <div\n        className={twJoin(\n          \"size-full rounded-[1px]\",\n          color || defaultBackgroundColor,\n          \"hover:opacity-50\"\n        )}\n      />\n    </div>\n  ) : (\n    <Tooltip isOpen={open} onOpenChange={setOpen} delay={0} closeDelay={0}>\n      <Pressable onClick={() => setOpen(true)}>\n        <div className=\"size-full overflow-hidden px-[0.5px] transition first:rounded-l-[4px] first:pl-0 last:rounded-r-[4px] last:pr-0 sm:px-px\">\n          <div\n            className={twJoin(\n              \"size-full rounded-[1px]\",\n              color || defaultBackgroundColor,\n              \"hover:opacity-50\"\n            )}\n          />\n        </div>\n      </Pressable>\n      <TooltipContent\n        arrow={false}\n        offset={10}\n        placement=\"top\"\n        inverse\n        className=\"px-2 py-1.5 text-xs\"\n      >\n        {tooltip}\n      </TooltipContent>\n    </Tooltip>\n  )\n}\n\ninterface TrackerProps\n  extends\n    React.ComponentProps<\"div\">,\n    Pick<TrackerBlockProps, \"disabledTooltip\"> {\n  data: TrackerBlockProps[]\n  defaultBackgroundColor?: string\n}\n\nconst Tracker = ({\n  data = [],\n  disabledTooltip = false,\n  className,\n  ref,\n  ...props\n}: TrackerProps) => {\n  return (\n    <div\n      ref={ref}\n      className={twMerge(\"group flex h-8 w-full items-center\", className)}\n      {...props}\n    >\n      {data.map((props, index) => (\n        <Block\n          disabledTooltip={disabledTooltip}\n          key={props.key ?? index}\n          {...props}\n        />\n      ))}\n    </div>\n  )\n}\n\nexport { Tracker, type TrackerBlockProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

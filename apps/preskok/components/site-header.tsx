@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ModeSwitcher } from "@/components/mode-switcher"
-import { Separator } from "@/registry/preskok/ui/separator"
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 
 export function SiteHeader() {
   const colors = getColors()

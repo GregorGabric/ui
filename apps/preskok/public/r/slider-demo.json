@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/slider.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/slider-demo.tsx",
+      "content": "\"use client\"\n\nimport { Label } from \"@/components/ui/preskok-ui/field\"\nimport {\n  Slider,\n  SliderOutput,\n  SliderTrack,\n} from \"@/components/ui/preskok-ui/slider\"\n\nexport default function SliderDemo() {\n  return (\n    <Slider defaultValue={250} minValue={100} maxValue={500} step={10}>\n      <div className=\"flex items-center justify-between\">\n        <Label>Engine Power</Label>\n        <SliderOutput />\n      </div>\n      <SliderTrack />\n    </Slider>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-slider",
+  "description": "A color slider component for single-dimension color adjustment",
+  "dependencies": [
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/color-thumb.json",
+    "https://ui-three-mu.vercel.app/r/field.json",
+    "https://ui-three-mu.vercel.app/r/default.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/color-slider.tsx",
+      "content": "\"use client\"\n\nimport {\n  ColorSlider as ColorSliderPrimitive,\n  SliderOutput,\n  SliderTrack,\n  type ColorSliderProps as ColorSliderPrimitiveProps,\n} from \"react-aria-components/ColorSlider\"\nimport { composeRenderProps } from \"react-aria-components/composeRenderProps\"\nimport { twJoin, twMerge } from \"tailwind-merge\"\n\nimport { ColorThumb } from \"./color-thumb\"\nimport { Label } from \"./field\"\n\ninterface ColorSliderProps extends ColorSliderPrimitiveProps {\n  label?: string\n  showOutput?: boolean\n}\n\nconst ColorSlider = ({\n  showOutput = true,\n  label,\n  className,\n  ...props\n}: ColorSliderProps) => {\n  return (\n    <ColorSliderPrimitive\n      {...props}\n      data-slot=\"color-slider\"\n      className={composeRenderProps(\n        className,\n        (className, { orientation, isDisabled }) =>\n          twMerge(\n            \"group relative\",\n            orientation === \"horizontal\" &&\n              \"grid min-w-56 grid-cols-[1fr_auto]\",\n            orientation === \"vertical\" &&\n              \"flex flex-col items-center justify-center\",\n            isDisabled && \"opacity-50 forced-colors:bg-[GrayText]\",\n            className\n          )\n      )}\n    >\n      <div className=\"flex items-center\">\n        {label && <Label className=\"text-sm [grid-area:label]\">{label}</Label>}\n        {showOutput && (\n          <SliderOutput className=\"text-sm [grid-area:output] data-[orientation=horizontal]:ml-auto\" />\n        )}\n      </div>\n      <SliderTrack\n        className={twJoin([\n          \"group col-span-2 rounded-lg\",\n          \"orientation-horizontal:h-6 orientation-horizontal:w-full\",\n          \"orientation-vertical:-translate-x-[50%] orientation-vertical:ml-[50%] orientation-vertical:h-56 orientation-vertical:w-6\",\n          \"disabled:opacity-50 disabled:forced-colors:bg-[GrayText]\",\n        ])}\n        style={({ defaultStyle, isDisabled }) => ({\n          ...defaultStyle,\n          background: isDisabled\n            ? undefined\n            : `${defaultStyle.background}, repeating-conic-gradient(#CCC 0% 25%, white 0% 50%) 50% / 16px 16px`,\n        })}\n      >\n        <ColorThumb />\n      </SliderTrack>\n    </ColorSliderPrimitive>\n  )\n}\n\nexport { ColorSlider }\nexport type { ColorSliderProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

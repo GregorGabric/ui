@@ -15,18 +15,19 @@ import {
   DEFAULT_COLORS,
   getColorValue,
   type BaseChartProps,
+  type ChartDatum,
 } from "./chart"
 
 const sumNumericArray = (arr: number[]): number =>
   arr.reduce((sum, num) => sum + num, 0)
 
-const calculateDefaultLabel = (data: any[], valueKey: string): number =>
-  sumNumericArray(data.map((dataPoint) => dataPoint[valueKey]))
+const calculateDefaultLabel = (data: ChartDatum[], valueKey: string): number =>
+  sumNumericArray(data.map((dataPoint) => Number(dataPoint[valueKey]) || 0))
 
 const parseLabelInput = (
   labelInput: string | undefined,
   valueFormatter: (value: number) => string,
-  data: any[],
+  data: ChartDatum[],
   valueKey: string
 ): string => labelInput || valueFormatter(calculateDefaultLabel(data, valueKey))
 
@@ -129,15 +130,21 @@ const PieChart = <TValue extends ValueType, TName extends NameType>({
             isAnimationActive
             {...pieProps}
           >
-            {data.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={getColorValue(
-                  config?.[data[index]?.code || data[index]?.name]?.color ??
-                    colors[index % colors.length]
-                )}
-              />
-            ))}
+            {data.map((dataPoint, index) => {
+              let colorKey: string | undefined
+              if (typeof dataPoint.code === "string") {
+                colorKey = dataPoint.code
+              } else if (typeof dataPoint.name === "string") {
+                colorKey = dataPoint.name
+              }
+              const color = colorKey ? config?.[colorKey]?.color : undefined
+              return (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={getColorValue(color ?? colors[index % colors.length])}
+                />
+              )
+            })}
           </Pie>
 
           {tooltip && (

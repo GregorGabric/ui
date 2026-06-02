@@ -1,6 +1,6 @@
 "use client"
 
-import { composeRenderProps } from "react-aria-components"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { twMerge, type ClassNameValue } from "tailwind-merge"
 
 type Render<T> = string | ((v: T) => string) | undefined

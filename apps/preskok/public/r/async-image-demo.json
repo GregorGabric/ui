@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "async-image-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/async-image.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/async-image-demo.tsx",
+      "content": "\"use client\"\n\nimport { AsyncImage } from \"@/components/ui/preskok-ui/async-image\"\n\nexport default function AsyncImageDemo() {\n  return (\n    <div className=\"space-y-8\">\n      <div className=\"space-y-2\">\n        <p className=\"text-muted-foreground text-sm font-medium\">\n          Default (skeleton → image, lazy-loaded)\n        </p>\n        <div className=\"flex gap-4\">\n          <AsyncImage.Root\n            src=\"https://picsum.photos/200/200\"\n            alt=\"Placeholder\"\n            width={200}\n            height={200}\n          />\n          <AsyncImage.Root\n            src=\"https://picsum.photos/201/201\"\n            alt=\"Placeholder\"\n            width={200}\n            height={200}\n          />\n        </div>\n      </div>\n\n      <div className=\"space-y-2\">\n        <p className=\"text-muted-foreground text-sm font-medium\">\n          Custom loading slot\n        </p>\n        <AsyncImage.Root\n          src=\"https://picsum.photos/300/150\"\n          alt=\"Custom loading\"\n          width={300}\n          height={150}\n        >\n          <AsyncImage.Loading className=\"bg-muted/50 flex items-center justify-center\">\n            <span className=\"text-muted-foreground text-xs\">Loading…</span>\n          </AsyncImage.Loading>\n        </AsyncImage.Root>\n      </div>\n\n      <div className=\"space-y-2\">\n        <p className=\"text-muted-foreground text-sm font-medium\">\n          Error fallback (invalid src)\n        </p>\n        <AsyncImage.Root\n          src=\"https://invalid.example/not-found.jpg\"\n          alt=\"Will error\"\n          width={200}\n          height={200}\n        />\n      </div>\n\n      <div className=\"space-y-2\">\n        <p className=\"text-muted-foreground text-sm font-medium\">\n          Grid (lazy load as you scroll)\n        </p>\n        <div className=\"grid grid-cols-3 gap-3\">\n          {Array.from({ length: 6 }).map((_, i) => (\n            <AsyncImage.Root\n              key={i}\n              src={`https://picsum.photos/160/120?random=${i + 1}`}\n              alt={`Image ${i + 1}`}\n              width={160}\n              height={120}\n            />\n          ))}\n        </div>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,16 +1,16 @@
 "use client"
 
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   DialogProps,
   DialogTriggerProps,
   ModalOverlayProps,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
 import {
-  composeRenderProps,
   DialogTrigger as DialogTriggerPrimitive,
   Modal,
   ModalOverlay,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
 import { twJoin } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 

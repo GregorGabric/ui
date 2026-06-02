@@ -95,19 +95,6 @@ export const Icons = {
       ></path>
     </svg>
   ),
-  radix: (props: IconProps) => (
-    <svg viewBox="0 0 25 25" fill="none" {...props}>
-      <path
-        d="M12 25C7.58173 25 4 21.4183 4 17C4 12.5817 7.58173 9 12 9V25Z"
-        fill="currentcolor"
-      ></path>
-      <path d="M12 0H4V8H12V0Z" fill="currentcolor"></path>
-      <path
-        d="M17 8C19.2091 8 21 6.20914 21 4C21 1.79086 19.2091 0 17 0C14.7909 0 13 1.79086 13 4C13 6.20914 14.7909 8 17 8Z"
-        fill="currentcolor"
-      ></path>
-    </svg>
-  ),
   aria: (props: IconProps) => (
     <svg role="img" viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path d="M13.966 22.624l-1.69-4.281H8.122l3.892-9.144 5.662 13.425zM8.884 1.376H0v21.248zm15.116 0h-8.884L24 22.624Z" />

@@ -11,7 +11,7 @@ import {
   SendIcon,
 } from "lucide-react"
 
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Sidebar,
   SidebarContent,
@@ -21,8 +21,6 @@ import {
   SidebarSection,
   SidebarSectionGroup,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
-
-// Note: legacy import retained intentionally for internal examples that include their own provider
 
 const projects = [
   {
@@ -56,7 +54,7 @@ export default function AppSidebar() {
   const [open, setOpen] = React.useState(true)
 
   return (
-    <SidebarProvider open={open} onOpenChange={setOpen}>
+    <SidebarProvider isOpen={open} onOpenChange={setOpen}>
       <Sidebar>
         <SidebarContent>
           <SidebarSectionGroup>
@@ -74,9 +72,9 @@ export default function AppSidebar() {
       <SidebarInset>
         <header className="flex h-12 items-center justify-between px-4">
           <Button
-            onClick={() => setOpen((open) => !open)}
+            onPress={() => setOpen((open) => !open)}
             size="sm"
-            variant="ghost"
+            intent="plain"
           >
             {open ? <PanelLeftCloseIcon /> : <PanelLeftOpenIcon />}
             <span>{open ? "Close" : "Open"} Sidebar</span>

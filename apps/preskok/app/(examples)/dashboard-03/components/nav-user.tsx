@@ -7,6 +7,7 @@ import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Menu,
   MenuContent,
+  MenuHeader,
   MenuItem,
   MenuSeparator,
   MenuTrigger,
@@ -35,10 +36,10 @@ export function NavUser({
         </Button>
       </MenuTrigger>
       <MenuContent
-        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+        className="min-w-56 rounded-lg"
         placement="bottom end"
       >
-        <Menu.Header className="p-0 font-normal">
+        <MenuHeader className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar
               src={user.avatar}
@@ -54,7 +55,7 @@ export function NavUser({
               </span>
             </div>
           </div>
-        </Menu.Header>
+        </MenuHeader>
         <MenuSeparator />
         <MenuItem>
           <Sparkles />

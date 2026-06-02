@@ -5,7 +5,7 @@ import { CameraIcon, FolderIcon, PaperclipIcon } from "lucide-react"
 import {
   FileTrigger as FileTriggerPrimitive,
   type FileTriggerProps as FileTriggerPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/FileTrigger"
 import type { VariantProps } from "tailwind-variants"
 
 import { Button, type buttonStyles } from "./button"

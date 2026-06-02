@@ -5,7 +5,7 @@ import { EditorContent, EditorContext } from "@tiptap/react"
 
 import { cn } from "@/lib/utils"
 import { useEditorContext } from "@/registry/preskok/ui/preskok-ui/editor/hooks/use-editor-context"
-import { Separator } from "@/registry/preskok/ui/separator"
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 
 import { LinkBubbleMenu } from "./components/bubble-menu/link-bubble-menu"
 import { MeasuredContainer } from "./components/measured-container"

@@ -1,7 +1,9 @@
 "use client"
 
 import React from "react"
-import { composeRenderProps, Text, ToggleButton } from "react-aria-components"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
+import { Text } from "react-aria-components/Text"
+import { ToggleButton } from "react-aria-components/ToggleButton"
 import { tv } from "tailwind-variants"
 
 import { buttonStyles } from "./button"

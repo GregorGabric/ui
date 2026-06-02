@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "keyboard-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/keyboard.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/keyboard-preskok-demo.tsx",
+      "content": "import { Keyboard } from \"@/components/ui/preskok-ui/keyboard\"\n\nexport default function KeyboardPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Keyboard>⌘K</Keyboard>\n      <Keyboard>⇧⌘P</Keyboard>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

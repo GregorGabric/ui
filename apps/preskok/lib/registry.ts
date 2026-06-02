@@ -1,12 +1,8 @@
 import { promises as fs } from "fs"
 import { tmpdir } from "os"
 import path from "path"
-import {
-  registryItemFileSchema,
-  registryItemSchema,
-} from "@preskok-org/ui/registry"
+import { registryItemSchema, type RegistryItem } from "shadcn/schema"
 import { Project, ScriptKind } from "ts-morph"
-import { z } from "zod"
 
 import { Index } from "@/registry/__index__"
 
@@ -20,12 +16,6 @@ export async function getRegistryItem(name: string) {
   if (!item) {
     return null
   }
-
-  // Convert all file paths to object.
-  // TODO: remove when we migrate to new registry.
-  item.files = item.files.map((file: unknown) =>
-    typeof file === "string" ? { path: file } : file
-  )
 
   // Fail early before doing expensive file operations.
   const result = registryItemSchema.safeParse(item)
@@ -61,7 +51,9 @@ export async function getRegistryItem(name: string) {
   return parsed.data
 }
 
-async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
+type RegistryItemFile = NonNullable<RegistryItem["files"]>[number]
+
+async function getFileContent(file: RegistryItemFile) {
   const raw = await fs.readFile(file.path, "utf-8")
 
   const project = new Project({
@@ -82,7 +74,7 @@ async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
 
   // Some registry items uses default export.
   // We want to use named export instead.
-  // TODO: do we really need this? - @shadcn.
+  // TODO: do we really need this?
   if (file.type !== "registry:page") {
     code = code.replaceAll("export default", "export")
   }
@@ -93,21 +85,17 @@ async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
   return code
 }
 
-function getFileTarget(file: z.infer<typeof registryItemFileSchema>) {
+function getFileTarget(file: RegistryItemFile) {
   let target = file.target
 
   if (!target || target === "") {
     const fileName = file.path.split("/").pop()
-    if (
-      file.type === "registry:block" ||
-      file.type === "registry:component" ||
-      file.type === "registry:example"
-    ) {
+    if (file.type === "registry:component" || file.type === "registry:example") {
       target = `components/${fileName}`
     }
 
     if (file.type === "registry:ui") {
-      target = `components/ui/${fileName}`
+      target = `components/ui/preskok-ui/${fileName}`
     }
 
     if (file.type === "registry:hook") {
@@ -123,11 +111,11 @@ function getFileTarget(file: z.infer<typeof registryItemFileSchema>) {
 }
 
 async function createTempSourceFile(filename: string) {
-  const dir = await fs.mkdtemp(path.join(tmpdir(), "shadcn-"))
+  const dir = await fs.mkdtemp(path.join(tmpdir(), "preskok-"))
   return path.join(dir, filename)
 }
 
-function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
+function fixFilePaths(files: RegistryItem["files"]) {
   if (!files) {
     return []
   }
@@ -136,7 +124,7 @@ function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
   const firstFilePath = files[0].path
   const firstFilePathDir = path.dirname(firstFilePath)
 
-  return files.map((file) => {
+  return files.map((file: RegistryItemFile) => {
     return {
       ...file,
       path: path.relative(firstFilePathDir, file.path),
@@ -146,28 +134,13 @@ function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
 }
 
 export function fixImport(content: string) {
-  const regex = /@\/(.+?)\/((?:.*?\/)?(?:components|ui|hooks|lib))\/([\w-]+)/g
-
-  const replacement = (
-    match: string,
-    path: string,
-    type: string,
-    component: string
-  ) => {
-    if (type.endsWith("components")) {
-      return `@/components/${component}`
-    } else if (type.endsWith("ui")) {
-      return `@/components/ui/${component}`
-    } else if (type.endsWith("hooks")) {
-      return `@/hooks/${component}`
-    } else if (type.endsWith("lib")) {
-      return `@/lib/${component}`
-    }
-
-    return match
-  }
-
-  return content.replace(regex, replacement)
+  return content
+    .replaceAll("@/registry/preskok/ui/preskok-ui/", "@/components/ui/preskok-ui/")
+    .replaceAll("@/registry/preskok/ui/", "@/components/ui/preskok-ui/")
+    .replaceAll("@/registry/preskok/components/", "@/components/")
+    .replaceAll("@/registry/preskok/examples/", "@/components/")
+    .replaceAll("@/registry/preskok/hooks/", "@/hooks/")
+    .replaceAll("@/registry/preskok/lib/", "@/lib/")
 }
 
 export type FileTree = {

@@ -1,6 +1,12 @@
 "use client"
 
-import { createContext, use, useCallback, useEffect, useState } from "react"
+import {
+  createContext,
+  use,
+  useCallback,
+  useEffect,
+  useSyncExternalStore,
+} from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
@@ -68,17 +74,32 @@ const Carousel = ({
     },
     plugins
   )
-  const [canScrollPrev, setCanScrollPrev] = useState(false)
-  const [canScrollNext, setCanScrollNext] = useState(false)
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      if (!api) {
+        return () => {}
+      }
 
-  const onSelect = useCallback((api: CarouselApi) => {
-    if (!api) {
-      return
-    }
+      api.on("reInit", onStoreChange)
+      api.on("select", onStoreChange)
+      return () => {
+        api.off("reInit", onStoreChange)
+        api.off("select", onStoreChange)
+      }
+    },
+    [api]
+  )
 
-    setCanScrollPrev(api.canScrollPrev())
-    setCanScrollNext(api.canScrollNext())
-  }, [])
+  const canScrollPrev = useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollPrev() ?? false,
+    () => false
+  )
+  const canScrollNext = useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollNext() ?? false,
+    () => false
+  )
 
   const scrollPrev = useCallback(() => {
     api?.scrollPrev()
@@ -108,20 +129,6 @@ const Carousel = ({
 
     setApi(api)
   }, [api, setApi])
-
-  useEffect(() => {
-    if (!api) {
-      return
-    }
-
-    onSelect(api)
-    api.on("reInit", onSelect)
-    api.on("select", onSelect)
-
-    return () => {
-      api?.off("select", onSelect)
-    }
-  }, [api, onSelect])
 
   return (
     <CarouselContext.Provider

@@ -216,27 +216,25 @@ export function CardsPayments() {
         <div className="rounded-md border">
           <Table aria-label="Payments">
             <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableColumn
-                        key={header.id}
-                        className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=status]:w-24"
-                        data-name={header.id}
-                        isRowHeader={header.id === "email"}
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableColumn>
-                    )
-                  })}
-                </TableRow>
-              ))}
+              {table
+                .getHeaderGroups()
+                .flatMap((headerGroup) => headerGroup.headers)
+                .map((header) => (
+                  <TableColumn
+                    key={header.id}
+                    id={header.id}
+                    className="data-[name=actions]:w-10 data-[name=amount]:w-24 data-[name=status]:w-24"
+                    data-name={header.id}
+                    isRowHeader={header.id === "email"}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableColumn>
+                ))}
             </TableHeader>
             <TableBody>
               {table.getRowModel().rows.length ? (
@@ -272,7 +270,7 @@ export function CardsPayments() {
                   </TableRow>
                 ))
               ) : (
-                <TableRow>
+                <TableRow id="empty">
                   <TableCell
                     colSpan={columns.length}
                     className="h-24 text-center"

@@ -1,4 +1,4 @@
-import type { Registry } from "@preskok-org/ui/registry"
+import type { Registry } from "shadcn/schema"
 
 export const preskokUi: Registry["items"] = [
   // ===== FOUNDATION COMPONENTS (No Internal Dependencies) =====
@@ -441,7 +441,7 @@ export const preskokUi: Registry["items"] = [
     name: "drawer",
     type: "registry:ui",
     description: "A drawer component that slides in from different sides",
-    dependencies: ["react-aria-components", "tailwind-merge"],
+    dependencies: ["motion", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["button", "dialog"],
     files: [
       {
@@ -663,6 +663,7 @@ export const preskokUi: Registry["items"] = [
     name: "file-upload",
     type: "registry:ui",
     description: "A file upload component that allows you to upload files",
+    dependencies: ["@base-ui/react"],
     files: [
       {
         path: "ui/file-upload.tsx",
@@ -678,6 +679,7 @@ export const preskokUi: Registry["items"] = [
     description: "A calendar component with single and range selection support",
     dependencies: [
       "@internationalized/date",
+      "@react-aria/i18n",
       "lucide-react",
       "react-aria-components",
     ],
@@ -921,34 +923,7 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
-    name: "multiselect",
-    type: "registry:ui",
-    description: "A multi-select component built on base-ui combobox component",
-    dependencies: [
-      "@base-ui-components/react",
-      "class-variance-authority",
-      "lucide-react",
-    ],
-    registryDependencies: [
-      "button",
-      "loader",
-      "primitive",
-      "badge",
-      "use-controllable-state",
-    ],
-    files: [
-      {
-        path: "ui/preskok-ui/multiselect/combobox-base.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/preskok-ui/multiselect/multiselect.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-  {
-    name: "multiple-select",
+    name: "multi-select",
     type: "registry:ui",
     description: "A multiple select component with tag-based selection",
     dependencies: ["lucide-react", "react-aria-components"],
@@ -961,7 +936,7 @@ export const preskokUi: Registry["items"] = [
     ],
     files: [
       {
-        path: "ui/preskok-ui/multiple-select.tsx",
+        path: "ui/preskok-ui/multi-select.tsx",
         type: "registry:ui",
       },
     ],
@@ -1068,7 +1043,7 @@ export const preskokUi: Registry["items"] = [
     name: "navbar",
     type: "registry:ui",
     description: "A comprehensive navigation bar with responsive design",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "motion", "react-aria-components"],
     registryDependencies: ["button", "link", "separator", "primitive"],
     files: [
       {
@@ -1447,7 +1422,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A command palette component for searchable command lists",
     dependencies: ["cmdk", "lucide-react", "tailwind-merge"],
-    registryDependencies: ["dialog"],
+    registryDependencies: ["modal"],
     files: [
       {
         path: "ui/preskok-ui/command.tsx",
@@ -1516,6 +1491,7 @@ export const preskokUi: Registry["items"] = [
     name: "locale-context",
     type: "registry:ui",
     description: "Locale context provider for internationalization support",
+    registryDependencies: ["create-ctx"],
     files: [
       {
         path: "ui/preskok-ui/locale-context/locale-context.tsx",

@@ -4,12 +4,12 @@ import type {
   DateFieldProps,
   DateInputProps,
   DateValue,
-} from "react-aria-components"
+} from "react-aria-components/DateField"
 import {
   DateField as DateFieldPrimitive,
   DateInput as DateInputPrimitive,
   DateSegment,
-} from "react-aria-components"
+} from "react-aria-components/DateField"
 import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

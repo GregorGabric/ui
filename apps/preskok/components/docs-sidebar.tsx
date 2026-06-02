@@ -1,6 +1,5 @@
 "use client"
 
-import { useCallback } from "react"
 import { usePathname } from "next/navigation"
 
 import type { source } from "@/lib/source"
@@ -19,17 +18,6 @@ export function DocsSidebar({
 }: React.ComponentProps<typeof Sidebar> & { tree: typeof source.pageTree }) {
   const pathname = usePathname()
   const normalizedPathname = normalizePath(pathname)
-  const currentItemRef = useCallback((node: HTMLAnchorElement | null) => {
-    if (!node) {
-      return
-    }
-
-    node.scrollIntoView({
-      behavior: "instant",
-      block: "nearest",
-      inline: "nearest",
-    })
-  }, [])
 
   return (
     <Sidebar
@@ -59,7 +47,6 @@ export function DocsSidebar({
                         key={page.url}
                         href={page.url}
                         isCurrent={isCurrent}
-                        ref={isCurrent ? currentItemRef : undefined}
                         className="relative h-[30px] w-fit scroll-mb-16 text-[0.8rem] font-medium"
                       >
                         <SidebarLabel>{page.name}</SidebarLabel>

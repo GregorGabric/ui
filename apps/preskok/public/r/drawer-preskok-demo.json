@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drawer-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/drawer.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/drawer-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { buttonStyles } from \"@/components/ui/preskok-ui/button\"\nimport { Drawer } from \"@/components/ui/preskok-ui/drawer\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\nimport { Input } from \"@/components/ui/preskok-ui/input\"\nimport { TextField } from \"@/components/ui/preskok-ui/text-field\"\n\nexport default function DrawerPreskokDemo() {\n  return (\n    <Drawer>\n      <Drawer.Trigger className={buttonStyles({ intent: \"outline\" })}>\n        Schedule Test Drive\n      </Drawer.Trigger>\n      <Drawer.Content>\n        <Drawer.Header>\n          <Drawer.Title>Schedule Test Drive</Drawer.Title>\n          <Drawer.Description>\n            Book your test drive experience with our latest vehicle models.\n          </Drawer.Description>\n        </Drawer.Header>\n        <Drawer.Body className=\"space-y-4\">\n          <TextField type=\"text\">\n            <Label>Full Name</Label>\n            <Input placeholder=\"John Smith\" />\n          </TextField>\n          <TextField type=\"tel\">\n            <Label>Phone Number</Label>\n            <Input placeholder=\"+1 (555) 123-4567\" />\n          </TextField>\n        </Drawer.Body>\n        <Drawer.Footer>\n          <Drawer.Close className=\"w-full\">Book Test Drive</Drawer.Close>\n        </Drawer.Footer>\n      </Drawer.Content>\n    </Drawer>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

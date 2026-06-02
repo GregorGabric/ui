@@ -3,11 +3,11 @@
 import { ChevronUpIcon } from "lucide-react"
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Sidebar,
   SidebarContent,
@@ -25,28 +25,23 @@ export default function AppSidebar() {
         <SidebarHeader />
         <SidebarContent />
         <SidebarFooter>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium">
-                Username
-                <ChevronUpIcon className="ml-auto" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              side="top"
-              className="w-(--radix-popper-anchor-width)"
-            >
-              <DropdownMenuItem>
+          <Menu>
+            <MenuTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground group-open/menu:bg-sidebar-accent group-open/menu:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium">
+              Username
+              <ChevronUpIcon className="ml-auto" />
+            </MenuTrigger>
+            <MenuContent placement="top" className="min-w-(--trigger-width)">
+              <MenuItem id="account">
                 <span>Account</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </MenuItem>
+              <MenuItem id="billing">
                 <span>Billing</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </MenuItem>
+              <MenuItem id="sign-out">
                 <span>Sign out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </MenuItem>
+            </MenuContent>
+          </Menu>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>

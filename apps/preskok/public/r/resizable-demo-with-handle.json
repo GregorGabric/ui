@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "resizable-demo-with-handle",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/resizable-demo-with-handle.tsx",
+      "content": "\"use client\"\n\nimport { Card, CardContent } from \"@/components/ui/preskok-ui/card\"\n\nexport default function ResizableDemoWithHandle() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"text-center\">\n        <h3 className=\"text-lg font-semibold\">Vehicle Comparison Layout</h3>\n        <p className=\"text-muted-foreground text-sm\">\n          Resize the panels to compare different vehicles side by side\n        </p>\n      </div>\n\n      <div className=\"flex h-64 gap-2\">\n        <Card className=\"min-w-0 flex-1\">\n          <CardContent className=\"p-4\">\n            <div className=\"space-y-2\">\n              <h4 className=\"font-medium\">2024 Toyota Camry</h4>\n              <div className=\"space-y-1 text-sm\">\n                <p>Price: $28,400</p>\n                <p>MPG: 32/41</p>\n                <p>Engine: 2.5L 4-Cyl</p>\n                <p>Safety: 5-Star</p>\n              </div>\n            </div>\n          </CardContent>\n        </Card>\n\n        <div className=\"bg-border hover:bg-primary/50 w-1 cursor-col-resize transition-colors\" />\n\n        <Card className=\"min-w-0 flex-1\">\n          <CardContent className=\"p-4\">\n            <div className=\"space-y-2\">\n              <h4 className=\"font-medium\">2024 Honda Accord</h4>\n              <div className=\"space-y-1 text-sm\">\n                <p>Price: $26,800</p>\n                <p>MPG: 48/47</p>\n                <p>Engine: 2.0L Hybrid</p>\n                <p>Safety: 5-Star</p>\n              </div>\n            </div>\n          </CardContent>\n        </Card>\n      </div>\n\n      <p className=\"text-muted-foreground text-center text-xs\">\n        Note: This is a visual representation. Real resizable panels would\n        require additional dependencies.\n      </p>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

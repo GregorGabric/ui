@@ -2,17 +2,16 @@
 
 import { cn } from "@/lib/utils"
 import { useThemeConfig } from "@/components/active-theme"
-import { Label } from "@/registry/preskok/ui/label"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectLabel,
+  SelectSection,
   SelectSeparator,
   SelectTrigger,
-  SelectValue,
-} from "@/registry/preskok/ui/select"
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 const DEFAULT_THEMES = [
   {
@@ -68,40 +67,40 @@ export function ThemeSelector({ className }: React.ComponentProps<"div">) {
       <Label htmlFor="theme-selector" className="sr-only">
         Theme
       </Label>
-      <Select value={activeTheme} onValueChange={setActiveTheme}>
+      <Select
+        selectedKey={activeTheme}
+        onSelectionChange={(key) => setActiveTheme(String(key))}
+      >
         <SelectTrigger
           id="theme-selector"
-          size="sm"
           className="bg-secondary text-secondary-foreground border-secondary justify-start shadow-none *:data-[slot=select-value]:w-12"
-        >
-          <span className="font-medium">Theme:</span>
-          <SelectValue placeholder="Select a theme" />
-        </SelectTrigger>
-        <SelectContent align="end">
-          <SelectGroup>
+          prefix={<span className="font-medium">Theme:</span>}
+        />
+        <SelectContent popover={{ placement: "bottom end" }}>
+          <SelectSection>
             {DEFAULT_THEMES.map((theme) => (
               <SelectItem
                 key={theme.name}
-                value={theme.value}
-                className="data-[state=checked]:opacity-50"
+                id={theme.value}
+                className="selected:opacity-50"
               >
-                {theme.name}
+                <SelectLabel>{theme.name}</SelectLabel>
               </SelectItem>
             ))}
-          </SelectGroup>
+          </SelectSection>
           <SelectSeparator />
-          <SelectGroup>
+          <SelectSection>
             <SelectLabel>Colors</SelectLabel>
             {COLOR_THEMES.map((theme) => (
               <SelectItem
                 key={theme.name}
-                value={theme.value}
-                className="data-[state=checked]:opacity-50"
+                id={theme.value}
+                className="selected:opacity-50"
               >
-                {theme.name}
+                <SelectLabel>{theme.name}</SelectLabel>
               </SelectItem>
             ))}
-          </SelectGroup>
+          </SelectSection>
         </SelectContent>
       </Select>
     </div>

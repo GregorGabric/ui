@@ -8,7 +8,7 @@ import { ActiveThemeProvider } from "@/components/active-theme"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/registry/preskok/ui/sonner"
+import { Toast } from "@/registry/preskok/ui/preskok-ui/toast"
 
 import "@/styles/globals.css"
 
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
   description: siteConfig.description,
-  keywords: ["Next.js", "React", "Tailwind CSS", "Components", "shadcn"],
+  keywords: ["Next.js", "React", "Tailwind CSS", "Components", "Preskok UI"],
   authors: [
     {
-      name: "shadcn",
-      url: "https://shadcn.com",
+      name: "Preskok",
+      url: siteConfig.url,
     },
   ],
-  creator: "shadcn",
+  creator: "Preskok",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${process.env.NEXT_PUBLIC_APP_URL}/opengraph-image.png`],
-    creator: "@shadcn",
+    creator: "@preskok",
   },
   icons: {
     icon: "/favicon.ico",
@@ -93,7 +93,7 @@ export default function RootLayout({
             <ActiveThemeProvider>
               {children}
               <TailwindIndicator />
-              <Toaster position="top-center" />
+              <Toast position="top-center" />
               <Analytics />
             </ActiveThemeProvider>
           </LayoutProvider>

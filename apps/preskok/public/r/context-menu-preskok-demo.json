@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "context-menu-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/context-menu.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/context-menu-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuTrigger,\n} from \"@/components/ui/preskok-ui/context-menu\"\n\nexport default function ContextMenuPreskokDemo() {\n  return (\n    <ContextMenu>\n      <ContextMenuTrigger className=\"grid h-28 w-56 place-content-center rounded-lg border-2 border-dashed\">\n        Right click me\n      </ContextMenuTrigger>\n      <ContextMenuContent className=\"min-w-56\">\n        <ContextMenuItem>Back</ContextMenuItem>\n        <ContextMenuItem isDisabled>Forward</ContextMenuItem>\n        <ContextMenuItem>Reload</ContextMenuItem>\n        <ContextMenuSeparator />\n        <ContextMenuItem>Bookmark</ContextMenuItem>\n        <ContextMenuItem>Save as</ContextMenuItem>\n        <ContextMenuItem>\n          Select all\n          <ContextMenuShortcut keys=\"⌘A\" />\n        </ContextMenuItem>\n        <ContextMenuSeparator />\n        <ContextMenuItem>View source</ContextMenuItem>\n        <ContextMenuItem>Inspect Accessibility</ContextMenuItem>\n        <ContextMenuItem>Inspect</ContextMenuItem>\n      </ContextMenuContent>\n    </ContextMenu>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

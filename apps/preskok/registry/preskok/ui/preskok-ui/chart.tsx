@@ -13,12 +13,13 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   type ToggleButtonGroupProps,
-} from "react-aria-components"
+} from "react-aria-components/ToggleButtonGroup"
 import type {
   CartesianGridProps as CartesianGridPrimitiveProps,
   CartesianGridProps,
   LegendPayload,
   LegendProps,
+  TooltipProps as TooltipPrimitiveProps,
   XAxisProps as XAxisPropsPrimitive,
   YAxisProps as YAxisPrimitiveProps,
 } from "recharts"
@@ -56,6 +57,8 @@ type ChartConfig = {
   )
 }
 
+type ChartDatum = Record<string, unknown>
+
 const CHART_COLORS = {
   "chart-1": "var(--chart-1)",
   "chart-2": "var(--chart-2)",
@@ -80,7 +83,7 @@ const DEFAULT_COLORS = [
 
 type ChartContextProps = {
   config: ChartConfig
-  data?: Record<string, any>[]
+  data?: ChartDatum[]
   layout: ChartLayout
   dataKey?: string
   selectedLegend: string | null
@@ -178,7 +181,7 @@ interface BaseChartProps<
   TName extends NameType,
 > extends React.HTMLAttributes<HTMLDivElement> {
   config: ChartConfig
-  data: Record<string, any>[]
+  data: ChartDatum[]
   dataKey: string
   colors?: readonly (ChartColorKeys | (string & {}))[]
   type?: ChartType
@@ -186,8 +189,8 @@ interface BaseChartProps<
   layout?: ChartLayout
   valueFormatter?: (value: number) => string
 
-  tooltip?: TooltipContentType<TValue, TName> | boolean
-  tooltipProps?: Omit<ChartTooltipProps<TValue, TName>, "content"> & {
+  tooltip?: TooltipContentType<ValueType, NameType> | boolean
+  tooltipProps?: Omit<ChartTooltipProps, "content"> & {
     hideLabel?: boolean
     labelSeparator?: boolean
     hideIndicator?: boolean
@@ -272,7 +275,12 @@ const Chart = ({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer
+          width="100%"
+          height="100%"
+          minWidth={0}
+          initialDimension={{ width: 1, height: 1 }}
+        >
           {typeof children === "function" ? children(value) : children}
         </ResponsiveContainer>
       </div>
@@ -314,14 +322,9 @@ ${colorConfig
   )
 }
 
-type ChartTooltipProps<
-  TValue extends ValueType,
-  TName extends NameType,
-> = React.ComponentProps<typeof TooltipPrimitive<TValue, TName>>
+type ChartTooltipProps = TooltipPrimitiveProps<ValueType, NameType>
 
-const ChartTooltip = <TValue extends ValueType, TName extends NameType>(
-  props: ChartTooltipProps<TValue, TName>
-) => {
+const ChartTooltip = (props: ChartTooltipProps) => {
   const { layout } = useChart()
 
   return (
@@ -365,10 +368,17 @@ const XAxis = ({
 }: XAxisProps) => {
   const { dataKey, data, layout } = useChart()
 
-  const ticks =
-    displayEdgeLabelsOnly && data?.length && dataKey
-      ? [data[0]?.[dataKey], data[data.length - 1]?.[dataKey]]
-      : undefined
+  let ticks: Array<string | number> | undefined
+  if (displayEdgeLabelsOnly && data?.length && dataKey) {
+    const firstTick = data[0]?.[dataKey]
+    const lastTick = data[data.length - 1]?.[dataKey]
+    if (
+      (typeof firstTick === "string" || typeof firstTick === "number") &&
+      (typeof lastTick === "string" || typeof lastTick === "number")
+    ) {
+      ticks = [firstTick, lastTick]
+    }
+  }
 
   const tick = {
     transform: layout === "horizontal" ? "translate(32, 6)" : undefined,
@@ -608,7 +618,7 @@ type ChartLegendContentProps = ToggleButtonGroupProps &
     payload?: ReadonlyArray<LegendPayload>
     hideIcon?: boolean
     nameKey?: string
-    ref?: React.Ref<any>
+    ref?: React.Ref<HTMLDivElement>
   }
 
 const ChartLegendContent = ({
@@ -686,6 +696,7 @@ export type {
   BaseChartProps,
   ChartColorKeys,
   ChartConfig,
+  ChartDatum,
   ChartLayout,
   ChartLegendContentProps,
   ChartLegendProps,

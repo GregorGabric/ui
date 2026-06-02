@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-basic-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/text-basic-demo.tsx",
+      "content": "import { Text } from \"@/components/ui/preskok-ui/text\"\n\nexport default function TextBasicDemo() {\n  return <Text>The quick brown fox jumps over the lazy dog</Text>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

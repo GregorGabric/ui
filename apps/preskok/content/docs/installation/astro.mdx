@@ -1,6 +1,6 @@
 ---
 title: Astro
-description: Install and configure @preskok-org/ui for Astro
+description: Install and configure Preskok UI for Astro
 ---
 
 <Steps>
@@ -34,10 +34,10 @@ Add the following code to the `tsconfig.json` file to resolve paths:
 
 ### Run the CLI
 
-Run the `shadcn` init command to setup your project:
+Run the Preskok base init command to setup your project:
 
 ```bash
-npx @preskok-org/ui@latest init
+npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
 ```
 
 ### Add Components
@@ -45,14 +45,14 @@ npx @preskok-org/ui@latest init
 You can now start adding components to your project.
 
 ```bash
-npx @preskok-org/ui@latest add button
+npx shadcn@latest add @preskok/button
 ```
 
 The command above will add the `Button` component to your project. You can then import it like this:
 
 ```astro title="src/pages/index.astro" {2,16} showLineNumbers
 ---
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/preskok-ui/button"
 ---
 
 <html lang="en">

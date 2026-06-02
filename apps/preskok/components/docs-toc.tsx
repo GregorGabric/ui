@@ -4,13 +4,11 @@ import * as React from "react"
 import { IconMenu3 } from "@tabler/icons-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Popover,
+  PopoverContent,
+} from "@/registry/preskok/ui/preskok-ui/popover"
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null)
@@ -61,10 +59,7 @@ export function DocsTableOfContents({
   className?: string
 }) {
   const [open, setOpen] = React.useState(false)
-  const itemIds = React.useMemo(
-    () => toc.map((item) => item.url.replace("#", "")),
-    [toc]
-  )
+  const itemIds = toc.map((item) => item.url.replace("#", ""))
   const activeHeading = useActiveItem(itemIds)
 
   if (!toc?.length) {
@@ -73,35 +68,33 @@ export function DocsTableOfContents({
 
   if (variant === "dropdown") {
     return (
-      <DropdownMenu open={open} onOpenChange={setOpen}>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn("h-8 md:h-7", className)}
-          >
-            <IconMenu3 /> On This Page
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="start"
-          className="no-scrollbar max-h-[70svh]"
+      <Popover isOpen={open} onOpenChange={setOpen}>
+        <Button
+          intent="outline"
+          size="sm"
+          className={cn("h-8 md:h-7", className)}
+        >
+          <IconMenu3 /> On This Page
+        </Button>
+        <PopoverContent
+          placement="bottom start"
+          className="no-scrollbar flex max-h-[70svh] flex-col gap-1 overflow-y-auto p-1"
         >
           {toc.map((item) => (
-            <DropdownMenuItem
+            <a
               key={item.url}
-              asChild
               onClick={() => {
                 setOpen(false)
               }}
               data-depth={item.depth}
-              className="data-[depth=3]:pl-6 data-[depth=4]:pl-8"
+              className="hover:bg-secondary text-muted-foreground hover:text-foreground rounded-md px-2 py-1.5 text-sm data-[depth=3]:pl-6 data-[depth=4]:pl-8"
+              href={item.url}
             >
-              <a href={item.url}>{item.title}</a>
-            </DropdownMenuItem>
+              {item.title}
+            </a>
           ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </PopoverContent>
+      </Popover>
     )
   }
 

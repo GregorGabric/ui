@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-orientation-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/button-group.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/button-group-orientation-demo.tsx",
+      "content": "\"use client\"\n\nimport { Volume2Icon, VolumeXIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport { ButtonGroup } from \"@/components/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupOrientationDemo() {\n  return (\n    <ButtonGroup orientation=\"vertical\">\n      <Button intent=\"secondary\">\n        <Volume2Icon />\n      </Button>\n      <Button intent=\"secondary\">\n        <VolumeXIcon />\n      </Button>\n    </ButtonGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

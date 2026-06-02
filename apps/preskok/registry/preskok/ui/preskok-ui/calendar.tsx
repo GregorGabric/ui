@@ -12,7 +12,7 @@ import type {
   CalendarProps as CalendarPrimitiveProps,
   CalendarState,
   DateValue,
-} from "react-aria-components"
+} from "react-aria-components/Calendar"
 import {
   CalendarCell,
   CalendarGrid,
@@ -21,10 +21,10 @@ import {
   CalendarHeaderCell,
   Calendar as CalendarPrimitive,
   CalendarStateContext,
-  composeRenderProps,
   Heading,
-  useLocale,
-} from "react-aria-components"
+} from "react-aria-components/Calendar"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
+import { useLocale } from "react-aria-components/I18nProvider"
 import { twMerge } from "tailwind-merge"
 
 import { Button } from "./button"
@@ -35,6 +35,8 @@ import {
   SelectLabel,
   SelectTrigger,
 } from "./select"
+
+type CalendarSelectionMode = "single" | "multiple"
 
 interface CalendarProps<T extends DateValue> extends Omit<
   CalendarPrimitiveProps<T>,
@@ -154,7 +156,11 @@ const CalendarHeader = ({
   )
 }
 
-const SelectMonth = ({ state }: { state: CalendarState }) => {
+const SelectMonth = ({
+  state,
+}: {
+  state: CalendarState<CalendarSelectionMode>
+}) => {
   const months = []
 
   const formatter = useDateFormatter({
@@ -193,7 +199,11 @@ const SelectMonth = ({ state }: { state: CalendarState }) => {
   )
 }
 
-const SelectYear = ({ state }: { state: CalendarState }) => {
+const SelectYear = ({
+  state,
+}: {
+  state: CalendarState<CalendarSelectionMode>
+}) => {
   const years: { value: CalendarDate; formatted: string }[] = []
   const formatter = useDateFormatter({
     year: "numeric",

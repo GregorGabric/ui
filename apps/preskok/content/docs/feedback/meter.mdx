@@ -19,7 +19,7 @@ description: A meter component for displaying scalar values within a range.
 <TabsContent id="cli">
 
 ```bash
-npx @preskok-org/ui@latest add meter
+npx shadcn@latest add @preskok/meter
 ```
 
 </TabsContent>
@@ -46,7 +46,7 @@ npx @preskok-org/ui@latest add meter
 ## Usage
 
 ```tsx
-import { Meter } from "@/registry/preskok/ui/preskok-ui/meter"
+import { Meter } from "@/components/ui/preskok-ui/meter"
 
 export function MeterDemo() {
   return <Meter label="Storage" value={64} minValue={0} maxValue={100} />

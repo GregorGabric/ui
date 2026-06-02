@@ -9,26 +9,23 @@ import {
   useState,
 } from "react"
 import { ChevronDownIcon } from "lucide-react"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   ButtonProps,
   DisclosureGroupProps,
   DisclosurePanelProps,
   DisclosureProps,
-  LinkProps,
-  LinkRenderProps,
-  SeparatorProps as SidebarSeparatorProps,
-} from "react-aria-components"
+} from "react-aria-components/DisclosureGroup"
 import {
-  composeRenderProps,
   Disclosure,
   DisclosureGroup,
   DisclosurePanel,
-  Header,
   Heading,
-  Separator,
-  Text,
   Button as Trigger,
-} from "react-aria-components"
+} from "react-aria-components/DisclosureGroup"
+import type { LinkProps, LinkRenderProps } from "react-aria-components/Link"
+import { Header, Separator, Text } from "react-aria-components/Menu"
+import type { SeparatorProps as SidebarSeparatorProps } from "react-aria-components/Separator"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -501,7 +498,7 @@ const SidebarItem = ({
 }
 
 interface SidebarLinkProps extends LinkProps {
-  ref?: React.Ref<HTMLAnchorElement>
+  ref?: React.RefObject<HTMLAnchorElement>
 }
 
 const SidebarLink = ({ className, ref, ...props }: SidebarLinkProps) => {

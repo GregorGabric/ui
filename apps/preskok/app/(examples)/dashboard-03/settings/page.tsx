@@ -33,10 +33,10 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
+  TableColumn as TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/preskok/ui/table"
+} from "@/registry/preskok/ui/preskok-ui/table"
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -356,13 +356,11 @@ export default function SettingsPage() {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="hidden @md/page:table-cell">
-                      IP
-                    </TableHead>
-                    <TableHead>Location</TableHead>
-                  </TableRow>
+                  <TableHead isRowHeader>Date</TableHead>
+                  <TableHead className="hidden @md/page:table-cell">
+                    IP
+                  </TableHead>
+                  <TableHead>Location</TableHead>
                 </TableHeader>
                 <TableBody>
                   {loginHistory.map((login) => (
@@ -407,11 +405,9 @@ export default function SettingsPage() {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Device</TableHead>
-                    <TableHead>Browser</TableHead>
-                    <TableHead>OS</TableHead>
-                  </TableRow>
+                  <TableHead isRowHeader>Device</TableHead>
+                  <TableHead>Browser</TableHead>
+                  <TableHead>OS</TableHead>
                 </TableHeader>
                 <TableBody>
                   {activeSessions.map((session) => (

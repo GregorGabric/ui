@@ -2,6 +2,8 @@
 
 import { buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import { Drawer } from "@/registry/preskok/ui/preskok-ui/drawer"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 export default function DrawerPreskokDemo() {
@@ -18,12 +20,14 @@ export default function DrawerPreskokDemo() {
           </Drawer.Description>
         </Drawer.Header>
         <Drawer.Body className="space-y-4">
-          <TextField label="Full Name" type="text" placeholder="John Smith" />
-          <TextField
-            label="Phone Number"
-            type="tel"
-            placeholder="+1 (555) 123-4567"
-          />
+          <TextField type="text">
+            <Label>Full Name</Label>
+            <Input placeholder="John Smith" />
+          </TextField>
+          <TextField type="tel">
+            <Label>Phone Number</Label>
+            <Input placeholder="+1 (555) 123-4567" />
+          </TextField>
         </Drawer.Body>
         <Drawer.Footer>
           <Drawer.Close className="w-full">Book Test Drive</Drawer.Close>

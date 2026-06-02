@@ -2,12 +2,10 @@
 
 import { useEffect, useRef } from "react"
 import { XIcon } from "lucide-react"
-import type { HeadingProps, TextProps } from "react-aria-components"
-import {
-  Heading,
-  Button as PrimitiveButton,
-  Dialog as PrimitiveDialog,
-} from "react-aria-components"
+import { Button as PrimitiveButton } from "react-aria-components/Button"
+import { Dialog as PrimitiveDialog } from "react-aria-components/Dialog"
+import { Heading, type HeadingProps } from "react-aria-components/Heading"
+import { type TextProps } from "react-aria-components/Text"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -119,7 +117,7 @@ const DialogDescription = ({
   />
 )
 
-interface DialogBodyProps extends React.ComponentProps<"div"> {}
+type DialogBodyProps = React.ComponentProps<"div">
 const DialogBody = ({ className, ref, ...props }: DialogBodyProps) => (
   <div
     data-slot="dialog-body"
@@ -133,7 +131,7 @@ const DialogBody = ({ className, ref, ...props }: DialogBodyProps) => (
   />
 )
 
-interface DialogFooterProps extends React.ComponentProps<"div"> {}
+type DialogFooterProps = React.ComponentProps<"div">
 const DialogFooter = ({ className, ...props }: DialogFooterProps) => {
   const footerRef = useRef<HTMLDivElement>(null)
 

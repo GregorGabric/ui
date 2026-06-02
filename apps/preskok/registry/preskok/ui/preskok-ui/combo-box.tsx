@@ -6,14 +6,14 @@ import type {
   InputProps,
   ListBoxProps,
   PopoverProps,
-} from "react-aria-components"
+} from "react-aria-components/ComboBox"
 import {
   Button,
   ComboBoxContext,
   ComboBox as ComboboxPrimitive,
   ListBox,
-  useSlottedContext,
-} from "react-aria-components"
+} from "react-aria-components/ComboBox"
+import { useSlottedContext } from "react-aria-components/slots"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 import { fieldStyles } from "@/registry/preskok/ui/preskok-ui/field"

@@ -2,6 +2,8 @@
 
 import { buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import { Drawer } from "@/registry/preskok/ui/preskok-ui/drawer"
+import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 export default function DrawerDemo() {
@@ -18,22 +20,18 @@ export default function DrawerDemo() {
           </Drawer.Description>
         </Drawer.Header>
         <Drawer.Body className="space-y-4">
-          <TextField
-            label="Full Name"
-            placeholder="Enter your full name"
-            isRequired
-          />
-          <TextField
-            label="Email Address"
-            type="email"
-            placeholder="your.email@example.com"
-            isRequired
-          />
-          <TextField
-            label="Phone Number"
-            type="tel"
-            placeholder="+1 (555) 123-4567"
-          />
+          <TextField isRequired>
+            <Label>Full Name</Label>
+            <Input placeholder="Enter your full name" />
+          </TextField>
+          <TextField type="email" isRequired>
+            <Label>Email Address</Label>
+            <Input placeholder="your.email@example.com" />
+          </TextField>
+          <TextField type="tel">
+            <Label>Phone Number</Label>
+            <Input placeholder="+1 (555) 123-4567" />
+          </TextField>
           <div className="bg-muted rounded p-3">
             <h4 className="text-sm font-medium">Vehicle of Interest</h4>
             <p className="text-muted-foreground text-sm">

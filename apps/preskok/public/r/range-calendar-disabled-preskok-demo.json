@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "range-calendar-disabled-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/range-calendar.json",
+    "https://ui-three-mu.vercel.app/r/calendar.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/range-calendar-disabled-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport { RangeCalendar } from \"@/components/ui/preskok-ui/range-calendar\"\n\nexport default function RangeCalendarDisabledPreskokDemo() {\n  return (\n    <RangeCalendar\n      defaultValue={{\n        start: parseDate(\"2026-05-03\"),\n        end: parseDate(\"2026-05-08\"),\n      }}\n      isDisabled\n      aria-label=\"Disabled trip dates\"\n    />\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

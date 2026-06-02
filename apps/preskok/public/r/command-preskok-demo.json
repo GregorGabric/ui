@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "command-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/command.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/command-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  CalendarIcon,\n  FileIcon,\n  SettingsIcon,\n  SmileIcon,\n  UserIcon,\n} from \"lucide-react\"\n\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandSeparator,\n} from \"@/components/ui/preskok-ui/command\"\n\nexport default function CommandPreskokDemo() {\n  return (\n    <Command className=\"rounded-lg border shadow-md\">\n      <CommandInput placeholder=\"Type a command or search...\" />\n      <CommandList>\n        <CommandEmpty>No results found.</CommandEmpty>\n        <CommandGroup heading=\"Suggestions\">\n          <CommandItem>\n            <CalendarIcon className=\"mr-2 size-4\" />\n            <span>Calendar</span>\n          </CommandItem>\n          <CommandItem>\n            <SmileIcon className=\"mr-2 size-4\" />\n            <span>Search Emoji</span>\n          </CommandItem>\n        </CommandGroup>\n        <CommandSeparator />\n        <CommandGroup heading=\"Settings\">\n          <CommandItem>\n            <UserIcon className=\"mr-2 size-4\" />\n            <span>Profile</span>\n          </CommandItem>\n          <CommandItem>\n            <FileIcon className=\"mr-2 size-4\" />\n            <span>Documents</span>\n          </CommandItem>\n          <CommandItem>\n            <SettingsIcon className=\"mr-2 size-4\" />\n            <span>Settings</span>\n          </CommandItem>\n        </CommandGroup>\n      </CommandList>\n    </Command>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

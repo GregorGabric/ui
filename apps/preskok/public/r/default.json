@@ -1,0 +1,282 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "extends": "none",
+  "name": "default",
+  "dependencies": [
+    "class-variance-authority",
+    "lucide-react",
+    "tailwindcss-react-aria-components"
+  ],
+  "devDependencies": [
+    "tw-animate-css"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/utils.json",
+    "https://ui-three-mu.vercel.app/r/create-ctx.json",
+    "https://ui-three-mu.vercel.app/r/primitive.json"
+  ],
+  "files": [],
+  "tailwind": {
+    "config": {
+      "plugins": [
+        "require(\"tailwindcss-react-aria-components\")"
+      ]
+    }
+  },
+  "cssVars": {
+    "theme": {
+      "breakpoint-3xl": "1600px",
+      "breakpoint-4xl": "2000px",
+      "font-sans": "\"Inter\", ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "font-mono": "\"Geist Mono\", \"ui-monospace\", \"SFMono-Regular\", \"Menlo\", \"Monaco\", \"Consolas\", '\"Liberation Mono\"', '\"Courier New\"', \"monospace\"",
+      "color-shiki-background": "var(--shiki-background)",
+      "color-shiki-border": "var(--input)",
+      "color-border": "var(--border)",
+      "color-input": "var(--input)",
+      "color-ring": "var(--ring)",
+      "color-background": "var(--background)",
+      "color-foreground": "var(--foreground)",
+      "color-primary": "var(--primary)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-accent": "var(--accent)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-success": "var(--success)",
+      "color-success-foreground": "var(--success-foreground)",
+      "color-danger": "var(--danger)",
+      "color-danger-foreground": "var(--danger-foreground)",
+      "color-warning": "var(--warning)",
+      "color-warning-foreground": "var(--warning-foreground)",
+      "color-muted": "var(--muted)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-card": "var(--card)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-popover": "var(--popover)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-destructive": "var(--destructive)",
+      "color-destructive-foreground": "var(--destructive-foreground)",
+      "color-overlay": "var(--overlay)",
+      "color-overlay-foreground": "var(--overlay-foreground)",
+      "color-navbar": "var(--navbar)",
+      "color-navbar-foreground": "var(--navbar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-chart-1": "var(--chart-1)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-5": "var(--chart-5)",
+      "color-surface": "var(--surface)",
+      "color-surface-foreground": "var(--surface-foreground)",
+      "color-code": "var(--code)",
+      "color-code-foreground": "var(--code-foreground)",
+      "color-code-highlight": "var(--code-highlight)",
+      "color-code-number": "var(--code-number)",
+      "color-selection": "var(--selection)",
+      "color-selection-foreground": "var(--selection-foreground)",
+      "animate-blink": "blink 1.4s both infinite",
+      "radius-lg": "0.5rem",
+      "radius": "var(--radius-lg)",
+      "radius-xs": "calc(var(--radius-lg) * 0.5)",
+      "radius-sm": "calc(var(--radius-lg) * 0.75)",
+      "radius-md": "calc(var(--radius-lg) * 0.9)",
+      "radius-xl": "calc(var(--radius-lg) * 1.25)",
+      "radius-2xl": "calc(var(--radius-lg) * 1.5)",
+      "radius-3xl": "calc(var(--radius-lg) * 2)",
+      "radius-4xl": "calc(var(--radius-lg) * 3)"
+    }
+  },
+  "css": {
+    "@plugin \"tailwindcss-react-aria-components\"": {},
+    "@keyframes blink": {
+      "0%": {
+        "opacity": "0.2"
+      },
+      "20%": {
+        "opacity": "1"
+      },
+      "100%": {
+        "opacity": "0.2"
+      }
+    },
+    ":root": {
+      "--background": "oklch(1 0 0)",
+      "--shiki-background": "#ffffff",
+      "--shiki-light": "#000000",
+      "--foreground": "oklch(0.147 0.004 49.25)",
+      "--primary": "oklch(0.546 0.245 262.881)",
+      "--primary-foreground": "oklch(1 0 0)",
+      "--secondary": "oklch(0.923 0.003 48.717)",
+      "--secondary-foreground": "oklch(0.147 0.004 49.25)",
+      "--overlay": "oklch(1 0 0)",
+      "--overlay-foreground": "oklch(0.147 0.004 49.25)",
+      "--accent": "oklch(92% 0.004 286.32)",
+      "--accent-foreground": "oklch(14.1% 0.005 285.823)",
+      "--muted": "oklch(0.97 0.001 106.424)",
+      "--muted-foreground": "oklch(0.553 0.013 58.071)",
+      "--success": "oklch(0.596 0.145 163.225)",
+      "--success-foreground": "oklch(1 0 0)",
+      "--warning": "oklch(0.828 0.189 84.429)",
+      "--warning-foreground": "oklch(0.279 0.077 45.635)",
+      "--danger": "oklch(0.577 0.245 27.325)",
+      "--danger-foreground": "oklch(0.971 0.013 17.38)",
+      "--destructive": "oklch(0.577 0.245 27.325)",
+      "--destructive-foreground": "oklch(0.971 0.013 17.38)",
+      "--card": "oklch(1 0 0)",
+      "--card-foreground": "oklch(0.141 0.005 285.823)",
+      "--popover": "oklch(1 0 0)",
+      "--popover-foreground": "oklch(0.141 0.005 285.823)",
+      "--border": "oklch(0.909 0.005 56.366)",
+      "--input": "oklch(0.869 0.005 56.366)",
+      "--ring": "oklch(0.546 0.245 262.881)",
+      "--navbar": "oklch(0.995 0.001 106.423)",
+      "--navbar-foreground": "oklch(0.147 0.004 49.25)",
+      "--sidebar": "oklch(0.97 0.001 106.424)",
+      "--sidebar-foreground": "oklch(0.147 0.004 49.25)",
+      "--sidebar-primary": "oklch(0.92 0.004 56)",
+      "--sidebar-primary-foreground": "oklch(0.147 0.004 49.25)",
+      "--sidebar-accent": "oklch(0.92 0.004 56)",
+      "--sidebar-accent-foreground": "oklch(0.147 0.004 49.25)",
+      "--sidebar-border": "oklch(0.911 0.005 56.366)",
+      "--sidebar-ring": "oklch(0.65 0.01 56)",
+      "--radius-lg": "0.5rem",
+      "--radius": "var(--radius-lg)",
+      "--radius-xs": "calc(var(--radius-lg) * 0.5)",
+      "--radius-sm": "calc(var(--radius-lg) * 0.75)",
+      "--radius-md": "calc(var(--radius-lg) * 0.9)",
+      "--radius-xl": "calc(var(--radius-lg) * 1.25)",
+      "--radius-2xl": "calc(var(--radius-lg) * 1.5)",
+      "--radius-3xl": "calc(var(--radius-lg) * 2)",
+      "--radius-4xl": "calc(var(--radius-lg) * 3)",
+      "--chart-1": "oklch(0.546 0.245 262.881)",
+      "--chart-2": "oklch(0.707 0.165 254.624)",
+      "--chart-3": "oklch(0.809 0.105 251.813)",
+      "--chart-4": "oklch(0.882 0.059 254.128)",
+      "--chart-5": "oklch(0.932 0.032 255.585)",
+      "--surface": "oklch(0.98 0 0)",
+      "--surface-foreground": "var(--foreground)",
+      "--code": "var(--surface)",
+      "--code-foreground": "var(--surface-foreground)",
+      "--code-highlight": "oklch(0.96 0 0)",
+      "--code-number": "oklch(0.56 0 0)",
+      "--selection": "oklch(0.145 0 0)",
+      "--selection-foreground": "oklch(1 0 0)",
+      "--font-sans": "\"Inter\", ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "--font-mono": "\"Geist Mono\", \"ui-monospace\", \"SFMono-Regular\", \"Menlo\", \"Monaco\", \"Consolas\", '\"Liberation Mono\"', '\"Courier New\"', \"monospace\""
+    },
+    ".dark": {
+      "--ring": "oklch(0.546 0.245 262.881)",
+      "--shiki-background": "#09090b",
+      "--shiki-dark": "var(--shiki-background)",
+      "--background": "oklch(0.097 0.004 49.25)",
+      "--foreground": "oklch(0.985 0.001 106.423)",
+      "--primary": "oklch(0.546 0.245 262.881)",
+      "--primary-foreground": "oklch(1 0 0)",
+      "--secondary": "oklch(0.238 0.007 34.298)",
+      "--secondary-foreground": "oklch(0.985 0.001 106.423)",
+      "--accent": "oklch(0.546 0.245 262.881)",
+      "--accent-foreground": "oklch(1 0 0)",
+      "--muted": "oklch(0.216 0.006 56.043)",
+      "--muted-foreground": "oklch(0.709 0.01 56.259)",
+      "--overlay": "oklch(0.186 0.006 56.043)",
+      "--overlay-foreground": "oklch(0.985 0.001 106.423)",
+      "--success": "oklch(0.596 0.145 163.225)",
+      "--success-foreground": "oklch(1 0 0)",
+      "--warning": "oklch(0.828 0.189 84.429)",
+      "--warning-foreground": "oklch(0.279 0.077 45.635)",
+      "--danger": "oklch(0.577 0.245 27.325)",
+      "--danger-foreground": "oklch(0.971 0.013 17.38)",
+      "--destructive": "oklch(0.577 0.245 27.325)",
+      "--destructive-foreground": "oklch(0.971 0.013 17.38)",
+      "--card": "oklch(0.191 0.005 285.823)",
+      "--card-foreground": "oklch(0.985 0 0)",
+      "--popover": "oklch(0.21 0.006 285.885)",
+      "--popover-foreground": "oklch(0.985 0 0)",
+      "--border": "oklch(0.274 0.01 67.558)",
+      "--input": "oklch(0.324 0.01 67.558)",
+      "--navbar": "oklch(0.196 0.006 56.043)",
+      "--navbar-foreground": "oklch(0.985 0.001 106.423)",
+      "--sidebar": "oklch(0.166 0.006 56.043)",
+      "--sidebar-foreground": "oklch(0.985 0.001 106.423)",
+      "--sidebar-primary": "oklch(0.238 0.007 56)",
+      "--sidebar-primary-foreground": "oklch(0.985 0.001 106.423)",
+      "--sidebar-accent": "oklch(0.238 0.007 56)",
+      "--sidebar-accent-foreground": "oklch(0.985 0.001 106.423)",
+      "--sidebar-border": "oklch(0.274 0.01 67.558)",
+      "--sidebar-ring": "oklch(0.55 0.01 56)",
+      "--chart-1": "oklch(0.488 0.243 264.376)",
+      "--chart-2": "oklch(0.623 0.214 259.815)",
+      "--chart-3": "oklch(0.707 0.165 254.624)",
+      "--chart-4": "oklch(0.809 0.105 251.813)",
+      "--chart-5": "oklch(0.882 0.059 254.128)",
+      "--code": "var(--surface)",
+      "--code-foreground": "var(--surface-foreground)",
+      "--code-highlight": "oklch(0.27 0 0)",
+      "--code-number": "oklch(0.72 0 0)",
+      "--selection": "oklch(0.922 0 0)",
+      "--selection-foreground": "oklch(0.205 0 0)",
+      "--surface": "oklch(0.2 0 0)",
+      "--surface-foreground": "oklch(0.708 0 0)"
+    },
+    "@layer base": {
+      "*, ::after, ::before, ::backdrop, ::file-selector-button": {
+        "border-color": "var(--border, currentColor)"
+      },
+      "*": {
+        "font-feature-settings": "\"cv11\", \"ss01\"",
+        "text-rendering": "optimizeLegibility",
+        "scrollbar-width": "thin",
+        "scrollbar-color": "var(--border) transparent"
+      },
+      "html": {
+        "font-feature-settings": "\"cv02\", \"cv03\", \"cv04\", \"cv11\"",
+        "font-variation-settings": "normal",
+        "height": "100%",
+        "-webkit-font-smoothing": "antialiased",
+        "-moz-osx-font-smoothing": "grayscale",
+        "-webkit-tap-highlight-color": "transparent"
+      },
+      "body": {
+        "background-color": "var(--background)",
+        "color": "var(--foreground)",
+        "font-synthesis-weight": "none"
+      },
+      "::selection": {
+        "background-color": "var(--selection)",
+        "color": "var(--selection-foreground)"
+      },
+      "a:active, button:active": {
+        "@apply opacity-60 md:opacity-100": {}
+      },
+      "::-webkit-scrollbar": {
+        "width": "4px"
+      },
+      "::-webkit-scrollbar-track": {
+        "background": "transparent"
+      },
+      "::-webkit-scrollbar-thumb": {
+        "background": "var(--border)",
+        "border-radius": "4px"
+      }
+    }
+  },
+  "type": "registry:base",
+  "config": {
+    "style": "preskok",
+    "tailwind": {
+      "baseColor": "neutral",
+      "cssVariables": true
+    },
+    "iconLibrary": "lucide",
+    "registries": {
+      "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json"
+    }
+  }
+}

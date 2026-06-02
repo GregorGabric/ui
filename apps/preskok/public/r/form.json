@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "description": "A form wrapper component with accessibility features",
+  "dependencies": [
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/default.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/form.tsx",
+      "content": "\"use client\"\n\nimport React from \"react\"\nimport type { FormProps as FormPrimitiveProps } from \"react-aria-components/Form\"\nimport { Form as FormPrimitive } from \"react-aria-components/Form\"\n\ninterface FormProps extends FormPrimitiveProps {\n  ref?: React.RefObject<HTMLFormElement>\n}\n\nconst Form = ({ ref, ...props }: FormProps) => {\n  return <FormPrimitive ref={ref} {...props} />\n}\n\nexport { Form }\nexport type { FormProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

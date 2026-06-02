@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/date-picker.json",
+    "https://ui-three-mu.vercel.app/r/calendar.json",
+    "https://ui-three-mu.vercel.app/r/popover.json",
+    "https://ui-three-mu.vercel.app/r/modal.json",
+    "https://ui-three-mu.vercel.app/r/button.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-picker-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  DatePicker,\n  DatePickerTrigger,\n} from \"@/components/ui/preskok-ui/date-picker\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport default function DatePickerPreskokDemo() {\n  return (\n    <div className=\"max-w-xs\">\n      <DatePicker>\n        <Label>Event date</Label>\n        <DatePickerTrigger />\n      </DatePicker>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

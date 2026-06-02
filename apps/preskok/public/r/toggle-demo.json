@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/toggle.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/toggle-demo.tsx",
+      "content": "\"use client\"\n\nimport { BoldIcon, ItalicIcon, UnderlineIcon } from \"lucide-react\"\n\nimport { Toggle } from \"@/components/ui/preskok-ui/toggle\"\n\nexport default function ToggleDemo() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <Toggle aria-label=\"Toggle bold\">\n        <BoldIcon className=\"h-4 w-4\" />\n      </Toggle>\n      <Toggle aria-label=\"Toggle italic\">\n        <ItalicIcon className=\"h-4 w-4\" />\n      </Toggle>\n      <Toggle aria-label=\"Toggle underline\">\n        <UnderlineIcon className=\"h-4 w-4\" />\n      </Toggle>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

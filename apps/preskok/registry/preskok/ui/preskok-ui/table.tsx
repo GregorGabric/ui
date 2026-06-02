@@ -1,7 +1,8 @@
 "use client"
 
-import { createContext, use } from "react"
+import { createContext, use, type ReactElement } from "react"
 import { ChevronDownIcon } from "lucide-react"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   CellProps,
   ColumnProps,
@@ -10,21 +11,19 @@ import type {
   RowProps,
   TableBodyProps,
   TableProps as TablePrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Table"
 import {
   Button,
   Cell,
-  Collection,
   Column,
   ColumnResizer as ColumnResizerPrimitive,
-  composeRenderProps,
   ResizableTableContainer,
   Row,
   TableBody as TableBodyPrimitive,
   TableHeader as TableHeaderPrimitive,
   Table as TablePrimitive,
   useTableOptions,
-} from "react-aria-components"
+} from "react-aria-components/Table"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -43,6 +42,48 @@ interface TableProps extends Omit<TablePrimitiveProps, "className"> {
 const TableContext = createContext<TableProps>({
   allowResize: false,
 })
+
+const DRAG_COLUMN_ID = "preskok-table-drag"
+const SELECTION_COLUMN_ID = "preskok-table-selection"
+
+type SyntheticColumn =
+  | { id: typeof DRAG_COLUMN_ID; kind: "drag" }
+  | { id: typeof SELECTION_COLUMN_ID; kind: "selection" }
+
+const DRAG_COLUMN: SyntheticColumn = {
+  id: DRAG_COLUMN_ID,
+  kind: "drag",
+}
+
+const SELECTION_COLUMN: SyntheticColumn = {
+  id: SELECTION_COLUMN_ID,
+  kind: "selection",
+}
+
+const getSyntheticColumns = (
+  allowsDragging: boolean,
+  selectionBehavior: string | null
+) => {
+  const syntheticColumns: Array<SyntheticColumn> = []
+
+  if (allowsDragging) {
+    syntheticColumns.push(DRAG_COLUMN)
+  }
+
+  if (selectionBehavior === "toggle") {
+    syntheticColumns.push(SELECTION_COLUMN)
+  }
+
+  return syntheticColumns
+}
+
+const isSyntheticColumn = <T extends object>(
+  column: T | SyntheticColumn
+): column is SyntheticColumn => {
+  return (
+    "kind" in column && (column.kind === "drag" || column.kind === "selection")
+  )
+}
 
 const useTableContext = () => use(TableContext)
 
@@ -180,15 +221,20 @@ const TableHeader = <T extends object>({
 }: TableHeaderProps<T>) => {
   const { bleed } = useTableContext()
   const { selectionBehavior, selectionMode, allowsDragging } = useTableOptions()
-  return (
-    <TableHeaderPrimitive
-      data-slot="table-header"
-      className={cx("border-b", className)}
-      ref={ref}
-      {...props}
-    >
-      {allowsDragging && (
+  const syntheticColumns = getSyntheticColumns(
+    allowsDragging,
+    selectionBehavior
+  )
+  const dynamicColumns =
+    columns && typeof children === "function"
+      ? [...syntheticColumns, ...Array.from(columns)]
+      : undefined
+
+  const renderSyntheticColumn = (column: SyntheticColumn) => {
+    if (column.kind === "drag") {
+      return (
         <Column
+          id={column.id}
           data-slot="table-column"
           width={32}
           minWidth={32}
@@ -199,23 +245,51 @@ const TableHeader = <T extends object>({
             !bleed && "sm:first:pl-2 sm:last:pr-3"
           )}
         />
-      )}
-      {selectionBehavior === "toggle" && (
-        <Column
-          width={32}
-          minWidth={32}
-          style={{ width: 32 }}
-          data-slot="table-column"
-          className={twMerge(
-            "px-2 py-(--gutter-y)",
-            "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-            !bleed && "sm:first:pl-2 sm:last:pr-3"
-          )}
-        >
-          {selectionMode === "multiple" && <Checkbox slot="selection" />}
-        </Column>
-      )}
-      <Collection items={columns}>{children}</Collection>
+      )
+    }
+
+    return (
+      <Column
+        id={column.id}
+        width={32}
+        minWidth={32}
+        style={{ width: 32 }}
+        data-slot="table-column"
+        className={twMerge(
+          "px-2 py-(--gutter-y)",
+          "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
+          !bleed && "sm:first:pl-2 sm:last:pr-3"
+        )}
+      >
+        {selectionMode === "multiple" && <Checkbox slot="selection" />}
+      </Column>
+    )
+  }
+
+  const renderColumn = (column: T | SyntheticColumn) => {
+    if (isSyntheticColumn(column)) {
+      return renderSyntheticColumn(column)
+    }
+
+    return (children as (item: T) => ReactElement)(column)
+  }
+
+  const staticChildren = (
+    <>
+      {syntheticColumns.map((column) => renderSyntheticColumn(column))}
+      {children}
+    </>
+  )
+
+  return (
+    <TableHeaderPrimitive
+      data-slot="table-header"
+      className={cx("border-b", className)}
+      ref={ref}
+      {...props}
+      columns={dynamicColumns}
+    >
+      {dynamicColumns ? renderColumn : staticChildren}
     </TableHeaderPrimitive>
   )
 }
@@ -234,12 +308,78 @@ const TableRow = <T extends object>({
 }: TableRowProps<T>) => {
   const { selectionBehavior, allowsDragging } = useTableOptions()
   const { striped } = useTableContext()
+  const syntheticColumns = getSyntheticColumns(
+    allowsDragging,
+    selectionBehavior
+  )
+  const dynamicColumns =
+    columns && typeof children === "function"
+      ? [...syntheticColumns, ...Array.from(columns)]
+      : undefined
+
+  const renderSyntheticCell = (column: SyntheticColumn) => {
+    if (column.kind === "drag") {
+      return (
+        <TableCell className="cursor-grab">
+          <Button
+            slot="drag"
+            className="focus-visible:ring-ring grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring"
+          >
+            <svg
+              aria-hidden
+              data-slot="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-grip-vertical-icon lucide-grip-vertical"
+            >
+              <circle cx={9} cy={12} r={1} />
+              <circle cx={9} cy={5} r={1} />
+              <circle cx={9} cy={19} r={1} />
+              <circle cx={15} cy={12} r={1} />
+              <circle cx={15} cy={5} r={1} />
+              <circle cx={15} cy={19} r={1} />
+            </svg>
+          </Button>
+        </TableCell>
+      )
+    }
+
+    return (
+      <TableCell>
+        <Checkbox slot="selection" />
+      </TableCell>
+    )
+  }
+
+  const renderCell = (column: T | SyntheticColumn) => {
+    if (isSyntheticColumn(column)) {
+      return renderSyntheticCell(column)
+    }
+
+    return (children as (item: T) => ReactElement)(column)
+  }
+
+  const staticChildren = (
+    <>
+      {syntheticColumns.map((column) => renderSyntheticCell(column))}
+      {children}
+    </>
+  )
+
   return (
     <Row
       ref={ref}
       data-slot="table-row"
       id={id}
       {...props}
+      columns={dynamicColumns}
       className={composeRenderProps(
         className,
         (
@@ -273,42 +413,7 @@ const TableRow = <T extends object>({
           )
       )}
     >
-      {allowsDragging && (
-        <TableCell className={"cursor-grab"}>
-          <Button
-            slot="drag"
-            className="focus-visible:ring-ring grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring"
-          >
-            <svg
-              aria-hidden
-              data-slot="icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width={16}
-              height={16}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-grip-vertical-icon lucide-grip-vertical"
-            >
-              <circle cx={9} cy={12} r={1} />
-              <circle cx={9} cy={5} r={1} />
-              <circle cx={9} cy={19} r={1} />
-              <circle cx={15} cy={12} r={1} />
-              <circle cx={15} cy={5} r={1} />
-              <circle cx={15} cy={19} r={1} />
-            </svg>
-          </Button>
-        </TableCell>
-      )}
-      {selectionBehavior === "toggle" && (
-        <TableCell>
-          <Checkbox slot="selection" />
-        </TableCell>
-      )}
-      <Collection items={columns}>{children}</Collection>
+      {dynamicColumns ? renderCell : staticChildren}
     </Row>
   )
 }

@@ -2,13 +2,13 @@
 
 import React, { use } from "react"
 import { AnimatePresence, motion } from "motion/react"
+import { OverlayTriggerStateContext } from "react-aria-components/Dialog"
 import type {
   DialogProps,
   DialogTriggerProps,
   HeadingProps,
   ModalOverlayProps,
-  TextProps,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
 import {
   Button as ButtonPrimitive,
   Dialog,
@@ -16,9 +16,9 @@ import {
   Heading,
   ModalOverlay,
   Modal as ModalPrimitive,
-  OverlayTriggerStateContext,
-  Text,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
+import type { TextProps } from "react-aria-components/Text"
+import { Text } from "react-aria-components/Text"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { Button, type ButtonProps } from "./button"

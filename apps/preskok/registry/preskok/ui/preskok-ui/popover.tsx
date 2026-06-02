@@ -3,12 +3,12 @@
 import type {
   DialogTriggerProps,
   PopoverProps as PopoverPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Popover"
 import {
   DialogTrigger as DialogTriggerPrimitive,
   OverlayArrow,
   Popover as PopoverPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/Popover"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

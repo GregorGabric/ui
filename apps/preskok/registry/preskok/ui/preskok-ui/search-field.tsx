@@ -1,11 +1,14 @@
 "use client"
 
 import { SearchIcon, XIcon } from "lucide-react"
-import type { InputProps, SearchFieldProps } from "react-aria-components"
+import type {
+  InputProps,
+  SearchFieldProps,
+} from "react-aria-components/SearchField"
 import {
   Button,
   SearchField as SearchFieldPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/SearchField"
 import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

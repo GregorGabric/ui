@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/checkbox.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/checkbox-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Checkbox,\n  CheckboxGroup,\n} from \"@/components/ui/preskok-ui/checkbox\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport default function CheckboxPreskokDemo() {\n  return (\n    <CheckboxGroup>\n      <Label>Select interests</Label>\n      <Checkbox value=\"dev\">Development</Checkbox>\n      <Checkbox value=\"design\">Design</Checkbox>\n      <Checkbox value=\"pm\">Product Management</Checkbox>\n    </CheckboxGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

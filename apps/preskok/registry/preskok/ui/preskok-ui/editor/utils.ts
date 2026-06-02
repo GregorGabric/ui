@@ -22,9 +22,7 @@ const shortcutKeyMap = {
   shift: { symbol: "⇧", readable: "Shift" },
 } as const satisfies Record<string, ShortcutKeyResult>
 
-type ShortcutKey =
-  | Uppercase<keyof typeof shortcutKeyMap>
-  | Lowercase<keyof typeof shortcutKeyMap>
+type ShortcutKey = string
 
 export const getShortcutKey = (key: ShortcutKey): ShortcutKeyResult => {
   const lowerKey = key.toLowerCase() as Lowercase<keyof typeof shortcutKeyMap>

@@ -1,6 +1,5 @@
 "use client"
 
-import type { ComponentRef } from "react"
 import { useCallback, useEffect, useState } from "react"
 
 const DEFAULT_RECT: DOMRect = {
@@ -15,7 +14,7 @@ const DEFAULT_RECT: DOMRect = {
   toJSON: () => "{}",
 }
 
-export function useContainerSize(element: ComponentRef<any> | null): DOMRect {
+export function useContainerSize(element: Element | null): DOMRect {
   const [size, setSize] = useState<DOMRect>(
     () => element?.getBoundingClientRect() ?? DEFAULT_RECT
   )

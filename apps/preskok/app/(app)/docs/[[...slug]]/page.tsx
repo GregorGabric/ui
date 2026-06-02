@@ -9,10 +9,20 @@ import {
 import { findNeighbour } from "fumadocs-core/page-tree"
 
 import { source } from "@/lib/source"
-import { absoluteUrl } from "@/lib/utils"
+import { absoluteUrl, cn } from "@/lib/utils"
 import { DocsTableOfContents } from "@/components/docs-toc"
-import { Badge } from "@/registry/preskok/ui/badge"
-import { Button } from "@/registry/preskok/ui/button"
+
+type DocLinks = {
+  api?: string
+  doc?: string
+}
+
+const navIconLinkClass =
+  "extend-touch-target inline-flex size-8 items-center justify-center gap-x-1.5 rounded-lg border border-transparent bg-secondary text-sm font-medium text-secondary-foreground shadow-none transition-transform duration-150 hover:bg-secondary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-foreground md:size-7 [&_svg]:size-4"
+const navTextLinkClass =
+  "inline-flex items-center justify-center gap-x-1.5 rounded-lg border border-transparent bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground shadow-none transition-transform duration-150 hover:bg-secondary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-foreground sm:px-2.5 sm:py-1.5 sm:text-sm/5 [&_svg]:size-4"
+const docBadgeLinkClass =
+  "inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground hover:bg-secondary/85 [&_svg]:size-3.5"
 
 export const revalidate = false
 export const dynamic = "force-static"
@@ -80,12 +90,10 @@ export default async function Page(props: {
   }
 
   const doc = page.data
-  // @ts-expect-error - revisit fumadocs types.
   const MDX = doc.body
   const neighbours = findNeighbour(source.pageTree, page.url)
 
-  // @ts-expect-error - revisit fumadocs types.
-  const links = doc.links
+  const links = "links" in doc ? (doc.links as DocLinks | undefined) : undefined
 
   return (
     <div
@@ -104,30 +112,22 @@ export default async function Page(props: {
                 </h1>
                 <div className="flex items-center gap-2 pt-1.5">
                   {neighbours.previous && (
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      className="extend-touch-target size-8 shadow-none md:size-7"
-                      asChild
+                    <Link
+                      href={neighbours.previous.url}
+                      className={navIconLinkClass}
                     >
-                      <Link href={neighbours.previous.url}>
-                        <IconArrowLeft />
-                        <span className="sr-only">Previous</span>
-                      </Link>
-                    </Button>
+                      <IconArrowLeft />
+                      <span className="sr-only">Previous</span>
+                    </Link>
                   )}
                   {neighbours.next && (
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      className="extend-touch-target size-8 shadow-none md:size-7"
-                      asChild
+                    <Link
+                      href={neighbours.next.url}
+                      className={navIconLinkClass}
                     >
-                      <Link href={neighbours.next.url}>
-                        <span className="sr-only">Next</span>
-                        <IconArrowRight />
-                      </Link>
-                    </Button>
+                      <span className="sr-only">Next</span>
+                      <IconArrowRight />
+                    </Link>
                   )}
                 </div>
               </div>
@@ -140,18 +140,24 @@ export default async function Page(props: {
             {links ? (
               <div className="flex items-center space-x-2 pt-4">
                 {links?.doc && (
-                  <Badge asChild variant="secondary">
-                    <Link href={links.doc} target="_blank" rel="noreferrer">
-                      Docs <IconArrowUpRight />
-                    </Link>
-                  </Badge>
+                  <Link
+                    href={links.doc}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={docBadgeLinkClass}
+                  >
+                    Docs <IconArrowUpRight />
+                  </Link>
                 )}
                 {links?.api && (
-                  <Badge asChild variant="secondary">
-                    <Link href={links.api} target="_blank" rel="noreferrer">
-                      API Reference <IconArrowUpRight />
-                    </Link>
-                  </Badge>
+                  <Link
+                    href={links.api}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={docBadgeLinkClass}
+                  >
+                    API Reference <IconArrowUpRight />
+                  </Link>
                 )}
               </div>
             ) : null}
@@ -162,37 +168,27 @@ export default async function Page(props: {
         </div>
         <div className="mx-auto flex h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
           {neighbours.previous && (
-            <Button
-              variant="secondary"
-              size="sm"
-              asChild
-              className="shadow-none"
+            <Link
+              href={neighbours.previous.url}
+              className={navTextLinkClass}
             >
-              <Link href={neighbours.previous.url}>
-                <IconArrowLeft /> {neighbours.previous.name}
-              </Link>
-            </Button>
+              <IconArrowLeft /> {neighbours.previous.name}
+            </Link>
           )}
           {neighbours.next && (
-            <Button
-              variant="secondary"
-              size="sm"
-              className="ml-auto shadow-none"
-              asChild
+            <Link
+              href={neighbours.next.url}
+              className={cn(navTextLinkClass, "ml-auto")}
             >
-              <Link href={neighbours.next.url}>
-                {neighbours.next.name} <IconArrowRight />
-              </Link>
-            </Button>
+              {neighbours.next.name} <IconArrowRight />
+            </Link>
           )}
         </div>
       </div>
       <div className="sticky top-[calc(var(--header-height)+1px)] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
         <div className="h-(--top-spacing) shrink-0" />
-        {/* @ts-expect-error - revisit fumadocs types. */}
         {doc.toc?.length ? (
           <div className="no-scrollbar overflow-y-auto px-8">
-            {/* @ts-expect-error - revisit fumadocs types. */}
             <DocsTableOfContents toc={doc.toc} />
             <div className="h-12" />
           </div>

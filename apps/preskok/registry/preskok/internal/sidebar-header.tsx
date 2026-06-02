@@ -3,11 +3,11 @@
 import { ChevronDownIcon } from "lucide-react"
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Sidebar,
   SidebarHeader,
@@ -21,22 +21,20 @@ export default function AppSidebar() {
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium">
-                Select Workspace
-                <ChevronDownIcon className="ml-auto" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-(--radix-popper-anchor-width)">
-              <DropdownMenuItem>
+          <Menu>
+            <MenuTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground group-open/menu:bg-sidebar-accent group-open/menu:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium">
+              Select Workspace
+              <ChevronDownIcon className="ml-auto" />
+            </MenuTrigger>
+            <MenuContent className="min-w-(--trigger-width)">
+              <MenuItem id="acme-inc">
                 <span>Acme Inc</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </MenuItem>
+              <MenuItem id="acme-corp">
                 <span>Acme Corp.</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </MenuItem>
+            </MenuContent>
+          </Menu>
         </SidebarHeader>
       </Sidebar>
       <SidebarInset>

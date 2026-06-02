@@ -1,15 +1,11 @@
 "use client"
 
-import { ChevronRightIcon } from "lucide-react"
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/registry/preskok/ui/collapsible"
 import {
   Sidebar,
   SidebarContent,
+  SidebarDisclosure,
+  SidebarDisclosurePanel,
+  SidebarDisclosureTrigger,
   SidebarProvider,
   SidebarSection,
   SidebarSectionGroup,
@@ -151,17 +147,11 @@ export default function AppSidebar() {
           <SidebarSectionGroup>
             {items.map((item, index) => (
               <SidebarSection key={index}>
-                <Collapsible
-                  className="group/collapsible"
-                  defaultOpen={index === 0}
-                >
-                  <CollapsibleTrigger asChild>
-                    <button className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-md p-2">
-                      <span>{item.title}</span>
-                      <ChevronRightIcon className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                    </button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
+                <SidebarDisclosure defaultExpanded={index === 0}>
+                  <SidebarDisclosureTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-md p-2">
+                    <span>{item.title}</span>
+                  </SidebarDisclosureTrigger>
+                  <SidebarDisclosurePanel>
                     <div className="border-sidebar-border ml-4 border-l pl-2">
                       {item.items.map((subItem, subIndex) => (
                         <a
@@ -173,8 +163,8 @@ export default function AppSidebar() {
                         </a>
                       ))}
                     </div>
-                  </CollapsibleContent>
-                </Collapsible>
+                  </SidebarDisclosurePanel>
+                </SidebarDisclosure>
               </SidebarSection>
             ))}
           </SidebarSectionGroup>

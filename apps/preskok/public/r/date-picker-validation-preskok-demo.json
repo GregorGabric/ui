@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker-validation-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/date-picker.json",
+    "https://ui-three-mu.vercel.app/r/calendar.json",
+    "https://ui-three-mu.vercel.app/r/popover.json",
+    "https://ui-three-mu.vercel.app/r/modal.json",
+    "https://ui-three-mu.vercel.app/r/field.json",
+    "https://ui-three-mu.vercel.app/r/form.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-picker-validation-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { getLocalTimeZone, today } from \"@internationalized/date\"\nimport type { DateValue } from \"react-aria-components/DatePicker\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  DatePicker,\n  DatePickerTrigger,\n} from \"@/components/ui/preskok-ui/date-picker\"\nimport { FieldError, Label } from \"@/components/ui/preskok-ui/field\"\nimport { Form } from \"@/components/ui/preskok-ui/form\"\n\nexport default function DatePickerValidationPreskokDemo() {\n  const timeZone = getLocalTimeZone()\n  const minMeetingDate = today(timeZone)\n  const maxMeetingDate = minMeetingDate.add({ months: 1 })\n\n  const isWeekend = (value: DateValue) => {\n    const day = value.toDate(timeZone).getDay()\n    return day === 0 || day === 6\n  }\n\n  return (\n    <Form onSubmit={(e) => e.preventDefault()} className=\"max-w-xs space-y-2\">\n      <DatePicker\n        className=\"mb-2\"\n        isRequired\n        minValue={minMeetingDate}\n        maxValue={maxMeetingDate}\n        isDateUnavailable={isWeekend}\n        validate={(value) => {\n          if (!value) {\n            return \"Please select a meeting date.\"\n          }\n\n          const day = value.toDate(timeZone).getDay()\n          if (day === 0 || day === 6) {\n            return \"Weekends are unavailable.\"\n          }\n\n          return null\n        }}\n      >\n        <Label>Team meeting</Label>\n        <DatePickerTrigger />\n        <FieldError />\n      </DatePicker>\n      <Button type=\"submit\">Schedule meeting</Button>\n    </Form>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-field-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/text-field.json",
+    "https://ui-three-mu.vercel.app/r/field.json",
+    "https://ui-three-mu.vercel.app/r/loader.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/text-field-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Input } from \"@/components/ui/preskok-ui/input\"\nimport { TextField } from \"@/components/ui/preskok-ui/text-field\"\n\nexport function Component() {\n  return (\n    <TextField aria-label=\"Name\">\n      <Input placeholder=\"Some Name Here\" />\n    </TextField>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

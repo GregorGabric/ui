@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-multiple-months-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/range-calendar.json",
+    "https://ui-three-mu.vercel.app/r/calendar.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/calendar-multiple-months-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport { RangeCalendar } from \"@/components/ui/preskok-ui/range-calendar\"\n\nexport default function CalendarMultipleMonthsPreskokDemo() {\n  return (\n    <RangeCalendar\n      defaultValue={{\n        start: parseDate(\"2026-04-10\"),\n        end: parseDate(\"2026-04-18\"),\n      }}\n      visibleDuration={{ months: 2 }}\n      aria-label=\"Select trip dates\"\n    />\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

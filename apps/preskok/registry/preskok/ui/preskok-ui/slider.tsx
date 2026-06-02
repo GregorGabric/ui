@@ -8,7 +8,7 @@ import {
   SliderTrack as PrimitiveSliderTrack,
   SliderStateContext,
   type SliderProps,
-} from "react-aria-components"
+} from "react-aria-components/Slider"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

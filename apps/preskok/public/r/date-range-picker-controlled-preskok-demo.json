@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-range-picker-controlled-preskok-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/date-range-picker.json",
+    "https://ui-three-mu.vercel.app/r/calendar.json",
+    "https://ui-three-mu.vercel.app/r/popover.json",
+    "https://ui-three-mu.vercel.app/r/modal.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-range-picker-controlled-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport type { CalendarDate } from \"@internationalized/date\"\nimport { getLocalTimeZone, parseDate } from \"@internationalized/date\"\nimport type { RangeValue } from \"react-aria-components/DateRangePicker\"\n\nimport {\n  DateRangePicker,\n  DateRangePickerTrigger,\n} from \"@/components/ui/preskok-ui/date-range-picker\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport default function DateRangePickerControlledPreskokDemo() {\n  const timeZone = getLocalTimeZone()\n  const [range, setRange] = useState<RangeValue<CalendarDate> | null>(() => ({\n    start: parseDate(\"2026-04-08\"),\n    end: parseDate(\"2026-04-14\"),\n  }))\n\n  const selectedRange =\n    range?.start && range?.end\n      ? `${range.start.toDate(timeZone).toLocaleDateString(\"en-US\", {\n          day: \"numeric\",\n          month: \"short\",\n          year: \"numeric\",\n        })} - ${range.end.toDate(timeZone).toLocaleDateString(\"en-US\", {\n          day: \"numeric\",\n          month: \"short\",\n          year: \"numeric\",\n        })}`\n      : \"No range selected\"\n\n  return (\n    <div className=\"max-w-xs space-y-3\">\n      <DateRangePicker\n        value={range}\n        onChange={setRange}\n        visibleDuration={{ months: 2 }}\n      >\n        <Label>Event date</Label>\n        <DateRangePickerTrigger />\n      </DateRangePicker>\n      <p className=\"text-muted-foreground text-sm\">Selected: {selectedRange}</p>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

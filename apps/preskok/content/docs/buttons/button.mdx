@@ -19,7 +19,7 @@ description: Customizable buttons with multiple variants, sizes, and interactive
 <TabsContent id="cli">
 
 ```bash
-npx @preskok-org/ui@latest add button
+npx shadcn@latest add @preskok/button
 ```
 
 </TabsContent>
@@ -46,7 +46,7 @@ npx @preskok-org/ui@latest add button
 ## Usage
 
 ```tsx
-import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import { Button } from "@/components/ui/preskok-ui/button"
 
 export function ButtonDemo() {
   return (
@@ -78,8 +78,8 @@ All standard HTML button props are also supported.
   <Button intent="primary">Primary</Button>
   <Button intent="secondary">Secondary</Button>
   <Button intent="outline">Outline</Button>
-  <Button intent="ghost">Ghost</Button>
-  <Button intent="link">Link</Button>
+  <Button intent="warning">Warning</Button>
+  <Button intent="danger">Danger</Button>
   <Button intent="plain">Plain</Button>
 </div>
 ```
@@ -142,7 +142,7 @@ All standard HTML button props are also supported.
     Save
     <IconSave />
   </Button>
-  <Button intent="ghost">
+  <Button intent="plain">
     <IconRefresh />
   </Button>
 </div>

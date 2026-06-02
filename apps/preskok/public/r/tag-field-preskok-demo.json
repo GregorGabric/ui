@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag-field-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/tag-field.json",
+    "https://ui-three-mu.vercel.app/r/tag-group.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/tag-field-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Label } from \"@/components/ui/preskok-ui/field\"\nimport { Input } from \"@/components/ui/preskok-ui/input\"\nimport { TagField } from \"@/components/ui/preskok-ui/tag-field\"\n\nexport function Component() {\n  return (\n    <TagField>\n      <Label>Coupon codes</Label>\n      <Input placeholder=\"Add codes, press Enter\" />\n    </TagField>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -11,12 +11,13 @@ description: Content containers with headers, actions, and flexible layouts for 
 ## Installation
 
 ```bash
-npx @preskok-org/ui@latest add card
+npx shadcn@latest add @preskok/card
 ```
 
 ## Usage
 
 ```tsx
+import { Button } from "@/components/ui/preskok-ui/button"
 import {
   Card,
   CardAction,
@@ -25,7 +26,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/preskok/ui/preskok-ui/card"
+} from "@/components/ui/preskok-ui/card"
 
 export function CardDemo() {
   return (
@@ -183,17 +184,17 @@ Card footer section for actions or additional content.
         <CardDescription>John Doe - Developer</CardDescription>
       </div>
       <CardAction>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="sm" intent="ghost">
+        <Menu>
+          <MenuTrigger>
+            <Button size="sm" intent="plain">
               <IconMore />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Remove</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </MenuTrigger>
+          <MenuContent>
+            <MenuItem>Edit</MenuItem>
+            <MenuItem>Remove</MenuItem>
+          </MenuContent>
+        </Menu>
       </CardAction>
     </div>
   </CardHeader>

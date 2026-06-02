@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-field-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/time-field.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/time-field-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { DateInput } from \"@/components/ui/preskok-ui/date-field\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\nimport { TimeField } from \"@/components/ui/preskok-ui/time-field\"\n\nexport default function TimeFieldPreskokDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <TimeField>\n        <Label>Start time</Label>\n        <DateInput />\n      </TimeField>\n      <TimeField>\n        <Label>End time</Label>\n        <DateInput />\n      </TimeField>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

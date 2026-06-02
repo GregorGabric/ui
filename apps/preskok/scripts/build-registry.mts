@@ -3,8 +3,179 @@ import { promises as fs } from "fs"
 import path from "path"
 import { rimraf } from "rimraf"
 
-import { getAllBlocks } from "@/lib/blocks"
 import { registry } from "@/registry/index"
+import type { RegistryItem } from "shadcn/schema"
+
+type RegistryItemFile = NonNullable<RegistryItem["files"]>[number]
+
+const PRESKOK_STYLE_ITEM = "default"
+const PRESKOK_THEME_PATH = "styles/globals.css"
+const REGISTRY_OUTPUT_PATH = "public/r"
+const REGISTRY_BASE_URL = (
+  process.env.PRESKOK_REGISTRY_URL ?? registry.homepage ?? ""
+).replace(/\/$/, "")
+
+function extractCssBlock(source: string, selector: string) {
+  const selectorIndex = source.indexOf(selector)
+
+  if (selectorIndex === -1) {
+    throw new Error(`Could not find ${selector} in ${PRESKOK_THEME_PATH}`)
+  }
+
+  const openBraceIndex = source.indexOf("{", selectorIndex)
+
+  if (openBraceIndex === -1) {
+    throw new Error(`Could not find ${selector} block in ${PRESKOK_THEME_PATH}`)
+  }
+
+  let depth = 0
+  for (let index = openBraceIndex; index < source.length; index++) {
+    const char = source[index]
+
+    if (char === "{") {
+      depth++
+    }
+
+    if (char === "}") {
+      depth--
+    }
+
+    if (depth === 0) {
+      return source.slice(openBraceIndex + 1, index)
+    }
+  }
+
+  throw new Error(`Could not parse ${selector} block in ${PRESKOK_THEME_PATH}`)
+}
+
+function extractCssVars(source: string) {
+  return Object.fromEntries(
+    [...source.matchAll(/--([\w-]+):\s*([^;]+);/g)].map(([, key, value]) => [
+      key,
+      value
+        .trim()
+        .replace(/\s+/g, " ")
+        .replace("var(--font-inter)", '"Inter"')
+        .replace("var(--font-geist-mono)", '"Geist Mono"'),
+    ])
+  )
+}
+
+function toCssDeclarations(vars: Record<string, string>) {
+  return Object.fromEntries(
+    Object.entries(vars).map(([key, value]) => [`--${key}`, value])
+  )
+}
+
+function getPreskokBaseCss() {
+  return {
+    "*, ::after, ::before, ::backdrop, ::file-selector-button": {
+      "border-color": "var(--border, currentColor)",
+    },
+    "*": {
+      "font-feature-settings": '"cv11", "ss01"',
+      "text-rendering": "optimizeLegibility",
+      "scrollbar-width": "thin",
+      "scrollbar-color": "var(--border) transparent",
+    },
+    html: {
+      "font-feature-settings": '"cv02", "cv03", "cv04", "cv11"',
+      "font-variation-settings": "normal",
+      height: "100%",
+      "-webkit-font-smoothing": "antialiased",
+      "-moz-osx-font-smoothing": "grayscale",
+      "-webkit-tap-highlight-color": "transparent",
+    },
+    body: {
+      "background-color": "var(--background)",
+      color: "var(--foreground)",
+      "font-synthesis-weight": "none",
+    },
+    "::selection": {
+      "background-color": "var(--selection)",
+      color: "var(--selection-foreground)",
+    },
+    "a:active, button:active": {
+      "@apply opacity-60 md:opacity-100": {},
+    },
+    "::-webkit-scrollbar": {
+      width: "4px",
+    },
+    "::-webkit-scrollbar-track": {
+      background: "transparent",
+    },
+    "::-webkit-scrollbar-thumb": {
+      background: "var(--border)",
+      "border-radius": "4px",
+    },
+  } satisfies NonNullable<RegistryItem["css"]>[string]
+}
+
+function getPreskokKeyframesCss() {
+  return {
+    "0%": {
+      opacity: "0.2",
+    },
+    "20%": {
+      opacity: "1",
+    },
+    "100%": {
+      opacity: "0.2",
+    },
+  } satisfies NonNullable<RegistryItem["css"]>[string]
+}
+
+function getPreskokThemeCssVars(
+  theme: Record<string, string>,
+  light: Record<string, string>
+) {
+  const radii = Object.fromEntries(
+    Object.entries(light).filter(
+      ([key]) => key === "radius" || key.startsWith("radius-")
+    )
+  )
+
+  return {
+    ...theme,
+    ...radii,
+  }
+}
+
+async function getPreskokCssVars() {
+  const source = await fs.readFile(
+    path.join(process.cwd(), PRESKOK_THEME_PATH),
+    "utf8"
+  )
+  const theme = extractCssVars(extractCssBlock(source, "@theme inline"))
+  const light = extractCssVars(extractCssBlock(source, ":root"))
+  const dark = extractCssVars(extractCssBlock(source, ".dark"))
+
+  return {
+    theme: getPreskokThemeCssVars(theme, light),
+    light: {
+      ...light,
+      "font-sans": theme["font-sans"],
+      "font-mono": theme["font-mono"],
+    },
+    dark: {
+      ring: light.ring,
+      ...dark,
+    },
+  } satisfies NonNullable<RegistryItem["cssVars"]>
+}
+
+function rewritePreskokRegistryImports(content: string) {
+  return content
+    .replaceAll(
+      "@/registry/preskok/ui/preskok-ui/",
+      "@/components/ui/preskok-ui/"
+    )
+    .replaceAll("@/registry/preskok/ui/", "@/components/ui/preskok-ui/")
+    .replaceAll("@/registry/preskok/components/", "@/components/")
+    .replaceAll("@/registry/preskok/examples/", "@/components/")
+    .replaceAll("@/registry/preskok/hooks/", "@/hooks/")
+    .replaceAll("@/registry/preskok/lib/", "@/lib/")
+}
 
 async function buildRegistryIndex() {
   let index = `/* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -14,12 +185,9 @@ async function buildRegistryIndex() {
 // Do not edit this file directly.
 import * as React from "react"
 
-export const Index: Record<string, any> = {`
+  export const Index: Record<string, any> = {`
   for (const item of registry.items) {
-    const resolveFiles = item.files?.map(
-      (file) => `registry/preskok/${file.path}`
-    )
-    if (!resolveFiles) {
+    if (!item.files) {
       continue
     }
 
@@ -33,12 +201,9 @@ export const Index: Record<string, any> = {`
     description: "${item.description ?? ""}",
     type: "${item.type}",
     registryDependencies: ${JSON.stringify(item.registryDependencies)},
-    files: [${item.files?.map((file) => {
-      const filePath = `registry/preskok/${typeof file === "string" ? file : file.path}`
-      const resolvedFilePath = path.resolve(filePath)
-      return typeof file === "string"
-        ? `"${resolvedFilePath}"`
-        : `{
+    files: [${item.files.map((file: RegistryItemFile) => {
+      const filePath = `registry/preskok/${file.path}`
+      return `{
       path: "${filePath}",
       type: "${file.type}",
       target: "${file.target ?? ""}"
@@ -69,19 +234,75 @@ export const Index: Record<string, any> = {`
 }
 
 async function buildRegistryJsonFile() {
+  const preskokCssVars = await getPreskokCssVars()
+
+  const resolveRegistryDependency = (dependency: string) => {
+    if (dependency.startsWith("http")) {
+      return dependency
+    }
+
+    if (dependency.startsWith("@preskok/")) {
+      return `${REGISTRY_BASE_URL}/r/${dependency.replace("@preskok/", "")}.json`
+    }
+
+    if (dependency.startsWith("@")) {
+      return dependency
+    }
+
+    return `${REGISTRY_BASE_URL}/r/${dependency}.json`
+  }
+
   // 1. Fix the path for registry items.
+  const preskokStyleCssVars = {
+    theme: preskokCssVars.theme,
+  } satisfies NonNullable<RegistryItem["cssVars"]>
+
   const fixedRegistry = {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
     ...registry,
-    items: registry.items.map((item) => {
-      const files = item.files?.map((file) => {
+    items: registry.items.map((item: RegistryItem) => {
+      const isPreskokBaseItem =
+        item.type === "registry:base" && item.name === PRESKOK_STYLE_ITEM
+      const files = item.files?.map((file: RegistryItemFile) => {
         return {
           ...file,
           path: `registry/preskok/${file.path}`,
         }
       })
 
+      const registryDependencies = new Set(item.registryDependencies ?? [])
+
+      if (item.type === "registry:ui") {
+        registryDependencies.add(PRESKOK_STYLE_ITEM)
+      }
+
       return {
         ...item,
+        css:
+          item.name === PRESKOK_STYLE_ITEM
+            ? {
+                ...item.css,
+                '@plugin "tailwindcss-react-aria-components"': {},
+                "@keyframes blink": getPreskokKeyframesCss(),
+                ":root": toCssDeclarations(preskokCssVars.light),
+                ".dark": toCssDeclarations(preskokCssVars.dark),
+                "@layer base": getPreskokBaseCss(),
+              }
+            : item.css,
+        cssVars:
+          item.name === PRESKOK_STYLE_ITEM ? preskokStyleCssVars : item.cssVars,
+        ...(isPreskokBaseItem && {
+          config: {
+            ...item.config,
+            registries: {
+              ...(item.config?.registries ?? {}),
+              "@preskok": `${REGISTRY_BASE_URL}/r/{name}.json`,
+            },
+          },
+        }),
+        registryDependencies: Array.from(registryDependencies).map(
+          resolveRegistryDependency
+        ),
         files,
       }
     }),
@@ -96,9 +317,11 @@ async function buildRegistryJsonFile() {
 }
 
 async function buildRegistry() {
+  rimraf.sync(path.join(process.cwd(), REGISTRY_OUTPUT_PATH))
+
   return new Promise((resolve, reject) => {
     const process = exec(
-      `pnpm dlx shadcn build registry.json --output public/r/styles/preskok`
+      `pnpm exec shadcn build registry.json --output ${REGISTRY_OUTPUT_PATH}`
     )
 
     process.on("exit", (code) => {
@@ -111,36 +334,39 @@ async function buildRegistry() {
   })
 }
 
-// Registry sync no longer needed - preskok is self-contained
+async function rewriteBuiltRegistryImports() {
+  const outputDir = path.join(process.cwd(), REGISTRY_OUTPUT_PATH)
+  const entries = await fs.readdir(outputDir)
 
-async function buildBlocksIndex() {
-  const blocks = await getAllBlocks(["registry:block"])
+  for (const entry of entries) {
+    if (!entry.endsWith(".json")) {
+      continue
+    }
 
-  const payload = blocks.map((block) => ({
-    name: block.name,
-    description: block.description,
-    categories: block.categories,
-  }))
+    const filePath = path.join(outputDir, entry)
+    const content = await fs.readFile(filePath, "utf8")
+    const rewritten = rewritePreskokRegistryImports(content)
 
-  rimraf.sync(path.join(process.cwd(), "registry/__blocks__.json"))
-  await fs.writeFile(
-    path.join(process.cwd(), "registry/__blocks__.json"),
-    JSON.stringify(payload, null, 2)
-  )
+    if (rewritten !== content) {
+      await fs.writeFile(filePath, rewritten)
+    }
+  }
 }
+
+// Registry sync no longer needed - preskok is self-contained
 
 try {
   console.log("🗂️ Building registry/__index__.tsx...")
   await buildRegistryIndex()
-
-  console.log("🗂️ Building registry/__blocks__.json...")
-  await buildBlocksIndex()
 
   console.log("💅 Building registry.json...")
   await buildRegistryJsonFile()
 
   console.log("🏗️ Building registry...")
   await buildRegistry()
+
+  console.log("🔗 Rewriting registry imports...")
+  await rewriteBuiltRegistryImports()
 
   console.log("✅ Registry build complete!")
 } catch (error) {

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { Selection } from "react-aria-components"
+import type { Selection } from "react-aria-components/Menu"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bar-list-demo",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/preskok/examples/bar-list-demo.tsx",
+      "content": "\"use client\"\n\nimport { BarList } from \"@/components/ui/preskok-ui/bar-list\"\n\nconst data = [\n  { name: \"Sales\", value: 1200, key: \"sales\" },\n  { name: \"Marketing\", value: 800, key: \"marketing\" },\n  { name: \"Support\", value: 600, key: \"support\" },\n  { name: \"Development\", value: 400, key: \"development\" },\n]\n\nexport default function BarListDemo() {\n  return (\n    <div className=\"w-full max-w-md\">\n      <BarList\n        data={data}\n        valueFormatter={(value) => `$${value.toLocaleString()}`}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

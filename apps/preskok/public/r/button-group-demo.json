@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/button-group.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/button-group-demo.tsx",
+      "content": "import { Button } from \"@/components/ui/preskok-ui/button\"\nimport { ButtonGroup } from \"@/components/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupDemo() {\n  return (\n    <ButtonGroup>\n      <Button intent=\"secondary\">Down</Button>\n      <Button intent=\"secondary\">Up</Button>\n    </ButtonGroup>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

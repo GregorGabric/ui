@@ -1,12 +1,15 @@
 "use client"
 
 import { CheckIcon, MinusIcon } from "lucide-react"
-import type { CheckboxGroupProps, CheckboxProps } from "react-aria-components"
+import type {
+  CheckboxGroupProps,
+  CheckboxProps,
+} from "react-aria-components/CheckboxGroup"
 import {
   CheckboxGroup as CheckboxGroupPrimitive,
   Checkbox as CheckboxPrimitive,
-  composeRenderProps,
-} from "react-aria-components"
+} from "react-aria-components/CheckboxGroup"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

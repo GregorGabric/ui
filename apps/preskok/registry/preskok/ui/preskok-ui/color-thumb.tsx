@@ -2,9 +2,9 @@
 
 import {
   ColorThumb as ColorThumbPrimitive,
-  composeRenderProps,
   type ColorThumbProps,
-} from "react-aria-components"
+} from "react-aria-components/ColorThumb"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { twMerge } from "tailwind-merge"
 
 const ColorThumb = ({ className, ...props }: ColorThumbProps) => {

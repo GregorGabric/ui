@@ -1,6 +1,7 @@
 "use client"
 
-import { useDragAndDrop, useListData } from "react-aria-components"
+import { useDragAndDrop } from "react-aria-components/useDragAndDrop"
+import { useListData } from "react-aria-components/useListData"
 
 import {
   Table,
@@ -49,7 +50,7 @@ export function ReorderableTable() {
         </TableHeader>
         <TableBody items={list.items}>
           {(item) => (
-            <TableRow>
+            <TableRow id={item.id}>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.type}</TableCell>
               <TableCell>{item.date}</TableCell>

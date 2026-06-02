@@ -3,7 +3,7 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { Tabs, TabsList, TabsTrigger } from "@/registry/preskok/ui/tabs"
+import { Tab, TabList, Tabs } from "@/registry/preskok/ui/preskok-ui/tabs"
 
 export function ComponentPreviewTabs({
   className,
@@ -27,25 +27,25 @@ export function ComponentPreviewTabs({
     >
       <Tabs
         className="relative mr-auto w-full"
-        value={tab}
-        onValueChange={setTab}
+        selectedKey={tab}
+        onSelectionChange={(key) => setTab(String(key))}
       >
         <div className="flex items-center justify-between">
           {!hideCode && (
-            <TabsList className="justify-start gap-4 rounded-none bg-transparent px-2 md:px-0">
-              <TabsTrigger
-                value="preview"
+            <TabList className="justify-start gap-4 rounded-none bg-transparent px-2 md:px-0">
+              <Tab
+                id="preview"
                 className="text-muted-foreground data-[state=active]:text-foreground px-0 text-base data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent"
               >
                 Preview
-              </TabsTrigger>
-              <TabsTrigger
-                value="code"
+              </Tab>
+              <Tab
+                id="code"
                 className="text-muted-foreground data-[state=active]:text-foreground px-0 text-base data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent"
               >
                 Code
-              </TabsTrigger>
-            </TabsList>
+              </Tab>
+            </TabList>
           )}
         </div>
       </Tabs>

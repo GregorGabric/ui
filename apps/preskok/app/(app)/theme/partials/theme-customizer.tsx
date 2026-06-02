@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import type { Key } from "react-aria-components"
+import type { Key } from "react-aria-components/Select"
 import { twMerge } from "tailwind-merge"
 
 import { useTheme } from "@/components/theme-provider"

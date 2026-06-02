@@ -7,8 +7,8 @@ import type {
   DateValue,
   GroupProps,
   PopoverProps,
-} from "react-aria-components"
-import { DatePicker as DatePickerPrimitive } from "react-aria-components"
+} from "react-aria-components/DatePicker"
+import { DatePicker as DatePickerPrimitive } from "react-aria-components/DatePicker"
 import { twJoin } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -114,7 +114,7 @@ export function DatePickerTrigger({ className, ...props }: GroupProps) {
       )}
       {...props}
     >
-      <div className="flex w-fit flex-1 items-center overflow-x-auto overflow-y-clip [scrollbar-width:none]">
+      <div className="flex w-fit flex-1 [scrollbar-width:none] items-center overflow-x-auto overflow-y-clip">
         <DateInput className="px-3 pr-2" />
       </div>
       <Button

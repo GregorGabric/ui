@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-wheel-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/color-wheel.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/color-wheel-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { ColorWheel } from \"@/components/ui/preskok-ui/color-wheel\"\n\nexport default function ColorWheelPreskokDemo() {\n  return <ColorWheel aria-label=\"Hue\" />\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

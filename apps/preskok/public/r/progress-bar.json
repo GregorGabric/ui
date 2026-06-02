@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress-bar",
+  "description": "A progress bar component for showing completion status",
+  "dependencies": [
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/primitive.json",
+    "https://ui-three-mu.vercel.app/r/default.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/progress-bar.tsx",
+      "content": "\"use client\"\n\nimport { createContext, use } from \"react\"\nimport type {\n  ProgressBarProps,\n  ProgressBarRenderProps,\n} from \"react-aria-components/ProgressBar\"\nimport { ProgressBar as ProgressBarPrimitive } from \"react-aria-components/ProgressBar\"\nimport { twMerge } from \"tailwind-merge\"\n\nimport { cx } from \"@/lib/primitive\"\n\nconst ProgressBarContext = createContext<ProgressBarRenderProps | null>(null)\n\nexport function ProgressBar({\n  className,\n  children,\n  ...props\n}: ProgressBarProps) {\n  return (\n    <ProgressBarPrimitive\n      data-slot=\"control\"\n      className={cx(\n        \"w-full\",\n        \"[&>[data-slot=progress-bar-header]+[data-slot=progress-bar-track]]:mt-2\",\n        \"[&>[data-slot=progress-bar-header]+[data-slot=progress-bar-track]]:mt-2\",\n        \"[&>[data-slot=progress-bar-header]+[slot='description']]:mt-1\",\n        \"[&>[slot='description']+[data-slot=progress-bar-track]]:mt-2\",\n        \"[&>[data-slot=progress-bar-track]+[slot=description]]:mt-2\",\n        \"[&>[data-slot=progress-bar-track]+[slot=errorMessage]]:mt-2\",\n        \"*:data-[slot=progress-bar-header]:font-medium\",\n        className\n      )}\n      {...props}\n    >\n      {(values) => (\n        <ProgressBarContext value={{ ...values }}>\n          {typeof children === \"function\" ? children(values) : children}\n        </ProgressBarContext>\n      )}\n    </ProgressBarPrimitive>\n  )\n}\n\nexport function ProgressBarHeader({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"progress-bar-header\"\n      className={twMerge(\"flex items-center justify-between\", className)}\n      {...props}\n    />\n  )\n}\n\nexport function ProgressBarValue({\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\">) {\n  const { valueText } = use(ProgressBarContext)!\n  return (\n    <span className={twMerge(\"text-base/6 sm:text-sm/6\", className)} {...props}>\n      {valueText}\n    </span>\n  )\n}\n\nexport function ProgressBarTrack({\n  className,\n  ref,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  const { isIndeterminate, percentage } = use(ProgressBarContext)!\n  return (\n    <span data-slot=\"progress-bar-track\" className=\"relative block w-full\">\n      <style>{`\n        @keyframes progress-slide {\n          0% { left: 0% }\n          50% { left: 100% }\n          100% { left: 0% }\n        }\n      `}</style>\n      <div ref={ref} className=\"flex w-full items-center gap-x-2\" {...props}>\n        <div\n          className={twMerge(\n            \"bg-secondary relative h-1.5 w-full min-w-52 overflow-hidden rounded-full outline-1 -outline-offset-1 outline-transparent will-change-transform\",\n            className\n          )}\n        >\n          {!isIndeterminate ? (\n            <div\n              data-slot=\"progress-content\"\n              className=\"bg-primary absolute top-0 left-0 h-full rounded-full transition-[width] duration-200 ease-linear will-change-[width] motion-reduce:transition-none forced-colors:bg-[Highlight]\"\n              style={{ width: `${percentage}%` }}\n            />\n          ) : (\n            <div\n              data-slot=\"progress-content\"\n              className=\"bg-primary absolute top-0 h-full [animation:progress-slide_2000ms_ease-in-out_infinite] rounded-full forced-colors:bg-[Highlight]\"\n              style={{ width: \"40%\" }}\n            />\n          )}\n        </div>\n      </div>\n    </span>\n  )\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -5,13 +5,13 @@ import type {
   ListBoxProps,
   PopoverProps,
   SelectProps as SelectPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Select"
 import {
   Button,
   ListBox,
   Select as SelectPrimitive,
   SelectValue,
-} from "react-aria-components"
+} from "react-aria-components/Select"
 import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

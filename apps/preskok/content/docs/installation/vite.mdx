@@ -1,6 +1,6 @@
 ---
 title: Vite
-description: Install and configure @preskok-org/ui for Vite.
+description: Install and configure Preskok UI for Vite.
 ---
 
 <Steps>
@@ -97,10 +97,10 @@ export default defineConfig({
 
 ### Run the CLI
 
-Run the `shadcn` init command to setup your project:
+Run the Preskok base init command to setup your project:
 
 ```bash
-npx @preskok-org/ui@latest init
+npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
 ```
 
 You will be asked a few questions to configure `components.json`.
@@ -114,13 +114,13 @@ Which color would you like to use as base color? › Neutral
 You can now start adding components to your project.
 
 ```bash
-npx @preskok-org/ui@latest add button
+npx shadcn@latest add @preskok/button
 ```
 
 The command above will add the `Button` component to your project. You can then import it like this:
 
 ```tsx showLineNumbers title="src/App.tsx"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/preskok-ui/button"
 
 function App() {
   return (

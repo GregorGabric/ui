@@ -2,16 +2,17 @@
 
 import * as React from "react"
 
-import { getColorFormat, type Color } from "@/lib/colors"
+import { getColorFormat, type Color, type ColorFormat } from "@/lib/colors"
 import { cn } from "@/lib/utils"
 import { useColors } from "@/hooks/use-colors"
 import {
   Select,
   SelectContent,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
-} from "@/registry/preskok/ui/select"
-import { Skeleton } from "@/registry/preskok/ui/skeleton"
+} from "@/registry/preskok/ui/preskok-ui/select"
+import { Skeleton } from "@/registry/preskok/ui/preskok-ui/skeleton"
 
 export function ColorFormatSelector({
   color,
@@ -21,33 +22,33 @@ export function ColorFormatSelector({
   color: Color
 }) {
   const { format, setFormat, isLoading } = useColors()
-  const formats = React.useMemo(() => getColorFormat(color), [color])
+  const formats = getColorFormat(color)
 
   if (isLoading) {
     return <ColorFormatSelectorSkeleton />
   }
 
   return (
-    <Select value={format} onValueChange={setFormat}>
+    <Select
+      selectedKey={format}
+      onSelectionChange={(key) => setFormat(key as ColorFormat)}
+    >
       <SelectTrigger
-        size="sm"
         className={cn(
           "bg-secondary text-secondary-foreground border-secondary shadow-none",
           className
         )}
+        prefix={<span className="font-medium">Format:</span>}
         {...props}
-      >
-        <span className="font-medium">Format: </span>
-        <span className="text-muted-foreground font-mono">{format}</span>
-      </SelectTrigger>
-      <SelectContent align="end" className="rounded-xl">
+      />
+      <SelectContent popover={{ placement: "bottom end" }} className="rounded-xl">
         {Object.entries(formats).map(([format, value]) => (
           <SelectItem
             key={format}
-            value={format}
+            id={format}
             className="gap-2 rounded-lg [&>span]:flex [&>span]:items-center [&>span]:gap-2"
           >
-            <span className="font-medium">{format}</span>
+            <SelectLabel>{format}</SelectLabel>
             <span className="text-muted-foreground font-mono text-xs">
               {value}
             </span>

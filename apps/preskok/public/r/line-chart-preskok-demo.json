@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "line-chart-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/line-chart.json",
+    "https://ui-three-mu.vercel.app/r/chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/line-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { LineChart } from \"@/components/ui/preskok-ui/line-chart\"\n\nconst data = [\n  { month: \"M1\", sales: 44, leads: 24 },\n  { month: \"M2\", sales: 51, leads: 28 },\n  { month: \"M3\", sales: 48, leads: 26 },\n  { month: \"M4\", sales: 63, leads: 34 },\n  { month: \"M5\", sales: 58, leads: 31 },\n  { month: \"M6\", sales: 72, leads: 39 },\n  { month: \"M7\", sales: 69, leads: 36 },\n  { month: \"M8\", sales: 76, leads: 42 },\n  { month: \"M9\", sales: 71, leads: 38 },\n  { month: \"M10\", sales: 84, leads: 45 },\n  { month: \"M11\", sales: 79, leads: 43 },\n  { month: \"M12\", sales: 91, leads: 49 },\n]\n\nexport default function LineChartPreskokDemo() {\n  return (\n    <Card>\n      <CardHeader>\n        <CardTitle>Dealership performance</CardTitle>\n        <CardDescription>Sales vs Leads per month</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <LineChart\n          className=\"aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]\"\n          data={data}\n          dataKey=\"month\"\n          config={{ sales: { label: \"Sales\" }, leads: { label: \"Leads\" } }}\n        />\n      </CardContent>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

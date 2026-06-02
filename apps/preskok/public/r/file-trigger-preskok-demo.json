@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "file-trigger-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/file-trigger.json",
+    "https://ui-three-mu.vercel.app/r/button.json",
+    "https://ui-three-mu.vercel.app/r/loader.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/file-trigger-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { FileTrigger } from \"@/components/ui/preskok-ui/file-trigger\"\n\nexport default function FileTriggerPreskokDemo() {\n  return (\n    <div className=\"flex items-center gap-3\">\n      <FileTrigger onSelect={() => {}}>Upload file</FileTrigger>\n      <FileTrigger allowsMultiple onSelect={() => {}}>\n        Upload multiple\n      </FileTrigger>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

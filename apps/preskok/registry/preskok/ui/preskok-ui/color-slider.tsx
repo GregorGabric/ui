@@ -2,11 +2,11 @@
 
 import {
   ColorSlider as ColorSliderPrimitive,
-  composeRenderProps,
   SliderOutput,
   SliderTrack,
   type ColorSliderProps as ColorSliderPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/ColorSlider"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { ColorThumb } from "./color-thumb"

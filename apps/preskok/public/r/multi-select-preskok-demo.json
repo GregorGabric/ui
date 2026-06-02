@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "multi-select-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/multi-select.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/multi-select-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  MultiSelect,\n  MultiSelectContent,\n  MultiSelectItem,\n} from \"@/components/ui/preskok-ui/multi-select\"\n\nconst fruits = [\n  { id: 1, name: \"Apple\" },\n  { id: 2, name: \"Banana\" },\n  { id: 3, name: \"Cherry\" },\n  { id: 4, name: \"Date\" },\n  { id: 5, name: \"Elderberry\" },\n  { id: 6, name: \"Fig\" },\n  { id: 7, name: \"Grape\" },\n  { id: 8, name: \"Honeydew\" },\n  { id: 9, name: \"Kiwi\" },\n  { id: 10, name: \"Lemon\" },\n  { id: 11, name: \"Mango\" },\n  { id: 12, name: \"Nectarine\" },\n  { id: 13, name: \"Orange\" },\n  { id: 14, name: \"Papaya\" },\n  { id: 15, name: \"Quince\" },\n  { id: 16, name: \"Raspberry\" },\n  { id: 17, name: \"Strawberry\" },\n  { id: 18, name: \"Tangerine\" },\n  { id: 19, name: \"Ugli Fruit\" },\n  { id: 20, name: \"Watermelon\" },\n]\n\nexport function Component() {\n  return (\n    <MultiSelect className=\"max-w-md\" placeholder=\"Select fruits\">\n      <MultiSelectContent items={fruits}>\n        {(fruit) => (\n          <MultiSelectItem id={fruit.id}>{fruit.name}</MultiSelectItem>\n        )}\n      </MultiSelectContent>\n    </MultiSelect>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

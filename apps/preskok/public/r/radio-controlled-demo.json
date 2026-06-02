@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-controlled-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/radio.json",
+    "https://ui-three-mu.vercel.app/r/field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/radio-controlled-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Description, Label } from \"@/components/ui/preskok-ui/field\"\nimport { Radio, RadioGroup } from \"@/components/ui/preskok-ui/radio\"\n\nexport default function RadioControlledDemo() {\n  const [selected, setSelected] = useState(\"\")\n\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <RadioGroup\n        value={selected}\n        onChange={setSelected}\n        className=\"flex flex-col\"\n      >\n        <Label>Body style</Label>\n        <Radio value=\"sedan\">Sedan</Radio>\n        <Radio value=\"suv\">SUV</Radio>\n        <Radio value=\"coupe\">Coupe</Radio>\n        <Radio value=\"hatchback\">Hatchback</Radio>\n        <Radio value=\"truck\">Truck</Radio>\n      </RadioGroup>\n\n      <Description className=\"[&>strong]:text-foreground block\">\n        Selected body style: <strong>{selected || \"-\"}</strong>\n      </Description>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/table.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/table-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Table,\n  TableBody,\n  TableCell,\n  TableColumn,\n  TableHeader,\n  TableRow,\n} from \"@/components/ui/preskok-ui/table\"\n\ninterface Vehicle {\n  id: string\n  make: string\n  model: string\n  year: number\n  price: number\n  mileage: number\n  fuelType: string\n}\n\nconst vehicles: Array<Vehicle> = [\n  {\n    id: \"1\",\n    make: \"Toyota\",\n    model: \"Camry\",\n    year: 2024,\n    price: 28_400,\n    mileage: 0,\n    fuelType: \"Gasoline\",\n  },\n  {\n    id: \"2\",\n    make: \"Honda\",\n    model: \"Accord\",\n    year: 2023,\n    price: 26_800,\n    mileage: 15_000,\n    fuelType: \"Hybrid\",\n  },\n  {\n    id: \"3\",\n    make: \"Ford\",\n    model: \"F-150\",\n    year: 2024,\n    price: 35_200,\n    mileage: 5000,\n    fuelType: \"Gasoline\",\n  },\n  {\n    id: \"4\",\n    make: \"Tesla\",\n    model: \"Model 3\",\n    year: 2023,\n    price: 42_000,\n    mileage: 8000,\n    fuelType: \"Electric\",\n  },\n]\n\nconst columns = [\n  { id: \"make\", name: \"Make\", isRowHeader: true },\n  { id: \"model\", name: \"Model\" },\n  { id: \"year\", name: \"Year\" },\n  { id: \"price\", name: \"Price\" },\n  { id: \"mileage\", name: \"Mileage\" },\n  { id: \"fuelType\", name: \"Fuel Type\" },\n] satisfies Array<{\n  id: keyof Omit<Vehicle, \"id\">\n  name: string\n  isRowHeader?: boolean\n}>\n\nconst renderCell = (vehicle: Vehicle, columnId: keyof Omit<Vehicle, \"id\">) => {\n  switch (columnId) {\n    case \"price\":\n      return `$${vehicle.price.toLocaleString()}`\n    case \"mileage\":\n      return `${vehicle.mileage.toLocaleString()} mi`\n    default:\n      return vehicle[columnId]\n  }\n}\n\nexport default function TableDemo() {\n  return (\n    <div className=\"rounded-md border\">\n      <Table aria-label=\"Vehicle inventory\" selectionMode=\"multiple\">\n        <TableHeader columns={columns}>\n          {(column) => (\n            <TableColumn id={column.id} isRowHeader={column.isRowHeader}>\n              {column.name}\n            </TableColumn>\n          )}\n        </TableHeader>\n        <TableBody items={vehicles}>\n          {(item) => (\n            <TableRow id={item.id} columns={columns}>\n              {(column) => <TableCell>{renderCell(item, column.id)}</TableCell>}\n            </TableRow>\n          )}\n        </TableBody>\n      </Table>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

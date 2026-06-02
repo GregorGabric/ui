@@ -3,35 +3,29 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/registry/preskok/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 
 export function NavHeader() {
   const pathname = usePathname()
+  const items = [
+    { href: "/", label: "Home" },
+    { href: "/forms", label: "Forms" },
+  ]
 
   return (
-    <NavigationMenu className="hidden sm:flex">
-      <NavigationMenuList className="gap-2 *:data-[slot=navigation-menu-item]:h-7 **:data-[slot=navigation-menu-link]:py-1 **:data-[slot=navigation-menu-link]:font-medium">
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild data-active={pathname === "/"}>
-            <Link href="/">Home</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild data-active={pathname === "/charts"}>
-            <Link href="/charts">Charts</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild data-active={pathname === "/forms"}>
-            <Link href="/forms">Forms</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <nav className="hidden items-center gap-2 sm:flex">
+      {items.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
+          data-active={pathname === item.href}
+          className={cn(
+            "text-muted-foreground hover:text-foreground data-[active=true]:text-foreground rounded-md px-2 py-1 text-sm font-medium transition-colors"
+          )}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </nav>
   )
 }

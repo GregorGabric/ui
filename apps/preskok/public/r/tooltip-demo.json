@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/tooltip.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/tooltip-demo.tsx",
+      "content": "\"use client\"\n\nimport { InfoIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/preskok-ui/tooltip\"\n\nexport default function TooltipDemo() {\n  return (\n    <div className=\"flex items-center gap-6\">\n      <Tooltip>\n        <Button intent=\"primary\">Vehicle Details</Button>\n        <TooltipContent>\n          <strong className=\"font-semibold\">Vehicle specifications</strong>\n          <p className=\"text-muted-foreground mt-1 max-w-2xs text-sm text-pretty\">\n            View detailed vehicle specifications and features.\n          </p>\n        </TooltipContent>\n      </Tooltip>\n\n      <Tooltip>\n        <Button intent=\"outline\">Payment Calculator</Button>\n        <TooltipContent>\n          <strong className=\"font-semibold\">Payment calculator</strong>\n          <p className=\"text-muted-foreground mt-1 max-w-2xs text-sm text-pretty\">\n            Calculate monthly payment based on down payment, interest rate, and\n            loan term.\n          </p>\n        </TooltipContent>\n      </Tooltip>\n\n      <Tooltip>\n        <Button intent=\"plain\" size=\"sq-sm\">\n          <InfoIcon className=\"h-4 w-4\" />\n        </Button>\n        <TooltipContent>\n          <strong className=\"font-semibold\">Certified vehicle</strong>\n          <p className=\"text-muted-foreground mt-1 max-w-2xs text-sm text-pretty\">\n            This vehicle has been certified by our inspection team and comes\n            with a 30-day warranty.\n          </p>\n        </TooltipContent>\n      </Tooltip>\n\n      <div className=\"flex items-center gap-2\">\n        <span className=\"text-sm\">MPG Rating:</span>\n        <Tooltip>\n          <TooltipTrigger className=\"cursor-help border-b border-dashed\">\n            31 combined\n          </TooltipTrigger>\n          <TooltipContent>\n            <strong className=\"font-semibold\">Fuel economy</strong>\n            <p className=\"text-muted-foreground mt-1 max-w-2xs text-sm text-pretty\">\n              EPA estimated fuel economy: 28 city / 35 highway / 31 combined.\n            </p>\n          </TooltipContent>\n        </Tooltip>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

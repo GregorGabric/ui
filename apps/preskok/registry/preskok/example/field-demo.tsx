@@ -1,6 +1,6 @@
 "use client"
 
-import { Form } from "react-aria-components"
+import { Form } from "react-aria-components/Form"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
@@ -20,7 +20,7 @@ export default function FieldDemo() {
       <Fieldset>
         <Legend>Profile information</Legend>
         <Text>
-          Update your account's profile information and email address.
+          Update your account&apos;s profile information and email address.
         </Text>
 
         <TextField isRequired name="firstName">

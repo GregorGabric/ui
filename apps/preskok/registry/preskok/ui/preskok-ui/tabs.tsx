@@ -1,21 +1,21 @@
 "use client"
 
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
+import { useSlottedContext } from "react-aria-components/slots"
 import type {
   TabListProps as TabListPrimitiveProps,
   TabPanelProps as TabPanelPrimitiveProps,
   TabProps as TabPrimitiveProps,
   TabsProps as TabsPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Tabs"
 import {
-  composeRenderProps,
   SelectionIndicator,
   TabList as TabListPrimitive,
   TabPanel as TabPanelPrimitive,
   Tab as TabPrimitive,
   TabsContext,
   Tabs as TabsPrimitive,
-  useSlottedContext,
-} from "react-aria-components"
+} from "react-aria-components/Tabs"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

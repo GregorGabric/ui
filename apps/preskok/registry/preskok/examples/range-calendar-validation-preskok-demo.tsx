@@ -3,7 +3,7 @@
 import { useState } from "react"
 import type { CalendarDate } from "@internationalized/date"
 import { getLocalTimeZone, today } from "@internationalized/date"
-import type { DateValue, RangeValue } from "react-aria-components"
+import type { DateValue, RangeValue } from "react-aria-components/RangeCalendar"
 
 import { RangeCalendar } from "@/registry/preskok/ui/preskok-ui/range-calendar"
 

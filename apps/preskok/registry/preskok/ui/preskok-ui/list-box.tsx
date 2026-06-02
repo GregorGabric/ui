@@ -1,16 +1,16 @@
 "use client"
 
 import { CheckIcon } from "lucide-react"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   ListBoxItemProps,
   ListBoxProps,
   ListBoxSectionProps,
-} from "react-aria-components"
+} from "react-aria-components/ListBox"
 import {
-  composeRenderProps,
   ListBoxItem as ListBoxItemPrimitive,
   ListBox as ListBoxPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/ListBox"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -30,7 +30,7 @@ const ListBox = <T extends object>({
   <ListBoxPrimitive
     {...props}
     className={cx(
-      "bg-background grid max-h-96 w-full min-w-56 scroll-py-1 grid-cols-[auto_1fr] flex-col gap-y-1 overflow-y-auto overscroll-contain rounded-xl border p-1 outline-hidden [scrollbar-width:thin] has-data-[slot=drag-icon]:grid-cols-[auto_auto_1fr] [&::-webkit-scrollbar]:size-0.5 *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
+      "bg-background grid max-h-96 w-full min-w-56 scroll-py-1 [scrollbar-width:thin] grid-cols-[auto_1fr] flex-col gap-y-1 overflow-y-auto overscroll-contain rounded-xl border p-1 outline-hidden has-data-[slot=drag-icon]:grid-cols-[auto_auto_1fr] [&::-webkit-scrollbar]:size-0.5 *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
       className
     )}
   />

@@ -5,13 +5,13 @@ import type {
   TagGroupProps,
   TagListProps,
   TagProps,
-} from "react-aria-components"
+} from "react-aria-components/TagGroup"
 import {
   Button,
   Tag as PrimitiveTag,
   TagGroup as PrimitiveTagGroup,
   TagList as PrimitiveTagList,
-} from "react-aria-components"
+} from "react-aria-components/TagGroup"
 import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

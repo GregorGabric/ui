@@ -4,12 +4,12 @@ import type {
   DialogProps,
   DialogTriggerProps,
   ModalOverlayProps,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
 import {
   DialogTrigger as DialogTriggerPrimitive,
   ModalOverlay,
   Modal as ModalPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
 import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

@@ -10,8 +10,8 @@ import {
 } from "react"
 import { MenuIcon } from "lucide-react"
 import { LayoutGroup, motion } from "motion/react"
-import type { LinkProps } from "react-aria-components"
-import { Link } from "react-aria-components"
+import type { LinkProps } from "react-aria-components/Link"
+import { Link } from "react-aria-components/Link"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"

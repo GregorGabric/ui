@@ -3,11 +3,11 @@
 import type {
   ColorSwatchPickerItemProps,
   ColorSwatchPickerProps,
-} from "react-aria-components"
+} from "react-aria-components/ColorSwatchPicker"
 import {
   ColorSwatchPicker as PrimitiveColorSwatchPicker,
   ColorSwatchPickerItem as PrimitiveColorSwatchPickerItem,
-} from "react-aria-components"
+} from "react-aria-components/ColorSwatchPicker"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

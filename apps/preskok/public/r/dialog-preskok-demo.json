@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/dialog.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/dialog-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Dialog,\n  DialogBody,\n  DialogClose,\n  DialogFooter,\n  DialogHeader,\n  DialogTrigger,\n} from \"@/components/ui/preskok-ui/dialog\"\n\nexport default function DialogPreskokDemo() {\n  return (\n    <Dialog>\n      <DialogTrigger\n        className={\"bg-primary text-primary-foreground rounded-md px-3 py-1.5\"}\n      >\n        Open dialog\n      </DialogTrigger>\n      <DialogHeader title=\"Dialog title\" description=\"Optional description\" />\n      <DialogBody>Content inside the dialog.</DialogBody>\n      <DialogFooter>\n        <DialogClose>Close</DialogClose>\n      </DialogFooter>\n    </Dialog>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

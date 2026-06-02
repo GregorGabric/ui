@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-demo-drag",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/table.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/table-demo-drag.tsx",
+      "content": "\"use client\"\n\nimport { useDragAndDrop } from \"react-aria-components/useDragAndDrop\"\nimport { useListData } from \"react-aria-components/useListData\"\n\nimport {\n  Table,\n  TableBody,\n  TableCell,\n  TableColumn,\n  TableHeader,\n  TableRow,\n} from \"@/components/ui/preskok-ui/table\"\n\nexport function ReorderableTable() {\n  const list = useListData({\n    initialItems: [\n      { id: 1, name: \"Games\", date: \"6/7/2020\", type: \"File folder\" },\n      { id: 2, name: \"Program Files\", date: \"4/7/2021\", type: \"File folder\" },\n      { id: 3, name: \"bootmgr\", date: \"11/20/2010\", type: \"System file\" },\n      { id: 4, name: \"log.txt\", date: \"1/18/2016\", type: \"Text Document\" },\n    ],\n  })\n\n  const { dragAndDropHooks } = useDragAndDrop({\n    getItems: (keys, items: typeof list.items) =>\n      items.map((item) => ({\n        \"text/plain\": item.name,\n      })),\n    onReorder(e) {\n      if (e.target.dropPosition === \"before\") {\n        list.moveBefore(e.target.key, e.keys)\n      } else if (e.target.dropPosition === \"after\") {\n        list.moveAfter(e.target.key, e.keys)\n      }\n    },\n  })\n\n  return (\n    <div className=\"w-full overflow-x-auto rounded-lg border\">\n      <Table\n        aria-label=\"Files\"\n        selectionMode=\"multiple\"\n        dragAndDropHooks={dragAndDropHooks}\n      >\n        <TableHeader>\n          <TableColumn isRowHeader>Name</TableColumn>\n          <TableColumn>Type</TableColumn>\n          <TableColumn>Date Modified</TableColumn>\n        </TableHeader>\n        <TableBody items={list.items}>\n          {(item) => (\n            <TableRow id={item.id}>\n              <TableCell>{item.name}</TableCell>\n              <TableCell>{item.type}</TableCell>\n              <TableCell>{item.date}</TableCell>\n            </TableRow>\n          )}\n        </TableBody>\n      </Table>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

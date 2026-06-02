@@ -1,25 +1,20 @@
 "use client"
 
 import { Fragment } from "react"
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useBreadcrumb } from "fumadocs-core/breadcrumb"
-import type { PageTree } from "fumadocs-core/server"
+import type { Root as PageTreeRoot } from "fumadocs-core/page-tree"
 
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/registry/preskok/ui/breadcrumb"
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/registry/preskok/ui/preskok-ui/breadcrumbs"
 
 export function DocsBreadcrumb({
   tree,
   className,
 }: {
-  tree: PageTree.Root
+  tree: PageTreeRoot
   className?: string
 }) {
   const pathname = usePathname()
@@ -28,38 +23,17 @@ export function DocsBreadcrumb({
   if (items.length === 0) return null
 
   return (
-    <Breadcrumb className={className}>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="/docs" className="hover:text-accent-foreground">
-              Docs
-            </Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        {items.map((item, i) => (
-          <Fragment key={i}>
-            {i !== 0 && <BreadcrumbSeparator />}
-            {item.url ? (
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link
-                    href={item.url}
-                    className="hover:text-accent-foreground truncate"
-                  >
-                    {item.name}
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-            ) : (
-              <BreadcrumbItem>
-                <BreadcrumbPage>{item.name}</BreadcrumbPage>
-              </BreadcrumbItem>
-            )}
-          </Fragment>
-        ))}
-      </BreadcrumbList>
-    </Breadcrumb>
+    <Breadcrumbs className={className}>
+      <BreadcrumbsItem href="/docs">Docs</BreadcrumbsItem>
+      {items.map((item, i) => (
+        <Fragment key={i}>
+          {item.url ? (
+            <BreadcrumbsItem href={item.url}>{item.name}</BreadcrumbsItem>
+          ) : (
+            <BreadcrumbsItem>{item.name}</BreadcrumbsItem>
+          )}
+        </Fragment>
+      ))}
+    </Breadcrumbs>
   )
 }

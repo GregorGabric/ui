@@ -1,7 +1,7 @@
 "use client"
 
 import type { PropsWithChildren } from "react"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import { createCtx } from "@/registry/preskok/lib/create-ctx"
 
@@ -46,20 +46,13 @@ export const [useLocaleContext, LocaleContextProvider] =
   createCtx<LocaleContextProviderProps>()
 
 export const LocaleContext: React.FC<PropsWithChildren> = ({ children }) => {
-  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE)
-
-  /**
-   * On initial load, we will try to retrieve locale from url and set it as global locale. Reading from the local
-   * storage should be discouraged at this point, because we want to avoid the situation where the user has set a
-   * locale for himself / herself, but is sent a link with a different locale.
-   */
-  useEffect(() => {
-    const localeFromUrl = retrieveLocaleFromUrlStrict()
-
-    if (localeFromUrl) {
-      setLocale(localeFromUrl)
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === "undefined") {
+      return DEFAULT_LOCALE
     }
-  }, [])
+
+    return retrieveLocaleFromUrlStrict() ?? DEFAULT_LOCALE
+  })
 
   const setGlobalLocale = (localeOption: Locale): void => {
     setLocale(localeOption)

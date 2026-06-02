@@ -11,25 +11,32 @@ description: Spotlight-style command menu with search, sections, and keyboard sh
 ## Installation
 
 ```bash
-npx @preskok-org/ui@latest add command-menu
+npx shadcn@latest add @preskok/command-menu
 ```
 
 ## Usage
 
 ```tsx
-import { CommandMenu } from "@/registry/preskok/ui/preskok-ui/command-menu"
+import {
+  CommandMenu,
+  CommandMenuFooter,
+  CommandMenuItem,
+  CommandMenuList,
+  CommandMenuSearch,
+  CommandMenuSection,
+} from "@/components/ui/preskok-ui/command-menu"
 
 export function CommandMenuDemo() {
   return (
     <CommandMenu isOpen aria-label="Command" shortcut="k">
-      <CommandMenu.Search />
-      <CommandMenu.List>
-        <CommandMenu.Section title="General">
-          <CommandMenu.Item>Open</CommandMenu.Item>
-          <CommandMenu.Item>Save</CommandMenu.Item>
-        </CommandMenu.Section>
-      </CommandMenu.List>
-      <CommandMenu.Footer>Press ⌘K to open</CommandMenu.Footer>
+      <CommandMenuSearch />
+      <CommandMenuList>
+        <CommandMenuSection label="General">
+          <CommandMenuItem>Open</CommandMenuItem>
+          <CommandMenuItem>Save</CommandMenuItem>
+        </CommandMenuSection>
+      </CommandMenuList>
+      <CommandMenuFooter>Press Command+K to open</CommandMenuFooter>
     </CommandMenu>
   )
 }

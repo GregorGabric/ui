@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import type { LegendPayload, LegendProps, TooltipContentProps } from "recharts"
 import * as RechartsPrimitive from "recharts"
 
 import { cn } from "@/lib/utils"
@@ -110,6 +111,32 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip
 
+type ChartValue =
+  | number
+  | string
+  | Array<number | string>
+  | readonly (number | string)[]
+type ChartName = number | string
+type ChartTooltipContentProps = React.ComponentProps<"div"> &
+  Partial<
+    Pick<
+      TooltipContentProps<ChartValue, ChartName>,
+      | "active"
+      | "formatter"
+      | "label"
+      | "labelClassName"
+      | "labelFormatter"
+      | "payload"
+    >
+  > & {
+    hideLabel?: boolean
+    hideIndicator?: boolean
+    indicator?: "line" | "dot" | "dashed"
+    nameKey?: string
+    labelKey?: string
+    color?: string
+  }
+
 function ChartTooltipContent({
   active,
   payload,
@@ -124,14 +151,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-  React.ComponentProps<"div"> & {
-    hideLabel?: boolean
-    hideIndicator?: boolean
-    indicator?: "line" | "dot" | "dashed"
-    nameKey?: string
-    labelKey?: string
-  }) {
+}: ChartTooltipContentProps) {
   const { config } = useChart()
 
   const tooltipLabel = React.useMemo(() => {
@@ -256,17 +276,20 @@ function ChartTooltipContent({
 
 const ChartLegend = RechartsPrimitive.Legend
 
+type ChartLegendContentProps = React.ComponentProps<"div"> & {
+  hideIcon?: boolean
+  nameKey?: string
+  payload?: ReadonlyArray<LegendPayload>
+  verticalAlign?: LegendProps["verticalAlign"]
+}
+
 function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean
-    nameKey?: string
-  }) {
+}: ChartLegendContentProps) {
   const { config } = useChart()
 
   if (!payload?.length) {

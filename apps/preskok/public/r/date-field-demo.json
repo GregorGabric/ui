@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-field-demo",
+  "dependencies": [
+    "@internationalized/date"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/date-field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/date-field-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  DateField,\n  DateInput,\n} from \"@/components/ui/preskok-ui/date-field\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport default function DateFieldDemo() {\n  return (\n    <DateField>\n      <Label>Event date</Label>\n      <DateInput />\n    </DateField>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

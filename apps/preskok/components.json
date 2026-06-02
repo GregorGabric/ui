@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "preskok",
   "rsc": true,
   "tsx": true,
   "tailwind": {
@@ -16,6 +16,9 @@
     "ui": "@/registry/preskok/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
+  },
+  "registries": {
+    "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json"
   },
   "iconLibrary": "lucide"
 }

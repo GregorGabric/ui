@@ -4,24 +4,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
-import { ScrollArea, ScrollBar } from "@/registry/preskok/ui/scroll-area"
+import { ScrollArea } from "@/registry/preskok/ui/preskok-ui/scroll-area"
 
 const examples = [
-  {
-    name: "Dashboard",
-    href: "/examples/dashboard",
-    hidden: false,
-  },
-  {
-    name: "Tasks",
-    href: "/examples/tasks",
-    hidden: false,
-  },
-  {
-    name: "Playground",
-    href: "/examples/playground",
-    hidden: false,
-  },
   {
     name: "Authentication",
     href: "/examples/authentication",
@@ -51,7 +36,6 @@ export function ExamplesNav({
             />
           ))}
         </div>
-        <ScrollBar orientation="horizontal" className="invisible" />
       </ScrollArea>
     </div>
   )

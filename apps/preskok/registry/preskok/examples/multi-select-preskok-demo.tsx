@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
-
-import { Multiselect } from "@/registry/preskok/ui/preskok-ui/multiselect/multiselect"
+import {
+  MultiSelect,
+  MultiSelectContent,
+  MultiSelectItem,
+} from "@/registry/preskok/ui/preskok-ui/multi-select"
 
 const fruits = [
   { id: 1, name: "Apple" },
@@ -28,34 +30,13 @@ const fruits = [
 ]
 
 export function Component() {
-  const [selectedItems, setSelectedItems] = useState<
-    (typeof fruits)[number] | null
-  >(null)
-  const [selectedItemsArray, setSelectedItemsArray] = useState<
-    Array<(typeof fruits)[number]>
-  >([])
-
   return (
-    <div className="flex gap-4">
-      <Multiselect
-        items={fruits}
-        itemLabel="name"
-        itemValue="id"
-        value={selectedItems}
-        onValueChange={setSelectedItems}
-        onClear={() => setSelectedItems(null)}
-      />
-
-      <Multiselect
-        items={fruits}
-        itemLabel="name"
-        itemValue="id"
-        value={selectedItemsArray}
-        onValueChange={setSelectedItemsArray}
-        onClear={() => setSelectedItemsArray([])}
-        title="Selected fruits"
-        multiple
-      />
-    </div>
+    <MultiSelect className="max-w-md" placeholder="Select fruits">
+      <MultiSelectContent items={fruits}>
+        {(fruit) => (
+          <MultiSelectItem id={fruit.id}>{fruit.name}</MultiSelectItem>
+        )}
+      </MultiSelectContent>
+    </MultiSelect>
   )
 }

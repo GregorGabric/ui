@@ -7,7 +7,7 @@ import {
   type DateRangePickerProps as DateRangePickerPrimitiveProps,
   type DateValue,
   type PopoverProps,
-} from "react-aria-components"
+} from "react-aria-components/DateRangePicker"
 import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
@@ -71,7 +71,7 @@ export function DateRangePickerTrigger({
       )}
       {...props}
     >
-      <div className="flex w-fit flex-1 items-center overflow-x-auto overflow-y-clip [scrollbar-width:none]">
+      <div className="flex w-fit flex-1 [scrollbar-width:none] items-center overflow-x-auto overflow-y-clip">
         <DateInput slot="start" className="px-3 pr-2" />
         <span
           aria-hidden="true"

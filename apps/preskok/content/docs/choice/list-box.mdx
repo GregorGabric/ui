@@ -1,0 +1,30 @@
+---
+title: List Box
+description: Present and select from a list of options with labels, descriptions, and sections.
+---
+
+<ComponentPreview
+  name="list-box-preskok-demo"
+  description="List box grouped into sections with descriptions."
+/>
+
+## Installation
+
+```bash
+npx shadcn@latest add @preskok/list-box
+```
+
+## Usage
+
+```tsx
+import { ListBox, ListBoxItem } from "@/components/ui/preskok-ui/list-box"
+
+export function Example() {
+  return (
+    <ListBox aria-label="Options">
+      <ListBoxItem id="a">A</ListBoxItem>
+      <ListBoxItem id="b">B</ListBoxItem>
+    </ListBox>
+  )
+}
+```

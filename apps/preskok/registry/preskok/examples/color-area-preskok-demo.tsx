@@ -3,6 +3,7 @@
 import { ColorArea } from "@/registry/preskok/ui/preskok-ui/color-area"
 import { ColorField } from "@/registry/preskok/ui/preskok-ui/color-field"
 import { ColorSlider } from "@/registry/preskok/ui/preskok-ui/color-slider"
+import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 
 export default function ColorAreaPreskokDemo() {
   return (
@@ -18,11 +19,9 @@ export default function ColorAreaPreskokDemo() {
         colorSpace="hsb"
         channel="hue"
       />
-      <ColorField
-        defaultValue="hsb(0, 100%, 50%)"
-        aria-label="Hex"
-        placeholder="#000000"
-      />
+      <ColorField defaultValue="hsb(0, 100%, 50%)" aria-label="Hex">
+        <Input placeholder="#000000" />
+      </ColorField>
     </div>
   )
 }

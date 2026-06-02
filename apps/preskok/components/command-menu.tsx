@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 import { useConfig } from "@/hooks/use-config"
 import { useIsMac } from "@/hooks/use-is-mac"
 import { copyToClipboardWithMeta } from "@/components/copy-button"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   CommandMenuFooter,
   CommandMenuItem,
@@ -21,13 +21,7 @@ import {
   CommandMenuSearch,
   CommandMenuSection,
 } from "@/registry/preskok/ui/preskok-ui/command-menu"
-import { Separator } from "@/registry/preskok/ui/separator"
-
-interface BlockItem {
-  name: string
-  description: string
-  categories: Array<string>
-}
+import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 
 function isTextInputTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) {
@@ -62,11 +56,9 @@ function getActiveCommandItem() {
 export function CommandMenu({
   tree,
   colors,
-  blocks,
 }: {
   tree: typeof source.pageTree
   colors: Array<ColorPalette>
-  blocks?: Array<BlockItem>
 }) {
   const router = useRouter()
   const isMac = useIsMac()
@@ -141,11 +133,12 @@ export function CommandMenu({
   return (
     <>
       <Button
-        variant="secondary"
+        intent="secondary"
+        size="sm"
         className={cn(
           "bg-surface text-surface-foreground/60 dark:bg-card relative h-8 w-full justify-start pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
         )}
-        onClick={() => setOpen(true)}
+        onPress={() => setOpen(true)}
       >
         <span className="hidden lg:inline-flex">Search documentation...</span>
         <span className="inline-flex lg:hidden">Search...</span>
@@ -183,7 +176,7 @@ export function CommandMenu({
                     .filter(Boolean)
                     .join(" ")
                   const payload = isComponent
-                    ? `${packageManager} dlx shadcn@latest add ${item.url.split("/").pop()}`
+                    ? `${packageManager} dlx shadcn@latest add @preskok/${item.url.split("/").pop()}`
                     : ""
 
                   return (
@@ -241,29 +234,6 @@ export function CommandMenu({
               ))}
             </CommandMenuSection>
           ))} */}
-          {/* {blocks?.length ? (
-            <CommandMenuSection label="Blocks">
-              {blocks.map((block) => (
-                <CommandMenuItem
-                  key={block.name}
-                  id={block.name}
-                  textValue={`${block.name} ${block.description} ${block.categories.join(" ")}`}
-                  data-command-type="block"
-                  data-copy-payload={`${packageManager} dlx shadcn@latest add ${block.name}`}
-                  onAction={() => {
-                    runCommand(() =>
-                      router.push(
-                        `/blocks/${block.categories[0]}#${block.name}`
-                      )
-                    )
-                  }}
-                >
-                  <SquareDashedIcon data-slot="icon" />
-                  <CommandMenuLabel>{block.description}</CommandMenuLabel>
-                </CommandMenuItem>
-              ))}
-            </CommandMenuSection>
-          ) : null} */}
         </CommandMenuList>
         <CommandMenuFooter className="flex items-center gap-2 text-xs">
           <div className="flex items-center gap-2">

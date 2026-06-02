@@ -1,7 +1,7 @@
 "use client"
 
 import { getLocalTimeZone, today } from "@internationalized/date"
-import type { DateValue } from "react-aria-components"
+import type { DateValue } from "react-aria-components/DateRangePicker"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {

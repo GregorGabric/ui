@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-field",
+  "description": "A color input field with hex color validation",
+  "dependencies": [
+    "lucide-react",
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/color-picker.json",
+    "https://ui-three-mu.vercel.app/r/field.json",
+    "https://ui-three-mu.vercel.app/r/loader.json",
+    "https://ui-three-mu.vercel.app/r/primitive.json",
+    "https://ui-three-mu.vercel.app/r/default.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/color-field.tsx",
+      "content": "\"use client\"\n\nimport type { ColorFieldProps } from \"react-aria-components/ColorField\"\nimport { ColorField as ColorFieldPrimitive } from \"react-aria-components/ColorField\"\n\nimport { cx } from \"@/lib/primitive\"\n\nimport { fieldStyles } from \"./field\"\n\nexport function ColorField({ className, ...props }: ColorFieldProps) {\n  return (\n    <ColorFieldPrimitive\n      {...props}\n      aria-label={props[\"aria-label\"] ?? \"Color field\"}\n      data-slot=\"control\"\n      className={cx(fieldStyles(), className)}\n    />\n  )\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

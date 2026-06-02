@@ -7,7 +7,7 @@ import DropdownPreskokDemo from "@/registry/preskok/examples/dropdown-preskok-de
 import { ModalPreskokDemo } from "@/registry/preskok/examples/modal-preskok-demo"
 import RangeCalendarPreskokDemo from "@/registry/preskok/examples/range-calendar-preskok-demo"
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
-import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
+import { Button, type ButtonProps } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,
@@ -52,6 +52,14 @@ const users: Array<{ id: string; name: string; image_url?: string }> = [
   { id: "2", name: "Jamie Rivera", image_url: "/avatars/02.png" },
   { id: "3", name: "Taylor Kim", image_url: "/avatars/03.png" },
 ]
+const buttonIntents = [
+  "primary",
+  "secondary",
+  "warning",
+  "danger",
+  "outline",
+  "plain",
+] satisfies NonNullable<ButtonProps["intent"]>[]
 
 export function Blocks() {
   return (
@@ -59,11 +67,8 @@ export function Blocks() {
       <div className="mt-1 grid gap-1 sm:grid-cols-2 md:grid-cols-3">
         <Card className="flex flex-col items-center justify-center gap-y-6 p-6">
           <div className="grid grid-cols-2 gap-2">
-            {Object.keys(buttonStyles.variants.intent).map((intent) => (
-              <Button
-                key={intent}
-                intent={intent as keyof typeof buttonStyles.variants.intent}
-              >
+            {buttonIntents.map((intent) => (
+              <Button key={intent} intent={intent}>
                 <LayoutDashboardIcon /> Label
               </Button>
             ))}

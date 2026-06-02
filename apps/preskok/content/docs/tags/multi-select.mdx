@@ -19,7 +19,7 @@ description: A multi-select component with search and filtering capabilities.
 <TabsContent id="cli">
 
 ```bash
-npx @preskok-org/ui@latest add multi-select
+npx shadcn@latest add @preskok/multi-select
 ```
 
 </TabsContent>
@@ -46,9 +46,26 @@ npx @preskok-org/ui@latest add multi-select
 ## Usage
 
 ```tsx
-import { MultiSelect } from "@/registry/preskok/ui/preskok-ui/multi-select"
+import {
+  MultiSelect,
+  MultiSelectContent,
+  MultiSelectItem,
+} from "@/components/ui/preskok-ui/multi-select"
+
+const assignees = [
+  { id: "ana", name: "Ana" },
+  { id: "max", name: "Max" },
+]
 
 export function MultiSelectDemo() {
-  return <MultiSelect label="Assignees" items={[]} />
+  return (
+    <MultiSelect placeholder="Select assignees">
+      <MultiSelectContent items={assignees}>
+        {(assignee) => (
+          <MultiSelectItem id={assignee.id}>{assignee.name}</MultiSelectItem>
+        )}
+      </MultiSelectContent>
+    </MultiSelect>
+  )
 }
 ```

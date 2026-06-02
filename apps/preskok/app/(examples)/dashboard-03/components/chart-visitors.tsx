@@ -19,7 +19,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/registry/preskok/ui/preskok-ui/chart-helpers"
-import { Select } from "@/registry/preskok/ui/preskok-ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/registry/preskok/ui/preskok-ui/select"
 
 const desktopData = [
   { month: "january", desktop: 186, fill: "var(--color-january)" },
@@ -65,11 +70,8 @@ export function ChartVisitors() {
   const id = "pie-interactive"
   const [activeMonth, setActiveMonth] = React.useState(desktopData[0].month)
 
-  const activeIndex = React.useMemo(
-    () => desktopData.findIndex((item) => item.month === activeMonth),
-    [activeMonth]
-  )
-  const months = React.useMemo(() => desktopData.map((item) => item.month), [])
+  const activeIndex = desktopData.findIndex((item) => item.month === activeMonth)
+  const months = desktopData.map((item) => item.month)
 
   return (
     <Card data-chart={id}>
@@ -86,11 +88,11 @@ export function ChartVisitors() {
               }
             }}
           >
-            <Select.Trigger
+            <SelectTrigger
               className="ml-auto h-8 w-[120px]"
               aria-label="Select a value"
             />
-            <Select.List>
+            <SelectContent>
               {months.map((key) => {
                 const config = chartConfig[key as keyof typeof chartConfig]
 
@@ -101,7 +103,7 @@ export function ChartVisitors() {
                 const color = "color" in config ? config.color : undefined
 
                 return (
-                  <Select.Option key={key} id={key}>
+                  <SelectItem key={key} id={key}>
                     <div className="flex items-center gap-2 text-xs">
                       <span
                         className="flex h-3 w-3 shrink-0 rounded-sm"
@@ -111,10 +113,10 @@ export function ChartVisitors() {
                       />
                       {config?.label}
                     </div>
-                  </Select.Option>
+                  </SelectItem>
                 )
               })}
-            </Select.List>
+            </SelectContent>
           </Select>
         </CardAction>
       </CardHeader>

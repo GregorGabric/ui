@@ -1,21 +1,21 @@
 "use client"
 
 import { CheckIcon } from "lucide-react"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   ListBoxItemProps,
   ListBoxSectionProps,
-  SeparatorProps,
   TextProps,
-} from "react-aria-components"
+} from "react-aria-components/ListBox"
 import {
   Collection,
-  composeRenderProps,
   Header,
   ListBoxItem as ListBoxItemPrimitive,
   ListBoxSection,
-  Separator,
   Text,
-} from "react-aria-components"
+} from "react-aria-components/ListBox"
+import type { SeparatorProps } from "react-aria-components/Separator"
+import { Separator } from "react-aria-components/Separator"
 import { twJoin, twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 

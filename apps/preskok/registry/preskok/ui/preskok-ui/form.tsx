@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react"
-import type { FormProps as FormPrimitiveProps } from "react-aria-components"
-import { Form as FormPrimitive } from "react-aria-components"
+import type { FormProps as FormPrimitiveProps } from "react-aria-components/Form"
+import { Form as FormPrimitive } from "react-aria-components/Form"
 
 interface FormProps extends FormPrimitiveProps {
   ref?: React.RefObject<HTMLFormElement>

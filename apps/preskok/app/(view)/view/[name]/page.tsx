@@ -1,8 +1,7 @@
 import * as React from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { registryItemSchema } from "@preskok-org/ui/registry"
-import { z } from "zod"
+import { registryItemSchema, type RegistryItem } from "shadcn/schema"
 
 import { siteConfig } from "@/lib/config"
 import { getRegistryComponent, getRegistryItem } from "@/lib/registry"
@@ -55,19 +54,20 @@ export async function generateMetadata({
       title,
       description,
       images: [siteConfig.ogImage],
-      creator: "@shadcn",
+      creator: "@preskok",
     },
   }
 }
 
 export async function generateStaticParams() {
   const { Index } = await import("@/registry/__index__")
-  const index = z.record(z.string(), registryItemSchema).parse(Index)
+  const index: RegistryItem[] = registryItemSchema
+    .array()
+    .parse(Object.values(Index))
 
-  return Object.values(index)
+  return index
     .filter((block) =>
       [
-        "registry:block",
         "registry:component",
         "registry:example",
         "registry:internal",

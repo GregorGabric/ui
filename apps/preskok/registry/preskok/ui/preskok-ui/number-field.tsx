@@ -6,7 +6,7 @@ import {
   NumberField as NumberFieldPrimitive,
   type ButtonProps,
   type NumberFieldProps,
-} from "react-aria-components"
+} from "react-aria-components/NumberField"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 import { Input, InputGroup } from "@/registry/preskok/ui/preskok-ui/input"

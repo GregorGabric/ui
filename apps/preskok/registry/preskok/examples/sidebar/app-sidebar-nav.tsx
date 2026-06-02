@@ -33,7 +33,7 @@ export default function AppSidebarNav() {
       <span className="flex items-center gap-x-4">
         <SidebarTrigger className="-ml-2" />
         <Breadcrumbs className="hidden md:flex">
-          <BreadcrumbsItem href="/blocks/sidebar/sidebar-01">
+          <BreadcrumbsItem href="/docs/components/sidebar">
             Dashboard
           </BreadcrumbsItem>
           <BreadcrumbsItem>Newsletter</BreadcrumbsItem>

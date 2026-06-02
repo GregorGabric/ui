@@ -10,11 +10,11 @@ import {
 } from "lucide-react"
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/registry/preskok/ui/dropdown-menu"
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/registry/preskok/ui/preskok-ui/menu"
 import {
   Sidebar,
   SidebarContent,
@@ -70,22 +70,20 @@ export default function AppSidebar() {
                     <project.icon />
                     <span>{project.name}</span>
                   </a>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="hover:bg-sidebar-accent flex h-5 w-5 items-center justify-center rounded-md">
-                        <MoreHorizontalIcon />
-                        <span className="sr-only">More</span>
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent side="right" align="start">
-                      <DropdownMenuItem>
+                  <Menu>
+                    <MenuTrigger className="hover:bg-sidebar-accent flex h-5 w-5 items-center justify-center rounded-md">
+                      <MoreHorizontalIcon />
+                      <span className="sr-only">More</span>
+                    </MenuTrigger>
+                    <MenuContent placement="right">
+                      <MenuItem id="edit-project">
                         <span>Edit Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      </MenuItem>
+                      <MenuItem id="delete-project">
                         <span>Delete Project</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                      </MenuItem>
+                    </MenuContent>
+                  </Menu>
                 </div>
               ))}
             </SidebarSection>

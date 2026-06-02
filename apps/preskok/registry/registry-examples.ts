@@ -1,4 +1,4 @@
-import type { Registry } from "@preskok-org/ui/registry"
+import type { Registry } from "shadcn/schema"
 
 export const examples: Registry["items"] = [
   {
@@ -657,7 +657,7 @@ export const examples: Registry["items"] = [
   {
     name: "choicebox-preskok-demo",
     type: "registry:example",
-    registryDependencies: ["choicebox", "checkbox"],
+    registryDependencies: ["choice-box", "checkbox"],
     files: [
       {
         path: "examples/choicebox-preskok-demo.tsx",
@@ -1032,7 +1032,7 @@ export const examples: Registry["items"] = [
   {
     name: "multi-select-preskok-demo",
     type: "registry:example",
-    registryDependencies: ["multiple-select"],
+    registryDependencies: ["multi-select"],
     files: [
       {
         path: "examples/multi-select-preskok-demo.tsx",

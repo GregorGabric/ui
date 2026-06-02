@@ -2,7 +2,7 @@
 
 import React from "react"
 import { LoaderIcon } from "lucide-react"
-import { ProgressBar } from "react-aria-components"
+import { ProgressBar } from "react-aria-components/ProgressBar"
 import { twMerge } from "tailwind-merge"
 import type { VariantProps } from "tailwind-variants"
 import { tv } from "tailwind-variants"

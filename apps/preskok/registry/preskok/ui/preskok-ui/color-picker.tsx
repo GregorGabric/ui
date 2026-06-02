@@ -7,7 +7,7 @@ import {
   ColorPicker as ColorPickerPrimitive,
   ColorPickerStateContext,
   type ColorPickerProps as ColorPickerPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/ColorPicker"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { Button } from "./button"
@@ -19,7 +19,9 @@ import { Description } from "./field"
 import { Popover, PopoverContent, type PopoverContentProps } from "./popover"
 
 interface ColorPickerProps
-  extends ColorPickerPrimitiveProps, Pick<PopoverContentProps, "placement"> {
+  extends
+    Omit<ColorPickerPrimitiveProps, "children">,
+    Pick<PopoverContentProps, "placement"> {
   label?: string
   className?: string
   children?: React.ReactNode
@@ -58,7 +60,7 @@ const ColorPicker = ({
           </Button>
           <PopoverContent
             className="overflow-auto **:data-[slot=color-area]:w-full **:data-[slot=color-slider]:w-full sm:max-w-56 sm:min-w-min sm:**:data-[slot=color-area]:size-56 *:[[role=dialog]]:p-4 sm:*:[[role=dialog]]:p-3"
-            showArrow={showArrow}
+            arrow={showArrow}
             placement={placement}
           >
             <div className="flex flex-col gap-y-1.5">

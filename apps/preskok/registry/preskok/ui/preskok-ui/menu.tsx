@@ -1,24 +1,24 @@
 "use client"
 
 import { CheckIcon, ChevronRightIcon } from "lucide-react"
+import type { ButtonProps } from "react-aria-components/Button"
+import { Button } from "react-aria-components/Button"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
-  ButtonProps,
   MenuItemProps as MenuItemPrimitiveProps,
   MenuProps as MenuPrimitiveProps,
   MenuSectionProps as MenuSectionPrimitiveProps,
   MenuTriggerProps as MenuTriggerPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components/Menu"
 import {
-  Button,
   Collection,
-  composeRenderProps,
   Header,
   MenuItem as MenuItemPrimitive,
   Menu as MenuPrimitive,
   MenuSection as MenuSectionPrimitive,
   MenuTrigger as MenuTriggerPrimitive,
   SubmenuTrigger as SubmenuTriggerPrimitive,
-} from "react-aria-components"
+} from "react-aria-components/Menu"
 import { twJoin, twMerge } from "tailwind-merge"
 import { tv, type VariantProps } from "tailwind-variants"
 

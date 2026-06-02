@@ -2,31 +2,30 @@
 
 import { createContext, use, useEffect } from "react"
 import { SearchIcon } from "lucide-react"
-import type {
-  AutocompleteProps,
-  CollectionRenderer,
-  MenuProps,
-  MenuTriggerProps,
-  SearchFieldProps,
-} from "react-aria-components"
+import type { AutocompleteProps } from "react-aria-components/Autocomplete"
+import { Autocomplete, useFilter } from "react-aria-components/Autocomplete"
+import type { CollectionRenderer } from "react-aria-components/CollectionBuilder"
 import {
-  Autocomplete,
-  Button,
-  Collection,
   CollectionRendererContext,
   DefaultCollectionRenderer,
-  Dialog,
+} from "react-aria-components/CollectionBuilder"
+import { OverlayTriggerStateContext } from "react-aria-components/Dialog"
+import type { MenuProps, MenuTriggerProps } from "react-aria-components/Menu"
+import {
+  Collection,
   Header,
-  Input,
   Menu as MenuPrimitive,
   MenuSection,
+} from "react-aria-components/Menu"
+import {
+  Button,
+  Dialog,
   Modal,
   ModalContext,
   ModalOverlay,
-  OverlayTriggerStateContext,
-  SearchField,
-  useFilter,
-} from "react-aria-components"
+} from "react-aria-components/Modal"
+import type { SearchFieldProps } from "react-aria-components/SearchField"
+import { Input, SearchField } from "react-aria-components/SearchField"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"

@@ -21,7 +21,6 @@
     "advanced",
     "!components",
     "!installation",
-    "!dark-mode",
-    "!registry"
+    "!dark-mode"
   ]
 }

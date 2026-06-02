@@ -1,14 +1,19 @@
 "use client"
 
-import React, { useMemo, useRef } from "react"
-import { PlusIcon } from "lucide-react"
 import {
-  Autocomplete,
+  Children,
+  isValidElement,
+  useRef,
+  type ReactElement,
+  type ReactNode,
+} from "react"
+import { PlusIcon } from "lucide-react"
+import { Autocomplete, useFilter } from "react-aria-components/Autocomplete"
+import {
   Select,
   SelectValue,
-  useFilter,
   type SelectProps,
-} from "react-aria-components"
+} from "react-aria-components/Select"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 
@@ -24,59 +29,60 @@ interface OptionBase {
   name: string
 }
 
-interface MultipleSelectProps<T extends OptionBase> extends Omit<
+interface MultiSelectProps<T extends OptionBase> extends Omit<
   SelectProps<T, "multiple">,
   "selectionMode" | "children"
 > {
   placeholder?: string
   className?: string
-  children?: React.ReactNode
+  children?: ReactNode
   name?: string
 }
 
-interface MultipleSelectContentProps<T extends OptionBase> {
+interface MultiSelectContentProps<T extends OptionBase> {
   items: Iterable<T>
-  children: (item: T) => React.ReactNode
+  children: (item: T) => ReactNode
 }
 
-function MultipleSelectContent<T extends OptionBase>(
-  _props: MultipleSelectContentProps<T>
+function MultiSelectContent<T extends OptionBase>(
+  _props: MultiSelectContentProps<T>
 ) {
   return null
 }
-;(MultipleSelectContent as any).displayName = "MultipleSelectContent"
 
-function MultipleSelect<T extends OptionBase>({
+function isMultiSelectContent<T extends OptionBase>(
+  child: ReactNode
+): child is ReactElement<MultiSelectContentProps<T>> {
+  return isValidElement(child) && child.type === MultiSelectContent
+}
+
+function MultiSelect<T extends OptionBase>({
   placeholder = "No selected items",
   className,
   children,
   name,
   ...props
-}: MultipleSelectProps<T>) {
+}: MultiSelectProps<T>) {
   const triggerRef = useRef<HTMLDivElement | null>(null)
   const { contains } = useFilter({ sensitivity: "base" })
 
-  const { before, after, list } = useMemo(() => {
-    const arr = React.Children.toArray(children)
-    const idx = arr.findIndex(
-      (c) =>
-        React.isValidElement(c) &&
-        (c.type as any)?.displayName === "MultipleSelectContent"
-    )
-    if (idx === -1) {
-      return {
-        before: arr,
-        after: [],
-        list: null as null | MultipleSelectContentProps<T>,
-      }
+  const childArray = Children.toArray(children)
+  const contentIndex = childArray.findIndex((child) =>
+    isMultiSelectContent<T>(child)
+  )
+  let before = childArray
+  let after: ReactNode[] = []
+  let content: MultiSelectContentProps<T> | null = null
+
+  if (contentIndex >= 0) {
+    const contentElement = childArray[contentIndex]
+
+    if (isMultiSelectContent<T>(contentElement)) {
+      before = childArray.slice(0, contentIndex)
+      after = childArray.slice(contentIndex + 1)
+      content = contentElement.props
     }
-    const el = arr[idx] as React.ReactElement<MultipleSelectContentProps<T>>
-    return {
-      before: arr.slice(0, idx),
-      after: arr.slice(idx + 1),
-      list: el.props,
-    }
-  }, [children])
+  }
 
   return (
     <Select
@@ -87,7 +93,7 @@ function MultipleSelect<T extends OptionBase>({
       {...props}
     >
       {before}
-      {list && (
+      {content && (
         <>
           <div
             data-slot="control"
@@ -136,9 +142,9 @@ function MultipleSelect<T extends OptionBase>({
               </SearchField>
               <ListBox
                 className="rounded-t-none border-0 border-t bg-transparent shadow-none"
-                items={list.items}
+                items={content.items}
               >
-                {list.children}
+                {content.children}
               </ListBox>
             </Autocomplete>
           </PopoverContent>
@@ -149,6 +155,6 @@ function MultipleSelect<T extends OptionBase>({
   )
 }
 
-const MultipleSelectItem = ListBoxItem
+const MultiSelectItem = ListBoxItem
 
-export { MultipleSelect, MultipleSelectContent, MultipleSelectItem }
+export { MultiSelect, MultiSelectContent, MultiSelectItem }

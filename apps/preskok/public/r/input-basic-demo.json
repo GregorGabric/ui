@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-basic-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/input.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/example/input-basic-demo.tsx",
+      "content": "\"use client\"\n\nimport { Input } from \"@/components/ui/preskok-ui/input\"\n\nexport default function InputBasicDemo() {\n  return <Input aria-label=\"Name\" placeholder=\"Your name\" />\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

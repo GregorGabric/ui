@@ -4,7 +4,7 @@ import * as React from "react"
 import { useTheme } from "next-themes"
 
 import { useMetaColor } from "@/hooks/use-meta-color"
-import { Button } from "@/registry/preskok/ui/button"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 
 export function ModeSwitcher() {
   const { setTheme, resolvedTheme } = useTheme()
@@ -14,17 +14,17 @@ export function ModeSwitcher() {
     setMetaColor(metaColor)
   }, [metaColor, setMetaColor])
 
-  const toggleTheme = React.useCallback(() => {
+  function toggleTheme() {
     setTheme(resolvedTheme === "dark" ? "light" : "dark")
-  }, [resolvedTheme, setTheme])
+  }
 
   return (
     <Button
-      variant="ghost"
-      size="icon"
+      intent="plain"
+      size="sq-sm"
       className="group/toggle extend-touch-target size-8"
-      onClick={toggleTheme}
-      title="Toggle theme"
+      onPress={toggleTheme}
+      aria-label="Toggle theme"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
