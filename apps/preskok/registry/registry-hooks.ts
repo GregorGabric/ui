@@ -24,7 +24,6 @@ export const hooks: Registry["items"] = [
   {
     name: "use-controllable-state",
     type: "registry:hook",
-    registryDependencies: ["use-layout-effect"],
     files: [
       {
         path: "hooks/use-controllable-state.ts",

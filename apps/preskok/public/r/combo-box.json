@@ -3,11 +3,13 @@
   "name": "combo-box",
   "description": "A combo box component with filtering and custom input",
   "dependencies": [
+    "lucide-react",
     "react-aria-components"
   ],
   "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/dropdown.json",
     "https://ui-three-mu.vercel.app/r/field.json",
-    "https://ui-three-mu.vercel.app/r/list-box.json",
+    "https://ui-three-mu.vercel.app/r/input.json",
     "https://ui-three-mu.vercel.app/r/popover.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"

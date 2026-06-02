@@ -3,9 +3,11 @@
   "name": "switch",
   "description": "An accessible switch component for boolean inputs",
   "dependencies": [
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/field.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

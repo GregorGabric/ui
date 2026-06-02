@@ -1,9 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-range-picker-preskok-demo",
-  "dependencies": [
-    "@internationalized/date"
-  ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/date-range-picker.json",
     "https://ui-three-mu.vercel.app/r/calendar.json",

@@ -6,7 +6,8 @@
     "@internationalized/date",
     "@react-aria/i18n",
     "lucide-react",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/button.json",

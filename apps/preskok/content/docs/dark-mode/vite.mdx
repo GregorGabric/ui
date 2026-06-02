@@ -127,15 +127,9 @@ export function ModeToggle() {
         </Button>
       </MenuTrigger>
       <MenuContent placement="bottom end">
-        <MenuItem onAction={() => setTheme("light")}>
-          Light
-        </MenuItem>
-        <MenuItem onAction={() => setTheme("dark")}>
-          Dark
-        </MenuItem>
-        <MenuItem onAction={() => setTheme("system")}>
-          System
-        </MenuItem>
+        <MenuItem onAction={() => setTheme("light")}>Light</MenuItem>
+        <MenuItem onAction={() => setTheme("dark")}>Dark</MenuItem>
+        <MenuItem onAction={() => setTheme("system")}>System</MenuItem>
       </MenuContent>
     </Menu>
   )

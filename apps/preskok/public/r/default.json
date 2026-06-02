@@ -3,7 +3,6 @@
   "extends": "none",
   "name": "default",
   "dependencies": [
-    "class-variance-authority",
     "lucide-react",
     "tailwindcss-react-aria-components"
   ],

@@ -4,6 +4,7 @@
   "description": "Core field components including Input, Label, Description, and FieldError",
   "dependencies": [
     "react-aria-components",
+    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [

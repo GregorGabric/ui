@@ -5,10 +5,10 @@
   "dependencies": [
     "lucide-react",
     "react-aria-components",
+    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/button.json",
     "https://ui-three-mu.vercel.app/r/dropdown.json",
     "https://ui-three-mu.vercel.app/r/popover.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",

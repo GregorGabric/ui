@@ -40,6 +40,14 @@ export const examples: Registry["items"] = [
         path: "examples/sidebar-preskok-demo.tsx",
         type: "registry:example",
       },
+      {
+        path: "examples/sidebar/app-sidebar.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "examples/sidebar/app-sidebar-nav.tsx",
+        type: "registry:component",
+      },
     ],
     meta: {
       iframeHeight: "640px",
@@ -66,6 +74,17 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/number-format-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "note-demo",
+    type: "registry:example",
+    registryDependencies: ["note"],
+    files: [
+      {
+        path: "examples/note-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -166,6 +185,10 @@ export const examples: Registry["items"] = [
       {
         path: "examples/navbar-preskok-demo.tsx",
         type: "registry:example",
+      },
+      {
+        path: "examples/user-menu.tsx",
+        type: "registry:component",
       },
     ],
   },
@@ -364,57 +387,6 @@ export const examples: Registry["items"] = [
       },
     ],
   },
-  {
-    name: "chart-bar-demo",
-    type: "registry:example",
-    files: [
-      {
-        path: "examples/chart-bar-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "chart-bar-demo-grid",
-    type: "registry:example",
-    files: [
-      {
-        path: "examples/chart-bar-demo-grid.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "chart-bar-demo-axis",
-    type: "registry:example",
-    files: [
-      {
-        path: "examples/chart-bar-demo-axis.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "chart-bar-demo-tooltip",
-    type: "registry:example",
-    files: [
-      {
-        path: "examples/chart-bar-demo-tooltip.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "chart-bar-demo-legend",
-    type: "registry:example",
-    files: [
-      {
-        path: "examples/chart-bar-demo-legend.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-
   // Preskok UI Examples
   {
     name: "bar-list-demo",
@@ -812,7 +784,6 @@ export const examples: Registry["items"] = [
         type: "registry:example",
       },
     ],
-    dependencies: ["@internationalized/date"],
   },
   {
     name: "date-picker-preskok-demo",
@@ -831,7 +802,6 @@ export const examples: Registry["items"] = [
         type: "registry:example",
       },
     ],
-    dependencies: ["@internationalized/date"],
   },
   {
     name: "date-picker-controlled-preskok-demo",
@@ -905,7 +875,6 @@ export const examples: Registry["items"] = [
         type: "registry:example",
       },
     ],
-    dependencies: ["@internationalized/date"],
   },
   {
     name: "date-range-picker-controlled-preskok-demo",
@@ -1283,17 +1252,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "progress-demo",
-    type: "registry:example",
-    registryDependencies: ["meter", "progress-bar"],
-    files: [
-      {
-        path: "examples/progress-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "skeleton-demo",
     type: "registry:example",
     registryDependencies: ["skeleton"],
@@ -1311,83 +1269,6 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/sonner-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "breadcrumb-demo",
-    type: "registry:example",
-    registryDependencies: ["breadcrumbs"],
-    files: [
-      {
-        path: "examples/breadcrumb-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "input-otp-demo",
-    type: "registry:example",
-    registryDependencies: ["input-otp"],
-    files: [
-      {
-        path: "examples/input-otp-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "carousel-demo",
-    type: "registry:example",
-    registryDependencies: ["carousel", "card"],
-    files: [
-      {
-        path: "examples/carousel-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "drawer-demo",
-    type: "registry:example",
-    registryDependencies: ["drawer", "button", "text-field"],
-    files: [
-      {
-        path: "examples/drawer-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "combobox-demo",
-    type: "registry:example",
-    registryDependencies: ["combo-box"],
-    files: [
-      {
-        path: "examples/combobox-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "button-icon",
-    type: "registry:example",
-    registryDependencies: ["button"],
-    files: [
-      {
-        path: "examples/button-icon.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "sheet-side",
-    type: "registry:example",
-    registryDependencies: ["sheet", "button"],
-    files: [
-      {
-        path: "examples/sheet-side.tsx",
         type: "registry:example",
       },
     ],
@@ -1411,17 +1292,6 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/resizable-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "resizable-demo-with-handle",
-    type: "registry:example",
-    registryDependencies: ["card"],
-    files: [
-      {
-        path: "examples/resizable-demo-with-handle.tsx",
         type: "registry:example",
       },
     ],
@@ -1477,17 +1347,6 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/menu-multiple-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "text-basic-demo",
-    type: "registry:example",
-    registryDependencies: ["text"],
-    files: [
-      {
-        path: "example/text-basic-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -1576,17 +1435,6 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/input-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "button-group-demo",
-    type: "registry:example",
-    registryDependencies: ["button-group", "button"],
-    files: [
-      {
-        path: "example/button-group-demo.tsx",
         type: "registry:example",
       },
     ],

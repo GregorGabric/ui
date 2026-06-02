@@ -65,13 +65,8 @@ export function AsyncImageExample() {
 With custom slots:
 
 ```tsx
-<AsyncImage.Root
-  src="/photo.jpg"
-  alt="Photo"
-  width={400}
-  height={300}
->
-  <AsyncImage.Loading className="flex items-center justify-center bg-muted">
+<AsyncImage.Root src="/photo.jpg" alt="Photo" width={400} height={300}>
+  <AsyncImage.Loading className="bg-muted flex items-center justify-center">
     <span>Loading…</span>
   </AsyncImage.Loading>
   <AsyncImage.Error>Failed to load image</AsyncImage.Error>
@@ -94,18 +89,18 @@ Disable lazy loading (load immediately):
 
 ### AsyncImage.Root
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `src` | `string` | — | Image URL. Empty string triggers error state. |
-| `alt` | `string` | `""` | Accessible alt text for the image. |
-| `width` | `number \| string` | — | Width of the container and image. |
-| `height` | `number \| string` | — | Height of the container and image. |
-| `imgProps` | `Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" \| "alt" \| "width" \| "height">` | — | Props passed to the underlying `<img>` when loaded. |
-| `loadingDelayMs` | `number` | `0` | Optional delay in ms before transitioning from loading to loaded (e.g. to avoid flicker). |
-| `lazyLoad` | `false \| IntersectionObserverInit` | `{ threshold: 0.01, rootMargin: "75%" }` | Lazy load when in view. Set to `false` to load immediately. |
-| `onLoadingEnd` | `() => void` | — | Called when the image has loaded successfully. |
-| `onErrorFallback` | `() => void` | — | Called when the image fails to load. |
-| `children` | `React.ReactNode` | — | Optional compound slots: `AsyncImage.Loading`, `AsyncImage.Error`, `AsyncImage.Content`. |
+| Prop              | Type                                                                                     | Default                                  | Description                                                                               |
+| ----------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `src`             | `string`                                                                                 | —                                        | Image URL. Empty string triggers error state.                                             |
+| `alt`             | `string`                                                                                 | `""`                                     | Accessible alt text for the image.                                                        |
+| `width`           | `number \| string`                                                                       | —                                        | Width of the container and image.                                                         |
+| `height`          | `number \| string`                                                                       | —                                        | Height of the container and image.                                                        |
+| `imgProps`        | `Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" \| "alt" \| "width" \| "height">` | —                                        | Props passed to the underlying `<img>` when loaded.                                       |
+| `loadingDelayMs`  | `number`                                                                                 | `0`                                      | Optional delay in ms before transitioning from loading to loaded (e.g. to avoid flicker). |
+| `lazyLoad`        | `false \| IntersectionObserverInit`                                                      | `{ threshold: 0.01, rootMargin: "75%" }` | Lazy load when in view. Set to `false` to load immediately.                               |
+| `onLoadingEnd`    | `() => void`                                                                             | —                                        | Called when the image has loaded successfully.                                            |
+| `onErrorFallback` | `() => void`                                                                             | —                                        | Called when the image fails to load.                                                      |
+| `children`        | `React.ReactNode`                                                                        | —                                        | Optional compound slots: `AsyncImage.Loading`, `AsyncImage.Error`, `AsyncImage.Content`.  |
 
 All other div props (e.g. `className`, `style`) are forwarded to the root container.
 

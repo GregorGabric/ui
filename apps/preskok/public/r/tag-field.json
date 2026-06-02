@@ -3,11 +3,13 @@
   "name": "tag-field",
   "description": "A tag input field for adding and removing tags",
   "dependencies": [
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/field.json",
     "https://ui-three-mu.vercel.app/r/tag-group.json",
+    "https://ui-three-mu.vercel.app/r/text-field.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],
   "files": [

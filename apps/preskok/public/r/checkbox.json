@@ -3,7 +3,9 @@
   "name": "checkbox",
   "description": "Checkbox and CheckboxGroup components with field integration",
   "dependencies": [
-    "react-aria-components"
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/field.json",

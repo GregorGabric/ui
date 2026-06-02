@@ -16,13 +16,13 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 9.0.6
+          version: 11.5.1
           run_install: false
 
       - name: Get pnpm store directory
@@ -52,13 +52,13 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 9.0.6
+          version: 11.5.1
           run_install: false
 
       - name: Get pnpm store directory
@@ -90,13 +90,13 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 9.0.6
+          version: 11.5.1
           run_install: false
 
       - name: Get pnpm store directory
@@ -112,8 +112,5 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
-
-      - name: Build packages
-        run: pnpm --filter=shadcn build
 
       - run: pnpm typecheck

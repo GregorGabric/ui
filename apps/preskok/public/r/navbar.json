@@ -5,12 +5,14 @@
   "dependencies": [
     "lucide-react",
     "motion",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/button.json",
-    "https://ui-three-mu.vercel.app/r/link.json",
     "https://ui-three-mu.vercel.app/r/separator.json",
+    "https://ui-three-mu.vercel.app/r/sheet.json",
+    "https://ui-three-mu.vercel.app/r/use-media-query.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

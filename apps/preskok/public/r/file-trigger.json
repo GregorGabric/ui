@@ -3,11 +3,13 @@
   "name": "file-trigger",
   "description": "A file input trigger component with button styling",
   "dependencies": [
+    "lucide-react",
     "react-aria-components",
     "tailwind-variants"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/button.json",
+    "https://ui-three-mu.vercel.app/r/loader.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],
   "files": [

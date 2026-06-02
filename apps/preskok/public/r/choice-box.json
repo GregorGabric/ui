@@ -3,7 +3,6 @@
   "name": "choice-box",
   "description": "A choice box component for selecting from a grid of options",
   "dependencies": [
-    "lucide-react",
     "react-aria-components",
     "tailwind-merge",
     "tailwind-variants"

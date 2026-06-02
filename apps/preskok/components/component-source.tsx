@@ -1,5 +1,3 @@
-import fs from "node:fs/promises"
-import path from "node:path"
 import * as React from "react"
 
 import { highlightCode } from "@/lib/highlight-code"
@@ -11,33 +9,23 @@ import { getIconForLanguageExtension } from "@/components/icons"
 
 export async function ComponentSource({
   name,
-  src,
   title,
   language,
   collapsible = true,
   className,
 }: React.ComponentProps<"div"> & {
   name?: string
-  src?: string
   title?: string
   language?: string
   collapsible?: boolean
 }) {
-  if (!name && !src) {
+  if (!name) {
     return null
   }
 
-  let code: string | undefined
-
-  if (name) {
-    const item = await getRegistryItem(name)
-    code = item?.files?.[0]?.content
-  }
-
-  if (src) {
-    const file = await fs.readFile(path.join(process.cwd(), src), "utf-8")
-    code = file
-  }
+  const item = await getRegistryItem(name)
+  const file = findRegistryFile(item?.files, title)
+  const code = file?.content
 
   if (!code) {
     return null
@@ -69,6 +57,32 @@ export async function ComponentSource({
       />
     </CodeCollapsibleWrapper>
   )
+}
+
+function findRegistryFile<
+  TFile extends {
+    content?: string
+    path: string
+    target?: string
+  },
+>(files: TFile[] | undefined, title: string | undefined) {
+  if (!files?.length) {
+    return undefined
+  }
+
+  if (!title) {
+    return files[0]
+  }
+
+  return files.find((file) => {
+    if (file.path === title || title.endsWith(file.path)) {
+      return true
+    }
+
+    return Boolean(
+      file.target && (file.target === title || title.endsWith(file.target))
+    )
+  })
 }
 
 function ComponentCode({

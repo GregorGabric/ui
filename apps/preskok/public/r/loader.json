@@ -3,6 +3,9 @@
   "name": "loader",
   "description": "A collection of loading indicators with multiple variants",
   "dependencies": [
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [

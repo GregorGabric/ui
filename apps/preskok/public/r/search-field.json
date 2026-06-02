@@ -4,11 +4,12 @@
   "description": "A search input field with loading state and clear functionality",
   "dependencies": [
     "lucide-react",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/field.json",
-    "https://ui-three-mu.vercel.app/r/loader.json",
+    "https://ui-three-mu.vercel.app/r/input.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

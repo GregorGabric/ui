@@ -7,9 +7,8 @@
     "react-aria-components"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/button.json",
     "https://ui-three-mu.vercel.app/r/field.json",
-    "https://ui-three-mu.vercel.app/r/use-media-query.json",
+    "https://ui-three-mu.vercel.app/r/input.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

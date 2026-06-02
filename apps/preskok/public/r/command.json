@@ -4,11 +4,11 @@
   "description": "A command palette component for searchable command lists",
   "dependencies": [
     "cmdk",
-    "lucide-react",
-    "tailwind-merge"
+    "lucide-react"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/modal.json",
+    "https://ui-three-mu.vercel.app/r/utils.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],
   "files": [

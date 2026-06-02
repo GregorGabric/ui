@@ -1,6 +1,5 @@
 import Link from "next/link"
 
-import { getColors } from "@/lib/colors"
 import { siteConfig } from "@/lib/config"
 import { source } from "@/lib/source"
 import { CommandMenu } from "@/components/command-menu"
@@ -11,7 +10,6 @@ import { ModeSwitcher } from "@/components/mode-switcher"
 import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 
 export function SiteHeader() {
-  const colors = getColors()
   const pageTree = source.pageTree
 
   return (
@@ -32,7 +30,7 @@ export function SiteHeader() {
           <MainNav items={siteConfig.navItems} className="hidden lg:flex" />
           <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
             <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-              <CommandMenu tree={pageTree} colors={colors} />
+              <CommandMenu tree={pageTree} />
             </div>
 
             <Separator orientation="vertical" />

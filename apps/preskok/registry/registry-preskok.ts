@@ -109,7 +109,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A component for displaying keyboard shortcuts and key combinations",
-    dependencies: ["tailwind-merge"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     files: [
       {
         path: "ui/preskok-ui/keyboard.tsx",
@@ -134,7 +134,12 @@ export const preskokUi: Registry["items"] = [
     name: "loader",
     type: "registry:ui",
     description: "A collection of loading indicators with multiple variants",
-    dependencies: ["tailwind-variants"],
+    dependencies: [
+      "lucide-react",
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
     files: [
       {
         path: "ui/preskok-ui/loader.tsx",
@@ -147,7 +152,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A note component for displaying contextual information with different intents",
-    dependencies: ["tailwind-merge"],
+    dependencies: ["lucide-react", "tailwind-merge"],
     files: [
       {
         path: "ui/preskok-ui/note.tsx",
@@ -196,8 +201,8 @@ export const preskokUi: Registry["items"] = [
     name: "switch",
     type: "registry:ui",
     description: "An accessible switch component for boolean inputs",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["primitive"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["field", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/switch.tsx",
@@ -209,7 +214,11 @@ export const preskokUi: Registry["items"] = [
     name: "tooltip",
     type: "registry:ui",
     description: "A tooltip component with arrow and multiple styling options",
-    dependencies: ["react-aria-components", "tailwind-variants"],
+    dependencies: [
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
     files: [
       {
         path: "ui/preskok-ui/tooltip.tsx",
@@ -224,7 +233,11 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "Core field components including Input, Label, Description, and FieldError",
-    dependencies: ["react-aria-components", "tailwind-variants"],
+    dependencies: [
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
     registryDependencies: ["primitive"],
     files: [
       {
@@ -251,7 +264,7 @@ export const preskokUi: Registry["items"] = [
     name: "checkbox",
     type: "registry:ui",
     description: "Checkbox and CheckboxGroup components with field integration",
-    dependencies: ["react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["field", "primitive"],
     files: [
       {
@@ -278,7 +291,7 @@ export const preskokUi: Registry["items"] = [
     name: "input-otp",
     type: "registry:ui",
     description: "One-time password input component with customizable slots",
-    dependencies: ["input-otp", "tailwind-merge"],
+    dependencies: ["input-otp", "lucide-react", "tailwind-merge"],
     files: [
       {
         path: "ui/preskok-ui/input-otp.tsx",
@@ -291,7 +304,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A number input field with stepper buttons and validation",
     dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["button", "field", "use-media-query", "primitive"],
+    registryDependencies: ["field", "input", "primitive"],
 
     files: [
       {
@@ -304,7 +317,7 @@ export const preskokUi: Registry["items"] = [
     name: "radio",
     type: "registry:ui",
     description: "Radio and RadioGroup components with field integration",
-    dependencies: ["react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["field", "primitive"],
     files: [
       {
@@ -318,8 +331,8 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A search input field with loading state and clear functionality",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["field", "loader", "primitive"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
+    registryDependencies: ["field", "input", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/search-field.tsx",
@@ -332,8 +345,8 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A range slider component with tooltip and inline output options",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["field", "tooltip", "primitive"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/slider.tsx",
@@ -359,8 +372,8 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A comprehensive text input field with prefix, suffix, and password reveal",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["field", "loader", "primitive"],
+    dependencies: ["react-aria-components"],
+    registryDependencies: ["field", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/text-field.tsx",
@@ -372,8 +385,8 @@ export const preskokUi: Registry["items"] = [
     name: "textarea",
     type: "registry:ui",
     description: "A multi-line text input component with field integration",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["field", "primitive"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/textarea.tsx",
@@ -385,7 +398,7 @@ export const preskokUi: Registry["items"] = [
     name: "time-field",
     type: "registry:ui",
     description: "A time input field with segmented time entry",
-    dependencies: ["@internationalized/date", "react-aria-components"],
+    dependencies: ["react-aria-components"],
     registryDependencies: ["field", "primitive"],
     files: [
       {
@@ -415,7 +428,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A comprehensive dialog component with header, body, and footer sections",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["button", "primitive"],
     files: [
       {
@@ -428,7 +441,7 @@ export const preskokUi: Registry["items"] = [
     name: "modal",
     type: "registry:ui",
     description: "A modal dialog component with overlay and blur effects",
-    dependencies: ["react-aria-components", "tailwind-variants"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["dialog", "primitive"],
     files: [
       {
@@ -442,7 +455,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A drawer component that slides in from different sides",
     dependencies: ["motion", "react-aria-components", "tailwind-merge"],
-    registryDependencies: ["button", "dialog"],
+    registryDependencies: ["button"],
     files: [
       {
         path: "ui/preskok-ui/drawer.tsx",
@@ -455,7 +468,11 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A sheet component that slides in from different sides with blur effects",
-    dependencies: ["react-aria-components", "tailwind-variants"],
+    dependencies: [
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
     registryDependencies: ["dialog"],
     files: [
       {
@@ -470,7 +487,12 @@ export const preskokUi: Registry["items"] = [
     name: "dropdown",
     type: "registry:ui",
     description: "Core dropdown components used by other menu-like components",
-    dependencies: ["react-aria-components", "tailwind-merge"],
+    dependencies: [
+      "lucide-react",
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
     registryDependencies: ["keyboard"],
     files: [
       {
@@ -486,9 +508,10 @@ export const preskokUi: Registry["items"] = [
     dependencies: [
       "lucide-react",
       "react-aria-components",
+      "tailwind-merge",
       "tailwind-variants",
     ],
-    registryDependencies: ["button", "dropdown", "popover", "primitive"],
+    registryDependencies: ["dropdown", "popover", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/menu.tsx",
@@ -500,7 +523,7 @@ export const preskokUi: Registry["items"] = [
     name: "context-menu",
     type: "registry:ui",
     description: "A context menu component triggered by right-click",
-    dependencies: ["react-aria-components"],
+    dependencies: ["tailwind-merge"],
     registryDependencies: ["menu"],
     files: [
       {
@@ -515,8 +538,8 @@ export const preskokUi: Registry["items"] = [
     name: "list-box",
     type: "registry:ui",
     description: "A list box component for displaying selectable options",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["primitive"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
+    registryDependencies: ["dropdown", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/list-box.tsx",
@@ -529,7 +552,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A select component with searchable options and custom styling",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["primitive", "field", "popover", "dropdown"],
     files: [
       {
@@ -543,8 +566,14 @@ export const preskokUi: Registry["items"] = [
     name: "combo-box",
     type: "registry:ui",
     description: "A combo box component with filtering and custom input",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["field", "list-box", "popover", "primitive"],
+    dependencies: ["lucide-react", "react-aria-components"],
+    registryDependencies: [
+      "dropdown",
+      "field",
+      "input",
+      "popover",
+      "primitive",
+    ],
     files: [
       {
         path: "ui/preskok-ui/combo-box.tsx",
@@ -559,7 +588,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A breadcrumb navigation component with customizable separators",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["link", "primitive"],
     files: [
       {
@@ -584,8 +613,8 @@ export const preskokUi: Registry["items"] = [
     name: "disclosure",
     type: "registry:ui",
     description: "Disclosure and accordion components for collapsible content",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["button", "primitive"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/disclosure-group.tsx",
@@ -597,8 +626,8 @@ export const preskokUi: Registry["items"] = [
     name: "grid-list",
     type: "registry:ui",
     description: "A grid list component for displaying items in a grid layout",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["primitive"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["checkbox", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/grid-list.tsx",
@@ -610,7 +639,7 @@ export const preskokUi: Registry["items"] = [
     name: "tabs",
     type: "registry:ui",
     description: "A tabs component with accessible tab navigation",
-    dependencies: ["react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["primitive"],
     files: [
       {
@@ -623,7 +652,7 @@ export const preskokUi: Registry["items"] = [
     name: "tree",
     type: "registry:ui",
     description: "A tree component for hierarchical data display",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["checkbox", "primitive"],
     files: [
       {
@@ -632,46 +661,6 @@ export const preskokUi: Registry["items"] = [
       },
     ],
   },
-
-  // ===== TEST COMPONENTS =====
-  {
-    name: "awesome-card",
-    type: "registry:ui",
-    description:
-      "A test card component with animations, variants and gradient backgrounds for testing the registry system",
-    dependencies: ["class-variance-authority"],
-    files: [
-      {
-        path: "ui/awesome-card.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-
-  {
-    name: "video-player",
-    type: "registry:ui",
-    description: "A video player component that allows you to play videos",
-    files: [
-      {
-        path: "ui/video-player.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-  {
-    name: "file-upload",
-    type: "registry:ui",
-    description: "A file upload component that allows you to upload files",
-    dependencies: ["@base-ui/react"],
-    files: [
-      {
-        path: "ui/file-upload.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-
   // ===== DATE & TIME COMPONENTS =====
   {
     name: "calendar",
@@ -682,6 +671,7 @@ export const preskokUi: Registry["items"] = [
       "@react-aria/i18n",
       "lucide-react",
       "react-aria-components",
+      "tailwind-merge",
     ],
     registryDependencies: ["button", "select"],
     files: [
@@ -696,7 +686,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A date field component with input segments for date and time entry",
-    dependencies: ["@internationalized/date", "react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["field", "primitive"],
     files: [
       {
@@ -710,8 +700,14 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A date picker component with calendar popup for date selection",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: [
+      "@internationalized/date",
+      "lucide-react",
+      "react-aria-components",
+      "tailwind-merge",
+    ],
     registryDependencies: [
+      "button",
       "calendar",
       "popover",
       "primitive",
@@ -733,8 +729,14 @@ export const preskokUi: Registry["items"] = [
     name: "date-range-picker",
     type: "registry:ui",
     description: "A date range picker component with calendar popup",
-    dependencies: ["@internationalized/date", "react-aria-components"],
+    dependencies: [
+      "@internationalized/date",
+      "lucide-react",
+      "react-aria-components",
+      "tailwind-merge",
+    ],
     registryDependencies: [
+      "button",
       "date-picker",
       "field",
       "input",
@@ -752,8 +754,12 @@ export const preskokUi: Registry["items"] = [
     name: "range-calendar",
     type: "registry:ui",
     description: "A calendar component for selecting date ranges",
-    dependencies: ["@internationalized/date", "react-aria-components"],
-    registryDependencies: ["calendar"],
+    dependencies: [
+      "@internationalized/date",
+      "react-aria-components",
+      "tailwind-merge",
+    ],
+    registryDependencies: ["calendar", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/range-calendar.tsx",
@@ -776,6 +782,7 @@ export const preskokUi: Registry["items"] = [
       "@tiptap/extension-color",
       "@tiptap/extension-horizontal-rule",
       "@tiptap/pm",
+      "lucide-react",
     ],
     registryDependencies: [
       "button",
@@ -789,6 +796,7 @@ export const preskokUi: Registry["items"] = [
       "toggle",
       "toggle-group",
       "tooltip",
+      "utils",
     ],
     files: [
       {
@@ -913,8 +921,8 @@ export const preskokUi: Registry["items"] = [
     name: "tag-group",
     type: "registry:ui",
     description: "A tag group component for displaying and managing tags",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["field", "primitive"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/tag-group.tsx",
@@ -928,9 +936,11 @@ export const preskokUi: Registry["items"] = [
     description: "A multiple select component with tag-based selection",
     dependencies: ["lucide-react", "react-aria-components"],
     registryDependencies: [
-      "dropdown",
+      "button",
       "field",
+      "list-box",
       "popover",
+      "search-field",
       "tag-group",
       "primitive",
     ],
@@ -945,8 +955,8 @@ export const preskokUi: Registry["items"] = [
     name: "tag-field",
     type: "registry:ui",
     description: "A tag input field for adding and removing tags",
-    dependencies: ["react-aria-components"],
-    registryDependencies: ["field", "tag-group"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
+    registryDependencies: ["field", "tag-group", "text-field"],
     files: [
       {
         path: "ui/preskok-ui/tag-field.tsx",
@@ -959,7 +969,11 @@ export const preskokUi: Registry["items"] = [
     name: "toggle",
     type: "registry:ui",
     description: "A toggle button component with multiple variants",
-    dependencies: ["react-aria-components", "tailwind-variants"],
+    dependencies: [
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
     files: [
       {
         path: "ui/preskok-ui/toggle.tsx",
@@ -971,8 +985,12 @@ export const preskokUi: Registry["items"] = [
     name: "toggle-group",
     type: "registry:ui",
     description: "A toggle group component for single or multiple selection",
-    dependencies: ["react-aria-components", "tailwind-variants"],
-    registryDependencies: ["toggle", "primitive"],
+    dependencies: [
+      "react-aria-components",
+      "tailwind-merge",
+      "tailwind-variants",
+    ],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/toggle-group.tsx",
@@ -985,7 +1003,6 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A choice box component for selecting from a grid of options",
     dependencies: [
-      "lucide-react",
       "react-aria-components",
       "tailwind-merge",
       "tailwind-variants",
@@ -1002,7 +1019,7 @@ export const preskokUi: Registry["items"] = [
     name: "carousel",
     type: "registry:ui",
     description: "A carousel component with navigation and pagination",
-    dependencies: ["embla-carousel-react", "lucide-react"],
+    dependencies: ["embla-carousel-react", "lucide-react", "tailwind-merge"],
     registryDependencies: ["button", "primitive"],
     files: [
       {
@@ -1043,8 +1060,19 @@ export const preskokUi: Registry["items"] = [
     name: "navbar",
     type: "registry:ui",
     description: "A comprehensive navigation bar with responsive design",
-    dependencies: ["lucide-react", "motion", "react-aria-components"],
-    registryDependencies: ["button", "link", "separator", "primitive"],
+    dependencies: [
+      "lucide-react",
+      "motion",
+      "react-aria-components",
+      "tailwind-merge",
+    ],
+    registryDependencies: [
+      "button",
+      "separator",
+      "sheet",
+      "use-media-query",
+      "primitive",
+    ],
     files: [
       {
         path: "ui/preskok-ui/navbar.tsx",
@@ -1056,13 +1084,13 @@ export const preskokUi: Registry["items"] = [
     name: "sidebar",
     type: "registry:ui",
     description: "A comprehensive sidebar component with collapsible sections",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: [
       "button",
-      "disclosure",
       "link",
       "sheet",
       "tooltip",
+      "use-media-query",
       "primitive",
     ],
     files: [
@@ -1076,7 +1104,8 @@ export const preskokUi: Registry["items"] = [
     name: "pagination",
     type: "registry:ui",
     description: "A pagination component with page navigation controls",
-    registryDependencies: ["button", "primitive", "link"],
+    dependencies: ["tailwind-merge"],
+    registryDependencies: ["button", "link"],
     files: [
       {
         path: "ui/preskok-ui/pagination.tsx",
@@ -1088,7 +1117,7 @@ export const preskokUi: Registry["items"] = [
     name: "toolbar",
     type: "registry:ui",
     description: "A toolbar component for grouping action buttons",
-    dependencies: ["react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["separator", "toggle", "primitive"],
     files: [
       {
@@ -1104,7 +1133,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A meter component for displaying scalar values within a range",
-    dependencies: ["react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["primitive"],
     files: [
       {
@@ -1117,7 +1146,7 @@ export const preskokUi: Registry["items"] = [
     name: "progress-bar",
     type: "registry:ui",
     description: "A progress bar component for showing completion status",
-    dependencies: ["react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["primitive"],
     files: [
       {
@@ -1130,8 +1159,7 @@ export const preskokUi: Registry["items"] = [
     name: "progress-circle",
     type: "registry:ui",
     description: "A circular progress component for showing completion status",
-    dependencies: ["tailwind-merge"],
-    registryDependencies: ["progress-bar"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     files: [
       {
         path: "ui/preskok-ui/progress-circle.tsx",
@@ -1144,7 +1172,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A tracker component for visualizing data over time with tooltips",
-    dependencies: ["tailwind-merge"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["tooltip"],
     files: [
       {
@@ -1171,8 +1199,8 @@ export const preskokUi: Registry["items"] = [
     name: "chart",
     type: "registry:ui",
     description: "Core chart components and utilities for data visualization",
-    dependencies: ["lucide-react", "react-aria-components", "recharts"],
-    registryDependencies: ["toggle-group", "primitive"],
+    dependencies: ["react-aria-components", "recharts", "tailwind-merge"],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/chart.tsx",
@@ -1237,7 +1265,6 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A horizontal bar list component for displaying ranked data",
     dependencies: ["react-aria-components", "tailwind-merge"],
-    registryDependencies: ["link"],
     files: [
       {
         path: "ui/preskok-ui/bar-list.tsx",
@@ -1264,8 +1291,8 @@ export const preskokUi: Registry["items"] = [
     name: "color-field",
     type: "registry:ui",
     description: "A color input field with hex color validation",
-    dependencies: ["lucide-react", "react-aria-components"],
-    registryDependencies: ["color-picker", "field", "loader", "primitive"],
+    dependencies: ["react-aria-components"],
+    registryDependencies: ["field", "primitive"],
     files: [
       {
         path: "ui/preskok-ui/color-field.tsx",
@@ -1278,7 +1305,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A color slider component for single-dimension color adjustment",
-    dependencies: ["react-aria-components"],
+    dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["color-thumb", "field"],
     files: [
       {
@@ -1305,7 +1332,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A color swatch picker for selecting from predefined colors",
     dependencies: ["react-aria-components"],
-    registryDependencies: ["color-swatch", "primitive"],
+    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/color-swatch-picker.tsx",
@@ -1382,8 +1409,12 @@ export const preskokUi: Registry["items"] = [
     name: "file-trigger",
     type: "registry:ui",
     description: "A file input trigger component with button styling",
-    dependencies: ["react-aria-components", "tailwind-variants"],
-    registryDependencies: ["button"],
+    dependencies: [
+      "lucide-react",
+      "react-aria-components",
+      "tailwind-variants",
+    ],
+    registryDependencies: ["button", "loader"],
     files: [
       {
         path: "ui/preskok-ui/file-trigger.tsx",
@@ -1395,6 +1426,7 @@ export const preskokUi: Registry["items"] = [
     name: "scroll-area",
     type: "registry:ui",
     description: "A scroll area component with custom scrollbars",
+    dependencies: ["tailwind-merge"],
     files: [
       {
         path: "ui/preskok-ui/scroll-area.tsx",
@@ -1406,7 +1438,7 @@ export const preskokUi: Registry["items"] = [
     name: "show-more",
     type: "registry:ui",
     description: "A show more/less component for collapsible content",
-    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
+    dependencies: ["react-aria-components", "tailwind-variants"],
     registryDependencies: ["button"],
     files: [
       {
@@ -1421,8 +1453,8 @@ export const preskokUi: Registry["items"] = [
     name: "command",
     type: "registry:ui",
     description: "A command palette component for searchable command lists",
-    dependencies: ["cmdk", "lucide-react", "tailwind-merge"],
-    registryDependencies: ["modal"],
+    dependencies: ["cmdk", "lucide-react"],
+    registryDependencies: ["modal", "utils"],
     files: [
       {
         path: "ui/preskok-ui/command.tsx",
@@ -1434,7 +1466,7 @@ export const preskokUi: Registry["items"] = [
     name: "command-menu",
     type: "registry:ui",
     description: "A command menu component with search and keyboard navigation",
-    dependencies: ["lucide-react", "react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["dropdown", "loader", "menu", "primitive"],
     files: [
       {
@@ -1450,7 +1482,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description:
       "A comprehensive table component with sorting, resizing, and selection",
-    dependencies: ["react-aria-components"],
+    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
     registryDependencies: ["checkbox", "primitive"],
     files: [
       {
@@ -1467,7 +1499,7 @@ export const preskokUi: Registry["items"] = [
     description:
       "A number format component that allows you to format numbers in a variety of ways",
     dependencies: ["react-number-format"],
-    registryDependencies: ["locale-context"],
+    registryDependencies: ["create-ctx", "locale-context"],
     files: [
       {
         path: "ui/preskok-ui/number-format/number-format.tsx",
@@ -1491,6 +1523,7 @@ export const preskokUi: Registry["items"] = [
     name: "locale-context",
     type: "registry:ui",
     description: "Locale context provider for internationalization support",
+    dependencies: ["react-number-format"],
     registryDependencies: ["create-ctx"],
     files: [
       {
@@ -1499,6 +1532,10 @@ export const preskokUi: Registry["items"] = [
       },
       {
         path: "ui/preskok-ui/locale-context/locale-helpers.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/preskok-ui/number-format/currency-helpers.ts",
         type: "registry:ui",
       },
     ],

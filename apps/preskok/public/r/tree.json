@@ -4,7 +4,8 @@
   "description": "A tree component for hierarchical data display",
   "dependencies": [
     "lucide-react",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/checkbox.json",

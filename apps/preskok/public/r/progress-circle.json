@@ -3,10 +3,10 @@
   "name": "progress-circle",
   "description": "A circular progress component for showing completion status",
   "dependencies": [
+    "react-aria-components",
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/progress-bar.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],
   "files": [

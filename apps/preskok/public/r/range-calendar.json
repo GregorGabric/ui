@@ -4,10 +4,12 @@
   "description": "A calendar component for selecting date ranges",
   "dependencies": [
     "@internationalized/date",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/calendar.json",
+    "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],
   "files": [

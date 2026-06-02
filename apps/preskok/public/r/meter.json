@@ -3,7 +3,8 @@
   "name": "meter",
   "description": "A meter component for displaying scalar values within a range",
   "dependencies": [
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/primitive.json",

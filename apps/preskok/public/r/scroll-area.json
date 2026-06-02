@@ -2,6 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scroll-area",
   "description": "A scroll area component with custom scrollbars",
+  "dependencies": [
+    "tailwind-merge"
+  ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

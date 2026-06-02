@@ -4,9 +4,12 @@
   "description": "A date range picker component with calendar popup",
   "dependencies": [
     "@internationalized/date",
-    "react-aria-components"
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/button.json",
     "https://ui-three-mu.vercel.app/r/date-picker.json",
     "https://ui-three-mu.vercel.app/r/field.json",
     "https://ui-three-mu.vercel.app/r/input.json",

@@ -3,7 +3,6 @@
   "name": "time-field",
   "description": "A time input field with segmented time entry",
   "dependencies": [
-    "@internationalized/date",
     "react-aria-components"
   ],
   "registryDependencies": [

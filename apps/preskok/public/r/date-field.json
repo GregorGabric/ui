@@ -3,8 +3,8 @@
   "name": "date-field",
   "description": "A date field component with input segments for date and time entry",
   "dependencies": [
-    "@internationalized/date",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/field.json",

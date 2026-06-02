@@ -6,6 +6,7 @@
     "react-number-format"
   ],
   "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/create-ctx.json",
     "https://ui-three-mu.vercel.app/r/locale-context.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

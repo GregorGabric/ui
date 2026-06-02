@@ -7,7 +7,10 @@ import DropdownPreskokDemo from "@/registry/preskok/examples/dropdown-preskok-de
 import { ModalPreskokDemo } from "@/registry/preskok/examples/modal-preskok-demo"
 import RangeCalendarPreskokDemo from "@/registry/preskok/examples/range-calendar-preskok-demo"
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
-import { Button, type ButtonProps } from "@/registry/preskok/ui/preskok-ui/button"
+import {
+  Button,
+  type ButtonProps,
+} from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Card,
   CardContent,

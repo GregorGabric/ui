@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import { IconArrowRight } from "@tabler/icons-react"
 import { CornerDownLeftIcon } from "lucide-react"
 
-import type { ColorPalette } from "@/lib/colors"
 import type { source } from "@/lib/source"
 import { cn } from "@/lib/utils"
 import { useConfig } from "@/hooks/use-config"
@@ -53,13 +52,7 @@ function getActiveCommandItem() {
   )
 }
 
-export function CommandMenu({
-  tree,
-  colors,
-}: {
-  tree: typeof source.pageTree
-  colors: Array<ColorPalette>
-}) {
+export function CommandMenu({ tree }: { tree: typeof source.pageTree }) {
   const router = useRouter()
   const isMac = useIsMac()
   const [config] = useConfig()
@@ -111,14 +104,6 @@ export function CommandMenu({
 
       event.preventDefault()
       setOpen(false)
-
-      if (type === "color") {
-        copyToClipboardWithMeta(payload, {
-          name: "copy_color",
-          properties: { color: payload },
-        })
-        return
-      }
 
       copyToClipboardWithMeta(payload, {
         name: "copy_npm_command",
@@ -202,38 +187,6 @@ export function CommandMenu({
               </CommandMenuSection>
             )
           })}
-          {/* {colors.map((palette) => (
-            <CommandMenuSection
-              key={palette.name}
-              label={
-                palette.name.charAt(0).toUpperCase() + palette.name.slice(1)
-              }
-            >
-              {palette.colors.map((color) => (
-                <CommandMenuItem
-                  key={color.id}
-                  id={color.id}
-                  textValue={`${color.name} ${color.className} ${color.oklch}`}
-                  data-command-type="color"
-                  data-copy-payload={color.className}
-                  onAction={() => {
-                    runCommand(() =>
-                      copyToClipboardWithMeta(color.oklch, {
-                        name: "copy_color",
-                        properties: { color: color.oklch },
-                      })
-                    )
-                  }}
-                >
-                  <div
-                    className="border-ghost size-4 rounded-sm bg-(--color)"
-                    style={{ "--color": color.oklch } as React.CSSProperties}
-                  />
-                  <CommandMenuLabel>{color.className}</CommandMenuLabel>
-                </CommandMenuItem>
-              ))}
-            </CommandMenuSection>
-          ))} */}
         </CommandMenuList>
         <CommandMenuFooter className="flex items-center gap-2 text-xs">
           <div className="flex items-center gap-2">

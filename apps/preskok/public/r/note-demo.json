@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "note-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/note.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/note-demo.tsx",
+      "content": "\"use client\"\n\nimport { Note } from \"@/components/ui/preskok-ui/note\"\n\nexport default function NoteDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <Note intent=\"default\">\n        Our premium detailing service includes interior cleaning, exterior wash,\n        and tire shine. Book your appointment today for a spotless finish.\n      </Note>\n\n      <Note intent=\"info\">\n        New electric vehicle charging stations are now available in our service\n        center parking lot. Free charging for customers during service\n        appointments.\n      </Note>\n\n      <Note intent=\"warning\">\n        Vehicle recall notice: If you own a 2022-2023 model, please schedule an\n        inspection for potential brake system updates. Safety is our priority.\n      </Note>\n\n      <Note intent=\"danger\">\n        Emergency roadside assistance required? Our 24/7 towing service covers a\n        50-mile radius. Call our hotline immediately for rapid response.\n      </Note>\n\n      <Note intent=\"success\">\n        Congratulations! Your vehicle has passed all safety inspections and is\n        ready for pickup. Thank you for choosing our certified service center.\n      </Note>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

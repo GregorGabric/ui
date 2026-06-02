@@ -90,7 +90,10 @@ function getFileTarget(file: RegistryItemFile) {
 
   if (!target || target === "") {
     const fileName = file.path.split("/").pop()
-    if (file.type === "registry:component" || file.type === "registry:example") {
+    if (
+      file.type === "registry:component" ||
+      file.type === "registry:example"
+    ) {
       target = `components/${fileName}`
     }
 
@@ -135,7 +138,10 @@ function fixFilePaths(files: RegistryItem["files"]) {
 
 export function fixImport(content: string) {
   return content
-    .replaceAll("@/registry/preskok/ui/preskok-ui/", "@/components/ui/preskok-ui/")
+    .replaceAll(
+      "@/registry/preskok/ui/preskok-ui/",
+      "@/components/ui/preskok-ui/"
+    )
     .replaceAll("@/registry/preskok/ui/", "@/components/ui/preskok-ui/")
     .replaceAll("@/registry/preskok/components/", "@/components/")
     .replaceAll("@/registry/preskok/examples/", "@/components/")

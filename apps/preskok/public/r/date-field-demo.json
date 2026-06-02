@@ -1,9 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-field-demo",
-  "dependencies": [
-    "@internationalized/date"
-  ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/date-field.json"
   ],

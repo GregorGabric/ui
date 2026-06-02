@@ -3,7 +3,9 @@
   "name": "table",
   "description": "A comprehensive table component with sorting, resizing, and selection",
   "dependencies": [
-    "react-aria-components"
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/checkbox.json",

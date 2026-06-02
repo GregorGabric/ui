@@ -122,12 +122,7 @@ import { Moon, Sun } from "lucide-react"
 import { Theme, useTheme } from "remix-themes"
 
 import { Button } from "./ui/preskok-ui/button"
-import {
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuTrigger,
-} from "./ui/preskok-ui/menu"
+import { Menu, MenuContent, MenuItem, MenuTrigger } from "./ui/preskok-ui/menu"
 
 export function ModeToggle() {
   const [, setTheme] = useTheme()
@@ -141,12 +136,8 @@ export function ModeToggle() {
         </Button>
       </MenuTrigger>
       <MenuContent placement="bottom end">
-        <MenuItem onAction={() => setTheme(Theme.LIGHT)}>
-          Light
-        </MenuItem>
-        <MenuItem onAction={() => setTheme(Theme.DARK)}>
-          Dark
-        </MenuItem>
+        <MenuItem onAction={() => setTheme(Theme.LIGHT)}>Light</MenuItem>
+        <MenuItem onAction={() => setTheme(Theme.DARK)}>Dark</MenuItem>
       </MenuContent>
     </Menu>
   )

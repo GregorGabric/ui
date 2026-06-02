@@ -4,7 +4,8 @@
   "description": "A carousel component with navigation and pagination",
   "dependencies": [
     "embla-carousel-react",
-    "lucide-react"
+    "lucide-react",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/button.json",

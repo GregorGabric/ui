@@ -11,52 +11,39 @@ import { themes } from "@/registry/registry-themes"
 export const registry = {
   name: "preskok",
   homepage: "https://ui-three-mu.vercel.app",
-  items: registryItemSchema.array().parse(
-    [
-      {
-        name: "default",
-        extends: "none",
-        type: "registry:base",
-        config: {
-          style: "preskok",
-          iconLibrary: "lucide",
-          tailwind: {
-            baseColor: "neutral",
-            cssVariables: true,
-          },
-          registries: {
-            "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json",
-          },
-        },
-        dependencies: [
-          "class-variance-authority",
-          "lucide-react",
-          "tailwindcss-react-aria-components",
-        ],
-        devDependencies: ["tw-animate-css"],
-        registryDependencies: ["utils", "create-ctx", "primitive"],
+  items: registryItemSchema.array().parse([
+    {
+      name: "default",
+      extends: "none",
+      type: "registry:base",
+      config: {
+        style: "preskok",
+        iconLibrary: "lucide",
         tailwind: {
-          config: {
-            plugins: ['require("tailwindcss-react-aria-components")'],
-          },
+          baseColor: "neutral",
+          cssVariables: true,
         },
-        cssVars: {},
-        files: [],
+        registries: {
+          "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json",
+        },
       },
-      // ...ui,
-      ...preskokUi,
-      ...lib,
-      ...libPreskok,
-      ...hooks,
-      ...themes,
-      ...examples,
-      ...internal,
-    ].map((item) => {
-      if (item.name === "accordion" && "tailwind" in item) {
-        delete item.tailwind
-      }
-
-      return item
-    })
-  ),
+      dependencies: ["lucide-react", "tailwindcss-react-aria-components"],
+      devDependencies: ["tw-animate-css"],
+      registryDependencies: ["utils", "create-ctx", "primitive"],
+      tailwind: {
+        config: {
+          plugins: ['require("tailwindcss-react-aria-components")'],
+        },
+      },
+      cssVars: {},
+      files: [],
+    },
+    ...preskokUi,
+    ...lib,
+    ...libPreskok,
+    ...hooks,
+    ...themes,
+    ...examples,
+    ...internal,
+  ]),
 } satisfies Registry

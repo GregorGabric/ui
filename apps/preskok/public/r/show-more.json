@@ -3,9 +3,8 @@
   "name": "show-more",
   "description": "A show more/less component for collapsible content",
   "dependencies": [
-    "lucide-react",
     "react-aria-components",
-    "tailwind-merge"
+    "tailwind-variants"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/button.json",

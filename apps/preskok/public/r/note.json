@@ -3,6 +3,7 @@
   "name": "note",
   "description": "A note component for displaying contextual information with different intents",
   "dependencies": [
+    "lucide-react",
     "tailwind-merge"
   ],
   "registryDependencies": [

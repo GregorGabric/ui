@@ -3,10 +3,11 @@
   "name": "tag-group",
   "description": "A tag group component for displaying and managing tags",
   "dependencies": [
-    "react-aria-components"
+    "lucide-react",
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/field.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

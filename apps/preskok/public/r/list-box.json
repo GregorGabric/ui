@@ -4,9 +4,11 @@
   "description": "A list box component for displaying selectable options",
   "dependencies": [
     "lucide-react",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/dropdown.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

@@ -1,9 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-controllable-state",
-  "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/use-layout-effect.json"
-  ],
+  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/hooks/use-controllable-state.ts",

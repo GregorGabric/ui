@@ -4,7 +4,8 @@
   "description": "A select component with searchable options and custom styling",
   "dependencies": [
     "lucide-react",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/primitive.json",

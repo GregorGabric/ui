@@ -290,7 +290,7 @@ import * as React from "react"
     name: "switch",
     description: "An accessible switch component for boolean inputs",
     type: "registry:ui",
-    registryDependencies: ["primitive"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/switch.tsx",
       type: "registry:ui",
@@ -416,7 +416,7 @@ import * as React from "react"
     name: "number-field",
     description: "A number input field with stepper buttons and validation",
     type: "registry:ui",
-    registryDependencies: ["button","field","use-media-query","primitive"],
+    registryDependencies: ["field","input","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/number-field.tsx",
       type: "registry:ui",
@@ -452,7 +452,7 @@ import * as React from "react"
     name: "search-field",
     description: "A search input field with loading state and clear functionality",
     type: "registry:ui",
-    registryDependencies: ["field","loader","primitive"],
+    registryDependencies: ["field","input","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/search-field.tsx",
       type: "registry:ui",
@@ -470,7 +470,7 @@ import * as React from "react"
     name: "slider",
     description: "A range slider component with tooltip and inline output options",
     type: "registry:ui",
-    registryDependencies: ["field","tooltip","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/slider.tsx",
       type: "registry:ui",
@@ -506,7 +506,7 @@ import * as React from "react"
     name: "text-field",
     description: "A comprehensive text input field with prefix, suffix, and password reveal",
     type: "registry:ui",
-    registryDependencies: ["field","loader","primitive"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/text-field.tsx",
       type: "registry:ui",
@@ -524,7 +524,7 @@ import * as React from "react"
     name: "textarea",
     description: "A multi-line text input component with field integration",
     type: "registry:ui",
-    registryDependencies: ["field","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/textarea.tsx",
       type: "registry:ui",
@@ -614,7 +614,7 @@ import * as React from "react"
     name: "drawer",
     description: "A drawer component that slides in from different sides",
     type: "registry:ui",
-    registryDependencies: ["button","dialog"],
+    registryDependencies: ["button"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/drawer.tsx",
       type: "registry:ui",
@@ -668,7 +668,7 @@ import * as React from "react"
     name: "menu",
     description: "A comprehensive menu component with submenus and sections",
     type: "registry:ui",
-    registryDependencies: ["button","dropdown","popover","primitive"],
+    registryDependencies: ["dropdown","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/menu.tsx",
       type: "registry:ui",
@@ -704,7 +704,7 @@ import * as React from "react"
     name: "list-box",
     description: "A list box component for displaying selectable options",
     type: "registry:ui",
-    registryDependencies: ["primitive"],
+    registryDependencies: ["dropdown","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/list-box.tsx",
       type: "registry:ui",
@@ -740,7 +740,7 @@ import * as React from "react"
     name: "combo-box",
     description: "A combo box component with filtering and custom input",
     type: "registry:ui",
-    registryDependencies: ["field","list-box","popover","primitive"],
+    registryDependencies: ["dropdown","field","input","popover","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/combo-box.tsx",
       type: "registry:ui",
@@ -794,7 +794,7 @@ import * as React from "react"
     name: "disclosure",
     description: "Disclosure and accordion components for collapsible content",
     type: "registry:ui",
-    registryDependencies: ["button","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/disclosure-group.tsx",
       type: "registry:ui",
@@ -812,7 +812,7 @@ import * as React from "react"
     name: "grid-list",
     description: "A grid list component for displaying items in a grid layout",
     type: "registry:ui",
-    registryDependencies: ["primitive"],
+    registryDependencies: ["checkbox","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/grid-list.tsx",
       type: "registry:ui",
@@ -862,60 +862,6 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "awesome-card": {
-    name: "awesome-card",
-    description: "A test card component with animations, variants and gradient backgrounds for testing the registry system",
-    type: "registry:ui",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/ui/awesome-card.tsx",
-      type: "registry:ui",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/awesome-card.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "video-player": {
-    name: "video-player",
-    description: "A video player component that allows you to play videos",
-    type: "registry:ui",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/ui/video-player.tsx",
-      type: "registry:ui",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/video-player.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "file-upload": {
-    name: "file-upload",
-    description: "A file upload component that allows you to upload files",
-    type: "registry:ui",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/ui/file-upload.tsx",
-      type: "registry:ui",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/file-upload.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "calendar": {
     name: "calendar",
     description: "A calendar component with single and range selection support",
@@ -956,7 +902,7 @@ import * as React from "react"
     name: "date-picker",
     description: "A date picker component with calendar popup for date selection",
     type: "registry:ui",
-    registryDependencies: ["calendar","popover","primitive","modal","range-calendar","date-field","field","input","use-media-query"],
+    registryDependencies: ["button","calendar","popover","primitive","modal","range-calendar","date-field","field","input","use-media-query"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-picker.tsx",
       type: "registry:ui",
@@ -974,7 +920,7 @@ import * as React from "react"
     name: "date-range-picker",
     description: "A date range picker component with calendar popup",
     type: "registry:ui",
-    registryDependencies: ["date-picker","field","input","date-field","primitive"],
+    registryDependencies: ["button","date-picker","field","input","date-field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/date-range-picker.tsx",
       type: "registry:ui",
@@ -992,7 +938,7 @@ import * as React from "react"
     name: "range-calendar",
     description: "A calendar component for selecting date ranges",
     type: "registry:ui",
-    registryDependencies: ["calendar"],
+    registryDependencies: ["calendar","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/range-calendar.tsx",
       type: "registry:ui",
@@ -1010,7 +956,7 @@ import * as React from "react"
     name: "editor",
     description: "A minimal rich text editor built on Tiptap",
     type: "registry:ui",
-    registryDependencies: ["button","field","input","menu","popover","separator","switch","text-field","toggle","toggle-group","tooltip"],
+    registryDependencies: ["button","field","input","menu","popover","separator","switch","text-field","toggle","toggle-group","tooltip","utils"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/editor/editor.tsx",
       type: "registry:ui",
@@ -1140,7 +1086,7 @@ import * as React from "react"
     name: "tag-group",
     description: "A tag group component for displaying and managing tags",
     type: "registry:ui",
-    registryDependencies: ["field","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/tag-group.tsx",
       type: "registry:ui",
@@ -1158,7 +1104,7 @@ import * as React from "react"
     name: "multi-select",
     description: "A multiple select component with tag-based selection",
     type: "registry:ui",
-    registryDependencies: ["dropdown","field","popover","tag-group","primitive"],
+    registryDependencies: ["button","field","list-box","popover","search-field","tag-group","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/multi-select.tsx",
       type: "registry:ui",
@@ -1176,7 +1122,7 @@ import * as React from "react"
     name: "tag-field",
     description: "A tag input field for adding and removing tags",
     type: "registry:ui",
-    registryDependencies: ["field","tag-group"],
+    registryDependencies: ["field","tag-group","text-field"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/tag-field.tsx",
       type: "registry:ui",
@@ -1212,7 +1158,7 @@ import * as React from "react"
     name: "toggle-group",
     description: "A toggle group component for single or multiple selection",
     type: "registry:ui",
-    registryDependencies: ["toggle","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/toggle-group.tsx",
       type: "registry:ui",
@@ -1302,7 +1248,7 @@ import * as React from "react"
     name: "navbar",
     description: "A comprehensive navigation bar with responsive design",
     type: "registry:ui",
-    registryDependencies: ["button","link","separator","primitive"],
+    registryDependencies: ["button","separator","sheet","use-media-query","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/navbar.tsx",
       type: "registry:ui",
@@ -1320,7 +1266,7 @@ import * as React from "react"
     name: "sidebar",
     description: "A comprehensive sidebar component with collapsible sections",
     type: "registry:ui",
-    registryDependencies: ["button","disclosure","link","sheet","tooltip","primitive"],
+    registryDependencies: ["button","link","sheet","tooltip","use-media-query","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/sidebar.tsx",
       type: "registry:ui",
@@ -1338,7 +1284,7 @@ import * as React from "react"
     name: "pagination",
     description: "A pagination component with page navigation controls",
     type: "registry:ui",
-    registryDependencies: ["button","primitive","link"],
+    registryDependencies: ["button","link"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/pagination.tsx",
       type: "registry:ui",
@@ -1410,7 +1356,7 @@ import * as React from "react"
     name: "progress-circle",
     description: "A circular progress component for showing completion status",
     type: "registry:ui",
-    registryDependencies: ["progress-bar"],
+    registryDependencies: undefined,
     files: [{
       path: "registry/preskok/ui/preskok-ui/progress-circle.tsx",
       type: "registry:ui",
@@ -1464,7 +1410,7 @@ import * as React from "react"
     name: "chart",
     description: "Core chart components and utilities for data visualization",
     type: "registry:ui",
-    registryDependencies: ["toggle-group","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/chart.tsx",
       type: "registry:ui",
@@ -1554,7 +1500,7 @@ import * as React from "react"
     name: "bar-list",
     description: "A horizontal bar list component for displaying ranked data",
     type: "registry:ui",
-    registryDependencies: ["link"],
+    registryDependencies: undefined,
     files: [{
       path: "registry/preskok/ui/preskok-ui/bar-list.tsx",
       type: "registry:ui",
@@ -1590,7 +1536,7 @@ import * as React from "react"
     name: "color-field",
     description: "A color input field with hex color validation",
     type: "registry:ui",
-    registryDependencies: ["color-picker","field","loader","primitive"],
+    registryDependencies: ["field","primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/color-field.tsx",
       type: "registry:ui",
@@ -1644,7 +1590,7 @@ import * as React from "react"
     name: "color-swatch-picker",
     description: "A color swatch picker for selecting from predefined colors",
     type: "registry:ui",
-    registryDependencies: ["color-swatch","primitive"],
+    registryDependencies: ["primitive"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/color-swatch-picker.tsx",
       type: "registry:ui",
@@ -1734,7 +1680,7 @@ import * as React from "react"
     name: "file-trigger",
     description: "A file input trigger component with button styling",
     type: "registry:ui",
-    registryDependencies: ["button"],
+    registryDependencies: ["button","loader"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/file-trigger.tsx",
       type: "registry:ui",
@@ -1788,7 +1734,7 @@ import * as React from "react"
     name: "command",
     description: "A command palette component for searchable command lists",
     type: "registry:ui",
-    registryDependencies: ["modal"],
+    registryDependencies: ["modal","utils"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/command.tsx",
       type: "registry:ui",
@@ -1842,7 +1788,7 @@ import * as React from "react"
     name: "number-format",
     description: "A number format component that allows you to format numbers in a variety of ways",
     type: "registry:ui",
-    registryDependencies: ["locale-context"],
+    registryDependencies: ["create-ctx","locale-context"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/number-format/number-format.tsx",
       type: "registry:ui",
@@ -1879,6 +1825,10 @@ import * as React from "react"
       target: ""
     },{
       path: "registry/preskok/ui/preskok-ui/locale-context/locale-helpers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/number-format/currency-helpers.ts",
       type: "registry:ui",
       target: ""
     }],
@@ -1984,7 +1934,7 @@ import * as React from "react"
     name: "use-controllable-state",
     description: "",
     type: "registry:hook",
-    registryDependencies: ["use-layout-effect"],
+    registryDependencies: undefined,
     files: [{
       path: "registry/preskok/hooks/use-controllable-state.ts",
       type: "registry:hook",
@@ -2061,6 +2011,14 @@ import * as React from "react"
       path: "registry/preskok/examples/sidebar-preskok-demo.tsx",
       type: "registry:example",
       target: ""
+    },{
+      path: "registry/preskok/examples/sidebar/app-sidebar.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/preskok/examples/sidebar/app-sidebar-nav.tsx",
+      type: "registry:component",
+      target: ""
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/sidebar-preskok-demo.tsx")
@@ -2100,6 +2058,24 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/number-format-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "note-demo": {
+    name: "note-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["note"],
+    files: [{
+      path: "registry/preskok/examples/note-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/note-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2258,6 +2234,10 @@ import * as React from "react"
     files: [{
       path: "registry/preskok/examples/navbar-preskok-demo.tsx",
       type: "registry:example",
+      target: ""
+    },{
+      path: "registry/preskok/examples/user-menu.tsx",
+      type: "registry:component",
       target: ""
     }],
     component: React.lazy(async () => {
@@ -2568,96 +2548,6 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/loader-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "chart-bar-demo": {
-    name: "chart-bar-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/examples/chart-bar-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/chart-bar-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "chart-bar-demo-grid": {
-    name: "chart-bar-demo-grid",
-    description: "",
-    type: "registry:example",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/examples/chart-bar-demo-grid.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/chart-bar-demo-grid.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "chart-bar-demo-axis": {
-    name: "chart-bar-demo-axis",
-    description: "",
-    type: "registry:example",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/examples/chart-bar-demo-axis.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/chart-bar-demo-axis.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "chart-bar-demo-tooltip": {
-    name: "chart-bar-demo-tooltip",
-    description: "",
-    type: "registry:example",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/examples/chart-bar-demo-tooltip.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/chart-bar-demo-tooltip.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "chart-bar-demo-legend": {
-    name: "chart-bar-demo-legend",
-    description: "",
-    type: "registry:example",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/examples/chart-bar-demo-legend.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/chart-bar-demo-legend.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3978,24 +3868,6 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "progress-demo": {
-    name: "progress-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["meter","progress-bar"],
-    files: [{
-      path: "registry/preskok/examples/progress-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/progress-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "skeleton-demo": {
     name: "skeleton-demo",
     description: "",
@@ -4032,132 +3904,6 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "breadcrumb-demo": {
-    name: "breadcrumb-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["breadcrumbs"],
-    files: [{
-      path: "registry/preskok/examples/breadcrumb-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/breadcrumb-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "input-otp-demo": {
-    name: "input-otp-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["input-otp"],
-    files: [{
-      path: "registry/preskok/examples/input-otp-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/input-otp-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "carousel-demo": {
-    name: "carousel-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["carousel","card"],
-    files: [{
-      path: "registry/preskok/examples/carousel-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/carousel-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "drawer-demo": {
-    name: "drawer-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["drawer","button","text-field"],
-    files: [{
-      path: "registry/preskok/examples/drawer-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/drawer-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "combobox-demo": {
-    name: "combobox-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["combo-box"],
-    files: [{
-      path: "registry/preskok/examples/combobox-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/combobox-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "button-icon": {
-    name: "button-icon",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["button"],
-    files: [{
-      path: "registry/preskok/examples/button-icon.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/button-icon.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sheet-side": {
-    name: "sheet-side",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["sheet","button"],
-    files: [{
-      path: "registry/preskok/examples/sheet-side.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/sheet-side.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "mode-toggle": {
     name: "mode-toggle",
     description: "",
@@ -4188,24 +3934,6 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/resizable-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "resizable-demo-with-handle": {
-    name: "resizable-demo-with-handle",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["card"],
-    files: [{
-      path: "registry/preskok/examples/resizable-demo-with-handle.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/resizable-demo-with-handle.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4296,24 +4024,6 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/menu-multiple-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "text-basic-demo": {
-    name: "text-basic-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["text"],
-    files: [{
-      path: "registry/preskok/example/text-basic-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/example/text-basic-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -4458,24 +4168,6 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/input-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "button-group-demo": {
-    name: "button-group-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["button-group","button"],
-    files: [{
-      path: "registry/preskok/example/button-group-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/example/button-group-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

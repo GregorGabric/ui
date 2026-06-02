@@ -3,7 +3,8 @@
   "name": "radio",
   "description": "Radio and RadioGroup components with field integration",
   "dependencies": [
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/field.json",

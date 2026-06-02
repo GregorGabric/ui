@@ -3,8 +3,10 @@
   "name": "dropdown",
   "description": "Core dropdown components used by other menu-like components",
   "dependencies": [
+    "lucide-react",
     "react-aria-components",
-    "tailwind-merge"
+    "tailwind-merge",
+    "tailwind-variants"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/keyboard.json",

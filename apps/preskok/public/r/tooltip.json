@@ -4,6 +4,7 @@
   "description": "A tooltip component with arrow and multiple styling options",
   "dependencies": [
     "react-aria-components",
+    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [

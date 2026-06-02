@@ -4,6 +4,7 @@
   "description": "A toggle button component with multiple variants",
   "dependencies": [
     "react-aria-components",
+    "tailwind-merge",
     "tailwind-variants"
   ],
   "registryDependencies": [

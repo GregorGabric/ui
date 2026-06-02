@@ -4,6 +4,7 @@
   "description": "One-time password input component with customizable slots",
   "dependencies": [
     "input-otp",
+    "lucide-react",
     "tailwind-merge"
   ],
   "registryDependencies": [

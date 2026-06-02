@@ -168,10 +168,7 @@ export default async function Page(props: {
         </div>
         <div className="mx-auto flex h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
           {neighbours.previous && (
-            <Link
-              href={neighbours.previous.url}
-              className={navTextLinkClass}
-            >
+            <Link href={neighbours.previous.url} className={navTextLinkClass}>
               <IconArrowLeft /> {neighbours.previous.name}
             </Link>
           )}

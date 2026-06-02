@@ -3,6 +3,7 @@
   "name": "keyboard",
   "description": "A component for displaying keyboard shortcuts and key combinations",
   "dependencies": [
+    "react-aria-components",
     "tailwind-merge"
   ],
   "registryDependencies": [

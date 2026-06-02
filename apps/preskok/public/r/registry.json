@@ -7,7 +7,6 @@
       "extends": "none",
       "name": "default",
       "dependencies": [
-        "class-variance-authority",
         "lucide-react",
         "tailwindcss-react-aria-components"
       ],
@@ -430,6 +429,7 @@
       "name": "keyboard",
       "description": "A component for displaying keyboard shortcuts and key combinations",
       "dependencies": [
+        "react-aria-components",
         "tailwind-merge"
       ],
       "files": [
@@ -465,6 +465,9 @@
       "name": "loader",
       "description": "A collection of loading indicators with multiple variants",
       "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "files": [
@@ -482,6 +485,7 @@
       "name": "note",
       "description": "A note component for displaying contextual information with different intents",
       "dependencies": [
+        "lucide-react",
         "tailwind-merge"
       ],
       "files": [
@@ -551,9 +555,11 @@
       "name": "switch",
       "description": "An accessible switch component for boolean inputs",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/field.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -570,6 +576,7 @@
       "description": "A tooltip component with arrow and multiple styling options",
       "dependencies": [
         "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "files": [
@@ -588,6 +595,7 @@
       "description": "Core field components including Input, Label, Description, and FieldError",
       "dependencies": [
         "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "registryDependencies": [
@@ -623,7 +631,9 @@
       "name": "checkbox",
       "description": "Checkbox and CheckboxGroup components with field integration",
       "dependencies": [
-        "react-aria-components"
+        "lucide-react",
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/field.json",
@@ -661,6 +671,7 @@
       "description": "One-time password input component with customizable slots",
       "dependencies": [
         "input-otp",
+        "lucide-react",
         "tailwind-merge"
       ],
       "files": [
@@ -682,9 +693,8 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/button.json",
         "https://ui-three-mu.vercel.app/r/field.json",
-        "https://ui-three-mu.vercel.app/r/use-media-query.json",
+        "https://ui-three-mu.vercel.app/r/input.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -700,7 +710,8 @@
       "name": "radio",
       "description": "Radio and RadioGroup components with field integration",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/field.json",
@@ -720,11 +731,12 @@
       "description": "A search input field with loading state and clear functionality",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/field.json",
-        "https://ui-three-mu.vercel.app/r/loader.json",
+        "https://ui-three-mu.vercel.app/r/input.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -740,11 +752,10 @@
       "name": "slider",
       "description": "A range slider component with tooltip and inline output options",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/field.json",
-        "https://ui-three-mu.vercel.app/r/tooltip.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -779,12 +790,10 @@
       "name": "text-field",
       "description": "A comprehensive text input field with prefix, suffix, and password reveal",
       "dependencies": [
-        "lucide-react",
         "react-aria-components"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/field.json",
-        "https://ui-three-mu.vercel.app/r/loader.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -800,10 +809,10 @@
       "name": "textarea",
       "description": "A multi-line text input component with field integration",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/field.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -819,7 +828,6 @@
       "name": "time-field",
       "description": "A time input field with segmented time entry",
       "dependencies": [
-        "@internationalized/date",
         "react-aria-components"
       ],
       "registryDependencies": [
@@ -859,7 +867,8 @@
       "description": "A comprehensive dialog component with header, body, and footer sections",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
@@ -879,7 +888,7 @@
       "description": "A modal dialog component with overlay and blur effects",
       "dependencies": [
         "react-aria-components",
-        "tailwind-variants"
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/dialog.json",
@@ -904,7 +913,6 @@
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/dialog.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
@@ -920,6 +928,7 @@
       "description": "A sheet component that slides in from different sides with blur effects",
       "dependencies": [
         "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "registryDependencies": [
@@ -938,8 +947,10 @@
       "name": "dropdown",
       "description": "Core dropdown components used by other menu-like components",
       "dependencies": [
+        "lucide-react",
         "react-aria-components",
-        "tailwind-merge"
+        "tailwind-merge",
+        "tailwind-variants"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/keyboard.json",
@@ -959,10 +970,10 @@
       "dependencies": [
         "lucide-react",
         "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/button.json",
         "https://ui-three-mu.vercel.app/r/dropdown.json",
         "https://ui-three-mu.vercel.app/r/popover.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
@@ -980,7 +991,7 @@
       "name": "context-menu",
       "description": "A context menu component triggered by right-click",
       "dependencies": [
-        "react-aria-components"
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/menu.json",
@@ -999,9 +1010,11 @@
       "description": "A list box component for displaying selectable options",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/dropdown.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1018,7 +1031,8 @@
       "description": "A select component with searchable options and custom styling",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/primitive.json",
@@ -1039,11 +1053,13 @@
       "name": "combo-box",
       "description": "A combo box component with filtering and custom input",
       "dependencies": [
+        "lucide-react",
         "react-aria-components"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/dropdown.json",
         "https://ui-three-mu.vercel.app/r/field.json",
-        "https://ui-three-mu.vercel.app/r/list-box.json",
+        "https://ui-three-mu.vercel.app/r/input.json",
         "https://ui-three-mu.vercel.app/r/popover.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
@@ -1061,7 +1077,8 @@
       "description": "A breadcrumb navigation component with customizable separators",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/link.json",
@@ -1097,11 +1114,10 @@
       "name": "disclosure",
       "description": "Disclosure and accordion components for collapsible content",
       "dependencies": [
-        "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/button.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1117,10 +1133,11 @@
       "name": "grid-list",
       "description": "A grid list component for displaying items in a grid layout",
       "dependencies": [
-        "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/checkbox.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1136,7 +1153,8 @@
       "name": "tabs",
       "description": "A tabs component with accessible tab navigation",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/primitive.json",
@@ -1155,7 +1173,8 @@
       "description": "A tree component for hierarchical data display",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/checkbox.json",
@@ -1171,61 +1190,14 @@
       "type": "registry:ui"
     },
     {
-      "name": "awesome-card",
-      "description": "A test card component with animations, variants and gradient backgrounds for testing the registry system",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/ui/awesome-card.tsx",
-          "type": "registry:ui"
-        }
-      ],
-      "type": "registry:ui",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/default.json"
-      ]
-    },
-    {
-      "name": "video-player",
-      "description": "A video player component that allows you to play videos",
-      "files": [
-        {
-          "path": "registry/preskok/ui/video-player.tsx",
-          "type": "registry:ui"
-        }
-      ],
-      "type": "registry:ui",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/default.json"
-      ]
-    },
-    {
-      "name": "file-upload",
-      "description": "A file upload component that allows you to upload files",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/ui/file-upload.tsx",
-          "type": "registry:ui"
-        }
-      ],
-      "type": "registry:ui",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/default.json"
-      ]
-    },
-    {
       "name": "calendar",
       "description": "A calendar component with single and range selection support",
       "dependencies": [
         "@internationalized/date",
         "@react-aria/i18n",
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
@@ -1244,8 +1216,8 @@
       "name": "date-field",
       "description": "A date field component with input segments for date and time entry",
       "dependencies": [
-        "@internationalized/date",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/field.json",
@@ -1264,10 +1236,13 @@
       "name": "date-picker",
       "description": "A date picker component with calendar popup for date selection",
       "dependencies": [
+        "@internationalized/date",
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/button.json",
         "https://ui-three-mu.vercel.app/r/calendar.json",
         "https://ui-three-mu.vercel.app/r/popover.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
@@ -1292,9 +1267,12 @@
       "description": "A date range picker component with calendar popup",
       "dependencies": [
         "@internationalized/date",
-        "react-aria-components"
+        "lucide-react",
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/button.json",
         "https://ui-three-mu.vercel.app/r/date-picker.json",
         "https://ui-three-mu.vercel.app/r/field.json",
         "https://ui-three-mu.vercel.app/r/input.json",
@@ -1315,10 +1293,12 @@
       "description": "A calendar component for selecting date ranges",
       "dependencies": [
         "@internationalized/date",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/calendar.json",
+        "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
@@ -1340,7 +1320,8 @@
         "@tiptap/starter-kit",
         "@tiptap/extension-color",
         "@tiptap/extension-horizontal-rule",
-        "@tiptap/pm"
+        "@tiptap/pm",
+        "lucide-react"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
@@ -1354,6 +1335,7 @@
         "https://ui-three-mu.vercel.app/r/toggle.json",
         "https://ui-three-mu.vercel.app/r/toggle-group.json",
         "https://ui-three-mu.vercel.app/r/tooltip.json",
+        "https://ui-three-mu.vercel.app/r/utils.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
@@ -1480,10 +1462,11 @@
       "name": "tag-group",
       "description": "A tag group component for displaying and managing tags",
       "dependencies": [
-        "react-aria-components"
+        "lucide-react",
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/field.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1503,9 +1486,11 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/dropdown.json",
+        "https://ui-three-mu.vercel.app/r/button.json",
         "https://ui-three-mu.vercel.app/r/field.json",
+        "https://ui-three-mu.vercel.app/r/list-box.json",
         "https://ui-three-mu.vercel.app/r/popover.json",
+        "https://ui-three-mu.vercel.app/r/search-field.json",
         "https://ui-three-mu.vercel.app/r/tag-group.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
@@ -1522,11 +1507,13 @@
       "name": "tag-field",
       "description": "A tag input field for adding and removing tags",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/field.json",
         "https://ui-three-mu.vercel.app/r/tag-group.json",
+        "https://ui-three-mu.vercel.app/r/text-field.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
@@ -1542,6 +1529,7 @@
       "description": "A toggle button component with multiple variants",
       "dependencies": [
         "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "files": [
@@ -1560,10 +1548,10 @@
       "description": "A toggle group component for single or multiple selection",
       "dependencies": [
         "react-aria-components",
+        "tailwind-merge",
         "tailwind-variants"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/toggle.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1579,7 +1567,6 @@
       "name": "choice-box",
       "description": "A choice box component for selecting from a grid of options",
       "dependencies": [
-        "lucide-react",
         "react-aria-components",
         "tailwind-merge",
         "tailwind-variants"
@@ -1602,7 +1589,8 @@
       "description": "A carousel component with navigation and pagination",
       "dependencies": [
         "embla-carousel-react",
-        "lucide-react"
+        "lucide-react",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
@@ -1652,12 +1640,14 @@
       "dependencies": [
         "lucide-react",
         "motion",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/link.json",
         "https://ui-three-mu.vercel.app/r/separator.json",
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/use-media-query.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1674,14 +1664,15 @@
       "description": "A comprehensive sidebar component with collapsible sections",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/disclosure.json",
         "https://ui-three-mu.vercel.app/r/link.json",
         "https://ui-three-mu.vercel.app/r/sheet.json",
         "https://ui-three-mu.vercel.app/r/tooltip.json",
+        "https://ui-three-mu.vercel.app/r/use-media-query.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1696,9 +1687,11 @@
     {
       "name": "pagination",
       "description": "A pagination component with page navigation controls",
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/link.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1714,7 +1707,8 @@
       "name": "toolbar",
       "description": "A toolbar component for grouping action buttons",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/separator.json",
@@ -1734,7 +1728,8 @@
       "name": "meter",
       "description": "A meter component for displaying scalar values within a range",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/primitive.json",
@@ -1752,7 +1747,8 @@
       "name": "progress-bar",
       "description": "A progress bar component for showing completion status",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/primitive.json",
@@ -1770,11 +1766,8 @@
       "name": "progress-circle",
       "description": "A circular progress component for showing completion status",
       "dependencies": [
+        "react-aria-components",
         "tailwind-merge"
-      ],
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/progress-bar.json",
-        "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
         {
@@ -1782,12 +1775,16 @@
           "type": "registry:ui"
         }
       ],
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/default.json"
+      ]
     },
     {
       "name": "tracker",
       "description": "A tracker component for visualizing data over time with tooltips",
       "dependencies": [
+        "react-aria-components",
         "tailwind-merge"
       ],
       "registryDependencies": [
@@ -1823,12 +1820,11 @@
       "name": "chart",
       "description": "Core chart components and utilities for data visualization",
       "dependencies": [
-        "lucide-react",
         "react-aria-components",
-        "recharts"
+        "recharts",
+        "tailwind-merge"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/toggle-group.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1923,17 +1919,16 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/link.json",
-        "https://ui-three-mu.vercel.app/r/default.json"
-      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/bar-list.tsx",
           "type": "registry:ui"
         }
       ],
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/default.json"
+      ]
     },
     {
       "name": "color-area",
@@ -1958,13 +1953,10 @@
       "name": "color-field",
       "description": "A color input field with hex color validation",
       "dependencies": [
-        "lucide-react",
         "react-aria-components"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/color-picker.json",
         "https://ui-three-mu.vercel.app/r/field.json",
-        "https://ui-three-mu.vercel.app/r/loader.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -1980,7 +1972,8 @@
       "name": "color-slider",
       "description": "A color slider component for single-dimension color adjustment",
       "dependencies": [
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/color-thumb.json",
@@ -2020,7 +2013,6 @@
         "react-aria-components"
       ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/color-swatch.json",
         "https://ui-three-mu.vercel.app/r/primitive.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -2117,11 +2109,13 @@
       "name": "file-trigger",
       "description": "A file input trigger component with button styling",
       "dependencies": [
+        "lucide-react",
         "react-aria-components",
         "tailwind-variants"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/loader.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
@@ -2135,6 +2129,9 @@
     {
       "name": "scroll-area",
       "description": "A scroll area component with custom scrollbars",
+      "dependencies": [
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/scroll-area.tsx",
@@ -2150,9 +2147,8 @@
       "name": "show-more",
       "description": "A show more/less component for collapsible content",
       "dependencies": [
-        "lucide-react",
         "react-aria-components",
-        "tailwind-merge"
+        "tailwind-variants"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
@@ -2171,11 +2167,11 @@
       "description": "A command palette component for searchable command lists",
       "dependencies": [
         "cmdk",
-        "lucide-react",
-        "tailwind-merge"
+        "lucide-react"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/modal.json",
+        "https://ui-three-mu.vercel.app/r/utils.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
       "files": [
@@ -2191,7 +2187,8 @@
       "description": "A command menu component with search and keyboard navigation",
       "dependencies": [
         "lucide-react",
-        "react-aria-components"
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/dropdown.json",
@@ -2212,7 +2209,9 @@
       "name": "table",
       "description": "A comprehensive table component with sorting, resizing, and selection",
       "dependencies": [
-        "react-aria-components"
+        "lucide-react",
+        "react-aria-components",
+        "tailwind-merge"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/checkbox.json",
@@ -2234,6 +2233,7 @@
         "react-number-format"
       ],
       "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/create-ctx.json",
         "https://ui-three-mu.vercel.app/r/locale-context.json",
         "https://ui-three-mu.vercel.app/r/default.json"
       ],
@@ -2260,6 +2260,9 @@
     {
       "name": "locale-context",
       "description": "Locale context provider for internationalization support",
+      "dependencies": [
+        "react-number-format"
+      ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/create-ctx.json",
         "https://ui-three-mu.vercel.app/r/default.json"
@@ -2271,6 +2274,10 @@
         },
         {
           "path": "registry/preskok/ui/preskok-ui/locale-context/locale-helpers.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/preskok/ui/preskok-ui/number-format/currency-helpers.ts",
           "type": "registry:ui"
         }
       ],
@@ -2344,16 +2351,14 @@
     },
     {
       "name": "use-controllable-state",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/use-layout-effect.json"
-      ],
       "files": [
         {
           "path": "registry/preskok/hooks/use-controllable-state.ts",
           "type": "registry:hook"
         }
       ],
-      "type": "registry:hook"
+      "type": "registry:hook",
+      "registryDependencies": []
     },
     {
       "name": "use-media-query",
@@ -2586,6 +2591,14 @@
         {
           "path": "registry/preskok/examples/sidebar-preskok-demo.tsx",
           "type": "registry:example"
+        },
+        {
+          "path": "registry/preskok/examples/sidebar/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/preskok/examples/sidebar/app-sidebar-nav.tsx",
+          "type": "registry:component"
         }
       ],
       "meta": {
@@ -2618,6 +2631,19 @@
       "files": [
         {
           "path": "registry/preskok/examples/number-format-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "note-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/note.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/note-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -2747,6 +2773,10 @@
         {
           "path": "registry/preskok/examples/navbar-preskok-demo.tsx",
           "type": "registry:example"
+        },
+        {
+          "path": "registry/preskok/examples/user-menu.tsx",
+          "type": "registry:component"
         }
       ],
       "type": "registry:example"
@@ -2999,61 +3029,6 @@
         }
       ],
       "type": "registry:example"
-    },
-    {
-      "name": "chart-bar-demo",
-      "files": [
-        {
-          "path": "registry/preskok/examples/chart-bar-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example",
-      "registryDependencies": []
-    },
-    {
-      "name": "chart-bar-demo-grid",
-      "files": [
-        {
-          "path": "registry/preskok/examples/chart-bar-demo-grid.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example",
-      "registryDependencies": []
-    },
-    {
-      "name": "chart-bar-demo-axis",
-      "files": [
-        {
-          "path": "registry/preskok/examples/chart-bar-demo-axis.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example",
-      "registryDependencies": []
-    },
-    {
-      "name": "chart-bar-demo-tooltip",
-      "files": [
-        {
-          "path": "registry/preskok/examples/chart-bar-demo-tooltip.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example",
-      "registryDependencies": []
-    },
-    {
-      "name": "chart-bar-demo-legend",
-      "files": [
-        {
-          "path": "registry/preskok/examples/chart-bar-demo-legend.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example",
-      "registryDependencies": []
     },
     {
       "name": "bar-list-demo",
@@ -3520,9 +3495,6 @@
     },
     {
       "name": "date-field-demo",
-      "dependencies": [
-        "@internationalized/date"
-      ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/date-field.json"
       ],
@@ -3536,9 +3508,6 @@
     },
     {
       "name": "date-picker-preskok-demo",
-      "dependencies": [
-        "@internationalized/date"
-      ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/date-picker.json",
         "https://ui-three-mu.vercel.app/r/calendar.json",
@@ -3619,9 +3588,6 @@
     },
     {
       "name": "date-range-picker-preskok-demo",
-      "dependencies": [
-        "@internationalized/date"
-      ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/date-range-picker.json",
         "https://ui-three-mu.vercel.app/r/calendar.json",
@@ -4089,20 +4055,6 @@
       "type": "registry:example"
     },
     {
-      "name": "progress-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/meter.json",
-        "https://ui-three-mu.vercel.app/r/progress-bar.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/progress-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
       "name": "skeleton-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/skeleton.json"
@@ -4124,101 +4076,6 @@
       "files": [
         {
           "path": "registry/preskok/examples/sonner-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "breadcrumb-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/breadcrumbs.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/breadcrumb-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "input-otp-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/input-otp.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/input-otp-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "carousel-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/carousel.json",
-        "https://ui-three-mu.vercel.app/r/card.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/carousel-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "drawer-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/drawer.json",
-        "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/text-field.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/drawer-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "combobox-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/combo-box.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/combobox-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "button-icon",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/button-icon.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "sheet-side",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/sheet.json",
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/sheet-side.tsx",
           "type": "registry:example"
         }
       ],
@@ -4249,19 +4106,6 @@
       "files": [
         {
           "path": "registry/preskok/examples/resizable-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "resizable-demo-with-handle",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/card.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/resizable-demo-with-handle.tsx",
           "type": "registry:example"
         }
       ],
@@ -4331,19 +4175,6 @@
       "files": [
         {
           "path": "registry/preskok/examples/menu-multiple-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "text-basic-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/text.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/example/text-basic-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -4452,20 +4283,6 @@
       "files": [
         {
           "path": "registry/preskok/examples/input-preskok-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "button-group-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/button-group.json",
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/example/button-group-demo.tsx",
           "type": "registry:example"
         }
       ],

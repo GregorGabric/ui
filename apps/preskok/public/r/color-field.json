@@ -3,13 +3,10 @@
   "name": "color-field",
   "description": "A color input field with hex color validation",
   "dependencies": [
-    "lucide-react",
     "react-aria-components"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/color-picker.json",
     "https://ui-three-mu.vercel.app/r/field.json",
-    "https://ui-three-mu.vercel.app/r/loader.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

@@ -3,12 +3,11 @@
   "name": "chart",
   "description": "Core chart components and utilities for data visualization",
   "dependencies": [
-    "lucide-react",
     "react-aria-components",
-    "recharts"
+    "recharts",
+    "tailwind-merge"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/toggle-group.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
     "https://ui-three-mu.vercel.app/r/default.json"
   ],

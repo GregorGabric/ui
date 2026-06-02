@@ -16,7 +16,7 @@
     "build:preskok:registry": "turbo --filter=preskok registry:build",
     "build:registry": "pnpm --filter=preskok registry:build && pnpm lint:fix && pnpm format:write -- --loglevel silent",
     "registry:build": "pnpm --filter=preskok registry:build && pnpm lint:fix && pnpm format:write -- --loglevel silent",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev",
     "preskok:dev": "turbo --filter=preskok dev",
     "preskok": "pnpm --filter=preskok dev",
     "preskok:build": "pnpm --filter=preskok build",
@@ -27,45 +27,10 @@
     "typecheck": "turbo run typecheck",
     "format:write": "turbo run format:write",
     "format:check": "turbo run format:check",
-    "check": "turbo lint typecheck format:check",
-    "release": "changeset version",
-    "test": "turbo run test --force"
+    "check": "turbo run lint typecheck format:check"
   },
   "packageManager": "pnpm@11.5.1",
   "dependencies": {
-    "@babel/core": "^7.29.7",
-    "@changesets/changelog-github": "^0.7.0",
-    "@changesets/cli": "^2.31.0",
-    "@commitlint/cli": "^21.0.2",
-    "@commitlint/config-conventional": "^21.0.2",
-    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@manypkg/cli": "^0.25.1",
-    "@typescript-eslint/parser": "^8.60.0",
-    "autoprefixer": "^10.5.0",
-    "concurrently": "^10.0.1",
-    "cross-env": "^10.1.0",
-    "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.7",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-config-turbo": "^2.9.16",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-tailwindcss": "3.18.3",
-    "motion": "^12.40.0",
-    "postcss": "^8.5.15",
-    "prettier": "^3.8.3",
-    "pretty-quick": "^4.2.2",
-    "puppeteer": "^25.1.0",
-    "tailwindcss": "4.3.0",
-    "tsx": "^4.22.4",
-    "turbo": "^2.9.16",
-    "vite": "^8.0.16",
-    "vitest": "^4.1.8"
-  },
-  "devDependencies": {
-    "@types/hast": "^3.0.4",
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.16",
-    "@types/react-dom": "^19.2.3",
-    "typescript": "^6.0.3"
+    "turbo": "^2.9.16"
   }
 }

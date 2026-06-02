@@ -3,10 +3,13 @@
   "name": "date-picker",
   "description": "A date picker component with calendar popup for date selection",
   "dependencies": [
+    "@internationalized/date",
     "lucide-react",
-    "react-aria-components"
+    "react-aria-components",
+    "tailwind-merge"
   ],
   "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/button.json",
     "https://ui-three-mu.vercel.app/r/calendar.json",
     "https://ui-three-mu.vercel.app/r/popover.json",
     "https://ui-three-mu.vercel.app/r/primitive.json",
