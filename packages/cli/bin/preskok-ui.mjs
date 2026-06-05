@@ -2,6 +2,7 @@
 import { spawnSync } from "node:child_process"
 
 const REGISTRY = "@preskok=https://ui-three-mu.vercel.app/r/{name}.json"
+const DEFAULT_REGISTRY_ITEM = "https://ui-three-mu.vercel.app/r/default.json"
 
 const args = process.argv.slice(2)
 const [command, ...commandArgs] = args
@@ -24,13 +25,7 @@ if (command === "add") {
 }
 
 if (command === "init") {
-  const initStatus = runShadcn(["init", ...commandArgs])
-
-  if (initStatus !== 0) {
-    process.exit(initStatus)
-  }
-
-  process.exit(runShadcn(["registry", "add", REGISTRY]))
+  process.exit(runShadcn(["init", DEFAULT_REGISTRY_ITEM, ...commandArgs]))
 }
 
 if (command === "registry") {
