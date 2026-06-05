@@ -25,7 +25,9 @@ if (command === "add") {
 }
 
 if (command === "init") {
-  process.exit(runShadcn(["init", DEFAULT_REGISTRY_ITEM, ...commandArgs]))
+  process.exit(
+    runShadcn(["init", DEFAULT_REGISTRY_ITEM, ...toPreskokInitItems(commandArgs)])
+  )
 }
 
 if (command === "registry") {
@@ -67,16 +69,47 @@ function toPreskokItems(values) {
   })
 }
 
+function toPreskokInitItems(values) {
+  const initOptionsWithValues = new Set([
+    "-t",
+    "--template",
+    "-b",
+    "--base",
+    "-p",
+    "--preset",
+    "-c",
+    "--cwd",
+    "-n",
+    "--name",
+  ])
+
+  let skipNext = false
+
+  return values.map((value) => {
+    if (skipNext) {
+      skipNext = false
+      return value
+    }
+
+    if (initOptionsWithValues.has(value)) {
+      skipNext = true
+      return value
+    }
+
+    return toPreskokItems([value])[0]
+  })
+}
+
 function printHelp() {
   console.log(`Usage: preskok-ui <command> [options]
 
 Commands:
-  init                run shadcn init and register Preskok
+  init [items...]     run shadcn init with the Preskok base and optional items
   add <items...>      register Preskok and add items by name
   registry            register the @preskok namespace in components.json
 
 Examples:
-  npx preskok-ui@latest init
+  npx preskok-ui@latest init button
   npx preskok-ui@latest add button
   npx preskok-ui@latest diff
   npx preskok-ui@latest registry`)
