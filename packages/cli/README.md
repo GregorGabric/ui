@@ -7,7 +7,7 @@ npx preskok-ui@latest init
 npx preskok-ui@latest init button
 ```
 
-The CLI delegates to `shadcn@latest`. `init` installs the Preskok base for new projects, only registers the Preskok namespace in projects that already have `components.json`, and can add optional components in one pass. `add` resolves bare component names through the Preskok registry.
+The CLI delegates to `shadcn@4.9.0` by default. Set `PRESKOK_SHADCN_VERSION` to test another shadcn CLI version. Use `init` for new projects, `registry` for existing shadcn projects, and `add` to resolve bare component names through the Preskok registry.
 
 ```bash
 npx preskok-ui@latest registry
