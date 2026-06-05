@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-mobile",
-  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/hooks/use-mobile.ts",

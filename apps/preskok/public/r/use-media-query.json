@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-media-query",
-  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/hooks/use-media-query.ts",

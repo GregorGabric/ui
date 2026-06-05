@@ -7,8 +7,7 @@
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/dialog.json",
-    "https://ui-three-mu.vercel.app/r/primitive.json",
-    "https://ui-three-mu.vercel.app/r/default.json"
+    "https://ui-three-mu.vercel.app/r/primitive.json"
   ],
   "files": [
     {

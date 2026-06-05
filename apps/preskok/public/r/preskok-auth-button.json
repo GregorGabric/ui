@@ -3,8 +3,7 @@
   "name": "preskok-auth-button",
   "description": "A branded authentication button component for Preskok integration",
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/button.json",
-    "https://ui-three-mu.vercel.app/r/default.json"
+    "https://ui-three-mu.vercel.app/r/button.json"
   ],
   "files": [
     {

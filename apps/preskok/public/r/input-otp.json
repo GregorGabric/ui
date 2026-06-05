@@ -7,9 +7,6 @@
     "lucide-react",
     "tailwind-merge"
   ],
-  "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/default.json"
-  ],
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/input-otp.tsx",

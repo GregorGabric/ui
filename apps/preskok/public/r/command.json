@@ -8,8 +8,7 @@
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/modal.json",
-    "https://ui-three-mu.vercel.app/r/utils.json",
-    "https://ui-three-mu.vercel.app/r/default.json"
+    "https://ui-three-mu.vercel.app/r/utils.json"
   ],
   "files": [
     {

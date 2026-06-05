@@ -6,8 +6,7 @@
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "https://ui-three-mu.vercel.app/r/menu.json",
-    "https://ui-three-mu.vercel.app/r/default.json"
+    "https://ui-three-mu.vercel.app/r/menu.json"
   ],
   "files": [
     {

@@ -8,8 +8,7 @@
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/color-thumb.json",
-    "https://ui-three-mu.vercel.app/r/field.json",
-    "https://ui-three-mu.vercel.app/r/default.json"
+    "https://ui-three-mu.vercel.app/r/field.json"
   ],
   "files": [
     {

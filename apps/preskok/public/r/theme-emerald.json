@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-emerald",
-  "registryDependencies": [],
   "cssVars": {
     "light": {
       "background": "0 0% 100%",

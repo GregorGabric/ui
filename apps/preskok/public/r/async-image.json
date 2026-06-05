@@ -8,8 +8,7 @@
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/skeleton.json",
-    "https://ui-three-mu.vercel.app/r/text.json",
-    "https://ui-three-mu.vercel.app/r/default.json"
+    "https://ui-three-mu.vercel.app/r/text.json"
   ],
   "files": [
     {

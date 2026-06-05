@@ -4,7 +4,6 @@ export const libPreskok: Registry["items"] = [
   {
     name: "create-ctx",
     type: "registry:lib",
-    dependencies: ["react"],
     files: [
       {
         path: "lib/create-ctx.ts",
@@ -15,7 +14,6 @@ export const libPreskok: Registry["items"] = [
   {
     name: "primitive",
     type: "registry:lib",
-    dependencies: ["react-aria-components", "tailwind-merge"],
     files: [
       {
         path: "lib/primitive.ts",

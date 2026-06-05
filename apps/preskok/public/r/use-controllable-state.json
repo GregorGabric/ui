@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-controllable-state",
-  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/hooks/use-controllable-state.ts",

@@ -1,15 +1,15 @@
 "use client"
 
-import React from "react"
+import type { ElementType, HTMLAttributes } from "react"
 import { CircleAlertIcon, CircleCheckIcon, InfoIcon } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
-interface NoteProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+interface NoteProps extends HTMLAttributes<HTMLDivElement> {
   intent?: "default" | "info" | "warning" | "danger" | "success"
   indicator?: boolean
 }
 
-const iconMap: Record<string, React.ElementType | null> = {
+const iconMap: Record<NonNullable<NoteProps["intent"]>, ElementType | null> = {
   info: InfoIcon,
   warning: CircleAlertIcon,
   danger: CircleAlertIcon,
@@ -20,6 +20,7 @@ const Note = ({
   indicator = true,
   intent = "default",
   className,
+  children,
   ...props
 }: NoteProps) => {
   const IconComponent = iconMap[intent] || null
@@ -43,11 +44,11 @@ const Note = ({
       ])}
       {...props}
     >
-      {IconComponent && indicator && (
+      {indicator && IconComponent ? (
         <IconComponent className="col-start-1 size-5 shrink-0" />
-      )}
+      ) : null}
       <div className="text-base/6 text-pretty group-has-data-[slot=icon]:col-start-2 sm:text-sm/6">
-        {props.children}
+        {children}
       </div>
     </div>
   )

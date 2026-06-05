@@ -270,12 +270,6 @@ async function buildRegistryJsonFile() {
         }
       })
 
-      const registryDependencies = new Set(item.registryDependencies ?? [])
-
-      if (item.type === "registry:ui") {
-        registryDependencies.add(PRESKOK_STYLE_ITEM)
-      }
-
       return {
         ...item,
         css:
@@ -300,7 +294,7 @@ async function buildRegistryJsonFile() {
             },
           },
         }),
-        registryDependencies: Array.from(registryDependencies).map(
+        registryDependencies: item.registryDependencies?.map(
           resolveRegistryDependency
         ),
         files,

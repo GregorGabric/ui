@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sidebar-group-collapsible",
-  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/internal/sidebar-group-collapsible.tsx",

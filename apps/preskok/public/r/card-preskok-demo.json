@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card-preskok-demo",
-  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/examples/card-preskok-demo.tsx",

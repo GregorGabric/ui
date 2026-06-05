@@ -5,7 +5,6 @@
     "clsx",
     "tailwind-merge"
   ],
-  "registryDependencies": [],
   "files": [
     {
       "path": "registry/preskok/lib/utils.ts",
