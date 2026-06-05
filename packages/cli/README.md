@@ -10,5 +10,6 @@ The CLI delegates to `shadcn@latest`. `init` installs the Preskok base and optio
 
 ```bash
 npx preskok-ui@latest registry
-npx preskok-ui@latest diff
+npx preskok-ui@latest view button
+npx preskok-ui@latest diff button
 ```
