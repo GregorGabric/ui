@@ -1,10 +1,10 @@
 {
   "name": "preskok-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "preskok-ui": "./bin/preskok-ui.mjs"
+    "preskok-ui": "bin/preskok-ui.mjs"
   },
   "files": [
     "bin",
