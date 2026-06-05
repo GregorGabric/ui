@@ -28,7 +28,7 @@ Configure the `@` path alias in your `tsconfig.json` file.
 
 ### Create `components.json`
 
-Create a `components.json` file in the root of your project and register the Preskok registry.
+Create a `components.json` file in the root of your project.
 
 ```json title="components.json" showLineNumbers
 {
@@ -50,9 +50,6 @@ Create a `components.json` file in the root of your project and register the Pre
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {
-    "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json"
-  },
   "iconLibrary": "lucide"
 }
 ```
@@ -62,7 +59,7 @@ Create a `components.json` file in the root of your project and register the Pre
 You can now add Preskok components to your project.
 
 ```bash
-npx shadcn@latest add @preskok/button
+npx preskok-ui@latest add button
 ```
 
 The command above will add the `Button` component to `src/components/ui/preskok-ui/button.tsx`. You can then import it like this:

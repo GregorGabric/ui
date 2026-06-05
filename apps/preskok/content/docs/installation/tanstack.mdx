@@ -96,10 +96,10 @@ Add the following code to the `tsconfig.json` file to resolve paths.
 
 ### Run the CLI
 
-Run the Preskok base init command to setup your project:
+Run the Preskok UI init command to set up your project:
 
 ```bash
-npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
+npx preskok-ui@latest init
 ```
 
 This will create a `components.json` file in the root of your project and configure CSS variables inside `app/styles/app.css`.
@@ -109,7 +109,7 @@ This will create a `components.json` file in the root of your project and config
 You can now start adding components to your project.
 
 ```bash
-npx shadcn@latest add @preskok/button
+npx preskok-ui@latest add button
 ```
 
 The command above will add the `Button` component to your project. You can then import it like this:

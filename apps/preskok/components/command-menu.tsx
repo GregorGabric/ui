@@ -160,8 +160,9 @@ export function CommandMenu({ tree }: { tree: typeof source.pageTree }) {
                   const textValue = [sectionLabel, itemName]
                     .filter(Boolean)
                     .join(" ")
+                  const componentName = item.url.split("/").pop() ?? ""
                   const payload = isComponent
-                    ? `${packageManager} dlx shadcn@latest add @preskok/${item.url.split("/").pop()}`
+                    ? getPreskokAddCommand(packageManager, componentName)
                     : ""
 
                   return (
@@ -205,6 +206,25 @@ export function CommandMenu({ tree }: { tree: typeof source.pageTree }) {
       </CommandMenuPrimitive>
     </>
   )
+}
+
+function getPreskokAddCommand(
+  packageManager: "npm" | "yarn" | "pnpm" | "bun",
+  componentName: string
+) {
+  if (packageManager === "npm") {
+    return `npx preskok-ui@latest add ${componentName}`
+  }
+
+  if (packageManager === "yarn") {
+    return `yarn preskok-ui@latest add ${componentName}`
+  }
+
+  if (packageManager === "bun") {
+    return `bunx --bun preskok-ui@latest add ${componentName}`
+  }
+
+  return `pnpm dlx preskok-ui@latest add ${componentName}`
 }
 
 function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {
