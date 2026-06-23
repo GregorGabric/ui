@@ -50,9 +50,14 @@ Create a `components.json` file in the root of your project.
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
+  "registries": {
+    "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json"
+  },
   "iconLibrary": "lucide"
 }
 ```
+
+The `@preskok` registry namespace is required when using `shadcn` directly or the shadcn MCP server.
 
 ### Add components
 
@@ -60,6 +65,12 @@ You can now add Preskok components to your project.
 
 ```bash
 npx preskok-ui@latest add button
+```
+
+Or use `shadcn` directly:
+
+```bash
+npx shadcn@latest add @preskok/button
 ```
 
 The command above will add the `Button` component to `src/components/ui/preskok-ui/button.tsx`. You can then import it like this:

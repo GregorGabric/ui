@@ -5,12 +5,43 @@ description: Install and configure Preskok UI for Next.js.
 
 <Steps>
 
-### Create project
+### Create a Next.js app
 
-Run the Preskok UI init command to create a new Next.js project or set up an existing one:
+Create a Next.js app with Tailwind CSS and the `@/*` import alias:
 
 ```bash
-npx preskok-ui@latest init button
+npx create-next-app@latest my-app --ts --tailwind --eslint --app --src-dir --import-alias "@/*"
+cd my-app
+```
+
+### Initialize Preskok UI
+
+Run the Preskok UI init command from the project root:
+
+```bash
+npx preskok-ui@latest init
+```
+
+This installs the Preskok base registry item, writes `components.json`, configures the `@preskok` registry namespace, and adds the shared utilities used by Preskok components.
+
+If you want to use `shadcn` directly, the equivalent command is:
+
+```bash
+npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
+```
+
+### Add a component
+
+Add components with the Preskok CLI:
+
+```bash
+npx preskok-ui@latest add button
+```
+
+Or use `shadcn` directly with the registry namespace:
+
+```bash
+npx shadcn@latest add @preskok/button
 ```
 
 The command above will add the `Button` component to your project. You can then import it like this:

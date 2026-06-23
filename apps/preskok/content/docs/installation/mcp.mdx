@@ -1,0 +1,64 @@
+---
+title: MCP
+description: Use Preskok UI with the shadcn MCP server.
+---
+
+Preskok UI works with the official shadcn MCP server through the `@preskok` registry namespace. There is no separate Preskok MCP server.
+
+<Steps>
+
+### Initialize your project
+
+Start with a project initialized by Preskok UI. For MCP registry discovery, `components.json` must contain the Preskok registry namespace:
+
+```json title="components.json" showLineNumbers
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "preskok",
+  "registries": {
+    "@preskok": "https://ui-three-mu.vercel.app/r/{name}.json"
+  }
+}
+```
+
+For a new project, the Preskok init command writes this configuration for you:
+
+```bash
+npx preskok-ui@latest init
+```
+
+The equivalent shadcn command is:
+
+```bash
+npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
+```
+
+### Configure your MCP client
+
+Configure your MCP client to run the shadcn MCP server:
+
+```toml title="config.toml"
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+```
+
+The MCP process must start in the project directory that contains `components.json`. In a monorepo, use the app package directory, not the monorepo root.
+
+### What the MCP can do
+
+The shadcn MCP server can list configured registries, search `@preskok` items, view item metadata, return example source code, and produce install commands.
+
+For example, an MCP client can resolve this install command:
+
+```bash
+npx shadcn@latest add @preskok/button
+```
+
+### Current shadcn MCP limitations
+
+The shadcn MCP `view_items_in_registries` tool returns component metadata, file counts, and dependencies, but not component file source. The registry JSON and `shadcn view @preskok/button` do include component source.
+
+The `get_item_examples_from_registries` tool does return full example source code.
+
+</Steps>
