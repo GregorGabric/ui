@@ -1,80 +1,72 @@
 "use client"
 
 import * as React from "react"
+import { Tab, Tabs } from "fumadocs-ui/components/tabs"
 
 import { cn } from "@/lib/utils"
-import { Tab, TabList, Tabs } from "@/registry/preskok/ui/preskok-ui/tabs"
+
+const previewClassName =
+  "preview flex min-h-72 max-h-[min(520px,80vh)] w-full overflow-auto overscroll-contain scroll-p-8 p-8 sm:scroll-p-10 sm:px-8 sm:py-10"
+const previewContentClassName =
+  "flex max-w-full min-w-0 justify-center data-[align=center]:my-auto data-[align=end]:mt-auto data-[align=start]:mb-auto [&>.flex-wrap]:justify-center"
 
 export function ComponentPreviewTabs({
   className,
+  previewClassName: previewClassNameProp,
   align = "center",
   hideCode = false,
   component,
   source,
   ...props
 }: React.ComponentProps<"div"> & {
+  previewClassName?: string
   align?: "center" | "start" | "end"
   hideCode?: boolean
   component: React.ReactNode
   source: React.ReactNode
 }) {
-  const [tab, setTab] = React.useState("preview")
+  if (hideCode) {
+    return (
+      <div
+        data-slot="component-preview"
+        className={cn(
+          "group relative mt-4 mb-12 flex flex-col gap-2",
+          className
+        )}
+        {...props}
+      >
+        <div className="bg-fd-card relative overflow-hidden rounded-xl border">
+          <div className={cn(previewClassName, previewClassNameProp)}>
+            <div data-align={align} className={previewContentClassName}>
+              {component}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div
+      data-slot="component-preview"
       className={cn("group relative mt-4 mb-12 flex flex-col gap-2", className)}
       {...props}
     >
-      <Tabs
-        className="relative mr-auto w-full"
-        selectedKey={tab}
-        onSelectionChange={(key) => setTab(String(key))}
-      >
-        <div className="flex items-center justify-between">
-          {!hideCode && (
-            <TabList className="justify-start gap-4 rounded-none bg-transparent px-2 md:px-0">
-              <Tab
-                id="preview"
-                className="text-muted-foreground data-[state=active]:text-foreground px-0 text-base data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent"
-              >
-                Preview
-              </Tab>
-              <Tab
-                id="code"
-                className="text-muted-foreground data-[state=active]:text-foreground px-0 text-base data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent"
-              >
-                Code
-              </Tab>
-            </TabList>
-          )}
-        </div>
-      </Tabs>
-      <div
-        data-tab={tab}
-        className="data-[tab=code]:border-code relative rounded-lg border"
-      >
-        <div
-          data-slot="preview"
-          data-active={tab === "preview"}
-          className="invisible data-[active=true]:visible"
-        >
-          <div
-            data-align={align}
-            className={cn(
-              "preview flex h-[500px] w-full justify-center overflow-auto p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start group-first:md:h-[700px]"
-            )}
-          >
-            {component}
+      <Tabs items={["Preview", "Code"]} className="my-0">
+        <Tab value="Preview" className="p-0">
+          <div className={cn(previewClassName, previewClassNameProp)}>
+            <div data-align={align} className={previewContentClassName}>
+              {component}
+            </div>
           </div>
-        </div>
-        <div
-          data-slot="code"
-          data-active={tab === "code"}
-          className="absolute inset-0 hidden overflow-auto data-[active=true]:block **:[figure]:!m-0 **:[figure]:h-full"
+        </Tab>
+        <Tab
+          value="Code"
+          className="bg-fd-card! overflow-hidden rounded-none! p-0 [&_figure]:!m-0 [&_figure]:rounded-none [&_figure]:border-0 [&_figure]:shadow-none"
         >
           {source}
-        </div>
-      </div>
+        </Tab>
+      </Tabs>
     </div>
   )
 }

@@ -4,7 +4,6 @@ import type React from "react"
 import type { Key } from "react-aria-components/Select"
 import { twMerge } from "tailwind-merge"
 
-import { useTheme } from "@/components/theme-provider"
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import {
   Select,
@@ -36,7 +35,7 @@ const ColorSelect = ({
   const filteredKeys = filterKeys
     ? Object.keys(colors).filter((key) => filterKeys.includes(key))
     : Object.keys(colors)
-  const { theme } = useTheme()
+
   return (
     <Select {...props} value={selectedKey} onChange={onSelectionChange}>
       <SelectTrigger className="capitalize" />
@@ -51,7 +50,7 @@ const ColorSelect = ({
             <div
               data-slot="icon"
               className={twMerge(
-                "size-4 rounded-sm inset-ring inset-ring-(--inset-ring-color)/15 dark:inset-ring-(--inset-ring-color)/5",
+                "size-4 rounded-sm bg-(--swatch-color) inset-ring inset-ring-(--inset-ring-color)/15 dark:bg-(--swatch-color-dark) dark:inset-ring-(--inset-ring-color)/5",
                 className
               )}
               aria-hidden
@@ -59,10 +58,11 @@ const ColorSelect = ({
                 {
                   "--inset-ring-color":
                     colors[key as keyof typeof colors]["200"],
-                  backgroundColor: neutralColors.includes(key)
-                    ? colors[key as keyof typeof colors][
-                        theme === "dark" ? "900" : "700"
-                      ]
+                  "--swatch-color": neutralColors.includes(key)
+                    ? colors[key as keyof typeof colors]["700"]
+                    : colors[key as keyof typeof colors]["500"],
+                  "--swatch-color-dark": neutralColors.includes(key)
+                    ? colors[key as keyof typeof colors]["900"]
                     : colors[key as keyof typeof colors]["500"],
                 } as React.CSSProperties
               }

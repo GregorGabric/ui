@@ -8,6 +8,7 @@ export function ComponentPreview({
   name,
   type,
   className,
+  previewClassName,
   align = "center",
   hideCode = false,
   ...props
@@ -16,6 +17,7 @@ export function ComponentPreview({
   align?: "center" | "start" | "end"
   description?: string
   hideCode?: boolean
+  previewClassName?: string
   type?: "block" | "component" | "example"
 }) {
   const Component = Index[name]?.component
@@ -34,7 +36,7 @@ export function ComponentPreview({
 
   if (type === "block") {
     return (
-      <div className="relative aspect-[4/2.5] w-full overflow-hidden rounded-md border md:-mx-4">
+      <div className="relative mt-4 aspect-[4/2.5] w-full overflow-hidden rounded-xl border md:-mx-1">
         <Image
           src={`/r/${name}-light.png`}
           alt={name}
@@ -59,6 +61,7 @@ export function ComponentPreview({
   return (
     <ComponentPreviewTabs
       className={className}
+      previewClassName={previewClassName}
       align={align}
       hideCode={hideCode}
       component={<Component />}

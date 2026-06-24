@@ -2,10 +2,15 @@
 
 import { MailIcon, SearchIcon } from "lucide-react"
 
-import { Button } from "@/registry/preskok/ui/preskok-ui/button"
-import { Input, InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
+import {
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "@/registry/preskok/ui/preskok-ui/input"
 import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
-import { Text } from "@/registry/preskok/ui/preskok-ui/text"
 
 export default function InputPreskokDemo() {
   return (
@@ -20,8 +25,10 @@ export default function InputPreskokDemo() {
           Input with Icon
         </label>
         <InputGroup>
-          <MailIcon data-slot="icon" />
-          <Input placeholder="you@example.com" />
+          <InputGroupAddon>
+            <MailIcon />
+          </InputGroupAddon>
+          <InputGroupInput placeholder="you@example.com" />
         </InputGroup>
       </div>
 
@@ -30,8 +37,10 @@ export default function InputPreskokDemo() {
           Input with Loading State
         </label>
         <InputGroup>
-          <Input placeholder="Searching..." />
-          <Loader data-slot="loader" variant="spin" />
+          <InputGroupInput placeholder="Searching..." />
+          <InputGroupAddon align="inline-end">
+            <Loader variant="spin" />
+          </InputGroupAddon>
         </InputGroup>
       </div>
 
@@ -40,10 +49,16 @@ export default function InputPreskokDemo() {
           Input with Button
         </label>
         <InputGroup>
-          <Input placeholder="Enter search term" />
-          <Button intent="primary">
-            <SearchIcon className="size-4" />
-          </Button>
+          <InputGroupInput placeholder="Enter search term" />
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              intent="primary"
+              size="icon-sm"
+              aria-label="Search"
+            >
+              <SearchIcon />
+            </InputGroupButton>
+          </InputGroupAddon>
         </InputGroup>
       </div>
 
@@ -51,10 +66,14 @@ export default function InputPreskokDemo() {
         <label className="mb-2 block text-sm font-medium">
           Input with Text Prefix
         </label>
-        <InputGroup className="[--input-gutter-end:--spacing(12)] [--input-gutter-start:--spacing(16)]">
-          <Text>https://</Text>
-          <Input />
-          <Text>.com</Text>
+        <InputGroup>
+          <InputGroupAddon>
+            <InputGroupText>https://</InputGroupText>
+          </InputGroupAddon>
+          <InputGroupInput />
+          <InputGroupAddon align="inline-end">
+            <InputGroupText>.com</InputGroupText>
+          </InputGroupAddon>
         </InputGroup>
       </div>
     </div>

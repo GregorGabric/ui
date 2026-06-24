@@ -1,21 +1,65 @@
 "use client"
 
-import { MailIcon } from "lucide-react"
+import { MailIcon, SearchIcon } from "lucide-react"
 
-import { Input, InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
-import { Text } from "@/registry/preskok/ui/preskok-ui/text"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "@/registry/preskok/ui/preskok-ui/input"
+
+const buttonIntents = [
+  ["Primary action", "Publish", "primary"],
+  ["Secondary action", "Sync", "secondary"],
+  ["Warning action", "Retry", "warning"],
+  ["Danger action", "Delete", "danger"],
+  ["Outline action", "Export", "outline"],
+  ["Plain action", "Clear", "plain"],
+] as const
 
 export default function InputGroupDemo() {
   return (
-    <div className="space-y-6">
+    <div className="w-full max-w-2xl space-y-8">
       <InputGroup>
-        <MailIcon data-slot="icon" />
-        <Input type="email" />
+        <InputGroupAddon>
+          <MailIcon />
+        </InputGroupAddon>
+        <InputGroupInput type="email" placeholder="you@example.com" />
       </InputGroup>
-      <InputGroup className="[--input-gutter-end:--spacing(12)] [--input-gutter-start:--spacing(16)]">
-        <Text>https://</Text>
-        <Input />
-        <Text>.com</Text>
+
+      <InputGroup>
+        <InputGroupAddon>
+          <InputGroupText>https://</InputGroupText>
+        </InputGroupAddon>
+        <InputGroupInput placeholder="preskok" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupText>.com</InputGroupText>
+        </InputGroupAddon>
+      </InputGroup>
+
+      <div className="space-y-3">
+        <h3 className="text-sm font-medium">Button intents</h3>
+        {buttonIntents.map(([placeholder, label, intent]) => (
+          <InputGroup key={intent}>
+            <InputGroupInput placeholder={placeholder} />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton intent={intent} size="sm">
+                {label}
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+        ))}
+      </div>
+
+      <InputGroup>
+        <InputGroupInput placeholder="Customer, order, or route" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton intent="primary" size="icon-sm" aria-label="Search">
+            <SearchIcon />
+          </InputGroupButton>
+        </InputGroupAddon>
       </InputGroup>
     </div>
   )

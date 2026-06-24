@@ -58,7 +58,7 @@ export default function ExamplesLayout({
           Source. Open Code.
         </PageHeaderDescription>
         <PageActions>
-          <Link href="/docs" className={getStartedLinkClass}>
+          <Link href="/" className={getStartedLinkClass}>
             Get Started
           </Link>
         </PageActions>

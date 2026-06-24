@@ -64,7 +64,7 @@ export default function AppSidebar(
       <SidebarHeader>
         <Link
           className="flex items-center gap-x-2 group-data-[collapsible=dock]:size-10 group-data-[collapsible=dock]:justify-center"
-          href="/docs/components/layouts/sidebar"
+          href="/navigation/sidebar"
         >
           <PreskokIcon className="size-6" />
           <SidebarLabel className="font-medium">

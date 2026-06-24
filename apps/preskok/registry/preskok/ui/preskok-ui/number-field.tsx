@@ -9,7 +9,11 @@ import {
 } from "react-aria-components/NumberField"
 
 import { cx } from "@/registry/preskok/lib/primitive"
-import { Input, InputGroup } from "@/registry/preskok/ui/preskok-ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/registry/preskok/ui/preskok-ui/input"
 
 import { fieldStyles } from "./field"
 
@@ -23,16 +27,16 @@ const NumberField = ({ className, ...props }: NumberFieldProps) => {
   )
 }
 
-function NumberInput(props: React.ComponentProps<typeof Input>) {
+function NumberInput(props: React.ComponentProps<typeof InputGroupInput>) {
   return (
-    <InputGroup className="[--input-gutter-end:--spacing(19)]">
-      <Input className="tabular-nums" {...props} />
-      <div data-slot="text" className="pointer-events-auto right-0 p-px">
-        <div className="flex h-full items-center divide-x overflow-hidden rounded-r-[calc(var(--radius-lg)-1px)] border-l">
+    <InputGroup>
+      <InputGroupInput className="tabular-nums" {...props} />
+      <InputGroupAddon align="inline-end" className="py-0">
+        <div className="flex h-7 items-center divide-x overflow-hidden rounded-[calc(var(--radius-lg)-3px)] border sm:h-6">
           <StepperButton slot="decrement" />
           <StepperButton slot="increment" />
         </div>
-      </div>
+      </InputGroupAddon>
     </InputGroup>
   )
 }

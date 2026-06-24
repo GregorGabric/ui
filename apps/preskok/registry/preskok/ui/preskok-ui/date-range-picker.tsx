@@ -61,7 +61,7 @@ export function DateRangePickerTrigger({
 }: React.ComponentProps<typeof InputGroup>) {
   return (
     <InputGroup
-      className={cx(
+      className={twJoin(
         "flex items-center rounded-lg",
         "border-input hover:border-muted-foreground/30 border",
         "focus-within:border-ring/70 focus-within:ring-ring/20 focus-within:hover:border-ring/80 focus-within:ring-3 focus-within:outline-hidden",

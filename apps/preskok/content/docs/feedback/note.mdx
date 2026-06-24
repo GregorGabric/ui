@@ -3,6 +3,10 @@ title: Note
 description: A note component for displaying contextual information with different intents.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="note-demo"
   description="Note component examples with different intents."
@@ -28,10 +32,13 @@ npx preskok-ui@latest add note
 
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource name="note" title="registry/preskok/ui/preskok-ui/note.tsx" />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

@@ -3,6 +3,10 @@ title: Input
 description: Input and InputGroup components for text input with icons, loaders, and buttons.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview name="input-basic-demo" description="A basic input field." />
 
 ## Installation
@@ -25,13 +29,16 @@ npx preskok-ui@latest add input
 
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource
   name="input"
   title="registry/preskok/ui/preskok-ui/input.tsx"
 />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
@@ -99,8 +106,10 @@ A wrapper that allows you to add icons, loaders, text, or buttons alongside the 
 
 ```tsx
 <InputGroup>
-  <MailIcon data-slot="icon" />
-  <Input type="email" />
+  <InputGroupAddon>
+    <MailIcon />
+  </InputGroupAddon>
+  <InputGroupInput type="email" />
 </InputGroup>
 ```
 

@@ -5,7 +5,6 @@ import { CalendarDaysIcon } from "lucide-react"
 import type {
   DatePickerProps as DatePickerPrimitiveProps,
   DateValue,
-  GroupProps,
   PopoverProps,
 } from "react-aria-components/DatePicker"
 import { DatePicker as DatePickerPrimitive } from "react-aria-components/DatePicker"
@@ -101,10 +100,13 @@ export function DatePickerOverlay({
   )
 }
 
-export function DatePickerTrigger({ className, ...props }: GroupProps) {
+export function DatePickerTrigger({
+  className,
+  ...props
+}: React.ComponentProps<typeof InputGroup>) {
   return (
     <InputGroup
-      className={cx(
+      className={twJoin(
         "flex items-center rounded-lg",
         "border-input hover:border-muted-foreground/30 border",
         "focus-visible:focus-within:border-ring/70 focus-visible:focus-within:ring-ring/20 focus-visible:focus-within:hover:border-ring/80 focus-visible:focus-within:ring-3 focus-visible:focus-within:outline-hidden",

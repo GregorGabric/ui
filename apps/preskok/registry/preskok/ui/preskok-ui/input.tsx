@@ -5,8 +5,13 @@ import {
   Input as InputPrimitive,
   type InputProps as PrimitiveInputProps,
 } from "react-aria-components/Input"
+import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
+import {
+  Button,
+  type ButtonProps,
+} from "@/registry/preskok/ui/preskok-ui/button"
 
 interface InputProps extends PrimitiveInputProps {
   ref?: React.RefObject<HTMLInputElement>
@@ -35,41 +40,155 @@ export function Input({ className, ref, ...props }: InputProps) {
   )
 }
 
-export function InputGroup({ className, ...props }: GroupProps) {
+interface InputGroupProps extends Omit<GroupProps, "className"> {
+  className?: string
+}
+
+export function InputGroup({ className, ...props }: InputGroupProps) {
   return (
     <Group
-      data-slot="control"
-      className={cx(
-        "relative isolate block",
-        // icon
-        "has-[>[data-slot=icon]:first-child]:[&_input]:pl-10 has-[>[data-slot=icon]:last-child]:[&_input]:pr-10 sm:has-[>[data-slot=icon]:first-child]:[&_input]:pl-8 sm:has-[>[data-slot=icon]:last-child]:[&_input]:pr-8",
-        "*:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:top-3 *:data-[slot=icon]:z-10 *:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:top-2.5 sm:*:data-[slot=icon]:size-4",
-        "[&>[data-slot=icon]:first-child]:left-3 sm:[&>[data-slot=icon]:first-child]:left-2.5 [&>[data-slot=icon]:last-child]:right-3 sm:[&>[data-slot=icon]:last-child]:right-2.5",
-
-        // loader
-        "has-[[data-slot=loader]:first-child]:[&_input]:pl-10 has-[[data-slot=loader]:last-child]:[&_input]:pr-10 sm:has-[[data-slot=loader]:first-child]:[&_input]:pl-8 sm:has-[[data-slot=loader]:last-child]:[&_input]:pr-8",
-        "*:data-[slot=loader]:pointer-events-none *:data-[slot=loader]:absolute *:data-[slot=loader]:top-3 *:data-[slot=loader]:z-10 *:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:top-2.5 sm:*:data-[slot=loader]:size-4",
-        "[&>[data-slot=loader]:first-child]:left-3 sm:[&>[data-slot=loader]:first-child]:left-2.5 [&>[data-slot=loader]:last-child]:right-3 sm:[&>[data-slot=loader]:last-child]:right-2.5",
-
-        // text
-        "has-[[data-slot=text]:first-child]:[&_input]:pl-[calc(var(--input-gutter-start)+--spacing(2))] has-[[data-slot=text]:last-child]:[&_input]:pr-[calc(var(--input-gutter-end)+--spacing(2))] sm:has-[[data-slot=text]:first-child]:[&_input]:pl-(--input-gutter-start,--spacing(10)) sm:has-[[data-slot=text]:last-child]:[&_input]:pr-(--input-gutter-end,--spacing(10))",
-        "*:data-[slot=text]:absolute *:data-[slot=text]:top-0 *:data-[slot=text]:z-10 *:data-[slot=text]:h-full *:data-[slot=text]:max-w-fit *:data-[slot=text]:grow *:data-[slot=text]:content-center [&>[data-slot='text']:not([class*='pointer-events'])]:pointer-events-none",
-        "[&>[data-slot=text]:first-child:not([class*='left-'])]:left-3 sm:[&>[data-slot=text]:first-child:not([class*='left-'])]:left-2.5 [&>[data-slot=text]:last-child:not([class*='right-'])]:right-3 sm:[&>[data-slot=text]:last-child:not([class*='right-'])]:right-2.5",
-
-        // keyboard
-        "has-[[data-slot=keyboard]:first-child]:[&_input]:pl-[calc(var(--input-gutter-start)+--spacing(2))] has-[[data-slot=keyboard]:last-child]:[&_input]:pr-[calc(var(--input-gutter-end)+--spacing(2))] sm:has-[[data-slot=keyboard]:first-child]:[&_input]:pl-(--input-gutter-start,--spacing(10)) sm:has-[[data-slot=keyboard]:last-child]:[&_input]:pr-(--input-gutter-end,--spacing(10))",
-        "*:data-[slot=keyboard]:absolute *:data-[slot=keyboard]:top-0 *:data-[slot=keyboard]:z-10 *:data-[slot=keyboard]:h-full *:data-[slot=keyboard]:max-w-fit *:data-[slot=keyboard]:grow *:data-[slot=keyboard]:content-center [&>[data-slot='keyboard']:not([class*='pointer-events'])]:pointer-events-none",
-        "[&>[data-slot=keyboard]:first-child:not([class*='left-'])]:left-3 sm:[&>[data-slot=keyboard]:first-child:not([class*='left-'])]:left-2.5 [&>[data-slot=keyboard]:last-child:not([class*='right-'])]:right-3 sm:[&>[data-slot=keyboard]:last-child:not([class*='right-'])]:right-2.5",
-
-        // button
-        "has-[>button:first-child:not([data-slot=date-picker-trigger])]:[&_input]:pl-(--input-gutter-start,--spacing(16)) has-[>button:last-child:not([data-slot=date-picker-trigger])]:[&_input]:pr-(--input-gutter-end,--spacing(16)) sm:has-[>button:first-child:not([data-slot=date-picker-trigger])]:[&_input]:pl-(--input-gutter-start,--spacing(14)) sm:has-[>button:last-child:not([data-slot=date-picker-trigger])]:[&_input]:pr-(--input-gutter-end,--spacing(14))",
-        "[&>button:first-child:not([data-slot=date-picker-trigger])]:rounded-r-none [&>button:last-child:not([data-slot=date-picker-trigger])]:rounded-l-none",
-        "[&>button[data-intent=outline]]:border-input [&>button:not([data-slot=date-picker-trigger])]:absolute [&>button:not([data-slot=date-picker-trigger])]:top-0 [&>button:not([data-slot=date-picker-trigger])]:z-10 [&>button:not([data-slot=date-picker-trigger])]:min-h-11 sm:[&>button:not([data-slot=date-picker-trigger])]:min-h-9",
-        "[&>button:first-child:not([data-slot=date-picker-trigger])]:left-0 [&>button:last-child:not([data-slot=date-picker-trigger])]:right-0",
-
-        "[&>[data-slot='icon']:not([class*='text-'])]:text-muted-foreground [&>[data-slot='loader']:not([class*='text-'])]:text-muted-foreground [&>[data-slot='text']:not([class*='text-'])]:text-muted-foreground",
+      data-slot="input-group"
+      className={twMerge(
+        "group/input-group border-input relative flex h-11 w-full min-w-0 items-center rounded-lg border transition-colors outline-none sm:h-9",
+        "hover:border-muted-foreground/30",
+        "has-[:disabled]:bg-muted has-[:disabled]:opacity-50",
+        "has-[[data-slot=input-group-control]:focus-visible]:border-ring/70 has-[[data-slot=input-group-control]:focus-visible]:ring-ring/20 has-[[data-slot=input-group-control]:focus-visible]:ring-3",
+        "has-[[data-slot][aria-invalid=true]]:border-destructive/70 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:ring-3",
+        "has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col",
+        "has-[>[data-align=block-end]]:[&_[data-slot=input-group-control]]:pt-3 has-[>[data-align=block-start]]:[&_[data-slot=input-group-control]]:pb-3",
+        "has-[>[data-align=inline-end]]:[&_[data-slot=input-group-control]]:pr-1.5 has-[>[data-align=inline-start]]:[&_[data-slot=input-group-control]]:pl-1.5",
+        "[&>[data-slot=control]]:min-w-0 [&>[data-slot=control]]:flex-1 [&>[data-slot=control]]:self-stretch",
+        "[&_[data-slot=input-group-control]]:h-full [&_[data-slot=input-group-control]]:rounded-none [&_[data-slot=input-group-control]]:border-0 [&_[data-slot=input-group-control]]:bg-transparent [&_[data-slot=input-group-control]]:shadow-none [&_[data-slot=input-group-control]]:ring-0",
+        "[&_[data-slot=input-group-control]]:focus:border-transparent [&_[data-slot=input-group-control]]:focus:ring-0 [&_[data-slot=input-group-control]]:focus:outline-hidden",
+        "[&_[data-slot=input-group-control]]:invalid:border-transparent [&_[data-slot=input-group-control]]:focus:invalid:border-transparent [&_[data-slot=input-group-control]]:focus:invalid:ring-0",
+        "[&_[data-slot=input-group-control]]:disabled:bg-transparent",
         className
       )}
+      {...props}
+    />
+  )
+}
+
+interface InputGroupAddonProps extends React.ComponentProps<"div"> {
+  align?: "inline-start" | "inline-end" | "block-start" | "block-end"
+}
+
+const inputGroupAddonStyles = {
+  "inline-start": "order-first pl-2 has-[>button]:pl-px has-[>kbd]:pl-1.5",
+  "inline-end": "order-last pr-2 has-[>button]:pr-px has-[>kbd]:pr-1.5",
+  "block-start":
+    "order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2",
+  "block-end":
+    "order-last w-full justify-start px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2",
+}
+
+export function InputGroupAddon({
+  className,
+  align = "inline-start",
+  onClick,
+  ...props
+}: InputGroupAddonProps) {
+  return (
+    <div
+      role="group"
+      data-slot="input-group-addon"
+      data-align={align}
+      className={twMerge(
+        "text-muted-foreground flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium select-none",
+        "group-data-[disabled=true]/input-group:opacity-50",
+        "[&>kbd]:rounded-[calc(var(--radius-lg)-5px)] [&>svg:not([class*='size-'])]:size-4",
+        inputGroupAddonStyles[align],
+        className
+      )}
+      onClick={(event) => {
+        onClick?.(event)
+
+        if (
+          event.defaultPrevented ||
+          (event.target as HTMLElement).closest("button")
+        ) {
+          return
+        }
+
+        event.currentTarget.parentElement?.querySelector("input")?.focus()
+      }}
+      {...props}
+    />
+  )
+}
+
+interface InputGroupButtonProps extends Omit<ButtonProps, "size"> {
+  size?: "xs" | "sm" | "icon-xs" | "icon-sm"
+}
+
+const inputGroupButtonSizes = {
+  xs: {
+    button: "xs",
+    className:
+      "h-6 gap-1 rounded-[calc(var(--radius-lg)-3px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5",
+  },
+  sm: {
+    button: "sm",
+    className:
+      "h-7 rounded-[calc(var(--radius-lg)-2px)] px-2.5 [&>svg:not([class*='size-'])]:size-4",
+  },
+  "icon-xs": {
+    button: "sq-xs",
+    className: "size-6 rounded-[calc(var(--radius-lg)-3px)] p-0",
+  },
+  "icon-sm": {
+    button: "sq-sm",
+    className: "size-8 rounded-[calc(var(--radius-lg)-2px)] p-0",
+  },
+} as const
+
+export function InputGroupButton({
+  className,
+  type = "button",
+  intent = "plain",
+  size = "xs",
+  ...props
+}: InputGroupButtonProps) {
+  const sizeStyles = inputGroupButtonSizes[size]
+
+  return (
+    <Button
+      type={type}
+      data-slot="input-group-button"
+      data-size={size}
+      intent={intent}
+      size={sizeStyles.button}
+      className={cx("shrink-0 shadow-none", sizeStyles.className, className)}
+      {...props}
+    />
+  )
+}
+
+export function InputGroupText({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="input-group-text"
+      className={twMerge(
+        "text-muted-foreground flex items-center gap-2 text-sm",
+        "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export function InputGroupInput({
+  className,
+  ...props
+}: React.ComponentProps<typeof Input>) {
+  return (
+    <Input
+      data-slot="input-group-control"
+      className={cx("flex-1", className)}
       {...props}
     />
   )

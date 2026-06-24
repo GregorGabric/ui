@@ -4,6 +4,7 @@ import { createMDX } from "fumadocs-mdx/next"
 const nextConfig = {
   reactCompiler: true,
   devIndicators: false,
+  allowedDevOrigins: ["127.0.0.1"],
   outputFileTracingIncludes: {
     "/*": ["./registry/**/*"],
   },

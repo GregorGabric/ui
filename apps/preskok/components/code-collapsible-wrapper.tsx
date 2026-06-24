@@ -1,10 +1,9 @@
 "use client"
 
 import * as React from "react"
+import { buttonVariants } from "fumadocs-ui/components/ui/button"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/preskok/ui/preskok-ui/button"
-import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 
 export function CodeCollapsibleWrapper({
   className,
@@ -16,32 +15,42 @@ export function CodeCollapsibleWrapper({
   return (
     <div
       data-state={isOpened ? "open" : "closed"}
-      className={cn("group/collapsible relative md:-mx-4", className)}
+      className={cn(
+        "group/collapsible not-prose relative mt-4 mb-6",
+        className
+      )}
       {...props}
     >
       <div className="absolute top-1.5 right-9 z-10 flex items-center">
-        <Button
-          intent="plain"
-          size="sm"
-          className="text-muted-foreground h-7 rounded-md px-2"
-          onPress={() => setIsOpened((open) => !open)}
+        <button
+          type="button"
+          aria-expanded={isOpened}
+          className={cn(
+            buttonVariants({ variant: "ghost", size: "sm" }),
+            "text-fd-muted-foreground h-7 rounded-md px-2"
+          )}
+          onClick={() => setIsOpened((open) => !open)}
         >
           {isOpened ? "Collapse" : "Expand"}
-        </Button>
-        <Separator orientation="vertical" className="mx-1.5 !h-4" />
+        </button>
+        <div className="bg-fd-border mx-1.5 h-4 w-px" />
       </div>
       <div
-        className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure]:mt-0 [&>figure]:md:!mx-0"
+        className="relative overflow-hidden data-[state=closed]:max-h-64 data-[state=closed]:[mask-image:linear-gradient(to_bottom,black_72%,transparent_100%)] data-[state=closed]:[content-visibility:auto] [&>figure]:mt-0 [&>figure]:max-w-full"
         data-state={isOpened ? "open" : "closed"}
       >
         {children}
       </div>
+      <div
+        aria-hidden
+        className="to-fd-card pointer-events-none absolute inset-x-px bottom-12 h-12 bg-gradient-to-b from-transparent group-data-[state=open]/collapsible:hidden"
+      />
       <button
         type="button"
-        className="from-code/70 to-code text-muted-foreground absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-gradient-to-b text-sm group-data-[state=open]/collapsible:hidden"
+        className="bg-fd-card text-fd-muted-foreground hover:text-fd-foreground absolute inset-x-px bottom-px flex h-12 items-center justify-center rounded-b-xl border-t text-sm font-medium transition-colors group-data-[state=open]/collapsible:hidden"
         onClick={() => setIsOpened((open) => !open)}
       >
-        {isOpened ? "Collapse" : "Expand"}
+        Expand
       </button>
     </div>
   )

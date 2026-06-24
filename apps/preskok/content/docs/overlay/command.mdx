@@ -3,6 +3,10 @@ title: Command
 description: A command palette component for searchable command lists.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="command-preskok-demo"
   description="Command palette with searchable items and groups."
@@ -28,13 +32,16 @@ npx preskok-ui@latest add command
 
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource
   name="command"
   title="registry/preskok/ui/preskok-ui/command.tsx"
 />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

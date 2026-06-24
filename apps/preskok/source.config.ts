@@ -1,26 +1,20 @@
 import { defineConfig, defineDocs } from "fumadocs-mdx/config"
-import rehypePrettyCode from "rehype-pretty-code"
-
-import { transformers } from "@/lib/highlight-code"
 
 export default defineConfig({
   mdxOptions: {
-    rehypePlugins: (plugins) => {
-      plugins.shift()
-      plugins.push([
-        // TODO: fix the type.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        rehypePrettyCode as any,
-        {
-          theme: {
-            dark: "github-dark",
-            light: "github-light-default",
-          },
-          transformers,
-        },
-      ])
-
-      return plugins
+    rehypeCodeOptions: {
+      themes: {
+        dark: "github-dark",
+        light: "github-light-default",
+      },
+      filterMetaString(metaString) {
+        return metaString.replace(/\bshowLineNumbers\b/g, "lineNumbers")
+      },
+    },
+    remarkNpmOptions: {
+      persist: {
+        id: "package-manager",
+      },
     },
   },
 })
@@ -30,6 +24,7 @@ export const docs = defineDocs({
   docs: {
     postprocess: {
       extractLinkReferences: true,
+      includeProcessedMarkdown: true,
     },
     // TODO: Upgrade to zod 4 first
     // schema: frontmatterSchema.extend({

@@ -3,6 +3,10 @@ title: Sidebar
 description: A comprehensive sidebar component with collapsible sections.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="sidebar-preskok-demo"
   description="Sidebar with collapsible sections, tooltip and sheet."
@@ -28,13 +32,16 @@ npx preskok-ui@latest add sidebar
 
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource
   name="sidebar"
   title="registry/preskok/ui/preskok-ui/sidebar.tsx"
 />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

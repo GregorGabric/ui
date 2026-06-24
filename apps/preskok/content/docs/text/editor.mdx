@@ -3,6 +3,10 @@ title: Editor
 description: A minimal rich text editor built on Tiptap.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="editor-demo"
   description="A minimal rich text editor with formatting tools."
@@ -28,13 +32,16 @@ npx preskok-ui@latest add editor
 
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource
   name="editor"
   title="registry/preskok/ui/preskok-ui/minimal-tiptap/minimal-tiptap.tsx"
 />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

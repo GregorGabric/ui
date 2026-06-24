@@ -3,6 +3,10 @@ title: Breadcrumbs
 description: Navigation breadcrumb trails with customizable separators and link handling.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="breadcrumbs-demo"
   description="A breadcrumb navigation component."
@@ -61,7 +65,7 @@ Individual breadcrumb items.
 ```tsx
 <Breadcrumbs>
   <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-  <Breadcrumbs.Item href="/docs">Documentation</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/">Documentation</Breadcrumbs.Item>
   <Breadcrumbs.Item>Components</Breadcrumbs.Item>
 </Breadcrumbs>
 ```
@@ -81,7 +85,7 @@ Individual breadcrumb items.
 ```tsx
 <Breadcrumbs separator={false}>
   <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-  <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/">Docs</Breadcrumbs.Item>
   <Breadcrumbs.Item>Current</Breadcrumbs.Item>
 </Breadcrumbs>
 ```

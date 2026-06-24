@@ -1,10 +1,9 @@
 import * as React from "react"
+import { ServerCodeBlock } from "fumadocs-ui/components/codeblock.rsc"
 
-import { highlightCode } from "@/lib/highlight-code"
 import { getRegistryItem } from "@/lib/registry"
 import { cn } from "@/lib/utils"
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper"
-import { CopyButton } from "@/components/copy-button"
 import { getIconForLanguageExtension } from "@/components/icons"
 
 export async function ComponentSource({
@@ -32,30 +31,22 @@ export async function ComponentSource({
   }
 
   const lang = language ?? title?.split(".").pop() ?? "tsx"
-  const highlightedCode = await highlightCode(code, lang)
 
-  if (!collapsible) {
+  if (collapsible) {
     return (
-      <div className={cn("relative", className)}>
-        <ComponentCode
-          code={code}
-          highlightedCode={highlightedCode}
-          language={lang}
-          title={title}
-        />
-      </div>
+      <CodeCollapsibleWrapper className={className}>
+        <ComponentCode code={code} language={lang} title={title} />
+      </CodeCollapsibleWrapper>
     )
   }
 
   return (
-    <CodeCollapsibleWrapper className={className}>
-      <ComponentCode
-        code={code}
-        highlightedCode={highlightedCode}
-        language={lang}
-        title={title}
-      />
-    </CodeCollapsibleWrapper>
+    <ComponentCode
+      className={className}
+      code={code}
+      language={lang}
+      title={title}
+    />
   )
 }
 
@@ -86,33 +77,32 @@ function findRegistryFile<
 }
 
 function ComponentCode({
+  className,
   code,
-  highlightedCode,
   language,
   title,
 }: {
+  className?: string
   code: string
-  highlightedCode: string
   language: string
   title: string | undefined
 }) {
   return (
-    <figure
-      data-rehype-pretty-code-figure=""
-      className="mt-0! [&>pre]:max-h-96"
-    >
-      {title && (
-        <figcaption
-          data-rehype-pretty-code-title=""
-          className="text-code-foreground [&_svg]:text-code-foreground flex items-center gap-2 [&_svg]:size-4 [&_svg]:opacity-70"
-          data-language={language}
-        >
-          {getIconForLanguageExtension(language)}
-          {title}
-        </figcaption>
-      )}
-      <CopyButton value={code} />
-      <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
-    </figure>
+    <ServerCodeBlock
+      code={code}
+      lang={language}
+      themes={{
+        dark: "github-dark",
+        light: "github-light-default",
+      }}
+      codeblock={{
+        title,
+        icon: getIconForLanguageExtension(language),
+        className: cn("my-0! rounded-xl! bg-fd-card!", className),
+        viewportProps: {
+          className: "max-h-[460px]",
+        },
+      }}
+    />
   )
 }

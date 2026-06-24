@@ -122,6 +122,7 @@
           }
         },
         ":root": {
+          "--fd-layout-width": "100vw",
           "--background": "oklch(1 0 0)",
           "--shiki-background": "#ffffff",
           "--shiki-light": "#000000",

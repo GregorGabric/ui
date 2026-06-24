@@ -1,6 +1,10 @@
 {
   "root": true,
   "pages": [
+    "(root)",
+    "installation",
+    "components",
+    "theme",
     "basics",
     "buttons",
     "choice",
@@ -19,8 +23,6 @@
     "colors",
     "typography",
     "advanced",
-    "!components",
-    "!installation",
-    "!dark-mode"
+    "dark-mode"
   ]
 }

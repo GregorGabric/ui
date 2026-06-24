@@ -3,6 +3,10 @@ title: Number Format
 description: Format numbers and currencies consistently using a context-aware component.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="number-format-preskok-demo"
   description="Number formatting utilities and component."
@@ -28,25 +32,31 @@ npx preskok-ui@latest add number-format
 
 <Steps>
 
-<Step>Copy and paste the following files into your project.</Step>
+<Step>
+
+Copy and paste the following files into your project.
 
 <ComponentSource
   name="number-format"
   title="registry/preskok/ui/preskok-ui/number-format/number-format.tsx"
 />
+
 <ComponentSource
   name="number-format"
   title="registry/preskok/ui/preskok-ui/number-format/number-format-context.tsx"
 />
+
 <ComponentSource
   name="number-format"
   title="registry/preskok/ui/preskok-ui/number-format/number-format-helpers.ts"
 />
+
 <ComponentSource
   name="number-format"
   title="registry/preskok/ui/preskok-ui/number-format/currency-helpers.ts"
 />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

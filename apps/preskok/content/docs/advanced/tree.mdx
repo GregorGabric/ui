@@ -3,6 +3,10 @@ title: Tree
 description: A tree component for hierarchical data display.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="tree-preskok-demo"
   description="Tree with nested items and multiple selection."
@@ -28,10 +32,13 @@ npx preskok-ui@latest add tree
 
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource name="tree" title="registry/preskok/ui/preskok-ui/tree.tsx" />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

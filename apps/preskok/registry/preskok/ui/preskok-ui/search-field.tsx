@@ -14,7 +14,7 @@ import { twJoin } from "tailwind-merge"
 import { cx } from "@/registry/preskok/lib/primitive"
 import { fieldStyles } from "@/registry/preskok/ui/preskok-ui/field"
 
-import { Input, InputGroup } from "./input"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./input"
 
 export function SearchField({ className, ...props }: SearchFieldProps) {
   return (
@@ -31,17 +31,21 @@ export function SearchField({ className, ...props }: SearchFieldProps) {
 
 export function SearchInput(props: InputProps) {
   return (
-    <InputGroup className="[--input-gutter-end:--spacing(8)]">
-      <SearchIcon data-slot="icon" />
-      <Input {...props} />
-      <Button
-        className={twJoin(
-          "touch-target pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center group-empty/search-field:invisible",
-          "px-3 py-2 sm:px-2.5 sm:py-1.5 sm:text-sm/5"
-        )}
-      >
-        <XIcon className="size-5 sm:size-4" data-slot="icon" />
-      </Button>
+    <InputGroup>
+      <InputGroupAddon>
+        <SearchIcon />
+      </InputGroupAddon>
+      <InputGroupInput {...props} />
+      <InputGroupAddon align="inline-end">
+        <Button
+          className={twJoin(
+            "touch-target pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center rounded-[calc(var(--radius-lg)-3px)] group-empty/search-field:invisible",
+            "size-6 p-0"
+          )}
+        >
+          <XIcon className="size-4" />
+        </Button>
+      </InputGroupAddon>
     </InputGroup>
   )
 }

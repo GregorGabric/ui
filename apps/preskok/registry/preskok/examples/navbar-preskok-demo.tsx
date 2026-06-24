@@ -87,7 +87,7 @@ export default function AppNavbar(props: NavbarProps) {
           <Link
             className="flex items-center gap-x-2 font-medium"
             aria-label="Goto documentation of Navbar"
-            href="/docs/components/layouts/navbar"
+            href="/navigation/navbar"
           >
             <PreskokIcon className="size-6 sm:size-5" />
           </Link>

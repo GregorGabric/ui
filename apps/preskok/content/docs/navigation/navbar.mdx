@@ -3,6 +3,10 @@ title: Navbar
 description: A comprehensive navigation bar with responsive design.
 ---
 
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
 <ComponentPreview
   name="navbar-preskok-demo"
   description="Navbar built with link, separator, and button primitives."
@@ -27,13 +31,16 @@ npx preskok-ui@latest add navbar
 <TabsContent id="manual">
 <Steps>
 
-<Step>Copy and paste the following code into your project.</Step>
+<Step>
+
+Copy and paste the following code into your project.
 
 <ComponentSource
   name="navbar"
   title="registry/preskok/ui/preskok-ui/navbar.tsx"
 />
 
+</Step>
 <Step>Update the import paths to match your project setup.</Step>
 
 </Steps>

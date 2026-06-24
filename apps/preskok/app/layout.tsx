@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { META_THEME_COLORS, siteConfig } from "@/lib/config"
 import { fontVariables } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { LayoutProvider } from "@/hooks/use-layout"
 import { ActiveThemeProvider } from "@/components/active-theme"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -51,11 +50,11 @@ export const metadata: Metadata = {
     creator: "@preskok",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  manifest: "/site.webmanifest",
 }
 
 export default function RootLayout({
@@ -73,9 +72,6 @@ export default function RootLayout({
                 if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                   document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
                 }
-                if (localStorage.layout) {
-                  document.documentElement.classList.add('layout-' + localStorage.layout)
-                }
               } catch (_) {}
             `,
           }}
@@ -84,19 +80,17 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]",
+          "bg-fd-background text-fd-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]",
           fontVariables
         )}
       >
         <ThemeProvider>
-          <LayoutProvider>
-            <ActiveThemeProvider>
-              {children}
-              <TailwindIndicator />
-              <Toast position="top-center" />
-              <Analytics />
-            </ActiveThemeProvider>
-          </LayoutProvider>
+          <ActiveThemeProvider>
+            {children}
+            <TailwindIndicator />
+            <Toast position="top-center" />
+            <Analytics />
+          </ActiveThemeProvider>
         </ThemeProvider>
       </body>
     </html>

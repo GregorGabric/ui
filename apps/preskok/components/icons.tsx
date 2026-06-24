@@ -223,18 +223,20 @@ export const Icons = {
 }
 
 export function getIconForLanguageExtension(language: string) {
+  const className = "size-3.5 shrink-0 fill-foreground"
+
   switch (language) {
     case "json":
-      return <Icons.json />
+      return <Icons.json className={className} />
     case "css":
-      return <Icons.css className="fill-foreground" />
+      return <Icons.css className={className} />
     case "js":
     case "jsx":
     case "ts":
     case "tsx":
     case "typescript":
-      return <Icons.ts className="fill-foreground" />
+      return <Icons.ts className={className} />
     default:
-      return <FileIcon />
+      return <FileIcon className="size-3.5 shrink-0" />
   }
 }

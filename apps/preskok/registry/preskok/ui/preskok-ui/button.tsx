@@ -15,7 +15,7 @@ const buttonStyles = tv({
     "[--btn-border:var(--color-foreground)]/15 [--btn-icon-active:var(--btn-foreground)] [--btn-outline:var(--btn-background)] [--btn-ring:var(--btn-background)]/20",
     "bg-(--btn-background) pressed:bg-(--btn-overlay) text-(--btn-foreground) outline-(--btn-outline) ring-(--btn-ring) hover:bg-(--btn-overlay) focus-visible:bg-(--btn-overlay)",
     "relative border border-(--btn-border) isolate inline-flex items-center justify-center font-medium",
-    "focus:outline-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-background active:scale-[98%] transition-transform duration-150",
+    "focus:outline-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-background transition-transform duration-150",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) pressed:*:data-[slot=icon]:text-(--btn-icon-active) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90 sm:*:data-[slot=icon]:my-1 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
     "[&_svg.lucide]:-mx-0.5 [&_svg.lucide]:my-0.5 [&_svg.lucide]:shrink-0 [&_svg.lucide]:self-center [&_svg.lucide]:text-(--btn-icon) pressed:[&_svg.lucide]:text-(--btn-icon-active) focus-visible:[&_svg.lucide]:text-(--btn-icon-active)/80 hover:[&_svg.lucide]:text-(--btn-icon-active)/90 sm:[&_svg.lucide]:my-1",
     "*:data-[slot=loader]:-mx-0.5 *:data-[slot=loader]:my-0.5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:my-1",
@@ -81,6 +81,9 @@ const buttonStyles = tv({
     },
     isPending: {
       true: "opacity-50",
+    },
+    isPressed: {
+      true: "not-aria-[haspopup]:translate-y-px",
     },
   },
   defaultVariants: {

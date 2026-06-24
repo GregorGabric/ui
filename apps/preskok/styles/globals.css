@@ -1,9 +1,10 @@
 @import "tailwindcss";
+@import "fumadocs-ui/css/solar.css";
+@import "fumadocs-ui/css/preset.css";
 @import "tw-animate-css";
-@import "./code.css";
 @import "./toast.css";
 
-@plugin "@tailwindcss/typography";
+/* @plugin "@tailwindcss/typography"; */
 @plugin "tailwindcss-react-aria-components";
 
 @theme inline {
@@ -119,6 +120,8 @@
 }
 
 :root {
+  --fd-layout-width: 100vw;
+
   --background: oklch(1 0 0);
 
   --shiki-background: #ffffff;
@@ -285,7 +288,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--border, currentColor);
+    border-color: var(--color-fd-border, var(--border, currentColor));
   }
 
   * {
@@ -306,8 +309,8 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--color-fd-background);
+    color: var(--color-fd-foreground);
     font-synthesis-weight: none;
   }
 
@@ -430,33 +433,6 @@ html.dark .shiki span {
       @apply !mt-2;
     }
   }
-}
-
-[data-rehype-pretty-code-figure] {
-  background-color: var(--color-code);
-  color: var(--color-code-foreground);
-  border-radius: var(--radius-lg);
-  border-width: 0px;
-  border-color: var(--border);
-  overflow: hidden;
-  font-size: var(--text-sm);
-  outline: none;
-  position: relative;
-
-  &:has([data-rehype-pretty-code-title]) [data-slot="copy-button"] {
-    top: calc(var(--spacing) * 1.5) !important;
-  }
-}
-
-[data-rehype-pretty-code-title] {
-  border-bottom: color-mix(in oklab, var(--border) 30%, transparent);
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  padding-block: calc(var(--spacing) * 2.5);
-  padding-inline: calc(var(--spacing) * 4);
-  font-size: var(--text-sm);
-  font-family: var(--font-mono);
-  color: var(--color-code-foreground);
 }
 
 [data-line-numbers] {
