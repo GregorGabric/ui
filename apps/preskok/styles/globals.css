@@ -1,17 +1,15 @@
-@import "tailwindcss";
 @import "fumadocs-ui/css/solar.css";
 @import "fumadocs-ui/css/preset.css";
 @import "tw-animate-css";
 @import "./toast.css";
-
-/* @plugin "@tailwindcss/typography"; */
+@import "tailwindcss";
 @plugin "tailwindcss-react-aria-components";
 
 @theme inline {
   --breakpoint-3xl: 1600px;
   --breakpoint-4xl: 2000px;
   --font-sans:
-    var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono:
     var(--font-geist-mono), "ui-monospace", "SFMono-Regular", "Menlo", "Monaco",

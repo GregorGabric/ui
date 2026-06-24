@@ -98,7 +98,8 @@ function ComponentCode({
       codeblock={{
         title,
         icon: getIconForLanguageExtension(language),
-        className: cn("my-0! rounded-xl! bg-fd-card!", className),
+        keepBackground: true,
+        className: cn("my-0! rounded-xl!", className),
         viewportProps: {
           className: "max-h-[460px]",
         },

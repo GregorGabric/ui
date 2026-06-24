@@ -55,7 +55,7 @@ function extractCssVars(source: string) {
       value
         .trim()
         .replace(/\s+/g, " ")
-        .replace("var(--font-inter)", '"Inter"')
+        .replace("var(--font-geist-sans)", '"Geist"')
         .replace("var(--font-geist-mono)", '"Geist Mono"'),
     ])
   )
