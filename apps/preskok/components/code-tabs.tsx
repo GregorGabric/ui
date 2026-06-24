@@ -141,7 +141,7 @@ export function CodeTabs({
     <FumadocsTabs
       {...props}
       {...tabStateProps}
-      className={cn("mt-6 mb-0", className)}
+      className={cn("mt-4 mb-0", className)}
     >
       <FumadocsTabsList>
         {triggerItems.map((item) => (

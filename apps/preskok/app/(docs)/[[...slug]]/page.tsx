@@ -90,21 +90,26 @@ export default async function Page(props: {
     <DocsPage
       className={isFullPage ? "max-w-none" : undefined}
       full={isFullPage}
+      breadcrumb={{ enabled: false }}
       toc={doc.toc}
     >
-      <DocsTitle>{doc.title}</DocsTitle>
+      <DocsTitle className="text-3xl font-semibold tracking-tight text-balance">
+        {doc.title}
+      </DocsTitle>
       {doc.description ? (
-        <DocsDescription>{doc.description}</DocsDescription>
+        <DocsDescription className="text-fd-muted-foreground mt-1.5 mb-4 text-base text-pretty">
+          {doc.description}
+        </DocsDescription>
       ) : null}
-      <div className="mb-8 flex gap-2 border-b border-fd-border pb-6 text-sm text-fd-muted-foreground">
+      <div className="border-fd-border text-fd-muted-foreground mb-4 flex gap-2 border-b pb-4 text-sm">
         <a
-          className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+          className="border-fd-border hover:bg-fd-accent hover:text-fd-accent-foreground rounded-md border px-2.5 py-1.5 transition-colors"
           href={markdownUrl}
         >
           View as Markdown
         </a>
         <a
-          className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+          className="border-fd-border hover:bg-fd-accent hover:text-fd-accent-foreground rounded-md border px-2.5 py-1.5 transition-colors"
           href={`https://chatgpt.com/?${new URLSearchParams({
             prompt: `Read ${absoluteUrl(page.url)}, I want to ask questions about it.`,
             hints: "search",

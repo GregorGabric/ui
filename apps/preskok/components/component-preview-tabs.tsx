@@ -6,7 +6,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs"
 import { cn } from "@/lib/utils"
 
 const previewClassName =
-  "preview flex min-h-72 max-h-[min(520px,80vh)] w-full overflow-auto overscroll-contain scroll-p-8 p-8 sm:scroll-p-10 sm:px-8 sm:py-10"
+  "preview flex min-h-56 max-h-[min(520px,80vh)] w-full overflow-auto overscroll-contain scroll-p-6 p-6 sm:scroll-p-8 sm:px-8 sm:py-8"
 const previewContentClassName =
   "flex max-w-full min-w-0 justify-center data-[align=center]:my-auto data-[align=end]:mt-auto data-[align=start]:mb-auto [&>.flex-wrap]:justify-center"
 
@@ -30,7 +30,7 @@ export function ComponentPreviewTabs({
       <div
         data-slot="component-preview"
         className={cn(
-          "group relative mt-4 mb-12 flex flex-col gap-2",
+          "group relative mt-4 mb-6 flex flex-col gap-2",
           className
         )}
         {...props}
@@ -49,7 +49,7 @@ export function ComponentPreviewTabs({
   return (
     <div
       data-slot="component-preview"
-      className={cn("group relative mt-4 mb-12 flex flex-col gap-2", className)}
+      className={cn("group relative mt-4 mb-6 flex flex-col gap-2", className)}
       {...props}
     >
       <Tabs items={["Preview", "Code"]} className="my-0">
