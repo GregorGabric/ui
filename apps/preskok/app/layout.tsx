@@ -7,6 +7,7 @@ import { ActiveThemeProvider } from "@/components/active-theme"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import { VercelToolbar } from "@/components/vercel-toolbar"
 import { Toast } from "@/registry/preskok/ui/preskok-ui/toast"
 
 import "@/styles/globals.css"
@@ -90,6 +91,7 @@ export default function RootLayout({
             <TailwindIndicator />
             <Toast position="top-center" />
             <Analytics />
+            <VercelToolbar />
           </ActiveThemeProvider>
         </ThemeProvider>
       </body>
