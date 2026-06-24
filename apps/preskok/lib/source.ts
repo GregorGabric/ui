@@ -3,7 +3,6 @@ import { docs } from "fumadocs-mdx:collections/server"
 
 export const docsRoute = ""
 export const docsImageRoute = "/og/docs"
-export const docsContentRoute = "/llms.mdx"
 
 export const source = loader({
   baseUrl: docsRoute,
@@ -17,11 +16,9 @@ export function getPageImage(page: (typeof source)["$inferPage"]) {
 }
 
 export function getPageMarkdownUrl(page: (typeof source)["$inferPage"]) {
-  const path = page.slugs.length ? page.slugs.join("/") : "index"
+  const segments = page.slugs.length ? [...page.slugs] : ["index"]
+  const lastIndex = segments.length - 1
+  segments[lastIndex] = `${segments[lastIndex]}.md`
 
-  return `${docsContentRoute}/${path}/content.md`
-}
-
-export async function getLLMText(page: (typeof source)["$inferPage"]) {
-  return page.data.getText("processed")
+  return `/${segments.join("/")}`
 }

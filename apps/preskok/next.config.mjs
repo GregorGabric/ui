@@ -5,6 +5,14 @@ const nextConfig = {
   reactCompiler: true,
   devIndicators: false,
   allowedDevOrigins: ["127.0.0.1"],
+  async rewrites() {
+    return [
+      {
+        source: "/:path*.md",
+        destination: "/llms.mdx/:path*",
+      },
+    ]
+  },
   outputFileTracingIncludes: {
     "/*": ["./registry/**/*"],
   },

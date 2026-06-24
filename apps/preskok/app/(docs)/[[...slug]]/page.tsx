@@ -8,7 +8,7 @@ import {
   DocsTitle,
 } from "fumadocs-ui/page"
 
-import { getPageImage, source } from "@/lib/source"
+import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source"
 import { absoluteUrl } from "@/lib/utils"
 
 export const revalidate = false
@@ -36,10 +36,16 @@ export async function generateMetadata(props: {
   }
 
   const image = getPageImage(page)
+  const markdownUrl = getPageMarkdownUrl(page)
 
   return {
     title: doc.title,
     description: doc.description,
+    alternates: {
+      types: {
+        "text/markdown": markdownUrl,
+      },
+    },
     openGraph: {
       title: doc.title,
       description: doc.description,
@@ -78,6 +84,7 @@ export default async function Page(props: {
   const doc = page.data
   const MDX = doc.body
   const isFullPage = doc.full === true
+  const markdownUrl = getPageMarkdownUrl(page)
 
   return (
     <DocsPage
@@ -89,6 +96,25 @@ export default async function Page(props: {
       {doc.description ? (
         <DocsDescription>{doc.description}</DocsDescription>
       ) : null}
+      <div className="mb-8 flex gap-2 border-b border-fd-border pb-6 text-sm text-fd-muted-foreground">
+        <a
+          className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+          href={markdownUrl}
+        >
+          View as Markdown
+        </a>
+        <a
+          className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+          href={`https://chatgpt.com/?${new URLSearchParams({
+            prompt: `Read ${absoluteUrl(page.url)}, I want to ask questions about it.`,
+            hints: "search",
+          })}`}
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Ask ChatGPT
+        </a>
+      </div>
       <DocsBody className={isFullPage ? "max-w-none" : undefined}>
         <MDX
           components={getMDXComponents({
