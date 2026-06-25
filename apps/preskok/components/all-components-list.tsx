@@ -3,7 +3,7 @@ import { Card, Cards } from "fumadocs-ui/components/card"
 
 import { source } from "@/lib/source"
 
-const excludedFolders = new Set(["(root)", "installation", "dark-mode"])
+const excludedFolders = new Set(["(root)", "installation"])
 
 export function AllComponentsList() {
   const groups = source.pageTree.children.filter(
