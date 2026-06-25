@@ -19,48 +19,93 @@ interface FileTriggerProps
 }
 
 const FileTrigger = ({
+  acceptDirectory,
+  allowsMultiple,
+  children,
+  defaultCamera,
   intent = "outline",
+  isDisabled,
+  isPending,
   size = "md",
   isCircle = false,
   ref,
   className,
   ...props
 }: FileTriggerProps) => {
+  const defaultLabel = getDefaultLabel({
+    acceptDirectory,
+    allowsMultiple,
+    defaultCamera,
+  })
+  const label = children ?? (isCircle ? null : defaultLabel)
+
   return (
-    <FileTriggerPrimitive ref={ref} {...props}>
+    <FileTriggerPrimitive
+      ref={ref}
+      acceptDirectory={acceptDirectory}
+      allowsMultiple={allowsMultiple}
+      defaultCamera={defaultCamera}
+      {...props}
+    >
       <Button
         className={className}
-        isDisabled={props.isDisabled}
+        isDisabled={isDisabled}
         intent={intent}
         size={size}
         isCircle={isCircle}
       >
-        {!props.isPending ? (
-          props.defaultCamera ? (
-            <CameraIcon />
-          ) : props.acceptDirectory ? (
-            <FolderIcon />
-          ) : (
-            <PaperclipIcon />
-          )
-        ) : (
-          <Loader />
-        )}
-        {props.children ? (
-          props.children
-        ) : (
-          <>
-            {props.allowsMultiple
-              ? "Browse a files"
-              : props.acceptDirectory
-                ? "Browse"
-                : "Browse a file"}
-            ...
-          </>
-        )}
+        <FileTriggerIcon
+          acceptDirectory={acceptDirectory}
+          defaultCamera={defaultCamera}
+          isPending={isPending}
+        />
+        {label}
       </Button>
     </FileTriggerPrimitive>
   )
+}
+
+function FileTriggerIcon({
+  acceptDirectory,
+  defaultCamera,
+  isPending,
+}: Pick<FileTriggerProps, "acceptDirectory" | "defaultCamera" | "isPending">) {
+  if (isPending) {
+    return <Loader />
+  }
+
+  if (defaultCamera) {
+    return <CameraIcon />
+  }
+
+  if (acceptDirectory) {
+    return <FolderIcon />
+  }
+
+  return <PaperclipIcon />
+}
+
+function getDefaultLabel({
+  acceptDirectory,
+  allowsMultiple,
+  defaultCamera,
+}: Pick<
+  FileTriggerProps,
+  "acceptDirectory" | "allowsMultiple" | "defaultCamera"
+>) {
+  if (defaultCamera) {
+    return "Open camera"
+  }
+
+  if (allowsMultiple) {
+    return "Browse files"
+  }
+
+  if (acceptDirectory) {
+    return "Browse folder"
+  }
+
+  return "Browse file"
 }
 
 export { FileTrigger }

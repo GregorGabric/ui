@@ -1,24 +1,72 @@
 "use client"
 
-import { ListBox, ListBoxItem } from "@/registry/preskok/ui/preskok-ui/list-box"
+import { useState } from "react"
+import type { Selection } from "react-aria-components/ListBox"
+
+import {
+  ListBox,
+  ListBoxDescription,
+  ListBoxItem,
+  ListBoxLabel,
+} from "@/registry/preskok/ui/preskok-ui/list-box"
+
+function formatSelection(selection: Selection) {
+  if (selection === "all") {
+    return "All"
+  }
+
+  return Array.from(selection).join(", ")
+}
 
 export default function ListBoxPreskokDemo() {
+  const [selectedKeys, setSelectedKeys] = useState<Selection>(
+    new Set(["api", "billing"])
+  )
+
   return (
-    <ListBox
-      className="max-w-2xs"
-      items={cars}
-      selectionMode="single"
-      aria-label="Cars"
-    >
-      {(item) => <ListBoxItem id={item.id}>{item.name}</ListBoxItem>}
-    </ListBox>
+    <div className="grid w-full max-w-sm gap-3">
+      <ListBox
+        className="max-w-sm"
+        items={queues}
+        selectionMode="multiple"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
+        aria-label="Support queues"
+      >
+        {(item) => (
+          <ListBoxItem id={item.id} isDisabled={item.isDisabled}>
+            <ListBoxLabel>{item.name}</ListBoxLabel>
+            <ListBoxDescription>{item.description}</ListBoxDescription>
+          </ListBoxItem>
+        )}
+      </ListBox>
+      <p className="text-muted-foreground text-sm">
+        Selected queues: {formatSelection(selectedKeys)}
+      </p>
+    </div>
   )
 }
 
-const cars = [
-  { id: "1", name: "Audi" },
-  { id: "2", name: "BMW" },
-  { id: "3", name: "Mercedes-Benz" },
-  { id: "4", name: "Volkswagen" },
-  { id: "5", name: "Ford" },
+const queues = [
+  {
+    id: "api",
+    name: "API incidents",
+    description: "Rate limits, latency, and webhook failures",
+  },
+  {
+    id: "billing",
+    name: "Billing",
+    description: "Invoices, cards, plan changes, and renewals",
+  },
+  {
+    id: "security",
+    name: "Security review",
+    description: "SOC 2, vendor reviews, and audit requests",
+  },
+  {
+    id: "launch",
+    name: "Launch room",
+    description: "Locked while a deploy freeze is active",
+    isDisabled: true,
+  },
 ]

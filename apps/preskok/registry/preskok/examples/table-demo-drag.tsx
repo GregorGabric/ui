@@ -3,6 +3,7 @@
 import { useDragAndDrop } from "react-aria-components/useDragAndDrop"
 import { useListData } from "react-aria-components/useListData"
 
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import {
   Table,
   TableBody,
@@ -15,10 +16,34 @@ import {
 export function ReorderableTable() {
   const list = useListData({
     initialItems: [
-      { id: 1, name: "Games", date: "6/7/2020", type: "File folder" },
-      { id: 2, name: "Program Files", date: "4/7/2021", type: "File folder" },
-      { id: 3, name: "bootmgr", date: "11/20/2010", type: "System file" },
-      { id: 4, name: "log.txt", date: "1/18/2016", type: "Text Document" },
+      {
+        id: 1,
+        name: "Review risk flags",
+        owner: "Success",
+        stage: "Blocked",
+        due: "Today",
+      },
+      {
+        id: 2,
+        name: "Confirm legal terms",
+        owner: "Legal",
+        stage: "Ready",
+        due: "Tomorrow",
+      },
+      {
+        id: 3,
+        name: "Approve invoice",
+        owner: "Finance",
+        stage: "Review",
+        due: "Friday",
+      },
+      {
+        id: 4,
+        name: "Schedule handoff",
+        owner: "Support",
+        stage: "Ready",
+        due: "Monday",
+      },
     ],
   })
 
@@ -37,27 +62,43 @@ export function ReorderableTable() {
   })
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg border">
+    <div className="bg-background w-full max-w-3xl overflow-hidden rounded-xl border p-4 shadow-sm">
       <Table
-        aria-label="Files"
+        aria-label="Renewal tasks"
         selectionMode="multiple"
         dragAndDropHooks={dragAndDropHooks}
       >
         <TableHeader>
           <TableColumn isRowHeader>Name</TableColumn>
-          <TableColumn>Type</TableColumn>
-          <TableColumn>Date Modified</TableColumn>
+          <TableColumn>Owner</TableColumn>
+          <TableColumn>Stage</TableColumn>
+          <TableColumn>Due</TableColumn>
         </TableHeader>
         <TableBody items={list.items}>
           {(item) => (
             <TableRow id={item.id}>
               <TableCell>{item.name}</TableCell>
-              <TableCell>{item.type}</TableCell>
-              <TableCell>{item.date}</TableCell>
+              <TableCell>{item.owner}</TableCell>
+              <TableCell>
+                <TaskStage stage={item.stage} />
+              </TableCell>
+              <TableCell>{item.due}</TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
     </div>
   )
+}
+
+function TaskStage({ stage }: { stage: string }) {
+  if (stage === "Blocked") {
+    return <Badge intent="danger">{stage}</Badge>
+  }
+
+  if (stage === "Review") {
+    return <Badge intent="warning">{stage}</Badge>
+  }
+
+  return <Badge intent="success">{stage}</Badge>
 }

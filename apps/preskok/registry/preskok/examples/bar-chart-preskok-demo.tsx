@@ -30,10 +30,9 @@ export default function BarChartPreskokDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Vehicle sales last 7d</CardTitle>
+        <CardTitle>Support workload last 7d</CardTitle>
         <CardDescription>
-          Sales volume across SUV, Sedan, and Truck segments for the last 7
-          days.
+          Open tickets by queue, stacked by day.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -41,11 +40,15 @@ export default function BarChartPreskokDemo() {
           className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={salesData}
           dataKey="day"
+          type="stacked"
+          barRadius={6}
+          valueFormatter={(value) => `${value} tickets`}
           xAxisProps={{ interval: 0 }}
+          tooltipProps={{ indicator: "dashed" }}
           config={{
-            suv: { label: "SUV" },
-            sedan: { label: "Sedan" },
-            truck: { label: "Truck" },
+            suv: { label: "API", color: "var(--chart-1)" },
+            sedan: { label: "Billing", color: "var(--chart-2)" },
+            truck: { label: "Access", color: "var(--chart-4)" },
           }}
         />
       </CardContent>

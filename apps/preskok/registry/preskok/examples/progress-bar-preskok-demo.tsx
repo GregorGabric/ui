@@ -11,26 +11,33 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/progress-bar"
 
 export function Component() {
-  const [value, setValue] = useState(1)
+  const [value, setValue] = useState(35)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setValue((prev) => (prev < 100 ? prev + 1 : 100))
-    }, 200)
+      setValue((prev) => Math.min(prev + 5, 100))
+    }, 800)
 
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <ProgressBar value={value}>
-      <ProgressBarHeader>
-        <Label>Loading…</Label>
-        <ProgressBarValue />
-      </ProgressBarHeader>
-      <ProgressBarTrack />
-      <Description>
-        This is an example of a progress bar indicating 50% completion.
-      </Description>
-    </ProgressBar>
+    <div className="grid w-full max-w-md gap-5">
+      <ProgressBar value={value}>
+        <ProgressBarHeader>
+          <Label>Importing customers</Label>
+          <ProgressBarValue />
+        </ProgressBarHeader>
+        <Description>Determinate progress with a visible value.</Description>
+        <ProgressBarTrack />
+      </ProgressBar>
+      <ProgressBar isIndeterminate>
+        <ProgressBarHeader>
+          <Label>Syncing webhooks</Label>
+        </ProgressBarHeader>
+        <Description>Indeterminate progress for unknown durations.</Description>
+        <ProgressBarTrack />
+      </ProgressBar>
+    </div>
   )
 }

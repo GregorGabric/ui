@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/checkbox-single-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Checkbox } from \"@/components/ui/preskok-ui/checkbox\"\n\nexport default function CheckboxSinglePreskokDemo() {\n  return <Checkbox>Accept terms and conditions</Checkbox>\n}\n",
+      "content": "\"use client\"\n\nimport { Checkbox } from \"@/components/ui/preskok-ui/checkbox\"\nimport { Description } from \"@/components/ui/preskok-ui/field\"\n\nexport default function CheckboxSinglePreskokDemo() {\n  return (\n    <div className=\"grid gap-4\">\n      <Checkbox name=\"terms\" value=\"accepted\" isRequired>\n        <span data-slot=\"label\">Accept terms and conditions</span>\n        <Description>\n          Required checkboxes participate in native form validation.\n        </Description>\n      </Checkbox>\n      <Checkbox defaultSelected>\n        <span data-slot=\"label\">Email me a receipt</span>\n        <Description>Default selected state with helper text.</Description>\n      </Checkbox>\n      <Checkbox isIndeterminate>\n        <span data-slot=\"label\">Some project notifications</span>\n        <Description>\n          Indeterminate state for partially selected groups.\n        </Description>\n      </Checkbox>\n      <Checkbox isDisabled>\n        <span data-slot=\"label\">Locked billing preference</span>\n      </Checkbox>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

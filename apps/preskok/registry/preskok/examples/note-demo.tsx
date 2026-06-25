@@ -6,29 +6,31 @@ export default function NoteDemo() {
   return (
     <div className="space-y-4">
       <Note intent="default">
-        Our premium detailing service includes interior cleaning, exterior wash,
-        and tire shine. Book your appointment today for a spotless finish.
+        The billing export includes invoices, refunds, credits, and tax rows for
+        the selected reporting window.
       </Note>
 
       <Note intent="info">
-        New electric vehicle charging stations are now available in our service
-        center parking lot. Free charging for customers during service
-        appointments.
+        Team owners can preview the export before it is delivered to finance.
       </Note>
 
       <Note intent="warning">
-        Vehicle recall notice: If you own a 2022-2023 model, please schedule an
-        inspection for potential brake system updates. Safety is our priority.
+        Exports over 50,000 rows are queued and sent by email when processing is
+        complete.
       </Note>
 
       <Note intent="danger">
-        Emergency roadside assistance required? Our 24/7 towing service covers a
-        50-mile radius. Call our hotline immediately for rapid response.
+        Reports that include restricted workspaces require approval from a
+        workspace admin.
       </Note>
 
       <Note intent="success">
-        Congratulations! Your vehicle has passed all safety inspections and is
-        ready for pickup. Thank you for choosing our certified service center.
+        The latest export finished successfully and is ready to download.
+      </Note>
+
+      <Note intent="info" indicator={false}>
+        Recurring exports inherit workspace approval rules from the saved report
+        owner.
       </Note>
     </div>
   )

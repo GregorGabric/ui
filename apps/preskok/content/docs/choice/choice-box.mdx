@@ -133,60 +133,7 @@ All standard `Text` props from React Aria Components are also supported.
 
 ## Examples
 
-### Single Selection
-
-```tsx
-<ChoiceBox aria-label="Select plan" selectionMode="single">
-  <ChoiceBoxItem textValue="basic" label="Basic" />
-  <ChoiceBoxItem textValue="pro" label="Pro" />
-  <ChoiceBoxItem textValue="enterprise" label="Enterprise" />
-</ChoiceBox>
-```
-
-### Multiple Selection
-
-```tsx
-<ChoiceBox aria-label="Select features" selectionMode="multiple">
-  <ChoiceBoxItem textValue="feature1" label="Feature 1" />
-  <ChoiceBoxItem textValue="feature2" label="Feature 2" />
-  <ChoiceBoxItem textValue="feature3" label="Feature 3" />
-</ChoiceBox>
-```
-
-### Grid Layout
-
-```tsx
-<ChoiceBox aria-label="Select plan" columns={3} gap={4}>
-  <ChoiceBoxItem textValue="basic" label="Basic" />
-  <ChoiceBoxItem textValue="pro" label="Pro" />
-  <ChoiceBoxItem textValue="enterprise" label="Enterprise" />
-</ChoiceBox>
-```
-
-### With Descriptions
-
-```tsx
-<ChoiceBox aria-label="Select plan">
-  <ChoiceBoxItem
-    textValue="basic"
-    label="Basic"
-    description="Perfect for personal projects"
-  />
-  <ChoiceBoxItem
-    textValue="pro"
-    label="Pro"
-    description="Great for small teams"
-  />
-</ChoiceBox>
-```
-
-### Custom Children
-
-```tsx
-<ChoiceBox aria-label="Select option">
-  <ChoiceBoxItem textValue="option1">
-    <ChoiceBoxLabel>Option 1</ChoiceBoxLabel>
-    <ChoiceBoxDescription>Custom content here</ChoiceBoxDescription>
-  </ChoiceBoxItem>
-</ChoiceBox>
-```
+<ComponentPreview
+  name="choicebox-preskok-demo"
+  description="Single selection, grid layout, controlled multiple selection, descriptions, and disabled items."
+/>

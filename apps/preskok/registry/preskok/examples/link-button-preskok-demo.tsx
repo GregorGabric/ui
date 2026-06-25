@@ -1,25 +1,34 @@
 "use client"
 
+import { ArrowRightIcon, DownloadIcon, ExternalLinkIcon } from "lucide-react"
+
 import { buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import { Link } from "@/registry/preskok/ui/preskok-ui/link"
 
 export default function LinkButtonPreskokDemo() {
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-wrap gap-2">
       <Link className={buttonStyles()} href="#use-as-button">
-        Link
+        Get started
+        <ArrowRightIcon />
       </Link>
       <Link
         className={buttonStyles({ intent: "outline" })}
         href="#use-as-button"
       >
-        Link
+        <DownloadIcon />
+        Download
       </Link>
       <Link
-        className={buttonStyles({ intent: "plain", isCircle: true })}
+        className={buttonStyles({
+          intent: "plain",
+          size: "sq-md",
+          isCircle: true,
+        })}
         href="#use-as-button"
+        aria-label="Open in new tab"
       >
-        Link
+        <ExternalLinkIcon />
       </Link>
     </div>
   )

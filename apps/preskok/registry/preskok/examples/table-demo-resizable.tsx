@@ -1,5 +1,6 @@
 "use client"
 
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import {
   Table,
   TableBody,
@@ -9,31 +10,39 @@ import {
   TableRow,
 } from "@/registry/preskok/ui/preskok-ui/table"
 
+type ProjectStatus = "On track" | "Review" | "At risk" | "Queued"
+
 export function TableDemoResizable() {
   return (
-    <div className="overflow-auto rounded-lg border p-4">
-      <Table allowResize aria-label="Vocalists">
+    <div className="bg-background w-full max-w-3xl overflow-hidden rounded-xl border p-4 shadow-sm">
+      <Table allowResize aria-label="Project delivery">
         <TableHeader>
-          <TableColumn className="max-w-10">ID</TableColumn>
-          <TableColumn isRowHeader isResizable>
-            Name
+          <TableColumn width={52} minWidth={44}>
+            ID
           </TableColumn>
-          <TableColumn isResizable>Email</TableColumn>
-          <TableColumn>Age</TableColumn>
-          <TableColumn>Role</TableColumn>
-          <TableColumn isResizable>Band</TableColumn>
-          <TableColumn>Status</TableColumn>
+          <TableColumn isRowHeader isResizable width={240} minWidth={180}>
+            Workstream
+          </TableColumn>
+          <TableColumn isResizable width={160} minWidth={132}>
+            Owner
+          </TableColumn>
+          <TableColumn width={116} minWidth={104}>
+            Budget
+          </TableColumn>
+          <TableColumn isResizable width={140} minWidth={120}>
+            Status
+          </TableColumn>
         </TableHeader>
         <TableBody items={items}>
           {(item) => (
             <TableRow id={item.id}>
               <TableCell>{item.id}</TableCell>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.email}</TableCell>
-              <TableCell>{item.age}</TableCell>
-              <TableCell>{item.role}</TableCell>
-              <TableCell>{item.band}</TableCell>
-              <TableCell>{item.status}</TableCell>
+              <TableCell>{item.project}</TableCell>
+              <TableCell>{item.owner}</TableCell>
+              <TableCell className="tabular-nums">{item.budget}</TableCell>
+              <TableCell>
+                <StatusBadge status={item.status} />
+              </TableCell>
             </TableRow>
           )}
         </TableBody>
@@ -42,68 +51,70 @@ export function TableDemoResizable() {
   )
 }
 
+function StatusBadge({ status }: { status: ProjectStatus }) {
+  if (status === "On track") {
+    return <Badge intent="success">{status}</Badge>
+  }
+
+  if (status === "Review") {
+    return <Badge intent="warning">{status}</Badge>
+  }
+
+  if (status === "At risk") {
+    return <Badge intent="danger">{status}</Badge>
+  }
+
+  return <Badge intent="secondary">{status}</Badge>
+}
+
 const items = [
   {
     id: 1,
-    name: "Randy Blythe",
-    email: "randy.blythe@example.com",
-    age: 52,
-    role: "Vocalist",
-    band: "Lamb of God",
-    status: "Active",
+    project: "Enterprise onboarding",
+    owner: "Maya Chen",
+    budget: "$42,000",
+    status: "On track" as const,
   },
   {
     id: 2,
-    name: "Phil Anselmo",
-    email: "phil.anselmo@example.com",
-    age: 55,
-    role: "Vocalist",
-    band: "Pantera",
-    status: "Active",
+    project: "Usage reporting",
+    owner: "Noah Reed",
+    budget: "$18,500",
+    status: "Review" as const,
   },
   {
     id: 3,
-    name: "George Fisher",
-    email: "george.fisher@example.com",
-    age: 53,
-    role: "Vocalist",
-    band: "Cannibal Corpse",
-    status: "Active",
+    project: "Audit trail",
+    owner: "Iris Patel",
+    budget: "$26,800",
+    status: "At risk" as const,
   },
   {
     id: 4,
-    name: "Corey Taylor",
-    email: "corey.taylor@example.com",
-    age: 50,
-    role: "Vocalist",
-    band: "Slipknot",
-    status: "Active",
+    project: "Partner portal",
+    owner: "Sam Ortiz",
+    budget: "$31,200",
+    status: "On track" as const,
   },
   {
     id: 5,
-    name: "Trevor Strnad",
-    email: "trevor.strnad@example.com",
-    age: 41,
-    role: "Vocalist",
-    band: "The Black Dahlia Murder",
-    status: "Inactive",
+    project: "Invoice approvals",
+    owner: "Lena Park",
+    budget: "$14,900",
+    status: "Queued" as const,
   },
   {
     id: 6,
-    name: "Chuck Schuldiner",
-    email: "chuck.schuldiner@example.com",
-    age: 34,
-    role: "Vocalist",
-    band: "Death",
-    status: "Deceased",
+    project: "Team analytics",
+    owner: "Owen Brooks",
+    budget: "$22,400",
+    status: "Review" as const,
   },
   {
     id: 7,
-    name: "Mitch Lucker",
-    email: "mitch.lucker@example.com",
-    age: 28,
-    role: "Vocalist",
-    band: "Suicide Silence",
-    status: "Deceased",
+    project: "Regional failover",
+    owner: "Ava Stone",
+    budget: "$54,000",
+    status: "On track" as const,
   },
 ]

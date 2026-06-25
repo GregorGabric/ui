@@ -1,7 +1,5 @@
 "use client"
 
-import { useMemo } from "react"
-
 import {
   Card,
   CardContent,
@@ -12,22 +10,19 @@ import {
 import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
 
 export default function PieChartPreskokDemo() {
-  const data = useMemo(
-    () => [
-      { name: "Sedan", amount: 420 },
-      { name: "SUV", amount: 580 },
-      { name: "Truck", amount: 260 },
-      { name: "EV", amount: 180 },
-    ],
-    []
-  )
+  const data = [
+    { name: "Product", amount: 420 },
+    { name: "Sales", amount: 580 },
+    { name: "Support", amount: 260 },
+    { name: "Success", amount: 180 },
+  ]
 
   return (
     <Card>
       <CardHeader className="text-center">
-        <CardTitle>Vehicle category breakdown</CardTitle>
+        <CardTitle>Weekly request mix</CardTitle>
         <CardDescription>
-          Share of inventory by vehicle category.
+          Inbound requests grouped by owning team.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -36,11 +31,15 @@ export default function PieChartPreskokDemo() {
           data={data}
           dataKey="amount"
           nameKey="name"
+          variant="donut"
+          showLabel
+          valueFormatter={(value) => value.toLocaleString()}
+          pieProps={{ paddingAngle: 3, cornerRadius: 4 }}
           config={{
-            Sedan: { label: "Sedan" },
-            SUV: { label: "SUV" },
-            Truck: { label: "Truck" },
-            EV: { label: "EV" },
+            Product: { label: "Product", color: "var(--chart-1)" },
+            Sales: { label: "Sales", color: "var(--chart-2)" },
+            Support: { label: "Support", color: "var(--chart-3)" },
+            Success: { label: "Success", color: "var(--chart-4)" },
           }}
         />
       </CardContent>

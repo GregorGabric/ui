@@ -3,13 +3,26 @@
 import { useState } from "react"
 
 import { DropZone } from "@/registry/preskok/ui/preskok-ui/drop-zone"
-import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export default function DropZonePreskokDemo() {
-  const [dropped, setDropped] = useState(false)
+  const [message, setMessage] = useState("Drop files here")
+
   return (
-    <DropZone onDrop={() => setDropped(true)}>
-      <Label>{dropped ? "Dropped" : "Drop your files here"}</Label>
+    <DropZone
+      getDropOperation={(types) => {
+        if (types.has("image/png") || types.has("image/jpeg")) {
+          return "copy"
+        }
+
+        return "cancel"
+      }}
+      onDrop={() => setMessage("Image files accepted")}
+    >
+      <Label>{message}</Label>
+      <Description>
+        PNG and JPEG files are accepted; other types are rejected.
+      </Description>
     </DropZone>
   )
 }

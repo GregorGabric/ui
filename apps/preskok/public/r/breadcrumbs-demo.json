@@ -4,7 +4,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/breadcrumbs-demo.tsx",
-      "content": "\"use client\"\n\nimport {\n  Breadcrumbs,\n  BreadcrumbsItem,\n} from \"@/components/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbsDemo() {\n  return (\n    <Breadcrumbs>\n      <BreadcrumbsItem href=\"/\">Home</BreadcrumbsItem>\n      <BreadcrumbsItem href=\"/products\">Products</BreadcrumbsItem>\n      <BreadcrumbsItem href=\"/products/electronics\">\n        Electronics\n      </BreadcrumbsItem>\n      <BreadcrumbsItem>Laptop</BreadcrumbsItem>\n    </Breadcrumbs>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport {\n  Breadcrumbs,\n  BreadcrumbsItem,\n} from \"@/components/ui/preskok-ui/breadcrumbs\"\n\nexport default function BreadcrumbsDemo() {\n  return (\n    <div className=\"grid gap-4\">\n      <Breadcrumbs>\n        <BreadcrumbsItem href=\"/\">Home</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/docs\">Docs</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/docs/components\">Components</BreadcrumbsItem>\n        <BreadcrumbsItem>Breadcrumbs</BreadcrumbsItem>\n      </Breadcrumbs>\n      <Breadcrumbs separator=\"slash\">\n        <BreadcrumbsItem href=\"/\">Workspace</BreadcrumbsItem>\n        <BreadcrumbsItem href=\"/projects\">Projects</BreadcrumbsItem>\n        <BreadcrumbsItem>Release checklist</BreadcrumbsItem>\n      </Breadcrumbs>\n      <Breadcrumbs>\n        <BreadcrumbsItem href=\"/\" separator={false}>\n          Home\n        </BreadcrumbsItem>\n        <BreadcrumbsItem>Current page</BreadcrumbsItem>\n      </Breadcrumbs>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

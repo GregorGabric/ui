@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/example/button-group-orientation-demo.tsx",
-      "content": "\"use client\"\n\nimport { Volume2Icon, VolumeXIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport { ButtonGroup } from \"@/components/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupOrientationDemo() {\n  return (\n    <ButtonGroup orientation=\"vertical\">\n      <Button intent=\"secondary\">\n        <Volume2Icon />\n      </Button>\n      <Button intent=\"secondary\">\n        <VolumeXIcon />\n      </Button>\n    </ButtonGroup>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Volume2Icon, VolumeXIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport { ButtonGroup } from \"@/components/ui/preskok-ui/button-group\"\n\nexport default function ButtonGroupOrientationDemo() {\n  return (\n    <ButtonGroup orientation=\"vertical\" aria-label=\"Volume controls\">\n      <Button intent=\"secondary\" aria-label=\"Unmute\">\n        <Volume2Icon />\n      </Button>\n      <Button intent=\"secondary\" aria-label=\"Mute\">\n        <VolumeXIcon />\n      </Button>\n    </ButtonGroup>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

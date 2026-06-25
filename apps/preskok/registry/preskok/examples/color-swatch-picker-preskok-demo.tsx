@@ -10,33 +10,39 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/color-swatch-picker"
 
 export default function ColorSwatchPreskokDemo() {
-  const [value, setValue] = useState(() => parseColor("#000000"))
+  const [value, setValue] = useState(() => parseColor("#2563eb"))
 
   return (
-    <ColorSwatchPicker
-      aria-label="Pick color"
-      value={value}
-      onChange={setValue}
-      className="grid grid-cols-3 gap-2 lg:grid-cols-6"
-    >
-      <ColorSwatchPickerItem color="#ffffff">
-        <ColorSwatch />
-      </ColorSwatchPickerItem>
-      <ColorSwatchPickerItem color="#f59e0b">
-        <ColorSwatch />
-      </ColorSwatchPickerItem>
-      <ColorSwatchPickerItem color="#84cc16">
-        <ColorSwatch />
-      </ColorSwatchPickerItem>
-      <ColorSwatchPickerItem color="#000000">
-        <ColorSwatch />
-      </ColorSwatchPickerItem>
-      <ColorSwatchPickerItem color="#ec4899">
-        <ColorSwatch />
-      </ColorSwatchPickerItem>
-      <ColorSwatchPickerItem color="#f43f5e">
-        <ColorSwatch />
-      </ColorSwatchPickerItem>
-    </ColorSwatchPicker>
+    <div className="grid gap-3">
+      <ColorSwatchPicker
+        aria-label="Pick color"
+        value={value}
+        onChange={setValue}
+        className="grid grid-cols-4 gap-2 sm:grid-cols-7"
+      >
+        {colors.map((color) => (
+          <ColorSwatchPickerItem
+            key={color.value}
+            color={color.value}
+            isDisabled={color.isDisabled}
+          >
+            <ColorSwatch />
+          </ColorSwatchPickerItem>
+        ))}
+      </ColorSwatchPicker>
+      <p className="text-muted-foreground text-sm">
+        Selected: {value.toString("hex")}
+      </p>
+    </div>
   )
 }
+
+const colors = [
+  { value: "#ffffff" },
+  { value: "#111827" },
+  { value: "#2563eb" },
+  { value: "#16a34a" },
+  { value: "#f59e0b" },
+  { value: "#dc2626" },
+  { value: "#9333ea", isDisabled: true },
+]

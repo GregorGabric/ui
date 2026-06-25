@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-thumb-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorArea } from \"@/components/ui/preskok-ui/color-area\"\n\nexport default function ColorThumbPreskokDemo() {\n  return <ColorArea xChannel=\"alpha\" yChannel=\"blue\" />\n}\n",
+      "content": "\"use client\"\n\nimport { ColorArea } from \"@/components/ui/preskok-ui/color-area\"\n\nexport default function ColorThumbPreskokDemo() {\n  return (\n    <ColorArea\n      defaultValue=\"hsb(216, 98%, 68%)\"\n      colorSpace=\"hsb\"\n      xChannel=\"saturation\"\n      yChannel=\"brightness\"\n    />\n  )\n}\n",
       "type": "registry:example"
     }
   ],

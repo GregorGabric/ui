@@ -24,18 +24,13 @@ export function UserMenu() {
   return (
     <Menu>
       <MenuTrigger aria-label="Open Menu">
-        <Avatar
-          alt="cobain"
-          size="md"
-          isSquare
-          src="https://intentui.com/images/avatar/cobain.jpg"
-        />
+        <Avatar alt="Maya Chen" size="md" isSquare initials="MC" />
       </MenuTrigger>
       <MenuContent placement="bottom right" className="min-w-60 sm:min-w-56">
         <MenuSection>
           <MenuHeader separator>
-            <span className="block">Kurt Cobain</span>
-            <span className="text-muted-foreground font-normal">@cobain</span>
+            <span className="block">Maya Chen</span>
+            <span className="text-muted-foreground font-normal">@maya</span>
           </MenuHeader>
         </MenuSection>
 

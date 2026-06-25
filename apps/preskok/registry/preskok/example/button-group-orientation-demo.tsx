@@ -7,11 +7,11 @@ import { ButtonGroup } from "@/registry/preskok/ui/preskok-ui/button-group"
 
 export default function ButtonGroupOrientationDemo() {
   return (
-    <ButtonGroup orientation="vertical">
-      <Button intent="secondary">
+    <ButtonGroup orientation="vertical" aria-label="Volume controls">
+      <Button intent="secondary" aria-label="Unmute">
         <Volume2Icon />
       </Button>
-      <Button intent="secondary">
+      <Button intent="secondary" aria-label="Mute">
         <VolumeXIcon />
       </Button>
     </ButtonGroup>

@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/switch-demo.tsx",
-      "content": "\"use client\"\n\nimport { Switch } from \"@/components/ui/preskok-ui/switch\"\n\nexport default function SwitchDemo() {\n  return (\n    <div className=\"space-y-4\">\n      <Switch defaultSelected>Enable GPS Navigation</Switch>\n      <Switch>Automatic Emergency Braking</Switch>\n      <Switch>Lane Departure Warning</Switch>\n      <Switch defaultSelected>Bluetooth Connectivity</Switch>\n      <Switch>Adaptive Cruise Control</Switch>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { Description } from \"@/components/ui/preskok-ui/field\"\nimport { Switch, SwitchLabel } from \"@/components/ui/preskok-ui/switch\"\n\nexport default function SwitchDemo() {\n  return (\n    <div className=\"grid gap-4\">\n      <Switch defaultSelected name=\"notifications\" value=\"enabled\">\n        <SwitchLabel>Product updates</SwitchLabel>\n        <Description>Send a digest when watched projects change.</Description>\n      </Switch>\n      <Switch>\n        <SwitchLabel>Quiet hours</SwitchLabel>\n        <Description>Pause notifications outside working hours.</Description>\n      </Switch>\n      <Switch isDisabled defaultSelected>\n        <SwitchLabel>Security alerts</SwitchLabel>\n        <Description>Locked by organization policy.</Description>\n      </Switch>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

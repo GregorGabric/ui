@@ -48,17 +48,13 @@ function UserMenu() {
   return (
     <Menu>
       <MenuTrigger className="ml-auto md:hidden" aria-label="Open Menu">
-        <Avatar
-          isSquare
-          alt="kurt cobain"
-          src="https://intentui.com/images/avatar/cobain.jpg"
-        />
+        <Avatar isSquare initials="MC" alt="Maya Chen" />
       </MenuTrigger>
       <MenuContent popover={{ placement: "bottom end" }} className="min-w-64">
         <MenuSection>
           <MenuHeader separator>
-            <span className="block">Kurt Cobain</span>
-            <span className="text-muted-foreground font-normal">@cobain</span>
+            <span className="block">Maya Chen</span>
+            <span className="text-muted-foreground font-normal">@maya</span>
           </MenuHeader>
         </MenuSection>
         <MenuItem href="#dashboard">

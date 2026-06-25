@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-swatch-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorSwatch } from \"@/components/ui/preskok-ui/color-swatch\"\n\nexport default function ColorSwatchPreskokDemo() {\n  return <ColorSwatch color={\"#3f3f3f\"} aria-label=\"Color\" />\n}\n",
+      "content": "\"use client\"\n\nimport { ColorSwatch } from \"@/components/ui/preskok-ui/color-swatch\"\n\nexport default function ColorSwatchPreskokDemo() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-3\">\n      <ColorSwatch color=\"#ffffff\" aria-label=\"White\" />\n      <ColorSwatch color=\"#2563eb\" aria-label=\"Blue\" />\n      <ColorSwatch color=\"#14b8a6\" aria-label=\"Teal\" />\n      <ColorSwatch color=\"#111827\" aria-label=\"Slate\" />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

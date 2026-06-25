@@ -221,12 +221,13 @@ export default function AppSidebar(
             <Avatar
               className="size-8 *:size-8"
               isSquare
-              src="https://intentui.com/images/avatar/cobain.jpg"
+              initials="MC"
+              alt="Maya Chen"
             />
             <div className="min-w-0 text-sm">
-              <SidebarLabel className="truncate">Kurt Cobain</SidebarLabel>
+              <SidebarLabel className="truncate">Maya Chen</SidebarLabel>
               <span className="text-muted-foreground -mt-0.5 block truncate">
-                kurt@cobain.com
+                maya@preskok.example
               </span>
             </div>
             <ChevronsUpDownIcon data-slot="chevron" />
@@ -237,10 +238,8 @@ export default function AppSidebar(
           >
             <MenuSection>
               <MenuHeader separator>
-                <span className="block">Kurt Cobain</span>
-                <span className="text-muted-foreground font-normal">
-                  @cobain
-                </span>
+                <span className="block">Maya Chen</span>
+                <span className="text-muted-foreground font-normal">@maya</span>
               </MenuHeader>
             </MenuSection>
 

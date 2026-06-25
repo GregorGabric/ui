@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-slider-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorSlider } from \"@/components/ui/preskok-ui/color-slider\"\n\nexport default function ColorSliderPreskokDemo() {\n  return (\n    <ColorSlider\n      label=\"Fill color\"\n      channel=\"hue\"\n      defaultValue=\"hsl(0, 100%, 50%)\"\n    />\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { ColorSlider } from \"@/components/ui/preskok-ui/color-slider\"\n\nexport default function ColorSliderPreskokDemo() {\n  return (\n    <div className=\"grid gap-5\">\n      <ColorSlider\n        label=\"Hue\"\n        channel=\"hue\"\n        defaultValue=\"hsl(216, 98%, 52%)\"\n      />\n      <ColorSlider\n        label=\"Opacity\"\n        channel=\"alpha\"\n        defaultValue=\"hsla(216, 98%, 52%, 0.65)\"\n      />\n      <ColorSlider\n        label=\"Brightness\"\n        colorSpace=\"hsb\"\n        channel=\"brightness\"\n        defaultValue=\"hsb(216, 98%, 68%)\"\n      />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

@@ -21,17 +21,20 @@ npx preskok-ui@latest add breadcrumbs
 ## Usage
 
 ```tsx
-import { Breadcrumbs } from "@/components/ui/preskok-ui/breadcrumbs"
+import {
+  Breadcrumbs,
+  BreadcrumbsItem,
+} from "@/components/ui/preskok-ui/breadcrumbs"
 
 export function BreadcrumbsDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="/products/electronics">
+      <BreadcrumbsItem href="/">Home</BreadcrumbsItem>
+      <BreadcrumbsItem href="/products">Products</BreadcrumbsItem>
+      <BreadcrumbsItem href="/products/electronics">
         Electronics
-      </Breadcrumbs.Item>
-      <Breadcrumbs.Item>Laptop</Breadcrumbs.Item>
+      </BreadcrumbsItem>
+      <BreadcrumbsItem>Laptop</BreadcrumbsItem>
     </Breadcrumbs>
   )
 }
@@ -48,7 +51,7 @@ The root breadcrumbs container.
 | `separator` | `"chevron" \| "slash" \| boolean` | `"chevron"` | Separator type between items |
 | `className` | `string`                          | -           | Additional CSS classes       |
 
-### Breadcrumbs.Item
+### BreadcrumbsItem
 
 Individual breadcrumb items.
 
@@ -60,47 +63,10 @@ Individual breadcrumb items.
 
 ## Examples
 
-### Basic Breadcrumbs
-
-```tsx
-<Breadcrumbs>
-  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-  <Breadcrumbs.Item href="/">Documentation</Breadcrumbs.Item>
-  <Breadcrumbs.Item>Components</Breadcrumbs.Item>
-</Breadcrumbs>
-```
-
-### With Slash Separator
-
-```tsx
-<Breadcrumbs separator="slash">
-  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-  <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
-  <Breadcrumbs.Item>Current Page</Breadcrumbs.Item>
-</Breadcrumbs>
-```
-
-### Without Separators
-
-```tsx
-<Breadcrumbs separator={false}>
-  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-  <Breadcrumbs.Item href="/">Docs</Breadcrumbs.Item>
-  <Breadcrumbs.Item>Current</Breadcrumbs.Item>
-</Breadcrumbs>
-```
-
-### Mixed Separator Types
-
-```tsx
-<Breadcrumbs>
-  <Breadcrumbs.Item href="/" separator="slash">
-    Home
-  </Breadcrumbs.Item>
-  <Breadcrumbs.Item href="/products">Products</Breadcrumbs.Item>
-  <Breadcrumbs.Item separator={false}>Current Page</Breadcrumbs.Item>
-</Breadcrumbs>
-```
+<ComponentPreview
+  name="breadcrumbs-demo"
+  description="Chevron, slash, and item-level separator behavior."
+/>
 
 ## Features
 
