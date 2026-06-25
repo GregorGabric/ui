@@ -76,7 +76,7 @@ function findRegistryFile<
   })
 }
 
-function ComponentCode({
+async function ComponentCode({
   className,
   code,
   language,
@@ -87,6 +87,8 @@ function ComponentCode({
   language: string
   title: string | undefined
 }) {
+  "use cache"
+
   return (
     <ServerCodeBlock
       code={code}

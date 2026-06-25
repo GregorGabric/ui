@@ -1,12 +1,19 @@
+import { cacheLife } from "next/cache"
+
 import { getLLMText } from "@/lib/get-llm-text"
 import { source } from "@/lib/source"
 
-export const revalidate = false
+async function getFullText() {
+  "use cache"
+  cacheLife("max")
 
-export async function GET() {
   const pages = await Promise.all(source.getPages().map(getLLMText))
 
-  return new Response(pages.join("\n\n"), {
+  return pages.join("\n\n")
+}
+
+export async function GET() {
+  return new Response(await getFullText(), {
     headers: {
       "content-type": "text/markdown; charset=utf-8",
     },
