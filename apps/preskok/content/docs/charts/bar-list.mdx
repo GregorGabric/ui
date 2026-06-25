@@ -64,51 +64,10 @@ type Bar<T> = T & {
 
 ## Examples
 
-### Basic Bar List
-
-```tsx
-<BarList
-  data={[
-    { name: "Product A", value: 1200 },
-    { name: "Product B", value: 800 },
-    { name: "Product C", value: 600 },
-  ]}
+<ComponentPreview
+  name="bar-list-demo"
+  description="Formatted values, animated bars, interactive selection, and a linked row."
 />
-```
-
-### With Custom Formatting
-
-```tsx
-<BarList
-  data={data}
-  valueFormatter={(value) => `${value}%`}
-  sortOrder="ascending"
-/>
-```
-
-### Interactive Bar List
-
-```tsx
-<BarList
-  data={data}
-  onValueChange={(item) => {
-    console.log("Selected:", item.name, item.value)
-  }}
-  showAnimation
-/>
-```
-
-### With Links
-
-```tsx
-<BarList
-  data={[
-    { name: "Dashboard", value: 1200, href: "/dashboard" },
-    { name: "Analytics", value: 800, href: "/analytics" },
-    { name: "Settings", value: 600, href: "/settings" },
-  ]}
-/>
-```
 
 ## Features
 
