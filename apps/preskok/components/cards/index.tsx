@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import { CardsCalendar } from "@/components/cards/calendar"
 import { CardsChat } from "@/components/cards/chat"
 import { CardsCookieSettings } from "@/components/cards/cookie-settings"
@@ -46,7 +48,9 @@ export function CardsDemo() {
           </div>
         </div>
         <div className="hidden md:block">
-          <CardsPayments />
+          <Suspense fallback={null}>
+            <CardsPayments />
+          </Suspense>
         </div>
         <CardsShare />
         <div className="xl:hidden">

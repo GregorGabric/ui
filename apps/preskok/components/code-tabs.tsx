@@ -155,7 +155,7 @@ export function CodeTabs({
           key={item.value}
           value={item.value}
           className={cn(
-            "prose-no-margin focus-visible:outline-none",
+            "prose-no-margin focus-visible:outline-none [&:has(>figure)]:bg-transparent [&:has(>figure)]:p-0 [&:has(>figure)>figure]:!m-0 [&:has(>figure)>figure]:rounded-none [&:has(>figure)>figure]:border-0",
             item.className
           )}
         >
