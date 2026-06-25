@@ -4,6 +4,7 @@ import { createMDX } from "fumadocs-mdx/next"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   cacheComponents: true,
+  partialPrefetching: true,
   reactCompiler: true,
   devIndicators: false,
   allowedDevOrigins: ["127.0.0.1"],

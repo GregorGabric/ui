@@ -5,6 +5,7 @@ packages:
 peerDependencyRules:
   allowedVersions:
     tailwindcss: 4.3.1
+minimumReleaseAge: 0
 allowBuilds:
   '@tailwindcss/oxide': true
   esbuild: true
