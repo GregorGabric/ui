@@ -103,7 +103,9 @@ export function ThemeContainer() {
           </DocsCard>
         </DocsCards>
 
-        <Blocks />
+        <Suspense fallback={null}>
+          <Blocks />
+        </Suspense>
         <Suspense fallback={null}>
           <style>{generateTheme(selectedColors)}</style>
         </Suspense>

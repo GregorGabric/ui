@@ -11,9 +11,6 @@ import {
 import { PageNav } from "@/components/page-nav"
 import { ThemeSelector } from "@/components/theme-selector"
 
-export const dynamic = "force-static"
-export const revalidate = false
-
 const title = "Examples"
 const description = "Check out some examples app built using the components."
 const getStartedLinkClass =

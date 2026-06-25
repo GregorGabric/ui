@@ -1,4 +1,5 @@
 import * as React from "react"
+import { connection } from "next/server"
 import { ServerCodeBlock } from "fumadocs-ui/components/codeblock.rsc"
 
 import { getRegistryItem } from "@/lib/registry"
@@ -35,18 +36,22 @@ export async function ComponentSource({
   if (collapsible) {
     return (
       <CodeCollapsibleWrapper className={className}>
-        <ComponentCode code={code} language={lang} title={title} />
+        <React.Suspense>
+          <ComponentCode code={code} language={lang} title={title} />
+        </React.Suspense>
       </CodeCollapsibleWrapper>
     )
   }
 
   return (
-    <ComponentCode
-      className={className}
-      code={code}
-      language={lang}
-      title={title}
-    />
+    <React.Suspense>
+      <ComponentCode
+        className={className}
+        code={code}
+        language={lang}
+        title={title}
+      />
+    </React.Suspense>
   )
 }
 
@@ -76,7 +81,7 @@ function findRegistryFile<
   })
 }
 
-function ComponentCode({
+async function ComponentCode({
   className,
   code,
   language,
@@ -87,6 +92,13 @@ function ComponentCode({
   language: string
   title: string | undefined
 }) {
+  // fumadocs' `CodeBlock` (a Client Component) reads `Date.now()` during its
+  // prerender SSR, which blocks the static shell under Cache Components. The
+  // highlighted source is static, but the read can't be cached (it happens in
+  // client SSR) so we render the code block at request time behind the
+  // <Suspense> boundary in ComponentSource; the page shell still prerenders.
+  await connection()
+
   return (
     <ServerCodeBlock
       code={code}

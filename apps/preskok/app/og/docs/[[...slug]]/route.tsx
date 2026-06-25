@@ -4,10 +4,6 @@ import { generateOGImage } from "fumadocs-ui/og"
 import { siteConfig } from "@/lib/config"
 import { source } from "@/lib/source"
 
-export const revalidate = false
-export const dynamic = "force-static"
-export const dynamicParams = false
-
 export function generateStaticParams() {
   return source.getPages().map((page) => ({
     slug: [...(page.slugs.length ? page.slugs : ["index"]), "image.png"],

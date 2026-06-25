@@ -11,10 +11,6 @@ import {
 import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source"
 import { absoluteUrl } from "@/lib/utils"
 
-export const revalidate = false
-export const dynamic = "force-static"
-export const dynamicParams = false
-
 export function generateStaticParams() {
   return source.generateParams()
 }

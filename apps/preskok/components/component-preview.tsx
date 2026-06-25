@@ -1,3 +1,4 @@
+import * as React from "react"
 import Image from "next/image"
 
 import { ComponentPreviewTabs } from "@/components/component-preview-tabs"
@@ -64,7 +65,11 @@ export function ComponentPreview({
       previewClassName={previewClassName}
       align={align}
       hideCode={hideCode}
-      component={<Component />}
+      component={
+        <React.Suspense>
+          <Component />
+        </React.Suspense>
+      }
       source={<ComponentSource name={name} collapsible={false} />}
       {...props}
     />
