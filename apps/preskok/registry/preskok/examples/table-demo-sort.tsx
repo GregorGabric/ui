@@ -15,59 +15,59 @@ import {
 const rows = [
   {
     id: 1,
-    name: "Charizard",
-    type: "Fire, Flying",
-    level: 67,
-    description: "A fire dragon that can fly and breathe fire.",
+    account: "Acme Labs",
+    owner: "Maya Chen",
+    value: 84_000,
+    stage: "Renewal",
   },
   {
     id: 2,
-    name: "Blastoise",
-    type: "Water",
-    level: 56,
-    description: "A water dragon that can swim and breathe water.",
+    account: "Northstar Health",
+    owner: "Noah Reed",
+    value: 128_000,
+    stage: "Security review",
   },
   {
     id: 3,
-    name: "Venusaur",
-    type: "Grass, Poison",
-    level: 83,
-    description: "A grass dragon that can grow and breathe grass.",
+    account: "Riverbank Studio",
+    owner: "Iris Patel",
+    value: 42_500,
+    stage: "Negotiation",
   },
   {
     id: 4,
-    name: "Pikachu",
-    type: "Electric",
-    level: 100,
-    description: "An electric dragon that can charge and breathe electricity.",
+    account: "Vertex Freight",
+    owner: "Sam Ortiz",
+    value: 96_200,
+    stage: "Proposal",
   },
   {
     id: 5,
-    name: "Charizard",
-    type: "Fire, Flying",
-    level: 67,
-    description: "A fire dragon that can fly and breathe fire.",
+    account: "Bluefield Energy",
+    owner: "Lena Park",
+    value: 152_400,
+    stage: "Legal",
   },
   {
     id: 6,
-    name: "Blastoise",
-    type: "Water",
-    level: 56,
-    description: "A water dragon that can swim and breathe water.",
+    account: "Kite Systems",
+    owner: "Owen Brooks",
+    value: 31_900,
+    stage: "Discovery",
   },
   {
     id: 7,
-    name: "Venusaur",
-    type: "Grass, Poison",
-    level: 83,
-    description: "A grass dragon that can grow and breathe grass.",
+    account: "Summit Foods",
+    owner: "Ava Stone",
+    value: 77_300,
+    stage: "Procurement",
   },
   {
     id: 8,
-    name: "Pikachu",
-    type: "Electric",
-    level: 100,
-    description: "An electric dragon that can charge and breathe electricity.",
+    account: "Harbor Finance",
+    owner: "Theo Miles",
+    value: 118_600,
+    stage: "Contracting",
   },
 ]
 
@@ -75,7 +75,7 @@ type Row = (typeof rows)[number]
 
 export function TableDemoSort() {
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "name",
+    column: "account",
     direction: "ascending",
   })
 
@@ -94,9 +94,9 @@ export function TableDemoSort() {
   }
 
   return (
-    <div className="overflow-auto rounded-lg border p-4">
+    <div className="bg-background w-full max-w-4xl overflow-hidden rounded-xl border p-4 shadow-sm">
       <Table
-        aria-label="Favorite pokemon"
+        aria-label="Sales pipeline"
         sortDescriptor={sortDescriptor}
         onSortChange={setSortDescriptor}
       >
@@ -104,27 +104,29 @@ export function TableDemoSort() {
           <TableColumn id="id" allowsSorting>
             ID
           </TableColumn>
-          <TableColumn id="name" isRowHeader allowsSorting>
-            Name
+          <TableColumn id="account" isRowHeader allowsSorting>
+            Account
           </TableColumn>
-          <TableColumn id="type" allowsSorting>
-            Type
+          <TableColumn id="owner" allowsSorting>
+            Owner
           </TableColumn>
-          <TableColumn id="level" allowsSorting>
-            Level
+          <TableColumn id="value" allowsSorting>
+            Value
           </TableColumn>
-          <TableColumn id="description" allowsSorting>
-            Description
+          <TableColumn id="stage" allowsSorting>
+            Stage
           </TableColumn>
         </TableHeader>
         <TableBody items={sortedRows}>
           {(item) => (
             <TableRow id={item.id}>
-              <TableCell>{item.id}</TableCell>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.type}</TableCell>
-              <TableCell>{item.level}</TableCell>
-              <TableCell>{item.description}</TableCell>
+              <TableCell className="tabular-nums">{item.id}</TableCell>
+              <TableCell>{item.account}</TableCell>
+              <TableCell>{item.owner}</TableCell>
+              <TableCell className="tabular-nums">
+                ${item.value.toLocaleString()}
+              </TableCell>
+              <TableCell>{item.stage}</TableCell>
             </TableRow>
           )}
         </TableBody>

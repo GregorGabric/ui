@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/link-button-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { buttonStyles } from \"@/components/ui/preskok-ui/button\"\nimport { Link } from \"@/components/ui/preskok-ui/link\"\n\nexport default function LinkButtonPreskokDemo() {\n  return (\n    <div className=\"flex gap-2\">\n      <Link className={buttonStyles()} href=\"#use-as-button\">\n        Link\n      </Link>\n      <Link\n        className={buttonStyles({ intent: \"outline\" })}\n        href=\"#use-as-button\"\n      >\n        Link\n      </Link>\n      <Link\n        className={buttonStyles({ intent: \"plain\", isCircle: true })}\n        href=\"#use-as-button\"\n      >\n        Link\n      </Link>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { ArrowRightIcon, DownloadIcon, ExternalLinkIcon } from \"lucide-react\"\n\nimport { buttonStyles } from \"@/components/ui/preskok-ui/button\"\nimport { Link } from \"@/components/ui/preskok-ui/link\"\n\nexport default function LinkButtonPreskokDemo() {\n  return (\n    <div className=\"flex flex-wrap gap-2\">\n      <Link className={buttonStyles()} href=\"#use-as-button\">\n        Get started\n        <ArrowRightIcon />\n      </Link>\n      <Link\n        className={buttonStyles({ intent: \"outline\" })}\n        href=\"#use-as-button\"\n      >\n        <DownloadIcon />\n        Download\n      </Link>\n      <Link\n        className={buttonStyles({\n          intent: \"plain\",\n          size: \"sq-md\",\n          isCircle: true,\n        })}\n        href=\"#use-as-button\"\n        aria-label=\"Open in new tab\"\n      >\n        <ExternalLinkIcon />\n      </Link>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

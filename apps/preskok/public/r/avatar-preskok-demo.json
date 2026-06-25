@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/avatar-preskok-demo.tsx",
-      "content": "import { Avatar } from \"@/components/ui/preskok-ui/avatar\"\n\nexport default function AvatarPreskokDemo() {\n  return (\n    <div className=\"flex flex-row flex-wrap items-center gap-6\">\n      <Avatar src=\"/avatars/01.png\" alt=\"Alex Johnson\" />\n      <Avatar src=\"/avatars/02.png\" alt=\"Jamie Rivera\" size=\"lg\" />\n      <Avatar initials=\"AJ\" alt=\"Alex Johnson\" isSquare />\n      <Avatar initials=\"JR\" alt=\"Jamie Rivera\" size=\"xl\" />\n    </div>\n  )\n}\n",
+      "content": "import { Avatar } from \"@/components/ui/preskok-ui/avatar\"\n\nexport default function AvatarPreskokDemo() {\n  return (\n    <div className=\"grid gap-5\">\n      <div className=\"flex flex-row flex-wrap items-center gap-4\">\n        <Avatar src=\"/avatars/01.png\" alt=\"Alex Johnson\" size=\"xs\" />\n        <Avatar src=\"/avatars/02.png\" alt=\"Jamie Rivera\" size=\"sm\" />\n        <Avatar initials=\"MC\" alt=\"Maya Chen\" />\n        <Avatar initials=\"NR\" alt=\"Noah Reed\" size=\"lg\" />\n        <Avatar initials=\"IP\" alt=\"Iris Patel\" size=\"xl\" isSquare />\n      </div>\n      <div className=\"flex -space-x-2\">\n        <Avatar src=\"/avatars/01.png\" alt=\"Alex Johnson\" />\n        <Avatar src=\"/avatars/02.png\" alt=\"Jamie Rivera\" />\n        <Avatar initials=\"MC\" alt=\"Maya Chen\" />\n        <Avatar initials=\"+3\" alt=\"Three more reviewers\" />\n      </div>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

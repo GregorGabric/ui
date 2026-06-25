@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/number-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { Label } from \"@/components/ui/preskok-ui/field\"\nimport {\n  NumberField,\n  NumberInput,\n} from \"@/components/ui/preskok-ui/number-field\"\n\nexport default function NumberFieldPreskokDemo() {\n  return (\n    <NumberField>\n      <Label>Cookies</Label>\n      <NumberInput />\n    </NumberField>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport {\n  Description,\n  FieldError,\n  Label,\n} from \"@/components/ui/preskok-ui/field\"\nimport {\n  NumberField,\n  NumberInput,\n} from \"@/components/ui/preskok-ui/number-field\"\n\nexport default function NumberFieldPreskokDemo() {\n  const [seats, setSeats] = useState(12)\n\n  return (\n    <div className=\"grid w-full max-w-sm gap-4\">\n      <NumberField\n        value={seats}\n        onChange={setSeats}\n        minValue={1}\n        maxValue={100}\n        step={1}\n        isRequired\n      >\n        <Label>Team seats</Label>\n        <Description>Use steppers or type a value from 1 to 100.</Description>\n        <NumberInput />\n        <FieldError />\n      </NumberField>\n      <NumberField\n        defaultValue={49}\n        minValue={0}\n        step={5}\n        formatOptions={{ style: \"currency\", currency: \"USD\" }}\n      >\n        <Label>Monthly add-on budget</Label>\n        <NumberInput />\n      </NumberField>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

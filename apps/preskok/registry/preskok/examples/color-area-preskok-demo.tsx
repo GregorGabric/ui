@@ -7,19 +7,20 @@ import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 
 export default function ColorAreaPreskokDemo() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="grid gap-3">
       <ColorArea
-        defaultValue="hsb(0, 100%, 50%)"
+        defaultValue="hsb(216, 98%, 68%)"
         colorSpace="hsb"
         xChannel="saturation"
         yChannel="brightness"
       />
       <ColorSlider
-        defaultValue="hsb(0, 100%, 50%)"
+        defaultValue="hsb(216, 98%, 68%)"
         colorSpace="hsb"
         channel="hue"
+        label="Hue"
       />
-      <ColorField defaultValue="hsb(0, 100%, 50%)" aria-label="Hex">
+      <ColorField defaultValue="hsb(216, 98%, 68%)" aria-label="Hex">
         <Input placeholder="#000000" />
       </ColorField>
     </div>

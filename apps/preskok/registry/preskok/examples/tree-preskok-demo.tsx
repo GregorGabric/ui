@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Tree,
   TreeContent,

@@ -1,24 +1,59 @@
 "use client"
 
+import { useState } from "react"
+import type { Selection } from "react-aria-components/GridList"
 import { useDragAndDrop } from "react-aria-components/useDragAndDrop"
 import { useListData } from "react-stately"
 
 import {
   GridList,
+  GridListDescription,
+  GridListHeader,
   GridListItem,
+  GridListLabel,
+  GridListSpacer,
+  GridListStart,
 } from "@/registry/preskok/ui/preskok-ui/grid-list"
 
+function formatSelection(selection: Selection) {
+  if (selection === "all") {
+    return "All"
+  }
+
+  return Array.from(selection).join(", ")
+}
+
 export function Component() {
+  const [selectedKeys, setSelectedKeys] = useState<Selection>(
+    new Set(["sync", "review"])
+  )
+
   return (
-    <div className="flex flex-col gap-20">
+    <div className="grid w-full max-w-xl gap-8">
       <GridList
-        selectionMode="single"
-        items={items1}
-        aria-label="Select your favorite bands"
-        className="min-w-64"
+        selectionMode="multiple"
+        selectionBehavior="toggle"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
+        aria-label="Release tasks"
       >
-        {(item) => <GridListItem id={item.id}>{item.name}</GridListItem>}
+        <GridListHeader>Release checklist</GridListHeader>
+        {tasks.map((item) => (
+          <GridListItem key={item.id} id={item.id} textValue={item.name}>
+            <GridListStart>
+              <div>
+                <GridListLabel>{item.name}</GridListLabel>
+                <GridListDescription>{item.description}</GridListDescription>
+              </div>
+            </GridListStart>
+            <GridListSpacer />
+            <span className="text-muted-foreground text-sm">{item.owner}</span>
+          </GridListItem>
+        ))}
       </GridList>
+      <p className="text-muted-foreground -mt-6 text-sm">
+        Selected tasks: {formatSelection(selectedKeys)}
+      </p>
       <GridListDemo />
     </div>
   )
@@ -26,7 +61,7 @@ export function Component() {
 
 function GridListDemo() {
   const list = useListData({
-    initialItems: items1,
+    initialItems: tasks,
   })
   const { dragAndDropHooks } = useDragAndDrop({
     getItems: (keys) =>
@@ -44,32 +79,48 @@ function GridListDemo() {
 
   return (
     <GridList
-      items={list.items}
-      aria-label="Droppable list"
+      aria-label="Reorder tasks"
       selectionMode="multiple"
       dragAndDropHooks={dragAndDropHooks}
     >
-      {(item) => <GridListItem id={item.id}>{item.name}</GridListItem>}
+      <GridListHeader>Drag to reorder</GridListHeader>
+      {list.items.map((item) => (
+        <GridListItem key={item.id} id={item.id} textValue={item.name}>
+          <GridListStart>
+            <div>
+              <GridListLabel>{item.name}</GridListLabel>
+              <GridListDescription>{item.owner}</GridListDescription>
+            </div>
+          </GridListStart>
+        </GridListItem>
+      ))}
     </GridList>
   )
 }
 
-const items1 = [
-  { id: 1, name: "The Beatles" },
-  { id: 2, name: "Led Zeppelin" },
-  { id: 3, name: "Pink Floyd" },
-  { id: 4, name: "Queen" },
-  { id: 5, name: "The Rolling Stones" },
-  { id: 6, name: "The Beach Boys" },
-  { id: 7, name: "The Kinks" },
-  { id: 8, name: "The Who" },
-]
-
-const items2 = [
-  { id: "1", name: "The Beatles" },
-  { id: "2", name: "Led Zeppelin" },
-  { id: "3", name: "Pink Floyd" },
-  { id: "4", name: "Queen" },
-  { id: "5", name: "The Rolling Stones" },
-  { id: "6", name: "The Who" },
+const tasks = [
+  {
+    id: "sync",
+    name: "Sync staging data",
+    description: "Refresh anonymized customer records",
+    owner: "Data",
+  },
+  {
+    id: "review",
+    name: "Review accessibility",
+    description: "Keyboard pass for checkout overlays",
+    owner: "Design",
+  },
+  {
+    id: "flags",
+    name: "Enable feature flags",
+    description: "Ramp release cohort to 20%",
+    owner: "Growth",
+  },
+  {
+    id: "docs",
+    name: "Publish changelog",
+    description: "Update release notes before deploy",
+    owner: "Docs",
+  },
 ]

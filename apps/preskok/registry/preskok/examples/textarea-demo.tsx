@@ -1,31 +1,47 @@
 "use client"
 
-import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
+import { useState } from "react"
+
+import {
+  Description,
+  FieldError,
+  Label,
+} from "@/registry/preskok/ui/preskok-ui/field"
+import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 import { Textarea } from "@/registry/preskok/ui/preskok-ui/textarea"
 
 export default function TextareaDemo() {
-  return (
-    <div className="space-y-4">
-      <div className="space-y-1">
-        <Label htmlFor="vehicle-description">Vehicle Description</Label>
-        <Textarea
-          id="vehicle-description"
-          placeholder="Describe the vehicle features, condition, and any additional details..."
-          aria-describedby="vehicle-description-help"
-        />
-        <Description id="vehicle-description-help">
-          Provide a detailed description for potential buyers
-        </Description>
-      </div>
+  const maxLength = 140
+  const [summary, setSummary] = useState(
+    "Enterprise workspace renewal is ready for review."
+  )
+  const summaryIsTooLong = summary.length > maxLength
 
-      <div className="space-y-1">
-        <Label htmlFor="service-notes">Service Notes</Label>
+  return (
+    <div className="grid w-full max-w-xl gap-5">
+      <TextField
+        isInvalid={summaryIsTooLong}
+        value={summary}
+        onChange={setSummary}
+      >
+        <Label>Renewal summary</Label>
         <Textarea
-          id="service-notes"
-          placeholder="Enter service history and maintenance notes..."
-          defaultValue="Regular oil changes completed. New tires installed. Brake pads replaced at 45,000 miles."
+          placeholder="Summarize the account state before the renewal call"
+          maxLength={180}
         />
-      </div>
+        <Description>
+          {summary.length}/{maxLength} characters recommended.
+        </Description>
+        <FieldError>
+          Keep the summary short enough for the account header.
+        </FieldError>
+      </TextField>
+
+      <TextField defaultValue="Procurement prefers annual billing. Legal has already approved the latest DPA.">
+        <Label>Internal notes</Label>
+        <Textarea placeholder="Add handoff notes, risk signals, or next steps" />
+        <Description>Visible to the customer success team only.</Description>
+      </TextField>
     </div>
   )
 }

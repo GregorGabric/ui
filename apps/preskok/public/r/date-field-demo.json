@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/date-field-demo.tsx",
-      "content": "\"use client\"\n\nimport {\n  DateField,\n  DateInput,\n} from \"@/components/ui/preskok-ui/date-field\"\nimport { Label } from \"@/components/ui/preskok-ui/field\"\n\nexport default function DateFieldDemo() {\n  return (\n    <DateField>\n      <Label>Event date</Label>\n      <DateInput />\n    </DateField>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { parseDate } from \"@internationalized/date\"\n\nimport {\n  DateField,\n  DateInput,\n} from \"@/components/ui/preskok-ui/date-field\"\nimport {\n  Description,\n  FieldError,\n  Label,\n} from \"@/components/ui/preskok-ui/field\"\n\nexport default function DateFieldDemo() {\n  return (\n    <div className=\"grid gap-4\">\n      <DateField\n        defaultValue={parseDate(\"2026-07-18\")}\n        minValue={parseDate(\"2026-07-01\")}\n        maxValue={parseDate(\"2026-08-31\")}\n        isRequired\n      >\n        <Label>Launch date</Label>\n        <Description>Choose a date in the approved summer window.</Description>\n        <DateInput />\n        <FieldError />\n      </DateField>\n      <DateField defaultValue={parseDate(\"2026-07-18\")} isReadOnly>\n        <Label>Read-only date</Label>\n        <DateInput />\n      </DateField>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

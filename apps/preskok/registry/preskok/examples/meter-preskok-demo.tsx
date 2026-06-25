@@ -1,7 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
-
 import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
   Meter,
@@ -11,23 +9,32 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/meter"
 
 export function Component() {
-  const [value, setValue] = useState(1)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue((prev) => (prev < 100 ? prev + 1 : 100))
-    }, 50)
-
-    return () => clearInterval(interval)
-  }, [])
   return (
-    <Meter value={value}>
-      <MeterHeader>
-        <Label>Storage space</Label>
-        <MeterValue />
-      </MeterHeader>
-      <MeterTrack />
-      <Description>Current storage space usage</Description>
-    </Meter>
+    <div className="grid w-full max-w-md gap-5">
+      <Meter value={41}>
+        <MeterHeader>
+          <Label>Storage space</Label>
+          <MeterValue />
+        </MeterHeader>
+        <Description>Healthy usage renders with the success color.</Description>
+        <MeterTrack />
+      </Meter>
+      <Meter value={78}>
+        <MeterHeader>
+          <Label>CPU load</Label>
+          <MeterValue />
+        </MeterHeader>
+        <Description>Warning range as load approaches capacity.</Description>
+        <MeterTrack />
+      </Meter>
+      <Meter value={92}>
+        <MeterHeader>
+          <Label>Error budget</Label>
+          <MeterValue />
+        </MeterHeader>
+        <Description>High usage switches to the danger color.</Description>
+        <MeterTrack />
+      </Meter>
+    </div>
   )
 }

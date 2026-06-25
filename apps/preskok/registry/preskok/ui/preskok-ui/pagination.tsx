@@ -31,10 +31,13 @@ const PaginationSection = ({
   ref,
   ...props
 }: React.ComponentProps<"ul">) => (
-  <li data-slot="pagination-section">
+  <li data-slot="pagination-section" className="list-none">
     <ul
       ref={ref}
-      className={twMerge("flex h-full gap-1.5 text-sm/6", className)}
+      className={twMerge(
+        "flex h-full list-none gap-1.5 p-0 text-sm/6",
+        className
+      )}
       {...props}
     />
   </li>
@@ -50,7 +53,7 @@ const PaginationList = ({
       ref={ref}
       data-slot="pagination-list"
       aria-label={props["aria-label"] || "Pagination"}
-      className={twMerge("flex gap-[5px]", className)}
+      className={twMerge("flex list-none gap-[5px] p-0", className)}
       {...props}
     />
   )
@@ -73,7 +76,7 @@ const PaginationItem = ({
   ...props
 }: PaginationItemProps) => {
   return (
-    <li>
+    <li className="list-none">
       <Link
         data-slot="pagination-item"
         href={isCurrent ? undefined : props.href}
@@ -106,7 +109,7 @@ const PaginationFirst = ({
   ...props
 }: PaginationAttributesProps) => {
   return (
-    <li>
+    <li className="list-none">
       <Link
         data-slot="pagination-item"
         aria-label="First page"
@@ -151,7 +154,7 @@ const PaginationPrevious = ({
   ...props
 }: PaginationAttributesProps) => {
   return (
-    <li>
+    <li className="list-none">
       <Link
         data-slot="pagination-item"
         aria-label="Previous page"
@@ -192,7 +195,7 @@ const PaginationNext = ({
   ...props
 }: PaginationAttributesProps) => {
   return (
-    <li>
+    <li className="list-none">
       <Link
         data-slot="pagination-item"
         aria-label="Next page"
@@ -233,7 +236,7 @@ const PaginationLast = ({
   ...props
 }: PaginationAttributesProps) => {
   return (
-    <li>
+    <li className="list-none">
       <Link
         data-slot="pagination-item"
         aria-label="Last page"
@@ -253,7 +256,7 @@ const PaginationLast = ({
             height={16}
             fill="none"
             viewBox="0 0 25 24"
-            className="intentui-icons size-4"
+            className="size-4"
             data-slot="icon"
             aria-hidden="true"
           >
@@ -295,7 +298,7 @@ const PaginationGap = ({
     <li
       data-slot="pagination-gap"
       className={twMerge(
-        "text-foreground w-9 text-center text-sm/6 font-semibold outline-hidden select-none",
+        "text-foreground w-9 list-none text-center text-sm/6 font-semibold outline-hidden select-none",
         className
       )}
       {...props}
@@ -316,7 +319,7 @@ const PaginationLabel = ({
       ref={ref}
       data-slot="pagination-label"
       className={twMerge(
-        "text-foreground *:[strong]:text-foreground min-w-4 self-center *:[strong]:font-medium",
+        "text-foreground *:[strong]:text-foreground min-w-4 list-none self-center *:[strong]:font-medium",
         className
       )}
       {...props}

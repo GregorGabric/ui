@@ -234,6 +234,7 @@ const TableHeader = <T extends object>({
     if (column.kind === "drag") {
       return (
         <Column
+          key={column.id}
           id={column.id}
           data-slot="table-column"
           width={32}
@@ -250,6 +251,7 @@ const TableHeader = <T extends object>({
 
     return (
       <Column
+        key={column.id}
         id={column.id}
         width={32}
         minWidth={32}
@@ -320,7 +322,7 @@ const TableRow = <T extends object>({
   const renderSyntheticCell = (column: SyntheticColumn) => {
     if (column.kind === "drag") {
       return (
-        <TableCell className="cursor-grab">
+        <TableCell key={column.id} className="cursor-grab">
           <Button
             slot="drag"
             className="focus-visible:ring-ring grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring"
@@ -352,7 +354,7 @@ const TableRow = <T extends object>({
     }
 
     return (
-      <TableCell>
+      <TableCell key={column.id}>
         <Checkbox slot="selection" />
       </TableCell>
     )

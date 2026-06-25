@@ -25,7 +25,7 @@ export default function ButtonGroupWithMenuDemo() {
         Deploy
       </Button>
       <Menu>
-        <Button intent="secondary">
+        <Button intent="secondary" aria-label="More deploy actions">
           <MoreHorizontalIcon data-slot="icon" />
         </Button>
         <MenuContent placement="bottom end">

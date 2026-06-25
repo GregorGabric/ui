@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/link-preskok-demo.tsx",
-      "content": "import { Link } from \"@/components/ui/preskok-ui/link\"\n\nexport default function LinkPreskokDemo() {\n  return (\n    <div className=\"space-x-4\">\n      <Link href=\"#\">Primary link</Link>\n      <Link href=\"#\">Secondary link</Link>\n      <Link href=\"#\">Unstyled link</Link>\n    </div>\n  )\n}\n",
+      "content": "import { ArrowUpRightIcon } from \"lucide-react\"\n\nimport { Link } from \"@/components/ui/preskok-ui/link\"\n\nexport default function LinkPreskokDemo() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-4\">\n      <Link href=\"/docs\">Documentation</Link>\n      <Link href=\"/docs/components\">Component index</Link>\n      <Link href=\"https://react-spectrum.adobe.com/react-aria/\" target=\"_blank\">\n        React Aria\n        <ArrowUpRightIcon className=\"ml-1 inline size-3.5\" />\n      </Link>\n      <Link isDisabled>Disabled link</Link>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

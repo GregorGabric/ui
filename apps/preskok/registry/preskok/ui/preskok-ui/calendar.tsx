@@ -25,6 +25,10 @@ import {
 } from "react-aria-components/Calendar"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { useLocale } from "react-aria-components/I18nProvider"
+import {
+  RangeCalendarStateContext,
+  type RangeCalendarState,
+} from "react-aria-components/RangeCalendar"
 import { twMerge } from "tailwind-merge"
 
 import { Button } from "./button"
@@ -37,6 +41,9 @@ import {
 } from "./select"
 
 type CalendarSelectionMode = "single" | "multiple"
+type CalendarHeaderState =
+  | CalendarState<CalendarSelectionMode>
+  | RangeCalendarState<DateValue>
 
 interface CalendarProps<T extends DateValue> extends Omit<
   CalendarPrimitiveProps<T>,
@@ -100,7 +107,23 @@ const CalendarHeader = ({
   ...props
 }: React.ComponentProps<"header"> & { isRange?: boolean }) => {
   const { direction } = useLocale()
-  const state = use(CalendarStateContext)!
+  const calendarState = use(CalendarStateContext)
+  const rangeState = use(RangeCalendarStateContext)
+  const state = (calendarState ?? rangeState) as CalendarHeaderState
+  const monthFormatter = useDateFormatter({
+    month: "long",
+    timeZone: state.timeZone,
+  })
+  const monthYearFormatter = useDateFormatter({
+    month: "long",
+    year: "numeric",
+    timeZone: state.timeZone,
+  })
+  const headingText = getCalendarHeadingText({
+    monthFormatter,
+    monthYearFormatter,
+    state,
+  })
 
   return (
     <header
@@ -113,8 +136,8 @@ const CalendarHeader = ({
     >
       {!isRange && (
         <div className="flex items-center gap-1.5">
-          <SelectMonth state={state} />
-          <SelectYear state={state} />
+          <SelectMonth state={calendarState!} />
+          <SelectYear state={calendarState!} />
         </div>
       )}
       <Heading
@@ -123,7 +146,9 @@ const CalendarHeader = ({
           !isRange && "sr-only",
           className
         )}
-      />
+      >
+        {headingText}
+      </Heading>
       <div className="flex items-center gap-1">
         <Button
           size="sq-sm"
@@ -154,6 +179,31 @@ const CalendarHeader = ({
       </div>
     </header>
   )
+}
+
+function getCalendarHeadingText({
+  monthFormatter,
+  monthYearFormatter,
+  state,
+}: {
+  monthFormatter: Intl.DateTimeFormat
+  monthYearFormatter: Intl.DateTimeFormat
+  state: CalendarHeaderState
+}) {
+  const start = state.visibleRange.start
+  const end = state.visibleRange.end
+  const startDate = start.toDate(state.timeZone)
+  const endDate = end.toDate(state.timeZone)
+
+  if (start.year !== end.year) {
+    return `${monthYearFormatter.format(startDate)} - ${monthYearFormatter.format(endDate)}`
+  }
+
+  if (start.month !== end.month) {
+    return `${monthFormatter.format(startDate)} - ${monthYearFormatter.format(endDate)}`
+  }
+
+  return monthYearFormatter.format(startDate)
 }
 
 const SelectMonth = ({

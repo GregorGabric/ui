@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/search-field-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport {\n  SearchField,\n  SearchInput,\n} from \"@/components/ui/preskok-ui/search-field\"\n\nexport function Component() {\n  return (\n    <SearchField aria-label=\"Search\">\n      <SearchInput placeholder=\"Search\" />\n    </SearchField>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Description, Label } from \"@/components/ui/preskok-ui/field\"\nimport {\n  SearchField,\n  SearchInput,\n} from \"@/components/ui/preskok-ui/search-field\"\n\nexport function Component() {\n  const [query, setQuery] = useState(\"invoice\")\n  const results = documents.filter((document) =>\n    document.toLowerCase().includes(query.toLowerCase())\n  )\n\n  return (\n    <div className=\"grid w-full max-w-sm gap-3\">\n      <SearchField value={query} onChange={setQuery} aria-label=\"Search docs\">\n        <Label>Search docs</Label>\n        <Description>\n          Clear button appears when the field has a value.\n        </Description>\n        <SearchInput placeholder=\"Search by title\" />\n      </SearchField>\n      <div className=\"rounded-lg border p-2\">\n        {results.map((result) => (\n          <div key={result} className=\"px-2 py-1.5 text-sm\">\n            {result}\n          </div>\n        ))}\n      </div>\n    </div>\n  )\n}\n\nconst documents = [\n  \"Invoice export guide\",\n  \"Webhook retry policy\",\n  \"SAML setup checklist\",\n  \"Quarterly security review\",\n]\n",
       "type": "registry:example"
     }
   ],

@@ -1,4 +1,9 @@
 import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@/registry/preskok/ui/preskok-ui/card"
+import {
   DescriptionDetails,
   DescriptionList,
   DescriptionTerm,
@@ -6,19 +11,27 @@ import {
 
 export default function DescriptionListPreskokDemo() {
   return (
-    <DescriptionList className="max-w-xl">
-      <DescriptionTerm>Model</DescriptionTerm>
-      <DescriptionDetails>Tesla Model 3</DescriptionDetails>
-      <DescriptionTerm>Year</DescriptionTerm>
-      <DescriptionDetails>2024</DescriptionDetails>
-      <DescriptionTerm>Mileage</DescriptionTerm>
-      <DescriptionDetails>15,000 miles</DescriptionDetails>
-      <DescriptionTerm>Manufacturer</DescriptionTerm>
-      <DescriptionDetails>Tesla</DescriptionDetails>
-      <DescriptionTerm>Price</DescriptionTerm>
-      <DescriptionDetails>$45,000</DescriptionDetails>
-      <DescriptionTerm>Condition</DescriptionTerm>
-      <DescriptionDetails>Like New</DescriptionDetails>
-    </DescriptionList>
+    <Card className="max-w-xl">
+      <CardHeader
+        title="Workspace contract"
+        description="Commercial terms used for renewal approval."
+      />
+      <CardContent>
+        <DescriptionList>
+          <DescriptionTerm>Plan</DescriptionTerm>
+          <DescriptionDetails>Enterprise</DescriptionDetails>
+          <DescriptionTerm>Seats</DescriptionTerm>
+          <DescriptionDetails>240 active, 18 pending</DescriptionDetails>
+          <DescriptionTerm>Renewal date</DescriptionTerm>
+          <DescriptionDetails>September 30, 2026</DescriptionDetails>
+          <DescriptionTerm>Billing owner</DescriptionTerm>
+          <DescriptionDetails>Maya Chen</DescriptionDetails>
+          <DescriptionTerm>Annual value</DescriptionTerm>
+          <DescriptionDetails>$128,000</DescriptionDetails>
+          <DescriptionTerm>Status</DescriptionTerm>
+          <DescriptionDetails>Legal review</DescriptionDetails>
+        </DescriptionList>
+      </CardContent>
+    </Card>
   )
 }

@@ -7,7 +7,7 @@ export default function AsyncImageDemo() {
     <div className="space-y-8">
       <div className="space-y-2">
         <p className="text-muted-foreground text-sm font-medium">
-          Default (skeleton → image, lazy-loaded)
+          Default (skeleton to image, lazy-loaded)
         </p>
         <div className="flex gap-4">
           <AsyncImage.Root
@@ -36,7 +36,7 @@ export default function AsyncImageDemo() {
           height={150}
         >
           <AsyncImage.Loading className="bg-muted/50 flex items-center justify-center">
-            <span className="text-muted-foreground text-xs">Loading…</span>
+            <span className="text-muted-foreground text-xs">Loading...</span>
           </AsyncImage.Loading>
         </AsyncImage.Root>
       </div>

@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-picker-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorPicker } from \"@/components/ui/preskok-ui/color-picker\"\n\nexport default function ColorPickerPreskokDemo() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <ColorPicker label=\"Pick color\" defaultValue=\"hsl(216, 98%, 52%)\" />\n      <ColorPicker label=\"With Eyedropper\" eyeDropper />\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { parseColor } from \"@react-stately/color\"\n\nimport { ColorPicker } from \"@/components/ui/preskok-ui/color-picker\"\n\nexport default function ColorPickerPreskokDemo() {\n  const [color, setColor] = useState(parseColor(\"hsl(216, 98%, 52%)\"))\n\n  return (\n    <div className=\"grid gap-3\">\n      <ColorPicker\n        label=\"Brand color\"\n        value={color}\n        onChange={setColor}\n        description={color.toString(\"hex\")}\n        showArrow\n      />\n      <ColorPicker\n        label=\"With eyedropper\"\n        defaultValue=\"hsl(42, 95%, 56%)\"\n        eyeDropper\n        placement=\"right top\"\n      />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

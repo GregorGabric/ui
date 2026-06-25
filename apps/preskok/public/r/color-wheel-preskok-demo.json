@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/preskok/examples/color-wheel-preskok-demo.tsx",
-      "content": "\"use client\"\n\nimport { ColorWheel } from \"@/components/ui/preskok-ui/color-wheel\"\n\nexport default function ColorWheelPreskokDemo() {\n  return <ColorWheel aria-label=\"Hue\" />\n}\n",
+      "content": "\"use client\"\n\nimport { ColorWheel } from \"@/components/ui/preskok-ui/color-wheel\"\n\nexport default function ColorWheelPreskokDemo() {\n  return (\n    <div className=\"grid gap-4\">\n      <ColorWheel defaultValue=\"hsl(216, 98%, 52%)\" aria-label=\"Hue\" />\n      <ColorWheel\n        defaultValue=\"hsl(42, 95%, 56%)\"\n        isDisabled\n        aria-label=\"Hue\"\n      />\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ],

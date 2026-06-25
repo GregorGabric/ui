@@ -1,21 +1,28 @@
 "use client"
 
+import { useState } from "react"
+
 import { BarList } from "@/registry/preskok/ui/preskok-ui/bar-list"
 
 const data = [
-  { name: "Sales", value: 1200, key: "sales" },
-  { name: "Marketing", value: 800, key: "marketing" },
-  { name: "Support", value: 600, key: "support" },
-  { name: "Development", value: 400, key: "development" },
+  { name: "Dashboard", value: 12400, key: "dashboard", href: "/docs" },
+  { name: "Reports", value: 9800, key: "reports" },
+  { name: "Settings", value: 4200, key: "settings" },
+  { name: "Billing", value: 3100, key: "billing" },
 ]
 
 export default function BarListDemo() {
+  const [selected, setSelected] = useState("Dashboard")
+
   return (
-    <div className="w-full max-w-md">
+    <div className="grid w-full max-w-md gap-3">
       <BarList
         data={data}
-        valueFormatter={(value) => `$${value.toLocaleString()}`}
+        showAnimation
+        valueFormatter={(value) => value.toLocaleString()}
+        onValueChange={(item) => setSelected(item.name)}
       />
+      <p className="text-muted-foreground text-sm">Selected: {selected}</p>
     </div>
   )
 }

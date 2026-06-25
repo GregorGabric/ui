@@ -1,76 +1,89 @@
 "use client"
 
+import { useState } from "react"
+
 import {
   ComboBox,
   ComboBoxContent,
+  ComboBoxDescription,
   ComboBoxInput,
   ComboBoxItem,
+  ComboBoxLabel,
+  ComboBoxSection,
 } from "@/registry/preskok/ui/preskok-ui/combo-box"
+import { Description, Label } from "@/registry/preskok/ui/preskok-ui/field"
 
 export function Component() {
+  const [inputValue, setInputValue] = useState("")
+  const [createdTeam, setCreatedTeam] = useState("")
+
   return (
-    <ComboBox name="user" aria-label="Users">
-      <ComboBoxInput placeholder="Select a user" />
-      <ComboBoxContent items={users}>
-        {(item) => (
-          <ComboBoxItem id={item.id} textValue={item.name}>
-            {item.name}
-          </ComboBoxItem>
-        )}
-      </ComboBoxContent>
-    </ComboBox>
+    <div className="grid w-full max-w-sm gap-3">
+      <ComboBox
+        name="team"
+        allowsCustomValue
+        allowsEmptyCollection
+        inputValue={inputValue}
+        onInputChange={setInputValue}
+        aria-label="Team"
+      >
+        <Label>Team</Label>
+        <Description>Filter existing teams or create a new one.</Description>
+        <ComboBoxInput placeholder="Search teams" />
+        <ComboBoxContent>
+          {inputValue.length > 0 && (
+            <ComboBoxItem
+              id="create-team"
+              textValue={`Create ${inputValue}`}
+              onAction={() => setCreatedTeam(inputValue)}
+            >
+              <ComboBoxLabel>Create {inputValue}</ComboBoxLabel>
+              <ComboBoxDescription>Add a custom team</ComboBoxDescription>
+            </ComboBoxItem>
+          )}
+          <ComboBoxSection items={teams}>
+            {(item) => (
+              <ComboBoxItem
+                id={item.id}
+                textValue={item.name}
+                isDisabled={item.isDisabled}
+              >
+                <ComboBoxLabel>{item.name}</ComboBoxLabel>
+                <ComboBoxDescription>{item.description}</ComboBoxDescription>
+              </ComboBoxItem>
+            )}
+          </ComboBoxSection>
+        </ComboBoxContent>
+      </ComboBox>
+      {createdTeam && (
+        <p className="text-muted-foreground text-sm">
+          Created team: {createdTeam}
+        </p>
+      )}
+    </div>
   )
 }
 
-const users = [
+const teams = [
   {
-    id: 1,
-    name: "Barbara Kirlin Sr.",
-    image_url: "https://i.pravatar.cc/150?img=1",
+    id: "design",
+    name: "Design systems",
+    description: "Components, tokens, and accessibility reviews",
   },
   {
-    id: 2,
-    name: "Rosemarie Koch",
-    image_url: "https://i.pravatar.cc/150?img=2",
+    id: "infra",
+    name: "Infrastructure",
+    description: "Cloud, deployments, observability, and incidents",
   },
   {
-    id: 3,
-    name: "Mrs. Reva Heaney Jr.",
-    image_url: "https://i.pravatar.cc/150?img=3",
+    id: "growth",
+    name: "Growth",
+    description: "Experiments, lifecycle, and activation metrics",
   },
   {
-    id: 4,
-    name: "Ms. Ettie Abshire DVM",
-    image_url: "https://i.pravatar.cc/150?img=4",
-  },
-  {
-    id: 5,
-    name: "Bria Ziemann",
-    image_url: "https://i.pravatar.cc/150?img=5",
-  },
-  {
-    id: 6,
-    name: "Heloise Borer Sr.",
-    image_url: "https://i.pravatar.cc/150?img=6",
-  },
-  {
-    id: 7,
-    name: "Miss Jacinthe Gerlach DVM",
-    image_url: "https://i.pravatar.cc/150?img=7",
-  },
-  {
-    id: 8,
-    name: "Miss Stephania Schaefer Sr.",
-    image_url: "https://i.pravatar.cc/150?img=8",
-  },
-  {
-    id: 9,
-    name: "Kevon Hackett MD",
-    image_url: "https://i.pravatar.cc/150?img=9",
-  },
-  {
-    id: 10,
-    name: "Tom Ledner",
-    image_url: "https://i.pravatar.cc/150?img=10",
+    id: "finance",
+    name: "Finance",
+    description: "Locked by workspace policy",
+    isDisabled: true,
   },
 ]
