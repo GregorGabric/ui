@@ -91,7 +91,7 @@ const Tab = ({ children, className, ref, ...props }: TabProps) => {
         "relative isolate flex cursor-default items-center text-sm/6 font-medium whitespace-nowrap outline-hidden transition",
         "px-(--tab-gutter-x) py-(--tab-gutter-y)",
         "*:data-[slot=icon]:text-muted-foreground selected:*:data-[slot=icon]:text-primary *:data-[slot=icon]:mr-2 *:data-[slot=icon]:-ml-0.5 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center",
-        "selected:text-primary text-muted-foreground hover:bg-secondary selected:hover:bg-primary/20 hover:text-foreground selected:hover:text-primary focus:ring-0",
+        "selected:text-primary text-muted-foreground hover:bg-accent selected:hover:bg-accent hover:text-foreground selected:hover:text-primary focus:ring-0",
         "disabled:opacity-50",
         "href" in props ? "cursor-pointer" : "cursor-default",
         className

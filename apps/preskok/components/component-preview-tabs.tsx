@@ -6,7 +6,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs"
 import { cn } from "@/lib/utils"
 
 const previewClassName =
-  "preview flex min-h-56 max-h-[min(520px,80vh)] w-full overflow-auto overscroll-contain scroll-p-6 p-6 sm:scroll-p-8 sm:px-8 sm:py-8"
+  "preview not-prose flex min-h-56 max-h-[min(520px,80vh)] w-full overflow-auto overscroll-contain scroll-p-6 p-6 sm:scroll-p-8 sm:px-8 sm:py-8"
 const previewContentClassName =
   "flex max-w-full min-w-0 justify-center data-[align=center]:my-auto data-[align=end]:mt-auto data-[align=start]:mb-auto [&>.flex-wrap]:justify-center"
 

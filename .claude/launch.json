@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "preskok-docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--dir", "apps/preskok", "exec", "next", "dev", "--turbopack"],
+      "port": 4001,
+      "autoPort": true
+    }
+  ]
+}

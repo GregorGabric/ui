@@ -181,7 +181,7 @@ const CommandMenuSearch = ({
       {escapeButton && (
         <Button
           onPress={() => state?.close()}
-          className="hover:bg-muted hidden cursor-default rounded border text-current/90 lg:inline lg:px-1.5 lg:py-0.5 lg:text-xs"
+          className="hover:bg-accent hidden cursor-default rounded border text-current/90 lg:inline lg:px-1.5 lg:py-0.5 lg:text-xs"
         >
           Esc
         </Button>

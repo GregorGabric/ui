@@ -76,21 +76,13 @@ const dropdownItemStyles = tv({
       true: "opacity-50 forced-colors:text-[GrayText]",
     },
     isSelected: {
-      true: "**:data-[slot=icon]:text-accent-foreground",
+      true: "**:data-[slot=icon]:text-foreground",
     },
     isFocused: {
-      true: [
-        "**:data-[slot=icon]:text-accent-foreground **:[kbd]:text-accent-foreground",
-        "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
-        "[&_.text-muted-foreground]:text-accent-foreground/80 *:[[slot=description]]:text-accent-foreground *:[[slot=label]]:text-accent-foreground",
-      ],
+      true: "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
     },
     isHovered: {
-      true: [
-        "**:data-[slot=icon]:text-accent-foreground **:[kbd]:text-accent-foreground",
-        "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
-        "[&_.text-muted-foreground]:text-accent-foreground/80 *:[[slot=description]]:text-accent-foreground *:[[slot=label]]:text-accent-foreground",
-      ],
+      true: "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
     },
   },
 })
@@ -188,10 +180,7 @@ type DropdownKeyboardProps = React.ComponentProps<typeof Keyboard> & {
 const DropdownKeyboard = ({ className, ...props }: DropdownKeyboardProps) => {
   return (
     <Keyboard
-      className={twMerge(
-        "group-hover:text-primary-foreground group-focus:text-primary-foreground absolute right-2 pl-2",
-        className
-      )}
+      className={twMerge("absolute right-2 pl-2", className)}
       {...props}
     />
   )

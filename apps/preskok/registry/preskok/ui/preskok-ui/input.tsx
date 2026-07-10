@@ -75,7 +75,7 @@ interface InputGroupAddonProps extends React.ComponentProps<"div"> {
 
 const inputGroupAddonStyles = {
   "inline-start": "order-first pl-2 has-[>button]:pl-px has-[>kbd]:pl-1.5",
-  "inline-end": "order-last pr-2 has-[>button]:pr-px has-[>kbd]:pr-1.5",
+  "inline-end": "order-last pr-1.25 has-[>button]:pr-px has-[>kbd]:pr-1.5",
   "block-start":
     "order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2",
   "block-end":

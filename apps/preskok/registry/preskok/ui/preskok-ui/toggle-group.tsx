@@ -59,20 +59,14 @@ const ToggleGroup = ({
         className={cx(
           [
             "[--toggle-group-radius:var(--radius-lg)] [--toggle-gutter:--spacing(0.5)]",
-            "[--toggle-foreground:var(--color-foreground)] [--toggle-selected-background:var(--color-muted)]/90 [--toggle-selected-foreground:var(--color-foreground)]",
-            "[--toggle-focused-background:var(--color-muted)] [--toggle-focused-foreground:var(--color-foreground)]",
+            "[--toggle-foreground:var(--color-foreground)] [--toggle-selected-background:var(--color-accent)] [--toggle-selected-foreground:var(--color-accent-foreground)]",
+            "[--toggle-focused-background:var(--color-accent)] [--toggle-focused-foreground:var(--color-accent-foreground)]",
             "[--toggle-hover-background:var(--toggle-focused-background)]/70 [--toggle-hover-foreground:var(--toggle-focused-foreground)]",
-            "[--toggle-icon:color-mix(in_oklab,var(--toggle-focused-foreground)_50%,var(--toggle-focused-background))]",
             "inset-ring-border inline-flex overflow-hidden p-(--toggle-gutter) inset-ring",
             orientation === "horizontal" ? "flex-row" : "flex-col",
-            selectionMode === "single" ? "gap-(--toggle-gutter)" : "gap-0",
+            "gap-(--toggle-gutter)",
             isCircle ? "rounded-full" : "rounded-(--toggle-group-radius)",
-            selectionMode === "single" &&
-              isCircle &&
-              "*:data-[slot=toggle-group-item]:rounded-full",
-            selectionMode === "multiple" &&
-              isCircle &&
-              "*:data-[slot=toggle-group-item]:first:rounded-l-full *:data-[slot=toggle-group-item]:last:rounded-r-full",
+            isCircle && "*:data-[slot=toggle-group-item]:rounded-full",
           ],
           className
         )}
@@ -91,8 +85,10 @@ const toggleGroupItemStyles = tv({
     "relative isolate",
     "inline-flex flex-row items-center font-medium text-(--toggle-foreground) outline-hidden",
     "inset-ring inset-ring-transparent",
-    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) focus-visible:*:data-[slot=icon]:text-(--btn-icon-active)/80 hover:*:data-[slot=icon]:text-(--btn-icon-active)/90",
-    "forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
+    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center",
+    "[&_svg.lucide]:-mx-0.5 [&_svg.lucide]:shrink-0 [&_svg.lucide]:self-center",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:shrink-0",
   ],
   variants: {
     orientation: {
@@ -101,46 +97,51 @@ const toggleGroupItemStyles = tv({
     },
     selectionMode: {
       single: "rounded-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
-      multiple: "rounded-none",
+      multiple:
+        "rounded-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
     },
     size: {
       xs: [
         "min-h-8 gap-x-1.5 px-1.5 py-1 text-sm sm:min-h-7 sm:px-1 sm:py-1 sm:text-xs/4",
         "*:data-[slot=icon]:-mx-px *:data-[slot=icon]:size-3.5 sm:*:data-[slot=icon]:size-3",
+        "[&_svg.lucide]:-mx-px [&_svg.lucide]:size-3.5 sm:[&_svg.lucide]:size-3",
         "*:data-[slot=loader]:-mx-px *:data-[slot=loader]:size-3.5 sm:*:data-[slot=loader]:size-3",
       ],
       sm: [
         "min-h-9 gap-x-1.5 px-2 py-1 sm:min-h-8 sm:px-1.5 sm:py-1 sm:text-sm/5",
         "*:data-[slot=icon]:size-4.5 sm:*:data-[slot=icon]:size-4",
+        "[&_svg.lucide]:size-4.5 sm:[&_svg.lucide]:size-4",
         "*:data-[slot=loader]:size-4.5 sm:*:data-[slot=loader]:size-4",
       ],
       md: [
         "min-h-10 gap-x-2 px-2.5 py-1.5 sm:min-h-9 sm:px-2 sm:py-1 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4",
+        "[&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4",
       ],
       lg: [
         "min-h-11 gap-x-2 px-3 py-2 sm:min-h-10 sm:px-2.5 sm:py-1.5 sm:text-sm/6",
         "*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4.5",
+        "[&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4.5",
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4.5",
       ],
       "sq-xs":
-        "touch-target size-8 *:data-[slot=icon]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:*:data-[slot=loader]:size-3",
+        "touch-target size-8 *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:[&_svg.lucide]:size-3 sm:*:data-[slot=loader]:size-3",
       "sq-sm":
-        "touch-target size-9 *:data-[slot=icon]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4",
+        "touch-target size-9 *:data-[slot=icon]:size-4.5 [&_svg.lucide]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:[&_svg.lucide]:size-4 sm:*:data-[slot=loader]:size-4",
       "sq-md":
-        "touch-target size-10 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
+        "touch-target size-10 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4.5 sm:[&_svg.lucide]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
       "sq-lg":
-        "touch-target size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-5 sm:*:data-[slot=loader]:size-5",
+        "touch-target size-11 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-5 sm:[&_svg.lucide]:size-5 sm:*:data-[slot=loader]:size-5",
     },
     isSelected: {
-      true: "inset-ring-foreground/20 bg-(--toggle-selected-background) text-(--toggle-selected-foreground) [--toggle-icon:var(--primary-foreground)] hover:bg-(--toggle-selected-background)/90",
+      true: "bg-(--toggle-selected-background) text-(--toggle-selected-foreground) hover:bg-(--toggle-selected-background)/90",
     },
     isFocused: {
-      true: "not-selected:bg-(--toggle-focused-background) not-selected:text-(--toggle-focused-foreground) not-selected:[--toggle-icon:var(--toggle-focused-foreground)]",
+      true: "not-selected:bg-(--toggle-focused-background) not-selected:text-(--toggle-focused-foreground)",
     },
     isHovered: {
-      true: "enabled:not-selected:bg-(--toggle-hover-background) enabled:not-selected:text-(--toggle-hover-foreground) enabled:not-selected:[--toggle-icon:var(--toggle-hover-foreground)]",
+      true: "enabled:not-selected:bg-(--toggle-hover-background) enabled:not-selected:text-(--toggle-hover-foreground)",
     },
     isDisabled: {
       true: "opacity-50 forced-colors:text-[GrayText]",
@@ -149,20 +150,7 @@ const toggleGroupItemStyles = tv({
   defaultVariants: {
     size: "md",
   },
-  compoundVariants: [
-    {
-      selectionMode: "multiple",
-      orientation: "horizontal",
-      className:
-        "not-first:-ml-px first:rounded-l-[calc(var(--toggle-group-radius)-var(--toggle-gutter))] last:rounded-r-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
-    },
-    {
-      selectionMode: "multiple",
-      orientation: "vertical",
-      className:
-        "not-first:-mt-px first:rounded-t-[calc(var(--toggle-group-radius)-var(--toggle-gutter))] last:rounded-b-[calc(var(--toggle-group-radius)-var(--toggle-gutter))]",
-    },
-  ],
+  compoundVariants: [],
 })
 
 const ToggleGroupItem = ({ className, ...props }: ToggleGroupItemProps) => {
