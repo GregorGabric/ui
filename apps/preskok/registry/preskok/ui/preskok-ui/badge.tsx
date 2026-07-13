@@ -10,9 +10,7 @@ const badgeIntents = {
     "dark:bg-primary/15 text-primary dark:text-(--badge-primary-foreground) dark:group-hover:bg-primary/25",
     "group-hover:bg-[color-mix(in_oklab,var(--color-primary)_15%,white_85%)] dark:group-hover:bg-primary/20",
   ],
-  secondary: [
-    "bg-secondary group-hover:bg-muted dark:bg-secondary dark:group-hover:bg-muted text-secondary-foreground",
-  ],
+  secondary: ["bg-secondary group-hover:bg-border text-secondary-foreground"],
   success: [
     "bg-emerald-500/15 text-emerald-700 group-hover:bg-emerald-500/25 dark:bg-emerald-500/10 dark:text-emerald-400 dark:group-hover:bg-emerald-500/20",
   ],

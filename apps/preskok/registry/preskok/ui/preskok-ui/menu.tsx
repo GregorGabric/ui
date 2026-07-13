@@ -125,8 +125,7 @@ const MenuItem = ({ className, intent, children, ...props }: MenuItemProps) => {
                     "open:bg-destructive/10 open:text-destructive",
                   intent === "warning" &&
                     "open:bg-warning/10 open:text-warning",
-                  intent === undefined &&
-                    "open:bg-accent open:text-accent-foreground open:*:data-[slot=icon]:text-accent-foreground open:*:[.text-muted-foreground]:text-accent-foreground",
+                  intent === undefined && "open:bg-accent",
                   className
                 )
               : className,

@@ -215,8 +215,8 @@
   --secondary: oklch(0.238 0.007 34.298);
   --secondary-foreground: oklch(0.985 0.001 106.423);
 
-  --accent: oklch(0.546 0.245 262.881);
-  --accent-foreground: oklch(1 0 0);
+  --accent: oklch(0.269 0.007 34.298);
+  --accent-foreground: oklch(0.985 0.001 106.423);
 
   --muted: oklch(0.216 0.006 56.043);
   --muted-foreground: oklch(0.709 0.01 56.259);
@@ -511,53 +511,63 @@ html.dark .shiki span {
 /* Tighter documentation typography — aligned to the shadcn/ui docs scale.
    Fumadocs' prose defaults run a little loose (1.75+ line-height, larger,
    heavier headings). These unlayered rules win over the plugin's `:where()`
-   selectors and pull the type/spacing in without touching node_modules. */
+   selectors and pull the type/spacing in without touching node_modules.
+   Like the plugin, every element rule carries a `not-prose` escape hatch so
+   rendered components (e.g. docs previews) don't inherit article spacing. */
 .prose {
   line-height: 1.6;
 }
 
-.prose :where(p, li, blockquote) {
+.prose
+  :where(p, li, blockquote):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
   line-height: 1.6;
 }
 
-.prose :where(p) {
+.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 0.875rem; /* 20px -> 14px */
   margin-bottom: 0.875rem;
 }
 
 /* Lists + nested lists: tighter item rhythm. */
-.prose :where(ul, ol) {
+.prose
+  :where(ul, ol):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 0.875rem;
   margin-bottom: 0.875rem;
 }
 
-.prose :where(li) {
+.prose :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
 
-.prose :where(li > p) {
+.prose
+  :where(li > p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
 /* Code blocks, images, tables, callouts: rein in the 2em block gaps. */
-.prose :where(figure, pre, img, table) {
+.prose
+  :where(figure, pre, img, table):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-.prose :where(hr) {
+.prose :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 2rem; /* 48px -> 32px */
   margin-bottom: 2rem;
 }
 
-.prose :where(h1) {
+.prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   font-weight: 600;
   letter-spacing: -0.025em;
 }
 
-.prose :where(h2) {
+.prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   font-size: var(--text-xl); /* 24px -> 20px */
   line-height: 1.4;
   font-weight: 600;
@@ -566,7 +576,7 @@ html.dark .shiki span {
   margin-bottom: 0.625rem; /* 24px -> 10px */
 }
 
-.prose :where(h3) {
+.prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   font-size: var(--text-lg); /* 20px -> 18px */
   line-height: 1.4;
   font-weight: 600;
@@ -575,7 +585,7 @@ html.dark .shiki span {
   margin-bottom: 0.5rem;
 }
 
-.prose :where(h4) {
+.prose :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   font-weight: 600;
   letter-spacing: -0.0125em;
   margin-top: 1.25rem;
@@ -584,7 +594,11 @@ html.dark .shiki span {
 
 /* Preserve the plugin's "first element after a heading has no top margin"
    reset, which our spacing rules above would otherwise re-introduce. */
-.prose :where(h1, h2, h3, h4, hr) + * {
+.prose
+  :where(h1, h2, h3, h4, hr):not(
+      :where([class~="not-prose"], [class~="not-prose"] *)
+    )
+  + * {
   margin-top: 0;
 }
 

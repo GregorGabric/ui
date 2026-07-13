@@ -27,7 +27,7 @@ const GridList = <T extends object>({
   <GridListPrimitive
     data-slot="grid-list"
     className={cx(
-      "*:data-drop-target:border-accent relative flex flex-col gap-y-1 has-data-[slot=grid-list-section]:gap-y-6 *:data-drop-target:border sm:text-sm/6",
+      "*:data-drop-target:border-primary relative flex flex-col gap-y-1 has-data-[slot=grid-list-section]:gap-y-6 *:data-drop-target:border sm:text-sm/6",
       className
     )}
     {...props}
@@ -70,14 +70,14 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
         className,
         (className, { isHovered, isFocusVisible, isSelected }) =>
           twMerge(
-            "[--grid-list-item-background-active:color-mix(in_oklab,var(--color-primary)_10%,transparent)] [--grid-list-item-text-active:var(--color-primary)]",
             "group inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
             "relative min-w-0 outline-hidden [--mr-icon:--spacing(2)]",
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",
-            "dragging:cursor-grab dragging:opacity-70 dragging:**:[[slot=drag]]:text-(--grid-list-item-text-active)",
+            "dragging:cursor-grab dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
             "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
-            (isSelected || isHovered || isFocusVisible) &&
-              "inset-ring-ring/70 bg-(--grid-list-item-background-active) text-(--grid-list-item-text-active) **:[.text-muted-foreground]:text-(--grid-list-item-text-active)/60",
+            isHovered && "bg-accent/50",
+            isSelected && "bg-accent",
+            isFocusVisible && "inset-ring-ring",
             "href" in props && "cursor-pointer",
             className
           )
@@ -150,7 +150,7 @@ const GridListSpacer = ({
     <div
       ref={ref}
       aria-hidden
-      className={twMerge("-ml-4 flex-1", className)}
+      className={twMerge("-ml-2 min-w-6 flex-1", className)}
       {...props}
     />
   )
@@ -178,7 +178,11 @@ interface GridListTextProps extends TextProps {
 }
 
 const GridListLabel = ({ className, ref, ...props }: GridListTextProps) => (
-  <Text ref={ref} className={twMerge("font-medium", className)} {...props} />
+  <Text
+    ref={ref}
+    className={twMerge("block font-medium", className)}
+    {...props}
+  />
 )
 
 const GridListDescription = ({
@@ -189,7 +193,10 @@ const GridListDescription = ({
   <Text
     slot="description"
     ref={ref}
-    className={twMerge("text-muted-foreground text-sm font-normal", className)}
+    className={twMerge(
+      "text-muted-foreground block text-sm font-normal",
+      className
+    )}
     {...props}
   />
 )
