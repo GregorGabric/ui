@@ -1,0 +1,76 @@
+---
+title: Token Field
+description: Enter free text with selectable inline tokens.
+status: new
+---
+
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
+<ComponentPreview
+  name="token-field-preskok-demo"
+  description="A vehicle note that tokenizes statuses and mentions inline."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx preskok-ui@latest add token-field
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>
+
+Copy and paste the following code into your project.
+
+<ComponentSource
+  name="token-field"
+  title="registry/preskok/ui/preskok-ui/token-field.tsx"
+/>
+
+</Step>
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { TokenFieldValue } from "react-aria-components/TokenField"
+
+import { Token, TokenField } from "@/components/ui/preskok-ui/token-field"
+
+const value = new TokenFieldValue([
+  { type: "text", text: "Find " },
+  { type: "token", text: "status:available" },
+])
+
+export function TokenFieldDemo() {
+  return (
+    <TokenField defaultValue={value} label="Inventory query">
+      {(segment) => <Token>{segment.text}</Token>}
+    </TokenField>
+  )
+}
+```
+
+`TokenField` uses a `TokenFieldValue` to represent its sequence of text and token
+segments. Extend that value class when the field needs custom tokenization rules.

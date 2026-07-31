@@ -211,6 +211,20 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "preview-trigger",
+    type: "registry:ui",
+    description:
+      "A trigger that displays an interactive popover on hover, focus, or long press",
+    dependencies: ["react-aria-components@^1.20.0"],
+    registryDependencies: ["popover"],
+    files: [
+      {
+        path: "ui/preskok-ui/preview-trigger.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "tooltip",
     type: "registry:ui",
     description: "A tooltip component with arrow and multiple styling options",
@@ -668,8 +682,8 @@ export const preskokUi: Registry["items"] = [
     description: "A calendar component with single and range selection support",
     dependencies: [
       "@internationalized/date",
-      "@react-aria/i18n",
       "lucide-react",
+      "react-aria",
       "react-aria-components",
       "tailwind-merge",
     ],
@@ -960,6 +974,19 @@ export const preskokUi: Registry["items"] = [
     files: [
       {
         path: "ui/preskok-ui/tag-field.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "token-field",
+    type: "registry:ui",
+    description: "A text field that supports editable inline tokens",
+    dependencies: ["react-aria-components@^1.20.0"],
+    registryDependencies: ["field", "primitive"],
+    files: [
+      {
+        path: "ui/preskok-ui/token-field.tsx",
         type: "registry:ui",
       },
     ],
@@ -1370,9 +1397,9 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "A comprehensive color picker with multiple input methods",
     dependencies: [
-      "@react-stately/color",
       "lucide-react",
       "react-aria-components",
+      "react-stately",
       "tailwind-merge",
     ],
     registryDependencies: [

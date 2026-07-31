@@ -1,0 +1,78 @@
+---
+title: Preview Trigger
+description: Display an interactive popover on hover, focus, or long press.
+status: new
+---
+
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
+<ComponentPreview
+  name="preview-trigger-preskok-demo"
+  description="An interactive vehicle preview available across pointer, keyboard, and touch input."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx preskok-ui@latest add preview-trigger
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>
+
+Copy and paste the following code into your project.
+
+<ComponentSource
+  name="preview-trigger"
+  title="registry/preskok/ui/preskok-ui/preview-trigger.tsx"
+/>
+
+</Step>
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Link } from "@/components/ui/preskok-ui/link"
+import {
+  PreviewContent,
+  PreviewTrigger,
+} from "@/components/ui/preskok-ui/preview-trigger"
+
+export function PreviewTriggerDemo() {
+  return (
+    <PreviewTrigger>
+      <Link href="/vehicles/volvo-ex30">Volvo EX30</Link>
+      <PreviewContent className="p-4">
+        Interactive preview content
+      </PreviewContent>
+    </PreviewTrigger>
+  )
+}
+```
+
+Preview content opens after a warmup delay on hover or focus and on long press
+for touch input. While it is open, <kbd>Tab</kbd> moves focus into the popover and
+
+<kbd>Escape</kbd> closes it and restores focus.

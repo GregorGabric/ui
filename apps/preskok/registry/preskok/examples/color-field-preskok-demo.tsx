@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { parseColor, type Color } from "@react-stately/color"
+import { parseColor, type Color } from "react-stately/Color"
 
 import { ColorField } from "@/registry/preskok/ui/preskok-ui/color-field"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
