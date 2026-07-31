@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "preview-trigger",
+  "description": "A trigger that displays an interactive popover on hover, focus, or long press",
+  "dependencies": [
+    "react-aria-components@^1.20.0"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/popover.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/preview-trigger.tsx",
+      "content": "\"use client\"\n\nimport type { PreviewTriggerProps } from \"react-aria-components/PreviewTrigger\"\nimport { PreviewTrigger as PreviewTriggerPrimitive } from \"react-aria-components/PreviewTrigger\"\n\nimport { PopoverContent, type PopoverContentProps } from \"./popover\"\n\nconst PreviewTrigger = (props: PreviewTriggerProps) => (\n  <PreviewTriggerPrimitive {...props} />\n)\n\nconst PreviewContent = (props: PopoverContentProps) => (\n  <PopoverContent {...props} />\n)\n\nexport { PreviewContent, PreviewTrigger }\nexport type { PopoverContentProps as PreviewContentProps, PreviewTriggerProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

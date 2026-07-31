@@ -533,6 +533,23 @@
       "type": "registry:ui"
     },
     {
+      "name": "preview-trigger",
+      "description": "A trigger that displays an interactive popover on hover, focus, or long press",
+      "dependencies": [
+        "react-aria-components@^1.20.0"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/popover.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/ui/preskok-ui/preview-trigger.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "tooltip",
       "description": "A tooltip component with arrow and multiple styling options",
       "dependencies": [
@@ -1114,8 +1131,8 @@
       "description": "A calendar component with single and range selection support",
       "dependencies": [
         "@internationalized/date",
-        "@react-aria/i18n",
         "lucide-react",
+        "react-aria",
         "react-aria-components",
         "tailwind-merge"
       ],
@@ -1430,6 +1447,24 @@
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/tag-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "token-field",
+      "description": "A text field that supports editable inline tokens",
+      "dependencies": [
+        "react-aria-components@^1.20.0"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/field.json",
+        "https://ui-three-mu.vercel.app/r/primitive.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/ui/preskok-ui/token-field.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1935,9 +1970,9 @@
       "name": "color-picker",
       "description": "A comprehensive color picker with multiple input methods",
       "dependencies": [
-        "@react-stately/color",
         "lucide-react",
         "react-aria-components",
+        "react-stately",
         "tailwind-merge"
       ],
       "registryDependencies": [
@@ -2417,6 +2452,19 @@
       "type": "registry:example"
     },
     {
+      "name": "token-field-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/token-field.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/token-field-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "sidebar-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/sidebar.json",
@@ -2796,6 +2844,23 @@
       "files": [
         {
           "path": "registry/preskok/examples/keyboard-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "keyboard-shortcuts-preskok-demo",
+      "dependencies": [
+        "react-aria"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/input.json",
+        "https://ui-three-mu.vercel.app/r/keyboard.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/keyboard-shortcuts-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -3795,6 +3860,21 @@
       "type": "registry:example"
     },
     {
+      "name": "table-interactive-cells-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/input.json",
+        "https://ui-three-mu.vercel.app/r/table.json",
+        "https://ui-three-mu.vercel.app/r/text-field.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/table-interactive-cells-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "tabs-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/tabs.json"
@@ -3855,6 +3935,22 @@
       "files": [
         {
           "path": "registry/preskok/examples/popover-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "preview-trigger-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/badge.json",
+        "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/link.json",
+        "https://ui-three-mu.vercel.app/r/preview-trigger.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/preview-trigger-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -3982,6 +4078,20 @@
       "files": [
         {
           "path": "registry/preskok/examples/menu-submenu-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "menu-context-menu-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/menu.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/menu-context-menu-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],

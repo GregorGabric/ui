@@ -9,7 +9,6 @@ import {
 import type { VariantProps } from "tailwind-variants"
 
 import { Button, type buttonStyles } from "./button"
-import { Loader } from "./loader"
 
 interface FileTriggerProps
   extends FileTriggerPrimitiveProps, VariantProps<typeof buttonStyles> {
@@ -50,15 +49,17 @@ const FileTrigger = ({
       <Button
         className={className}
         isDisabled={isDisabled}
+        isPending={isPending}
         intent={intent}
         size={size}
         isCircle={isCircle}
       >
-        <FileTriggerIcon
-          acceptDirectory={acceptDirectory}
-          defaultCamera={defaultCamera}
-          isPending={isPending}
-        />
+        {!isPending && (
+          <FileTriggerIcon
+            acceptDirectory={acceptDirectory}
+            defaultCamera={defaultCamera}
+          />
+        )}
         {label}
       </Button>
     </FileTriggerPrimitive>
@@ -68,12 +69,7 @@ const FileTrigger = ({
 function FileTriggerIcon({
   acceptDirectory,
   defaultCamera,
-  isPending,
-}: Pick<FileTriggerProps, "acceptDirectory" | "defaultCamera" | "isPending">) {
-  if (isPending) {
-    return <Loader />
-  }
-
+}: Pick<FileTriggerProps, "acceptDirectory" | "defaultCamera">) {
   if (defaultCamera) {
     return <CameraIcon />
   }

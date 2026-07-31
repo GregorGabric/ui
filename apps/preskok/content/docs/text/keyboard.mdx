@@ -12,6 +12,17 @@ import { ComponentSource } from "@/components/component-source"
   description="Common shortcut badges."
 />
 
+## Shortcuts
+
+<ComponentPreview
+  name="keyboard-shortcuts-preskok-demo"
+  description="Handle platform-aware shortcuts with useKeyboard."
+/>
+
+`useKeyboard` accepts shortcut strings such as `Mod+s`, where `Mod` resolves to
+Command on macOS and Control on other platforms. A shortcut handler prevents the
+browser default and stops propagation unless it returns a different policy.
+
 ## Installation
 
 ```bash

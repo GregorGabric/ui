@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "token-field",
+  "description": "A text field that supports editable inline tokens",
+  "dependencies": [
+    "react-aria-components@^1.20.0"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/field.json",
+    "https://ui-three-mu.vercel.app/r/primitive.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/ui/preskok-ui/token-field.tsx",
+      "content": "\"use client\"\n\nimport type {\n  TokenFieldProps as TokenFieldPrimitiveProps,\n  TokenFieldValue,\n  TokenInputProps,\n  TokenProps,\n} from \"react-aria-components/TokenField\"\nimport {\n  TokenField as TokenFieldPrimitive,\n  TokenInput as TokenInputPrimitive,\n  Token as TokenPrimitive,\n} from \"react-aria-components/TokenField\"\n\nimport { cx } from \"@/lib/primitive\"\n\nimport { Description, fieldStyles, Label } from \"./field\"\n\ninterface TokenFieldProps<\n  T extends TokenFieldValue = TokenFieldValue,\n> extends Omit<TokenFieldPrimitiveProps<T>, \"children\"> {\n  children: TokenInputProps<T>[\"children\"]\n  description?: React.ReactNode\n  inputClassName?: string\n  inputRef?: React.Ref<HTMLDivElement>\n  label?: React.ReactNode\n  placeholder?: string\n}\n\nconst TokenField = <T extends TokenFieldValue = TokenFieldValue>({\n  children,\n  className,\n  description,\n  inputClassName,\n  inputRef,\n  label,\n  placeholder,\n  ...props\n}: TokenFieldProps<T>) => {\n  return (\n    <TokenFieldPrimitive className={cx(fieldStyles(), className)} {...props}>\n      {label != null && <Label>{label}</Label>}\n      <TokenInputPrimitive\n        ref={inputRef}\n        data-slot=\"control\"\n        data-placeholder={placeholder}\n        className={cx(\n          [\n            \"border-input bg-background text-foreground block min-h-10 w-full rounded-lg border px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] text-base/6 outline-hidden sm:min-h-9 sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6\",\n            \"empty:before:text-muted-foreground empty:before:content-[attr(data-placeholder)]\",\n            \"focus:border-ring/70 focus:ring-ring/20 hover:border-muted-foreground/30 focus:ring-3\",\n            \"aria-[multiline=true]:min-h-24 aria-[multiline=true]:whitespace-pre-wrap\",\n            \"disabled:bg-muted data-readonly:bg-muted/50 disabled:opacity-50\",\n          ],\n          inputClassName\n        )}\n      >\n        {children}\n      </TokenInputPrimitive>\n      {description != null && <Description>{description}</Description>}\n    </TokenFieldPrimitive>\n  )\n}\n\nconst Token = ({ className, ...props }: TokenProps) => (\n  <TokenPrimitive\n    data-slot=\"token\"\n    className={cx(\n      [\n        \"bg-primary/10 text-primary dark:bg-primary/15 mx-0.5 inline-flex h-5 cursor-default items-center rounded-full px-2 text-xs/4 font-medium whitespace-nowrap outline-hidden\",\n        \"selected:bg-primary selected:text-primary-foreground\",\n        \"disabled:bg-muted disabled:text-muted-foreground disabled:opacity-50\",\n        \"selection:bg-transparent\",\n      ],\n      className\n    )}\n    {...props}\n  />\n)\n\nexport { Token, TokenField }\nexport type { TokenFieldProps, TokenProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

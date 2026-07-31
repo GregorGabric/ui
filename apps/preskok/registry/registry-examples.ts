@@ -24,6 +24,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "token-field-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["token-field"],
+    files: [
+      {
+        path: "examples/token-field-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "sidebar-preskok-demo",
     type: "registry:example",
     registryDependencies: [
@@ -328,6 +339,18 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/keyboard-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "keyboard-shortcuts-preskok-demo",
+    type: "registry:example",
+    dependencies: ["react-aria"],
+    registryDependencies: ["input", "keyboard"],
+    files: [
+      {
+        path: "examples/keyboard-shortcuts-preskok-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -1175,6 +1198,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "table-interactive-cells-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["input", "table", "text-field"],
+    files: [
+      {
+        path: "examples/table-interactive-cells-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "tabs-demo",
     type: "registry:example",
     registryDependencies: ["tabs"],
@@ -1225,6 +1259,17 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/popover-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "preview-trigger-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["badge", "button", "link", "preview-trigger"],
+    files: [
+      {
+        path: "examples/preview-trigger-preskok-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -1325,6 +1370,17 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/menu-submenu-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "menu-context-menu-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["button", "menu"],
+    files: [
+      {
+        path: "examples/menu-context-menu-preskok-demo.tsx",
         type: "registry:example",
       },
     ],

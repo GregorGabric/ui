@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "token-field-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/token-field.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/token-field-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  TokenFieldValue,\n  type TokenFieldSegment,\n} from \"react-aria-components/TokenField\"\n\nimport { Token, TokenField } from \"@/components/ui/preskok-ui/token-field\"\n\nclass TokenizingFieldValue extends TokenFieldValue {\n  tokenRegex: RegExp\n\n  constructor(segments: Array<TokenFieldSegment>, tokenRegex: RegExp) {\n    super(segments)\n    this.tokenRegex = tokenRegex\n  }\n\n  static tokenize(text: string, tokenRegex: RegExp) {\n    const value = new this([], tokenRegex)\n    return new this(value.tokenize(text), tokenRegex)\n  }\n\n  createFieldValue(segments: Array<TokenFieldSegment>): this {\n    const Constructor = this.constructor as new (\n      segments: Array<TokenFieldSegment>,\n      tokenRegex: RegExp\n    ) => this\n\n    return new Constructor(segments, this.tokenRegex)\n  }\n\n  tokenize(text: string): Array<TokenFieldSegment> {\n    if (text.length === 0) {\n      return [{ type: \"text\", text }]\n    }\n\n    this.tokenRegex.lastIndex = 0\n\n    let match: RegExpExecArray | null = null\n    let start = 0\n    const segments: Array<TokenFieldSegment> = []\n\n    while ((match = this.tokenRegex.exec(text))) {\n      if (match.index > start) {\n        segments.push({ type: \"text\", text: text.slice(start, match.index) })\n      }\n\n      segments.push({ type: \"token\", text: match[0] })\n      start = match.index + match[0].length\n    }\n\n    if (start < text.length) {\n      segments.push({ type: \"text\", text: text.slice(start) })\n    }\n\n    return segments\n  }\n}\n\nconst initialValue = TokenizingFieldValue.tokenize(\n  \"Move #available vehicles to @Maja for today’s review.\",\n  /(?<=\\s|^)[#@]\\S+(?=\\s)/g\n)\n\nexport default function TokenFieldPreskokDemo() {\n  return (\n    <div className=\"w-full max-w-xl\">\n      <TokenField\n        allowsNewlines\n        defaultValue={initialValue}\n        label=\"Vehicle note\"\n        placeholder=\"Write a note with #statuses or @mentions\"\n      >\n        {(segment) => <Token>{segment.text}</Token>}\n      </TokenField>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

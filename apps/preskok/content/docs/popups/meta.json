@@ -5,6 +5,7 @@
     "modal",
     "drawer",
     "popover",
+    "preview-trigger",
     "sheet",
     "tooltip",
     "context-menu",

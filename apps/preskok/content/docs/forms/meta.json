@@ -19,6 +19,7 @@
     "list-box",
     "choice-box",
     "multi-select",
+    "token-field",
     "tag-field",
     "tag-group",
     "calendar",

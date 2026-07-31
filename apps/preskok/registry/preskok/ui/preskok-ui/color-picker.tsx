@@ -1,13 +1,13 @@
 "use client"
 
 import React, { use } from "react"
-import { parseColor } from "@react-stately/color"
 import { PipetteIcon } from "lucide-react"
 import {
   ColorPicker as ColorPickerPrimitive,
   ColorPickerStateContext,
   type ColorPickerProps as ColorPickerPrimitiveProps,
 } from "react-aria-components/ColorPicker"
+import { parseColor } from "react-stately/Color"
 import { twJoin, twMerge } from "tailwind-merge"
 
 import { Button } from "./button"

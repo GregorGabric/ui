@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { parseColor } from "@react-stately/color"
+import { parseColor } from "react-stately/Color"
 
 import { ColorSwatch } from "@/registry/preskok/ui/preskok-ui/color-swatch"
 import {
