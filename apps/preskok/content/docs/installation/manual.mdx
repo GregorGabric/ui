@@ -57,17 +57,11 @@ Create a `components.json` file in the root of your project.
 }
 ```
 
-The `@preskok` registry namespace is required when using `shadcn` directly or the shadcn MCP server.
+The local `@preskok` registry namespace keeps the project configuration self-contained and enables registry discovery through the shadcn MCP server.
 
 ### Add components
 
 You can now add Preskok components to your project.
-
-```bash
-npx preskok-ui@latest add button
-```
-
-Or use `shadcn` directly:
 
 ```bash
 npx shadcn@latest add @preskok/button

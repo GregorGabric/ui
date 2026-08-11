@@ -32,10 +32,7 @@ export function DocsSidebarFooter() {
         <div className="flex items-center gap-2 text-fd-muted-foreground">
           <PackageIcon className="size-4 shrink-0" />
           <span className="min-w-0 flex-1 truncate text-xs font-medium">
-            {siteConfig.package.name}
-          </span>
-          <span className="rounded-md bg-fd-muted px-1.5 py-0.5 text-[0.6875rem] font-medium text-fd-muted-foreground tabular-nums">
-            v{siteConfig.package.version}
+            {siteConfig.cli.name}
           </span>
         </div>
         <button
@@ -45,15 +42,13 @@ export function DocsSidebarFooter() {
             "text-xs text-fd-muted-foreground hover:bg-fd-accent hover:text-fd-accent-foreground"
           )}
           onClick={() => {
-            void navigator.clipboard.writeText(
-              siteConfig.package.installCommand
-            )
+            void navigator.clipboard.writeText(siteConfig.cli.installCommand)
             setHasCopied(true)
           }}
         >
           <TerminalIcon className="size-3.5 shrink-0" />
           <code className="min-w-0 flex-1 truncate font-mono">
-            {siteConfig.package.installCommand}
+            {siteConfig.cli.installCommand}
           </code>
           {hasCopied ? (
             <CheckIcon className="size-3.5 shrink-0" />

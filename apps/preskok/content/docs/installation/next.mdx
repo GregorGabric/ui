@@ -16,29 +16,17 @@ cd my-app
 
 ### Initialize Preskok UI
 
-Run the Preskok UI init command from the project root:
+Run the shadcn CLI from the project root:
 
 ```bash
-npx preskok-ui@latest init
+npx shadcn@latest init @preskok/default
 ```
 
 This installs the Preskok base registry item, writes `components.json`, configures the `@preskok` registry namespace, and adds the shared utilities used by Preskok components.
 
-If you want to use `shadcn` directly, the equivalent command is:
-
-```bash
-npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
-```
-
 ### Add a component
 
-Add components with the Preskok CLI:
-
-```bash
-npx preskok-ui@latest add button
-```
-
-Or use `shadcn` directly with the registry namespace:
+Add components through the Preskok registry namespace:
 
 ```bash
 npx shadcn@latest add @preskok/button
