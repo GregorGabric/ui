@@ -142,7 +142,7 @@ const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => (
       className
     )}
   >
-    <div className="bg-border h-full w-px py-(--gutter-y)" />
+    <div className="h-full w-px bg-border py-(--gutter-y)" />
   </ColumnResizerPrimitive>
 )
 
@@ -325,7 +325,7 @@ const TableRow = <T extends object>({
         <TableCell key={column.id} className="cursor-grab">
           <Button
             slot="drag"
-            className="focus-visible:ring-ring grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring"
+            className="grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring focus-visible:ring-ring"
           >
             <svg
               aria-hidden

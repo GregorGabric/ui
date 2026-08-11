@@ -56,7 +56,7 @@ export function Component() {
         </ComboBoxContent>
       </ComboBox>
       {createdTeam && (
-        <p className="text-muted-foreground text-sm">
+        <p className="text-sm text-muted-foreground">
           Created team: {createdTeam}
         </p>
       )}

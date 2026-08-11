@@ -105,7 +105,7 @@ export function CardsChat() {
             />
             <div className="flex flex-col gap-0.5">
               <p className="text-sm leading-none font-medium">Sofia Davis</p>
-              <p className="text-muted-foreground text-xs">m@example.com</p>
+              <p className="text-xs text-muted-foreground">m@example.com</p>
             </div>
           </div>
           <Tooltip>
@@ -132,7 +132,7 @@ export function CardsChat() {
                 className={cn(
                   "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
                   message.role === "user"
-                    ? "bg-primary text-primary-foreground ml-auto"
+                    ? "ml-auto bg-primary text-primary-foreground"
                     : "bg-muted"
                 )}
               >
@@ -207,10 +207,10 @@ export function CardsChat() {
               />
               <div className="ml-2">
                 <p className="text-sm leading-none font-medium">{user.name}</p>
-                <p className="text-muted-foreground text-sm">{user.email}</p>
+                <p className="text-sm text-muted-foreground">{user.email}</p>
               </div>
               {selectedUsers.includes(user) ? (
-                <CheckIcon className="text-primary ml-auto flex size-4" />
+                <CheckIcon className="ml-auto flex size-4 text-primary" />
               ) : null}
             </CommandMenuItem>
           ))}
@@ -227,7 +227,7 @@ export function CardsChat() {
               ))}
             </div>
           ) : (
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               Select users to add to this thread.
             </p>
           )}

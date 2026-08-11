@@ -24,17 +24,17 @@ export function CardsCalendar() {
           <DateRangePicker className="max-w-max" aria-label="Shipment window" />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="rounded-md border p-3">
-              <div className="text-muted-foreground text-xs">
+              <div className="text-xs text-muted-foreground">
                 Deliveries scheduled
               </div>
               <div className="text-lg font-semibold">128</div>
             </div>
             <div className="rounded-md border p-3">
-              <div className="text-muted-foreground text-xs">On‑time rate</div>
+              <div className="text-xs text-muted-foreground">On‑time rate</div>
               <div className="text-lg font-semibold">96.2%</div>
             </div>
             <div className="rounded-md border p-3">
-              <div className="text-muted-foreground text-xs">
+              <div className="text-xs text-muted-foreground">
                 Avg. transit time
               </div>
               <div className="text-lg font-semibold">1.8 days</div>

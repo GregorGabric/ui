@@ -1,0 +1,70 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "endOfLine": "lf",
+  "semi": false,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "ignorePatterns": [
+    ".next/**",
+    ".source/**",
+    ".vercel/**",
+    "build/**",
+    "coverage/**",
+    "**/dist/**",
+    "node_modules/**",
+    "out/**",
+    "pnpm-lock.yaml",
+    "apps/preskok/public/r/**",
+    "apps/preskok/registry/__index__.tsx",
+    "tools/**/code.js",
+    "**/fixtures/**",
+    "**/next-env.d.ts"
+  ],
+  "sortImports": {
+    "newlinesBetween": false,
+    "customGroups": [
+      {
+        "groupName": "react",
+        "elementNamePattern": ["react", "react/**"]
+      },
+      {
+        "groupName": "next",
+        "elementNamePattern": ["next", "next/**"]
+      },
+      {
+        "groupName": "workspace",
+        "elementNamePattern": ["@workspace/**"]
+      },
+      {
+        "groupName": "internal",
+        "elementNamePattern": ["@/**"]
+      }
+    ],
+    "groups": [
+      "react",
+      "next",
+      ["value-builtin", "value-external", "type-builtin", "type-external"],
+      { "newlinesBetween": true },
+      "workspace",
+      { "newlinesBetween": true },
+      "internal",
+      { "newlinesBetween": true },
+      [
+        "value-parent",
+        "value-sibling",
+        "value-index",
+        "type-parent",
+        "type-sibling",
+        "type-index"
+      ],
+      "unknown"
+    ]
+  },
+  "sortTailwindcss": {
+    "stylesheet": "./apps/preskok/styles/globals.css",
+    "functions": ["cn", "clsx", "cva", "tv"]
+  },
+  "sortPackageJson": false
+}

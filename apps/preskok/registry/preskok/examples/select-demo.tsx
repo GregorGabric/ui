@@ -48,7 +48,7 @@ export default function SelectDemo() {
           )}
         </SelectContent>
       </Select>
-      <p className="text-muted-foreground text-sm">Current value: {value}</p>
+      <p className="text-sm text-muted-foreground">Current value: {value}</p>
     </div>
   )
 }

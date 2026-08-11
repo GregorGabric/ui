@@ -47,11 +47,11 @@ export function Component() {
               </div>
             </GridListStart>
             <GridListSpacer />
-            <span className="text-muted-foreground text-sm">{item.owner}</span>
+            <span className="text-sm text-muted-foreground">{item.owner}</span>
           </GridListItem>
         ))}
       </GridList>
-      <p className="text-muted-foreground -mt-6 text-sm">
+      <p className="-mt-6 text-sm text-muted-foreground">
         Selected tasks: {formatSelection(selectedKeys)}
       </p>
       <GridListDemo />

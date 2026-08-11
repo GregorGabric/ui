@@ -1,5 +1,4 @@
 import "./styles/index.css"
-
 import type { Content, Editor as TiptapEditor } from "@tiptap/react"
 import { EditorContent, EditorContext } from "@tiptap/react"
 
@@ -38,7 +37,7 @@ export interface MinimalTiptapProps extends Omit<UseEditorProps, "onUpdate"> {
 }
 
 const Toolbar = ({ editor }: { editor: TiptapEditor }) => (
-  <div className="border-border flex shrink-0 overflow-x-auto border-b px-2 py-1.5">
+  <div className="flex shrink-0 overflow-x-auto border-b border-border px-2 py-1.5">
     <div className="flex w-max items-center gap-px">
       <SectionOne editor={editor} activeLevels={DEFAULT_ACTIVE_LEVELS} />
 
@@ -129,7 +128,7 @@ export const MainEditor = ({
       as="div"
       name="editor"
       className={cn(
-        "border-border min-data-[orientation=vertical]:h-72 flex h-auto w-full flex-col rounded-md border",
+        "min-data-[orientation=vertical]:h-72 flex h-auto w-full flex-col rounded-md border border-border",
         className
       )}
     >

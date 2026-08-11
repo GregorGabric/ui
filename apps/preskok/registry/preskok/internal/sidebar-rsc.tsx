@@ -77,8 +77,8 @@ function NavProjectsSkeleton() {
     <div className="flex flex-col gap-2">
       {Array.from({ length: 5 }).map((_, index) => (
         <div key={index} className="flex items-center gap-2 rounded-md p-2">
-          <div className="bg-muted h-4 w-4 animate-pulse rounded" />
-          <div className="bg-muted h-4 flex-1 animate-pulse rounded" />
+          <div className="h-4 w-4 animate-pulse rounded bg-muted" />
+          <div className="h-4 flex-1 animate-pulse rounded bg-muted" />
         </div>
       ))}
     </div>
@@ -94,7 +94,7 @@ async function NavProjects() {
         <a
           key={project.name}
           href={project.url}
-          className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+          className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
         >
           <project.icon />
           <span>{project.name}</span>

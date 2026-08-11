@@ -108,7 +108,7 @@ function AsyncImageLoading({
       {...props}
     >
       {children ?? (
-        <Skeleton className="border-border/60 bg-muted-foreground/20 size-full rounded-md border" />
+        <Skeleton className="size-full rounded-md border border-border/60 bg-muted-foreground/20" />
       )}
     </div>
   )

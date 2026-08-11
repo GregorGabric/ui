@@ -30,7 +30,7 @@ export function UserMenu() {
         <MenuSection>
           <MenuHeader separator>
             <span className="block">Maya Chen</span>
-            <span className="text-muted-foreground font-normal">@maya</span>
+            <span className="font-normal text-muted-foreground">@maya</span>
           </MenuHeader>
         </MenuSection>
 

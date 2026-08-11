@@ -13,13 +13,13 @@ import {
 import defaultMdxComponents from "fumadocs-ui/mdx"
 import type { MDXComponents } from "mdx/types"
 
-import { cn } from "@/lib/utils"
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper"
 import { CodeTabs } from "@/components/code-tabs"
 import { ComponentPreview } from "@/components/component-preview"
 import { ComponentSource } from "@/components/component-source"
 import { ComponentsList } from "@/components/components-list"
 import { PreskokComponentsList } from "@/components/preskok-components-list"
+import { cn } from "@/lib/utils"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   DisclosureGroup as Accordion,
@@ -100,7 +100,7 @@ function LinkedCard({
     <Link
       data-card
       className={cn(
-        "prose-no-margin bg-fd-card text-fd-card-foreground hover:bg-fd-accent/50 flex flex-col rounded-xl border p-4 transition-colors",
+        "prose-no-margin flex flex-col rounded-xl border bg-fd-card p-4 text-fd-card-foreground transition-colors hover:bg-fd-accent/50",
         className
       )}
       {...props}

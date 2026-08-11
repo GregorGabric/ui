@@ -1,7 +1,7 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { useThemeConfig } from "@/components/active-theme"
+import { cn } from "@/lib/utils"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import {
   Select,
@@ -73,7 +73,7 @@ export function ThemeSelector({ className }: React.ComponentProps<"div">) {
       >
         <SelectTrigger
           id="theme-selector"
-          className="bg-secondary text-secondary-foreground border-secondary justify-start shadow-none *:data-[slot=select-value]:w-12"
+          className="justify-start border-secondary bg-secondary text-secondary-foreground shadow-none *:data-[slot=select-value]:w-12"
           prefix={<span className="font-medium">Theme:</span>}
         />
         <SelectContent popover={{ placement: "bottom end" }}>

@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation"
-import { getMDXComponents } from "@/mdx-components"
 import { createRelativeLink } from "fumadocs-ui/mdx"
 import {
   DocsBody,
@@ -10,6 +9,7 @@ import {
 
 import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source"
 import { absoluteUrl } from "@/lib/utils"
+import { getMDXComponents } from "@/mdx-components"
 
 export function generateStaticParams() {
   return source.generateParams()
@@ -93,19 +93,19 @@ export default async function Page(props: {
         {doc.title}
       </DocsTitle>
       {doc.description ? (
-        <DocsDescription className="text-fd-muted-foreground mt-1.5 mb-4 text-base text-pretty">
+        <DocsDescription className="mt-1.5 mb-4 text-base text-pretty text-fd-muted-foreground">
           {doc.description}
         </DocsDescription>
       ) : null}
-      <div className="border-fd-border text-fd-muted-foreground mb-4 flex gap-2 border-b pb-4 text-sm">
+      <div className="mb-4 flex gap-2 border-b border-fd-border pb-4 text-sm text-fd-muted-foreground">
         <a
-          className="border-fd-border hover:bg-fd-accent hover:text-fd-accent-foreground rounded-md border px-2.5 py-1.5 transition-colors"
+          className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
           href={markdownUrl}
         >
           View as Markdown
         </a>
         <a
-          className="border-fd-border hover:bg-fd-accent hover:text-fd-accent-foreground rounded-md border px-2.5 py-1.5 transition-colors"
+          className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
           href={`https://chatgpt.com/?${new URLSearchParams({
             prompt: `Read ${absoluteUrl(page.url)}, I want to ask questions about it.`,
             hints: "search",

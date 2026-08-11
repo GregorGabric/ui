@@ -15,7 +15,7 @@ import {
 
 export default function PaginationDemo() {
   return (
-    <div className="bg-background w-full max-w-2xl rounded-xl border p-4 shadow-sm">
+    <div className="w-full max-w-2xl rounded-xl border bg-background p-4 shadow-sm">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <PaginationInfo className="text-pretty">
           Showing <strong>21-40</strong> of <strong>128</strong> invoices

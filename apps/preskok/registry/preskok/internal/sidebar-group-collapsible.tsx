@@ -21,16 +21,16 @@ export default function AppSidebar() {
           <SidebarSectionGroup>
             <SidebarSection>
               <SidebarDisclosure defaultExpanded>
-                <SidebarDisclosureTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-md p-2 text-left text-sm font-medium">
+                <SidebarDisclosureTrigger className="flex w-full items-center gap-2 rounded-md p-2 text-left text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                   Help
                 </SidebarDisclosureTrigger>
                 <SidebarDisclosurePanel>
-                  <div className="border-sidebar-border mt-2 ml-4 space-y-1 border-l pl-2">
-                    <div className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2">
+                  <div className="mt-2 ml-4 space-y-1 border-l border-sidebar-border pl-2">
+                    <div className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                       <LifeBuoyIcon />
                       Support
                     </div>
-                    <div className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2">
+                    <div className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                       <SendIcon />
                       Feedback
                     </div>

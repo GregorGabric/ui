@@ -22,7 +22,7 @@ export default function FileTriggerPreskokDemo() {
   }
 
   return (
-    <div className="bg-background w-full max-w-4xl space-y-5 rounded-xl border p-5 shadow-sm">
+    <div className="w-full max-w-4xl space-y-5 rounded-xl border bg-background p-5 shadow-sm">
       <div className="flex flex-wrap gap-3">
         <FileTrigger
           acceptedFileTypes={["image/png", "image/jpeg"]}
@@ -63,7 +63,7 @@ export default function FileTriggerPreskokDemo() {
         <FileTrigger isDisabled>Locked</FileTrigger>
       </div>
 
-      <p className="text-muted-foreground text-sm text-pretty">{selection}</p>
+      <p className="text-sm text-pretty text-muted-foreground">{selection}</p>
     </div>
   )
 }

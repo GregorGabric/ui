@@ -61,7 +61,7 @@ export default function AppSidebar() {
               {projects.map((project) => (
                 <div
                   key={project.name}
-                  className="group/menu-item hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center gap-2 rounded-md p-2"
+                  className="group/menu-item relative flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
                   <a
                     href={project.url}
@@ -71,7 +71,7 @@ export default function AppSidebar() {
                     <span>{project.name}</span>
                   </a>
                   <Menu>
-                    <MenuTrigger className="hover:bg-sidebar-accent flex h-5 w-5 items-center justify-center rounded-md">
+                    <MenuTrigger className="flex h-5 w-5 items-center justify-center rounded-md hover:bg-sidebar-accent">
                       <MoreHorizontalIcon />
                       <span className="sr-only">More</span>
                     </MenuTrigger>

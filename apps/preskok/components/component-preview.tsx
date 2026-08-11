@@ -25,9 +25,9 @@ export function ComponentPreview({
 
   if (!Component) {
     return (
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Component{" "}
-        <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm">
+        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
           {name}
         </code>{" "}
         not found in registry.
@@ -43,16 +43,16 @@ export function ComponentPreview({
           alt={name}
           width={1440}
           height={900}
-          className="bg-background absolute top-0 left-0 z-20 w-[970px] max-w-none sm:w-[1280px] md:hidden dark:hidden md:dark:hidden"
+          className="absolute top-0 left-0 z-20 w-[970px] max-w-none bg-background sm:w-[1280px] md:hidden dark:hidden md:dark:hidden"
         />
         <Image
           src={`/r/${name}-dark.png`}
           alt={name}
           width={1440}
           height={900}
-          className="bg-background absolute top-0 left-0 z-20 hidden w-[970px] max-w-none sm:w-[1280px] md:hidden dark:block md:dark:hidden"
+          className="absolute top-0 left-0 z-20 hidden w-[970px] max-w-none bg-background sm:w-[1280px] md:hidden dark:block md:dark:hidden"
         />
-        <div className="bg-background absolute inset-0 hidden w-[1600px] md:block">
+        <div className="absolute inset-0 hidden w-[1600px] bg-background md:block">
           <iframe src={`/view/${name}`} className="size-full" />
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function RadioControlledDemo() {
         <Radio value="truck">Truck</Radio>
       </RadioGroup>
 
-      <Description className="[&>strong]:text-foreground block">
+      <Description className="block [&>strong]:text-foreground">
         Selected body style: <strong>{selected || "-"}</strong>
       </Description>
     </div>

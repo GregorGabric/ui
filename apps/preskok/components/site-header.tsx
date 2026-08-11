@@ -1,21 +1,21 @@
 import Link from "next/link"
 
-import { siteConfig } from "@/lib/config"
-import { source } from "@/lib/source"
 import { CommandMenu } from "@/components/command-menu"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ModeSwitcher } from "@/components/mode-switcher"
+import { siteConfig } from "@/lib/config"
+import { source } from "@/lib/source"
 import { Separator } from "@/registry/preskok/ui/preskok-ui/separator"
 
 export function SiteHeader() {
   const pageTree = source.pageTree
 
   return (
-    <header className="bg-background sticky top-0 z-50 container w-full">
+    <header className="sticky top-0 z-50 container w-full bg-background">
       <div className="3xl:fixed:px-0">
-        <div className="3xl:fixed:container flex h-(--header-height) items-center gap-2 **:data-[slot=separator]:!h-4">
+        <div className="flex h-(--header-height) items-center gap-2 **:data-[slot=separator]:!h-4 3xl:fixed:container">
           <MobileNav
             tree={pageTree}
             items={siteConfig.navItems}

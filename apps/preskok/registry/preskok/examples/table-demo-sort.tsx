@@ -94,7 +94,7 @@ export function TableDemoSort() {
   }
 
   return (
-    <div className="bg-background w-full max-w-4xl overflow-hidden rounded-xl border p-4 shadow-sm">
+    <div className="w-full max-w-4xl overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
       <Table
         aria-label="Sales pipeline"
         sortDescriptor={sortDescriptor}

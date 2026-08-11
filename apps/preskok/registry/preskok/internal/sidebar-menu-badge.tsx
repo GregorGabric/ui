@@ -59,7 +59,7 @@ export default function AppSidebar() {
               {projects.map((project) => (
                 <div
                   key={project.name}
-                  className="group/menu-item hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center gap-2 rounded-md p-2"
+                  className="group/menu-item relative flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
                   <a
                     href={project.url}
@@ -68,7 +68,7 @@ export default function AppSidebar() {
                     <project.icon />
                     <span>{project.name}</span>
                   </a>
-                  <span className="bg-primary/10 text-primary flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-md bg-primary/10 px-1 text-xs font-medium text-primary tabular-nums">
                     {project.badge}
                   </span>
                 </div>

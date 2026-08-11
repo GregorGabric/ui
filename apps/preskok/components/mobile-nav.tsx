@@ -35,13 +35,13 @@ export function MobileNav({
           <div className="relative size-4">
             <span
               className={cn(
-                "bg-foreground absolute left-0 block h-0.5 w-4 transition-all duration-100",
+                "absolute left-0 block h-0.5 w-4 bg-foreground transition-all duration-100",
                 open ? "top-[0.4rem] -rotate-45" : "top-1"
               )}
             />
             <span
               className={cn(
-                "bg-foreground absolute left-0 block h-0.5 w-4 transition-all duration-100",
+                "absolute left-0 block h-0.5 w-4 bg-foreground transition-all duration-100",
                 open ? "top-[0.4rem] rotate-45" : "top-2.5"
               )}
             />
@@ -53,14 +53,14 @@ export function MobileNav({
         </span>
       </PopoverTrigger>
       <PopoverContent
-        className="bg-background/90 no-scrollbar h-[calc(100svh-var(--header-height))] w-screen max-w-none overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
+        className="no-scrollbar h-[calc(100svh-var(--header-height))] w-screen max-w-none overflow-y-auto rounded-none border-none bg-background/90 p-0 shadow-none backdrop-blur duration-100"
         placement="bottom start"
         crossOffset={-16}
         offset={14}
       >
         <div className="flex flex-col gap-12 overflow-auto px-6 py-6">
           <div className="flex flex-col gap-4">
-            <div className="text-muted-foreground text-sm font-medium">
+            <div className="text-sm font-medium text-muted-foreground">
               Menu
             </div>
             <div className="flex flex-col gap-3">
@@ -79,7 +79,7 @@ export function MobileNav({
               if (group.type === "folder") {
                 return (
                   <div key={index} className="flex flex-col gap-4">
-                    <div className="text-muted-foreground text-sm font-medium">
+                    <div className="text-sm font-medium text-muted-foreground">
                       {group.name}
                     </div>
                     <div className="flex flex-col gap-3">

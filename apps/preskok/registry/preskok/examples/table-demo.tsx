@@ -131,7 +131,7 @@ export default function TableDemo() {
           Archive {selectionLabel}
         </Button>
       </div>
-      <div className="bg-background overflow-hidden rounded-xl border p-4 shadow-sm">
+      <div className="overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
         <Table
           aria-label="Vehicle inventory"
           selectionMode="multiple"

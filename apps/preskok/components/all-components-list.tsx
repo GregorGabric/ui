@@ -24,7 +24,7 @@ export function AllComponentsList() {
 
         return (
           <section key={group.$id ?? String(group.name)} className="space-y-4">
-            <h2 className="text-fd-foreground text-lg font-medium tracking-tight">
+            <h2 className="text-lg font-medium tracking-tight text-fd-foreground">
               {group.name}
             </h2>
             <Cards className="grid-cols-1 gap-2 md:grid-cols-2">

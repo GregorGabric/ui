@@ -536,7 +536,7 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
           {labelSeparator && (
             <span
               aria-hidden
-              className="bg-background/10 mt-2 mb-3 block h-px w-full"
+              className="mt-2 mb-3 block h-px w-full bg-background/10"
             />
           )}
         </>
@@ -598,7 +598,7 @@ const ChartTooltipContent = <TValue extends ValueType, TName extends NameType>({
                     </div>
 
                     {item.value && (
-                      <span className="text-foreground font-mono font-medium tabular-nums">
+                      <span className="font-mono font-medium text-foreground tabular-nums">
                         {item.value.toString()}
                       </span>
                     )}

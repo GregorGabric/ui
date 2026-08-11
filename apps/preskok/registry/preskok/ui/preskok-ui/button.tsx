@@ -13,9 +13,9 @@ import { Loader } from "@/registry/preskok/ui/preskok-ui/loader"
 const buttonStyles = tv({
   base: [
     "[--btn-border:var(--color-foreground)]/15 [--btn-icon:var(--btn-foreground)] [--btn-outline:var(--btn-background)] [--btn-ring:var(--btn-background)]/20",
-    "bg-(--btn-background) pressed:bg-(--btn-overlay) text-(--btn-foreground) outline-(--btn-outline) ring-(--btn-ring) hover:bg-(--btn-overlay) focus-visible:bg-(--btn-overlay)",
-    "relative border border-(--btn-border) isolate inline-flex items-center justify-center font-medium",
-    "focus:outline-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-background transition-transform duration-150",
+    "bg-(--btn-background) text-(--btn-foreground) ring-(--btn-ring) outline-(--btn-outline) hover:bg-(--btn-overlay) focus-visible:bg-(--btn-overlay) pressed:bg-(--btn-overlay)",
+    "relative isolate inline-flex items-center justify-center border border-(--btn-border) font-medium",
+    "transition-transform duration-150 focus:outline-0 focus-visible:ring-2 focus-visible:ring-offset-3 focus-visible:ring-offset-background focus-visible:outline focus-visible:outline-offset-2",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) sm:*:data-[slot=icon]:my-1 forced-colors:[--btn-icon:ButtonText]",
     "[&_svg.lucide]:-mx-0.5 [&_svg.lucide]:my-0.5 [&_svg.lucide]:shrink-0 [&_svg.lucide]:self-center [&_svg.lucide]:text-(--btn-icon) sm:[&_svg.lucide]:my-1",
     "*:data-[slot=loader]:-mx-0.5 *:data-[slot=loader]:my-0.5 *:data-[slot=loader]:shrink-0 *:data-[slot=loader]:self-center *:data-[slot=loader]:text-(--btn-icon) sm:*:data-[slot=loader]:my-1",
@@ -63,13 +63,13 @@ const buttonStyles = tv({
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4.5",
       ],
       "sq-xs":
-        "size-8 *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:[&_svg.lucide]:size-3 sm:*:data-[slot=loader]:size-3",
+        "size-8 *:data-[slot=icon]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:*:data-[slot=loader]:size-3 [&_svg.lucide]:size-3.5 sm:[&_svg.lucide]:size-3",
       "sq-sm":
-        "size-9 *:data-[slot=icon]:size-4.5 [&_svg.lucide]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:[&_svg.lucide]:size-4 sm:*:data-[slot=loader]:size-4",
+        "size-9 *:data-[slot=icon]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4 [&_svg.lucide]:size-4.5 sm:[&_svg.lucide]:size-4",
       "sq-md":
-        "size-10 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4 sm:[&_svg.lucide]:size-4 sm:*:data-[slot=loader]:size-4",
+        "size-10 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4 [&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4",
       "sq-lg":
-        "size-11 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-4.5 sm:[&_svg.lucide]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
+        "size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5 [&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4.5",
     },
 
     isCircle: {

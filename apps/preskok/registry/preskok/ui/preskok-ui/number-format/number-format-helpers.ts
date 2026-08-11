@@ -81,7 +81,7 @@ export const convertLocaleToNumericProps = (
   locale: Locale
 ): NumericFormatProps => {
   return (
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     LOCALE_TO_NUMERIC_FORMAT_OPTIONS_MAP[locale] ??
     DEFAULT_NUMERIC_FORMAT_OPTIONS
   )

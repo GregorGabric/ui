@@ -20,7 +20,7 @@ export default function CalendarControlledPreskokDemo() {
   return (
     <div className="space-y-3">
       <Calendar value={date} onChange={setDate} aria-label="Controlled date" />
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Selected: {selectedDate(date)}
       </p>
     </div>

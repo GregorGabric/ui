@@ -32,7 +32,7 @@ export default function RangeCalendarControlledPreskokDemo() {
         onChange={setRange}
         aria-label="Controlled trip dates"
       />
-      <p className="text-muted-foreground text-sm">Selected: {selectedRange}</p>
+      <p className="text-sm text-muted-foreground">Selected: {selectedRange}</p>
     </div>
   )
 }

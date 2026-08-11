@@ -194,7 +194,7 @@ function RangeCalendarSwipePills({
           key={`pill-${id}`}
           data-slot="range-calendar-swipe-pill"
           data-active={id - 1 === activeMonth || undefined}
-          className="bg-muted-foreground/20 data-[active=true]:bg-primary/75 h-1.5 w-1.5 rounded-full data-[active=true]:w-4"
+          className="h-1.5 w-1.5 rounded-full bg-muted-foreground/20 data-[active=true]:w-4 data-[active=true]:bg-primary/75"
         />
       ))}
     </div>

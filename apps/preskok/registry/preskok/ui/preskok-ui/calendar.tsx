@@ -152,7 +152,7 @@ const CalendarHeader = ({
       <div className="flex items-center gap-1">
         <Button
           size="sq-sm"
-          className="**:data-[slot=icon]:text-foreground size-8 sm:size-7"
+          className="size-8 **:data-[slot=icon]:text-foreground sm:size-7"
           isCircle
           intent="plain"
           slot="previous"
@@ -165,7 +165,7 @@ const CalendarHeader = ({
         </Button>
         <Button
           size="sq-sm"
-          className="**:data-[slot=icon]:text-foreground size-8 sm:size-7"
+          className="size-8 **:data-[slot=icon]:text-foreground sm:size-7"
           isCircle
           intent="plain"
           slot="next"
@@ -291,7 +291,7 @@ const CalendarGridHeader = () => {
   return (
     <CalendarGridHeaderPrimitive>
       {(day) => (
-        <CalendarHeaderCell className="text-muted-foreground pb-2 text-center text-sm/6 font-semibold sm:px-0 sm:py-0.5 lg:text-xs">
+        <CalendarHeaderCell className="pb-2 text-center text-sm/6 font-semibold text-muted-foreground sm:px-0 sm:py-0.5 lg:text-xs">
           {day}
         </CalendarHeaderCell>
       )}

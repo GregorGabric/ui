@@ -10,7 +10,7 @@ export default function ResizableDemo() {
   return (
     <div className="flex w-full max-w-2xl flex-col gap-6">
       <div className="space-y-2">
-        <p className="text-muted-foreground text-sm">Horizontal split</p>
+        <p className="text-sm text-muted-foreground">Horizontal split</p>
         <ResizablePanelGroup
           orientation="horizontal"
           className="min-h-[180px] rounded-lg border md:min-h-[200px]"
@@ -30,7 +30,7 @@ export default function ResizableDemo() {
       </div>
 
       <div className="space-y-2">
-        <p className="text-muted-foreground text-sm">Vertical split</p>
+        <p className="text-sm text-muted-foreground">Vertical split</p>
         <ResizablePanelGroup
           orientation="vertical"
           className="min-h-[240px] rounded-lg border"

@@ -10,7 +10,7 @@ export default function LoaderPreskokDemo() {
         <Loader size="lg" variant="bars" intent="secondary" />
         <Loader size="lg" variant="ring" intent="success" />
       </div>
-      <div className="text-muted-foreground flex items-center gap-2 text-sm">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Loader size="sm" intent="warning" />
         Checking deployment health
       </div>

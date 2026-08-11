@@ -13,7 +13,7 @@ export default function DialogPreskokDemo() {
   return (
     <Dialog>
       <DialogTrigger
-        className={"bg-primary text-primary-foreground rounded-md px-3 py-1.5"}
+        className={"rounded-md bg-primary px-3 py-1.5 text-primary-foreground"}
       >
         Open dialog
       </DialogTrigger>

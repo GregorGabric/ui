@@ -15,23 +15,27 @@
     "build": "turbo run build",
     "build:preskok": "turbo --filter=preskok build",
     "build:preskok:registry": "turbo --filter=preskok registry:build",
-    "build:registry": "pnpm --filter=preskok registry:build && pnpm lint:fix && pnpm format:write -- --loglevel silent",
-    "registry:build": "pnpm --filter=preskok registry:build && pnpm lint:fix && pnpm format:write -- --loglevel silent",
+    "build:registry": "pnpm --filter=preskok registry:build && pnpm lint:fix && pnpm format:write",
+    "registry:build": "pnpm --filter=preskok registry:build && pnpm lint:fix && pnpm format:write",
     "dev": "turbo run dev",
     "preskok:dev": "turbo --filter=preskok dev",
     "preskok": "pnpm --filter=preskok dev",
     "preskok:build": "pnpm --filter=preskok build",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint:fix",
+    "lint": "oxlint apps packages --quiet",
+    "lint:all": "oxlint apps packages",
+    "lint:fix": "oxlint apps packages --fix",
     "preview": "turbo run preview",
     "preview:preskok": "turbo --filter=preskok preview",
     "typecheck": "turbo run typecheck",
-    "format:write": "turbo run format:write",
-    "format:check": "turbo run format:check",
-    "check": "turbo run lint typecheck format:check"
+    "format:write": "oxfmt \"apps/preskok/**/*.{ts,tsx,mdx}\" \"packages/**/*.{js,mjs,cjs,ts,tsx}\"",
+    "format:check": "oxfmt \"apps/preskok/**/*.{ts,tsx,mdx}\" \"packages/**/*.{js,mjs,cjs,ts,tsx}\" --check",
+    "check": "pnpm lint && pnpm typecheck && pnpm format:check"
   },
   "packageManager": "pnpm@11.5.1",
-  "dependencies": {
+  "devDependencies": {
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
+    "oxlint-tsgolint": "^7.0.2001",
     "turbo": "^2.9.18"
   }
 }

@@ -171,17 +171,17 @@ const CommandMenuSearch = ({
       ) : (
         <SearchIcon
           data-slot="command-menu-search-icon"
-          className="text-muted-foreground size-5 shrink-0"
+          className="size-5 shrink-0 text-muted-foreground"
         />
       )}
       <Input
         placeholder={placeholder ?? "Search..."}
-        className="text-foreground placeholder-muted-foreground w-full min-w-0 bg-transparent px-2.5 py-2 text-base outline-hidden focus:outline-hidden sm:px-2 sm:py-1.5 sm:text-sm [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden"
+        className="w-full min-w-0 bg-transparent px-2.5 py-2 text-base text-foreground placeholder-muted-foreground outline-hidden focus:outline-hidden sm:px-2 sm:py-1.5 sm:text-sm [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden"
       />
       {escapeButton && (
         <Button
           onPress={() => state?.close()}
-          className="hover:bg-accent hidden cursor-default rounded border text-current/90 lg:inline lg:px-1.5 lg:py-0.5 lg:text-xs"
+          className="hidden cursor-default rounded border text-current/90 hover:bg-accent lg:inline lg:px-1.5 lg:py-0.5 lg:text-xs"
         >
           Esc
         </Button>
@@ -222,7 +222,7 @@ const CommandMenuSection = <T extends object>({
       {...props}
     >
       {"label" in props && (
-        <Header className="text-muted-foreground col-span-full mb-1 block min-w-(--trigger-width) truncate px-2.5 text-xs">
+        <Header className="col-span-full mb-1 block min-w-(--trigger-width) truncate px-2.5 text-xs text-muted-foreground">
           {props.label}
         </Header>
       )}
@@ -265,7 +265,7 @@ const renderer: CollectionRenderer = {
   CollectionRoot(props) {
     if (props.collection.size === 0) {
       return (
-        <div className="text-muted-foreground col-span-full p-4 text-center text-sm">
+        <div className="col-span-full p-4 text-center text-sm text-muted-foreground">
           No results found.
         </div>
       )

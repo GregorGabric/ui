@@ -1,10 +1,10 @@
 import * as React from "react"
 import { ServerCodeBlock } from "fumadocs-ui/components/codeblock.rsc"
 
-import { getRegistryItem } from "@/lib/registry"
-import { cn } from "@/lib/utils"
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper"
 import { getIconForLanguageExtension } from "@/components/icons"
+import { getRegistryItem } from "@/lib/registry"
+import { cn } from "@/lib/utils"
 
 export async function ComponentSource({
   name,

@@ -350,7 +350,7 @@ const NavbarInset = ({
       )}
       {...props}
     >
-      <div className="bg-background md:ring-foreground/15 md:dark:bg-navbar md:dark:ring-border md:dark:group-has-data-navbar-inset/navbar:bg-muted grow p-6 md:rounded-lg md:p-16 md:shadow-xs md:ring-1">
+      <div className="grow bg-background p-6 md:rounded-lg md:p-16 md:shadow-xs md:ring-1 md:ring-foreground/15 md:dark:bg-navbar md:dark:ring-border md:dark:group-has-data-navbar-inset/navbar:bg-muted">
         <div className="mx-auto max-w-7xl">{children}</div>
       </div>
     </div>

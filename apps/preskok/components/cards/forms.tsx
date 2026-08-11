@@ -67,7 +67,7 @@ export function CardsForms() {
           </div>
           <fieldset className="flex flex-col gap-3">
             <legend className="text-sm font-medium">Plan</legend>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               Select the plan that best fits your vehicle transport and resale
               operations.
             </p>
@@ -76,7 +76,7 @@ export function CardsForms() {
                 <Radio key={plan.id} value={plan.id}>
                   <div className="grid gap-1 font-normal">
                     <div className="font-medium">{plan.name}</div>
-                    <div className="text-muted-foreground text-xs leading-snug text-balance">
+                    <div className="text-xs leading-snug text-balance text-muted-foreground">
                       {plan.description}
                     </div>
                   </div>

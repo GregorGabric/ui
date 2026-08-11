@@ -146,16 +146,16 @@ export default function AppSidebar() {
               <SidebarSection key={index}>
                 <a
                   href={item.url}
-                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                  className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
                   <span>{item.title}</span>
                 </a>
-                <div className="border-sidebar-border ml-4 border-l pl-2">
+                <div className="ml-4 border-l border-sidebar-border pl-2">
                   {item.items.map((subItem, subIndex) => (
                     <a
                       key={subIndex}
                       href={subItem.url}
-                      className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2 text-sm"
+                      className="flex items-center gap-2 rounded-md p-2 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     >
                       <span>{subItem.title}</span>
                     </a>

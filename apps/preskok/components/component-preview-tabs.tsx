@@ -35,7 +35,7 @@ export function ComponentPreviewTabs({
         )}
         {...props}
       >
-        <div className="bg-fd-card relative overflow-hidden rounded-xl border">
+        <div className="relative overflow-hidden rounded-xl border bg-fd-card">
           <div className={cn(previewClassName, previewClassNameProp)}>
             <div data-align={align} className={previewContentClassName}>
               {component}
@@ -62,7 +62,7 @@ export function ComponentPreviewTabs({
         </Tab>
         <Tab
           value="Code"
-          className="bg-fd-card! overflow-hidden rounded-none! p-0 [&_figure]:!m-0 [&_figure]:rounded-none [&_figure]:border-0 [&_figure]:shadow-none"
+          className="overflow-hidden rounded-none! bg-fd-card! p-0 [&_figure]:!m-0 [&_figure]:rounded-none [&_figure]:border-0 [&_figure]:shadow-none"
         >
           {source}
         </Tab>

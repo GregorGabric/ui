@@ -78,7 +78,7 @@ export function CardsStats() {
           <p className="text-sm">Completed Trips</p>
           <CardTitle>
             <p className="text-3xl">2,350</p>
-            <p className="text-muted-foreground row-start-2 text-sm text-pretty">
+            <p className="row-start-2 text-sm text-pretty text-muted-foreground">
               +180.1% trips from last month
             </p>
           </CardTitle>

@@ -31,7 +31,7 @@ export default function CarouselPreskokDemo() {
                     <span className="text-lg font-semibold">
                       {release.name}
                     </span>
-                    <span className="text-muted-foreground text-sm">
+                    <span className="text-sm text-muted-foreground">
                       {release.detail}
                     </span>
                   </CardContent>
@@ -53,7 +53,7 @@ export default function CarouselPreskokDemo() {
               <Card>
                 <CardContent className="grid h-48 content-center gap-2 p-5">
                   <span className="font-medium">{release.name}</span>
-                  <span className="text-muted-foreground text-sm">
+                  <span className="text-sm text-muted-foreground">
                     {release.detail}
                   </span>
                 </CardContent>

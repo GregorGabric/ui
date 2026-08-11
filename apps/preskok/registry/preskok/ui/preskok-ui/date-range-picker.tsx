@@ -75,7 +75,7 @@ export function DateRangePickerTrigger({
         <DateInput slot="start" className="px-3 pr-2" />
         <span
           aria-hidden="true"
-          className="bg-foreground/80 group-disabled:text-opacity-50 forced-colors:group-disabled:text- [GrayText] pointer-events-none -mx-3 block h-0.5 w-2 shrink-0 self-center rounded-full sm:-mx-2 forced-colors:text-[ButtonText]"
+          className="group-disabled:text-opacity-50 forced-colors:group-disabled:text- [GrayText] pointer-events-none -mx-3 block h-0.5 w-2 shrink-0 self-center rounded-full bg-foreground/80 sm:-mx-2 forced-colors:text-[ButtonText]"
         />
         <DateInput slot="end" className="flex-1 pr-3 pl-2" />
       </div>

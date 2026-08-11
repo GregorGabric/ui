@@ -33,7 +33,7 @@ export default function DatePickerControlledPreskokDemo() {
         <Label>Interview date</Label>
         <DatePickerTrigger />
       </DatePicker>
-      <p className="text-muted-foreground text-sm">Selected: {selectedDate}</p>
+      <p className="text-sm text-muted-foreground">Selected: {selectedDate}</p>
     </div>
   )
 }

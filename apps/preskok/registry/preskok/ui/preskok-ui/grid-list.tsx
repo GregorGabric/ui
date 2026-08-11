@@ -89,7 +89,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
             <Button slot="drag">
               <svg
                 data-slot="drag-icon"
-                className="text-muted-foreground size-4"
+                className="size-4 text-muted-foreground"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"

@@ -65,7 +65,7 @@ export function Blocks() {
     <section className="mt-3 space-y-3">
       <DocsCards className="grid-cols-1 gap-3 lg:grid-cols-2 2xl:grid-cols-3">
         <DocsCard title="Buttons">
-          <div className="not-prose text-fd-foreground mt-4 flex min-h-44 items-center justify-center">
+          <div className="not-prose mt-4 flex min-h-44 items-center justify-center text-fd-foreground">
             <div className="grid grid-cols-2 gap-2">
               {buttonIntents.map((intent) => (
                 <Button key={intent} intent={intent}>
@@ -80,7 +80,7 @@ export function Blocks() {
           title="Login"
           description="Don't lose the level, just keep on going."
         >
-          <div className="not-prose text-fd-foreground mt-4 space-y-6">
+          <div className="not-prose mt-4 space-y-6 text-fd-foreground">
             <TextField isRequired name="email" />
             <TextField isRequired name="password" type="password" />
             <div className="flex items-center justify-between">
@@ -94,7 +94,7 @@ export function Blocks() {
         </DocsCard>
 
         <DocsCard title="Controls">
-          <div className="not-prose text-fd-foreground mt-4 flex min-h-52 items-center justify-center">
+          <div className="not-prose mt-4 flex min-h-52 items-center justify-center text-fd-foreground">
             <div className="w-full max-w-xs space-y-2">
               <div className="flex flex-col gap-2 md:flex-row">
                 <ModalPreskokDemo />
@@ -131,13 +131,13 @@ export function Blocks() {
         </DocsCard>
 
         <DocsCard title="Calendar">
-          <div className="not-prose text-fd-foreground mt-4 flex min-h-80 items-center justify-center overflow-x-auto">
+          <div className="not-prose mt-4 flex min-h-80 items-center justify-center overflow-x-auto text-fd-foreground">
             <RangeCalendarPreskokDemo />
           </div>
         </DocsCard>
 
         <DocsCard title="Choices">
-          <div className="not-prose text-fd-foreground mt-4 flex min-h-80 items-center justify-center">
+          <div className="not-prose mt-4 flex min-h-80 items-center justify-center text-fd-foreground">
             <RadioGroup
               defaultValue="highSecurity"
               aria-label="Security settings"
@@ -178,7 +178,7 @@ export function Blocks() {
         </DocsCard>
 
         <DocsCard title="Toggles">
-          <div className="not-prose text-fd-foreground mt-4 grid min-h-44 content-center gap-4">
+          <div className="not-prose mt-4 grid min-h-44 content-center gap-4 text-fd-foreground">
             <Switch aria-label="Dark mode">
               {({ isSelected }: { isSelected: boolean }) => (
                 <>

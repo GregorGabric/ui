@@ -226,7 +226,7 @@ export default function AppSidebar(
             />
             <div className="min-w-0 text-sm">
               <SidebarLabel className="truncate">Maya Chen</SidebarLabel>
-              <span className="text-muted-foreground -mt-0.5 block truncate">
+              <span className="-mt-0.5 block truncate text-muted-foreground">
                 maya@preskok.example
               </span>
             </div>
@@ -239,7 +239,7 @@ export default function AppSidebar(
             <MenuSection>
               <MenuHeader separator>
                 <span className="block">Maya Chen</span>
-                <span className="text-muted-foreground font-normal">@maya</span>
+                <span className="font-normal text-muted-foreground">@maya</span>
               </MenuHeader>
             </MenuSection>
 

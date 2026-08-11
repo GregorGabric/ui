@@ -51,7 +51,7 @@ export default function ColorFieldPreskokDemo() {
           <Input />
         </ColorField>
       </div>
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Current value: {color.toString("hex")}
       </p>
     </div>

@@ -27,13 +27,13 @@ export function CodeCollapsibleWrapper({
           aria-expanded={isOpened}
           className={cn(
             buttonVariants({ variant: "ghost", size: "sm" }),
-            "text-fd-muted-foreground h-7 rounded-md px-2"
+            "h-7 rounded-md px-2 text-fd-muted-foreground"
           )}
           onClick={() => setIsOpened((open) => !open)}
         >
           {isOpened ? "Collapse" : "Expand"}
         </button>
-        <div className="bg-fd-border mx-1.5 h-4 w-px" />
+        <div className="mx-1.5 h-4 w-px bg-fd-border" />
       </div>
       <div
         className="relative overflow-hidden data-[state=closed]:max-h-64 data-[state=closed]:[mask-image:linear-gradient(to_bottom,black_72%,transparent_100%)] data-[state=closed]:[content-visibility:auto] [&>figure]:mt-0 [&>figure]:max-w-full"
@@ -43,11 +43,11 @@ export function CodeCollapsibleWrapper({
       </div>
       <div
         aria-hidden
-        className="to-fd-card pointer-events-none absolute inset-x-px bottom-12 h-12 bg-gradient-to-b from-transparent group-data-[state=open]/collapsible:hidden"
+        className="pointer-events-none absolute inset-x-px bottom-12 h-12 bg-gradient-to-b from-transparent to-fd-card group-data-[state=open]/collapsible:hidden"
       />
       <button
         type="button"
-        className="bg-fd-card text-fd-muted-foreground hover:text-fd-foreground absolute inset-x-px bottom-px flex h-12 items-center justify-center rounded-b-xl border-t text-sm font-medium transition-colors group-data-[state=open]/collapsible:hidden"
+        className="absolute inset-x-px bottom-px flex h-12 items-center justify-center rounded-b-xl border-t bg-fd-card text-sm font-medium text-fd-muted-foreground transition-colors group-data-[state=open]/collapsible:hidden hover:text-fd-foreground"
         onClick={() => setIsOpened((open) => !open)}
       >
         Expand

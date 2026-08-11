@@ -27,7 +27,7 @@ export default function CalendarValidationPreskokDemo() {
         isDateUnavailable={isWeekend}
         aria-label="Validated booking date"
       />
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Select a weekday within the next 21 days.
       </p>
     </div>

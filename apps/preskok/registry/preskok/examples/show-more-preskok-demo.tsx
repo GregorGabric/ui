@@ -41,17 +41,17 @@ export default function ShowMorePreskokDemo() {
   const visibleEvents = isExpanded ? events : events.slice(0, 2)
 
   return (
-    <div className="bg-background w-full max-w-2xl rounded-xl border shadow-sm">
+    <div className="w-full max-w-2xl rounded-xl border bg-background shadow-sm">
       <ol className="divide-y">
         {visibleEvents.map((event) => (
           <li key={event.title} className="grid gap-1 px-4 py-3">
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <span className="text-sm font-medium">{event.title}</span>
-              <span className="text-muted-foreground text-xs tabular-nums">
+              <span className="text-xs text-muted-foreground tabular-nums">
                 {event.meta}
               </span>
             </div>
-            <p className="text-muted-foreground text-sm text-pretty">
+            <p className="text-sm text-pretty text-muted-foreground">
               {event.detail}
             </p>
           </li>

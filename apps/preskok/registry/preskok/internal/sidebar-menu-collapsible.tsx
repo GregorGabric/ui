@@ -148,16 +148,16 @@ export default function AppSidebar() {
             {items.map((item, index) => (
               <SidebarSection key={index}>
                 <SidebarDisclosure defaultExpanded={index === 0}>
-                  <SidebarDisclosureTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-md p-2">
+                  <SidebarDisclosureTrigger className="flex w-full items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                     <span>{item.title}</span>
                   </SidebarDisclosureTrigger>
                   <SidebarDisclosurePanel>
-                    <div className="border-sidebar-border ml-4 border-l pl-2">
+                    <div className="ml-4 border-l border-sidebar-border pl-2">
                       {item.items.map((subItem, subIndex) => (
                         <a
                           key={subIndex}
                           href={subItem.url}
-                          className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2 text-sm"
+                          className="flex items-center gap-2 rounded-md p-2 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         >
                           <span>{subItem.title}</span>
                         </a>

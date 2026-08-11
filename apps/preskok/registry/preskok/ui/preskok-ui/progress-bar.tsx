@@ -92,13 +92,13 @@ export function ProgressBarTrack({
           {!isIndeterminate ? (
             <div
               data-slot="progress-content"
-              className="bg-primary absolute top-0 left-0 h-full rounded-full transition-[width] duration-200 ease-linear will-change-[width] motion-reduce:transition-none forced-colors:bg-[Highlight]"
+              className="absolute top-0 left-0 h-full rounded-full bg-primary transition-[width] duration-200 ease-linear will-change-[width] motion-reduce:transition-none forced-colors:bg-[Highlight]"
               style={{ width: `${percentage}%` }}
             />
           ) : (
             <div
               data-slot="progress-content"
-              className="bg-primary absolute top-0 h-full [animation:progress-slide_2000ms_ease-in-out_infinite] rounded-full forced-colors:bg-[Highlight]"
+              className="absolute top-0 h-full [animation:progress-slide_2000ms_ease-in-out_infinite] rounded-full bg-primary forced-colors:bg-[Highlight]"
               style={{ width: "40%" }}
             />
           )}

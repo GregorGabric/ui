@@ -1,0 +1,89 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "nextjs",
+    "oxc",
+    "promise",
+    "react",
+    "typescript",
+    "unicorn"
+  ],
+  "categories": {
+    "correctness": "warn",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true
+  },
+  "options": {
+    "typeAware": true
+  },
+  "ignorePatterns": [
+    ".next/**",
+    ".source/**",
+    ".vercel/**",
+    "build/**",
+    "coverage/**",
+    "**/dist/**",
+    "node_modules/**",
+    "out/**",
+    "apps/preskok/public/r/**",
+    "apps/preskok/registry/__index__.tsx",
+    "tools/**/code.js",
+    "**/next-env.d.ts"
+  ],
+  "rules": {
+    "no-nested-ternary": "warn",
+    "import/no-cycle": "error",
+    "nextjs/no-async-client-component": "error",
+    "nextjs/no-html-link-for-pages": "error",
+    "nextjs/no-img-element": "warn",
+    "nextjs/no-sync-scripts": "error",
+    "react/exhaustive-deps": "warn",
+    "react/jsx-key": "error",
+    "react/no-danger-with-children": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-unknown-property": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/rules-of-hooks": "error",
+    "typescript/await-thenable": "error",
+    "typescript/no-deprecated": "warn",
+    "typescript/no-floating-promises": [
+      "error",
+      {
+        "ignoreVoid": true,
+        "ignoreIIFE": true
+      }
+    ],
+    "typescript/no-for-in-array": "error",
+    "typescript/no-implied-eval": "error",
+    "typescript/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ],
+    "typescript/no-unnecessary-type-assertion": "warn",
+    "typescript/no-unsafe-argument": "warn",
+    "typescript/no-unsafe-assignment": "warn",
+    "typescript/no-unsafe-call": "warn",
+    "typescript/no-unsafe-member-access": "warn",
+    "typescript/no-unsafe-return": "warn",
+    "typescript/only-throw-error": "error",
+    "typescript/prefer-promise-reject-errors": "error",
+    "typescript/require-array-sort-compare": "error",
+    "typescript/restrict-plus-operands": "error",
+    "typescript/restrict-template-expressions": "warn",
+    "typescript/return-await": ["warn", "in-try-catch"],
+    "typescript/switch-exhaustiveness-check": "warn",
+    "typescript/unbound-method": "warn",
+    "typescript/use-unknown-in-catch-callback-variable": "error"
+  }
+}

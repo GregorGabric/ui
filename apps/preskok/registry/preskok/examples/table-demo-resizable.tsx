@@ -14,7 +14,7 @@ type ProjectStatus = "On track" | "Review" | "At risk" | "Queued"
 
 export function TableDemoResizable() {
   return (
-    <div className="bg-background w-full max-w-3xl overflow-hidden rounded-xl border p-4 shadow-sm">
+    <div className="w-full max-w-3xl overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
       <Table allowResize aria-label="Project delivery">
         <TableHeader>
           <TableColumn width={52} minWidth={44}>

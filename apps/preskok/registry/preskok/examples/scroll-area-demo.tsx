@@ -49,7 +49,7 @@ export default function ScrollAreaDemo() {
           {Array.from({ length: 20 }, (_, i) => (
             <div
               key={i}
-              className="bg-muted flex h-20 w-32 flex-shrink-0 items-center justify-center rounded"
+              className="flex h-20 w-32 flex-shrink-0 items-center justify-center rounded bg-muted"
             >
               Car {i + 1}
             </div>

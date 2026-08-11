@@ -68,7 +68,7 @@ export default function CardPreskokDemo() {
         <CardContent>
           <div className="space-y-2">
             <div className="text-3xl font-semibold tabular-nums">12</div>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               Available reviewers across three squads.
             </p>
           </div>

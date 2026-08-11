@@ -1,15 +1,14 @@
 import type { Metadata } from "next"
 
-import { META_THEME_COLORS, siteConfig } from "@/lib/config"
-import { fontVariables } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
 import { ActiveThemeProvider } from "@/components/active-theme"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import { VercelToolbar } from "@/components/vercel-toolbar"
+import { META_THEME_COLORS, siteConfig } from "@/lib/config"
+import { fontVariables } from "@/lib/fonts"
+import { cn } from "@/lib/utils"
 import { Toast } from "@/registry/preskok/ui/preskok-ui/toast"
-
 import "@/styles/globals.css"
 
 export const metadata: Metadata = {
@@ -81,7 +80,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "bg-fd-background text-fd-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]",
+          "group/body overscroll-none bg-fd-background font-sans text-fd-foreground antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]",
           fontVariables
         )}
       >

@@ -81,9 +81,9 @@ function ColorBox(props: React.ComponentProps<"div">) {
 
 function ColorBoxItem({ variable }: { variable: string }) {
   return (
-    <div className="bg-fd-card text-fd-card-foreground flex min-w-0 items-center gap-2 rounded-md border px-2.5 py-2 text-sm">
+    <div className="flex min-w-0 items-center gap-2 rounded-md border bg-fd-card px-2.5 py-2 text-sm text-fd-card-foreground">
       <div
-        className="inset-ring-foreground/15 size-4 shrink-0 rounded-sm inset-ring-1"
+        className="size-4 shrink-0 rounded-sm inset-ring-1 inset-ring-foreground/15"
         style={{ backgroundColor: `var(--${variable})` }}
       />
       <small className="truncate font-mono text-xs">--{variable}</small>

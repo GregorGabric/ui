@@ -2,8 +2,8 @@
 
 import * as React from "react"
 
-import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
+import { cn } from "@/lib/utils"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { PreskokAuthButton } from "@/registry/preskok/ui/preskok-ui/preskok-auth-button"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
@@ -48,7 +48,7 @@ export function UserAuthForm({
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="text-muted-foreground px-2">Or continue with</span>
+          <span className="px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
       <PreskokAuthButton type="button" isDisabled={isLoading}>

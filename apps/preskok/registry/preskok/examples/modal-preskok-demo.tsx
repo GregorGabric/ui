@@ -78,7 +78,7 @@ export function ModalPreskokDemo() {
               {["Pipeline", "Revenue", "Retention"].map((metric) => (
                 <div key={metric} className="rounded-lg border p-3">
                   <div className="text-sm font-medium">{metric}</div>
-                  <div className="text-muted-foreground mt-1 text-sm">
+                  <div className="mt-1 text-sm text-muted-foreground">
                     Ready for review
                   </div>
                 </div>

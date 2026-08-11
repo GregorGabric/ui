@@ -84,7 +84,7 @@ export function CardsTeamMembers() {
                 <p className="text-sm leading-none font-medium">
                   {member.name}
                 </p>
-                <p className="text-muted-foreground text-xs">{member.email}</p>
+                <p className="text-xs text-muted-foreground">{member.email}</p>
               </div>
             </div>
             <Menu>

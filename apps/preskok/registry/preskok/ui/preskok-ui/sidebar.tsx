@@ -207,7 +207,7 @@ const Sidebar = ({
           aria-label="Sidebar"
           data-slot="sidebar"
           data-intent="default"
-          className="entering:blur-in exiting:blur-out w-(--sidebar-width) [--sidebar-width:18rem] has-data-[slot=calendar]:[--sidebar-width:23rem]"
+          className="w-(--sidebar-width) [--sidebar-width:18rem] has-data-[slot=calendar]:[--sidebar-width:23rem] entering:blur-in exiting:blur-out"
           side={side}
         >
           {children}
@@ -223,7 +223,7 @@ const Sidebar = ({
       data-intent={intent}
       data-side={side}
       data-slot="sidebar"
-      className="group peer text-sidebar-foreground hidden md:block"
+      className="group peer hidden text-sidebar-foreground md:block"
       {...props}
     >
       <div
@@ -378,7 +378,7 @@ const SidebarSection = ({ className, ...props }: SidebarSectionProps) => {
       {...props}
     >
       {state !== "collapsed" && "label" in props && (
-        <Header className="text-sidebar-foreground/70 ring-sidebar-ring mb-1 flex shrink-0 items-center rounded-md px-2 text-xs/6 font-medium transition-[margin,opacity] duration-200 ease-linear outline-none group-data-[collapsible=dock]:-mt-8 group-data-[collapsible=dock]:opacity-0 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 [&_.lucide]:size-4 [&_.lucide]:shrink-0">
+        <Header className="mb-1 flex shrink-0 items-center rounded-md px-2 text-xs/6 font-medium text-sidebar-foreground/70 ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear outline-none group-data-[collapsible=dock]:-mt-8 group-data-[collapsible=dock]:opacity-0 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 [&_.lucide]:size-4 [&_.lucide]:shrink-0">
           {props.label}
         </Header>
       )}
@@ -462,14 +462,14 @@ const SidebarItem = ({
             (state !== "collapsed" ? (
               <span
                 data-slot="sidebar-badge"
-                className="inset-ring-sidebar-border bg-foreground/5 group-hover/sidebar-item:inset-ring-muted-foreground/30 absolute inset-y-1/2 right-1.5 h-5.5 w-auto -translate-y-1/2 rounded-full px-2 text-[10px]/5.5 inset-ring-1 group-data-current:inset-ring-transparent"
+                className="absolute inset-y-1/2 right-1.5 h-5.5 w-auto -translate-y-1/2 rounded-full bg-foreground/5 px-2 text-[10px]/5.5 inset-ring-1 inset-ring-sidebar-border group-hover/sidebar-item:inset-ring-muted-foreground/30 group-data-current:inset-ring-transparent"
               >
                 {badge}
               </span>
             ) : (
               <div
                 aria-hidden
-                className="bg-primary absolute top-1 right-1 size-1.5 rounded-full"
+                className="absolute top-1 right-1 size-1.5 rounded-full bg-primary"
               />
             ))}
         </>

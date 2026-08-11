@@ -21,7 +21,7 @@ export default function KeyboardShortcutsPreskokDemo() {
         <label htmlFor="shortcut-offer-name" className="text-sm font-medium">
           Offer name
         </label>
-        <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           Save <Keyboard className="inline">⌘S</Keyboard>
           <span aria-hidden="true">·</span>
           Cancel <Keyboard className="inline">Esc</Keyboard>
@@ -34,7 +34,7 @@ export default function KeyboardShortcutsPreskokDemo() {
       />
       <p
         aria-live="polite"
-        className="bg-muted text-muted-foreground rounded-lg px-3 py-2 text-sm"
+        className="rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground"
       >
         {message}
       </p>

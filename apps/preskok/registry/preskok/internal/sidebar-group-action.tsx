@@ -27,27 +27,27 @@ export default function AppSidebar() {
               <button
                 title="Add Project"
                 onClick={() => toast("You clicked the group action!")}
-                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               >
                 <PlusIcon /> <span className="sr-only">Add Project</span>
               </button>
               <a
                 href="#"
-                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               >
                 <FrameIcon />
                 <span>Design Engineering</span>
               </a>
               <a
                 href="#"
-                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               >
                 <PieChartIcon />
                 <span>Sales & Marketing</span>
               </a>
               <a
                 href="#"
-                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               >
                 <MapIcon />
                 <span>Travel</span>

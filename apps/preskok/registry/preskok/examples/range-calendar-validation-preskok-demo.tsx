@@ -31,7 +31,7 @@ export default function RangeCalendarValidationPreskokDemo() {
         isDateUnavailable={isWeekend}
         aria-label="Validated trip dates"
       />
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Range must stay within 2 months and excludes weekends.
       </p>
     </div>

@@ -62,7 +62,7 @@ export function ThemeContainer() {
             title="Theme customizer"
             description="Adjust the core color families and radius token."
           >
-            <div className="not-prose text-fd-foreground mt-4">
+            <div className="not-prose mt-4 text-fd-foreground">
               <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
             </div>
             <div className="mt-3 flex justify-end">

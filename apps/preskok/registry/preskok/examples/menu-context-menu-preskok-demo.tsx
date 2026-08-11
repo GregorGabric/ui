@@ -25,21 +25,21 @@ export default function MenuContextMenuPreskokDemo() {
     <Menu trigger="contextMenu">
       <Button
         intent="outline"
-        className="bg-background hover:bg-accent/50 w-full max-w-md justify-start gap-3 rounded-xl p-4 text-left whitespace-normal sm:p-4"
+        className="w-full max-w-md justify-start gap-3 rounded-xl bg-background p-4 text-left whitespace-normal hover:bg-accent/50 sm:p-4"
       >
         <CarFrontIcon data-slot="icon" />
         <span className="min-w-0 flex-1">
-          <span className="text-foreground flex items-center justify-between gap-3 font-medium">
+          <span className="flex items-center justify-between gap-3 font-medium text-foreground">
             <span className="truncate">2025 Volvo EX30</span>
             <span className="shrink-0 tabular-nums">€39,900</span>
           </span>
-          <span className="text-muted-foreground flex items-center justify-between gap-3 font-normal">
+          <span className="flex items-center justify-between gap-3 font-normal text-muted-foreground">
             <span className="truncate">Single Motor Extended Range</span>
             <Badge intent="success" className="shrink-0">
               Available
             </Badge>
           </span>
-          <span className="text-muted-foreground mt-2 block font-normal">
+          <span className="mt-2 block font-normal text-muted-foreground">
             Right-click or long-press for actions.
           </span>
         </span>

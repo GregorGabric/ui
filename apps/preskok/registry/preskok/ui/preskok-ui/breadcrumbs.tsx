@@ -79,7 +79,7 @@ const BreadcrumbsItem = ({
             {href ? (
               <Link href={href}>{content}</Link>
             ) : (
-              <span className="text-muted-foreground font-medium">
+              <span className="font-medium text-muted-foreground">
                 {content}
               </span>
             )}
@@ -99,7 +99,7 @@ const Separator = ({
   separator?: BreadcrumbsItemProps["separator"]
 }) => {
   return (
-    <span className="*:text-muted-foreground *:shrink-0 *:data-[slot=icon]:size-3.5">
+    <span className="*:shrink-0 *:text-muted-foreground *:data-[slot=icon]:size-3.5">
       {separator === "chevron" && <ChevronRightIcon data-slot="icon" />}
       {separator === "slash" && (
         <span className="text-muted-foreground">/</span>

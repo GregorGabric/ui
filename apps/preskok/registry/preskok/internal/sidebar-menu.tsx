@@ -55,7 +55,7 @@ export default function AppSidebar() {
                 <a
                   key={project.name}
                   href={project.url}
-                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md p-2"
+                  className="flex items-center gap-2 rounded-md p-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
                   <project.icon />
                   <span>{project.name}</span>

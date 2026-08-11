@@ -30,7 +30,7 @@ export default function ColorSwatchPreskokDemo() {
           </ColorSwatchPickerItem>
         ))}
       </ColorSwatchPicker>
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Selected: {value.toString("hex")}
       </p>
     </div>

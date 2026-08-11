@@ -61,12 +61,12 @@ export default function ExamplesLayout({
         </PageActions>
       </PageHeader>
       <PageNav id="examples">
-        <ExamplesNav className="[&>a:first-child]:text-primary flex-1 overflow-hidden" />
+        <ExamplesNav className="flex-1 overflow-hidden [&>a:first-child]:text-primary" />
         <ThemeSelector className="mr-4 hidden md:block" />
       </PageNav>
-      <div className="container-wrapper section-soft flex flex-1 flex-col pb-6">
-        <div className="theme-container container flex flex-1 scroll-mt-20 flex-col">
-          <div className="bg-background flex flex-col overflow-hidden rounded-lg border bg-clip-padding md:flex-1 xl:rounded-xl">
+      <div className="container-wrapper flex flex-1 flex-col section-soft pb-6">
+        <div className="container flex flex-1 scroll-mt-20 flex-col theme-container">
+          <div className="flex flex-col overflow-hidden rounded-lg border bg-background bg-clip-padding md:flex-1 xl:rounded-xl">
             {children}
           </div>
         </div>

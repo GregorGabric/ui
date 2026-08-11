@@ -23,7 +23,7 @@ const badgeIntents = {
     "inset-ring-border bg-transparent text-foreground group-hover:bg-secondary",
 }
 const badgeStyles = tv({
-  base: "inset-ring inset-ring-transparent inline-flex items-center gap-x-1.5 py-0.5 font-medium text-xs/5 **:data-[slot=icon]:size-3 forced-colors:outline",
+  base: "inline-flex items-center gap-x-1.5 py-0.5 text-xs/5 font-medium inset-ring inset-ring-transparent **:data-[slot=icon]:size-3 forced-colors:outline",
   variants: {
     intent: { ...badgeIntents },
     isCircle: {

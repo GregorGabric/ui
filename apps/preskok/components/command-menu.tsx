@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation"
 import { IconArrowRight } from "@tabler/icons-react"
 import { CornerDownLeftIcon } from "lucide-react"
 
-import type { source } from "@/lib/source"
-import { cn } from "@/lib/utils"
+import { copyToClipboardWithMeta } from "@/components/copy-button"
 import { useConfig } from "@/hooks/use-config"
 import { useIsMac } from "@/hooks/use-is-mac"
-import { copyToClipboardWithMeta } from "@/components/copy-button"
+import type { source } from "@/lib/source"
+import { cn } from "@/lib/utils"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   CommandMenuFooter,
@@ -121,7 +121,7 @@ export function CommandMenu({ tree }: { tree: typeof source.pageTree }) {
         intent="secondary"
         size="sm"
         className={cn(
-          "bg-surface text-surface-foreground/60 dark:bg-card relative h-8 w-full justify-start pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
+          "relative h-8 w-full justify-start bg-surface pl-2.5 font-normal text-surface-foreground/60 shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64 dark:bg-card"
         )}
         onPress={() => setOpen(true)}
       >
@@ -177,7 +177,7 @@ export function CommandMenu({ tree }: { tree: typeof source.pageTree }) {
                       }}
                     >
                       {isComponent ? (
-                        <div className="border-muted-foreground size-4 rounded-full border border-dashed" />
+                        <div className="size-4 rounded-full border border-dashed border-muted-foreground" />
                       ) : (
                         <IconArrowRight data-slot="icon" />
                       )}
@@ -231,7 +231,7 @@ function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {
   return (
     <kbd
       className={cn(
-        "bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&_svg:not([class*='size-'])]:size-3",
+        "pointer-events-none flex h-5 items-center justify-center gap-1 rounded border bg-background px-1 font-sans text-[0.7rem] font-medium text-muted-foreground select-none [&_svg:not([class*='size-'])]:size-3",
         className
       )}
       {...props}

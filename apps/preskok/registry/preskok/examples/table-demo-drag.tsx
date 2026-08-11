@@ -62,7 +62,7 @@ export function ReorderableTable() {
   })
 
   return (
-    <div className="bg-background w-full max-w-3xl overflow-hidden rounded-xl border p-4 shadow-sm">
+    <div className="w-full max-w-3xl overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
       <Table
         aria-label="Renewal tasks"
         selectionMode="multiple"

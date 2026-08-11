@@ -19,7 +19,7 @@ const vehicles = [
 
 export default function TableInteractiveCellsPreskokDemo() {
   return (
-    <div className="bg-background w-full max-w-3xl overflow-hidden rounded-xl border p-4 shadow-sm">
+    <div className="w-full max-w-3xl overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
       <Table
         aria-label="Vehicle notes"
         keyboardNavigationBehavior="tab"
@@ -33,7 +33,7 @@ export default function TableInteractiveCellsPreskokDemo() {
         <TableBody items={vehicles}>
           {(vehicle) => (
             <TableRow id={vehicle.id}>
-              <TableCell className="text-foreground font-medium">
+              <TableCell className="font-medium text-foreground">
                 {vehicle.vehicle}
               </TableCell>
               <TableCell>{vehicle.stock}</TableCell>

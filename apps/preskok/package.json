@@ -8,12 +8,8 @@
     "build": "next build",
     "start": "next start --port 4001",
     "preview": "pnpm build && pnpm start",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "registry:build": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/build-registry.mts && prettier --log-level silent --write \"registry/**/*.{ts,tsx,json,mdx}\" --cache",
+    "registry:build": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/build-registry.mts && oxfmt \"registry/**/*.{ts,tsx,json,mdx}\"",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
@@ -65,60 +61,17 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.0.0",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@vercel/toolbar": "^0.2.6",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^9.39.4",
-    "eslint-config-next": "16.3.0-preview.5",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.8.4",
-    "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.3.1",
     "tsx": "^4.22.4",
     "tw-animate-css": "^1.4.0",
     "typescript": "^6.0.3",
     "unist-builder": "4.0.0",
     "unist-util-visit": "^5.1.0"
-  },
-  "prettier": {
-    "endOfLine": "lf",
-    "semi": false,
-    "singleQuote": false,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "importOrder": [
-      "^(react/(.*)$)|^(react$)",
-      "^(next/(.*)$)|^(next$)",
-      "<THIRD_PARTY_MODULES>",
-      "",
-      "^@workspace/(.*)$",
-      "",
-      "^types$",
-      "^@/types/(.*)$",
-      "^@/config/(.*)$",
-      "^@/lib/(.*)$",
-      "^@/hooks/(.*)$",
-      "^@/components/ui/(.*)$",
-      "^@/components/(.*)$",
-      "^@/registry/(.*)$",
-      "^@/styles/(.*)$",
-      "^@/app/(.*)$",
-      "^@/www/(.*)$",
-      "",
-      "^[./]"
-    ],
-    "importOrderParserPlugins": [
-      "typescript",
-      "jsx",
-      "decorators-legacy"
-    ],
-    "plugins": [
-      "@ianvs/prettier-plugin-sort-imports",
-      "prettier-plugin-tailwindcss"
-    ]
   }
 }

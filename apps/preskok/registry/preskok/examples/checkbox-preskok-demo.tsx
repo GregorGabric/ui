@@ -25,7 +25,7 @@ export default function CheckboxPreskokDemo() {
           Launch checklist changes
         </Checkbox>
       </CheckboxGroup>
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Selected: {selected.join(", ")}
       </p>
     </div>

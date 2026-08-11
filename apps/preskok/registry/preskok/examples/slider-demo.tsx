@@ -43,7 +43,7 @@ export default function SliderDemo() {
         </div>
         <SliderTrack />
       </Slider>
-      <p className="text-muted-foreground -mt-4 text-sm">
+      <p className="-mt-4 text-sm text-muted-foreground">
         Current {currentValue}% / committed {finalValue}%
       </p>
       <Slider defaultValue={[20, 80]} minValue={0} maxValue={100} step={5}>

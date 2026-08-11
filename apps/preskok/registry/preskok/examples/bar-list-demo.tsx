@@ -22,7 +22,7 @@ export default function BarListDemo() {
         valueFormatter={(value) => value.toLocaleString()}
         onValueChange={(item) => setSelected(item.name)}
       />
-      <p className="text-muted-foreground text-sm">Selected: {selected}</p>
+      <p className="text-sm text-muted-foreground">Selected: {selected}</p>
     </div>
   )
 }

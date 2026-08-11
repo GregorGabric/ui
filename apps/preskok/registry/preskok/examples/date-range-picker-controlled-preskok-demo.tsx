@@ -41,7 +41,7 @@ export default function DateRangePickerControlledPreskokDemo() {
         <Label>Event date</Label>
         <DateRangePickerTrigger />
       </DateRangePicker>
-      <p className="text-muted-foreground text-sm">Selected: {selectedRange}</p>
+      <p className="text-sm text-muted-foreground">Selected: {selectedRange}</p>
     </div>
   )
 }

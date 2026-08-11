@@ -26,13 +26,13 @@ const tooltipStyles = tv({
     },
     isEntering: {
       true: [
-        "fade-in animate-in",
+        "animate-in fade-in",
         "placement-left:slide-in-from-right-1 placement-right:slide-in-from-left-1 placement-top:slide-in-from-bottom-1 placement-bottom:slide-in-from-top-1",
       ],
     },
     isExiting: {
       true: [
-        "fade-in direction-reverse animate-in",
+        "animate-in direction-reverse fade-in",
         "placement-left:slide-out-to-right-1 placement-right:slide-out-to-left-1 placement-top:slide-out-to-bottom-1 placement-bottom:slide-out-to-top-1",
       ],
     },

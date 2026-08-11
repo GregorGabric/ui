@@ -99,7 +99,7 @@ function BarList<T>({
                     {item.name}
                   </Link>
                 ) : (
-                  <p className="text-foreground truncate text-sm whitespace-nowrap">
+                  <p className="truncate text-sm whitespace-nowrap text-foreground">
                     {item.name}
                   </p>
                 )}
@@ -118,7 +118,7 @@ function BarList<T>({
               index === sortedData.length - 1 ? "mb-0" : "mb-1.5"
             )}
           >
-            <p className="text-foreground truncate text-sm leading-none whitespace-nowrap">
+            <p className="truncate text-sm leading-none whitespace-nowrap text-foreground">
               {valueFormatter(item.value)}
             </p>
           </div>

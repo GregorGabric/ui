@@ -47,13 +47,13 @@ const toggleStyles = tv({
         "*:data-[slot=loader]:size-5 sm:*:data-[slot=loader]:size-4.5",
       ],
       "sq-xs":
-        "touch-target size-8 *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:[&_svg.lucide]:size-3 sm:*:data-[slot=loader]:size-3",
+        "touch-target size-8 *:data-[slot=icon]:size-3.5 *:data-[slot=loader]:size-3.5 sm:size-7 sm:*:data-[slot=icon]:size-3 sm:*:data-[slot=loader]:size-3 [&_svg.lucide]:size-3.5 sm:[&_svg.lucide]:size-3",
       "sq-sm":
-        "touch-target size-9 *:data-[slot=icon]:size-4.5 [&_svg.lucide]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:[&_svg.lucide]:size-4 sm:*:data-[slot=loader]:size-4",
+        "touch-target size-9 *:data-[slot=icon]:size-4.5 *:data-[slot=loader]:size-4.5 sm:size-8 sm:*:data-[slot=icon]:size-4 sm:*:data-[slot=loader]:size-4 [&_svg.lucide]:size-4.5 sm:[&_svg.lucide]:size-4",
       "sq-md":
-        "touch-target size-10 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4.5 sm:[&_svg.lucide]:size-4.5 sm:*:data-[slot=loader]:size-4.5",
+        "touch-target size-10 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-9 sm:*:data-[slot=icon]:size-4.5 sm:*:data-[slot=loader]:size-4.5 [&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-4.5",
       "sq-lg":
-        "touch-target size-11 *:data-[slot=icon]:size-5 [&_svg.lucide]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-5 sm:[&_svg.lucide]:size-5 sm:*:data-[slot=loader]:size-5",
+        "touch-target size-11 *:data-[slot=icon]:size-5 *:data-[slot=loader]:size-5 sm:size-10 sm:*:data-[slot=icon]:size-5 sm:*:data-[slot=loader]:size-5 [&_svg.lucide]:size-5 sm:[&_svg.lucide]:size-5",
     },
     isCircle: {
       true: "rounded-full",
@@ -80,7 +80,7 @@ const toggleStyles = tv({
     {
       size: ["xs", "sq-xs"],
       className:
-        "rounded-md *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5 sm:*:data-[slot=icon]:size-3 sm:[&_svg.lucide]:size-3",
+        "rounded-md *:data-[slot=icon]:size-3.5 sm:*:data-[slot=icon]:size-3 [&_svg.lucide]:size-3.5 sm:[&_svg.lucide]:size-3",
     },
   ],
 })

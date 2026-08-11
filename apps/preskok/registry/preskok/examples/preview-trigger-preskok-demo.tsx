@@ -10,20 +10,20 @@ import {
 
 export default function PreviewTriggerPreskokDemo() {
   return (
-    <p className="text-muted-foreground max-w-xl text-base/7 text-pretty sm:text-sm/6">
+    <p className="max-w-xl text-base/7 text-pretty text-muted-foreground sm:text-sm/6">
       Compare{" "}
       <PreviewTrigger delay={300} closeDelay={150}>
         <Link
           href="#volvo-ex30"
-          className="text-primary decoration-primary/50 hover:decoration-primary/70 font-normal underline underline-offset-2"
+          className="font-normal text-primary underline decoration-primary/50 underline-offset-2 hover:decoration-primary/70"
         >
           2025 Volvo EX30
         </Link>
         <PreviewContent arrow className="w-72 min-w-72 p-3">
           <div className="flex items-start gap-3">
             <div className="min-w-0 flex-1">
-              <p className="text-foreground font-semibold">Volvo EX30</p>
-              <p className="text-muted-foreground text-base/6 sm:text-sm/5">
+              <p className="font-semibold text-foreground">Volvo EX30</p>
+              <p className="text-base/6 text-muted-foreground sm:text-sm/5">
                 Single Motor · 2025
               </p>
             </div>
@@ -31,10 +31,10 @@ export default function PreviewTriggerPreskokDemo() {
               View
             </Button>
           </div>
-          <div className="border-foreground/10 mt-3 flex items-end justify-between gap-3 border-t pt-3">
+          <div className="mt-3 flex items-end justify-between gap-3 border-t border-foreground/10 pt-3">
             <div>
-              <p className="text-muted-foreground text-sm/5">Offer price</p>
-              <p className="text-foreground font-semibold tabular-nums">
+              <p className="text-sm/5 text-muted-foreground">Offer price</p>
+              <p className="font-semibold text-foreground tabular-nums">
                 €39,900
               </p>
             </div>
@@ -46,15 +46,15 @@ export default function PreviewTriggerPreskokDemo() {
       <PreviewTrigger delay={300} closeDelay={150}>
         <Link
           href="#cupra-born"
-          className="text-primary decoration-primary/50 hover:decoration-primary/70 font-normal underline underline-offset-2"
+          className="font-normal text-primary underline decoration-primary/50 underline-offset-2 hover:decoration-primary/70"
         >
           2024 Cupra Born
         </Link>
         <PreviewContent arrow className="w-72 min-w-72 p-3">
           <div className="flex items-start gap-3">
             <div className="min-w-0 flex-1">
-              <p className="text-foreground font-semibold">Cupra Born</p>
-              <p className="text-muted-foreground text-base/6 sm:text-sm/5">
+              <p className="font-semibold text-foreground">Cupra Born</p>
+              <p className="text-base/6 text-muted-foreground sm:text-sm/5">
                 77 kWh e-Boost · 2024
               </p>
             </div>
@@ -62,10 +62,10 @@ export default function PreviewTriggerPreskokDemo() {
               View
             </Button>
           </div>
-          <div className="border-foreground/10 mt-3 flex items-end justify-between gap-3 border-t pt-3">
+          <div className="mt-3 flex items-end justify-between gap-3 border-t border-foreground/10 pt-3">
             <div>
-              <p className="text-muted-foreground text-sm/5">Offer price</p>
-              <p className="text-foreground font-semibold tabular-nums">
+              <p className="text-sm/5 text-muted-foreground">Offer price</p>
+              <p className="font-semibold text-foreground tabular-nums">
                 €37,500
               </p>
             </div>

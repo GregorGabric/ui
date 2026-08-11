@@ -148,11 +148,11 @@ const DrawerContent = ({
                 )}
               >
                 {notch && side === "bottom" && (
-                  <div className="notch bg-foreground/20 sticky top-0 mx-auto mt-2.5 h-1.5 w-10 shrink-0 touch-pan-y rounded-full" />
+                  <div className="notch sticky top-0 mx-auto mt-2.5 h-1.5 w-10 shrink-0 touch-pan-y rounded-full bg-foreground/20" />
                 )}
                 {children as React.ReactNode}
                 {notch && side === "top" && (
-                  <div className="notch bg-foreground/20 sticky bottom-0 mx-auto mb-2.5 h-1.5 w-10 shrink-0 touch-pan-y rounded-full" />
+                  <div className="notch sticky bottom-0 mx-auto mb-2.5 h-1.5 w-10 shrink-0 touch-pan-y rounded-full bg-foreground/20" />
                 )}
               </Dialog>
             </DrawerRoot>

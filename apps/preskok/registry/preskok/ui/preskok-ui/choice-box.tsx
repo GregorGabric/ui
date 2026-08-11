@@ -46,7 +46,7 @@ const choiceBoxStyles = tv({
       gap: 0,
       columns: 1,
       className:
-        "*:data-[slot=choice-box-item]:-mt-px rounded-lg *:data-[slot=choice-box-item]:inset-ring *:data-[slot=choice-box-item]:rounded-none *:data-[slot=choice-box-item]:last:rounded-b-[calc(var(--radius-lg)-1px)] *:data-[slot=choice-box-item]:first:rounded-t-[calc(var(--radius-lg)-1px)]",
+        "rounded-lg *:data-[slot=choice-box-item]:-mt-px *:data-[slot=choice-box-item]:rounded-none *:data-[slot=choice-box-item]:inset-ring *:data-[slot=choice-box-item]:first:rounded-t-[calc(var(--radius-lg)-1px)] *:data-[slot=choice-box-item]:last:rounded-b-[calc(var(--radius-lg)-1px)]",
     },
   ],
 })
@@ -96,7 +96,7 @@ const choiceBoxItemStyles = tv({
     "group outline-hidden",
     "[--choice-box-foreground:var(--color-primary)] [--choice-box:var(--color-primary)]/5",
     "[--choice-box-selected-hovered:var(--color-primary)]/4",
-    "inset-ring inset-ring-border rounded-lg p-(--gutter) **:data-[slot=label]:font-medium",
+    "rounded-lg p-(--gutter) inset-ring inset-ring-border **:data-[slot=label]:font-medium",
     "**:data-[slot=avatar]:row-span-2 **:data-[slot=avatar]:mt-0.5 **:data-[slot=avatar]:shrink-0",
     "**:data-[slot=icon]:row-span-2 **:data-[slot=icon]:h-[1.1lh] **:data-[slot=icon]:w-5 **:data-[slot=icon]:shrink-0",
     "has-data-[slot=avatar]:grid-cols-[auto_1fr_auto] has-data-[slot=icon]:grid-cols-[auto_1fr_auto]",
@@ -113,16 +113,16 @@ const choiceBoxItemStyles = tv({
       true: "not-data-readonly:not-data-focus-visible:not-selected:inset-ring-muted-foreground/30",
     },
     isFocused: {
-      true: "inset-ring-(--choice-box-active-ring) ring-(--choice-box-ring) ring-3 invalid:ring-danger-subtle-foreground/20",
+      true: "invalid:ring-danger-subtle-foreground/20 ring-3 ring-(--choice-box-ring) inset-ring-(--choice-box-active-ring)",
     },
-    isInvalid: { true: "ring-3 ring-danger-subtle-foreground/20" },
+    isInvalid: { true: "ring-danger-subtle-foreground/20 ring-3" },
     isOneColumn: {
       true: "col-span-full",
     },
     isActive: {
       true: [
         "bg-(--choice-box) text-(--choice-box-foreground)",
-        "inset-ring-(--choice-box-active-ring) z-20 hover:bg-(--choice-box-selected-hovered)",
+        "z-20 inset-ring-(--choice-box-active-ring) hover:bg-(--choice-box-selected-hovered)",
         "**:data-[slot=label]:text-(--choice-box-foreground)",
         "**:[[slot=description]]:text-(--choice-box-foreground)",
       ],

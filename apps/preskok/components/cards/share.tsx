@@ -84,7 +84,7 @@ export function CardsShare() {
                     <p className="text-sm leading-none font-medium">
                       {person.name}
                     </p>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-sm text-muted-foreground">
                       {person.email}
                     </p>
                   </div>

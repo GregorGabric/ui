@@ -100,7 +100,7 @@ export const LinkBubbleMenu: React.FC<LinkBubbleMenuProps> = ({ editor }) => {
         },
       }}
     >
-      <div className="bg-overlay text-overlay-foreground border-foreground/10 rounded-xl border shadow-xs">
+      <div className="rounded-xl border border-foreground/10 bg-overlay text-overlay-foreground shadow-xs">
         {showEdit ? (
           <LinkEditBlock
             defaultUrl={linkAttrs.href}

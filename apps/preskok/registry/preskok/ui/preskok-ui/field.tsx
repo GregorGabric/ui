@@ -11,15 +11,15 @@ import { tv } from "tailwind-variants"
 import { cx } from "@/registry/preskok/lib/primitive"
 
 export const labelStyles = tv({
-  base: "select-none text-base/6 text-foreground in-disabled:opacity-50 group-disabled:opacity-50 sm:text-sm/6",
+  base: "text-base/6 text-foreground select-none group-disabled:opacity-50 in-disabled:opacity-50 sm:text-sm/6",
 })
 
 export const descriptionStyles = tv({
-  base: "block text-muted-foreground text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50",
+  base: "block text-sm/6 text-muted-foreground group-disabled:opacity-50 in-disabled:opacity-50",
 })
 
 export const fieldErrorStyles = tv({
-  base: "block text-destructive/80 text-sm/6 in-disabled:opacity-50 group-disabled:opacity-50 forced-colors:text-[Mark]",
+  base: "block text-sm/6 text-destructive/80 group-disabled:opacity-50 in-disabled:opacity-50 forced-colors:text-[Mark]",
 })
 
 export const fieldStyles = tv({

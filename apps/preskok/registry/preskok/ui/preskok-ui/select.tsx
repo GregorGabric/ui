@@ -132,7 +132,7 @@ const SelectTrigger = ({
                 />
                 <ChevronsUpDownIcon
                   data-slot="chevron"
-                  className="text-muted-foreground -mr-1 ml-auto size-5 sm:size-4"
+                  className="-mr-1 ml-auto size-5 text-muted-foreground sm:size-4"
                 />
               </>
             )}

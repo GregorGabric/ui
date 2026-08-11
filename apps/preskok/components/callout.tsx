@@ -11,7 +11,7 @@ export function Callout({
   return (
     <Note
       className={cn(
-        "bg-surface text-surface-foreground mt-6 w-auto border-none md:-mx-4",
+        "mt-6 w-auto border-none bg-surface text-surface-foreground md:-mx-4",
         className
       )}
       indicator={false}

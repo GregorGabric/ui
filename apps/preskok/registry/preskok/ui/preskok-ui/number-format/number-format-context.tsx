@@ -111,7 +111,7 @@ export const NumberFormatContext: React.FC<PropsWithChildren> = ({
   const formatNumberRaw: FormatNumberToStringFnSignature = useCallback(
     (
       value,
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      // oxlint-disable-next-line typescript/no-unnecessary-condition
       options = { locale: globalLocale || DEFAULT_LOCALE }
     ): FormatNumberToStringReturnType => {
       return formatNumberToString(value, options)
@@ -160,7 +160,7 @@ export const NumberFormatContext: React.FC<PropsWithChildren> = ({
   const convertStringToNumberBasedOnLocale = useCallback(
     ({
       value,
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      // oxlint-disable-next-line typescript/no-unnecessary-condition
       forcedLocale = globalLocale || DEFAULT_LOCALE,
     }: ConvertStringToNumberBasedOnLocaleProps): number | null => {
       if (typeof value !== "string" || value.trim() === "") {
@@ -199,7 +199,7 @@ export const NumberFormatContext: React.FC<PropsWithChildren> = ({
     // We need to check if the value has no more than MAXIMUM_NUMBER_OF_DIGITS_ALLOWED digits. Please note that this limit only applies to the
     // integer part of the number, not the decimal part.
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     if (value === null || value === undefined) {
       return false
     }

@@ -22,7 +22,7 @@ export default function AppSidebar() {
       <Sidebar>
         <SidebarHeader>
           <Menu>
-            <MenuTrigger className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground group-open/menu:bg-sidebar-accent group-open/menu:text-sidebar-accent-foreground flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium">
+            <MenuTrigger className="flex w-full items-center gap-2 rounded-lg p-2 text-left text-sm font-medium group-open/menu:bg-sidebar-accent group-open/menu:text-sidebar-accent-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
               Select Workspace
               <ChevronDownIcon className="ml-auto" />
             </MenuTrigger>

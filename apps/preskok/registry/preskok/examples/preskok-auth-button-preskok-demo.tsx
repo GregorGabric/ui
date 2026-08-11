@@ -19,7 +19,7 @@ export default function PreskokAuthButtonPreskokDemo() {
           onPress={() => setStatus("Redirecting to Preskok...")}
         />
       </div>
-      <p className="text-muted-foreground text-sm">{status}</p>
+      <p className="text-sm text-muted-foreground">{status}</p>
     </div>
   )
 }
