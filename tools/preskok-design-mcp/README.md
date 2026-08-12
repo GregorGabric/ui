@@ -199,10 +199,12 @@ behavior, real MCP clients over stdio and Streamable HTTP, the built CLI entry
 point, type safety, and package output. The second verifies the companion
 shadcn MCP from `apps/preskok`, then creates a fresh temporary Vite application,
 obtains and finalizes a design plan through the MCP protocol, installs the actual public
-`@preskok` registry items, typechecks and builds the app, and uses Chrome to
-verify pointer and keyboard behavior plus desktop and mobile layout. It also
-builds the Preskok Theme Builder and exercises a complete mocked Figma
-scan/save/apply flow, including explicit Style and Mode assignments.
+`@preskok` registry items, typechecks and builds the app, serves the production
+build through Vite preview, asserts that its HTML references a hashed `/assets/`
+build artifact, and uses Chrome to verify pointer and keyboard behavior plus
+desktop and mobile layout. It also builds the Preskok Theme Builder and
+exercises a complete mocked Figma scan/save/apply flow, including explicit
+Style and Mode assignments.
 
 Live Figma QA additionally verifies both accepted strategies against the two
 reference nodes above, including source-component hug sizing, placed-slot

@@ -43,6 +43,7 @@ try {
           "consumer TypeScript",
           "Vite production build",
           "production bundle content",
+          "production preview hashed assets",
           "desktop and mobile Chrome runtime",
         ],
         runtime,
@@ -680,7 +681,16 @@ async function verifyBrowserRuntime() {
   const mobileScreenshot = path.join(temporaryRoot, "runtime-mobile.png")
   const server = spawn(
     "pnpm",
-    ["exec", "vite", "--host", "127.0.0.1", "--port", String(port)],
+    [
+      "exec",
+      "vite",
+      "preview",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      String(port),
+      "--strictPort",
+    ],
     {
       cwd: temporaryRoot,
       env: { ...process.env, CI: "1" },
@@ -697,6 +707,7 @@ async function verifyBrowserRuntime() {
 
   try {
     await waitForUrl(url, server, () => logs)
+    await assertProductionPreview(url)
     const result = await run(
       "node",
       [
@@ -728,6 +739,17 @@ async function verifyBrowserRuntime() {
       }
       server.once("exit", () => resolve())
     })
+  }
+}
+
+async function assertProductionPreview(url: string) {
+  const response = await fetch(url)
+  const html = await response.text()
+  const hashedAsset = /\/assets\/[^"']+-[A-Za-z0-9_-]{8,}\.(?:css|js)/
+  if (!hashedAsset.test(html)) {
+    throw new Error(
+      "Vite preview HTML does not reference a hashed /assets/ build artifact"
+    )
   }
 }
 
