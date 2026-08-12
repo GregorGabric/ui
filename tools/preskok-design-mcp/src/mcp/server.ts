@@ -186,7 +186,6 @@ const designEvidenceSchema = z.object({
 const figmaInspectionNodeSchema = z.object({
   nodeId: z.string().min(1),
   parentId: z.string().min(1).nullable(),
-  ancestorNodeIds: z.array(z.string()).optional(),
   name: z.string(),
   type: z.string().min(1),
   visible: z.boolean(),
@@ -199,9 +198,7 @@ const figmaInspectionNodeSchema = z.object({
   counterAxisSizingMode: z.enum(["FIXED", "AUTO"]).optional(),
   layoutPositioning: z.enum(["AUTO", "ABSOLUTE"]),
   clipsContent: z.boolean().optional(),
-  insideInstance: z.boolean().optional(),
   explicitVariableModes: z.record(z.string(), z.string()).optional(),
-  boundVariableFields: z.array(z.string()).optional(),
   semanticFields: z
     .array(
       z.object({

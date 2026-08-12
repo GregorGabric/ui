@@ -20,6 +20,116 @@ const workflowNames = [
   "maintain_design_system",
 ] as const
 
+const figmaInspectionRejectionCases: Array<{
+  name: string
+  createInput?: () => FigmaInspectionInput
+  mutate: (input: FigmaInspectionInput) => void
+  issueCode?: string
+  noComponents?: boolean
+}> = [
+  {
+    name: "rejects a visible instance without identity",
+    createInput: createDashboardInspectionInput,
+    mutate(input) {
+      delete firstInspectionInstance(input).instance
+    },
+    issueCode: "figma_inspection_invalid",
+  },
+  {
+    name: "ignores an instance beneath a hidden ancestor",
+    mutate(input) {
+      inspectionNode(input, "20:2").parentId = "20:hidden"
+      input.inspection.nodes.splice(
+        1,
+        0,
+        createInspectionNode({
+          nodeId: "20:hidden",
+          name: "Hidden state",
+          visible: false,
+        })
+      )
+    },
+    noComponents: true,
+  },
+  {
+    name: "rejects an inspection root with a parent",
+    mutate(input) {
+      inspectionNode(input, input.inspection.rootNodeId).parentId =
+        "outside-root"
+    },
+    issueCode: "figma_inspection_invalid",
+  },
+  {
+    name: "rejects a disconnected node",
+    mutate(input) {
+      input.inspection.nodes.push({
+        ...inspectionNode(input, "20:2"),
+        nodeId: "20:disconnected",
+        parentId: null,
+      })
+    },
+    issueCode: "figma_inspection_invalid",
+  },
+  {
+    name: "rejects duplicate node IDs",
+    mutate(input) {
+      input.inspection.nodes.push(createInspectionNode({ nodeId: "20:2" }))
+    },
+    issueCode: "figma_inspection_invalid",
+  },
+  {
+    name: "rejects identity attached to a non-instance",
+    createInput: createDashboardInspectionInput,
+    mutate(input) {
+      firstInspectionInstance(input).type = "FRAME"
+    },
+    issueCode: "figma_inspection_invalid",
+  },
+  {
+    name: "rejects descendants beneath an instance",
+    mutate(input) {
+      input.inspection.nodes.push(
+        createInspectionNode({
+          nodeId: "20:3",
+          parentId: "20:2",
+          type: "TEXT",
+        })
+      )
+    },
+    issueCode: "figma_inspection_invalid",
+  },
+  {
+    name: "does not trust obsolete containment metadata",
+    mutate(input) {
+      const node = createInspectionNode({
+        nodeId: "20:3",
+        semanticFields: [
+          { property: "fills", value: "#ff0000", tokenBound: false },
+        ],
+      })
+      Object.assign(node, { insideInstance: true })
+      input.inspection.nodes.push(node)
+    },
+    issueCode: "hardcoded_value",
+  },
+  {
+    name: "rejects a visible subtree theme override",
+    mutate(input) {
+      inspectionNode(input, "20:2").explicitVariableModes = {
+        "VariableCollectionId:mode": "mode-dark",
+      }
+      const collection = input.inspection.collections.find(
+        ({ name }) => name === "Mode"
+      )
+      if (!collection) {
+        throw new Error("Expected a Mode fixture")
+      }
+      collection.modes.push({ modeId: "mode-dark", name: "Dark" })
+    },
+    issueCode: "theme_mode_mismatch",
+  },
+]
+
 describe("Preskok Design MCP over stdio", () => {
   let client: Client
   let transport: StdioClientTransport
@@ -420,7 +530,6 @@ describe("Preskok Design MCP over stdio", () => {
     input.inspection.nodes.push({
       nodeId: "7:1",
       parentId: "3:13",
-      ancestorNodeIds: ["3:13"],
       name: "Foreign date picker",
       type: "INSTANCE",
       visible: true,
@@ -431,9 +540,7 @@ describe("Preskok Design MCP over stdio", () => {
       layoutMode: "HORIZONTAL",
       layoutPositioning: "AUTO",
       clipsContent: false,
-      insideInstance: false,
       explicitVariableModes: {},
-      boundVariableFields: [],
       semanticFields: [],
       instance: {
         assetName: "Foreign date picker",
@@ -466,283 +573,25 @@ describe("Preskok Design MCP over stdio", () => {
     })
   })
 
-  it("withholds the handoff when a visible instance is missing its identity payload", async () => {
-    const input = createDashboardInspectionInput()
-    const incompleteInstance = input.inspection.nodes.find(
-      ({ type }) => type === "INSTANCE"
-    ) as { instance?: unknown } | undefined
-    if (!incompleteInstance) {
-      throw new Error("Expected a dashboard instance fixture")
+  it.each(figmaInspectionRejectionCases)("$name", async (testCase) => {
+    const input = (testCase.createInput ?? createCopiedButtonInspectionInput)()
+    testCase.mutate(input)
+
+    const result = await client.callTool({
+      name: "ingest_preskok_figma_inspection",
+      arguments: input,
+    })
+    const expected: Record<string, unknown> = { ready: false, handoff: null }
+    if (testCase.issueCode) {
+      expected.issues = expect.arrayContaining([
+        expect.objectContaining({ code: testCase.issueCode }),
+      ])
     }
-    delete incompleteInstance.instance
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "figma_inspection_invalid" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("does not count an instance inside a hidden ancestor as visible", async () => {
-    const input = createCopiedButtonInspectionInput()
-    const button = input.inspection.nodes.find(
-      ({ nodeId }) => nodeId === "20:2"
-    )
-    if (!button) {
-      throw new Error("Expected a copied Button fixture")
+    if (testCase.noComponents) {
+      expected.discovery = { components: [] }
+      expected.plan = { readyToBuild: false }
     }
-    button.parentId = "20:hidden"
-    input.inspection.nodes.splice(1, 0, {
-      nodeId: "20:hidden",
-      parentId: "20:1",
-      name: "Hidden state",
-      type: "FRAME",
-      visible: false,
-      x: 0,
-      y: 0,
-      width: 200,
-      height: 80,
-      layoutMode: "VERTICAL",
-      layoutPositioning: "AUTO",
-    })
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        discovery: { components: [] },
-        plan: { readyToBuild: false },
-        handoff: null,
-      },
-    })
-  })
-
-  it("rejects an inspection whose declared root has a parent", async () => {
-    const input = createCopiedButtonInspectionInput()
-    const root = input.inspection.nodes.find(
-      ({ nodeId }) => nodeId === input.inspection.rootNodeId
-    )
-    if (!root) {
-      throw new Error("Expected an inspection root fixture")
-    }
-    root.parentId = "outside-root"
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "figma_inspection_invalid" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("rejects nodes disconnected from the declared inspection root", async () => {
-    const input = createCopiedButtonInspectionInput()
-    const button = input.inspection.nodes.find(
-      ({ nodeId }) => nodeId === "20:2"
-    )
-    if (!button) {
-      throw new Error("Expected a copied Button fixture")
-    }
-    input.inspection.nodes.push({
-      ...button,
-      nodeId: "20:disconnected",
-      parentId: null,
-      name: "Disconnected action",
-    })
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "figma_inspection_invalid" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("rejects duplicate Figma node IDs before generating a handoff", async () => {
-    const input = createCopiedButtonInspectionInput()
-    input.inspection.nodes.push({
-      nodeId: "20:2",
-      parentId: "20:1",
-      name: "Duplicate node",
-      type: "FRAME",
-      visible: true,
-      x: 0,
-      y: 0,
-      width: 120,
-      height: 40,
-      layoutMode: "NONE",
-      layoutPositioning: "AUTO",
-    })
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "figma_inspection_invalid" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("rejects component identity data attached to a non-instance node", async () => {
-    const input = createDashboardInspectionInput()
-    const button = input.inspection.nodes.find(
-      ({ type }) => type === "INSTANCE"
-    )
-    if (!button) {
-      throw new Error("Expected a dashboard instance fixture")
-    }
-    button.type = "FRAME"
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "figma_inspection_invalid" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("rejects descendants that could not come from the prepared inspection script", async () => {
-    const input = createCopiedButtonInspectionInput()
-    input.inspection.nodes.push({
-      nodeId: "20:3",
-      parentId: "20:2",
-      name: "Impossible instance child",
-      type: "TEXT",
-      visible: true,
-      x: 0,
-      y: 0,
-      width: 80,
-      height: 20,
-      layoutMode: null,
-      layoutPositioning: "AUTO",
-    })
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "figma_inspection_invalid" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("does not trust insideInstance to hide unbound design values", async () => {
-    const input = createCopiedButtonInspectionInput()
-    input.inspection.nodes.push({
-      nodeId: "20:3",
-      parentId: "20:1",
-      name: "Hardcoded surface",
-      type: "FRAME",
-      visible: true,
-      x: 0,
-      y: 64,
-      width: 120,
-      height: 40,
-      layoutMode: "NONE",
-      layoutPositioning: "AUTO",
-      insideInstance: true,
-      semanticFields: [
-        { property: "fills", value: "#ff0000", tokenBound: false },
-      ],
-    })
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "hardcoded_value" }),
-        ]),
-        handoff: null,
-      },
-    })
-  })
-
-  it("rejects a visible subtree that overrides the root Preskok theme mode", async () => {
-    const input = createCopiedButtonInspectionInput()
-    const button = input.inspection.nodes.find(
-      ({ nodeId }) => nodeId === "20:2"
-    )
-    const modeCollection = input.inspection.collections.find(
-      ({ name }) => name === "Mode"
-    )
-    if (!button || !modeCollection) {
-      throw new Error("Expected copied Button and Mode fixtures")
-    }
-    button.explicitVariableModes = {
-      "VariableCollectionId:mode": "mode-dark",
-    }
-    modeCollection.modes.push({ modeId: "mode-dark", name: "Dark" })
-
-    const result = await client.callTool({
-      name: "ingest_preskok_figma_inspection",
-      arguments: input,
-    })
-
-    expect(result.structuredContent).toMatchObject({
-      analysis: {
-        ready: false,
-        issues: expect.arrayContaining([
-          expect.objectContaining({ code: "theme_mode_mismatch" }),
-        ]),
-        handoff: null,
-      },
-    })
+    expect(result.structuredContent).toMatchObject({ analysis: expected })
   })
 
   it("recognizes an unchanged component from an official copied Figma source without keys", async () => {
@@ -882,6 +731,43 @@ function readJsonResource(
   return JSON.parse(content.text) as unknown
 }
 
+function inspectionNode(input: FigmaInspectionInput, nodeId: string) {
+  const node = input.inspection.nodes.find(
+    (candidate) => candidate.nodeId === nodeId
+  )
+  if (!node) {
+    throw new Error(`Expected inspection node ${nodeId}`)
+  }
+  return node
+}
+
+function firstInspectionInstance(input: FigmaInspectionInput) {
+  const node = input.inspection.nodes.find(({ type }) => type === "INSTANCE")
+  if (!node) {
+    throw new Error("Expected an instance fixture")
+  }
+  return node
+}
+
+function createInspectionNode(
+  overrides: Partial<FigmaInspectionNode>
+): FigmaInspectionNode {
+  return {
+    nodeId: "20:fixture",
+    parentId: "20:1",
+    name: "Fixture node",
+    type: "FRAME",
+    visible: true,
+    x: 0,
+    y: 0,
+    width: 120,
+    height: 40,
+    layoutMode: "NONE",
+    layoutPositioning: "AUTO",
+    ...overrides,
+  }
+}
+
 function createDashboardInspectionInput(): FigmaInspectionInput {
   const rootNodeId = "3:13"
   const componentInstances: Array<{
@@ -969,7 +855,6 @@ function createDashboardInspectionInput(): FigmaInspectionInput {
         {
           nodeId: rootNodeId,
           parentId: null,
-          ancestorNodeIds: [],
           name: "Preskok Analytics Dashboard",
           type: "FRAME",
           visible: true,
@@ -980,12 +865,10 @@ function createDashboardInspectionInput(): FigmaInspectionInput {
           layoutMode: "VERTICAL",
           layoutPositioning: "AUTO",
           clipsContent: false,
-          insideInstance: false,
           explicitVariableModes: {
             "VariableCollectionId:style": "style-default",
             "VariableCollectionId:mode": "mode-light",
           },
-          boundVariableFields: ["fills"],
           semanticFields: [
             { property: "fills", value: "paint", tokenBound: true },
           ],
@@ -993,7 +876,6 @@ function createDashboardInspectionInput(): FigmaInspectionInput {
         ...componentInstances.map((instance, index) => ({
           nodeId: instance.nodeId,
           parentId: rootNodeId,
-          ancestorNodeIds: [rootNodeId],
           name: instance.name,
           type: "INSTANCE",
           visible: true,
@@ -1004,9 +886,7 @@ function createDashboardInspectionInput(): FigmaInspectionInput {
           layoutMode: "HORIZONTAL" as const,
           layoutPositioning: "AUTO" as const,
           clipsContent: false,
-          insideInstance: false,
           explicitVariableModes: {},
-          boundVariableFields: [],
           semanticFields: [],
           instance: {
             assetName: instance.assetName,
