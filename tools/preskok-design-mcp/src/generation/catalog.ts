@@ -212,8 +212,8 @@ export function serializePreskokCatalog(catalog: PreskokCatalog) {
   return `${JSON.stringify(catalog, null, 2)}\n`
 }
 
-function isMissingFileError(error: unknown): error is NodeJS.ErrnoException {
-  return error instanceof Error && "code" in error && error.code === "ENOENT"
+function isMissingFileError(cause: unknown): cause is NodeJS.ErrnoException {
+  return cause instanceof Error && "code" in cause && cause.code === "ENOENT"
 }
 
 async function createComponent({

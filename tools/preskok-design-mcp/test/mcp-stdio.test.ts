@@ -581,17 +581,26 @@ describe("Preskok Design MCP over stdio", () => {
       name: "ingest_preskok_figma_inspection",
       arguments: input,
     })
-    const expected: Record<string, unknown> = { ready: false, handoff: null }
+    expect(result.structuredContent).toMatchObject({
+      analysis: { ready: false, handoff: null },
+    })
     if (testCase.issueCode) {
-      expected.issues = expect.arrayContaining([
-        expect.objectContaining({ code: testCase.issueCode }),
-      ])
+      expect(result.structuredContent).toMatchObject({
+        analysis: {
+          issues: expect.arrayContaining([
+            expect.objectContaining({ code: testCase.issueCode }),
+          ]),
+        },
+      })
     }
     if (testCase.noComponents) {
-      expected.discovery = { components: [] }
-      expected.plan = { readyToBuild: false }
+      expect(result.structuredContent).toMatchObject({
+        analysis: {
+          discovery: { components: [] },
+          plan: { readyToBuild: false },
+        },
+      })
     }
-    expect(result.structuredContent).toMatchObject({ analysis: expected })
   })
 
   it("recognizes an unchanged component from an official copied Figma source without keys", async () => {
@@ -796,7 +805,7 @@ function createDashboardInspectionInput(): FigmaInspectionInput {
       name: "Current user",
       componentKey: "4d7d84f58f992c1c93aaabe47971d21898248a19",
       assetName: "Avatar",
-      properties: { Size: "md", Shape: "Round", Content: "Initials" },
+      properties: { Size: "md", ["Shape"]: "Round", Content: "Initials" },
     },
     ...["4:1832", "4:1900", "4:1939"].map((nodeId, index) => ({
       nodeId,
@@ -1023,7 +1032,7 @@ function createCopiedButtonInspectionInput(): FigmaInspectionInput {
             componentKey: null,
             remote: false,
             properties: {
-              Shape: "Text",
+              ["Shape"]: "Text",
               Intent: "primary",
               Size: "md",
               State: "Default",

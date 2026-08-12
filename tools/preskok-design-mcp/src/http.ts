@@ -66,8 +66,8 @@ export async function startPreskokHttpServer({
     await nodeHandler(request as Parameters<typeof nodeHandler>[0], response)
   }
   const server = createServer((request, response) => {
-    void handleRequest(request, response).catch((error: unknown) => {
-      const reported = error instanceof Error ? error : new Error(String(error))
+    void handleRequest(request, response).catch((cause: unknown) => {
+      const reported = cause instanceof Error ? cause : new Error(String(cause))
       onError(reported)
       if (!response.headersSent) {
         response.writeHead(500, { "content-type": "text/plain" })
@@ -86,7 +86,7 @@ export async function startPreskokHttpServer({
     })
   })
   const address = server.address()
-  if (!address || typeof address === "string") {
+  if (!address || !(address instanceof Object)) {
     await closeNodeServer(server)
     await handler.close()
     throw new Error("Could not determine the Preskok MCP HTTP address")

@@ -6,6 +6,7 @@ import { createServer } from "node:net"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { promisify } from "node:util"
+import { z } from "zod"
 
 import liveDashboardInspection from "../test/fixtures/live-dashboard-inspection.json" with { type: "json" }
 
@@ -74,6 +75,13 @@ type ConsumerHandoff = {
     figmaAssets: Array<{ componentKey: string }>
   }>
   validation: { valid: boolean; summary: { errors: number; warnings: number } }
+}
+
+interface BrowserScreenshots {
+  captured: ["desktop", "mobile"]
+  retained: boolean
+  desktopPath?: string
+  mobilePath?: string
 }
 
 async function getHandoff() {
@@ -151,7 +159,7 @@ function assertHandoff(handoff: ConsumerHandoff) {
 }
 
 async function writeFixture(handoff: ConsumerHandoff) {
-  const files: Record<string, string> = {
+  const files = {
     "package.json": `${JSON.stringify(
       {
         name: "preskok-mcp-consumer-verification",
@@ -620,16 +628,35 @@ async function verifyBrowserRuntime() {
       temporaryRoot
     )
     const retainScreenshots = keep || Boolean(outputDirectoryArgument)
+    const runtime = z
+      .object({
+        desktop: z.object({
+          width: z.number(),
+          scrollWidth: z.number(),
+          activeText: z.string().nullable(),
+        }),
+        mobile: z.object({
+          width: z.number(),
+          scrollWidth: z.number(),
+          bodyWidth: z.number(),
+        }),
+        errors: z.array(z.string()),
+      })
+      .parse(JSON.parse(result.stdout))
+    const screenshots: BrowserScreenshots = {
+      captured: ["desktop", "mobile"],
+      retained: retainScreenshots,
+    }
+    if (retainScreenshots) {
+      screenshots.desktopPath = desktopScreenshot
+      screenshots.mobilePath = mobileScreenshot
+    }
     return {
-      ...JSON.parse(result.stdout),
+      ...runtime,
       screenshots: {
-        captured: ["desktop", "mobile"],
-        retained: retainScreenshots,
-        ...(retainScreenshots
-          ? { desktopPath: desktopScreenshot, mobilePath: mobileScreenshot }
-          : {}),
+        ...screenshots,
       },
-    } as Record<string, unknown>
+    }
   } finally {
     server.kill("SIGTERM")
     await new Promise<void>((resolve) => {
@@ -679,7 +706,7 @@ async function findAvailablePort() {
     server.listen(0, "127.0.0.1", () => resolve())
   })
   const address = server.address()
-  if (!address || typeof address === "string") {
+  if (!address || !(address instanceof Object)) {
     server.close()
     throw new Error("Could not allocate a runtime verification port")
   }

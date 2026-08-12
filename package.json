@@ -33,8 +33,9 @@
   },
   "packageManager": "pnpm@11.5.1",
   "devDependencies": {
+    "@oxlint/plugins": "1.78.0",
     "oxfmt": "^0.63.0",
-    "oxlint": "^1.78.0",
+    "oxlint": "1.78.0",
     "oxlint-tsgolint": "^7.0.2001",
     "turbo": "^2.9.18"
   }

@@ -19,7 +19,7 @@ interface LayoutProviderState {
   forcedLayout?: Layout
 }
 
-const isServer = typeof window === "undefined"
+const isServer = !globalThis.window
 const LayoutContext = React.createContext<LayoutProviderState | undefined>(
   undefined
 )
@@ -91,7 +91,7 @@ const Layout = ({
 
   const setLayout = React.useCallback(
     (value: Layout | ((prev: Layout) => Layout)) => {
-      if (typeof value === "function") {
+      if (value instanceof Function) {
         setLayoutState((prevLayout) => {
           const newLayout = value(prevLayout)
           saveToLS(storageKey, newLayout)

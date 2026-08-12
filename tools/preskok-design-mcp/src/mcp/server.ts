@@ -277,8 +277,6 @@ const promptArgumentsSchema = z.object({
   notes: z.string().optional(),
 })
 
-type JsonRecord = Record<string, unknown>
-
 export async function createPreskokMcpServer(
   designSystem?: PreskokDesignSystem
 ) {
@@ -669,22 +667,22 @@ function readOnlyAnnotations() {
   }
 }
 
-function toolResult(data: JsonRecord) {
+function toolResult<const Data extends object>(data: Data) {
   return {
     content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }],
     structuredContent: data,
   }
 }
 
-function toolError(error: unknown) {
-  const message = error instanceof Error ? error.message : String(error)
+function toolError(cause: unknown) {
+  const message = cause instanceof Error ? cause.message : String(cause)
   return {
     content: [{ type: "text" as const, text: message }],
     isError: true,
   }
 }
 
-function jsonResource(uri: URL, data: unknown) {
+function jsonResource<Data>(uri: URL, data: Data) {
   return {
     contents: [
       {

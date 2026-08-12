@@ -16,13 +16,13 @@ export default function SliderDemo() {
   const [finalValue, setFinalValue] = useState(42)
 
   function handleChange(value: number | number[]) {
-    if (typeof value === "number") {
+    if (!Array.isArray(value)) {
       setCurrentValue(value)
     }
   }
 
   function handleChangeEnd(value: number | number[]) {
-    if (typeof value === "number") {
+    if (!Array.isArray(value)) {
       setFinalValue(value)
     }
   }

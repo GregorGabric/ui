@@ -5,6 +5,7 @@ import {
   timingSafeEqual,
 } from "node:crypto"
 import { promises as fs } from "node:fs"
+import { z } from "zod"
 
 import type { DesignToken, PreskokCatalog, PreskokComponent } from "./types.js"
 import {
@@ -468,7 +469,7 @@ type CreateDesignSystemOptions = {
   catalog: PreskokCatalog
 }
 
-const semanticComponentGroups: Record<string, Array<string>> = {
+const semanticComponentGroups = {
   account: ["avatar", "badge", "button", "card", "field", "text-field"],
   profile: ["avatar", "badge", "button", "card", "field", "text-field"],
   user: ["avatar", "badge", "button", "field", "text-field"],
@@ -509,6 +510,14 @@ const semanticComponentGroups: Record<string, Array<string>> = {
     "tracker",
   ],
   data: ["bar-list", "chart", "description-list", "grid-list", "table", "tree"],
+} as const
+
+function semanticComponentsFor(token: string) {
+  return (
+    Object.entries(semanticComponentGroups).find(
+      ([name]) => name === token
+    )?.[1] ?? []
+  )
 }
 
 type RequestedDesignRequirement = NonNullable<
@@ -698,13 +707,16 @@ export function createPreskokDesignSystem({
           .reverse()
           .map((nodeId) => requirementIdByNodeId.get(nodeId))
           .find((value): value is string => value !== undefined)
-        return {
+        const requirement: RequestedDesignRequirement = {
           id: requirementIdByNodeId.get(node.nodeId)!,
           role: node.name,
           codeName: component.name,
           assetName: asset.name,
-          ...(parentRequirementId ? { parentRequirementId } : {}),
         }
+        if (parentRequirementId) {
+          requirement.parentRequirementId = parentRequirementId
+        }
+        return requirement
       })
       const plan = this.planDesign({
         intent: `Implement inspected Figma root ${input.inspection.rootNodeId}`,
@@ -723,21 +735,22 @@ export function createPreskokDesignSystem({
         if (!requirement || !node.instance) {
           return []
         }
-        return [
-          {
-            nodeId: node.nodeId,
-            requirementId: requirement.id,
-            name: node.name,
-            assetName: asset.name,
-            ...(input.figmaStrategy === "published"
-              ? { componentKey: asset.componentKey }
-              : { contractFingerprint: requirement.contractFingerprint }),
-            ancestorNodeIds: inspectionAncestors(node, inspectionNodesById),
-            remote: node.instance.remote,
-            detached: false,
-            properties: node.instance.properties,
-          },
-        ]
+        const instance: DesignEvidence["instances"][number] = {
+          nodeId: node.nodeId,
+          requirementId: requirement.id,
+          name: node.name,
+          assetName: asset.name,
+          ancestorNodeIds: inspectionAncestors(node, inspectionNodesById),
+          remote: node.instance.remote,
+          detached: false,
+          properties: node.instance.properties,
+        }
+        if (input.figmaStrategy === "published") {
+          instance.componentKey = asset.componentKey
+        } else {
+          instance.contractFingerprint = requirement.contractFingerprint
+        }
+        return [instance]
       })
       const nodesByParentId = new Map<string, Array<FigmaInspectionNode>>()
       for (const node of input.inspection.nodes) {
@@ -754,32 +767,37 @@ export function createPreskokDesignSystem({
             node.nodeId === input.inspection.rootNodeId ||
             nodesByParentId.has(node.nodeId)
         )
-        .map((node) => ({
-          nodeId: node.nodeId,
-          name: node.name,
-          type: node.type,
-          width: node.width,
-          height: node.height,
-          layoutMode: node.layoutMode ?? "NONE",
-          ...(node.primaryAxisSizingMode
-            ? { primaryAxisSizingMode: node.primaryAxisSizingMode }
-            : {}),
-          ...(node.counterAxisSizingMode
-            ? { counterAxisSizingMode: node.counterAxisSizingMode }
-            : {}),
-          clipsContent: node.clipsContent ?? false,
-          children: (nodesByParentId.get(node.nodeId) ?? []).map((child) => ({
-            nodeId: child.nodeId,
-            name: child.name,
-            type: child.type,
-            x: child.x,
-            y: child.y,
-            width: child.width,
-            height: child.height,
-            visible: isEffectivelyVisible(child),
-            layoutPositioning: child.layoutPositioning,
-          })),
-        }))
+        .map((node) => {
+          const container: NonNullable<
+            DesignEvidence["layout"]
+          >["containers"][number] = {
+            nodeId: node.nodeId,
+            name: node.name,
+            type: node.type,
+            width: node.width,
+            height: node.height,
+            layoutMode: node.layoutMode ?? "NONE",
+            clipsContent: node.clipsContent ?? false,
+            children: (nodesByParentId.get(node.nodeId) ?? []).map((child) => ({
+              nodeId: child.nodeId,
+              name: child.name,
+              type: child.type,
+              x: child.x,
+              y: child.y,
+              width: child.width,
+              height: child.height,
+              visible: isEffectivelyVisible(child),
+              layoutPositioning: child.layoutPositioning,
+            })),
+          }
+          if (node.primaryAxisSizingMode) {
+            container.primaryAxisSizingMode = node.primaryAxisSizingMode
+          }
+          if (node.counterAxisSizingMode) {
+            container.counterAxisSizingMode = node.counterAxisSizingMode
+          }
+          return container
+        })
       const manualNodes = input.inspection.nodes.flatMap((node) => {
         if (
           node.nodeId === input.inspection.rootNodeId ||
@@ -1470,9 +1488,7 @@ export function createPreskokDesignSystem({
 
     search({ query, limit = 10 }) {
       const queryTokens = tokenize(query)
-      const semanticNames = new Set(
-        queryTokens.flatMap((token) => semanticComponentGroups[token] ?? [])
-      )
+      const semanticNames = new Set(queryTokens.flatMap(semanticComponentsFor))
       return catalog.components
         .map((component) => ({
           component,
@@ -2253,33 +2269,28 @@ function verifyDesignPlan(
   return actual.length === expected.length && timingSafeEqual(actual, expected)
 }
 
-function canonicalJson(value: unknown): string {
-  return JSON.stringify(canonicalizeJsonValue(value))
+const jsonValueSchema = z.json()
+
+type JsonValue = z.infer<typeof jsonValueSchema>
+
+function canonicalJson(value: Omit<DesignPlan, "contractDigest">): string {
+  const serialized = JSON.stringify(value)
+  const parsed = jsonValueSchema.parse(JSON.parse(serialized))
+  return JSON.stringify(canonicalizeJsonValue(parsed))
 }
 
-function canonicalizeJsonValue(value: unknown): unknown {
+function canonicalizeJsonValue(value: JsonValue): JsonValue {
   if (Array.isArray(value)) {
-    return value.map((item) =>
-      item === undefined ? null : canonicalizeJsonValue(item)
-    )
+    return value.map(canonicalizeJsonValue)
   }
-  if (value === null || typeof value !== "object") {
+  if (value === null || !(value instanceof Object)) {
     return value
   }
-  const record = value as Record<string, unknown>
-  const canonical: Record<string, unknown> = {}
-  for (const key of Object.keys(record).sort()) {
-    const item = record[key]
-    if (
-      item === undefined ||
-      typeof item === "function" ||
-      typeof item === "symbol"
-    ) {
-      continue
-    }
-    canonical[key] = canonicalizeJsonValue(item)
-  }
-  return canonical
+  return Object.fromEntries(
+    Object.keys(value)
+      .sort()
+      .map((key) => [key, canonicalizeJsonValue(value[key]!)])
+  )
 }
 
 function createDesignRequirement({
@@ -3134,7 +3145,7 @@ function isFigmaPropertyValueValid(
   value: string | number | boolean
 ) {
   if (type === "BOOLEAN") {
-    return typeof value === "boolean"
+    return value === true || value === false
   }
-  return typeof value === "string"
+  return value === String(value)
 }

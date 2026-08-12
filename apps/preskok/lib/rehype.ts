@@ -10,7 +10,10 @@ interface UnistNode {
   name?: string
   tagName?: string
   value?: string
-  properties?: Record<string, unknown>
+  properties?: {
+    __src__?: string
+    className?: string[]
+  }
   attributes?: {
     name: string
     value: unknown
@@ -22,6 +25,14 @@ interface UnistNode {
 export interface UnistTree {
   type: string
   children: UnistNode[]
+}
+
+interface RegistryFile {
+  path: string
+}
+
+interface RegistryComponent {
+  files: RegistryFile[]
 }
 
 export function rehypeComponent() {
@@ -51,17 +62,13 @@ export function rehypeComponent() {
           if (srcPath) {
             src = path.join(process.cwd(), srcPath)
           } else {
-            const component = Index[name]
+            const component = Index[name] as RegistryComponent
             src = fileName
-              ? component.files.find((file: unknown) => {
-                  if (typeof file === "string") {
-                    return (
-                      file.endsWith(`${fileName}.tsx`) ||
-                      file.endsWith(`${fileName}.ts`)
-                    )
-                  }
-                  return false
-                }) || component.files[0]?.path
+              ? component.files.find(
+                  (file) =>
+                    file.path.endsWith(`${fileName}.tsx`) ||
+                    file.path.endsWith(`${fileName}.ts`)
+                )?.path || component.files[0]?.path
               : component.files[0]?.path
           }
 
@@ -111,7 +118,7 @@ export function rehypeComponent() {
         }
 
         try {
-          const component = Index[name]
+          const component = Index[name] as RegistryComponent
           const src = component.files[0]?.path
 
           // Read the source file.

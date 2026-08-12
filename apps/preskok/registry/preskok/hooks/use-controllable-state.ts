@@ -90,5 +90,5 @@ function useUncontrolledState<T>({
 function isFunction<T>(
   value: React.SetStateAction<T>
 ): value is (prevState: T) => T {
-  return typeof value === "function"
+  return value instanceof Function
 }
