@@ -112,9 +112,13 @@ does not convert them into React props through a sidecar mapping, override
 table, or component annotation. The registry component files remain unchanged.
 Unknown instances, ambiguous copied identities, incomplete proof, hidden or
 floating required nodes, unbound semantic values, and invalid theme modes fail
-closed. Code-only composition that is not represented by a Figma instance is
-implemented from the visual design and installed source and is not claimed as
-automatically discovered.
+closed. The ingestion boundary also rejects duplicate or disconnected node
+IDs, impossible descendants beneath an instance, missing or misplaced instance
+identity, and visible subtree overrides of the root Preskok theme. Visibility
+is derived through the live ancestor chain, so hidden parents and caller flags
+cannot conceal a node from validation. Code-only composition that is not
+represented by a Figma instance is implemented from the visual design and
+installed source and is not claimed as automatically discovered.
 
 For new Figma work, call `plan_preskok_design` before writing. It selects either a
 `published` strategy (remote library instances and collections) or a `copied`

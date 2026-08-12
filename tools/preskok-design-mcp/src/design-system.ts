@@ -634,7 +634,36 @@ export function createPreskokDesignSystem({
       const inspectedRoot = input.inspection.nodes.find(
         ({ nodeId }) => nodeId === input.inspection.rootNodeId
       )
+      const inspectionNodesById = new Map(
+        input.inspection.nodes.map((node) => [node.nodeId, node])
+      )
+      const inspectionCollectionsById = new Map(
+        input.inspection.collections.map((collection) => [
+          collection.id,
+          collection,
+        ])
+      )
+      const isEffectivelyVisible = (node: FigmaInspectionNode) =>
+        isInspectionNodeEffectivelyVisible(
+          node,
+          inspectionNodesById,
+          input.inspection.rootNodeId
+        )
       const inspectionIssues: Array<DesignFinalizationIssue> = []
+      const duplicateNodeIds = duplicateValues(
+        input.inspection.nodes.map(({ nodeId }) => nodeId)
+      )
+      for (const nodeId of duplicateNodeIds) {
+        inspectionIssues.push({
+          severity: "error",
+          code: "figma_inspection_invalid",
+          message: `The Figma inspection contains duplicate node ID ${nodeId}.`,
+          nodeId,
+          requirementId: null,
+          recommendation:
+            "Rerun the exact prepared inspection script and pass its complete return value unchanged.",
+        })
+      }
       if (!inspectedRoot) {
         inspectionIssues.push({
           severity: "error",
@@ -645,13 +674,122 @@ export function createPreskokDesignSystem({
           recommendation:
             "Run the exact script from prepare_preskok_figma_inspection against the requested root and pass its complete return value unchanged.",
         })
+      } else if (inspectedRoot.parentId !== null) {
+        inspectionIssues.push({
+          severity: "error",
+          code: "figma_inspection_invalid",
+          message: `The declared Figma inspection root ${inspectedRoot.name} has a parent.`,
+          nodeId: inspectedRoot.nodeId,
+          requirementId: null,
+          recommendation:
+            "Rerun the exact prepared inspection script against the intended root and pass its complete return value unchanged.",
+        })
+      }
+      const expectedCollections =
+        input.figmaStrategy === "published"
+          ? catalog.figma.source.collections.published
+          : catalog.figma.source.collections.source
+      const expectedCollectionKeys = new Set([
+        expectedCollections.style.key,
+        expectedCollections.colorMode.key,
+      ])
+      for (const node of input.inspection.nodes) {
+        if (
+          node.nodeId === input.inspection.rootNodeId ||
+          !isEffectivelyVisible(node)
+        ) {
+          continue
+        }
+        for (const [collectionId, modeId] of Object.entries(
+          node.explicitVariableModes ?? {}
+        )) {
+          const collection = inspectionCollectionsById.get(collectionId)
+          if (
+            !collection ||
+            !expectedCollectionKeys.has(collection.key) ||
+            inspectedRoot?.explicitVariableModes?.[collectionId] === modeId
+          ) {
+            continue
+          }
+          const modeName =
+            collection.modes.find((mode) => mode.modeId === modeId)?.name ??
+            modeId
+          inspectionIssues.push({
+            severity: "error",
+            code: "theme_mode_mismatch",
+            message: `${node.name} overrides the root Preskok ${collection.name} mode with ${modeName}.`,
+            nodeId: node.nodeId,
+            requirementId: null,
+            recommendation:
+              "Apply the Preskok Style and Mode globally on the inspected root and remove visible subtree overrides before handoff.",
+          })
+        }
+      }
+      for (const node of input.inspection.nodes) {
+        if (hasInspectionInstanceAncestor(node, inspectionNodesById)) {
+          inspectionIssues.push({
+            severity: "error",
+            code: "figma_inspection_invalid",
+            message: `${node.name} is reported as a descendant of an instance, but the prepared inspection stops at instance boundaries.`,
+            nodeId: node.nodeId,
+            requirementId: null,
+            recommendation:
+              "Rerun the exact prepared inspection script and pass its complete return value unchanged.",
+          })
+        }
+        if (
+          isInspectionNodeConnectedToRoot(
+            node,
+            inspectionNodesById,
+            input.inspection.rootNodeId
+          )
+        ) {
+          continue
+        }
+        inspectionIssues.push({
+          severity: "error",
+          code: "figma_inspection_invalid",
+          message: `${node.name} is disconnected from the declared Figma inspection root.`,
+          nodeId: node.nodeId,
+          requirementId: null,
+          recommendation:
+            "Rerun the exact prepared inspection script and pass its complete return value unchanged.",
+        })
+      }
+      for (const node of input.inspection.nodes) {
+        if (node.type !== "INSTANCE" && node.instance) {
+          inspectionIssues.push({
+            severity: "error",
+            code: "figma_inspection_invalid",
+            message: `${node.name} contains component identity data but is not a Figma instance.`,
+            nodeId: node.nodeId,
+            requirementId: null,
+            recommendation:
+              "Rerun the exact prepared inspection script and pass its complete return value unchanged.",
+          })
+        }
+        if (
+          node.type !== "INSTANCE" ||
+          !isEffectivelyVisible(node) ||
+          node.instance
+        ) {
+          continue
+        }
+        inspectionIssues.push({
+          severity: "error",
+          code: "figma_inspection_invalid",
+          message: `${node.name} is a visible Figma instance without component identity data.`,
+          nodeId: node.nodeId,
+          requirementId: null,
+          recommendation:
+            "Rerun the exact prepared inspection script and pass its complete return value unchanged.",
+        })
       }
 
       const discoveredInstances = input.inspection.nodes.flatMap((node) => {
         if (
           node.type !== "INSTANCE" ||
-          node.insideInstance ||
-          !node.visible ||
+          !isEffectivelyVisible(node) ||
           !node.instance
         ) {
           return []
@@ -785,7 +923,7 @@ export function createPreskokDesignSystem({
             y: child.y,
             width: child.width,
             height: child.height,
-            visible: child.visible,
+            visible: isEffectivelyVisible(child),
             layoutPositioning: child.layoutPositioning,
           })),
         }))
@@ -794,8 +932,7 @@ export function createPreskokDesignSystem({
           node.nodeId === input.inspection.rootNodeId ||
           node.type === "INSTANCE" ||
           node.type === "COMPONENT" ||
-          node.insideInstance ||
-          !node.visible ||
+          !isEffectivelyVisible(node) ||
           (node.semanticFields ?? []).length === 0
         ) {
           return []
@@ -812,13 +949,13 @@ export function createPreskokDesignSystem({
         ]
       })
       const localComponents = input.inspection.nodes.flatMap((node) => {
-        if (node.type !== "COMPONENT" || node.insideInstance) {
+        if (node.type !== "COMPONENT" || !isEffectivelyVisible(node)) {
           return []
         }
         return [{ nodeId: node.nodeId, name: node.name, instanceCount: 0 }]
       })
       const hardcodedValues = input.inspection.nodes.flatMap((node) => {
-        if (node.type === "INSTANCE" || node.insideInstance || !node.visible) {
+        if (node.type === "INSTANCE" || !isEffectivelyVisible(node)) {
           return []
         }
         return (node.semanticFields ?? []).flatMap((field) =>
@@ -2078,6 +2215,85 @@ function resolveInspectedComponent({
     }
   }
   return undefined
+}
+
+function isInspectionNodeEffectivelyVisible(
+  node: FigmaInspectionNode,
+  nodesById: Map<string, FigmaInspectionNode>,
+  rootNodeId: string
+): boolean {
+  const visited = new Set<string>()
+  let current: FigmaInspectionNode | undefined = node
+  while (current) {
+    if (visited.has(current.nodeId) || !current.visible) {
+      return false
+    }
+    visited.add(current.nodeId)
+    if (current.nodeId === rootNodeId) {
+      return true
+    }
+    if (!current.parentId) {
+      return false
+    }
+    current = nodesById.get(current.parentId)
+  }
+  return false
+}
+
+function isInspectionNodeConnectedToRoot(
+  node: FigmaInspectionNode,
+  nodesById: Map<string, FigmaInspectionNode>,
+  rootNodeId: string
+): boolean {
+  const visited = new Set<string>()
+  let current: FigmaInspectionNode | undefined = node
+  while (current) {
+    if (visited.has(current.nodeId)) {
+      return false
+    }
+    visited.add(current.nodeId)
+    if (current.nodeId === rootNodeId) {
+      return true
+    }
+    if (!current.parentId) {
+      return false
+    }
+    current = nodesById.get(current.parentId)
+  }
+  return false
+}
+
+function duplicateValues(values: Array<string>): Array<string> {
+  const seen = new Set<string>()
+  const duplicates = new Set<string>()
+  for (const value of values) {
+    if (seen.has(value)) {
+      duplicates.add(value)
+      continue
+    }
+    seen.add(value)
+  }
+  return [...duplicates]
+}
+
+function hasInspectionInstanceAncestor(
+  node: FigmaInspectionNode,
+  nodesById: Map<string, FigmaInspectionNode>
+): boolean {
+  const visited = new Set<string>()
+  let parentId = node.parentId
+  while (parentId && !visited.has(parentId)) {
+    visited.add(parentId)
+    const parent = nodesById.get(parentId)
+    if (!parent) {
+      return false
+    }
+    if (parent.type === "INSTANCE") {
+      return true
+    }
+    parentId = parent.parentId
+  }
+  return false
 }
 
 function inspectionAncestors(
