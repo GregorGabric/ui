@@ -81,7 +81,7 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
         id: "prove-and-handoff",
         owner: "preskok_mcp",
         action:
-          "Collect normalized live evidence for libraries, instances, ancestors, properties, local components, manual nodes, variables, and explicit modes; finalize against the unchanged plan.",
+          "Collect normalized live evidence for libraries, requirement-assigned instances, direct-parent layout containers and bounds, ancestors, properties, local components, manual nodes, variables, and explicit modes; finalize against the unchanged plan.",
         tools: ["finalize_preskok_design"],
         output:
           "A finalization report; an implementation-ready handoff exists only when ready=true.",
@@ -99,9 +99,9 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
         id: "figma-instances",
         kind: "figma",
         action:
-          "Inspect the screen hierarchy, instance main components, bindings, text, and responsive layout.",
+          "Inspect the screen hierarchy, instance main components, bindings, text, direct-parent bounds, and responsive layout.",
         passCondition:
-          "Mapped controls are linked instances with the required origin and ancestry; root theme modes are explicit; no unintended detaches, hardcoded semantic values, overlap, clipping, or placeholder content.",
+          "Mapped controls are linked instances with the required origin and live ancestry; every automatic child fits its Auto Layout bounds, action groups share the planned container, root theme modes are explicit, and no unintended detaches, hardcoded semantic values, overlap, clipping, or placeholder content remain.",
       },
       {
         id: "visual-review",
@@ -261,7 +261,7 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
         id: "native-structure",
         kind: "figma",
         action:
-          "Inspect instance keys, bindings, hierarchy, layout, and text properties.",
+          "Inspect instance keys, requirement assignments, bindings, hierarchy, direct-parent layout bounds, and text properties.",
         passCondition:
           "Reusable UI is instance-based and linked; manual frames are limited to layout structure.",
       },
@@ -420,7 +420,7 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
         id: "inspect-context",
         owner: "figma_mcp",
         action:
-          "Collect instances, main component keys, properties, bindings, styles, and hardcoded values.",
+          "Collect instances, explicit requirement IDs for repeated assets, main component keys, properties, bindings, direct-parent layout bounds, styles, and hardcoded values.",
         tools: ["get_metadata", "get_design_context", "use_figma"],
         output: "Normalized design evidence for the selected scope.",
       },

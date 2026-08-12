@@ -98,7 +98,17 @@ checks theme availability, and returns exact instance and hierarchy
 requirements. After the official Figma MCP builds or inspects the design, call
 `finalize_preskok_design` with live evidence. It returns a code handoff only
 when the unchanged plan, instance origins, hierarchy, properties, explicit root
-modes, token bindings, and deliberate local components pass.
+modes, token bindings, deliberate local components, and live layout proof pass.
+Repeated assets must carry their exact plan `requirementId`; a count of two
+Buttons or Separators is not enough. Layout proof records direct-parent bounds
+for the root, placed slot instances, and local source components, so stale node
+IDs, fixed 1px Auto Layout containers, overflow, clipping, and broken action
+grouping fail before a handoff is issued.
+
+Inspect both the product-specific source component and its placed nested
+instance after an instance-swap update. Figma can retain an old nested override
+even when the main component is correct; finalization treats missing live nodes
+as an error instead of accepting constructed evidence.
 
 For `published`, enabling Preskok UI is preferred because designers get Assets
 panel discovery and normal library update UX. Clients that cannot enable a
@@ -140,8 +150,9 @@ Live reference screens exercise both accepted strategies:
 - [published direct imports](https://www.figma.com/design/MgQbBtbb503ZchJt0ZFz2k/Preskok-MCP-Workflow-Demo?node-id=17-246)
 - [official copied source with Briefd/Dark](https://www.figma.com/design/jGwVPvHf0oT3uV4aLzGdDl/Preskok-UI?node-id=4441-3)
 
-Their normalized audits are checked in as positive finalization fixtures. The
-old mixed/manual showcase remains a negative fixture.
+Their normalized audits, including direct-parent layout trees, are checked in
+as positive finalization fixtures. The old mixed/manual showcase and an
+explicit 1px Auto Layout overflow case remain negative fixtures.
 
 ## Generated sources
 
@@ -182,3 +193,8 @@ obtains and finalizes a design plan through the MCP protocol, installs the actua
 verify pointer and keyboard behavior plus desktop and mobile layout. It also
 builds the Preskok Theme Builder and exercises a complete mocked Figma
 scan/save/apply flow, including explicit Style and Mode assignments.
+
+Live Figma QA additionally verifies both accepted strategies against the two
+reference nodes above, including source-component hug sizing, placed-slot
+refresh, token-bound horizontal insets, unique repeated-instance assignment,
+and full-screen screenshots.

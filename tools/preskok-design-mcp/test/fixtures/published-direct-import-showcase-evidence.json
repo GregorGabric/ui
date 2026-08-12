@@ -6,6 +6,7 @@
     {
       "nodeId": "17:139",
       "name": "Account settings — Preskok published",
+      "requirementId": "settings-card",
       "assetName": "Card",
       "componentKey": "3638039a78b1caaa933c29f5fae59882d3967a06",
       "ancestorNodeIds": ["17:246"],
@@ -25,6 +26,7 @@
     {
       "nodeId": "I17:139;3682:202;17:87",
       "name": "Email label",
+      "requirementId": "email-label",
       "assetName": "Field Label",
       "componentKey": "9cdb3333c15db66981fabfca5dee7deac33b36f9",
       "ancestorNodeIds": ["I17:139;3682:202", "17:139", "17:246"],
@@ -38,6 +40,7 @@
     {
       "nodeId": "I17:139;3682:202;17:89",
       "name": "Email input",
+      "requirementId": "email-input",
       "assetName": "Input",
       "componentKey": "010c896516d2d28ecb199d05d6bb44fe294c1971",
       "ancestorNodeIds": ["I17:139;3682:202", "17:139", "17:246"],
@@ -53,6 +56,7 @@
     {
       "nodeId": "I17:139;3682:202;17:91",
       "name": "Email description",
+      "requirementId": "email-description",
       "assetName": "Field Description",
       "componentKey": "6147f1f6e92a728b5c327bc1b15687823292d382",
       "ancestorNodeIds": ["I17:139;3682:202", "17:139", "17:246"],
@@ -66,6 +70,7 @@
     {
       "nodeId": "I17:139;3682:202;17:93",
       "name": "Profile separator",
+      "requirementId": "profile-separator",
       "assetName": "Separator",
       "componentKey": "2f0e9e29a1172f3c6dd30c6037132484fa513b11",
       "ancestorNodeIds": ["I17:139;3682:202", "17:139", "17:246"],
@@ -76,6 +81,7 @@
     {
       "nodeId": "I17:139;3682:202;17:95",
       "name": "Product update preference",
+      "requirementId": "updates-switch",
       "assetName": "Switch",
       "componentKey": "074088f22c1be7b242db63a173c01d4bec78cec5",
       "ancestorNodeIds": ["I17:139;3682:202", "17:139", "17:246"],
@@ -83,7 +89,7 @@
       "detached": false,
       "properties": {
         "Label#3356:48": "Product and library updates",
-        "Description#3356:49": "Receive a digest when Preskok components or mappings change.",
+        "Description#3356:49": "Receive Preskok library updates.",
         "Show description#3356:50": true,
         "Scale": "Desktop",
         "Selected": "On",
@@ -93,6 +99,7 @@
     {
       "nodeId": "I17:139;3682:202;17:100",
       "name": "Actions separator",
+      "requirementId": "actions-separator",
       "assetName": "Separator",
       "componentKey": "2f0e9e29a1172f3c6dd30c6037132484fa513b11",
       "ancestorNodeIds": ["I17:139;3682:202", "17:139", "17:246"],
@@ -103,6 +110,7 @@
     {
       "nodeId": "I17:139;3682:204;17:103",
       "name": "Cancel",
+      "requirementId": "cancel-action",
       "assetName": "Button",
       "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
       "ancestorNodeIds": ["I17:139;3682:204", "17:139", "17:246"],
@@ -121,6 +129,7 @@
     {
       "nodeId": "I17:139;3682:204;17:121",
       "name": "Save changes",
+      "requirementId": "save-action",
       "assetName": "Button",
       "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
       "ancestorNodeIds": ["I17:139;3682:204", "17:139", "17:246"],
@@ -176,5 +185,147 @@
       "remote": true
     }
   ],
-  "hardcodedValues": []
+  "hardcodedValues": [],
+  "layout": {
+    "containers": [
+      {
+        "nodeId": "17:246",
+        "name": "Preskok MCP — Published account settings",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 800,
+        "layoutMode": "VERTICAL",
+        "primaryAxisSizingMode": "FIXED",
+        "counterAxisSizingMode": "FIXED",
+        "clipsContent": true,
+        "children": [
+          {
+            "nodeId": "17:139",
+            "name": "Account settings — Preskok published",
+            "type": "INSTANCE",
+            "x": 400,
+            "y": 186,
+            "width": 640,
+            "height": 428,
+            "visible": true,
+            "layoutPositioning": "AUTO"
+          }
+        ]
+      },
+      {
+        "nodeId": "17:139",
+        "name": "Account settings — Preskok published",
+        "type": "INSTANCE",
+        "width": 640,
+        "height": 428,
+        "layoutMode": "VERTICAL",
+        "primaryAxisSizingMode": "AUTO",
+        "counterAxisSizingMode": "FIXED",
+        "clipsContent": false,
+        "children": [
+          {
+            "nodeId": "I17:139;3682:187",
+            "name": "Card Header",
+            "type": "FRAME",
+            "x": 0,
+            "y": 24,
+            "width": 320,
+            "height": 76,
+            "visible": true,
+            "layoutPositioning": "AUTO"
+          },
+          {
+            "nodeId": "I17:139;3682:202",
+            "name": "Product / Account settings content",
+            "type": "INSTANCE",
+            "x": 0,
+            "y": 124,
+            "width": 640,
+            "height": 218,
+            "visible": true,
+            "layoutPositioning": "AUTO"
+          },
+          {
+            "nodeId": "I17:139;3682:204",
+            "name": "Product / Account settings footer",
+            "type": "INSTANCE",
+            "x": 0,
+            "y": 366,
+            "width": 640,
+            "height": 38,
+            "visible": true,
+            "layoutPositioning": "AUTO"
+          }
+        ]
+      },
+      {
+        "nodeId": "I17:139;3682:202",
+        "name": "Product / Account settings content",
+        "type": "INSTANCE",
+        "width": 640,
+        "height": 218,
+        "layoutMode": "VERTICAL",
+        "primaryAxisSizingMode": "AUTO",
+        "counterAxisSizingMode": "FIXED",
+        "clipsContent": false,
+        "children": [
+          { "nodeId": "I17:139;3682:202;17:87", "name": "Email label", "type": "INSTANCE", "x": 24, "y": 0, "width": 93, "height": 24, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "I17:139;3682:202;17:89", "name": "Email input", "type": "INSTANCE", "x": 24, "y": 40, "width": 592, "height": 36, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "I17:139;3682:202;17:91", "name": "Email description", "type": "INSTANCE", "x": 24, "y": 92, "width": 239, "height": 24, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "I17:139;3682:202;17:93", "name": "Profile separator", "type": "INSTANCE", "x": 24, "y": 132, "width": 592, "height": 1, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "I17:139;3682:202;17:95", "name": "Product update preference", "type": "INSTANCE", "x": 24, "y": 149, "width": 592, "height": 52, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "I17:139;3682:202;17:100", "name": "Actions separator", "type": "INSTANCE", "x": 24, "y": 217, "width": 592, "height": 1, "visible": true, "layoutPositioning": "AUTO" }
+        ]
+      },
+      {
+        "nodeId": "I17:139;3682:204",
+        "name": "Product / Account settings footer",
+        "type": "INSTANCE",
+        "width": 640,
+        "height": 38,
+        "layoutMode": "HORIZONTAL",
+        "primaryAxisSizingMode": "FIXED",
+        "counterAxisSizingMode": "AUTO",
+        "clipsContent": false,
+        "children": [
+          { "nodeId": "I17:139;3682:204;17:103", "name": "Cancel", "type": "INSTANCE", "x": 414, "y": 0, "width": 70, "height": 38, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "I17:139;3682:204;17:121", "name": "Save changes", "type": "INSTANCE", "x": 500, "y": 0, "width": 116, "height": 38, "visible": true, "layoutPositioning": "AUTO" }
+        ]
+      },
+      {
+        "nodeId": "17:86",
+        "name": "Product / Account settings content",
+        "type": "COMPONENT",
+        "width": 536,
+        "height": 218,
+        "layoutMode": "VERTICAL",
+        "primaryAxisSizingMode": "AUTO",
+        "counterAxisSizingMode": "FIXED",
+        "clipsContent": false,
+        "children": [
+          { "nodeId": "17:87", "name": "Email label", "type": "INSTANCE", "x": 24, "y": 0, "width": 93, "height": 24, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "17:89", "name": "Email input", "type": "INSTANCE", "x": 24, "y": 40, "width": 488, "height": 36, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "17:91", "name": "Email description", "type": "INSTANCE", "x": 24, "y": 92, "width": 239, "height": 24, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "17:93", "name": "Profile separator", "type": "INSTANCE", "x": 24, "y": 132, "width": 488, "height": 1, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "17:95", "name": "Product update preference", "type": "INSTANCE", "x": 24, "y": 149, "width": 488, "height": 52, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "17:100", "name": "Actions separator", "type": "INSTANCE", "x": 24, "y": 217, "width": 488, "height": 1, "visible": true, "layoutPositioning": "AUTO" }
+        ]
+      },
+      {
+        "nodeId": "17:102",
+        "name": "Product / Account settings footer",
+        "type": "COMPONENT",
+        "width": 536,
+        "height": 38,
+        "layoutMode": "HORIZONTAL",
+        "primaryAxisSizingMode": "FIXED",
+        "counterAxisSizingMode": "AUTO",
+        "clipsContent": false,
+        "children": [
+          { "nodeId": "17:103", "name": "Cancel", "type": "INSTANCE", "x": 310, "y": 0, "width": 70, "height": 38, "visible": true, "layoutPositioning": "AUTO" },
+          { "nodeId": "17:121", "name": "Save changes", "type": "INSTANCE", "x": 396, "y": 0, "width": 116, "height": 38, "visible": true, "layoutPositioning": "AUTO" }
+        ]
+      }
+    ]
+  }
 }

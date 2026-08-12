@@ -6,6 +6,7 @@
     {
       "nodeId": "6:1738",
       "name": "Email input",
+      "requirementId": "email-input",
       "assetName": "Input",
       "componentKey": "010c896516d2d28ecb199d05d6bb44fe294c1971",
       "ancestorNodeIds": [],
@@ -16,6 +17,7 @@
     {
       "nodeId": "6:1747",
       "name": "Updates switch",
+      "requirementId": "updates-switch",
       "assetName": "Switch",
       "componentKey": "074088f22c1be7b242db63a173c01d4bec78cec5",
       "ancestorNodeIds": [],
@@ -26,6 +28,7 @@
     {
       "nodeId": "6:1757",
       "name": "Cancel",
+      "requirementId": "cancel-action",
       "assetName": "Button",
       "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
       "ancestorNodeIds": [],
@@ -36,6 +39,7 @@
     {
       "nodeId": "6:1784",
       "name": "Save changes",
+      "requirementId": "save-action",
       "assetName": "Button",
       "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
       "ancestorNodeIds": [],

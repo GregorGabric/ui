@@ -19,6 +19,172 @@ beforeAll(async () => {
   catalog = await generatePreskokCatalog({ workspaceRoot })
 })
 
+function createPassingLayoutEvidence({
+  rootNodeId,
+  instances,
+  localComponents = [],
+}: {
+  rootNodeId: string
+  instances: DesignEvidence["instances"]
+  localComponents?: DesignEvidence["localComponents"]
+}): NonNullable<DesignEvidence["layout"]> {
+  const card = instances.find(
+    ({ requirementId }) => requirementId === "settings-card"
+  )
+  if (!card) {
+    throw new Error("Expected settings card evidence")
+  }
+  const actionsSeparator = instances.find(
+    ({ requirementId }) => requirementId === "actions-separator"
+  )
+  const actionButtons = instances.filter(({ requirementId }) =>
+    ["cancel-action", "save-action"].includes(requirementId ?? "")
+  )
+  const contentInstances = instances.filter(({ requirementId }) =>
+    [
+      "email-label",
+      "email-input",
+      "email-description",
+      "profile-separator",
+      "updates-switch",
+    ].includes(requirementId ?? "")
+  )
+  const child = (
+    instance: DesignEvidence["instances"][number],
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ) => ({
+    nodeId: instance.nodeId,
+    name: instance.name,
+    type: "INSTANCE",
+    x,
+    y,
+    width,
+    height,
+    visible: true,
+    layoutPositioning: "AUTO" as const,
+  })
+  const containers: NonNullable<DesignEvidence["layout"]>["containers"] = [
+    {
+      nodeId: rootNodeId,
+      name: "Design root",
+      type: "FRAME",
+      width: 1000,
+      height: 1000,
+      layoutMode: "VERTICAL",
+      primaryAxisSizingMode: "FIXED",
+      counterAxisSizingMode: "FIXED",
+      clipsContent: false,
+      children: [child(card, 0, 0, 600, 600)],
+    },
+    {
+      nodeId: card.nodeId,
+      name: card.name,
+      type: "INSTANCE",
+      width: 600,
+      height: 600,
+      layoutMode: "VERTICAL",
+      primaryAxisSizingMode: "AUTO",
+      counterAxisSizingMode: "FIXED",
+      clipsContent: false,
+      children: [
+        {
+          nodeId: `${rootNodeId}:content`,
+          name: "Card content",
+          type: "FRAME",
+          x: 0,
+          y: 0,
+          width: 600,
+          height: 300,
+          visible: true,
+          layoutPositioning: "AUTO",
+        },
+        {
+          nodeId: `${rootNodeId}:actions`,
+          name: "Card actions",
+          type: "FRAME",
+          x: 0,
+          y: 320,
+          width: 600,
+          height: 120,
+          visible: true,
+          layoutPositioning: "AUTO",
+        },
+      ],
+    },
+    {
+      nodeId: `${rootNodeId}:content`,
+      name: "Card content",
+      type: "FRAME",
+      width: 600,
+      height: 300,
+      layoutMode: "VERTICAL",
+      primaryAxisSizingMode: "AUTO",
+      counterAxisSizingMode: "FIXED",
+      clipsContent: false,
+      children: contentInstances.map((instance, index) =>
+        child(instance, 0, index * 48, 560, 32)
+      ),
+    },
+    {
+      nodeId: `${rootNodeId}:actions`,
+      name: "Card actions",
+      type: "FRAME",
+      width: 600,
+      height: 120,
+      layoutMode: "VERTICAL",
+      primaryAxisSizingMode: "AUTO",
+      counterAxisSizingMode: "FIXED",
+      clipsContent: false,
+      children: [
+        ...(actionsSeparator ? [child(actionsSeparator, 0, 0, 600, 1)] : []),
+        {
+          nodeId: `${rootNodeId}:action-row`,
+          name: "Action row",
+          type: "FRAME",
+          x: 0,
+          y: 24,
+          width: 600,
+          height: 40,
+          visible: true,
+          layoutPositioning: "AUTO",
+        },
+      ],
+    },
+    {
+      nodeId: `${rootNodeId}:action-row`,
+      name: "Action row",
+      type: "FRAME",
+      width: 600,
+      height: 40,
+      layoutMode: "HORIZONTAL",
+      primaryAxisSizingMode: "FIXED",
+      counterAxisSizingMode: "AUTO",
+      clipsContent: false,
+      children: actionButtons.map((instance, index) =>
+        child(instance, 400 + index * 96, 0, 88, 40)
+      ),
+    },
+  ]
+  for (const component of localComponents) {
+    containers.push({
+      nodeId: component.nodeId,
+      name: component.name,
+      type: "COMPONENT",
+      width: 600,
+      height: 100,
+      layoutMode: "VERTICAL",
+      primaryAxisSizingMode: "AUTO",
+      counterAxisSizingMode: "FIXED",
+      clipsContent: false,
+      children: [],
+    })
+  }
+  return { containers }
+}
+
 describe("PreskokDesignSystem interface", () => {
   it("plans account settings as a complete library-native composition", () => {
     const system = createPreskokDesignSystem({ catalog })
@@ -59,11 +225,116 @@ describe("PreskokDesignSystem interface", () => {
       ["Field Label", 1],
       ["Input", 1],
       ["Field Description", 1],
-      ["Separator", 2],
+      ["Separator", 1],
       ["Switch", 1],
-      ["Button", 2],
+      ["Separator", 1],
+      ["Button", 1],
+      ["Button", 1],
     ])
+    expect(
+      plan.requirements.map(({ id, groupId, groupLayout }) => ({
+        id,
+        groupId,
+        groupLayout,
+      }))
+    ).toEqual(
+      expect.arrayContaining([
+        {
+          id: "profile-separator",
+          groupId: undefined,
+          groupLayout: undefined,
+        },
+        {
+          id: "actions-separator",
+          groupId: undefined,
+          groupLayout: undefined,
+        },
+        {
+          id: "cancel-action",
+          groupId: "form-actions",
+          groupLayout: "HORIZONTAL",
+        },
+        {
+          id: "save-action",
+          groupId: "form-actions",
+          groupLayout: "HORIZONTAL",
+        },
+      ])
+    )
     expect(plan.contractDigest).toMatch(/^[a-f0-9]{64}$/)
+  })
+
+  it("requires explicit requirement IDs when planned assets repeat", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Account settings",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+    })
+    const instances: DesignEvidence["instances"] = plan.requirements.flatMap(
+      (requirement) =>
+        Array.from({ length: requirement.minimumInstances }, (_, index) => ({
+          nodeId: `${requirement.id}:${index}`,
+          requirementId: requirement.id,
+          name: `${requirement.assetName} ${index + 1}`,
+          assetName: requirement.assetName,
+          componentKey: requirement.componentKey,
+          ancestorNodeIds: requirement.parentRequirementId
+            ? ["settings-card:0"]
+            : [],
+          remote: true,
+          detached: false,
+          properties: {},
+        }))
+    )
+    const layout = createPassingLayoutEvidence({
+      rootNodeId: "ambiguous-root",
+      instances,
+    })
+    for (const instance of instances) {
+      if (["Separator", "Button"].includes(instance.assetName)) {
+        instance.requirementId = undefined
+      }
+    }
+
+    const result = system.finalizeDesign({
+      plan,
+      evidence: {
+        fileKey: "ambiguous-file",
+        rootNodeId: "ambiguous-root",
+        enabledLibraryKeys: [plan.source.libraryKey],
+        instances,
+        manualNodes: [],
+        localComponents: [],
+        modes: [
+          {
+            collectionName: "Style",
+            collectionKey: plan.source.collections.style.key,
+            mode: "Default",
+            explicit: true,
+            remote: true,
+          },
+          {
+            collectionName: "Mode",
+            collectionKey: plan.source.collections.colorMode.key,
+            mode: "Light",
+            explicit: true,
+            remote: true,
+          },
+        ],
+        hardcodedValues: [],
+        layout,
+      },
+    })
+
+    expect(result.ready).toBe(false)
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: "ambiguous_requirement_assignment",
+        }),
+      ])
+    )
   })
 
   it("rejects the mixed showcase when required library usage is only implied", () => {
@@ -103,6 +374,7 @@ describe("PreskokDesignSystem interface", () => {
             nodeId: "6:1757",
             name: "Cancel",
             assetName: "Button",
+            requirementId: "cancel-action",
             componentKey: "4eb4cd0146113729c1848c95644b871e3cb88d0a",
             remote: true,
             detached: false,
@@ -112,6 +384,7 @@ describe("PreskokDesignSystem interface", () => {
             nodeId: "6:1784",
             name: "Save changes",
             assetName: "Button",
+            requirementId: "save-action",
             componentKey: "4eb4cd0146113729c1848c95644b871e3cb88d0a",
             remote: true,
             detached: false,
@@ -312,6 +585,7 @@ describe("PreskokDesignSystem interface", () => {
     const instances = plan.requirements.flatMap((requirement) =>
       Array.from({ length: requirement.minimumInstances }, (_, index) => ({
         nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
         name: `${requirement.assetName} ${index + 1}`,
         assetName: requirement.assetName,
         componentKey: requirement.componentKey,
@@ -323,6 +597,15 @@ describe("PreskokDesignSystem interface", () => {
         properties: {},
       }))
     )
+    const localComponents = [
+      {
+        nodeId: "100:2",
+        name: "Account settings content",
+        instanceCount: 1,
+        reason:
+          "Product-specific composition placed inside the Preskok Card content slot.",
+      },
+    ]
 
     const result = system.finalizeDesign({
       plan,
@@ -332,15 +615,7 @@ describe("PreskokDesignSystem interface", () => {
         enabledLibraryKeys: [plan.source.libraryKey],
         instances,
         manualNodes: [],
-        localComponents: [
-          {
-            nodeId: "100:2",
-            name: "Account settings content",
-            instanceCount: 1,
-            reason:
-              "Product-specific composition placed inside the Preskok Card content slot.",
-          },
-        ],
+        localComponents,
         modes: [
           {
             collectionName: "Style",
@@ -358,6 +633,11 @@ describe("PreskokDesignSystem interface", () => {
           },
         ],
         hardcodedValues: [],
+        layout: createPassingLayoutEvidence({
+          rootNodeId: "100:1",
+          instances,
+          localComponents,
+        }),
       },
     })
 
@@ -385,6 +665,7 @@ describe("PreskokDesignSystem interface", () => {
     const instances = plan.requirements.flatMap((requirement) =>
       Array.from({ length: requirement.minimumInstances }, (_, index) => ({
         nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
         name: `${requirement.assetName} ${index + 1}`,
         assetName: requirement.assetName,
         componentKey: requirement.componentKey,
@@ -423,6 +704,10 @@ describe("PreskokDesignSystem interface", () => {
           },
         ],
         hardcodedValues: [],
+        layout: createPassingLayoutEvidence({
+          rootNodeId: "100:100",
+          instances,
+        }),
       },
     })
 
@@ -434,6 +719,148 @@ describe("PreskokDesignSystem interface", () => {
         code: "library_not_enabled",
       }),
     ])
+  })
+
+  it("rejects stale action evidence and overflowing one-pixel Auto Layout sources", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Account settings",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Dark" },
+    })
+    const instances = plan.requirements.flatMap((requirement) =>
+      Array.from({ length: requirement.minimumInstances }, (_, index) => ({
+        nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
+        name: `${requirement.assetName} ${index + 1}`,
+        assetName: requirement.assetName,
+        componentKey: requirement.componentKey,
+        ancestorNodeIds: requirement.parentRequirementId
+          ? ["settings-card:0"]
+          : [],
+        remote: true,
+        detached: false,
+        properties: {},
+      }))
+    )
+    const localComponents = [
+      {
+        nodeId: "source-content",
+        name: "Product content source",
+        instanceCount: 1,
+        reason: "Product-specific Card content composition.",
+      },
+      {
+        nodeId: "source-footer",
+        name: "Product footer source",
+        instanceCount: 1,
+        reason: "Product-specific Card action composition.",
+      },
+    ]
+    const layout = createPassingLayoutEvidence({
+      rootNodeId: "overflow-root",
+      instances,
+      localComponents,
+    })
+    const actionsSeparator = instances.find(
+      ({ requirementId }) => requirementId === "actions-separator"
+    )
+    if (!actionsSeparator) {
+      throw new Error("Expected actions separator evidence")
+    }
+    const actionsContainer = layout.containers.find(
+      ({ nodeId }) => nodeId === "overflow-root:actions"
+    )
+    const sourceContent = layout.containers.find(
+      ({ nodeId }) => nodeId === "source-content"
+    )
+    const sourceFooter = layout.containers.find(
+      ({ nodeId }) => nodeId === "source-footer"
+    )
+    const actionRow = layout.containers.find(
+      ({ nodeId }) => nodeId === "overflow-root:action-row"
+    )
+    if (!actionsContainer || !sourceContent || !sourceFooter || !actionRow) {
+      throw new Error("Expected generated layout containers")
+    }
+    const floatingAction = actionRow.children[0]
+    if (!floatingAction) {
+      throw new Error("Expected an action row child")
+    }
+    floatingAction.layoutPositioning = "ABSOLUTE"
+    actionsContainer.children = actionsContainer.children.filter(
+      ({ nodeId }) => nodeId !== actionsSeparator.nodeId
+    )
+    sourceContent.height = 1
+    sourceContent.primaryAxisSizingMode = "FIXED"
+    sourceContent.children = [
+      {
+        nodeId: "source-actions-separator",
+        name: "Actions separator source",
+        type: "INSTANCE",
+        x: 0,
+        y: 217,
+        width: 600,
+        height: 1,
+        visible: true,
+        layoutPositioning: "AUTO",
+      },
+    ]
+    sourceFooter.height = 1
+    sourceFooter.primaryAxisSizingMode = "FIXED"
+    sourceFooter.children = [
+      {
+        nodeId: "source-cancel",
+        name: "Cancel source",
+        type: "INSTANCE",
+        x: 400,
+        y: -18.5,
+        width: 80,
+        height: 38,
+        visible: true,
+        layoutPositioning: "AUTO",
+      },
+    ]
+
+    const result = system.finalizeDesign({
+      plan,
+      evidence: {
+        fileKey: "overflow-file",
+        rootNodeId: "overflow-root",
+        enabledLibraryKeys: [plan.source.libraryKey],
+        instances,
+        manualNodes: [],
+        localComponents,
+        modes: [
+          {
+            collectionName: "Style",
+            collectionKey: plan.source.collections.style.key,
+            mode: "Default",
+            explicit: true,
+            remote: true,
+          },
+          {
+            collectionName: "Mode",
+            collectionKey: plan.source.collections.colorMode.key,
+            mode: "Dark",
+            explicit: true,
+            remote: true,
+          },
+        ],
+        hardcodedValues: [],
+        layout,
+      },
+    })
+
+    expect(result.ready).toBe(false)
+    expect(result.handoff).toBeNull()
+    expect(result.issues.map(({ code }) => code)).toEqual(
+      expect.arrayContaining([
+        "live_node_missing",
+        "auto_layout_overflow",
+        "component_group_mismatch",
+      ])
+    )
   })
 
   it("finalizes a copied Preskok library by stable component contracts", () => {
@@ -451,26 +878,29 @@ describe("PreskokDesignSystem interface", () => {
       )
     ).toBe(true)
 
+    const instances = plan.requirements.flatMap((requirement) =>
+      Array.from({ length: requirement.minimumInstances }, (_, index) => ({
+        nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
+        name: `${requirement.assetName} ${index + 1}`,
+        assetName: requirement.assetName,
+        contractFingerprint: requirement.contractFingerprint,
+        ancestorNodeIds: requirement.parentRequirementId
+          ? ["settings-card:0"]
+          : [],
+        remote: false,
+        detached: false,
+        properties: {},
+      }))
+    )
+
     const result = system.finalizeDesign({
       plan,
       evidence: {
         fileKey: "copied-preskok-file",
         rootNodeId: "200:1",
         enabledLibraryKeys: [],
-        instances: plan.requirements.flatMap((requirement) =>
-          Array.from({ length: requirement.minimumInstances }, (_, index) => ({
-            nodeId: `${requirement.id}:${index}`,
-            name: `${requirement.assetName} ${index + 1}`,
-            assetName: requirement.assetName,
-            contractFingerprint: requirement.contractFingerprint,
-            ancestorNodeIds: requirement.parentRequirementId
-              ? ["settings-card:0"]
-              : [],
-            remote: false,
-            detached: false,
-            properties: {},
-          }))
-        ),
+        instances,
         manualNodes: [],
         localComponents: [],
         modes: [
@@ -490,6 +920,10 @@ describe("PreskokDesignSystem interface", () => {
           },
         ],
         hardcodedValues: [],
+        layout: createPassingLayoutEvidence({
+          rootNodeId: "200:1",
+          instances,
+        }),
       },
     })
 
@@ -511,6 +945,7 @@ describe("PreskokDesignSystem interface", () => {
     const instances = plan.requirements.flatMap((requirement) =>
       Array.from({ length: requirement.minimumInstances }, (_, index) => ({
         nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
         name: `${requirement.assetName} ${index + 1}`,
         assetName: requirement.assetName,
         contractFingerprint: requirement.contractFingerprint,
@@ -676,6 +1111,7 @@ describe("PreskokDesignSystem interface", () => {
     const instances = plan.requirements.flatMap((requirement) =>
       Array.from({ length: requirement.minimumInstances }, (_, index) => ({
         nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
         name: `${requirement.assetName} ${index + 1}`,
         assetName: requirement.assetName,
         componentKey: requirement.componentKey,

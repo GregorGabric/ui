@@ -110,6 +110,34 @@ describe("Preskok Design MCP over Streamable HTTP", () => {
             },
           ],
           hardcodedValues: [],
+          layout: {
+            containers: [
+              {
+                nodeId: "900:1",
+                name: "HTTP proof root",
+                type: "FRAME",
+                width: 320,
+                height: 80,
+                layoutMode: "HORIZONTAL",
+                primaryAxisSizingMode: "AUTO",
+                counterAxisSizingMode: "AUTO",
+                clipsContent: false,
+                children: [
+                  {
+                    nodeId: "900:2",
+                    name: "Primary action",
+                    type: "INSTANCE",
+                    x: 0,
+                    y: 0,
+                    width: 120,
+                    height: 40,
+                    visible: true,
+                    layoutPositioning: "AUTO",
+                  },
+                ],
+              },
+            ],
+          },
         },
       },
     })

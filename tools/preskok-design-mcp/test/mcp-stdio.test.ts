@@ -230,6 +230,34 @@ describe("Preskok Design MCP over stdio", () => {
             },
           ],
           hardcodedValues: [],
+          layout: {
+            containers: [
+              {
+                nodeId: "800:1",
+                name: "Stdio proof root",
+                type: "FRAME",
+                width: 320,
+                height: 80,
+                layoutMode: "HORIZONTAL",
+                primaryAxisSizingMode: "AUTO",
+                counterAxisSizingMode: "AUTO",
+                clipsContent: false,
+                children: [
+                  {
+                    nodeId: "800:2",
+                    name: "Primary action",
+                    type: "INSTANCE",
+                    x: 0,
+                    y: 0,
+                    width: 120,
+                    height: 40,
+                    visible: true,
+                    layoutPositioning: "AUTO",
+                  },
+                ],
+              },
+            ],
+          },
         },
       },
     })

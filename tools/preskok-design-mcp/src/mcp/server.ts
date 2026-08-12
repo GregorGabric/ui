@@ -32,6 +32,8 @@ const requestedDesignRequirementSchema = z.object({
   assetName: z.string().min(1).optional(),
   minimumInstances: z.number().int().min(1).optional(),
   parentRequirementId: z.string().min(1).optional(),
+  groupId: z.string().min(1).optional(),
+  groupLayout: z.enum(["HORIZONTAL", "VERTICAL"]).optional(),
 })
 
 const designRequirementSchema = z.object({
@@ -45,6 +47,8 @@ const designRequirementSchema = z.object({
   contractFingerprint: z.string(),
   minimumInstances: z.number().int().min(1),
   parentRequirementId: z.string().optional(),
+  groupId: z.string().optional(),
+  groupLayout: z.enum(["HORIZONTAL", "VERTICAL"]).optional(),
 })
 
 const designPlanSchema = z.object({
@@ -98,6 +102,7 @@ const designEvidenceSchema = z.object({
       nodeId: z.string().min(1),
       name: z.string().min(1),
       assetName: z.string().min(1),
+      requirementId: z.string().min(1).optional(),
       componentKey: z.string().optional(),
       contractFingerprint: z.string().optional(),
       ancestorNodeIds: z.array(z.string()).optional(),
@@ -143,6 +148,36 @@ const designEvidenceSchema = z.object({
       value: z.string(),
     })
   ),
+  layout: z
+    .object({
+      containers: z.array(
+        z.object({
+          nodeId: z.string().min(1),
+          name: z.string().min(1),
+          type: z.string().min(1),
+          width: z.number().finite().nonnegative(),
+          height: z.number().finite().nonnegative(),
+          layoutMode: z.enum(["NONE", "HORIZONTAL", "VERTICAL", "GRID"]),
+          primaryAxisSizingMode: z.enum(["FIXED", "AUTO"]).optional(),
+          counterAxisSizingMode: z.enum(["FIXED", "AUTO"]).optional(),
+          clipsContent: z.boolean(),
+          children: z.array(
+            z.object({
+              nodeId: z.string().min(1),
+              name: z.string().min(1),
+              type: z.string().min(1),
+              x: z.number().finite(),
+              y: z.number().finite(),
+              width: z.number().finite().nonnegative(),
+              height: z.number().finite().nonnegative(),
+              visible: z.boolean(),
+              layoutPositioning: z.enum(["AUTO", "ABSOLUTE"]),
+            })
+          ),
+        })
+      ),
+    })
+    .optional(),
 })
 
 const workflowNames = [
@@ -269,7 +304,7 @@ export async function createPreskokMcpServer(
     {
       title: "Finalize a Preskok design",
       description:
-        "Verify live normalized Figma evidence against an unchanged plan. A code handoff is returned only after library/copy identity, hierarchy, properties, theme modes, tokens, and local deviations pass.",
+        "Verify live normalized Figma evidence against an unchanged plan. A code handoff is returned only after library/copy identity, explicit requirement assignment, live-node ancestry, Auto Layout bounds, overflow, clipping, grouped actions, properties, theme modes, tokens, and local deviations pass.",
       inputSchema: z.object({
         plan: designPlanSchema,
         evidence: designEvidenceSchema,

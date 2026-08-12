@@ -145,6 +145,26 @@ async function getHandoff() {
       )
     }
     const cardNodeId = "settings-card:0"
+    const instances = plan.requirements.flatMap((requirement) =>
+      Array.from({ length: requirement.minimumInstances }, (_, index) => ({
+        nodeId: `${requirement.id}:${index}`,
+        requirementId: requirement.id,
+        name: `${requirement.assetName} ${index + 1}`,
+        assetName: requirement.assetName,
+        componentKey: requirement.componentKey,
+        ancestorNodeIds: requirement.parentRequirementId ? [cardNodeId] : [],
+        remote: true,
+        detached: false,
+        properties: {},
+      }))
+    )
+    const card = instances.find(({ nodeId }) => nodeId === cardNodeId)
+    if (!card) {
+      throw new Error("Expected the planned settings card instance")
+    }
+    const contentInstances = instances.filter(
+      ({ nodeId }) => nodeId !== cardNodeId
+    )
     const finalized = await client.callTool({
       name: "finalize_preskok_design",
       arguments: {
@@ -153,23 +173,7 @@ async function getHandoff() {
           fileKey: "verified-consumer-figma",
           rootNodeId: "900:1",
           enabledLibraryKeys: [plan.source.libraryKey],
-          instances: plan.requirements.flatMap((requirement) =>
-            Array.from(
-              { length: requirement.minimumInstances },
-              (_, index) => ({
-                nodeId: `${requirement.id}:${index}`,
-                name: `${requirement.assetName} ${index + 1}`,
-                assetName: requirement.assetName,
-                componentKey: requirement.componentKey,
-                ancestorNodeIds: requirement.parentRequirementId
-                  ? [cardNodeId]
-                  : [],
-                remote: true,
-                detached: false,
-                properties: {},
-              })
-            )
-          ),
+          instances,
           manualNodes: [],
           localComponents: [
             {
@@ -197,6 +201,68 @@ async function getHandoff() {
             },
           ],
           hardcodedValues: [],
+          layout: {
+            containers: [
+              {
+                nodeId: "900:1",
+                name: "Verified consumer root",
+                type: "FRAME",
+                width: 1000,
+                height: 800,
+                layoutMode: "VERTICAL",
+                primaryAxisSizingMode: "FIXED",
+                counterAxisSizingMode: "FIXED",
+                clipsContent: false,
+                children: [
+                  {
+                    nodeId: card.nodeId,
+                    name: card.name,
+                    type: "INSTANCE",
+                    x: 0,
+                    y: 0,
+                    width: 640,
+                    height: 600,
+                    visible: true,
+                    layoutPositioning: "AUTO",
+                  },
+                ],
+              },
+              {
+                nodeId: card.nodeId,
+                name: card.name,
+                type: "INSTANCE",
+                width: 640,
+                height: 600,
+                layoutMode: "VERTICAL",
+                primaryAxisSizingMode: "AUTO",
+                counterAxisSizingMode: "FIXED",
+                clipsContent: false,
+                children: contentInstances.map((instance, index) => ({
+                  nodeId: instance.nodeId,
+                  name: instance.name,
+                  type: "INSTANCE",
+                  x: 24,
+                  y: 24 + index * 56,
+                  width: 592,
+                  height: 40,
+                  visible: true,
+                  layoutPositioning: "AUTO",
+                })),
+              },
+              {
+                nodeId: "900:2",
+                name: "Account settings product content",
+                type: "COMPONENT",
+                width: 592,
+                height: 400,
+                layoutMode: "VERTICAL",
+                primaryAxisSizingMode: "AUTO",
+                counterAxisSizingMode: "FIXED",
+                clipsContent: false,
+                children: [],
+              },
+            ],
+          },
         },
         notes: [
           "Representative account settings workflow generated and proven by the MCP verification script.",

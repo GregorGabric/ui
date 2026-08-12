@@ -31,12 +31,16 @@ Record:
 - target `fileKey` and inspected `rootNodeId`;
 - exact enabled library keys;
 - every relevant instance's node ID, asset name, component key or copied fingerprint, remote/local origin, detached state, normalized properties, and ancestor node IDs;
+- an explicit `requirementId` for every repeated asset identity (for example, two Separators or two Buttons); never satisfy repeated requirements by count alone;
+- a direct-parent layout tree for the root, placed slot instances, and every product-specific local component, including bounds, Auto Layout mode and sizing, clipping, visibility, and child positioning;
 - manual nodes, claimed Preskok equivalents, token-binding state, and reason;
 - local components, instance count, and product-specific reason;
 - root Style and Mode names, keys, selected modes, explicitness, and remote/local origin;
 - hardcoded semantic values.
 
 Derive evidence from live Figma inspection. Do not infer an enabled library, explicit mode, component origin, ancestry, or token binding from appearance.
+
+Reject the build when any claimed node is absent from that live tree, an automatic child exceeds its parent bounds, content is clipped, or a planned action group does not share the required Auto Layout container. After changing a local component used through an instance-swap property, refresh and reinspect the placed nested instance; a correct main component is not proof that an existing instance updated.
 
 ## Translate after proof
 

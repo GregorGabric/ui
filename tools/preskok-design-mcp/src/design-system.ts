@@ -117,6 +117,8 @@ export type DesignPlanInput = {
         assetName?: string | undefined
         minimumInstances?: number | undefined
         parentRequirementId?: string | undefined
+        groupId?: string | undefined
+        groupLayout?: "HORIZONTAL" | "VERTICAL" | undefined
       }>
     | undefined
 }
@@ -132,6 +134,8 @@ export type DesignRequirement = {
   contractFingerprint: string
   minimumInstances: number
   parentRequirementId?: string | undefined
+  groupId?: string | undefined
+  groupLayout?: "HORIZONTAL" | "VERTICAL" | undefined
 }
 
 export type DesignPlan = {
@@ -177,6 +181,7 @@ export type DesignEvidence = {
     nodeId: string
     name: string
     assetName: string
+    requirementId?: string | undefined
     componentKey?: string | undefined
     contractFingerprint?: string | undefined
     ancestorNodeIds?: Array<string> | undefined
@@ -210,6 +215,32 @@ export type DesignEvidence = {
     property: string
     value: string
   }>
+  layout?:
+    | {
+        containers: Array<{
+          nodeId: string
+          name: string
+          type: string
+          width: number
+          height: number
+          layoutMode: "NONE" | "HORIZONTAL" | "VERTICAL" | "GRID"
+          primaryAxisSizingMode?: "FIXED" | "AUTO" | undefined
+          counterAxisSizingMode?: "FIXED" | "AUTO" | undefined
+          clipsContent: boolean
+          children: Array<{
+            nodeId: string
+            name: string
+            type: string
+            x: number
+            y: number
+            width: number
+            height: number
+            visible: boolean
+            layoutPositioning: "AUTO" | "ABSOLUTE"
+          }>
+        }>
+      }
+    | undefined
 }
 
 export type DesignFinalizationIssue = {
@@ -226,12 +257,20 @@ export type DesignFinalizationIssue = {
     | "instance_origin_mismatch"
     | "component_contract_mismatch"
     | "component_hierarchy_mismatch"
+    | "component_group_mismatch"
+    | "ambiguous_requirement_assignment"
     | "invalid_component_property"
     | "plan_contract_mismatch"
     | "detached_instance"
     | "unapproved_local_component"
     | "hardcoded_value"
     | "unbound_manual_value"
+    | "layout_evidence_missing"
+    | "live_node_missing"
+    | "layout_ancestry_mismatch"
+    | "invalid_layout_size"
+    | "auto_layout_overflow"
+    | "clipped_content"
   message: string
   nodeId: string | null
   requirementId: string | null
@@ -384,11 +423,10 @@ const accountSettingsRequirements: Array<RequestedDesignRequirement> = [
     parentRequirementId: "settings-card",
   },
   {
-    id: "section-separators",
-    role: "separator",
+    id: "profile-separator",
+    role: "content-separator",
     codeName: "separator",
     assetName: "Separator",
-    minimumInstances: 2,
     parentRequirementId: "settings-card",
   },
   {
@@ -399,12 +437,29 @@ const accountSettingsRequirements: Array<RequestedDesignRequirement> = [
     parentRequirementId: "settings-card",
   },
   {
-    id: "form-actions",
-    role: "action",
+    id: "actions-separator",
+    role: "actions-separator",
+    codeName: "separator",
+    assetName: "Separator",
+    parentRequirementId: "settings-card",
+  },
+  {
+    id: "cancel-action",
+    role: "secondary-action",
     codeName: "button",
     assetName: "Button",
-    minimumInstances: 2,
     parentRequirementId: "settings-card",
+    groupId: "form-actions",
+    groupLayout: "HORIZONTAL",
+  },
+  {
+    id: "save-action",
+    role: "primary-action",
+    codeName: "button",
+    assetName: "Button",
+    parentRequirementId: "settings-card",
+    groupId: "form-actions",
+    groupLayout: "HORIZONTAL",
   },
 ]
 
@@ -591,6 +646,7 @@ export function createPreskokDesignSystem({
 
     finalizeDesign({ plan, evidence, notes = [] }) {
       const issues: Array<DesignFinalizationIssue> = []
+      const layout = validateDesignLayoutEvidence(plan, evidence, issues)
       const { contractDigest, ...planContract } = plan
       if (designPlanDigest(planContract) !== contractDigest) {
         issues.push({
@@ -646,17 +702,61 @@ export function createPreskokDesignSystem({
 
       let satisfiedInstances = 0
       let matchedInstances = 0
+      const matchingInstancesByRequirement = new Map<
+        string,
+        Array<DesignEvidence["instances"][number]>
+      >()
+      const requirementsByIdentity = new Map<string, Array<DesignRequirement>>()
+      for (const requirement of plan.requirements) {
+        const identity = designRequirementIdentity(plan, requirement)
+        const existing = requirementsByIdentity.get(identity) ?? []
+        existing.push(requirement)
+        requirementsByIdentity.set(identity, existing)
+      }
+      for (const requirements of requirementsByIdentity.values()) {
+        if (requirements.length < 2) {
+          continue
+        }
+        const firstRequirement = requirements[0]
+        if (!firstRequirement) {
+          continue
+        }
+        for (const instance of evidence.instances) {
+          if (
+            matchesRequirementIdentity(plan, firstRequirement, instance) &&
+            !instance.requirementId
+          ) {
+            issues.push({
+              severity: "error",
+              code: "ambiguous_requirement_assignment",
+              message: `${instance.name} could satisfy more than one planned requirement but has no requirementId.`,
+              nodeId: instance.nodeId,
+              requirementId: null,
+              recommendation: `Assign this live instance to one of: ${requirements.map(({ id }) => id).join(", ")}.`,
+            })
+          }
+        }
+      }
       for (const requirement of plan.requirements) {
         const assetNameMatches = evidence.instances.filter(
           (instance) => instance.assetName === requirement.assetName
         )
-        const identityMatches = evidence.instances.filter((instance) => {
-          if (plan.figmaStrategy === "published") {
-            return instance.componentKey === requirement.componentKey
+        const requirementsWithSameIdentity =
+          requirementsByIdentity.get(
+            designRequirementIdentity(plan, requirement)
+          ) ?? []
+        const requiresExplicitAssignment =
+          requirementsWithSameIdentity.length > 1
+        const allIdentityMatches = evidence.instances.filter((instance) =>
+          matchesRequirementIdentity(plan, requirement, instance)
+        )
+        const identityMatches = allIdentityMatches.filter((instance) => {
+          if (requiresExplicitAssignment) {
+            return instance.requirementId === requirement.id
           }
           return (
-            instance.assetName === requirement.assetName &&
-            instance.contractFingerprint === requirement.contractFingerprint
+            instance.requirementId === undefined ||
+            instance.requirementId === requirement.id
           )
         })
         let matchingInstances = identityMatches
@@ -697,11 +797,15 @@ export function createPreskokDesignSystem({
           matchingInstances.length,
           requirement.minimumInstances
         )
+        matchingInstancesByRequirement.set(
+          requirement.id,
+          matchingInstances.slice(0, requirement.minimumInstances)
+        )
         satisfiedInstances += satisfied
         if (
           plan.figmaStrategy === "copied" &&
           assetNameMatches.length > 0 &&
-          matchingInstances.length === 0
+          allIdentityMatches.length === 0
         ) {
           issues.push({
             severity: "error",
@@ -798,6 +902,14 @@ export function createPreskokDesignSystem({
           }
         }
       }
+
+      validateRequirementGroups({
+        plan,
+        evidence,
+        issues,
+        layout,
+        matchingInstancesByRequirement,
+      })
 
       for (const expected of [
         plan.source.collections.style,
@@ -1366,6 +1478,8 @@ function createDesignRequirement({
     contractFingerprint: figmaAssetContractFingerprint(asset),
     minimumInstances: requested.minimumInstances ?? 1,
     parentRequirementId: requested.parentRequirementId,
+    groupId: requested.groupId,
+    groupLayout: requested.groupLayout,
   }
 }
 
@@ -1375,6 +1489,365 @@ function isAccountSettingsIntent(intent: string) {
     normalizedIntent.includes("account settings") ||
     normalizedIntent === "settings" ||
     normalizedIntent === "account"
+  )
+}
+
+type LayoutContainer = NonNullable<
+  DesignEvidence["layout"]
+>["containers"][number]
+
+type LayoutValidation = {
+  containersById: Map<string, LayoutContainer>
+  parentByNodeId: Map<string, string>
+}
+
+function validateDesignLayoutEvidence(
+  plan: DesignPlan,
+  evidence: DesignEvidence,
+  issues: Array<DesignFinalizationIssue>
+): LayoutValidation | null {
+  if (!evidence.layout) {
+    if (plan.requirements.length > 0) {
+      issues.push({
+        severity: "error",
+        code: "layout_evidence_missing",
+        message: "The live Figma layout tree was not included in the evidence.",
+        nodeId: evidence.rootNodeId,
+        requirementId: null,
+        recommendation:
+          "Inspect the root and every product-specific local component with the official Figma MCP, then include normalized container bounds and direct children.",
+      })
+    }
+    return null
+  }
+
+  const containersById = new Map<string, LayoutContainer>()
+  const parentByNodeId = new Map<string, string>()
+  const observedNodeIds = new Set<string>()
+  const tolerance = 0.5
+
+  for (const container of evidence.layout.containers) {
+    if (containersById.has(container.nodeId)) {
+      issues.push({
+        severity: "error",
+        code: "layout_ancestry_mismatch",
+        message: `${container.name} appears more than once in the normalized layout evidence.`,
+        nodeId: container.nodeId,
+        requirementId: null,
+        recommendation:
+          "Collect each live container once with its direct children.",
+      })
+      continue
+    }
+    containersById.set(container.nodeId, container)
+    observedNodeIds.add(container.nodeId)
+    if (container.width <= 0 || container.height <= 0) {
+      issues.push({
+        severity: "error",
+        code: "invalid_layout_size",
+        message: `${container.name} has invalid bounds ${container.width}×${container.height}.`,
+        nodeId: container.nodeId,
+        requirementId: null,
+        recommendation:
+          "Give the container positive dimensions or use Auto Layout hug sizing after its children are inserted.",
+      })
+    }
+
+    for (const child of container.children) {
+      observedNodeIds.add(child.nodeId)
+      const existingParent = parentByNodeId.get(child.nodeId)
+      if (existingParent && existingParent !== container.nodeId) {
+        issues.push({
+          severity: "error",
+          code: "layout_ancestry_mismatch",
+          message: `${child.name} is reported under multiple live parents.`,
+          nodeId: child.nodeId,
+          requirementId: null,
+          recommendation:
+            "Reinspect the live Figma tree and report each node under its direct parent only.",
+        })
+      } else {
+        parentByNodeId.set(child.nodeId, container.nodeId)
+      }
+      if (child.visible && (child.width <= 0 || child.height <= 0)) {
+        issues.push({
+          severity: "error",
+          code: "invalid_layout_size",
+          message: `${child.name} has invalid bounds ${child.width}×${child.height}.`,
+          nodeId: child.nodeId,
+          requirementId: null,
+          recommendation:
+            "Give the visible node positive dimensions before finalization.",
+        })
+      }
+      if (!child.visible) {
+        continue
+      }
+      const overflows =
+        child.x < -tolerance ||
+        child.y < -tolerance ||
+        child.x + child.width > container.width + tolerance ||
+        child.y + child.height > container.height + tolerance
+      if (!overflows) {
+        continue
+      }
+      if (
+        container.layoutMode !== "NONE" &&
+        child.layoutPositioning === "AUTO"
+      ) {
+        issues.push({
+          severity: "error",
+          code: "auto_layout_overflow",
+          message: `${child.name} overflows the ${container.name} Auto Layout bounds.`,
+          nodeId: child.nodeId,
+          requirementId: null,
+          recommendation:
+            "Restore hug sizing after resize operations and keep automatic children inside the generated container bounds.",
+        })
+      }
+      if (container.clipsContent) {
+        issues.push({
+          severity: "error",
+          code: "clipped_content",
+          message: `${child.name} is clipped by ${container.name}.`,
+          nodeId: child.nodeId,
+          requirementId: null,
+          recommendation:
+            "Correct the parent sizing or child placement before handoff.",
+        })
+      }
+    }
+  }
+
+  const referencedNodes = [
+    { nodeId: evidence.rootNodeId, name: "Design root" },
+    ...evidence.instances.map(({ nodeId, name }) => ({ nodeId, name })),
+    ...evidence.manualNodes.map(({ nodeId, name }) => ({ nodeId, name })),
+    ...evidence.localComponents.map(({ nodeId, name }) => ({ nodeId, name })),
+  ]
+  for (const node of referencedNodes) {
+    if (observedNodeIds.has(node.nodeId)) {
+      continue
+    }
+    issues.push({
+      severity: "error",
+      code: "live_node_missing",
+      message: `${node.name} (${node.nodeId}) is claimed by the evidence but missing from the live layout inspection.`,
+      nodeId: node.nodeId,
+      requirementId: null,
+      recommendation:
+        "Refresh the evidence from the live Figma document; do not reuse stale or constructed node IDs.",
+    })
+  }
+
+  for (const instance of evidence.instances) {
+    if (!observedNodeIds.has(instance.nodeId)) {
+      continue
+    }
+    const actualAncestors = collectLayoutAncestors(
+      instance.nodeId,
+      parentByNodeId
+    )
+    if (!actualAncestors.includes(evidence.rootNodeId)) {
+      issues.push({
+        severity: "error",
+        code: "layout_ancestry_mismatch",
+        message: `${instance.name} is not connected to the inspected design root.`,
+        nodeId: instance.nodeId,
+        requirementId: instance.requirementId ?? null,
+        recommendation:
+          "Collect the complete parent chain or move the instance inside the planned root.",
+      })
+    }
+    for (const claimedAncestor of instance.ancestorNodeIds ?? []) {
+      if (actualAncestors.includes(claimedAncestor)) {
+        continue
+      }
+      issues.push({
+        severity: "error",
+        code: "layout_ancestry_mismatch",
+        message: `${instance.name} claims ancestor ${claimedAncestor}, but the live layout tree does not.`,
+        nodeId: instance.nodeId,
+        requirementId: instance.requirementId ?? null,
+        recommendation:
+          "Use ancestor IDs derived from the same live Figma inspection as the node bounds.",
+      })
+    }
+  }
+
+  return { containersById, parentByNodeId }
+}
+
+function validateRequirementGroups({
+  plan,
+  evidence,
+  issues,
+  layout,
+  matchingInstancesByRequirement,
+}: {
+  plan: DesignPlan
+  evidence: DesignEvidence
+  issues: Array<DesignFinalizationIssue>
+  layout: LayoutValidation | null
+  matchingInstancesByRequirement: Map<
+    string,
+    Array<DesignEvidence["instances"][number]>
+  >
+}) {
+  if (!layout) {
+    return
+  }
+  const groupedRequirements = new Map<string, Array<DesignRequirement>>()
+  for (const requirement of plan.requirements) {
+    if (!requirement.groupId) {
+      continue
+    }
+    const existing = groupedRequirements.get(requirement.groupId) ?? []
+    existing.push(requirement)
+    groupedRequirements.set(requirement.groupId, existing)
+  }
+
+  for (const [groupId, requirements] of groupedRequirements) {
+    const instances = requirements.flatMap(
+      (requirement) => matchingInstancesByRequirement.get(requirement.id) ?? []
+    )
+    const expectedInstances = requirements.reduce(
+      (total, requirement) => total + requirement.minimumInstances,
+      0
+    )
+    if (instances.length < expectedInstances) {
+      continue
+    }
+    const ancestorLists = instances.map((instance) =>
+      collectLayoutAncestors(instance.nodeId, layout.parentByNodeId)
+    )
+    const firstAncestors = ancestorLists[0] ?? []
+    const sharedAncestors = firstAncestors.filter((nodeId) =>
+      ancestorLists.every((ancestors) => ancestors.includes(nodeId))
+    )
+    const parentRequirementIds = new Set(
+      requirements
+        .flatMap((requirement) => {
+          if (!requirement.parentRequirementId) {
+            return []
+          }
+          return (
+            matchingInstancesByRequirement.get(
+              requirement.parentRequirementId
+            ) ?? []
+          ).map(({ nodeId }) => nodeId)
+        })
+        .concat(evidence.rootNodeId)
+    )
+    const expectedLayout = requirements.find(
+      ({ groupLayout }) => groupLayout !== undefined
+    )?.groupLayout
+    const validGroupContainer = sharedAncestors.find((nodeId) => {
+      if (parentRequirementIds.has(nodeId)) {
+        return false
+      }
+      const container = layout.containersById.get(nodeId)
+      if (expectedLayout && container?.layoutMode !== expectedLayout) {
+        return false
+      }
+      if (!container) {
+        return false
+      }
+      return instances.every((instance) =>
+        participatesInContainerAutoLayout({
+          nodeId: instance.nodeId,
+          container,
+          parentByNodeId: layout.parentByNodeId,
+        })
+      )
+    })
+    if (validGroupContainer) {
+      continue
+    }
+    const layoutDescription = expectedLayout
+      ? `${expectedLayout} Auto Layout`
+      : "shared layout"
+    issues.push({
+      severity: "error",
+      code: "component_group_mismatch",
+      message: `The ${groupId} instances do not share a ${layoutDescription} container below their planned parent.`,
+      nodeId: instances[0]?.nodeId ?? null,
+      requirementId: requirements[0]?.id ?? null,
+      recommendation:
+        "Place the grouped elements in one intentional Auto Layout composition; use a nested row when only part of the group is horizontal.",
+    })
+  }
+}
+
+function participatesInContainerAutoLayout({
+  nodeId,
+  container,
+  parentByNodeId,
+}: {
+  nodeId: string
+  container: LayoutContainer
+  parentByNodeId: Map<string, string>
+}) {
+  const visited = new Set<string>([nodeId])
+  let directChildId = nodeId
+  let parentNodeId = parentByNodeId.get(directChildId)
+  while (parentNodeId && parentNodeId !== container.nodeId) {
+    if (visited.has(parentNodeId)) {
+      return false
+    }
+    visited.add(parentNodeId)
+    directChildId = parentNodeId
+    parentNodeId = parentByNodeId.get(directChildId)
+  }
+  if (parentNodeId !== container.nodeId) {
+    return false
+  }
+  const directChild = container.children.find(
+    ({ nodeId: childNodeId }) => childNodeId === directChildId
+  )
+  return directChild?.visible && directChild.layoutPositioning === "AUTO"
+}
+
+function collectLayoutAncestors(
+  nodeId: string,
+  parentByNodeId: Map<string, string>
+): Array<string> {
+  const ancestors: Array<string> = []
+  const visited = new Set<string>([nodeId])
+  let currentNodeId = nodeId
+  while (parentByNodeId.has(currentNodeId)) {
+    const parentNodeId = parentByNodeId.get(currentNodeId)
+    if (!parentNodeId || visited.has(parentNodeId)) {
+      break
+    }
+    ancestors.push(parentNodeId)
+    visited.add(parentNodeId)
+    currentNodeId = parentNodeId
+  }
+  return ancestors
+}
+
+function designRequirementIdentity(
+  plan: DesignPlan,
+  requirement: DesignRequirement
+): string {
+  if (plan.figmaStrategy === "published") {
+    return requirement.componentKey
+  }
+  return `${requirement.assetName}:${requirement.contractFingerprint}`
+}
+
+function matchesRequirementIdentity(
+  plan: DesignPlan,
+  requirement: DesignRequirement,
+  instance: DesignEvidence["instances"][number]
+): boolean {
+  if (plan.figmaStrategy === "published") {
+    return instance.componentKey === requirement.componentKey
+  }
+  return (
+    instance.assetName === requirement.assetName &&
+    instance.contractFingerprint === requirement.contractFingerprint
   )
 }
 
