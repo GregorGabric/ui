@@ -273,6 +273,51 @@ describe("Preskok Design MCP over stdio", () => {
     })
   })
 
+  it("returns failed finalization for a forged plan over stdio", async () => {
+    const planned = await client.callTool({
+      name: "plan_preskok_design",
+      arguments: {
+        intent: "Primary account action",
+        figmaStrategy: "published",
+        theme: { style: "Default", mode: "Light" },
+        requirements: [{ codeName: "button" }],
+      },
+    })
+    const plan = (
+      planned.structuredContent as {
+        plan: { contractDigest: string }
+      }
+    ).plan
+    plan.contractDigest = "0".repeat(64)
+
+    const finalized = await client.callTool({
+      name: "finalize_preskok_design",
+      arguments: {
+        plan,
+        evidence: {
+          fileKey: "forged-stdio-file",
+          rootNodeId: "forged-stdio-root",
+          enabledLibraryKeys: [],
+          instances: [],
+          manualNodes: [],
+          localComponents: [],
+          modes: [],
+          hardcodedValues: [],
+        },
+      },
+    })
+
+    expect(finalized.structuredContent).toMatchObject({
+      finalization: {
+        ready: false,
+        issues: expect.arrayContaining([
+          expect.objectContaining({ code: "plan_contract_mismatch" }),
+        ]),
+        handoff: null,
+      },
+    })
+  })
+
   it("accepts every advertised handoff direction over stdio", async () => {
     const directions = [
       "figma_to_code",

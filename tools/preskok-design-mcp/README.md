@@ -10,7 +10,7 @@ It complements two existing servers:
 - the official Figma MCP owns authenticated live Figma reads and writes;
 - the shadcn MCP owns generic registry installation in a consuming app;
 - this MCP owns Preskok discovery, exact code/Figma mappings, tokens,
-  digest-bound design plans, proof-gated handoffs, and verified cross-tool
+  authenticated ephemeral design plans, proof-gated handoffs, and verified cross-tool
   workflows.
 
 Keeping those responsibilities separate means the Preskok server never stores
@@ -95,15 +95,25 @@ For Figma work, call `plan_preskok_design` before writing. It selects either a
 `published` strategy (remote library instances and collections) or a `copied`
 strategy (local copies verified by stable component-contract fingerprints),
 checks theme availability, and returns exact instance and hierarchy
-requirements. After the official Figma MCP builds or inspects the design, call
+requirements. The returned digest authenticates an ephemeral capability issued
+by that running MCP process: finalize it with the same process, and request a
+fresh plan after any restart. Plans with duplicate requirement IDs, missing or
+cyclic parents, or inconsistent groups are not buildable.
+
+After the official Figma MCP builds or inspects the design, call
 `finalize_preskok_design` with live evidence. It returns a code handoff only
-when the unchanged plan, instance origins, hierarchy, properties, explicit root
-modes, token bindings, deliberate local components, and live layout proof pass.
-Repeated assets must carry their exact plan `requirementId`; a count of two
-Buttons or Separators is not enough. Layout proof records direct-parent bounds
-for the root, placed slot instances, and local source components, so stale node
-IDs, fixed 1px Auto Layout containers, overflow, clipping, and broken action
-grouping fail before a handoff is issued.
+when the authenticated unchanged plan, instance origins, exact assigned
+hierarchy, properties, explicit root modes, token bindings, deliberate local
+components, and live layout proof pass. Every live node can be claimed only
+once across instance, manual-node, and local-component evidence. Repeated
+assets must carry their exact plan `requirementId`; a count of two Buttons or
+Separators is not enough. Each required instance needs a direct live child
+record and must be visible, positive-sized, and automatically positioned in
+Auto Layout. Layout proof also records direct-parent bounds for the root and
+local source components, so stale node IDs, fixed 1px Auto Layout containers,
+cyclic parent evidence, overflow, clipping, and broken action grouping fail
+before a handoff is issued. Hidden zero-sized optional slots are allowed when
+they are not claimed as required instances.
 
 Inspect both the product-specific source component and its placed nested
 instance after an instance-swap update. Figma can retain an old nested override

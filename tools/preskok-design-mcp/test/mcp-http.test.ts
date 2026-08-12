@@ -149,6 +149,51 @@ describe("Preskok Design MCP over Streamable HTTP", () => {
     })
   })
 
+  it("returns failed finalization for a malformed plan digest over HTTP", async () => {
+    const planned = await client.callTool({
+      name: "plan_preskok_design",
+      arguments: {
+        intent: "Primary account action",
+        figmaStrategy: "published",
+        theme: { style: "Default", mode: "Light" },
+        requirements: [{ codeName: "button" }],
+      },
+    })
+    const plan = (
+      planned.structuredContent as {
+        plan: { contractDigest: string }
+      }
+    ).plan
+    plan.contractDigest = "malformed-digest"
+
+    const finalized = await client.callTool({
+      name: "finalize_preskok_design",
+      arguments: {
+        plan,
+        evidence: {
+          fileKey: "malformed-http-file",
+          rootNodeId: "malformed-http-root",
+          enabledLibraryKeys: [],
+          instances: [],
+          manualNodes: [],
+          localComponents: [],
+          modes: [],
+          hardcodedValues: [],
+        },
+      },
+    })
+
+    expect(finalized.structuredContent).toMatchObject({
+      finalization: {
+        ready: false,
+        issues: expect.arrayContaining([
+          expect.objectContaining({ code: "plan_contract_mismatch" }),
+        ]),
+        handoff: null,
+      },
+    })
+  })
+
   it("exposes a health check without weakening the MCP route", async () => {
     const healthUrl = new URL("/healthz", running.url)
     const health = await fetch(healthUrl)

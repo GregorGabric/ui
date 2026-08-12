@@ -1,4 +1,9 @@
-import { createHash } from "node:crypto"
+import {
+  createHash,
+  createHmac,
+  randomBytes,
+  timingSafeEqual,
+} from "node:crypto"
 import { promises as fs } from "node:fs"
 
 import type { DesignToken, PreskokCatalog, PreskokComponent } from "./types.js"
@@ -259,6 +264,7 @@ export type DesignFinalizationIssue = {
     | "component_hierarchy_mismatch"
     | "component_group_mismatch"
     | "ambiguous_requirement_assignment"
+    | "duplicate_node_claim"
     | "invalid_component_property"
     | "plan_contract_mismatch"
     | "detached_instance"
@@ -268,6 +274,10 @@ export type DesignFinalizationIssue = {
     | "layout_evidence_missing"
     | "live_node_missing"
     | "layout_ancestry_mismatch"
+    | "layout_participation_missing"
+    | "required_instance_not_visible"
+    | "required_instance_invalid_size"
+    | "required_instance_not_auto_layout"
     | "invalid_layout_size"
     | "auto_layout_overflow"
     | "clipped_content"
@@ -466,6 +476,7 @@ const accountSettingsRequirements: Array<RequestedDesignRequirement> = [
 export function createPreskokDesignSystem({
   catalog,
 }: CreateDesignSystemOptions): PreskokDesignSystem {
+  const planSigningKey = randomBytes(32)
   const componentsByName = new Map(
     catalog.components.map((component) => [component.name, component])
   )
@@ -567,6 +578,10 @@ export function createPreskokDesignSystem({
                 figmaCodeName: component.name,
                 asset,
                 representation: "native",
+                expandedIdentity:
+                  directAssets.length > 1
+                    ? `${component.name}-${asset.name}`
+                    : undefined,
               })
             )
           }
@@ -606,9 +621,18 @@ export function createPreskokDesignSystem({
               message: `${component.name} has no native Figma asset or verified fallback composition.`,
             })
           }
-          return fallbackRequirements
+          if (!requested.id || fallbackRequirements.length < 2) {
+            return fallbackRequirements
+          }
+          return fallbackRequirements.map((requirement) => ({
+            ...requirement,
+            id: `${requested.id}--${requirementIdSegment(
+              `${requirement.figmaCodeName}-${requirement.assetName}`
+            )}`,
+          }))
         }
       )
+      validateRequirementGraph(requirements, issues)
       const planWithoutDigest = {
         readyToBuild: !issues.some(({ severity }) => severity === "error"),
         intent: input.intent,
@@ -639,16 +663,20 @@ export function createPreskokDesignSystem({
         issues,
       }
       return {
-        contractDigest: designPlanDigest(planWithoutDigest),
+        contractDigest: signDesignPlan(planWithoutDigest, planSigningKey),
         ...planWithoutDigest,
       }
     },
 
     finalizeDesign({ plan, evidence, notes = [] }) {
       const issues: Array<DesignFinalizationIssue> = []
+      const evidenceInstances = validateUniqueEvidenceNodeClaims(
+        evidence,
+        issues
+      )
       const layout = validateDesignLayoutEvidence(plan, evidence, issues)
       const { contractDigest, ...planContract } = plan
-      if (designPlanDigest(planContract) !== contractDigest) {
+      if (!verifyDesignPlan(planContract, contractDigest, planSigningKey)) {
         issues.push({
           severity: "error",
           code: "plan_contract_mismatch",
@@ -663,7 +691,7 @@ export function createPreskokDesignSystem({
       const hasCompletePublishedIdentity =
         plan.figmaStrategy === "published" &&
         plan.requirements.every((requirement) => {
-          const linkedRemoteInstances = evidence.instances.filter(
+          const linkedRemoteInstances = evidenceInstances.filter(
             (instance) =>
               instance.componentKey === requirement.componentKey &&
               instance.remote === true
@@ -721,7 +749,7 @@ export function createPreskokDesignSystem({
         if (!firstRequirement) {
           continue
         }
-        for (const instance of evidence.instances) {
+        for (const instance of evidenceInstances) {
           if (
             matchesRequirementIdentity(plan, firstRequirement, instance) &&
             !instance.requirementId
@@ -737,57 +765,51 @@ export function createPreskokDesignSystem({
           }
         }
       }
+      const assignedInstancesByRequirement = assignEvidenceInstances({
+        plan,
+        instances: evidenceInstances,
+      })
       for (const requirement of plan.requirements) {
-        const assetNameMatches = evidence.instances.filter(
+        const assetNameMatches = evidenceInstances.filter(
           (instance) => instance.assetName === requirement.assetName
         )
-        const requirementsWithSameIdentity =
-          requirementsByIdentity.get(
-            designRequirementIdentity(plan, requirement)
-          ) ?? []
-        const requiresExplicitAssignment =
-          requirementsWithSameIdentity.length > 1
-        const allIdentityMatches = evidence.instances.filter((instance) =>
+        const allIdentityMatches = evidenceInstances.filter((instance) =>
           matchesRequirementIdentity(plan, requirement, instance)
         )
-        const identityMatches = allIdentityMatches.filter((instance) => {
-          if (requiresExplicitAssignment) {
-            return instance.requirementId === requirement.id
-          }
-          return (
-            instance.requirementId === undefined ||
-            instance.requirementId === requirement.id
-          )
-        })
-        let matchingInstances = identityMatches
+        const identityMatches =
+          assignedInstancesByRequirement.get(requirement) ?? []
+        let hierarchyMatchingInstances = identityMatches
         if (requirement.parentRequirementId) {
           const parentRequirement = plan.requirements.find(
             ({ id }) => id === requirement.parentRequirementId
           )
           const parentNodeIds = parentRequirement
-            ? evidence.instances
-                .filter((instance) => {
-                  if (plan.figmaStrategy === "published") {
-                    return (
-                      instance.componentKey === parentRequirement.componentKey
-                    )
-                  }
-                  return (
-                    instance.assetName === parentRequirement.assetName &&
-                    instance.contractFingerprint ===
-                      parentRequirement.contractFingerprint
-                  )
-                })
-                .map(({ nodeId }) => nodeId)
+            ? (assignedInstancesByRequirement.get(parentRequirement) ?? []).map(
+                ({ nodeId }) => nodeId
+              )
             : []
-          matchingInstances = identityMatches.filter((instance) =>
+          hierarchyMatchingInstances = identityMatches.filter((instance) =>
             parentNodeIds.some((nodeId) =>
-              instance.ancestorNodeIds?.includes(nodeId)
+              layout
+                ? collectLayoutAncestors(
+                    instance.nodeId,
+                    layout.parentByNodeId
+                  ).includes(nodeId)
+                : false
             )
           )
         }
+        const matchingInstances = hierarchyMatchingInstances.filter(
+          (instance) =>
+            validateRequiredInstanceLayoutParticipation({
+              instance,
+              requirement,
+              layout,
+              issues,
+            })
+        )
         const misplacedInstances = identityMatches.filter(
-          (instance) => !matchingInstances.includes(instance)
+          (instance) => !hierarchyMatchingInstances.includes(instance)
         )
         matchedInstances += Math.min(
           identityMatches.length,
@@ -1445,8 +1467,55 @@ function figmaAssetContractFingerprint(
   return createHash("sha256").update(JSON.stringify(contract)).digest("hex")
 }
 
-function designPlanDigest(plan: Omit<DesignPlan, "contractDigest">): string {
-  return createHash("sha256").update(JSON.stringify(plan)).digest("hex")
+function signDesignPlan(
+  plan: Omit<DesignPlan, "contractDigest">,
+  signingKey: Buffer
+): string {
+  return createHmac("sha256", signingKey)
+    .update(canonicalJson(plan))
+    .digest("hex")
+}
+
+function verifyDesignPlan(
+  plan: Omit<DesignPlan, "contractDigest">,
+  contractDigest: string,
+  signingKey: Buffer
+): boolean {
+  if (!/^[a-f0-9]{64}$/i.test(contractDigest)) {
+    return false
+  }
+  const expected = Buffer.from(signDesignPlan(plan, signingKey), "hex")
+  const actual = Buffer.from(contractDigest, "hex")
+  return actual.length === expected.length && timingSafeEqual(actual, expected)
+}
+
+function canonicalJson(value: unknown): string {
+  return JSON.stringify(canonicalizeJsonValue(value))
+}
+
+function canonicalizeJsonValue(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map((item) =>
+      item === undefined ? null : canonicalizeJsonValue(item)
+    )
+  }
+  if (value === null || typeof value !== "object") {
+    return value
+  }
+  const record = value as Record<string, unknown>
+  const canonical: Record<string, unknown> = {}
+  for (const key of Object.keys(record).sort()) {
+    const item = record[key]
+    if (
+      item === undefined ||
+      typeof item === "function" ||
+      typeof item === "symbol"
+    ) {
+      continue
+    }
+    canonical[key] = canonicalizeJsonValue(item)
+  }
+  return canonical
 }
 
 function createDesignRequirement({
@@ -1457,6 +1526,7 @@ function createDesignRequirement({
   figmaCodeName,
   asset,
   representation,
+  expandedIdentity,
 }: {
   requested: RequestedDesignRequirement
   requestedIndex: number
@@ -1465,10 +1535,16 @@ function createDesignRequirement({
   figmaCodeName: string
   asset: PreskokComponent["figma"]["assets"][number]
   representation: DesignRequirement["representation"]
+  expandedIdentity?: string | undefined
 }): DesignRequirement {
   const generatedId = `${codeName}-${requestedIndex}-${figmaCodeName}-${assetIndex}`
+  const requestedId = requested.id
+  const id =
+    requestedId && expandedIdentity
+      ? `${requestedId}--${requirementIdSegment(expandedIdentity)}`
+      : (requestedId ?? generatedId)
   return {
-    id: requested.id ?? generatedId,
+    id,
     role: requested.role ?? "component",
     codeName,
     figmaCodeName,
@@ -1483,6 +1559,126 @@ function createDesignRequirement({
   }
 }
 
+function requirementIdSegment(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+}
+
+function validateRequirementGraph(
+  requirements: Array<DesignRequirement>,
+  issues: DesignPlan["issues"]
+) {
+  const requirementsById = new Map<string, DesignRequirement>()
+  const duplicateIds = new Set<string>()
+  for (const requirement of requirements) {
+    if (requirementsById.has(requirement.id)) {
+      duplicateIds.add(requirement.id)
+      continue
+    }
+    requirementsById.set(requirement.id, requirement)
+  }
+  for (const id of duplicateIds) {
+    issues.push({
+      severity: "error",
+      code: "duplicate_requirement_id",
+      message: `Requirement ID ${id} is used more than once.`,
+    })
+  }
+
+  for (const requirement of requirements) {
+    if (requirement.groupLayout && !requirement.groupId) {
+      issues.push({
+        severity: "error",
+        code: "group_layout_without_group",
+        message: `Requirement ${requirement.id} declares ${requirement.groupLayout} layout without a groupId.`,
+      })
+    }
+    if (!requirement.parentRequirementId) {
+      continue
+    }
+    if (requirement.parentRequirementId === requirement.id) {
+      issues.push({
+        severity: "error",
+        code: "self_parent_requirement",
+        message: `Requirement ${requirement.id} cannot be its own parent.`,
+      })
+      continue
+    }
+    if (!requirementsById.has(requirement.parentRequirementId)) {
+      issues.push({
+        severity: "error",
+        code: "missing_parent_requirement",
+        message: `Requirement ${requirement.id} references missing parent ${requirement.parentRequirementId}.`,
+      })
+    }
+  }
+
+  const layoutsByGroup = new Map<
+    string,
+    Set<NonNullable<DesignRequirement["groupLayout"]>>
+  >()
+  for (const requirement of requirements) {
+    if (!requirement.groupId || !requirement.groupLayout) {
+      continue
+    }
+    const layouts = layoutsByGroup.get(requirement.groupId) ?? new Set()
+    layouts.add(requirement.groupLayout)
+    layoutsByGroup.set(requirement.groupId, layouts)
+  }
+  for (const [groupId, layouts] of layoutsByGroup) {
+    if (layouts.size < 2) {
+      continue
+    }
+    issues.push({
+      severity: "error",
+      code: "conflicting_group_layout",
+      message: `Group ${groupId} declares conflicting layouts: ${[...layouts].join(", ")}.`,
+    })
+  }
+
+  const visitState = new Map<string, "visiting" | "visited">()
+  const stack: Array<string> = []
+  const reportedCycles = new Set<string>()
+  const visit = (requirementId: string) => {
+    if (visitState.get(requirementId) === "visited") {
+      return
+    }
+    if (visitState.get(requirementId) === "visiting") {
+      const cycleStart = stack.indexOf(requirementId)
+      const cycle = [...stack.slice(cycleStart), requirementId]
+      const cycleKey = [...new Set(cycle)].sort().join(":")
+      if (!reportedCycles.has(cycleKey)) {
+        reportedCycles.add(cycleKey)
+        issues.push({
+          severity: "error",
+          code: "requirement_parent_cycle",
+          message: `Requirement parent cycle detected: ${cycle.join(" -> ")}.`,
+        })
+      }
+      return
+    }
+    visitState.set(requirementId, "visiting")
+    stack.push(requirementId)
+    const parentRequirementId =
+      requirementsById.get(requirementId)?.parentRequirementId
+    if (
+      parentRequirementId &&
+      parentRequirementId !== requirementId &&
+      requirementsById.has(parentRequirementId)
+    ) {
+      visit(parentRequirementId)
+    }
+    stack.pop()
+    visitState.set(requirementId, "visited")
+  }
+  for (const requirementId of requirementsById.keys()) {
+    visit(requirementId)
+  }
+}
+
 function isAccountSettingsIntent(intent: string) {
   const normalizedIntent = normalize(intent)
   return (
@@ -1492,13 +1688,85 @@ function isAccountSettingsIntent(intent: string) {
   )
 }
 
+function validateUniqueEvidenceNodeClaims(
+  evidence: DesignEvidence,
+  issues: Array<DesignFinalizationIssue>
+): DesignEvidence["instances"] {
+  const claimsByNodeId = new Map<string, Array<string>>()
+  const addClaim = (nodeId: string, category: string) => {
+    const claims = claimsByNodeId.get(nodeId) ?? []
+    claims.push(category)
+    claimsByNodeId.set(nodeId, claims)
+  }
+  for (const instance of evidence.instances) {
+    addClaim(instance.nodeId, "instance")
+  }
+  for (const node of evidence.manualNodes) {
+    addClaim(node.nodeId, "manual node")
+  }
+  for (const component of evidence.localComponents) {
+    addClaim(component.nodeId, "local component")
+  }
+
+  const duplicateNodeIds = new Set<string>()
+  for (const [nodeId, claims] of claimsByNodeId) {
+    if (claims.length < 2) {
+      continue
+    }
+    duplicateNodeIds.add(nodeId)
+    issues.push({
+      severity: "error",
+      code: "duplicate_node_claim",
+      message: `Live node ${nodeId} is claimed more than once (${claims.join(", ")}).`,
+      nodeId,
+      requirementId: null,
+      recommendation:
+        "Report each live node exactly once in exactly one evidence category.",
+    })
+  }
+  return evidence.instances.filter(
+    (instance) => !duplicateNodeIds.has(instance.nodeId)
+  )
+}
+
+function assignEvidenceInstances({
+  plan,
+  instances,
+}: {
+  plan: DesignPlan
+  instances: DesignEvidence["instances"]
+}): Map<DesignRequirement, DesignEvidence["instances"]> {
+  const assignments = new Map<DesignRequirement, DesignEvidence["instances"]>()
+  for (const instance of instances) {
+    const candidates = plan.requirements.filter((requirement) =>
+      matchesRequirementIdentity(plan, requirement, instance)
+    )
+    let assigned: DesignRequirement | undefined
+    if (instance.requirementId) {
+      assigned = candidates.find(({ id }) => id === instance.requirementId)
+    } else if (candidates.length === 1) {
+      assigned = candidates[0]
+    }
+    if (!assigned) {
+      continue
+    }
+    const existing = assignments.get(assigned) ?? []
+    existing.push(instance)
+    assignments.set(assigned, existing)
+  }
+  return assignments
+}
+
 type LayoutContainer = NonNullable<
   DesignEvidence["layout"]
 >["containers"][number]
 
+type LayoutChild = LayoutContainer["children"][number]
+
 type LayoutValidation = {
   containersById: Map<string, LayoutContainer>
   parentByNodeId: Map<string, string>
+  childrenById: Map<string, LayoutChild>
 }
 
 function validateDesignLayoutEvidence(
@@ -1523,6 +1791,7 @@ function validateDesignLayoutEvidence(
 
   const containersById = new Map<string, LayoutContainer>()
   const parentByNodeId = new Map<string, string>()
+  const childrenById = new Map<string, LayoutChild>()
   const observedNodeIds = new Set<string>()
   const tolerance = 0.5
 
@@ -1555,6 +1824,9 @@ function validateDesignLayoutEvidence(
 
     for (const child of container.children) {
       observedNodeIds.add(child.nodeId)
+      if (!childrenById.has(child.nodeId)) {
+        childrenById.set(child.nodeId, child)
+      }
       const existingParent = parentByNodeId.get(child.nodeId)
       if (existingParent && existingParent !== container.nodeId) {
         issues.push({
@@ -1577,7 +1849,7 @@ function validateDesignLayoutEvidence(
           nodeId: child.nodeId,
           requirementId: null,
           recommendation:
-            "Give the visible node positive dimensions before finalization.",
+            "Give the node positive dimensions before finalization.",
         })
       }
       if (!child.visible) {
@@ -1618,6 +1890,8 @@ function validateDesignLayoutEvidence(
       }
     }
   }
+
+  validateLayoutParentCycles(parentByNodeId, issues)
 
   const referencedNodes = [
     { nodeId: evidence.rootNodeId, name: "Design root" },
@@ -1675,7 +1949,119 @@ function validateDesignLayoutEvidence(
     }
   }
 
-  return { containersById, parentByNodeId }
+  return { containersById, parentByNodeId, childrenById }
+}
+
+function validateRequiredInstanceLayoutParticipation({
+  instance,
+  requirement,
+  layout,
+  issues,
+}: {
+  instance: DesignEvidence["instances"][number]
+  requirement: DesignRequirement
+  layout: LayoutValidation | null
+  issues: Array<DesignFinalizationIssue>
+}): boolean {
+  if (!layout) {
+    return false
+  }
+  const child = layout.childrenById.get(instance.nodeId)
+  if (!child) {
+    issues.push({
+      severity: "error",
+      code: "layout_participation_missing",
+      message: `${instance.name} has no direct child record in the live layout evidence.`,
+      nodeId: instance.nodeId,
+      requirementId: requirement.id,
+      recommendation:
+        "Inspect the instance under its direct live parent and include that child record.",
+    })
+    return false
+  }
+  let participates = true
+  if (!child.visible) {
+    participates = false
+    issues.push({
+      severity: "error",
+      code: "required_instance_not_visible",
+      message: `${instance.name} is hidden in the live composition.`,
+      nodeId: instance.nodeId,
+      requirementId: requirement.id,
+      recommendation: "Make the required instance visible before finalization.",
+    })
+  }
+  if (child.width <= 0 || child.height <= 0) {
+    participates = false
+    issues.push({
+      severity: "error",
+      code: "required_instance_invalid_size",
+      message: `${instance.name} has invalid required-instance bounds ${child.width}×${child.height}.`,
+      nodeId: instance.nodeId,
+      requirementId: requirement.id,
+      recommendation:
+        "Give the required instance positive dimensions before finalization.",
+    })
+  }
+  const parentNodeId = layout.parentByNodeId.get(instance.nodeId)
+  const parent = parentNodeId
+    ? layout.containersById.get(parentNodeId)
+    : undefined
+  if (child.layoutPositioning !== "AUTO" || parent?.layoutMode === "NONE") {
+    participates = false
+    issues.push({
+      severity: "error",
+      code: "required_instance_not_auto_layout",
+      message: `${instance.name} does not participate in its direct parent's Auto Layout.`,
+      nodeId: instance.nodeId,
+      requirementId: requirement.id,
+      recommendation:
+        "Set the required instance to AUTO positioning in its direct Auto Layout parent.",
+    })
+  }
+  return participates
+}
+
+function validateLayoutParentCycles(
+  parentByNodeId: Map<string, string>,
+  issues: Array<DesignFinalizationIssue>
+) {
+  const completed = new Set<string>()
+  const reportedCycles = new Set<string>()
+  for (const startNodeId of parentByNodeId.keys()) {
+    if (completed.has(startNodeId)) {
+      continue
+    }
+    const path: Array<string> = []
+    const pathIndexes = new Map<string, number>()
+    let nodeId: string | undefined = startNodeId
+    while (nodeId && !completed.has(nodeId)) {
+      const cycleStart = pathIndexes.get(nodeId)
+      if (cycleStart !== undefined) {
+        const cycle = [...path.slice(cycleStart), nodeId]
+        const cycleKey = [...new Set(cycle)].sort().join(":")
+        if (!reportedCycles.has(cycleKey)) {
+          reportedCycles.add(cycleKey)
+          issues.push({
+            severity: "error",
+            code: "layout_ancestry_mismatch",
+            message: `The normalized layout parent graph contains a cycle: ${cycle.join(" -> ")}.`,
+            nodeId: cycle[0] ?? null,
+            requirementId: null,
+            recommendation:
+              "Reinspect the direct-parent layout tree and report an acyclic hierarchy rooted at the design root.",
+          })
+        }
+        break
+      }
+      pathIndexes.set(nodeId, path.length)
+      path.push(nodeId)
+      nodeId = parentByNodeId.get(nodeId)
+    }
+    for (const visitedNodeId of path) {
+      completed.add(visitedNodeId)
+    }
+  }
 }
 
 function validateRequirementGroups({

@@ -217,7 +217,7 @@ export async function createPreskokMcpServer(
         prompts: {},
       },
       instructions:
-        "Use this server as the canonical Preskok code, token, Figma mapping, planning, proof, and workflow contract. Before a Figma build call plan_preskok_design. Use the official Figma MCP for live reads and writes, collect evidence, then call finalize_preskok_design. Do not hand off an unfinalized design.",
+        "Use this server as the canonical Preskok code, token, Figma mapping, planning, proof, and workflow contract. Before a Figma build call plan_preskok_design. Its authenticated plan is an ephemeral capability that must be finalized by this same running MCP instance; request a fresh plan after restart. Use the official Figma MCP for live reads and writes, collect unique live-node evidence with required instances participating visibly in Auto Layout, then call finalize_preskok_design. Do not hand off an unfinalized design.",
     }
   )
 
@@ -287,7 +287,7 @@ export async function createPreskokMcpServer(
     {
       title: "Plan a Preskok design",
       description:
-        "Create a digest-bound composition contract for the published-library or copied-file Figma strategy, including official source, modes, component instances, hierarchy, fallbacks, and code components.",
+        "Create a server-authenticated ephemeral composition contract for the published-library or copied-file Figma strategy, including official source, modes, uniquely identified requirements, acyclic hierarchy, consistent groups, fallbacks, and code components. Finalize it with the same running MCP instance and request a fresh plan after restart.",
       inputSchema: z.object({
         intent: z.string().min(1),
         figmaStrategy: z.enum(["published", "copied"]),
@@ -304,7 +304,7 @@ export async function createPreskokMcpServer(
     {
       title: "Finalize a Preskok design",
       description:
-        "Verify live normalized Figma evidence against an unchanged plan. A code handoff is returned only after library/copy identity, explicit requirement assignment, live-node ancestry, Auto Layout bounds, overflow, clipping, grouped actions, properties, theme modes, tokens, and local deviations pass.",
+        "Verify unique live normalized Figma evidence against an unchanged plan authenticated by this running MCP instance. A code handoff is returned only after exact requirement assignment and hierarchy, visible positive-sized required instances participating in Auto Layout, library/copy identity, bounds, overflow, clipping, grouped actions, properties, theme modes, tokens, and local deviations pass.",
       inputSchema: z.object({
         plan: designPlanSchema,
         evidence: designEvidenceSchema,

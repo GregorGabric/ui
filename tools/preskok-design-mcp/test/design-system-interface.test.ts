@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto"
 import { promises as fs } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -6,6 +7,7 @@ import { beforeAll, describe, expect, it } from "vitest"
 import {
   createPreskokDesignSystem,
   type DesignEvidence,
+  type DesignPlan,
 } from "../src/design-system.js"
 import { generatePreskokCatalog } from "../src/generation/catalog.js"
 import type { PreskokCatalog } from "../src/types.js"
@@ -185,6 +187,108 @@ function createPassingLayoutEvidence({
   return { containers }
 }
 
+function createSingleRequirementEvidence({
+  plan,
+  rootNodeId = "single-root",
+  nodeId = "single-instance",
+  child = {},
+  manualNodes = [],
+}: {
+  plan: DesignPlan
+  rootNodeId?: string
+  nodeId?: string
+  child?: Partial<
+    NonNullable<
+      DesignEvidence["layout"]
+    >["containers"][number]["children"][number]
+  >
+  manualNodes?: DesignEvidence["manualNodes"]
+}): DesignEvidence {
+  const requirement = plan.requirements[0]
+  if (!requirement) {
+    throw new Error("Expected one planned requirement")
+  }
+  const remote = plan.figmaStrategy === "published"
+  return {
+    fileKey: `${rootNodeId}-file`,
+    rootNodeId,
+    enabledLibraryKeys: remote ? [plan.source.libraryKey] : [],
+    instances: [
+      {
+        nodeId,
+        requirementId: requirement.id,
+        name: requirement.assetName,
+        assetName: requirement.assetName,
+        componentKey: remote ? requirement.componentKey : undefined,
+        contractFingerprint: remote
+          ? undefined
+          : requirement.contractFingerprint,
+        remote,
+        detached: false,
+        properties: {},
+      },
+    ],
+    manualNodes,
+    localComponents: [],
+    modes: [
+      {
+        collectionName: "Style",
+        collectionKey: remote
+          ? plan.source.collections.style.key
+          : "local-style-key",
+        mode: plan.source.collections.style.mode,
+        explicit: true,
+        remote,
+      },
+      {
+        collectionName: "Mode",
+        collectionKey: remote
+          ? plan.source.collections.colorMode.key
+          : "local-mode-key",
+        mode: plan.source.collections.colorMode.mode,
+        explicit: true,
+        remote,
+      },
+    ],
+    hardcodedValues: [],
+    layout: {
+      containers: [
+        {
+          nodeId: rootNodeId,
+          name: "Single requirement root",
+          type: "FRAME",
+          width: 320,
+          height: 80,
+          layoutMode: "HORIZONTAL",
+          primaryAxisSizingMode: "AUTO",
+          counterAxisSizingMode: "AUTO",
+          clipsContent: false,
+          children: [
+            {
+              nodeId,
+              name: requirement.assetName,
+              type: "INSTANCE",
+              x: 0,
+              y: 0,
+              width: 120,
+              height: 40,
+              visible: true,
+              layoutPositioning: "AUTO",
+              ...child,
+            },
+          ],
+        },
+      ],
+    },
+  }
+}
+
+function ordinarySha256Digest(plan: DesignPlan): string {
+  const { contractDigest, ...contract } = plan
+  void contractDigest
+  return createHash("sha256").update(JSON.stringify(contract)).digest("hex")
+}
+
 describe("PreskokDesignSystem interface", () => {
   it("plans account settings as a complete library-native composition", () => {
     const system = createPreskokDesignSystem({ catalog })
@@ -231,6 +335,17 @@ describe("PreskokDesignSystem interface", () => {
       ["Button", 1],
       ["Button", 1],
     ])
+    expect(plan.requirements.map(({ id }) => id)).toEqual([
+      "settings-card",
+      "email-label",
+      "email-input",
+      "email-description",
+      "profile-separator",
+      "updates-switch",
+      "actions-separator",
+      "cancel-action",
+      "save-action",
+    ])
     expect(
       plan.requirements.map(({ id, groupId, groupLayout }) => ({
         id,
@@ -262,6 +377,220 @@ describe("PreskokDesignSystem interface", () => {
       ])
     )
     expect(plan.contractDigest).toMatch(/^[a-f0-9]{64}$/)
+  })
+
+  it("authenticates canonical plans regardless of nested object key order", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+    const reorderedPlan = structuredClone(plan)
+    reorderedPlan.theme = {
+      mode: plan.theme.mode,
+      style: plan.theme.style,
+    }
+    reorderedPlan.source.collections.style = {
+      availableModes: [...plan.source.collections.style.availableModes],
+      mode: plan.source.collections.style.mode,
+      key: plan.source.collections.style.key,
+      name: plan.source.collections.style.name,
+    }
+
+    const result = system.finalizeDesign({
+      plan: reorderedPlan,
+      evidence: createSingleRequirementEvidence({ plan }),
+    })
+
+    expect(result.ready).toBe(true)
+    expect(result.issues).not.toContainEqual(
+      expect.objectContaining({ code: "plan_contract_mismatch" })
+    )
+  })
+
+  it("rejects a modified plan with an ordinary recomputed SHA-256 digest", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+    const forgedPlan = structuredClone(plan)
+    const requirement = forgedPlan.requirements[0]
+    if (!requirement) {
+      throw new Error("Expected a planned requirement")
+    }
+    requirement.role = "forged-role"
+    forgedPlan.contractDigest = ordinarySha256Digest(forgedPlan)
+
+    const result = system.finalizeDesign({
+      plan: forgedPlan,
+      evidence: createSingleRequirementEvidence({ plan }),
+    })
+
+    expect(result.ready).toBe(false)
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({ code: "plan_contract_mismatch" })
+    )
+  })
+
+  it("rejects plans issued by another design-system instance", () => {
+    const issuingSystem = createPreskokDesignSystem({ catalog })
+    const finalizingSystem = createPreskokDesignSystem({ catalog })
+    const plan = issuingSystem.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+
+    const result = finalizingSystem.finalizeDesign({
+      plan,
+      evidence: createSingleRequirementEvidence({ plan }),
+    })
+
+    expect(result.ready).toBe(false)
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({ code: "plan_contract_mismatch" })
+    )
+  })
+
+  it("treats malformed plan digests as contract mismatches", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+    plan.contractDigest = "not-a-hex-digest"
+
+    expect(() =>
+      system.finalizeDesign({
+        plan,
+        evidence: createSingleRequirementEvidence({ plan }),
+      })
+    ).not.toThrow()
+    expect(
+      system.finalizeDesign({
+        plan,
+        evidence: createSingleRequirementEvidence({ plan }),
+      }).issues
+    ).toContainEqual(
+      expect.objectContaining({ code: "plan_contract_mismatch" })
+    )
+  })
+
+  it.each([
+    {
+      name: "duplicate IDs",
+      requirements: [
+        { id: "duplicate", codeName: "button" },
+        { id: "duplicate", codeName: "separator" },
+      ],
+      code: "duplicate_requirement_id",
+    },
+    {
+      name: "missing parents",
+      requirements: [
+        {
+          id: "child",
+          codeName: "button",
+          parentRequirementId: "missing",
+        },
+      ],
+      code: "missing_parent_requirement",
+    },
+    {
+      name: "self parents",
+      requirements: [
+        {
+          id: "self",
+          codeName: "button",
+          parentRequirementId: "self",
+        },
+      ],
+      code: "self_parent_requirement",
+    },
+    {
+      name: "group layouts without groups",
+      requirements: [
+        { id: "ungrouped", codeName: "button", groupLayout: "HORIZONTAL" },
+      ],
+      code: "group_layout_without_group",
+    },
+    {
+      name: "conflicting group layouts",
+      requirements: [
+        {
+          id: "horizontal",
+          codeName: "button",
+          groupId: "actions",
+          groupLayout: "HORIZONTAL",
+        },
+        {
+          id: "vertical",
+          codeName: "separator",
+          groupId: "actions",
+          groupLayout: "VERTICAL",
+        },
+      ],
+      code: "conflicting_group_layout",
+    },
+    {
+      name: "parent cycles",
+      requirements: [
+        { id: "first", codeName: "card", parentRequirementId: "second" },
+        { id: "second", codeName: "card", parentRequirementId: "first" },
+      ],
+      code: "requirement_parent_cycle",
+    },
+  ] as const)(
+    "rejects invalid requirement graphs with $name",
+    ({ requirements, code }) => {
+      const system = createPreskokDesignSystem({ catalog })
+      const plan = system.planDesign({
+        intent: "Invalid graph",
+        figmaStrategy: "published",
+        theme: { style: "Default", mode: "Light" },
+        requirements: [...requirements],
+      })
+
+      expect(plan.readyToBuild).toBe(false)
+      expect(plan.issues).toContainEqual(expect.objectContaining({ code }))
+    }
+  )
+
+  it("gives every expanded fallback a deterministic caller-derived ID", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Preview trigger",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "preview-trigger", codeName: "preview-trigger" }],
+    })
+
+    expect(plan.readyToBuild).toBe(true)
+    expect(plan.requirements.map(({ id }) => id)).toEqual([
+      "preview-trigger--button-button",
+      "preview-trigger--popover-popover",
+    ])
+    expect(new Set(plan.requirements.map(({ id }) => id)).size).toBe(
+      plan.requirements.length
+    )
+
+    const oneToOnePlan = system.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "caller-action", codeName: "button" }],
+    })
+    expect(oneToOnePlan.requirements.map(({ id }) => id)).toEqual([
+      "caller-action",
+    ])
   })
 
   it("requires explicit requirement IDs when planned assets repeat", () => {
@@ -334,6 +663,393 @@ describe("PreskokDesignSystem interface", () => {
           code: "ambiguous_requirement_assignment",
         }),
       ])
+    )
+  })
+
+  it("does not let one repeated live node satisfy two requirements", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Two actions",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [
+        { id: "first-action", codeName: "button" },
+        { id: "second-action", codeName: "button" },
+      ],
+    })
+    const [first, second] = plan.requirements
+    if (!first || !second) {
+      throw new Error("Expected two action requirements")
+    }
+    const evidence = createSingleRequirementEvidence({ plan })
+    evidence.instances = [first, second].map((requirement) => ({
+      nodeId: "repeated-node",
+      requirementId: requirement.id,
+      name: requirement.id,
+      assetName: requirement.assetName,
+      componentKey: requirement.componentKey,
+      remote: true,
+      detached: false,
+      properties: {},
+    }))
+    const root = evidence.layout?.containers[0]
+    const child = root?.children[0]
+    if (!child) {
+      throw new Error("Expected repeated-node layout evidence")
+    }
+    child.nodeId = "repeated-node"
+
+    const result = system.finalizeDesign({ plan, evidence })
+
+    expect(result.ready).toBe(false)
+    expect(result.coverage).toEqual({
+      requiredInstances: 2,
+      matchedInstances: 0,
+      satisfiedInstances: 0,
+    })
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "duplicate_node_claim",
+        nodeId: "repeated-node",
+      })
+    )
+  })
+
+  it("rejects a node claimed across instance and manual evidence", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+    const evidence = createSingleRequirementEvidence({
+      plan,
+      nodeId: "colliding-node",
+      manualNodes: [
+        {
+          nodeId: "colliding-node",
+          name: "Manual primary action",
+          type: "FRAME",
+          tokenBound: true,
+        },
+      ],
+    })
+
+    const result = system.finalizeDesign({ plan, evidence })
+
+    expect(result.ready).toBe(false)
+    expect(result.coverage.matchedInstances).toBe(0)
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "duplicate_node_claim",
+        nodeId: "colliding-node",
+      })
+    )
+  })
+
+  it("requires a child to use the exact assigned same-component parent", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Two cards with one action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [
+        { id: "expected-card", codeName: "card", assetName: "Card" },
+        { id: "other-card", codeName: "card", assetName: "Card" },
+        {
+          id: "card-action",
+          codeName: "button",
+          parentRequirementId: "expected-card",
+        },
+      ],
+    })
+    const [expectedCard, otherCard, cardAction] = plan.requirements
+    if (!expectedCard || !otherCard || !cardAction) {
+      throw new Error("Expected two cards and one action")
+    }
+    const instances: DesignEvidence["instances"] = [
+      {
+        nodeId: "expected-card-node",
+        requirementId: expectedCard.id,
+        name: "Expected card",
+        assetName: expectedCard.assetName,
+        componentKey: expectedCard.componentKey,
+        remote: true,
+        detached: false,
+        properties: {},
+      },
+      {
+        nodeId: "other-card-node",
+        requirementId: otherCard.id,
+        name: "Other card",
+        assetName: otherCard.assetName,
+        componentKey: otherCard.componentKey,
+        remote: true,
+        detached: false,
+        properties: {},
+      },
+      {
+        nodeId: "card-action-node",
+        requirementId: cardAction.id,
+        name: "Card action",
+        assetName: cardAction.assetName,
+        componentKey: cardAction.componentKey,
+        ancestorNodeIds: ["other-card-node"],
+        remote: true,
+        detached: false,
+        properties: {},
+      },
+    ]
+    const result = system.finalizeDesign({
+      plan,
+      evidence: {
+        fileKey: "exact-parent-file",
+        rootNodeId: "exact-parent-root",
+        enabledLibraryKeys: [plan.source.libraryKey],
+        instances,
+        manualNodes: [],
+        localComponents: [],
+        modes: [
+          {
+            collectionName: "Style",
+            collectionKey: plan.source.collections.style.key,
+            mode: "Default",
+            explicit: true,
+            remote: true,
+          },
+          {
+            collectionName: "Mode",
+            collectionKey: plan.source.collections.colorMode.key,
+            mode: "Light",
+            explicit: true,
+            remote: true,
+          },
+        ],
+        hardcodedValues: [],
+        layout: {
+          containers: [
+            {
+              nodeId: "exact-parent-root",
+              name: "Root",
+              type: "FRAME",
+              width: 640,
+              height: 400,
+              layoutMode: "HORIZONTAL",
+              clipsContent: false,
+              children: [
+                {
+                  nodeId: "expected-card-node",
+                  name: "Expected card",
+                  type: "INSTANCE",
+                  x: 0,
+                  y: 0,
+                  width: 300,
+                  height: 300,
+                  visible: true,
+                  layoutPositioning: "AUTO",
+                },
+                {
+                  nodeId: "other-card-node",
+                  name: "Other card",
+                  type: "INSTANCE",
+                  x: 320,
+                  y: 0,
+                  width: 300,
+                  height: 300,
+                  visible: true,
+                  layoutPositioning: "AUTO",
+                },
+              ],
+            },
+            {
+              nodeId: "expected-card-node",
+              name: "Expected card",
+              type: "INSTANCE",
+              width: 300,
+              height: 300,
+              layoutMode: "VERTICAL",
+              clipsContent: false,
+              children: [],
+            },
+            {
+              nodeId: "other-card-node",
+              name: "Other card",
+              type: "INSTANCE",
+              width: 300,
+              height: 300,
+              layoutMode: "VERTICAL",
+              clipsContent: false,
+              children: [
+                {
+                  nodeId: "card-action-node",
+                  name: "Card action",
+                  type: "INSTANCE",
+                  x: 0,
+                  y: 0,
+                  width: 120,
+                  height: 40,
+                  visible: true,
+                  layoutPositioning: "AUTO",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    })
+
+    expect(result.ready).toBe(false)
+    expect(result.coverage).toEqual({
+      requiredInstances: 3,
+      matchedInstances: 3,
+      satisfiedInstances: 2,
+    })
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "component_hierarchy_mismatch",
+        requirementId: "card-action",
+        nodeId: "card-action-node",
+      })
+    )
+  })
+
+  it("rejects a hidden zero-sized required Button", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Hidden action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "hidden-action", codeName: "button" }],
+    })
+    const evidence = createSingleRequirementEvidence({
+      plan,
+      child: { visible: false, width: 0, height: 0 },
+    })
+
+    const result = system.finalizeDesign({ plan, evidence })
+
+    expect(result.ready).toBe(false)
+    expect(result.coverage.satisfiedInstances).toBe(0)
+    expect(result.issues.map(({ code }) => code)).toEqual(
+      expect.arrayContaining([
+        "required_instance_not_visible",
+        "required_instance_invalid_size",
+      ])
+    )
+  })
+
+  it("allows an unrelated hidden zero-sized optional layout child", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Primary action with an optional slot",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+    const evidence = createSingleRequirementEvidence({ plan })
+    const root = evidence.layout?.containers[0]
+    if (!root) {
+      throw new Error("Expected optional-slot layout root")
+    }
+    root.children.push({
+      nodeId: "optional-hidden-slot",
+      name: "Optional hidden slot",
+      type: "FRAME",
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+      visible: false,
+      layoutPositioning: "AUTO",
+    })
+
+    const result = system.finalizeDesign({ plan, evidence })
+
+    expect(result).toMatchObject({
+      ready: true,
+      issues: [],
+      coverage: {
+        requiredInstances: 1,
+        matchedInstances: 1,
+        satisfiedInstances: 1,
+      },
+    })
+  })
+
+  it("rejects a cycle in the normalized live layout parent graph", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Primary action",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "primary-action", codeName: "button" }],
+    })
+    const evidence = createSingleRequirementEvidence({ plan })
+    const instance = evidence.instances[0]
+    const layout = evidence.layout
+    if (!instance || !layout) {
+      throw new Error("Expected cyclic layout evidence inputs")
+    }
+    layout.containers.push({
+      nodeId: instance.nodeId,
+      name: instance.name,
+      type: "INSTANCE",
+      width: 320,
+      height: 80,
+      layoutMode: "HORIZONTAL",
+      primaryAxisSizingMode: "AUTO",
+      counterAxisSizingMode: "AUTO",
+      clipsContent: false,
+      children: [
+        {
+          nodeId: evidence.rootNodeId,
+          name: "Cyclic root child",
+          type: "FRAME",
+          x: 0,
+          y: 0,
+          width: 320,
+          height: 80,
+          visible: true,
+          layoutPositioning: "AUTO",
+        },
+      ],
+    })
+
+    const result = system.finalizeDesign({ plan, evidence })
+
+    expect(result.ready).toBe(false)
+    expect(result.handoff).toBeNull()
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "layout_ancestry_mismatch",
+        message: expect.stringContaining("contains a cycle"),
+      })
+    )
+  })
+
+  it("rejects an in-bounds absolutely positioned required Separator", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const plan = system.planDesign({
+      intent: "Absolute separator",
+      figmaStrategy: "published",
+      theme: { style: "Default", mode: "Light" },
+      requirements: [{ id: "absolute-separator", codeName: "separator" }],
+    })
+    const evidence = createSingleRequirementEvidence({
+      plan,
+      child: { layoutPositioning: "ABSOLUTE" },
+    })
+
+    const result = system.finalizeDesign({ plan, evidence })
+
+    expect(result.ready).toBe(false)
+    expect(result.coverage.satisfiedInstances).toBe(0)
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "required_instance_not_auto_layout",
+        requirementId: "absolute-separator",
+      })
     )
   })
 
@@ -858,7 +1574,8 @@ describe("PreskokDesignSystem interface", () => {
       expect.arrayContaining([
         "live_node_missing",
         "auto_layout_overflow",
-        "component_group_mismatch",
+        "component_hierarchy_mismatch",
+        "required_instance_not_auto_layout",
       ])
     )
   })
@@ -987,6 +1704,10 @@ describe("PreskokDesignSystem interface", () => {
           },
         ],
         hardcodedValues: [],
+        layout: createPassingLayoutEvidence({
+          rootNodeId: "300:1",
+          instances,
+        }),
       },
     })
 
@@ -1130,6 +1851,31 @@ describe("PreskokDesignSystem interface", () => {
       throw new Error("Expected email input evidence")
     }
     emailInput.ancestorNodeIds = []
+    const layout = createPassingLayoutEvidence({
+      rootNodeId: "500:1",
+      instances,
+    })
+    const content = layout.containers.find(
+      ({ nodeId }) => nodeId === "500:1:content"
+    )
+    const root = layout.containers.find(({ nodeId }) => nodeId === "500:1")
+    if (!content || !root) {
+      throw new Error("Expected hierarchy layout containers")
+    }
+    content.children = content.children.filter(
+      ({ nodeId }) => nodeId !== emailInput.nodeId
+    )
+    root.children.push({
+      nodeId: emailInput.nodeId,
+      name: emailInput.name,
+      type: "INSTANCE",
+      x: 0,
+      y: 620,
+      width: 560,
+      height: 32,
+      visible: true,
+      layoutPositioning: "AUTO",
+    })
 
     const result = system.finalizeDesign({
       plan,
@@ -1157,6 +1903,7 @@ describe("PreskokDesignSystem interface", () => {
           },
         ],
         hardcodedValues: [],
+        layout,
       },
     })
 
