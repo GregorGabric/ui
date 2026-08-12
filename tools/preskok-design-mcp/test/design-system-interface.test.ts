@@ -1365,7 +1365,7 @@ describe("PreskokDesignSystem interface", () => {
         ready: true,
         direction: "figma_to_code",
         installCommands: [
-          "pnpm dlx shadcn@latest add @preskok/card @preskok/field @preskok/input @preskok/separator @preskok/switch @preskok/button",
+          "pnpm dlx shadcn@latest add @preskok/button @preskok/card @preskok/field @preskok/input @preskok/separator @preskok/switch",
         ],
       },
     })
@@ -2253,8 +2253,8 @@ describe("PreskokDesignSystem interface", () => {
           componentKey: "4eb4cd0146113729c1848c95644b871e3cb88d0a",
         },
       ],
-      properties: { intent: "primary", size: "md" },
     })
+    expect(handoff.components[0]).not.toHaveProperty("properties")
     expect(handoff.tokens).toHaveLength(2)
   })
 
@@ -2307,7 +2307,7 @@ describe("PreskokDesignSystem interface", () => {
       ready: true,
       validation: { summary: { errors: 0, warnings: 0 } },
       installCommands: [
-        "pnpm dlx shadcn@latest add @preskok/badge @preskok/input @preskok/switch @preskok/button",
+        "pnpm dlx shadcn@latest add @preskok/badge @preskok/button @preskok/input @preskok/switch",
       ],
     })
     expect(handoff.tokens).toHaveLength(5)
@@ -2325,8 +2325,26 @@ describe("PreskokDesignSystem interface", () => {
     })
 
     expect(handoff.installCommands).toEqual([
-      "pnpm dlx shadcn@latest add @preskok/button @preskok/text-field @preskok/switch",
+      "pnpm dlx shadcn@latest add @preskok/button @preskok/switch @preskok/text-field",
     ])
+  })
+
+  it("returns source-driven handoffs for all 96 registry components without prop metadata", () => {
+    const system = createPreskokDesignSystem({ catalog })
+    const handoff = system.createHandoff({
+      direction: "claude_design_to_code",
+      components: catalog.components.map(({ name }) => ({ codeName: name })),
+    })
+
+    expect(handoff.ready).toBe(true)
+    expect(handoff.components).toHaveLength(96)
+    expect(handoff.installCommands).toHaveLength(1)
+    expect(new Set(handoff.inspectFiles).size).toBe(96)
+    for (const component of handoff.components) {
+      expect(component.installedSourcePath).toBe(`${component.importPath}.tsx`)
+      expect(component).not.toHaveProperty("properties")
+      expect(component.sourceFiles.length).toBeGreaterThan(0)
+    }
   })
 
   it("supports every translation direction exposed by the workflow contract", () => {
@@ -2377,7 +2395,6 @@ describe("PreskokDesignSystem interface", () => {
     )
     for (const name of [
       "claude_design_to_figma",
-      "figma_to_web_app",
       "web_app_to_figma",
       "theme_sync",
       "audit_figma_design",
@@ -2386,6 +2403,11 @@ describe("PreskokDesignSystem interface", () => {
       expect(tools, name).toContain("plan_preskok_design")
       expect(tools, name).toContain("finalize_preskok_design")
     }
+    const figmaToWebTools = system
+      .getWorkflow("figma_to_web_app")
+      .steps.flatMap((step) => step.tools)
+    expect(figmaToWebTools).toContain("prepare_preskok_figma_inspection")
+    expect(figmaToWebTools).toContain("ingest_preskok_figma_inspection")
     expect(() => system.getWorkflow("unknown_workflow")).toThrow(
       /Unknown Preskok workflow/
     )

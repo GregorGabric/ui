@@ -71,6 +71,8 @@ Tools:
 - `get_preskok_tokens`
 - `get_preskok_status`
 - `plan_preskok_design`
+- `prepare_preskok_figma_inspection`
+- `ingest_preskok_figma_inspection`
 - `finalize_preskok_design`
 - `validate_preskok_artifact`
 - `create_preskok_handoff`
@@ -91,7 +93,30 @@ Each of the seven workflow names is also an MCP prompt. A workflow prompt
 states which server owns each step, what the step must produce, and which
 verification gates must pass before the work is accepted.
 
-For Figma work, call `plan_preskok_design` before writing. It selects either a
+For an existing Figma-to-code design, use the automatic bridge:
+
+1. Call `prepare_preskok_figma_inspection` with the design root node ID.
+2. Run its returned code unchanged through the official Figma MCP `use_figma`
+   tool, and call `get_libraries` for the same file.
+3. Pass both unchanged results to `ingest_preskok_figma_inspection` with the
+   file's strategy and explicit Style/Mode selection.
+4. Fix the real design and repeat until `ready=true` and `handoff` is non-null.
+5. Run the one atomic install command, resolve every returned `inspectFiles`
+   alias through the consumer's `tsconfig`/`components.json`, and open the
+   copied source. That source is the component's code API.
+
+The bridge automatically discovers every visible top-level Preskok instance,
+including repeated components, while preserving its raw Figma properties and
+live hierarchy. Those properties describe the selected design state; the MCP
+does not convert them into React props through a sidecar mapping, override
+table, or component annotation. The registry component files remain unchanged.
+Unknown instances, ambiguous copied identities, incomplete proof, hidden or
+floating required nodes, unbound semantic values, and invalid theme modes fail
+closed. Code-only composition that is not represented by a Figma instance is
+implemented from the visual design and installed source and is not claimed as
+automatically discovered.
+
+For new Figma work, call `plan_preskok_design` before writing. It selects either a
 `published` strategy (remote library instances and collections) or a `copied`
 strategy (local copies verified by stable component-contract fingerprints),
 checks theme availability, and returns exact instance and hierarchy
@@ -116,9 +141,9 @@ before a handoff is issued. Hidden zero-sized optional slots are allowed when
 they are not claimed as required instances.
 
 Inspect both the product-specific source component and its placed nested
-instance after an instance-swap update. Figma can retain an old nested override
-even when the main component is correct; finalization treats missing live nodes
-as an error instead of accepting constructed evidence.
+instance after an instance-swap update. Figma can retain stale nested instance
+state even when the main component is correct; finalization treats missing live
+nodes as an error instead of accepting constructed evidence.
 
 For `published`, enabling Preskok UI is preferred because designers get Assets
 panel discovery and normal library update UX. Clients that cannot enable a
@@ -155,14 +180,19 @@ official Figma MCPs. It fails closed when published identity is incomplete, a
 copied contract drifted, theme application is inherited, or evidence is
 incomplete.
 
-Live reference screens exercise both accepted strategies:
+Live reference screens exercise both accepted strategies and the automatic
+Figma-to-code bridge:
 
 - [published direct imports](https://www.figma.com/design/MgQbBtbb503ZchJt0ZFz2k/Preskok-MCP-Workflow-Demo?node-id=17-246)
 - [official copied source with Briefd/Dark](https://www.figma.com/design/jGwVPvHf0oT3uV4aLzGdDl/Preskok-UI?node-id=4441-3)
+- [published dashboard consumer test](https://www.figma.com/design/a4aqXNsJwfMc6HRIJrBooB/Preskok-Cursor-MCP-Dashboard-Test?node-id=3-13)
 
 Their normalized audits, including direct-parent layout trees, are checked in
-as positive finalization fixtures. The old mixed/manual showcase and an
-explicit 1px Auto Layout overflow case remain negative fixtures.
+as positive finalization fixtures. The dashboard fixture is the unchanged,
+compact result of the exact prepared `use_figma` script; it stays below the
+official Figma MCP response boundary and drives the clean consumer build. The
+old mixed/manual showcase and an explicit 1px Auto Layout overflow case remain
+negative fixtures.
 
 ## Generated sources
 
@@ -197,14 +227,16 @@ pnpm --filter @preskok/design-mcp verify:workflows
 The first command checks deterministic generation, lint and formatting, unit
 behavior, real MCP clients over stdio and Streamable HTTP, the built CLI entry
 point, type safety, and package output. The second verifies the companion
-shadcn MCP from `apps/preskok`, then creates a fresh temporary Vite application,
-obtains and finalizes a design plan through the MCP protocol, installs the actual public
-`@preskok` registry items, typechecks and builds the app, serves the production
-build through Vite preview, asserts that its HTML references a hashed `/assets/`
-build artifact, and uses Chrome to verify pointer and keyboard behavior plus
-desktop and mobile layout. It also builds the Preskok Theme Builder and
-exercises a complete mocked Figma scan/save/apply flow, including explicit
-Style and Mode assignments.
+shadcn MCP from `apps/preskok`, then ingests the checked live dashboard
+inspection through MCP stdio, discovers all seven direct Preskok components,
+and creates a fresh temporary Vite application. It runs the returned atomic
+install against the public `@preskok` registry, checks the returned copied
+source paths, typechecks and builds the app, serves the production build through
+Vite preview, asserts that its HTML references a hashed `/assets/` build
+artifact, and uses Chrome to verify pointer and keyboard behavior plus desktop
+and mobile layout. It also builds the Preskok Theme Builder and exercises a
+complete mocked Figma scan/save/apply flow, including explicit Style and Mode
+assignments.
 
 Live Figma QA additionally verifies both accepted strategies against the two
 reference nodes above, including source-component hug sizing, placed-slot

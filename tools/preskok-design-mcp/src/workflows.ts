@@ -129,31 +129,42 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
     ],
     steps: [
       {
-        id: "read-design",
-        owner: "figma_mcp",
-        action:
-          "Read design context, screenshot, instance keys, properties, variables, annotations, and exported assets for the target node.",
-        tools: ["get_design_context"],
-        output: "Reference code and normalized design evidence.",
-      },
-      {
-        id: "resolve-contracts",
+        id: "prepare-inspection",
         owner: "preskok_mcp",
         action:
-          "Resolve the observed Figma instances to code components, issue a plan describing the intended composition, then finalize the live evidence against that plan.",
+          "Prepare the deterministic read-only inspection script for the target node.",
+        tools: ["prepare_preskok_figma_inspection"],
+        output:
+          "Exact code to run unchanged with the official Figma MCP and the name of the ingestion tool.",
+      },
+      {
+        id: "inspect-live-design",
+        owner: "figma_mcp",
+        action:
+          "Run the prepared code unchanged with use_figma, read the file's enabled libraries, and capture a screenshot and design context for visual and content reference.",
         tools: [
-          "get_preskok_component",
-          "plan_preskok_design",
-          "finalize_preskok_design",
+          "use_figma",
+          "get_libraries",
+          "get_screenshot",
+          "get_design_context",
         ],
         output:
-          "A proven handoff with exact registry installs, imports, props, tokens, usage references, and gaps.",
+          "Compact live inspection data, the unchanged library result, and visual reference material.",
+      },
+      {
+        id: "discover-and-prove",
+        owner: "preskok_mcp",
+        action:
+          "Ingest the unchanged official Figma results, discover every visible top-level Preskok instance, prove identity and layout, and fail closed on unknown or incomplete evidence.",
+        tools: ["ingest_preskok_figma_inspection"],
+        output:
+          "A proven handoff with one atomic registry install, copied-source inspection paths, raw Figma instance properties, tokens, usage references, and explicit gaps.",
       },
       {
         id: "implement",
         owner: "claude_code",
         action:
-          "Install required registry items, reuse project patterns, implement behavior and responsive states, and preserve asset fidelity.",
+          "Run the handoff's atomic install, read every returned copied source file as the component API, then implement the design's content, composition, behavior, and responsive states. Treat raw Figma properties as design intent, not React props.",
         tools: ["shadcn", "repository tools"],
         output:
           "A working application implementation using Preskok components.",
@@ -171,9 +182,10 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
       {
         id: "protocol-handoff",
         kind: "mcp",
-        action: "Finalize normalized live evidence through the MCP protocol.",
+        action:
+          "Prepare, run, and ingest the automatic live inspection through the MCP protocol.",
         passCondition:
-          "The finalization is ready, its handoff is non-null, and every required Figma instance resolves to one code contract.",
+          "The analysis is ready, its handoff is non-null, every visible top-level Preskok instance resolves exactly once, and each installed component has a copied-source inspection path.",
       },
       {
         id: "production-build",
@@ -200,6 +212,8 @@ export const preskokWorkflows: Array<PreskokWorkflow> = [
     ],
     limitations: [
       "Figma-generated React and Tailwind are reference material, not production code.",
+      "The MCP preserves raw Figma component properties but does not maintain a separate Figma-to-React prop mapping; the installed source is authoritative.",
+      "Code-only composition that is not represented by a Figma component instance is implemented from the visual design and installed source without being claimed as automatically discovered.",
       "Temporary Figma asset URLs must be downloaded or replaced with the application's durable asset source.",
     ],
   },

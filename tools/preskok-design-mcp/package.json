@@ -1,6 +1,6 @@
 {
   "name": "@preskok/design-mcp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Preskok design-system MCP for component discovery, Figma translation, validation, and implementation handoff.",
   "type": "module",

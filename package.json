@@ -29,7 +29,7 @@
     "typecheck": "turbo run typecheck",
     "format:write": "oxfmt \"apps/preskok/**/*.{ts,tsx,mdx}\" \"packages/**/*.{js,mjs,cjs,ts,tsx}\"",
     "format:check": "oxfmt \"apps/preskok/**/*.{ts,tsx,mdx}\" \"packages/**/*.{js,mjs,cjs,ts,tsx}\" --check",
-    "check": "pnpm lint && pnpm typecheck && pnpm format:check"
+    "check": "pnpm lint && pnpm typecheck && pnpm format:check && pnpm --filter @preskok/design-mcp verify"
   },
   "packageManager": "pnpm@11.5.1",
   "devDependencies": {

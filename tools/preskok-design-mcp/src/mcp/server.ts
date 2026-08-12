@@ -9,6 +9,9 @@ import {
 const artifactComponentSchema = z.object({
   codeName: z.string().optional(),
   figmaComponentKey: z.string().optional(),
+  figmaNodeId: z.string().optional(),
+  figmaNodeName: z.string().optional(),
+  figmaAssetName: z.string().optional(),
   properties: z
     .record(z.string(), z.union([z.string(), z.number(), z.boolean()]))
     .optional(),
@@ -180,6 +183,84 @@ const designEvidenceSchema = z.object({
     .optional(),
 })
 
+const figmaInspectionNodeSchema = z.object({
+  nodeId: z.string().min(1),
+  parentId: z.string().min(1).nullable(),
+  ancestorNodeIds: z.array(z.string()).optional(),
+  name: z.string(),
+  type: z.string().min(1),
+  visible: z.boolean(),
+  x: z.number(),
+  y: z.number(),
+  width: z.number(),
+  height: z.number(),
+  layoutMode: z.enum(["NONE", "HORIZONTAL", "VERTICAL", "GRID"]).nullable(),
+  primaryAxisSizingMode: z.enum(["FIXED", "AUTO"]).optional(),
+  counterAxisSizingMode: z.enum(["FIXED", "AUTO"]).optional(),
+  layoutPositioning: z.enum(["AUTO", "ABSOLUTE"]),
+  clipsContent: z.boolean().optional(),
+  insideInstance: z.boolean().optional(),
+  explicitVariableModes: z.record(z.string(), z.string()).optional(),
+  boundVariableFields: z.array(z.string()).optional(),
+  semanticFields: z
+    .array(
+      z.object({
+        property: z.string().min(1),
+        value: z.string(),
+        tokenBound: z.boolean(),
+      })
+    )
+    .optional(),
+  instance: z
+    .object({
+      assetName: z.string().min(1),
+      componentKey: z.string().nullable(),
+      remote: z.boolean(),
+      properties: z.record(
+        z.string(),
+        z.union([z.string(), z.number(), z.boolean()])
+      ),
+      contract: z
+        .object({
+          assetType: z.enum(["component", "component_set"]),
+          name: z.string().min(1),
+          propertyDefinitions: z.array(
+            z.object({
+              name: z.string().min(1),
+              type: z.enum(["BOOLEAN", "INSTANCE_SWAP", "TEXT", "VARIANT"]),
+              variantOptions: z.array(z.string()),
+            })
+          ),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
+const figmaInspectionSchema = z.object({
+  schemaVersion: z.literal(1),
+  fileKey: z.string().min(1),
+  rootNodeId: z.string().min(1),
+  nodes: z.array(figmaInspectionNodeSchema).min(1),
+  collections: z.array(
+    z.object({
+      id: z.string().min(1),
+      key: z.string(),
+      name: z.string().min(1),
+      remote: z.boolean(),
+      modes: z.array(
+        z.object({ modeId: z.string().min(1), name: z.string().min(1) })
+      ),
+    })
+  ),
+})
+
+const figmaLibrariesSchema = z.object({
+  libraries_added_to_file: z.array(
+    z.object({ name: z.string().min(1), libraryKey: z.string().min(1) })
+  ),
+})
+
 const workflowNames = [
   "claude_design_to_figma",
   "figma_to_web_app",
@@ -208,7 +289,7 @@ export async function createPreskokMcpServer(
   const server = new McpServer(
     {
       name: "preskok-design-system",
-      version: "0.2.0",
+      version: "0.3.0",
     },
     {
       capabilities: {
@@ -217,7 +298,7 @@ export async function createPreskokMcpServer(
         prompts: {},
       },
       instructions:
-        "Use this server as the canonical Preskok code, token, Figma mapping, planning, proof, and workflow contract. Before a Figma build call plan_preskok_design. Its authenticated plan is an ephemeral capability that must be finalized by this same running MCP instance; request a fresh plan after restart. Use the official Figma MCP for live reads and writes, collect unique live-node evidence with required instances participating visibly in Auto Layout, then call finalize_preskok_design. Do not hand off an unfinalized design.",
+        "Use this server as the canonical Preskok component identity, token, planning, proof, and workflow contract. For an existing Figma design, call prepare_preskok_figma_inspection, run its code unchanged with the official Figma MCP use_figma tool, then pass that unchanged result and get_libraries output to ingest_preskok_figma_inspection. For a new Figma build, call plan_preskok_design before writing and finalize the authenticated plan in the same process. A code handoff is valid only when proof is ready. Install its registry items atomically and inspect its copied source files; raw Figma properties describe design intent and are not React prop mappings or overrides.",
     }
   )
 
@@ -300,6 +381,38 @@ export async function createPreskokMcpServer(
   )
 
   server.registerTool(
+    "prepare_preskok_figma_inspection",
+    {
+      title: "Prepare automatic Preskok Figma inspection",
+      description:
+        "Return one deterministic read-only script for the official Figma MCP use_figma tool. The script collects component identity, raw Figma properties, hierarchy, Auto Layout, explicit modes, and token bindings without changing components or requiring sidecar annotations.",
+      inputSchema: z.object({ rootNodeId: z.string().min(1) }),
+      annotations: readOnlyAnnotations(),
+    },
+    async (input) =>
+      toolResult({ inspection: system.prepareFigmaInspection(input) })
+  )
+
+  server.registerTool(
+    "ingest_preskok_figma_inspection",
+    {
+      title: "Ingest official Figma MCP inspection",
+      description:
+        "Accept the unchanged return value from the prepared official Figma MCP script plus the unchanged get_libraries result, automatically discover every visible top-level Preskok instance, build and prove the composition, and return one atomic install handoff with copied-source paths. The installed source remains the code API; raw Figma properties are preserved as design evidence, never converted through an override table. Unknown instances and incomplete proof fail closed.",
+      inputSchema: z.object({
+        figmaStrategy: z.enum(["published", "copied"]),
+        theme: designThemeSchema,
+        inspection: figmaInspectionSchema,
+        libraries: figmaLibrariesSchema.optional(),
+        notes: z.array(z.string()).optional(),
+      }),
+      annotations: readOnlyAnnotations(),
+    },
+    async (input) =>
+      toolResult({ analysis: system.ingestFigmaInspection(input) })
+  )
+
+  server.registerTool(
     "finalize_preskok_design",
     {
       title: "Finalize a Preskok design",
@@ -336,7 +449,7 @@ export async function createPreskokMcpServer(
     {
       title: "Create Preskok handoff",
       description:
-        "Create deterministic installs, imports, props, Figma mappings, tokens, docs, validation, and deviation notes for a supported translation direction.",
+        "Create deterministic installs, imports, copied-source inspection paths, Figma identity evidence, tokens, docs, validation, and deviation notes for a supported translation direction.",
       inputSchema: z.object({
         direction: z.enum([
           "figma_to_code",
@@ -538,7 +651,7 @@ function renderWorkflowPrompt(
     workflow.goal,
     ...context,
     "",
-    "Use the Preskok MCP for canonical code, token, mapping, validation, and handoff data. Use the official Figma MCP for live Figma access; do not guess keys or recreate mapped controls.",
+    "Use the Preskok MCP for canonical component identity, tokens, validation, and handoff data. Use the official Figma MCP for live Figma access. Install first and read the copied component source as the code API; do not guess keys, recreate mapped controls, or invent Figma-to-React prop overrides.",
     "",
     "Steps:",
     steps,

@@ -3,6 +3,8 @@ import { StdioClientTransport } from "@modelcontextprotocol/client/stdio"
 import { resolve } from "node:path"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 
+import liveDashboardInspection from "./fixtures/live-dashboard-inspection.json" with { type: "json" }
+
 const packageRoot = resolve(import.meta.dirname, "..")
 const workflowNames = [
   "claude_design_to_figma",
@@ -48,6 +50,8 @@ describe("Preskok Design MCP over stdio", () => {
       "get_preskok_tokens",
       "get_preskok_status",
       "plan_preskok_design",
+      "prepare_preskok_figma_inspection",
+      "ingest_preskok_figma_inspection",
       "finalize_preskok_design",
       "validate_preskok_artifact",
       "create_preskok_handoff",
@@ -273,6 +277,217 @@ describe("Preskok Design MCP over stdio", () => {
     })
   })
 
+  it("discovers every dashboard component from one Figma inspection and returns local source guidance", async () => {
+    const prepared = await client.callTool({
+      name: "prepare_preskok_figma_inspection",
+      arguments: { rootNodeId: "3:13" },
+    })
+    expect(prepared.structuredContent).toMatchObject({
+      inspection: {
+        rootNodeId: "3:13",
+        figmaTool: "use_figma",
+        nextTool: "ingest_preskok_figma_inspection",
+      },
+    })
+    const code = (
+      prepared.structuredContent as { inspection: { code: string } }
+    ).inspection.code
+    expect(code).toContain('getNodeByIdAsync("3:13")')
+    expect(code).toContain("getMainComponentAsync")
+    expect(code).toContain("componentProperties")
+    expect(code).toContain("explicitVariableModes")
+    expect(code).not.toContain("@preskok/")
+
+    const ingested = await client.callTool({
+      name: "ingest_preskok_figma_inspection",
+      arguments: createDashboardInspectionInput(),
+    })
+    const analysis = (
+      ingested.structuredContent as {
+        analysis: {
+          ready: boolean
+          discovery: {
+            components: Array<{ codeName: string; instanceCount: number }>
+            unmappedInstances: Array<unknown>
+          }
+          handoff: {
+            installCommands: Array<string>
+            inspectFiles: Array<string>
+            components: Array<{
+              codeName: string
+              installedSourcePath: string
+              properties?: Record<string, string | number | boolean>
+              figmaInstances: Array<{
+                nodeId: string
+                properties: Record<string, string | number | boolean>
+              }>
+            }>
+          } | null
+        }
+      }
+    ).analysis
+
+    expect(analysis.ready).toBe(true)
+    expect(analysis.discovery.unmappedInstances).toEqual([])
+    expect(analysis.discovery.components).toEqual([
+      { codeName: "area-chart", instanceCount: 1 },
+      { codeName: "avatar", instanceCount: 1 },
+      { codeName: "badge", instanceCount: 2 },
+      { codeName: "button", instanceCount: 1 },
+      { codeName: "card", instanceCount: 3 },
+      { codeName: "sidebar", instanceCount: 1 },
+      { codeName: "table", instanceCount: 1 },
+    ])
+    expect(analysis.handoff?.installCommands).toEqual([
+      "pnpm dlx shadcn@latest add @preskok/area-chart @preskok/avatar @preskok/badge @preskok/button @preskok/card @preskok/sidebar @preskok/table",
+    ])
+    expect(analysis.handoff?.inspectFiles).toContain(
+      "@/components/ui/preskok-ui/sidebar.tsx"
+    )
+    expect(analysis.handoff?.components).toContainEqual(
+      expect.objectContaining({
+        codeName: "badge",
+        installedSourcePath: "@/components/ui/preskok-ui/badge.tsx",
+        figmaInstances: expect.arrayContaining([
+          expect.objectContaining({
+            nodeId: "6:767",
+            properties: expect.objectContaining({
+              Intent: "success",
+              isCircle: "false",
+            }),
+          }),
+          expect.objectContaining({
+            nodeId: "6:769",
+            properties: expect.objectContaining({ Intent: "warning" }),
+          }),
+        ]),
+      })
+    )
+    expect(
+      analysis.handoff?.components.find(({ codeName }) => codeName === "badge")
+    ).not.toHaveProperty("properties")
+  })
+
+  it("proves the real Cursor dashboard inspection without hand-built evidence", async () => {
+    expect(JSON.stringify(liveDashboardInspection).length).toBeLessThan(20_000)
+
+    const result = await client.callTool({
+      name: "ingest_preskok_figma_inspection",
+      arguments: {
+        figmaStrategy: "published",
+        theme: { style: "Default", mode: "Light" },
+        inspection: liveDashboardInspection,
+        libraries: { libraries_added_to_file: [] },
+      },
+    })
+
+    expect(result.structuredContent).toMatchObject({
+      analysis: {
+        ready: true,
+        discovery: {
+          components: [
+            { codeName: "area-chart", instanceCount: 1 },
+            { codeName: "avatar", instanceCount: 1 },
+            { codeName: "badge", instanceCount: 2 },
+            { codeName: "button", instanceCount: 1 },
+            { codeName: "card", instanceCount: 3 },
+            { codeName: "sidebar", instanceCount: 1 },
+            { codeName: "table", instanceCount: 1 },
+          ],
+          unmappedInstances: [],
+        },
+        issues: [
+          expect.objectContaining({
+            severity: "warning",
+            code: "library_not_enabled",
+          }),
+        ],
+        handoff: {
+          installCommands: [
+            "pnpm dlx shadcn@latest add @preskok/area-chart @preskok/avatar @preskok/badge @preskok/button @preskok/card @preskok/sidebar @preskok/table",
+          ],
+        },
+      },
+    })
+  })
+
+  it("withholds the handoff when a visible top-level Figma instance is unmapped", async () => {
+    const input = createDashboardInspectionInput()
+    input.inspection.nodes.push({
+      nodeId: "7:1",
+      parentId: "3:13",
+      ancestorNodeIds: ["3:13"],
+      name: "Foreign date picker",
+      type: "INSTANCE",
+      visible: true,
+      x: 40,
+      y: 940,
+      width: 240,
+      height: 40,
+      layoutMode: "HORIZONTAL",
+      layoutPositioning: "AUTO",
+      clipsContent: false,
+      insideInstance: false,
+      explicitVariableModes: {},
+      boundVariableFields: [],
+      semanticFields: [],
+      instance: {
+        assetName: "Foreign date picker",
+        componentKey: "not-preskok",
+        remote: true,
+        properties: {},
+      },
+    })
+
+    const result = await client.callTool({
+      name: "ingest_preskok_figma_inspection",
+      arguments: input,
+    })
+
+    expect(result.structuredContent).toMatchObject({
+      analysis: {
+        ready: false,
+        discovery: {
+          unmappedInstances: [
+            {
+              nodeId: "7:1",
+              name: "Foreign date picker",
+              componentKey: "not-preskok",
+            },
+          ],
+        },
+        issues: [expect.objectContaining({ code: "unmapped_figma_instance" })],
+        handoff: null,
+      },
+    })
+  })
+
+  it("recognizes an unchanged component from an official copied Figma source without keys", async () => {
+    const result = await client.callTool({
+      name: "ingest_preskok_figma_inspection",
+      arguments: createCopiedButtonInspectionInput(),
+    })
+
+    expect(result.structuredContent).toMatchObject({
+      analysis: {
+        ready: true,
+        discovery: {
+          components: [{ codeName: "button", instanceCount: 1 }],
+          unmappedInstances: [],
+        },
+        handoff: {
+          installCommands: ["pnpm dlx shadcn@latest add @preskok/button"],
+          components: [
+            expect.objectContaining({
+              codeName: "button",
+              figmaInstances: [expect.objectContaining({ nodeId: "20:2" })],
+            }),
+          ],
+        },
+      },
+    })
+  })
+
   it("returns failed finalization for a forged plan over stdio", async () => {
     const planned = await client.callTool({
       name: "plan_preskok_design",
@@ -382,4 +597,296 @@ function readJsonResource(
     throw new Error("Expected a JSON text resource")
   }
   return JSON.parse(content.text) as unknown
+}
+
+function createDashboardInspectionInput() {
+  const rootNodeId = "3:13"
+  const componentInstances: Array<{
+    nodeId: string
+    name: string
+    componentKey: string
+    assetName: string
+    properties: Record<string, string | number | boolean>
+  }> = [
+    {
+      nodeId: "3:1519",
+      name: "Sidebar · Expanded",
+      componentKey: "12e9017e37fa1e221ded95d589f1b9954a0056cc",
+      assetName: "Sidebar",
+      properties: { Layout: "Expanded", Intent: "Default", Side: "Left" },
+    },
+    {
+      nodeId: "4:1794",
+      name: "Export report",
+      componentKey: "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+      assetName: "Button",
+      properties: { Intent: "primary", Size: "md", State: "Default" },
+    },
+    {
+      nodeId: "4:1812",
+      name: "Current user",
+      componentKey: "4d7d84f58f992c1c93aaabe47971d21898248a19",
+      assetName: "Avatar",
+      properties: { Size: "md", Shape: "Round", Content: "Initials" },
+    },
+    ...["4:1832", "4:1900", "4:1939"].map((nodeId, index) => ({
+      nodeId,
+      name: `Metric ${index + 1}`,
+      componentKey: "3638039a78b1caaa933c29f5fae59882d3967a06",
+      assetName: "Card",
+      properties: { "Show content#3682:5": false },
+    })),
+    {
+      nodeId: "5:277",
+      name: "Revenue area chart",
+      componentKey: "aecf5f15ecf73fc8543f3b042a253bf814298f29",
+      assetName: "Area Chart",
+      properties: { Type: "Default" },
+    },
+    {
+      nodeId: "6:767",
+      name: "Status · Paid",
+      componentKey: "1c2302f26930ef3ead56664151e580d1408f2c23",
+      assetName: "Badge",
+      properties: { Intent: "success", isCircle: "false", Icon: "None" },
+    },
+    {
+      nodeId: "6:769",
+      name: "Status · Pending",
+      componentKey: "1c2302f26930ef3ead56664151e580d1408f2c23",
+      assetName: "Badge",
+      properties: { Intent: "warning", isCircle: "false", Icon: "None" },
+    },
+    {
+      nodeId: "6:771",
+      name: "Recent orders table",
+      componentKey: "379dad46d55a58d258e4a9242aa275345375eeb7",
+      assetName: "Table",
+      properties: { Variant: "Selection" },
+    },
+  ]
+
+  return {
+    figmaStrategy: "published" as const,
+    theme: { style: "Default", mode: "Light" as const },
+    libraries: {
+      libraries_added_to_file: [
+        {
+          name: "Preskok UI",
+          libraryKey:
+            "lk-46e05046e297a108a9b995aad38fbb0c3b67d59a51e08a1d07250d90ca40d06ac57264cc7314adb8eec854aa2c2d9129e74e174394f8e5a83d51e9baebd9cc95",
+        },
+      ],
+    },
+    inspection: {
+      schemaVersion: 1,
+      fileKey: "a4aqXNsJwfMc6HRIJrBooB",
+      rootNodeId,
+      nodes: [
+        {
+          nodeId: rootNodeId,
+          parentId: null,
+          ancestorNodeIds: [],
+          name: "Preskok Analytics Dashboard",
+          type: "FRAME",
+          visible: true,
+          x: 0,
+          y: 0,
+          width: 1440,
+          height: 1024,
+          layoutMode: "VERTICAL",
+          layoutPositioning: "AUTO",
+          clipsContent: false,
+          insideInstance: false,
+          explicitVariableModes: {
+            "VariableCollectionId:style": "style-default",
+            "VariableCollectionId:mode": "mode-light",
+          },
+          boundVariableFields: ["fills"],
+          semanticFields: [
+            { property: "fills", value: "paint", tokenBound: true },
+          ],
+        },
+        ...componentInstances.map((instance, index) => ({
+          nodeId: instance.nodeId,
+          parentId: rootNodeId,
+          ancestorNodeIds: [rootNodeId],
+          name: instance.name,
+          type: "INSTANCE",
+          visible: true,
+          x: 32,
+          y: 32 + index * 80,
+          width: 320,
+          height: 64,
+          layoutMode: "HORIZONTAL",
+          layoutPositioning: "AUTO",
+          clipsContent: false,
+          insideInstance: false,
+          explicitVariableModes: {},
+          boundVariableFields: [],
+          semanticFields: [],
+          instance: {
+            assetName: instance.assetName,
+            componentKey: instance.componentKey,
+            remote: true,
+            properties: instance.properties,
+          },
+        })),
+      ],
+      collections: [
+        {
+          id: "VariableCollectionId:style",
+          key: "1a314502c07cb84211e881b604fbac213193fecd",
+          name: "Style",
+          remote: true,
+          modes: [{ modeId: "style-default", name: "Default" }],
+        },
+        {
+          id: "VariableCollectionId:mode",
+          key: "edff7b77cb35e2b23575001e27610e38c18ed6ba",
+          name: "Mode",
+          remote: true,
+          modes: [{ modeId: "mode-light", name: "Light" }],
+        },
+      ],
+    },
+  }
+}
+
+function createCopiedButtonInspectionInput() {
+  const propertyDefinitions = [
+    { name: "Label#3201:0", type: "TEXT", variantOptions: [] },
+    {
+      name: "Show leading icon#3201:433",
+      type: "BOOLEAN",
+      variantOptions: [],
+    },
+    {
+      name: "Leading icon#3201:866",
+      type: "INSTANCE_SWAP",
+      variantOptions: [],
+    },
+    {
+      name: "Show trailing icon#3201:1299",
+      type: "BOOLEAN",
+      variantOptions: [],
+    },
+    {
+      name: "Trailing icon#3201:1732",
+      type: "INSTANCE_SWAP",
+      variantOptions: [],
+    },
+    {
+      name: "Icon#3201:2165",
+      type: "INSTANCE_SWAP",
+      variantOptions: [],
+    },
+    {
+      name: "Shape",
+      type: "VARIANT",
+      variantOptions: ["Text", "Square", "Circle"],
+    },
+    {
+      name: "Intent",
+      type: "VARIANT",
+      variantOptions: [
+        "primary",
+        "secondary",
+        "warning",
+        "danger",
+        "outline",
+        "plain",
+      ],
+    },
+    {
+      name: "Size",
+      type: "VARIANT",
+      variantOptions: ["xs", "sm", "md", "lg"],
+    },
+    {
+      name: "State",
+      type: "VARIANT",
+      variantOptions: [
+        "Default",
+        "Hover",
+        "Focus",
+        "Pressed",
+        "Disabled",
+        "Pending",
+      ],
+    },
+  ]
+  return {
+    figmaStrategy: "copied" as const,
+    theme: { style: "Default", mode: "Light" as const },
+    inspection: {
+      schemaVersion: 1,
+      fileKey: "official-preskok-copy",
+      rootNodeId: "20:1",
+      nodes: [
+        {
+          nodeId: "20:1",
+          parentId: null,
+          name: "Copied design root",
+          type: "FRAME",
+          visible: true,
+          x: 0,
+          y: 0,
+          width: 400,
+          height: 120,
+          layoutMode: "VERTICAL",
+          layoutPositioning: "AUTO",
+          explicitVariableModes: {
+            "VariableCollectionId:style": "style-default",
+            "VariableCollectionId:mode": "mode-light",
+          },
+        },
+        {
+          nodeId: "20:2",
+          parentId: "20:1",
+          name: "Primary action",
+          type: "INSTANCE",
+          visible: true,
+          x: 16,
+          y: 16,
+          width: 120,
+          height: 38,
+          layoutMode: "HORIZONTAL",
+          layoutPositioning: "AUTO",
+          instance: {
+            assetName: "Button",
+            componentKey: null,
+            remote: false,
+            properties: {
+              Shape: "Text",
+              Intent: "primary",
+              Size: "md",
+              State: "Default",
+            },
+            contract: {
+              assetType: "component_set",
+              name: "Button",
+              propertyDefinitions,
+            },
+          },
+        },
+      ],
+      collections: [
+        {
+          id: "VariableCollectionId:style",
+          key: "1a314502c07cb84211e881b604fbac213193fecd",
+          name: "Style",
+          remote: false,
+          modes: [{ modeId: "style-default", name: "Default" }],
+        },
+        {
+          id: "VariableCollectionId:mode",
+          key: "edff7b77cb35e2b23575001e27610e38c18ed6ba",
+          name: "Mode",
+          remote: false,
+          modes: [{ modeId: "mode-light", name: "Light" }],
+        },
+      ],
+    },
+  }
 }

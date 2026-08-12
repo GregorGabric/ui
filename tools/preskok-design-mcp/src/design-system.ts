@@ -57,6 +57,9 @@ export type PreskokStatus = {
 export type ArtifactComponent = {
   codeName?: string | undefined
   figmaComponentKey?: string | undefined
+  figmaNodeId?: string | undefined
+  figmaNodeName?: string | undefined
+  figmaAssetName?: string | undefined
   properties?: Record<string, string | number | boolean> | undefined
   detached?: boolean | undefined
 }
@@ -281,6 +284,8 @@ export type DesignFinalizationIssue = {
     | "invalid_layout_size"
     | "auto_layout_overflow"
     | "clipped_content"
+    | "unmapped_figma_instance"
+    | "figma_inspection_invalid"
   message: string
   nodeId: string | null
   requirementId: string | null
@@ -302,13 +307,23 @@ export type Handoff = {
   direction: HandoffInput["direction"]
   ready: boolean
   installCommands: Array<string>
+  inspectFiles: Array<string>
   imports: Array<{ source: string; symbols: Array<string> }>
   components: Array<{
     codeName: string
     registryName: string
     importPath: string
+    installedSourcePath: string
+    sourceFiles: Array<string>
+    dependencies: Array<string>
+    registryDependencies: Array<string>
     exportName: string
-    properties: Record<string, string | number | boolean>
+    figmaInstances: Array<{
+      nodeId: string
+      name: string
+      assetName: string
+      properties: Record<string, string | number | boolean>
+    }>
     figmaStatus: PreskokComponent["figma"]["status"]
     figmaAssets: PreskokComponent["figma"]["assets"]
     figmaFallbacks: Array<{
@@ -323,6 +338,98 @@ export type Handoff = {
   validation: ValidationResult
 }
 
+export type FigmaInspectionNode = {
+  nodeId: string
+  parentId: string | null
+  ancestorNodeIds?: Array<string> | undefined
+  name: string
+  type: string
+  visible: boolean
+  x: number
+  y: number
+  width: number
+  height: number
+  layoutMode: "NONE" | "HORIZONTAL" | "VERTICAL" | "GRID" | null
+  primaryAxisSizingMode?: "FIXED" | "AUTO" | undefined
+  counterAxisSizingMode?: "FIXED" | "AUTO" | undefined
+  layoutPositioning: "AUTO" | "ABSOLUTE"
+  clipsContent?: boolean | undefined
+  insideInstance?: boolean | undefined
+  explicitVariableModes?: Record<string, string> | undefined
+  boundVariableFields?: Array<string> | undefined
+  semanticFields?:
+    | Array<{
+        property: string
+        value: string
+        tokenBound: boolean
+      }>
+    | undefined
+  instance?:
+    | {
+        assetName: string
+        componentKey: string | null
+        remote: boolean
+        properties: Record<string, string | number | boolean>
+        contract?:
+          | {
+              assetType: "component" | "component_set"
+              name: string
+              propertyDefinitions: Array<{
+                name: string
+                type: "BOOLEAN" | "INSTANCE_SWAP" | "TEXT" | "VARIANT"
+                variantOptions: Array<string>
+              }>
+            }
+          | undefined
+      }
+    | undefined
+}
+
+export type FigmaInspection = {
+  schemaVersion: 1
+  fileKey: string
+  rootNodeId: string
+  nodes: Array<FigmaInspectionNode>
+  collections: Array<{
+    id: string
+    key: string
+    name: string
+    remote: boolean
+    modes: Array<{ modeId: string; name: string }>
+  }>
+}
+
+export type FigmaInspectionInput = {
+  figmaStrategy: FigmaStrategy
+  theme: DesignPlanInput["theme"]
+  inspection: FigmaInspection
+  libraries?:
+    | {
+        libraries_added_to_file: Array<{
+          name: string
+          libraryKey: string
+        }>
+      }
+    | undefined
+  notes?: Array<string> | undefined
+}
+
+export type FigmaInspectionAnalysis = {
+  ready: boolean
+  discovery: {
+    components: Array<{ codeName: string; instanceCount: number }>
+    unmappedInstances: Array<{
+      nodeId: string
+      name: string
+      componentKey: string | null
+    }>
+  }
+  issues: Array<DesignFinalizationIssue>
+  plan: DesignPlan
+  finalization: DesignFinalization
+  handoff: Handoff | null
+}
+
 export type PreskokDesignSystem = {
   planDesign(input: DesignPlanInput): DesignPlan
   finalizeDesign(input: {
@@ -330,6 +437,13 @@ export type PreskokDesignSystem = {
     evidence: DesignEvidence
     notes?: Array<string> | undefined
   }): DesignFinalization
+  prepareFigmaInspection(input: { rootNodeId: string }): {
+    rootNodeId: string
+    figmaTool: "use_figma"
+    code: string
+    nextTool: "ingest_preskok_figma_inspection"
+  }
+  ingestFigmaInspection(input: FigmaInspectionInput): FigmaInspectionAnalysis
   search(input: {
     query: string
     limit?: number | undefined
@@ -507,6 +621,289 @@ export function createPreskokDesignSystem({
   }
 
   return {
+    prepareFigmaInspection({ rootNodeId }) {
+      return {
+        rootNodeId,
+        figmaTool: "use_figma",
+        code: createFigmaInspectionScript(rootNodeId),
+        nextTool: "ingest_preskok_figma_inspection",
+      }
+    },
+
+    ingestFigmaInspection(input) {
+      const inspectedRoot = input.inspection.nodes.find(
+        ({ nodeId }) => nodeId === input.inspection.rootNodeId
+      )
+      const inspectionIssues: Array<DesignFinalizationIssue> = []
+      if (!inspectedRoot) {
+        inspectionIssues.push({
+          severity: "error",
+          code: "figma_inspection_invalid",
+          message: `The inspected root ${input.inspection.rootNodeId} is missing from the returned Figma node tree.`,
+          nodeId: input.inspection.rootNodeId,
+          requirementId: null,
+          recommendation:
+            "Run the exact script from prepare_preskok_figma_inspection against the requested root and pass its complete return value unchanged.",
+        })
+      }
+
+      const discoveredInstances = input.inspection.nodes.flatMap((node) => {
+        if (
+          node.type !== "INSTANCE" ||
+          node.insideInstance ||
+          !node.visible ||
+          !node.instance
+        ) {
+          return []
+        }
+        const resolved = resolveInspectedComponent({
+          node,
+          strategy: input.figmaStrategy,
+          componentsByFigmaKey,
+        })
+        return [{ node, resolved }]
+      })
+      const unmappedInstances = discoveredInstances.flatMap(
+        ({ node, resolved }) => {
+          if (resolved) {
+            return []
+          }
+          return [
+            {
+              nodeId: node.nodeId,
+              name: node.name,
+              componentKey: node.instance?.componentKey ?? null,
+            },
+          ]
+        }
+      )
+      for (const instance of unmappedInstances) {
+        inspectionIssues.push({
+          severity: "error",
+          code: "unmapped_figma_instance",
+          message: `${instance.name} is a visible component instance that does not resolve to the generated Preskok catalog.`,
+          nodeId: instance.nodeId,
+          requirementId: null,
+          recommendation:
+            "Replace it with a linked Preskok UI instance or explicitly redesign the composition before requesting a code handoff.",
+        })
+      }
+
+      const mappedInstances = discoveredInstances.flatMap(
+        ({ node, resolved }) => (resolved ? [{ node, ...resolved }] : [])
+      )
+      const requirementIdByNodeId = new Map(
+        mappedInstances.map(({ node }) => [
+          node.nodeId,
+          `figma-${requirementIdSegment(node.nodeId)}`,
+        ])
+      )
+      const requirements = mappedInstances.map(({ node, component, asset }) => {
+        const ancestorNodeIds = inspectionAncestors(
+          node,
+          input.inspection.nodes
+        )
+        const parentRequirementId = [...ancestorNodeIds]
+          .reverse()
+          .map((nodeId) => requirementIdByNodeId.get(nodeId))
+          .find((value): value is string => value !== undefined)
+        return {
+          id: requirementIdByNodeId.get(node.nodeId)!,
+          role: node.name,
+          codeName: component.name,
+          assetName: asset.name,
+          ...(parentRequirementId ? { parentRequirementId } : {}),
+        }
+      })
+      const plan = this.planDesign({
+        intent: `Implement inspected Figma root ${input.inspection.rootNodeId}`,
+        figmaStrategy: input.figmaStrategy,
+        theme: input.theme,
+        requirements,
+      })
+      const requirementsById = new Map(
+        plan.requirements.map((requirement) => [requirement.id, requirement])
+      )
+      const evidenceInstances = mappedInstances.flatMap(({ node, asset }) => {
+        const requirementId = requirementIdByNodeId.get(node.nodeId)
+        const requirement = requirementId
+          ? requirementsById.get(requirementId)
+          : undefined
+        if (!requirement || !node.instance) {
+          return []
+        }
+        return [
+          {
+            nodeId: node.nodeId,
+            requirementId: requirement.id,
+            name: node.name,
+            assetName: asset.name,
+            ...(input.figmaStrategy === "published"
+              ? { componentKey: asset.componentKey }
+              : { contractFingerprint: requirement.contractFingerprint }),
+            ancestorNodeIds: inspectionAncestors(node, input.inspection.nodes),
+            remote: node.instance.remote,
+            detached: false,
+            properties: node.instance.properties,
+          },
+        ]
+      })
+      const nodesByParentId = new Map<string, Array<FigmaInspectionNode>>()
+      for (const node of input.inspection.nodes) {
+        if (!node.parentId) {
+          continue
+        }
+        const siblings = nodesByParentId.get(node.parentId) ?? []
+        siblings.push(node)
+        nodesByParentId.set(node.parentId, siblings)
+      }
+      const layoutContainers = input.inspection.nodes
+        .filter(
+          (node) =>
+            node.nodeId === input.inspection.rootNodeId ||
+            nodesByParentId.has(node.nodeId)
+        )
+        .map((node) => ({
+          nodeId: node.nodeId,
+          name: node.name,
+          type: node.type,
+          width: node.width,
+          height: node.height,
+          layoutMode: node.layoutMode ?? "NONE",
+          ...(node.primaryAxisSizingMode
+            ? { primaryAxisSizingMode: node.primaryAxisSizingMode }
+            : {}),
+          ...(node.counterAxisSizingMode
+            ? { counterAxisSizingMode: node.counterAxisSizingMode }
+            : {}),
+          clipsContent: node.clipsContent ?? false,
+          children: (nodesByParentId.get(node.nodeId) ?? []).map((child) => ({
+            nodeId: child.nodeId,
+            name: child.name,
+            type: child.type,
+            x: child.x,
+            y: child.y,
+            width: child.width,
+            height: child.height,
+            visible: child.visible,
+            layoutPositioning: child.layoutPositioning,
+          })),
+        }))
+      const manualNodes = input.inspection.nodes.flatMap((node) => {
+        if (
+          node.nodeId === input.inspection.rootNodeId ||
+          node.type === "INSTANCE" ||
+          node.type === "COMPONENT" ||
+          node.insideInstance ||
+          !node.visible ||
+          (node.semanticFields ?? []).length === 0
+        ) {
+          return []
+        }
+        return [
+          {
+            nodeId: node.nodeId,
+            name: node.name,
+            type: node.type,
+            tokenBound: (node.semanticFields ?? []).every(
+              ({ tokenBound }) => tokenBound
+            ),
+          },
+        ]
+      })
+      const localComponents = input.inspection.nodes.flatMap((node) => {
+        if (node.type !== "COMPONENT" || node.insideInstance) {
+          return []
+        }
+        return [{ nodeId: node.nodeId, name: node.name, instanceCount: 0 }]
+      })
+      const hardcodedValues = input.inspection.nodes.flatMap((node) => {
+        if (node.type === "INSTANCE" || node.insideInstance || !node.visible) {
+          return []
+        }
+        return (node.semanticFields ?? []).flatMap((field) =>
+          field.tokenBound
+            ? []
+            : [
+                {
+                  nodeId: node.nodeId,
+                  property: field.property,
+                  value: field.value,
+                },
+              ]
+        )
+      })
+      const rootModes = inspectedRoot?.explicitVariableModes ?? {}
+      const modes = Object.entries(rootModes).flatMap(
+        ([collectionId, modeId]) => {
+          const collection = input.inspection.collections.find(
+            ({ id }) => id === collectionId
+          )
+          const mode = collection?.modes.find(
+            (candidate) => candidate.modeId === modeId
+          )
+          if (!collection || !mode) {
+            return []
+          }
+          return [
+            {
+              collectionName: collection.name,
+              collectionKey: collection.key,
+              mode: mode.name,
+              explicit: true,
+              remote: collection.remote,
+            },
+          ]
+        }
+      )
+      const evidence: DesignEvidence = {
+        fileKey: input.inspection.fileKey,
+        rootNodeId: input.inspection.rootNodeId,
+        enabledLibraryKeys:
+          input.libraries?.libraries_added_to_file.map(
+            ({ libraryKey }) => libraryKey
+          ) ?? [],
+        instances: evidenceInstances,
+        manualNodes,
+        localComponents,
+        modes,
+        hardcodedValues,
+        layout: { containers: layoutContainers },
+      }
+      const finalization = this.finalizeDesign({
+        plan,
+        evidence,
+        notes: [
+          "Discovered from the unchanged return value of the official Figma MCP inspection script.",
+          ...(input.notes ?? []),
+        ],
+      })
+      const issues = [...inspectionIssues, ...finalization.issues]
+      const ready =
+        finalization.ready &&
+        !inspectionIssues.some(({ severity }) => severity === "error")
+      const componentCounts = new Map<string, number>()
+      for (const { component } of mappedInstances) {
+        componentCounts.set(
+          component.name,
+          (componentCounts.get(component.name) ?? 0) + 1
+        )
+      }
+      return {
+        ready,
+        discovery: {
+          components: [...componentCounts.entries()]
+            .map(([codeName, instanceCount]) => ({ codeName, instanceCount }))
+            .sort((left, right) => left.codeName.localeCompare(right.codeName)),
+          unmappedInstances,
+        },
+        issues,
+        plan,
+        finalization,
+        handoff: ready ? finalization.handoff : null,
+      }
+    },
+
     planDesign(input) {
       const collectionSource =
         input.figmaStrategy === "published"
@@ -1047,6 +1444,23 @@ export function createPreskokDesignSystem({
         satisfiedInstances === requiredInstances &&
         !issues.some((issue) => issue.severity === "error")
       const componentNames = plan.codeComponents
+      const handoffComponents = componentNames.flatMap((codeName) => {
+        const matched = plan.requirements
+          .filter((requirement) => requirement.codeName === codeName)
+          .flatMap((requirement) =>
+            (matchingInstancesByRequirement.get(requirement.id) ?? []).map(
+              (instance) => ({
+                codeName,
+                figmaComponentKey: instance.componentKey,
+                figmaNodeId: instance.nodeId,
+                figmaNodeName: instance.name,
+                figmaAssetName: instance.assetName,
+                properties: instance.properties,
+              })
+            )
+          )
+        return matched.length > 0 ? matched : [{ codeName }]
+      })
       return {
         ready,
         issues,
@@ -1054,7 +1468,7 @@ export function createPreskokDesignSystem({
         handoff: ready
           ? this.createHandoff({
               direction: "figma_to_code",
-              components: componentNames.map((codeName) => ({ codeName })),
+              components: handoffComponents,
               notes: [
                 `Verified Figma root ${evidence.rootNodeId} against plan ${plan.contractDigest}.`,
                 ...notes,
@@ -1377,32 +1791,72 @@ export function createPreskokDesignSystem({
         return [
           {
             component,
-            properties: item.properties ?? {},
+            input: item,
           },
         ]
       })
-      const componentPlans = resolved.map(({ component, properties }) => ({
-        codeName: component.name,
-        registryName: component.registryName,
-        importPath: component.importPath,
-        exportName: primaryExport(component),
-        properties,
-        figmaStatus: component.figma.status,
-        figmaAssets: component.figma.assets,
-        figmaFallbacks: (component.figma.fallbackComponents ?? []).map(
-          (fallbackName) => {
-            const fallback = componentsByName.get(fallbackName)
-            if (!fallback) {
-              throw new Error(
-                `Unknown generated Figma fallback ${fallbackName} for ${component.name}`
-              )
+      const resolvedByComponent = new Map<
+        string,
+        {
+          component: PreskokComponent
+          figmaInstances: Handoff["components"][number]["figmaInstances"]
+        }
+      >()
+      for (const { component, input: artifact } of resolved) {
+        const existing = resolvedByComponent.get(component.name)
+        const figmaInstance =
+          artifact.figmaNodeId && artifact.figmaNodeName
+            ? [
+                {
+                  nodeId: artifact.figmaNodeId,
+                  name: artifact.figmaNodeName,
+                  assetName:
+                    artifact.figmaAssetName ??
+                    component.figma.assets[0]?.name ??
+                    component.name,
+                  properties: artifact.properties ?? {},
+                },
+              ]
+            : []
+        if (existing) {
+          existing.figmaInstances.push(...figmaInstance)
+          continue
+        }
+        resolvedByComponent.set(component.name, {
+          component,
+          figmaInstances: figmaInstance,
+        })
+      }
+      const componentPlans = [...resolvedByComponent.values()]
+        .sort((left, right) =>
+          left.component.name.localeCompare(right.component.name)
+        )
+        .map(({ component, figmaInstances }) => ({
+          codeName: component.name,
+          registryName: component.registryName,
+          importPath: component.importPath,
+          installedSourcePath: installedSourcePath(component.importPath),
+          sourceFiles: component.sourceFiles,
+          dependencies: component.dependencies,
+          registryDependencies: component.registryDependencies,
+          exportName: primaryExport(component),
+          figmaInstances,
+          figmaStatus: component.figma.status,
+          figmaAssets: component.figma.assets,
+          figmaFallbacks: (component.figma.fallbackComponents ?? []).map(
+            (fallbackName) => {
+              const fallback = componentsByName.get(fallbackName)
+              if (!fallback) {
+                throw new Error(
+                  `Unknown generated Figma fallback ${fallbackName} for ${component.name}`
+                )
+              }
+              return { codeName: fallback.name, assets: fallback.figma.assets }
             }
-            return { codeName: fallback.name, assets: fallback.figma.assets }
-          }
-        ),
-        documentationPath: component.documentation?.path ?? null,
-        usage: component.documentation?.usage ?? null,
-      }))
+          ),
+          documentationPath: component.documentation?.path ?? null,
+          usage: component.documentation?.usage ?? null,
+        }))
       const importsBySource = new Map<string, Set<string>>()
       for (const plan of componentPlans) {
         const symbols =
@@ -1425,6 +1879,9 @@ export function createPreskokDesignSystem({
                 ).join(" ")}`,
               ]
             : [],
+        inspectFiles: componentPlans.map(
+          ({ installedSourcePath: path }) => path
+        ),
         imports: [...importsBySource.entries()].map(([source, symbols]) => ({
           source,
           symbols: [...symbols].sort(),
@@ -1465,6 +1922,210 @@ function figmaAssetContractFingerprint(
       }),
   }
   return createHash("sha256").update(JSON.stringify(contract)).digest("hex")
+}
+
+function createFigmaInspectionScript(rootNodeId: string): string {
+  const serializedRootNodeId = JSON.stringify(rootNodeId)
+  return `const root = await figma.getNodeByIdAsync(${serializedRootNodeId});
+if (!root || !("children" in root)) {
+  throw new Error("Expected an inspectable Figma container root");
+}
+const nodes = [];
+const collectionIds = new Set();
+const semanticFieldsFor = (node) => {
+  if (!("boundVariables" in node)) return [];
+  const bound = node.boundVariables || {};
+  const fields = [];
+  const add = (property, value, meaningful) => {
+    if (!meaningful) return;
+    const binding = bound[property];
+    const tokenBound = Array.isArray(binding) ? binding.length > 0 : Boolean(binding);
+    fields.push({ property, value: String(value), tokenBound });
+  };
+  if ("fills" in node && node.fills !== figma.mixed) {
+    add("fills", "paint", node.fills.some((paint) => paint.visible !== false));
+  }
+  if ("strokes" in node && node.strokes !== figma.mixed) {
+    add("strokes", "paint", node.strokes.some((paint) => paint.visible !== false));
+  }
+  if ("effects" in node && node.effects !== figma.mixed) {
+    add("effects", "effect", node.effects.some((effect) => effect.visible !== false));
+  }
+  if ("itemSpacing" in node) add("itemSpacing", node.itemSpacing, node.itemSpacing !== 0);
+  for (const property of ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"]) {
+    if (property in node) add(property, node[property], node[property] !== 0);
+  }
+  for (const property of ["topLeftRadius", "topRightRadius", "bottomRightRadius", "bottomLeftRadius"]) {
+    if (property in node) add(property, node[property], node[property] !== 0 && node[property] !== figma.mixed);
+  }
+  return fields;
+};
+const visit = async (node, parentId) => {
+  const isSceneNode = "visible" in node;
+  const entry = {
+    nodeId: node.id,
+    parentId,
+    name: node.name,
+    type: node.type,
+    visible: isSceneNode ? node.visible : true,
+    x: "x" in node ? node.x : 0,
+    y: "y" in node ? node.y : 0,
+    width: "width" in node ? node.width : 0,
+    height: "height" in node ? node.height : 0,
+    layoutMode: "layoutMode" in node ? node.layoutMode : null,
+    layoutPositioning: "layoutPositioning" in node ? node.layoutPositioning : "AUTO"
+  };
+  if ("primaryAxisSizingMode" in node) entry.primaryAxisSizingMode = node.primaryAxisSizingMode;
+  if ("counterAxisSizingMode" in node) entry.counterAxisSizingMode = node.counterAxisSizingMode;
+  if ("clipsContent" in node && node.clipsContent) entry.clipsContent = true;
+  const explicitVariableModes = isSceneNode ? node.explicitVariableModes : {};
+  if (Object.keys(explicitVariableModes).length > 0) entry.explicitVariableModes = explicitVariableModes;
+  for (const collectionId of Object.keys(explicitVariableModes)) collectionIds.add(collectionId);
+  if (node.type !== "INSTANCE") {
+    const semanticFields = isSceneNode ? semanticFieldsFor(node) : [];
+    if (semanticFields.length > 0) entry.semanticFields = semanticFields;
+  }
+  if (node.type === "INSTANCE") {
+    const main = await node.getMainComponentAsync();
+    const componentSet = main && main.parent && main.parent.type === "COMPONENT_SET" ? main.parent : null;
+    const asset = componentSet || main;
+    const definitions = asset && "componentPropertyDefinitions" in asset ? asset.componentPropertyDefinitions : {};
+    let assetType = "component";
+    if (asset && asset.type === "COMPONENT_SET") assetType = "component_set";
+    const inspectedInstance = {
+      assetName: asset ? asset.name : node.name,
+      componentKey: asset && asset.key ? asset.key : null,
+      remote: main ? main.remote : false,
+      properties: Object.fromEntries(Object.entries(node.componentProperties).map(([name, property]) => [name, property.value]))
+    };
+    if (!main || !main.remote) {
+      inspectedInstance.contract = {
+        assetType,
+        name: asset ? asset.name : node.name,
+        propertyDefinitions: Object.entries(definitions).map(([name, definition]) => ({
+          name,
+          type: definition.type,
+          variantOptions: definition.variantOptions || []
+        }))
+      };
+    }
+    entry.instance = inspectedInstance;
+  }
+  nodes.push(entry);
+  if (node.type === "INSTANCE") return;
+  if (!("children" in node)) return;
+  for (const child of node.children) {
+    await visit(child, node.id);
+  }
+};
+await visit(root, null);
+const collections = [];
+for (const id of collectionIds) {
+  const collection = await figma.variables.getVariableCollectionByIdAsync(id);
+  if (!collection) continue;
+  collections.push({
+    id: collection.id,
+    key: collection.key,
+    name: collection.name,
+    remote: collection.remote,
+    modes: collection.modes.map((mode) => ({ modeId: mode.modeId, name: mode.name }))
+  });
+}
+return { schemaVersion: 1, fileKey: figma.fileKey, rootNodeId: root.id, nodes, collections };`
+}
+
+function resolveInspectedComponent({
+  node,
+  strategy,
+  componentsByFigmaKey,
+}: {
+  node: FigmaInspectionNode
+  strategy: FigmaStrategy
+  componentsByFigmaKey: Map<string, PreskokComponent>
+}):
+  | {
+      component: PreskokComponent
+      asset: PreskokComponent["figma"]["assets"][number]
+    }
+  | undefined {
+  const inspected = node.instance
+  if (!inspected) {
+    return undefined
+  }
+  if (strategy === "published" && inspected.componentKey) {
+    const component = componentsByFigmaKey.get(inspected.componentKey)
+    const asset = component?.figma.assets.find(
+      ({ componentKey }) => componentKey === inspected.componentKey
+    )
+    if (component && asset) {
+      return { component, asset }
+    }
+    return undefined
+  }
+  if (!inspected.contract) {
+    return undefined
+  }
+  const fingerprint = figmaInspectionContractFingerprint(inspected.contract)
+  for (const component of new Set(componentsByFigmaKey.values())) {
+    const asset = component.figma.assets.find(
+      (candidate) =>
+        figmaAssetContractFingerprint(candidate) === fingerprint &&
+        normalizeFigmaContractName(candidate.name) ===
+          normalizeFigmaContractName(inspected.assetName)
+    )
+    if (asset) {
+      return { component, asset }
+    }
+  }
+  return undefined
+}
+
+function inspectionAncestors(
+  node: FigmaInspectionNode,
+  nodes: Array<FigmaInspectionNode>
+): Array<string> {
+  if (node.ancestorNodeIds) {
+    return node.ancestorNodeIds
+  }
+  const nodesById = new Map(
+    nodes.map((candidate) => [candidate.nodeId, candidate])
+  )
+  const ancestors: Array<string> = []
+  const visited = new Set<string>()
+  let parentId = node.parentId
+  while (parentId && !visited.has(parentId)) {
+    visited.add(parentId)
+    ancestors.unshift(parentId)
+    parentId = nodesById.get(parentId)?.parentId ?? null
+  }
+  return ancestors
+}
+
+function figmaInspectionContractFingerprint(
+  contract: NonNullable<
+    NonNullable<FigmaInspectionNode["instance"]>["contract"]
+  >
+): string {
+  const normalized = {
+    assetType: contract.assetType,
+    name: normalizeFigmaContractName(contract.name),
+    properties: contract.propertyDefinitions
+      .map((property) => ({
+        name: normalizeFigmaContractName(property.name),
+        type: property.type,
+        variantOptions: [...property.variantOptions].sort(),
+      }))
+      .sort((left, right) => {
+        const leftKey = `${left.name}:${left.type}`
+        const rightKey = `${right.name}:${right.type}`
+        return leftKey.localeCompare(rightKey)
+      }),
+  }
+  return createHash("sha256").update(JSON.stringify(normalized)).digest("hex")
+}
+
+function installedSourcePath(importPath: string): string {
+  return `${importPath}.tsx`
 }
 
 function signDesignPlan(

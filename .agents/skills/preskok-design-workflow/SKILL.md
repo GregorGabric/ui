@@ -5,9 +5,22 @@ description: Orchestrate Preskok product design across Claude Design, the reposi
 
 # Preskok Design Workflow
 
-Run Preskok's plan-to-Figma-to-proof contract. Treat the Preskok MCP as the semantic authority and the official Figma MCP as the only canvas reader/writer.
+Run Preskok's design-to-proof contract. Treat the Preskok MCP as the component-identity and verification authority, the official Figma MCP as the only canvas reader/writer, and installed component source as the only code API.
 
-## Execute the contract
+## Existing Figma to code
+
+1. Call `get_preskok_status` and read `preskok://figma/source`. Stop on catalog drift or an unavailable requested theme.
+2. Call `prepare_preskok_figma_inspection` with the target root node ID.
+3. Run the returned `code` unchanged with the official Figma MCP `use_figma` tool. Do not reconstruct or normalize its result by hand.
+4. Call the official Figma MCP `get_libraries` tool for the same file.
+5. Pass both unchanged results to `ingest_preskok_figma_inspection` with the file's `published` or `copied` strategy and explicit Style/Mode selection.
+6. Fix every error in the real Figma file and rerun the inspection until `ready=true` and `handoff` is non-null. Unknown visible instances, incomplete identity, unbound semantic values, invalid modes, hidden requirements, and floating layout fail closed.
+7. Run the handoff's single atomic install command. Resolve each `inspectFiles` alias through the consumer's `tsconfig`/`components.json` and open the copied `.tsx` source; it defines the component API.
+8. Use `figmaInstances[].properties` only to understand design intent. Do not convert those values through a separate mapping, override table, or component annotation layer.
+9. Implement product content and code-only composition from the design context and repository patterns without claiming that pixels were automatically mapped to components.
+10. Run typecheck, production build, browser interactions, keyboard checks, responsive checks, accessibility checks, and screenshot comparison.
+
+## Build or change a Figma design
 
 1. Call `get_preskok_status` and read `preskok://figma/source`. Stop on catalog drift or an unavailable requested theme.
 2. Resolve intended code components with `search_preskok` and `get_preskok_component`.
@@ -18,13 +31,13 @@ Run Preskok's plan-to-Figma-to-proof contract. Treat the Preskok MCP as the sema
    - `copied`: work from a copy of the official Preskok source; use local component instances and local collections; prove each component with the planned stable contract fingerprint.
 6. Build with the official Figma MCP. Use planned instances for all reusable UI, keep them linked, preserve `parentRequirementId` ancestry, and apply Style and Mode explicitly to the root frame.
 7. Permit manual nodes only for layout, product content, or artwork. Bind semantic styling to Preskok variables. Give every local component a concrete product-specific reason.
-8. Collect normalized live evidence and call `finalize_preskok_design` with the unchanged plan.
+8. Prefer the prepared automatic inspection for the completed root. Manual normalized evidence is supported for advanced/custom compositions; call `finalize_preskok_design` with the unchanged plan.
 9. Fix every error and re-inspect live Figma. Repeat finalization until `ready=true`, coverage is complete, and `handoff` is non-null.
 10. Review full-screen and section screenshots for content, hierarchy, layout, responsive intent, clipping, and states.
 
 Never create or use a code handoff before successful finalization.
 
-## Collect evidence
+## Manual evidence contract
 
 Record:
 
@@ -44,7 +57,7 @@ Reject the build when any claimed node is absent from that live tree, an automat
 
 ## Translate after proof
 
-For Figma-to-code, use only the handoff returned by successful finalization. Install its registry items atomically, use its imports and code component contracts, then run the consumer's typecheck, production build, browser interactions, keyboard path, accessibility checks, responsive checks, and screenshot comparison.
+For Figma-to-code, use only the handoff returned by successful automatic ingestion or finalization. Install its registry items atomically, then inspect the returned copied source paths before writing application code. Preserved Figma properties explain the selected design state; they are not a React prop contract.
 
 For code-to-Figma, inventory actual Preskok imports and props first, request a matching plan, use a page capture only as a temporary visual reference, rebuild natively, finalize, and remove the capture after comparison.
 
@@ -58,4 +71,5 @@ For direct Claude Design-to-code work that intentionally skips Figma, use `creat
 - Do not certify a copied component whose fingerprint changed.
 - Do not treat inherited Style or Mode as explicit root application.
 - Do not claim a published mode exists unless the source resource lists it.
+- Do not maintain a component-side annotation file, prop map, or override table. Keep Preskok components unchanged and inspect the installed source.
 - If the Figma client cannot enable the official library, use only a complete direct-import-by-key route or switch to a genuine copied-source workflow; never treat a partial import as valid and never fabricate evidence.

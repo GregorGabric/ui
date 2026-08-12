@@ -7,6 +7,8 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { promisify } from "node:util"
 
+import liveDashboardInspection from "../test/fixtures/live-dashboard-inspection.json" with { type: "json" }
+
 const execFileAsync = promisify(execFile)
 const packageRoot = path.resolve(import.meta.dirname, "..")
 const keep = process.argv.includes("--keep")
@@ -37,7 +39,7 @@ try {
         components: handoff.components.map(({ codeName }) => codeName),
         installs: ["@preskok/default", ...handoff.installCommands],
         verification: [
-          "MCP stdio plan and finalization",
+          "MCP stdio automatic Figma inspection ingestion",
           "public registry installation",
           "installed file targets",
           "consumer TypeScript",
@@ -61,11 +63,13 @@ try {
 type ConsumerHandoff = {
   ready: boolean
   installCommands: Array<string>
+  inspectFiles: Array<string>
   imports: Array<{ source: string; symbols: Array<string> }>
   components: Array<{
     codeName: string
     registryName: string
     importPath: string
+    installedSourcePath: string
     figmaStatus: string
     figmaAssets: Array<{ componentKey: string }>
   }>
@@ -85,237 +89,42 @@ async function getHandoff() {
   })
   await client.connect(transport)
   try {
-    const planned = await client.callTool({
-      name: "plan_preskok_design",
+    const ingested = await client.callTool({
+      name: "ingest_preskok_figma_inspection",
       arguments: {
-        intent: "Verified account settings consumer",
         figmaStrategy: "published",
         theme: { style: "Default", mode: "Light" },
-        requirements: [
-          { id: "settings-card", codeName: "card", assetName: "Card" },
-          {
-            id: "status-badge",
-            parentRequirementId: "settings-card",
-            codeName: "badge",
-          },
-          {
-            id: "email-field",
-            parentRequirementId: "settings-card",
-            codeName: "text-field",
-          },
-          {
-            id: "email-label",
-            parentRequirementId: "settings-card",
-            codeName: "field",
-            assetName: "Field Label",
-          },
-          {
-            id: "email-input",
-            parentRequirementId: "settings-card",
-            codeName: "input",
-            assetName: "Input",
-          },
-          {
-            id: "email-description",
-            parentRequirementId: "settings-card",
-            codeName: "field",
-            assetName: "Field Description",
-          },
-          {
-            id: "updates-switch",
-            parentRequirementId: "settings-card",
-            codeName: "switch",
-            assetName: "Switch",
-          },
-          {
-            id: "save-action",
-            parentRequirementId: "settings-card",
-            codeName: "button",
-            assetName: "Button",
-          },
-        ],
-      },
-    })
-    const plannedContent = planned.structuredContent as
-      | { plan?: DesignPlanContract }
-      | undefined
-    const plan = plannedContent?.plan
-    if (!plan?.readyToBuild) {
-      throw new Error(
-        `Preskok MCP returned no ready plan: ${JSON.stringify(planned)}`
-      )
-    }
-    const cardNodeId = "settings-card:0"
-    const instances = plan.requirements.flatMap((requirement) =>
-      Array.from({ length: requirement.minimumInstances }, (_, index) => ({
-        nodeId: `${requirement.id}:${index}`,
-        requirementId: requirement.id,
-        name: `${requirement.assetName} ${index + 1}`,
-        assetName: requirement.assetName,
-        componentKey: requirement.componentKey,
-        ancestorNodeIds: requirement.parentRequirementId ? [cardNodeId] : [],
-        remote: true,
-        detached: false,
-        properties: {},
-      }))
-    )
-    const card = instances.find(({ nodeId }) => nodeId === cardNodeId)
-    if (!card) {
-      throw new Error("Expected the planned settings card instance")
-    }
-    const contentInstances = instances.filter(
-      ({ nodeId }) => nodeId !== cardNodeId
-    )
-    const finalized = await client.callTool({
-      name: "finalize_preskok_design",
-      arguments: {
-        plan,
-        evidence: {
-          fileKey: "verified-consumer-figma",
-          rootNodeId: "900:1",
-          enabledLibraryKeys: [plan.source.libraryKey],
-          instances,
-          manualNodes: [],
-          localComponents: [
-            {
-              nodeId: "900:2",
-              name: "Account settings product content",
-              instanceCount: 1,
-              reason:
-                "Product-specific composition used inside the Preskok Card content slot.",
-            },
-          ],
-          modes: [
-            {
-              collectionName: "Style",
-              collectionKey: plan.source.collections.style.key,
-              mode: "Default",
-              explicit: true,
-              remote: true,
-            },
-            {
-              collectionName: "Mode",
-              collectionKey: plan.source.collections.colorMode.key,
-              mode: "Light",
-              explicit: true,
-              remote: true,
-            },
-          ],
-          hardcodedValues: [],
-          layout: {
-            containers: [
-              {
-                nodeId: "900:1",
-                name: "Verified consumer root",
-                type: "FRAME",
-                width: 1000,
-                height: 800,
-                layoutMode: "VERTICAL",
-                primaryAxisSizingMode: "FIXED",
-                counterAxisSizingMode: "FIXED",
-                clipsContent: false,
-                children: [
-                  {
-                    nodeId: card.nodeId,
-                    name: card.name,
-                    type: "INSTANCE",
-                    x: 0,
-                    y: 0,
-                    width: 640,
-                    height: 600,
-                    visible: true,
-                    layoutPositioning: "AUTO",
-                  },
-                ],
-              },
-              {
-                nodeId: card.nodeId,
-                name: card.name,
-                type: "INSTANCE",
-                width: 640,
-                height: 600,
-                layoutMode: "VERTICAL",
-                primaryAxisSizingMode: "AUTO",
-                counterAxisSizingMode: "FIXED",
-                clipsContent: false,
-                children: contentInstances.map((instance, index) => ({
-                  nodeId: instance.nodeId,
-                  name: instance.name,
-                  type: "INSTANCE",
-                  x: 24,
-                  y: 24 + index * 56,
-                  width: 592,
-                  height: 40,
-                  visible: true,
-                  layoutPositioning: "AUTO",
-                })),
-              },
-              {
-                nodeId: "900:2",
-                name: "Account settings product content",
-                type: "COMPONENT",
-                width: 592,
-                height: 400,
-                layoutMode: "VERTICAL",
-                primaryAxisSizingMode: "AUTO",
-                counterAxisSizingMode: "FIXED",
-                clipsContent: false,
-                children: [],
-              },
-            ],
-          },
-        },
+        inspection: liveDashboardInspection,
+        libraries: { libraries_added_to_file: [] },
         notes: [
-          "Representative account settings workflow generated and proven by the MCP verification script.",
+          "Verified from the checked return value of the exact official Figma MCP inspection script against the Cursor dashboard.",
         ],
       },
     })
-    const structured = finalized.structuredContent as
-      | { handoff?: ConsumerHandoff }
-      | { finalization?: { ready: boolean; handoff: ConsumerHandoff | null } }
+    const structured = ingested.structuredContent as
+      | { analysis?: { ready: boolean; handoff: ConsumerHandoff | null } }
       | undefined
-    const finalization =
-      structured && "finalization" in structured
-        ? structured.finalization
-        : undefined
-    if (!finalization?.ready || !finalization.handoff) {
+    const analysis = structured?.analysis
+    if (!analysis?.ready || !analysis.handoff) {
       throw new Error(
-        `Preskok MCP returned no finalized handoff: ${JSON.stringify(finalized)}`
+        `Preskok MCP returned no inspection handoff: ${JSON.stringify(ingested)}`
       )
     }
-    return finalization.handoff
+    return analysis.handoff
   } finally {
     await client.close()
   }
 }
 
-type DesignPlanContract = {
-  readyToBuild: boolean
-  source: {
-    libraryKey: string
-    collections: {
-      style: { key: string }
-      colorMode: { key: string }
-    }
-  }
-  requirements: Array<{
-    id: string
-    assetName: string
-    componentKey: string
-    minimumInstances: number
-    parentRequirementId?: string
-  }>
-}
-
 function assertHandoff(handoff: ConsumerHandoff) {
   const expected = [
+    "area-chart",
+    "avatar",
     "badge",
     "button",
     "card",
-    "field",
-    "input",
-    "switch",
-    "text-field",
+    "sidebar",
+    "table",
   ]
   const names = handoff.components.map(({ codeName }) => codeName).sort()
   if (!handoff.ready || !handoff.validation.valid) {
@@ -332,6 +141,11 @@ function assertHandoff(handoff: ConsumerHandoff) {
     }
     if (component.figmaAssets.length === 0) {
       throw new Error(`${component.codeName} has no published Figma asset`)
+    }
+    if (!handoff.inspectFiles.includes(component.installedSourcePath)) {
+      throw new Error(
+        `${component.codeName} is missing its installed-source inspection path`
+      )
     }
   }
 }
@@ -401,7 +215,7 @@ async function writeFixture(handoff: ConsumerHandoff) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
-    <title>Preskok account settings</title>
+    <title>Preskok analytics dashboard</title>
   </head>
   <body>
     <div id="root"></div>
@@ -466,21 +280,15 @@ page.on("console", (message) => {
 page.on("pageerror", (error) => errors.push(error.message))
 
 await page.goto(url, { waitUntil: "networkidle" })
-await page.getByText("Account settings", { exact: true }).waitFor()
-const email = page.getByRole("textbox", { name: "Design handoff email" })
-const save = page.getByRole("button", { name: "Save changes" })
-const updates = page.getByRole("switch", { name: "Product and library updates" })
-await email.fill("invalid")
-if (!(await save.isDisabled())) throw new Error("Save should be disabled for invalid email")
-await email.fill("designer@preskok.si")
-if (await save.isDisabled()) throw new Error("Save should be enabled for a valid email")
-await page.getByText("Product and library updates", { exact: true }).click()
-if (await updates.isChecked()) throw new Error("Switch did not toggle off")
-await updates.focus()
-await page.keyboard.press("Space")
-if (!(await updates.isChecked())) throw new Error("Switch did not toggle on with Space")
-await save.click()
-await page.getByText("Saved", { exact: true }).waitFor()
+await page.getByText("Analytics overview", { exact: true }).waitFor()
+const exportReport = page.getByRole("button", { name: "Export report" })
+await exportReport.focus()
+await page.keyboard.press("Enter")
+await page.getByText("Export queued", { exact: true }).waitFor()
+const table = page.getByRole("grid", { name: "Recent orders" })
+if ((await table.getByRole("row").count()) !== 5) {
+  throw new Error("Recent orders table did not render its header and four rows")
+}
 await page.screenshot({ path: desktopScreenshot, fullPage: true })
 const desktop = await page.evaluate(() => ({
   width: window.innerWidth,
@@ -490,7 +298,7 @@ const desktop = await page.evaluate(() => ({
 
 await page.setViewportSize({ width: 390, height: 844 })
 await page.reload({ waitUntil: "networkidle" })
-await page.getByText("Account settings", { exact: true }).waitFor()
+await page.getByText("Analytics overview", { exact: true }).waitFor()
 await page.screenshot({ path: mobileScreenshot, fullPage: true })
 const mobile = await page.evaluate(() => ({
   width: window.innerWidth,
@@ -519,95 +327,190 @@ function renderApp(handoff: ConsumerHandoff) {
   const imports = new Map(
     handoff.imports.map(({ source, symbols }) => [source, symbols])
   )
+  assertImport(imports, "@/components/ui/preskok-ui/area-chart", "AreaChart")
+  assertImport(imports, "@/components/ui/preskok-ui/avatar", "Avatar")
   assertImport(imports, "@/components/ui/preskok-ui/badge", "Badge")
   assertImport(imports, "@/components/ui/preskok-ui/button", "Button")
   assertImport(imports, "@/components/ui/preskok-ui/card", "Card")
-  assertImport(imports, "@/components/ui/preskok-ui/field", "Description")
-  assertImport(imports, "@/components/ui/preskok-ui/input", "Input")
-  assertImport(imports, "@/components/ui/preskok-ui/switch", "Switch")
-  assertImport(imports, "@/components/ui/preskok-ui/text-field", "TextField")
+  assertImport(imports, "@/components/ui/preskok-ui/sidebar", "Sidebar")
+  assertImport(imports, "@/components/ui/preskok-ui/table", "Table")
 
   return `import { useState } from "react"
 import { createRoot } from "react-dom/client"
 
+import { AreaChart } from "@/components/ui/preskok-ui/area-chart"
+import { Avatar } from "@/components/ui/preskok-ui/avatar"
 import { Badge } from "@/components/ui/preskok-ui/badge"
 import { Button } from "@/components/ui/preskok-ui/button"
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/preskok-ui/card"
 import {
-  Description,
-  Label,
-} from "@/components/ui/preskok-ui/field"
-import { Input } from "@/components/ui/preskok-ui/input"
-import { Switch } from "@/components/ui/preskok-ui/switch"
-import { TextField } from "@/components/ui/preskok-ui/text-field"
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarInset,
+  SidebarItem,
+  SidebarLabel,
+  SidebarNav,
+  SidebarProvider,
+  SidebarSection,
+  SidebarTrigger,
+} from "@/components/ui/preskok-ui/sidebar"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/preskok-ui/table"
 
 import "./index.css"
 
-function AccountSettings() {
-  const [email, setEmail] = useState("designer@preskok.si")
-  const [updates, setUpdates] = useState(true)
-  const [saved, setSaved] = useState(false)
+const metrics = [
+  ["Monthly revenue", "€48,240 · +12.4%"],
+  ["New orders", "1,284 · +8.2%"],
+  ["Active customers", "8,492 · +5.1%"],
+] as const
+
+const revenue = [
+  { day: "1", revenue: 28 },
+  { day: "7", revenue: 36 },
+  { day: "13", revenue: 41 },
+  { day: "19", revenue: 74 },
+  { day: "25", revenue: 66 },
+  { day: "30", revenue: 76 },
+]
+
+const orders = [
+  { id: "acme", account: "Acme Labs", owner: "Maya Chen", value: "$84,000", stage: "Renewal" },
+  { id: "northstar", account: "Northstar Health", owner: "Noah Reed", value: "$128,000", stage: "Security review" },
+  { id: "riverbank", account: "Riverbank Studio", owner: "Iris Patel", value: "$42,500", stage: "Negotiation" },
+  { id: "vertex", account: "Vertex Freight", owner: "Sam Ortiz", value: "$96,200", stage: "Proposal" },
+]
+
+function AnalyticsDashboard() {
+  const [exportQueued, setExportQueued] = useState(false)
 
   return (
-    <main className="min-h-screen bg-background px-4 py-12 text-foreground sm:px-8">
-      <Card className="mx-auto max-w-xl">
-        <CardHeader>
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <CardTitle>Account settings</CardTitle>
-              <CardDescription>
-                Keep project notifications and handoff details current.
-              </CardDescription>
-            </div>
-            <Badge intent={saved ? "success" : "secondary"}>
-              {saved ? "Saved" : "Draft"}
-            </Badge>
+    <SidebarProvider className="min-h-svh">
+      <Sidebar>
+        <SidebarHeader>
+          <SidebarLabel className="font-semibold">Preskok UI</SidebarLabel>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarSection label="Workspace">
+            <SidebarItem href="#overview" isCurrent>
+              <SidebarLabel>Overview</SidebarLabel>
+            </SidebarItem>
+            <SidebarItem href="#orders">
+              <SidebarLabel>Orders</SidebarLabel>
+            </SidebarItem>
+            <SidebarItem href="#customers">
+              <SidebarLabel>Customers</SidebarLabel>
+            </SidebarItem>
+          </SidebarSection>
+        </SidebarContent>
+        <SidebarFooter>
+          <div className="flex items-center gap-2">
+            <Avatar alt="Maya Chen" initials="MC" isSquare size="sm" />
+            <SidebarLabel>Maya Chen</SidebarLabel>
           </div>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <TextField
-            value={email}
-            onChange={(value) => {
-              setEmail(value)
-              setSaved(false)
-            }}
-          >
-            <Label>Design handoff email</Label>
-            <Input placeholder="you@example.com" />
-            <Description>Used for Figma and implementation reviews.</Description>
-          </TextField>
-          <Switch
-            isSelected={updates}
-            onChange={(selected) => {
-              setUpdates(selected)
-              setSaved(false)
-            }}
-          >
-            Product and library updates
-          </Switch>
-        </CardContent>
-        <CardFooter className="justify-end">
-          <Button
-            intent="primary"
-            onPress={() => setSaved(true)}
-            isDisabled={!email.includes("@")}
-          >
-            Save changes
-          </Button>
-        </CardFooter>
-      </Card>
-    </main>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset>
+        <SidebarNav className="border-sidebar-border border-b px-4 md:hidden">
+          <SidebarTrigger />
+        </SidebarNav>
+        <main className="flex flex-1 flex-col gap-5 overflow-auto p-6 lg:p-10">
+          <header id="overview" className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-semibold">Analytics overview</h1>
+              <p className="text-muted-foreground">Monitor revenue, orders, and customer activity.</p>
+            </div>
+            <div className="flex items-center gap-3">
+              {exportQueued ? <Badge intent="success">Export queued</Badge> : null}
+              <Button intent="primary" size="md" onPress={() => setExportQueued(true)}>
+                Export report
+              </Button>
+              <Avatar alt="Current user" initials="GG" size="md" />
+            </div>
+          </header>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {metrics.map(([title, description]) => (
+              <Card key={title}>
+                <CardHeader title={title} description={description} />
+              </Card>
+            ))}
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Revenue trend</CardTitle>
+              <CardDescription>Gross revenue over the last 30 days</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AreaChart
+                className="h-52 min-h-52"
+                config={{ revenue: { label: "Gross revenue", color: "var(--chart-1)" } }}
+                data={revenue}
+                dataKey="day"
+                fillType="gradient"
+                hideGridLines
+                hideXAxis
+                hideYAxis
+                legend={false}
+                lineType="monotone"
+                valueFormatter={(value) => "€" + value + "k"}
+              />
+            </CardContent>
+          </Card>
+
+          <Card id="orders">
+            <CardHeader>
+              <CardTitle>Recent orders</CardTitle>
+              <CardDescription>Latest activity across the storefront</CardDescription>
+              <CardAction className="flex gap-2">
+                <Badge intent="success" isCircle={false}>Paid</Badge>
+                <Badge intent="warning" isCircle={false}>Pending</Badge>
+              </CardAction>
+            </CardHeader>
+            <CardContent>
+              <Table aria-label="Recent orders" selectionMode="multiple">
+                <TableHeader>
+                  <TableColumn isRowHeader>Account</TableColumn>
+                  <TableColumn>Owner</TableColumn>
+                  <TableColumn>Value</TableColumn>
+                  <TableColumn>Stage</TableColumn>
+                </TableHeader>
+                <TableBody items={orders}>
+                  {(order) => (
+                    <TableRow id={order.id}>
+                      <TableCell>{order.account}</TableCell>
+                      <TableCell>{order.owner}</TableCell>
+                      <TableCell>{order.value}</TableCell>
+                      <TableCell>{order.stage}</TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
 
-createRoot(document.getElementById("root")!).render(<AccountSettings />)
+createRoot(document.getElementById("root")!).render(<AnalyticsDashboard />)
 `
 }
 
@@ -623,11 +526,8 @@ function assertImport(
 
 async function assertInstalledFiles(handoff: ConsumerHandoff) {
   for (const component of handoff.components) {
-    const target = path.join(
-      temporaryRoot,
-      "src/components/ui/preskok-ui",
-      `${component.codeName}.tsx`
-    )
+    const aliasPath = component.installedSourcePath.replace(/^@\//, "src/")
+    const target = path.join(temporaryRoot, aliasPath)
     await fs.access(target)
   }
 }
@@ -668,7 +568,7 @@ async function assertProductionBundle() {
       fs.readFile(path.join(assetsDirectory, file), "utf8")
     )
   )
-  if (!bundles.some((bundle) => bundle.includes("Account settings"))) {
+  if (!bundles.some((bundle) => bundle.includes("Analytics overview"))) {
     throw new Error("Production bundle is missing the representative screen")
   }
 }

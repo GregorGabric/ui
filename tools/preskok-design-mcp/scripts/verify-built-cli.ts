@@ -31,6 +31,8 @@ try {
     "get_preskok_tokens",
     "get_preskok_status",
     "plan_preskok_design",
+    "prepare_preskok_figma_inspection",
+    "ingest_preskok_figma_inspection",
     "finalize_preskok_design",
     "validate_preskok_artifact",
     "create_preskok_handoff",

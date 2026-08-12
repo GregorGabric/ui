@@ -22,6 +22,14 @@ describe("Preskok Design MCP over Streamable HTTP", () => {
   })
 
   it("negotiates and executes the same generated contract", async () => {
+    const { tools } = await client.listTools()
+    expect(tools.map(({ name }) => name)).toEqual(
+      expect.arrayContaining([
+        "prepare_preskok_figma_inspection",
+        "ingest_preskok_figma_inspection",
+      ])
+    )
+
     const status = await client.callTool({
       name: "get_preskok_status",
       arguments: {},
