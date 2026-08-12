@@ -1,0 +1,101 @@
+{
+  "fileKey": "MgQbBtbb503ZchJt0ZFz2k",
+  "rootNodeId": "6:1731",
+  "enabledLibraryKeys": ["material-library-key"],
+  "instances": [
+    {
+      "nodeId": "6:1738",
+      "name": "Email input",
+      "assetName": "Input",
+      "componentKey": "010c896516d2d28ecb199d05d6bb44fe294c1971",
+      "ancestorNodeIds": [],
+      "remote": true,
+      "detached": false,
+      "properties": {}
+    },
+    {
+      "nodeId": "6:1747",
+      "name": "Updates switch",
+      "assetName": "Switch",
+      "componentKey": "074088f22c1be7b242db63a173c01d4bec78cec5",
+      "ancestorNodeIds": [],
+      "remote": true,
+      "detached": false,
+      "properties": {}
+    },
+    {
+      "nodeId": "6:1757",
+      "name": "Cancel",
+      "assetName": "Button",
+      "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+      "ancestorNodeIds": [],
+      "remote": true,
+      "detached": false,
+      "properties": {}
+    },
+    {
+      "nodeId": "6:1784",
+      "name": "Save changes",
+      "assetName": "Button",
+      "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+      "ancestorNodeIds": [],
+      "remote": true,
+      "detached": false,
+      "properties": {}
+    }
+  ],
+  "manualNodes": [
+    {
+      "nodeId": "6:1731",
+      "name": "Account settings card",
+      "type": "FRAME",
+      "claimedAssetName": "Card",
+      "tokenBound": true
+    },
+    {
+      "nodeId": "6:1735",
+      "name": "Divider",
+      "type": "RECTANGLE",
+      "claimedAssetName": "Separator",
+      "tokenBound": true
+    },
+    {
+      "nodeId": "6:1737",
+      "name": "Label",
+      "type": "TEXT",
+      "claimedAssetName": "Field Label",
+      "tokenBound": true
+    },
+    {
+      "nodeId": "6:1741",
+      "name": "Description",
+      "type": "TEXT",
+      "claimedAssetName": "Field Description",
+      "tokenBound": true
+    }
+  ],
+  "localComponents": [
+    {
+      "nodeId": "2:100",
+      "name": "Navigation item",
+      "instanceCount": 4
+    }
+  ],
+  "modes": [
+    {
+      "collectionName": "Style",
+      "collectionKey": "1a314502c07cb84211e881b604fbac213193fecd",
+      "mode": "Default",
+      "explicit": false,
+      "remote": true
+    },
+    {
+      "collectionName": "Mode",
+      "collectionKey": "edff7b77cb35e2b23575001e27610e38c18ed6ba",
+      "mode": "Light",
+      "explicit": false,
+      "remote": true
+    }
+  ],
+  "hardcodedValues": []
+}

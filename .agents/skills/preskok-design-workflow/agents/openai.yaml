@@ -1,0 +1,4 @@
+interface:
+  display_name: "Preskok Design Workflow"
+  short_description: "Plan, build, and prove Preskok UI designs"
+  default_prompt: "Use $preskok-design-workflow to take this product design through Preskok planning, native Figma, proof, and implementation handoff."

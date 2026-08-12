@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["@figma/plugin-typings"]
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "preskok-design-system": {
+      "command": "pnpm",
+      "args": ["--filter", "@preskok/design-mcp", "dev"]
+    },
+    "shadcn": {
+      "command": "pnpm",
+      "args": ["--filter", "preskok", "exec", "shadcn", "mcp"]
+    }
+  }
+}

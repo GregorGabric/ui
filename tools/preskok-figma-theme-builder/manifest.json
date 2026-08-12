@@ -1,0 +1,8 @@
+{
+  "name": "Preskok Theme Builder",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "documentAccess": "dynamic-page",
+  "editorType": ["figma"]
+}

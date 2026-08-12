@@ -1,0 +1,193 @@
+{
+  "fileKey": "jGwVPvHf0oT3uV4aLzGdDl",
+  "rootNodeId": "4441:3",
+  "enabledLibraryKeys": [],
+  "instances": [
+    {
+      "nodeId": "4442:50533",
+      "name": "Account settings — Preskok linked",
+      "assetName": "Card",
+      "componentKey": "3638039a78b1caaa933c29f5fae59882d3967a06",
+      "contractFingerprint": "c09c1be20aef2ce4a27e23608d8d04beef81e396c3f92a9b711b5ecddc3d6e52",
+      "ancestorNodeIds": ["4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Title#3682:0": "Account settings",
+        "Description#3682:1": "Keep design handoff details and Preskok notifications current.",
+        "Show description#3682:2": true,
+        "Show action#3682:3": false,
+        "Show content#3682:5": true,
+        "Content#3682:6": "4442:2",
+        "Show footer#3682:7": true,
+        "Footer#3682:8": "4442:50484"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:202;4442:3",
+      "name": "Email label",
+      "assetName": "Field Label",
+      "componentKey": "9cdb3333c15db66981fabfca5dee7deac33b36f9",
+      "contractFingerprint": "728da4a87fa81de4a060dedf16425705fc6397df04b655ced980140c1accbc66",
+      "ancestorNodeIds": ["I4442:50533;3682:202", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Text#3153:0": "Email address",
+        "State": "Default"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:202;4442:5",
+      "name": "Email input",
+      "assetName": "Input",
+      "componentKey": "010c896516d2d28ecb199d05d6bb44fe294c1971",
+      "contractFingerprint": "1ed25cb4db5a84281f969280fd2ed7ac6d2055153f9bcec4633af2b3c0ed7c40",
+      "ancestorNodeIds": ["I4442:50533;3682:202", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Text#3158:0": "designer@preskok.si",
+        "Scale": "Desktop",
+        "Value": "Filled",
+        "State": "Default"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:202;4442:7",
+      "name": "Email description",
+      "assetName": "Field Description",
+      "componentKey": "6147f1f6e92a728b5c327bc1b15687823292d382",
+      "contractFingerprint": "7531bd5ad4740be09244b1204d895f29c0d4d1e17398ceb8d0907f9487a4c23d",
+      "ancestorNodeIds": ["I4442:50533;3682:202", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Text#3153:3": "Used for design handoff notifications.",
+        "State": "Default"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:202;4442:9",
+      "name": "Profile separator",
+      "assetName": "Separator",
+      "componentKey": "2f0e9e29a1172f3c6dd30c6037132484fa513b11",
+      "contractFingerprint": "d658c2526d332122b92f0c6df8827cc66fbee28c4f6f2ffebcdafcde1bf8e1b0",
+      "ancestorNodeIds": ["I4442:50533;3682:202", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Orientation": "Horizontal"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:202;4442:11",
+      "name": "Product update preference",
+      "assetName": "Switch",
+      "componentKey": "074088f22c1be7b242db63a173c01d4bec78cec5",
+      "contractFingerprint": "5f5abae5d666475a15b79ff2eac85b92c97507c3077b87f68c7ed40b71f3522d",
+      "ancestorNodeIds": ["I4442:50533;3682:202", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Label#3356:48": "Product and library updates",
+        "Description#3356:49": "Receive a digest when Preskok components or mappings change.",
+        "Show description#3356:50": true,
+        "Scale": "Desktop",
+        "Selected": "On",
+        "State": "Default"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:202;4442:16",
+      "name": "Actions separator",
+      "assetName": "Separator",
+      "componentKey": "2f0e9e29a1172f3c6dd30c6037132484fa513b11",
+      "contractFingerprint": "d658c2526d332122b92f0c6df8827cc66fbee28c4f6f2ffebcdafcde1bf8e1b0",
+      "ancestorNodeIds": ["I4442:50533;3682:202", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Orientation": "Horizontal"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:204;4442:50485",
+      "name": "Cancel",
+      "assetName": "Button",
+      "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+      "contractFingerprint": "a9c371b83934e4779665b82063c17083df470617b9e401b483afa3d4e85e16c3",
+      "ancestorNodeIds": ["I4442:50533;3682:204", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Label#3201:0": "Cancel",
+        "Show leading icon#3201:433": false,
+        "Show trailing icon#3201:1299": false,
+        "Shape": "Text",
+        "Intent": "secondary",
+        "Size": "md",
+        "State": "Default"
+      }
+    },
+    {
+      "nodeId": "I4442:50533;3682:204;4442:50489",
+      "name": "Save changes",
+      "assetName": "Button",
+      "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+      "contractFingerprint": "a9c371b83934e4779665b82063c17083df470617b9e401b483afa3d4e85e16c3",
+      "ancestorNodeIds": ["I4442:50533;3682:204", "4442:50533", "4441:3"],
+      "remote": false,
+      "detached": false,
+      "properties": {
+        "Label#3201:0": "Save changes",
+        "Show leading icon#3201:433": false,
+        "Show trailing icon#3201:1299": false,
+        "Shape": "Text",
+        "Intent": "primary",
+        "Size": "md",
+        "State": "Default"
+      }
+    }
+  ],
+  "manualNodes": [
+    {
+      "nodeId": "4441:3",
+      "name": "Preskok MCP — Account settings",
+      "type": "FRAME",
+      "tokenBound": true,
+      "reason": "Responsive product canvas containing the linked Preskok Card instance."
+    }
+  ],
+  "localComponents": [
+    {
+      "nodeId": "4442:2",
+      "name": "Product / Account settings content",
+      "instanceCount": 1,
+      "reason": "Product-specific composition used in the Preskok Card content slot; all reusable controls remain linked Preskok instances."
+    },
+    {
+      "nodeId": "4442:50484",
+      "name": "Product / Account settings footer",
+      "instanceCount": 1,
+      "reason": "Product-specific action composition used in the Preskok Card footer slot; both actions remain linked Preskok Button instances."
+    }
+  ],
+  "modes": [
+    {
+      "collectionName": "Style",
+      "collectionKey": "1a314502c07cb84211e881b604fbac213193fecd",
+      "mode": "Briefd",
+      "explicit": true,
+      "remote": false
+    },
+    {
+      "collectionName": "Mode",
+      "collectionKey": "edff7b77cb35e2b23575001e27610e38c18ed6ba",
+      "mode": "Dark",
+      "explicit": true,
+      "remote": false
+    }
+  ],
+  "hardcodedValues": []
+}

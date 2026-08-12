@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 2,
+  "checkedAt": "2026-08-12T12:28:40.485Z",
+  "url": "https://www.figma.com/design/jGwVPvHf0oT3uV4aLzGdDl/Preskok-UI",
+  "fileKey": "jGwVPvHf0oT3uV4aLzGdDl",
+  "library": {
+    "name": "Preskok UI",
+    "libraryKey": "lk-46e05046e297a108a9b995aad38fbb0c3b67d59a51e08a1d07250d90ca40d06ac57264cc7314adb8eec854aa2c2d9129e74e174394f8e5a83d51e9baebd9cc95"
+  },
+  "publishedAccess": {
+    "preferred": "enabled_library",
+    "directImportByKeySupported": true,
+    "assetsPanelRequiresEnabledLibrary": true,
+    "proofRequirement": "When the library is not enabled, every planned component and Style/Mode collection must be linked remotely by its published key."
+  },
+  "collections": {
+    "source": {
+      "style": {
+        "name": "Style",
+        "key": "1a314502c07cb84211e881b604fbac213193fecd",
+        "modes": ["Default", "Test Green", "Briefd"]
+      },
+      "colorMode": {
+        "name": "Mode",
+        "key": "edff7b77cb35e2b23575001e27610e38c18ed6ba",
+        "modes": ["Light", "Dark"]
+      }
+    },
+    "published": {
+      "style": {
+        "name": "Style",
+        "key": "1a314502c07cb84211e881b604fbac213193fecd",
+        "modes": ["Default", "Test Green"]
+      },
+      "colorMode": {
+        "name": "Mode",
+        "key": "edff7b77cb35e2b23575001e27610e38c18ed6ba",
+        "modes": ["Light", "Dark"]
+      }
+    }
+  }
+}

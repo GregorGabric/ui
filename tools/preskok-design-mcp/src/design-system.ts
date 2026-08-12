@@ -1,0 +1,1517 @@
+import { createHash } from "node:crypto"
+import { promises as fs } from "node:fs"
+
+import type { DesignToken, PreskokCatalog, PreskokComponent } from "./types.js"
+import {
+  getPreskokWorkflow,
+  listPreskokWorkflows,
+  type PreskokWorkflow,
+} from "./workflows.js"
+
+export type SearchResult = {
+  kind: "component"
+  name: string
+  registryName: string
+  description: string | null
+  importPath: string
+  documentationPath: string | null
+  figmaStatus: PreskokComponent["figma"]["status"]
+  score: number
+}
+
+export type PreskokStatus = {
+  schemaVersion: number
+  catalogDigest: string
+  components: {
+    total: number
+    documented: number
+    withExamples: number
+  }
+  tokens: {
+    total: number
+    colors: number
+    dimensions: number
+    fonts: number
+  }
+  figma: PreskokCatalog["figma"]["coverage"] & {
+    checkedAt: string
+    propertiesCheckedAt: string
+    libraryName: string
+    libraryKey: string
+    contextFileKey: string
+  }
+  gaps: {
+    missingDocumentation: Array<string>
+    missingExamples: Array<string>
+    partialFigma: Array<string>
+    missingFigma: Array<string>
+    notApplicableToFigma: Array<string>
+  }
+}
+
+export type ArtifactComponent = {
+  codeName?: string | undefined
+  figmaComponentKey?: string | undefined
+  properties?: Record<string, string | number | boolean> | undefined
+  detached?: boolean | undefined
+}
+
+export type ArtifactToken = {
+  name?: string | undefined
+  hardcodedValue?: string | undefined
+}
+
+export type ValidationIssue = {
+  severity: "error" | "warning"
+  code:
+    | "unknown_component"
+    | "detached_instance"
+    | "figma_key_mismatch"
+    | "invalid_variant"
+    | "invalid_property_type"
+    | "missing_figma_mapping"
+    | "partial_figma_mapping"
+    | "hardcoded_value"
+    | "unknown_token"
+  message: string
+  component: string | null
+  path: string
+  recommendation: string
+}
+
+export type ValidationResult = {
+  valid: boolean
+  issues: Array<ValidationIssue>
+  resolvedComponents: Array<string>
+  summary: {
+    errors: number
+    warnings: number
+  }
+}
+
+export type HandoffInput = {
+  direction:
+    | "figma_to_code"
+    | "code_to_figma"
+    | "claude_design_to_figma"
+    | "claude_design_to_code"
+  components: Array<ArtifactComponent>
+  tokenNames?: Array<string> | undefined
+  notes?: Array<string> | undefined
+}
+
+export type FigmaStrategy = "published" | "copied"
+
+export type DesignPlanInput = {
+  intent: string
+  figmaStrategy: FigmaStrategy
+  theme: {
+    style: string
+    mode: "Light" | "Dark"
+  }
+  requirements?:
+    | Array<{
+        id?: string | undefined
+        role?: string | undefined
+        codeName: string
+        assetName?: string | undefined
+        minimumInstances?: number | undefined
+        parentRequirementId?: string | undefined
+      }>
+    | undefined
+}
+
+export type DesignRequirement = {
+  id: string
+  role: string
+  codeName: string
+  figmaCodeName: string
+  assetName: string
+  representation: "native" | "fallback"
+  componentKey: string
+  contractFingerprint: string
+  minimumInstances: number
+  parentRequirementId?: string | undefined
+}
+
+export type DesignPlan = {
+  contractDigest: string
+  readyToBuild: boolean
+  intent: string
+  figmaStrategy: FigmaStrategy
+  theme: DesignPlanInput["theme"]
+  source: {
+    url: string
+    fileKey: string
+    libraryKey: string
+    publishedAccess: PreskokCatalog["figma"]["source"]["publishedAccess"]
+    collections: {
+      style: {
+        name: "Style"
+        key: string
+        mode: string
+        availableModes: Array<string>
+      }
+      colorMode: {
+        name: "Mode"
+        key: string
+        mode: "Light" | "Dark"
+        availableModes: Array<"Light" | "Dark">
+      }
+    }
+  }
+  codeComponents: Array<string>
+  requirements: Array<DesignRequirement>
+  issues: Array<{
+    severity: "error" | "warning"
+    code: string
+    message: string
+  }>
+}
+
+export type DesignEvidence = {
+  fileKey: string
+  rootNodeId: string
+  enabledLibraryKeys: Array<string>
+  instances: Array<{
+    nodeId: string
+    name: string
+    assetName: string
+    componentKey?: string | undefined
+    contractFingerprint?: string | undefined
+    ancestorNodeIds?: Array<string> | undefined
+    remote: boolean
+    detached: boolean
+    properties: Record<string, string | number | boolean>
+  }>
+  manualNodes: Array<{
+    nodeId: string
+    name: string
+    type: string
+    claimedAssetName?: string | undefined
+    tokenBound: boolean
+    reason?: string | undefined
+  }>
+  localComponents: Array<{
+    nodeId: string
+    name: string
+    instanceCount: number
+    reason?: string | undefined
+  }>
+  modes: Array<{
+    collectionName: string
+    collectionKey?: string | undefined
+    mode: string
+    explicit: boolean
+    remote: boolean
+  }>
+  hardcodedValues: Array<{
+    nodeId: string
+    property: string
+    value: string
+  }>
+}
+
+export type DesignFinalizationIssue = {
+  severity: "error" | "warning"
+  code:
+    | "library_not_enabled"
+    | "required_instance_missing"
+    | "manual_component_replacement"
+    | "theme_mode_missing"
+    | "theme_mode_not_explicit"
+    | "theme_mode_mismatch"
+    | "theme_collection_origin_mismatch"
+    | "theme_collection_key_mismatch"
+    | "instance_origin_mismatch"
+    | "component_contract_mismatch"
+    | "component_hierarchy_mismatch"
+    | "invalid_component_property"
+    | "plan_contract_mismatch"
+    | "detached_instance"
+    | "unapproved_local_component"
+    | "hardcoded_value"
+    | "unbound_manual_value"
+  message: string
+  nodeId: string | null
+  requirementId: string | null
+  recommendation: string
+}
+
+export type DesignFinalization = {
+  ready: boolean
+  issues: Array<DesignFinalizationIssue>
+  coverage: {
+    requiredInstances: number
+    matchedInstances: number
+    satisfiedInstances: number
+  }
+  handoff: Handoff | null
+}
+
+export type Handoff = {
+  direction: HandoffInput["direction"]
+  ready: boolean
+  installCommands: Array<string>
+  imports: Array<{ source: string; symbols: Array<string> }>
+  components: Array<{
+    codeName: string
+    registryName: string
+    importPath: string
+    exportName: string
+    properties: Record<string, string | number | boolean>
+    figmaStatus: PreskokComponent["figma"]["status"]
+    figmaAssets: PreskokComponent["figma"]["assets"]
+    figmaFallbacks: Array<{
+      codeName: string
+      assets: PreskokComponent["figma"]["assets"]
+    }>
+    documentationPath: string | null
+    usage: string | null
+  }>
+  tokens: ReturnType<PreskokDesignSystem["getTokens"]>
+  notes: Array<string>
+  validation: ValidationResult
+}
+
+export type PreskokDesignSystem = {
+  planDesign(input: DesignPlanInput): DesignPlan
+  finalizeDesign(input: {
+    plan: DesignPlan
+    evidence: DesignEvidence
+    notes?: Array<string> | undefined
+  }): DesignFinalization
+  search(input: {
+    query: string
+    limit?: number | undefined
+  }): Array<SearchResult>
+  listComponents(): Array<Omit<SearchResult, "score">>
+  getComponent(identifier: string): PreskokComponent
+  getTokens(input?: {
+    names?: Array<string> | undefined
+    mode?: "light" | "dark" | undefined
+    usedBy?: string | undefined
+  }): Array<DesignToken | (Omit<DesignToken, "values"> & { value: string })>
+  getStatus(): PreskokStatus
+  getFigmaSource(): PreskokCatalog["figma"]["source"]
+  validateArtifact(input: {
+    target: "figma" | "code"
+    components: Array<ArtifactComponent>
+    tokens?: Array<ArtifactToken> | undefined
+  }): ValidationResult
+  createHandoff(input: HandoffInput): Handoff
+  listWorkflows(): Array<Pick<PreskokWorkflow, "name" | "title" | "goal">>
+  getWorkflow(name: string): PreskokWorkflow
+}
+
+type CreateDesignSystemOptions = {
+  catalog: PreskokCatalog
+}
+
+const semanticComponentGroups: Record<string, Array<string>> = {
+  account: ["avatar", "badge", "button", "card", "field", "text-field"],
+  profile: ["avatar", "badge", "button", "card", "field", "text-field"],
+  user: ["avatar", "badge", "button", "field", "text-field"],
+  settings: [
+    "button",
+    "card",
+    "checkbox",
+    "field",
+    "form",
+    "radio",
+    "select",
+    "switch",
+    "tabs",
+    "text-field",
+  ],
+  preference: ["checkbox", "radio", "select", "switch", "tabs"],
+  preferences: ["checkbox", "radio", "select", "switch", "tabs"],
+  form: [
+    "button",
+    "checkbox",
+    "field",
+    "form",
+    "input",
+    "radio",
+    "select",
+    "switch",
+    "text-field",
+    "textarea",
+  ],
+  navigation: ["breadcrumbs", "button", "link", "navbar", "sidebar", "tabs"],
+  feedback: ["badge", "loader", "note", "progress-bar", "skeleton", "toast"],
+  dashboard: [
+    "area-chart",
+    "bar-chart",
+    "card",
+    "line-chart",
+    "table",
+    "tracker",
+  ],
+  data: ["bar-list", "chart", "description-list", "grid-list", "table", "tree"],
+}
+
+type RequestedDesignRequirement = NonNullable<
+  DesignPlanInput["requirements"]
+>[number]
+
+const accountSettingsRequirements: Array<RequestedDesignRequirement> = [
+  {
+    id: "settings-card",
+    role: "surface",
+    codeName: "card",
+    assetName: "Card",
+  },
+  {
+    id: "email-label",
+    role: "field-label",
+    codeName: "field",
+    assetName: "Field Label",
+    parentRequirementId: "settings-card",
+  },
+  {
+    id: "email-input",
+    role: "field-control",
+    codeName: "input",
+    assetName: "Input",
+    parentRequirementId: "settings-card",
+  },
+  {
+    id: "email-description",
+    role: "field-description",
+    codeName: "field",
+    assetName: "Field Description",
+    parentRequirementId: "settings-card",
+  },
+  {
+    id: "section-separators",
+    role: "separator",
+    codeName: "separator",
+    assetName: "Separator",
+    minimumInstances: 2,
+    parentRequirementId: "settings-card",
+  },
+  {
+    id: "updates-switch",
+    role: "preference-control",
+    codeName: "switch",
+    assetName: "Switch",
+    parentRequirementId: "settings-card",
+  },
+  {
+    id: "form-actions",
+    role: "action",
+    codeName: "button",
+    assetName: "Button",
+    minimumInstances: 2,
+    parentRequirementId: "settings-card",
+  },
+]
+
+export function createPreskokDesignSystem({
+  catalog,
+}: CreateDesignSystemOptions): PreskokDesignSystem {
+  const componentsByName = new Map(
+    catalog.components.map((component) => [component.name, component])
+  )
+  const componentsByFigmaKey = new Map<string, PreskokComponent>()
+  for (const component of catalog.components) {
+    for (const asset of component.figma.assets) {
+      const existing = componentsByFigmaKey.get(asset.componentKey)
+      if (!existing) {
+        componentsByFigmaKey.set(asset.componentKey, component)
+        continue
+      }
+      const existingAsset = existing.figma.assets.find(
+        ({ componentKey }) => componentKey === asset.componentKey
+      )
+      const candidateScore = figmaKeyOwnershipScore(component, asset.name)
+      const existingScore = figmaKeyOwnershipScore(
+        existing,
+        existingAsset?.name ?? ""
+      )
+      if (
+        candidateScore > existingScore ||
+        (candidateScore === existingScore &&
+          component.name.localeCompare(existing.name) < 0)
+      ) {
+        componentsByFigmaKey.set(asset.componentKey, component)
+      }
+    }
+  }
+
+  return {
+    planDesign(input) {
+      const collectionSource =
+        input.figmaStrategy === "published"
+          ? catalog.figma.source.collections.published
+          : catalog.figma.source.collections.source
+      const issues = [] as DesignPlan["issues"]
+      if (!collectionSource.style.modes.includes(input.theme.style)) {
+        issues.push({
+          severity: "error",
+          code: "theme_mode_unavailable",
+          message: `Style=${input.theme.style} is not available through the ${input.figmaStrategy} Preskok strategy. Available modes: ${collectionSource.style.modes.join(", ")}.`,
+        })
+      }
+      if (!collectionSource.colorMode.modes.includes(input.theme.mode)) {
+        issues.push({
+          severity: "error",
+          code: "theme_mode_unavailable",
+          message: `Mode=${input.theme.mode} is not available through the ${input.figmaStrategy} Preskok strategy. Available modes: ${collectionSource.colorMode.modes.join(", ")}.`,
+        })
+      }
+      const inferredRequirements = isAccountSettingsIntent(input.intent)
+        ? accountSettingsRequirements
+        : []
+      const requestedRequirements = input.requirements ?? inferredRequirements
+      if (requestedRequirements.length === 0) {
+        issues.push({
+          severity: "error",
+          code: "composition_requirements_needed",
+          message:
+            "Provide the intended Preskok components so the MCP can create a verifiable Figma composition contract.",
+        })
+      }
+      const codeComponents = uniqueStrings(
+        requestedRequirements.map(({ codeName }) => codeName)
+      )
+      const requirements = requestedRequirements.flatMap(
+        (requested, requestedIndex): Array<DesignRequirement> => {
+          const component = componentsByName.get(
+            requested.codeName.replace(/^@preskok\//, "")
+          )
+          if (!component) {
+            issues.push({
+              severity: "error",
+              code: "unknown_component",
+              message: `Unknown Preskok component: ${requested.codeName}.`,
+            })
+            return []
+          }
+          if (component.figma.status === "not_applicable") {
+            issues.push({
+              severity: "warning",
+              code: "figma_representation_not_applicable",
+              message: `${component.name} is a code-only context contract and does not require a Figma instance.`,
+            })
+            return []
+          }
+          const directAssets = requested.assetName
+            ? component.figma.assets.filter(
+                ({ name }) => name === requested.assetName
+              )
+            : component.figma.assets.slice(0, 1)
+          if (directAssets.length > 0) {
+            return directAssets.map((asset, assetIndex) =>
+              createDesignRequirement({
+                requested,
+                requestedIndex,
+                assetIndex,
+                codeName: component.name,
+                figmaCodeName: component.name,
+                asset,
+                representation: "native",
+              })
+            )
+          }
+          if (requested.assetName && component.figma.assets.length > 0) {
+            issues.push({
+              severity: "error",
+              code: "unknown_figma_asset",
+              message: `${requested.assetName} is not a mapped Figma asset for ${component.name}.`,
+            })
+            return []
+          }
+          const fallbacks = component.figma.fallbackComponents ?? []
+          const fallbackRequirements = fallbacks.flatMap(
+            (fallbackName, fallbackIndex): Array<DesignRequirement> => {
+              const fallback = componentsByName.get(fallbackName)
+              const asset = fallback?.figma.assets[0]
+              if (!fallback || !asset) {
+                return []
+              }
+              return [
+                createDesignRequirement({
+                  requested,
+                  requestedIndex,
+                  assetIndex: fallbackIndex,
+                  codeName: component.name,
+                  figmaCodeName: fallback.name,
+                  asset,
+                  representation: "fallback",
+                }),
+              ]
+            }
+          )
+          if (fallbackRequirements.length === 0) {
+            issues.push({
+              severity: "error",
+              code: "figma_representation_missing",
+              message: `${component.name} has no native Figma asset or verified fallback composition.`,
+            })
+          }
+          return fallbackRequirements
+        }
+      )
+      const planWithoutDigest = {
+        readyToBuild: !issues.some(({ severity }) => severity === "error"),
+        intent: input.intent,
+        figmaStrategy: input.figmaStrategy,
+        theme: input.theme,
+        source: {
+          url: catalog.figma.source.url,
+          fileKey: catalog.figma.source.fileKey,
+          libraryKey: catalog.figma.source.library.libraryKey,
+          publishedAccess: catalog.figma.source.publishedAccess,
+          collections: {
+            style: {
+              name: collectionSource.style.name,
+              key: collectionSource.style.key,
+              mode: input.theme.style,
+              availableModes: collectionSource.style.modes,
+            },
+            colorMode: {
+              name: collectionSource.colorMode.name,
+              key: collectionSource.colorMode.key,
+              mode: input.theme.mode,
+              availableModes: collectionSource.colorMode.modes,
+            },
+          },
+        },
+        codeComponents,
+        requirements,
+        issues,
+      }
+      return {
+        contractDigest: designPlanDigest(planWithoutDigest),
+        ...planWithoutDigest,
+      }
+    },
+
+    finalizeDesign({ plan, evidence, notes = [] }) {
+      const issues: Array<DesignFinalizationIssue> = []
+      const { contractDigest, ...planContract } = plan
+      if (designPlanDigest(planContract) !== contractDigest) {
+        issues.push({
+          severity: "error",
+          code: "plan_contract_mismatch",
+          message:
+            "The design plan changed after its contract digest was issued.",
+          nodeId: evidence.rootNodeId,
+          requirementId: null,
+          recommendation:
+            "Request a fresh plan and build from that unchanged contract.",
+        })
+      }
+      const hasCompletePublishedIdentity =
+        plan.figmaStrategy === "published" &&
+        plan.requirements.every((requirement) => {
+          const linkedRemoteInstances = evidence.instances.filter(
+            (instance) =>
+              instance.componentKey === requirement.componentKey &&
+              instance.remote === true
+          )
+          return linkedRemoteInstances.length >= requirement.minimumInstances
+        }) &&
+        [
+          plan.source.collections.style,
+          plan.source.collections.colorMode,
+        ].every((expected) =>
+          evidence.modes.some(
+            (mode) =>
+              mode.collectionName === expected.name &&
+              mode.collectionKey === expected.key &&
+              mode.remote === true
+          )
+        )
+      if (
+        plan.figmaStrategy === "published" &&
+        !evidence.enabledLibraryKeys.includes(plan.source.libraryKey)
+      ) {
+        const severity = hasCompletePublishedIdentity ? "warning" : "error"
+        issues.push({
+          severity,
+          code: "library_not_enabled",
+          message: hasCompletePublishedIdentity
+            ? "Preskok assets are linked by published keys, but the library is not enabled for manual browsing in this file."
+            : "The published Preskok UI library is not enabled in this file.",
+          nodeId: evidence.rootNodeId,
+          requirementId: null,
+          recommendation: hasCompletePublishedIdentity
+            ? "Enable Preskok UI in Figma Libraries to make the same assets available in the Assets panel and receive normal library update UX."
+            : "Enable Preskok UI in Figma Libraries before composing the screen, or import every planned component and collection by its published key.",
+        })
+      }
+
+      let satisfiedInstances = 0
+      let matchedInstances = 0
+      for (const requirement of plan.requirements) {
+        const assetNameMatches = evidence.instances.filter(
+          (instance) => instance.assetName === requirement.assetName
+        )
+        const identityMatches = evidence.instances.filter((instance) => {
+          if (plan.figmaStrategy === "published") {
+            return instance.componentKey === requirement.componentKey
+          }
+          return (
+            instance.assetName === requirement.assetName &&
+            instance.contractFingerprint === requirement.contractFingerprint
+          )
+        })
+        let matchingInstances = identityMatches
+        if (requirement.parentRequirementId) {
+          const parentRequirement = plan.requirements.find(
+            ({ id }) => id === requirement.parentRequirementId
+          )
+          const parentNodeIds = parentRequirement
+            ? evidence.instances
+                .filter((instance) => {
+                  if (plan.figmaStrategy === "published") {
+                    return (
+                      instance.componentKey === parentRequirement.componentKey
+                    )
+                  }
+                  return (
+                    instance.assetName === parentRequirement.assetName &&
+                    instance.contractFingerprint ===
+                      parentRequirement.contractFingerprint
+                  )
+                })
+                .map(({ nodeId }) => nodeId)
+            : []
+          matchingInstances = identityMatches.filter((instance) =>
+            parentNodeIds.some((nodeId) =>
+              instance.ancestorNodeIds?.includes(nodeId)
+            )
+          )
+        }
+        const misplacedInstances = identityMatches.filter(
+          (instance) => !matchingInstances.includes(instance)
+        )
+        matchedInstances += Math.min(
+          identityMatches.length,
+          requirement.minimumInstances
+        )
+        const satisfied = Math.min(
+          matchingInstances.length,
+          requirement.minimumInstances
+        )
+        satisfiedInstances += satisfied
+        if (
+          plan.figmaStrategy === "copied" &&
+          assetNameMatches.length > 0 &&
+          matchingInstances.length === 0
+        ) {
+          issues.push({
+            severity: "error",
+            code: "component_contract_mismatch",
+            message: `${requirement.assetName} does not match the Preskok component contract in this plan.`,
+            nodeId: assetNameMatches[0]?.nodeId ?? null,
+            requirementId: requirement.id,
+            recommendation:
+              "Replace it with an unchanged instance from the copied Preskok UI source file.",
+          })
+        } else if (misplacedInstances.length > 0) {
+          for (const instance of misplacedInstances) {
+            issues.push({
+              severity: "error",
+              code: "component_hierarchy_mismatch",
+              message: `${instance.name} is not inside the required ${requirement.parentRequirementId} composition.`,
+              nodeId: instance.nodeId,
+              requirementId: requirement.id,
+              recommendation:
+                "Move the linked instance into the planned parent component without detaching it.",
+            })
+          }
+        } else if (satisfied < requirement.minimumInstances) {
+          const manualReplacement = evidence.manualNodes.find(
+            (node) => node.claimedAssetName === requirement.assetName
+          )
+          issues.push({
+            severity: "error",
+            code: manualReplacement
+              ? "manual_component_replacement"
+              : "required_instance_missing",
+            message: manualReplacement
+              ? `${requirement.assetName} is represented by a manual ${manualReplacement.type} instead of a Preskok instance.`
+              : `${requirement.assetName} requires ${requirement.minimumInstances} linked instance(s); found ${matchingInstances.length}.`,
+            nodeId: manualReplacement?.nodeId ?? null,
+            requirementId: requirement.id,
+            recommendation: `Use the ${requirement.assetName} asset from the Preskok UI ${plan.figmaStrategy === "published" ? "library" : "copy"}.`,
+          })
+        }
+
+        for (const instance of identityMatches) {
+          const expectedRemote = plan.figmaStrategy === "published"
+          if (instance.remote !== expectedRemote) {
+            issues.push({
+              severity: "error",
+              code: "instance_origin_mismatch",
+              message: `${instance.name} has the wrong component origin for the ${plan.figmaStrategy} strategy.`,
+              nodeId: instance.nodeId,
+              requirementId: requirement.id,
+              recommendation: expectedRemote
+                ? "Replace it with the published Preskok UI instance."
+                : "Replace it with an instance of the copied local Preskok component.",
+            })
+          }
+          if (instance.detached) {
+            issues.push({
+              severity: "error",
+              code: "detached_instance",
+              message: `${instance.name} is detached from its Preskok main component.`,
+              nodeId: instance.nodeId,
+              requirementId: requirement.id,
+              recommendation: "Replace it with a linked Preskok instance.",
+            })
+          }
+          const component = componentsByName.get(requirement.figmaCodeName)
+          const asset = component?.figma.assets.find(
+            ({ componentKey }) => componentKey === requirement.componentKey
+          )
+          for (const [propertyName, propertyValue] of Object.entries(
+            instance.properties
+          )) {
+            const property = asset?.propertyDefinitions.find(
+              (definition) =>
+                normalizeFigmaContractName(definition.name) ===
+                normalizeFigmaContractName(propertyName)
+            )
+            const invalidVariant =
+              property?.type === "VARIANT" &&
+              !property.variantOptions.includes(String(propertyValue))
+            const invalidType =
+              property !== undefined &&
+              !isFigmaPropertyValueValid(property.type, propertyValue)
+            if (!property || invalidVariant || invalidType) {
+              issues.push({
+                severity: "error",
+                code: "invalid_component_property",
+                message: `${instance.name}.${propertyName} is not valid for the planned ${requirement.assetName} contract.`,
+                nodeId: instance.nodeId,
+                requirementId: requirement.id,
+                recommendation:
+                  "Use a property name, type, and value returned in the planned component contract.",
+              })
+            }
+          }
+        }
+      }
+
+      for (const expected of [
+        plan.source.collections.style,
+        plan.source.collections.colorMode,
+      ]) {
+        const actual = evidence.modes.find(
+          (mode) => mode.collectionName === expected.name
+        )
+        if (!actual) {
+          issues.push({
+            severity: "error",
+            code: "theme_mode_missing",
+            message: `${expected.name} is not applied to the design root.`,
+            nodeId: evidence.rootNodeId,
+            requirementId: null,
+            recommendation: `Apply ${expected.name}=${expected.mode} to the root frame.`,
+          })
+          continue
+        }
+        if (actual.mode !== expected.mode) {
+          issues.push({
+            severity: "error",
+            code: "theme_mode_mismatch",
+            message: `${expected.name} resolves to ${actual.mode}; expected ${expected.mode}.`,
+            nodeId: evidence.rootNodeId,
+            requirementId: null,
+            recommendation: `Set ${expected.name} to ${expected.mode}.`,
+          })
+        }
+        if (!actual.explicit) {
+          issues.push({
+            severity: "error",
+            code: "theme_mode_not_explicit",
+            message: `${expected.name} is inherited instead of explicitly applied to the design root.`,
+            nodeId: evidence.rootNodeId,
+            requirementId: null,
+            recommendation: `Explicitly apply ${expected.name}=${expected.mode} to the root frame.`,
+          })
+        }
+        const expectedRemote = plan.figmaStrategy === "published"
+        if (actual.remote !== expectedRemote) {
+          issues.push({
+            severity: "error",
+            code: "theme_collection_origin_mismatch",
+            message: `${expected.name} has the wrong origin for the ${plan.figmaStrategy} strategy.`,
+            nodeId: evidence.rootNodeId,
+            requirementId: null,
+            recommendation: expectedRemote
+              ? "Apply the published Preskok collection."
+              : "Apply the local collection from the copied Preskok file.",
+          })
+        }
+        if (
+          plan.figmaStrategy === "published" &&
+          actual.collectionKey !== expected.key
+        ) {
+          issues.push({
+            severity: "error",
+            code: "theme_collection_key_mismatch",
+            message: `${expected.name} is not the published Preskok collection from the plan.`,
+            nodeId: evidence.rootNodeId,
+            requirementId: null,
+            recommendation: `Apply the published Preskok ${expected.name} collection with key ${expected.key}.`,
+          })
+        }
+      }
+
+      for (const node of evidence.manualNodes) {
+        if (!node.tokenBound) {
+          issues.push({
+            severity: "error",
+            code: "unbound_manual_value",
+            message: `${node.name} contains styling that is not bound to Preskok variables.`,
+            nodeId: node.nodeId,
+            requirementId: null,
+            recommendation:
+              "Bind semantic styling to Preskok variables or document it as an exported media asset.",
+          })
+        }
+      }
+
+      for (const component of evidence.localComponents) {
+        if (!component.reason) {
+          issues.push({
+            severity: "error",
+            code: "unapproved_local_component",
+            message: `${component.name} is a local component without an explicit product-specific reason.`,
+            nodeId: component.nodeId,
+            requirementId: null,
+            recommendation:
+              "Use a Preskok component or record why this local component is product-specific.",
+          })
+        }
+      }
+
+      for (const value of evidence.hardcodedValues) {
+        issues.push({
+          severity: "error",
+          code: "hardcoded_value",
+          message: `${value.property} uses hardcoded value ${value.value}.`,
+          nodeId: value.nodeId,
+          requirementId: null,
+          recommendation: "Bind the property to the matching Preskok variable.",
+        })
+      }
+
+      const requiredInstances = plan.requirements.reduce(
+        (total, requirement) => total + requirement.minimumInstances,
+        0
+      )
+      const ready =
+        plan.readyToBuild &&
+        satisfiedInstances === requiredInstances &&
+        !issues.some((issue) => issue.severity === "error")
+      const componentNames = plan.codeComponents
+      return {
+        ready,
+        issues,
+        coverage: { requiredInstances, matchedInstances, satisfiedInstances },
+        handoff: ready
+          ? this.createHandoff({
+              direction: "figma_to_code",
+              components: componentNames.map((codeName) => ({ codeName })),
+              notes: [
+                `Verified Figma root ${evidence.rootNodeId} against plan ${plan.contractDigest}.`,
+                ...notes,
+              ],
+            })
+          : null,
+      }
+    },
+
+    search({ query, limit = 10 }) {
+      const queryTokens = tokenize(query)
+      const semanticNames = new Set(
+        queryTokens.flatMap((token) => semanticComponentGroups[token] ?? [])
+      )
+      return catalog.components
+        .map((component) => ({
+          component,
+          score: scoreComponent(component, query, queryTokens, semanticNames),
+        }))
+        .filter((result) => result.score > 0)
+        .sort((left, right) => {
+          const scoreDifference = right.score - left.score
+          if (scoreDifference !== 0) {
+            return scoreDifference
+          }
+          return left.component.name.localeCompare(right.component.name)
+        })
+        .slice(0, Math.max(1, Math.min(limit, 50)))
+        .map(({ component, score }) => ({
+          kind: "component" as const,
+          name: component.name,
+          registryName: component.registryName,
+          description: component.description,
+          importPath: component.importPath,
+          documentationPath: component.documentation?.path ?? null,
+          figmaStatus: component.figma.status,
+          score,
+        }))
+    },
+
+    listComponents() {
+      return catalog.components.map((component) => ({
+        kind: "component" as const,
+        name: component.name,
+        registryName: component.registryName,
+        description: component.description,
+        importPath: component.importPath,
+        documentationPath: component.documentation?.path ?? null,
+        figmaStatus: component.figma.status,
+      }))
+    },
+
+    getComponent(identifier) {
+      const normalized = identifier.replace(/^@preskok\//, "")
+      const component =
+        componentsByName.get(normalized) ?? componentsByFigmaKey.get(identifier)
+      if (!component) {
+        throw new Error(`Unknown Preskok component: ${identifier}`)
+      }
+      return component
+    },
+
+    getTokens(input = {}) {
+      const requestedNames = new Set(input.names ?? [])
+      const filtered = catalog.tokens.filter((token) => {
+        if (requestedNames.size > 0 && !requestedNames.has(token.name)) {
+          return false
+        }
+        if (input.usedBy && !token.usedBy.includes(input.usedBy)) {
+          return false
+        }
+        return true
+      })
+      if (!input.mode) {
+        return filtered
+      }
+      return filtered.map((token) => {
+        const { values, ...metadata } = token
+        return {
+          ...metadata,
+          value: values[input.mode!],
+        }
+      })
+    },
+
+    getStatus() {
+      const byFigmaStatus = (status: PreskokComponent["figma"]["status"]) =>
+        catalog.components
+          .filter((component) => component.figma.status === status)
+          .map((component) => component.name)
+
+      return {
+        schemaVersion: catalog.schemaVersion,
+        catalogDigest: createHash("sha256")
+          .update(JSON.stringify(catalog))
+          .digest("hex"),
+        components: {
+          total: catalog.components.length,
+          documented: catalog.components.filter(
+            (component) => component.documentation
+          ).length,
+          withExamples: catalog.components.filter(
+            (component) => component.examples.length > 0
+          ).length,
+        },
+        tokens: {
+          total: catalog.tokens.length,
+          colors: catalog.tokens.filter((token) => token.kind === "color")
+            .length,
+          dimensions: catalog.tokens.filter(
+            (token) => token.kind === "dimension"
+          ).length,
+          fonts: catalog.tokens.filter((token) => token.kind === "font").length,
+        },
+        figma: {
+          ...catalog.figma.coverage,
+          checkedAt: catalog.figma.checkedAt,
+          propertiesCheckedAt: catalog.figma.propertiesCheckedAt,
+          libraryName: catalog.figma.library.name,
+          libraryKey: catalog.figma.library.libraryKey,
+          contextFileKey: catalog.figma.contextFileKey,
+        },
+        gaps: {
+          missingDocumentation: catalog.components
+            .filter((component) => !component.documentation)
+            .map((component) => component.name),
+          missingExamples: catalog.components
+            .filter((component) => component.examples.length === 0)
+            .map((component) => component.name),
+          partialFigma: byFigmaStatus("partial"),
+          missingFigma: byFigmaStatus("missing"),
+          notApplicableToFigma: byFigmaStatus("not_applicable"),
+        },
+      }
+    },
+
+    getFigmaSource() {
+      return catalog.figma.source
+    },
+
+    validateArtifact({ target, components, tokens = [] }) {
+      const issues: Array<ValidationIssue> = []
+      const resolvedComponents: Array<string> = []
+
+      for (const [index, input] of components.entries()) {
+        const component = resolveComponent(
+          input,
+          componentsByName,
+          componentsByFigmaKey
+        )
+        const path = `components[${index}]`
+        if (!component) {
+          issues.push({
+            severity: "error",
+            code: "unknown_component",
+            message: `Could not resolve component from ${input.codeName ?? input.figmaComponentKey ?? "empty input"}.`,
+            component: input.codeName ?? null,
+            path,
+            recommendation:
+              "Use search_preskok, then supply a Preskok component name or published Figma component key.",
+          })
+          continue
+        }
+        resolvedComponents.push(component.name)
+
+        if (input.detached) {
+          issues.push({
+            severity: "error",
+            code: "detached_instance",
+            message: `${component.name} is detached from its published Figma component.`,
+            component: component.name,
+            path,
+            recommendation:
+              "Replace it with an instance from the published Preskok UI library and reapply supported properties.",
+          })
+        }
+
+        if (
+          input.figmaComponentKey &&
+          !component.figma.assets.some(
+            (asset) => asset.componentKey === input.figmaComponentKey
+          )
+        ) {
+          issues.push({
+            severity: "error",
+            code: "figma_key_mismatch",
+            message: `${input.figmaComponentKey} is not mapped to ${component.name}.`,
+            component: component.name,
+            path: `${path}.figmaComponentKey`,
+            recommendation:
+              "Use one of the published component keys returned by get_component.",
+          })
+        }
+
+        for (const [propertyName, propertyValue] of Object.entries(
+          input.properties ?? {}
+        )) {
+          const figmaProperty = component.figma.assets
+            .flatMap((asset) => asset.propertyDefinitions)
+            .find((definition) => definition.name === propertyName)
+          const variant =
+            component.variants[propertyName] ??
+            Object.entries(component.variants).find(
+              ([name]) => name.toLowerCase() === propertyName.toLowerCase()
+            )?.[1]
+          const allowedValues =
+            figmaProperty?.type === "VARIANT"
+              ? figmaProperty.variantOptions
+              : (variant?.values ?? [])
+
+          if (
+            allowedValues.length > 0 &&
+            !allowedValues.includes(String(propertyValue))
+          ) {
+            issues.push({
+              severity: "error",
+              code: "invalid_variant",
+              message: `${String(propertyValue)} is not a supported ${component.name}.${propertyName} value.`,
+              component: component.name,
+              path: `${path}.properties.${propertyName}`,
+              recommendation: `Use one of: ${allowedValues.join(", ")}.`,
+            })
+          }
+          if (
+            figmaProperty &&
+            !isFigmaPropertyValueValid(figmaProperty.type, propertyValue)
+          ) {
+            issues.push({
+              severity: "error",
+              code: "invalid_property_type",
+              message: `${component.name}.${propertyName} expects a ${figmaProperty.type.toLowerCase()} value.`,
+              component: component.name,
+              path: `${path}.properties.${propertyName}`,
+              recommendation: `Use the property type returned by get_preskok_component for ${propertyName}.`,
+            })
+          }
+        }
+
+        if (target === "figma" && component.figma.status === "missing") {
+          const fallbacks = component.figma.fallbackComponents ?? []
+          issues.push({
+            severity: "warning",
+            code: "missing_figma_mapping",
+            message: `${component.name} has no published Preskok UI Figma component.`,
+            component: component.name,
+            path,
+            recommendation: `Compose it from mapped Preskok primitives (${fallbacks.join(", ")}) and record the deviation in the handoff.`,
+          })
+        }
+        if (target === "figma" && component.figma.status === "partial") {
+          issues.push({
+            severity: "warning",
+            code: "partial_figma_mapping",
+            message: `${component.name} has partial Figma coverage: ${component.figma.reason}`,
+            component: component.name,
+            path,
+            recommendation:
+              "Use the mapped visual assets and keep layout-only or compound behavior explicit in the handoff.",
+          })
+        }
+      }
+
+      const tokensByName = new Map(
+        catalog.tokens.map((token) => [token.name, token])
+      )
+      for (const [index, token] of tokens.entries()) {
+        const path = `tokens[${index}]`
+        if (token.hardcodedValue) {
+          issues.push({
+            severity: "warning",
+            code: "hardcoded_value",
+            message: `Hardcoded value ${token.hardcodedValue} bypasses Preskok variables.`,
+            component: null,
+            path,
+            recommendation:
+              "Replace the hardcoded value with the nearest Preskok semantic token.",
+          })
+        }
+        if (token.name && !tokensByName.has(token.name)) {
+          issues.push({
+            severity: "error",
+            code: "unknown_token",
+            message: `${token.name} is not a generated Preskok token.`,
+            component: null,
+            path: `${path}.name`,
+            recommendation: "Use get_tokens to select a current token name.",
+          })
+        }
+      }
+
+      const errors = issues.filter((issue) => issue.severity === "error").length
+      const warnings = issues.length - errors
+      return {
+        valid: errors === 0,
+        issues,
+        resolvedComponents: [...new Set(resolvedComponents)],
+        summary: { errors, warnings },
+      }
+    },
+
+    createHandoff(input) {
+      const targetsCode =
+        input.direction === "figma_to_code" ||
+        input.direction === "claude_design_to_code"
+      const target = targetsCode ? "code" : "figma"
+      const validation = this.validateArtifact({
+        target,
+        components: input.components,
+        tokens: (input.tokenNames ?? []).map((name) => ({ name })),
+      })
+      const resolved = input.components.flatMap((item) => {
+        const component = resolveComponent(
+          item,
+          componentsByName,
+          componentsByFigmaKey
+        )
+        if (!component) {
+          return []
+        }
+        return [
+          {
+            component,
+            properties: item.properties ?? {},
+          },
+        ]
+      })
+      const componentPlans = resolved.map(({ component, properties }) => ({
+        codeName: component.name,
+        registryName: component.registryName,
+        importPath: component.importPath,
+        exportName: primaryExport(component),
+        properties,
+        figmaStatus: component.figma.status,
+        figmaAssets: component.figma.assets,
+        figmaFallbacks: (component.figma.fallbackComponents ?? []).map(
+          (fallbackName) => {
+            const fallback = componentsByName.get(fallbackName)
+            if (!fallback) {
+              throw new Error(
+                `Unknown generated Figma fallback ${fallbackName} for ${component.name}`
+              )
+            }
+            return { codeName: fallback.name, assets: fallback.figma.assets }
+          }
+        ),
+        documentationPath: component.documentation?.path ?? null,
+        usage: component.documentation?.usage ?? null,
+      }))
+      const importsBySource = new Map<string, Set<string>>()
+      for (const plan of componentPlans) {
+        const symbols =
+          importsBySource.get(plan.importPath) ?? new Set<string>()
+        symbols.add(plan.exportName)
+        importsBySource.set(plan.importPath, symbols)
+      }
+      const selectedTokens = catalog.tokens.filter((token) =>
+        (input.tokenNames ?? []).includes(token.name)
+      )
+
+      return {
+        direction: input.direction,
+        ready: validation.valid,
+        installCommands:
+          componentPlans.length > 0
+            ? [
+                `pnpm dlx shadcn@latest add ${uniqueStrings(
+                  componentPlans.map((plan) => plan.registryName)
+                ).join(" ")}`,
+              ]
+            : [],
+        imports: [...importsBySource.entries()].map(([source, symbols]) => ({
+          source,
+          symbols: [...symbols].sort(),
+        })),
+        components: componentPlans,
+        tokens: selectedTokens,
+        notes: input.notes ?? [],
+        validation,
+      }
+    },
+
+    listWorkflows() {
+      return listPreskokWorkflows()
+    },
+
+    getWorkflow(name) {
+      return getPreskokWorkflow(name)
+    },
+  }
+}
+
+function figmaAssetContractFingerprint(
+  asset: PreskokComponent["figma"]["assets"][number]
+): string {
+  const contract = {
+    assetType: asset.assetType,
+    name: normalizeFigmaContractName(asset.name),
+    properties: asset.propertyDefinitions
+      .map((property) => ({
+        name: normalizeFigmaContractName(property.name),
+        type: property.type,
+        variantOptions: [...property.variantOptions].sort(),
+      }))
+      .sort((left, right) => {
+        const leftKey = `${left.name}:${left.type}`
+        const rightKey = `${right.name}:${right.type}`
+        return leftKey.localeCompare(rightKey)
+      }),
+  }
+  return createHash("sha256").update(JSON.stringify(contract)).digest("hex")
+}
+
+function designPlanDigest(plan: Omit<DesignPlan, "contractDigest">): string {
+  return createHash("sha256").update(JSON.stringify(plan)).digest("hex")
+}
+
+function createDesignRequirement({
+  requested,
+  requestedIndex,
+  assetIndex,
+  codeName,
+  figmaCodeName,
+  asset,
+  representation,
+}: {
+  requested: RequestedDesignRequirement
+  requestedIndex: number
+  assetIndex: number
+  codeName: string
+  figmaCodeName: string
+  asset: PreskokComponent["figma"]["assets"][number]
+  representation: DesignRequirement["representation"]
+}): DesignRequirement {
+  const generatedId = `${codeName}-${requestedIndex}-${figmaCodeName}-${assetIndex}`
+  return {
+    id: requested.id ?? generatedId,
+    role: requested.role ?? "component",
+    codeName,
+    figmaCodeName,
+    assetName: asset.name,
+    representation,
+    componentKey: asset.componentKey,
+    contractFingerprint: figmaAssetContractFingerprint(asset),
+    minimumInstances: requested.minimumInstances ?? 1,
+    parentRequirementId: requested.parentRequirementId,
+  }
+}
+
+function isAccountSettingsIntent(intent: string) {
+  const normalizedIntent = normalize(intent)
+  return (
+    normalizedIntent.includes("account settings") ||
+    normalizedIntent === "settings" ||
+    normalizedIntent === "account"
+  )
+}
+
+function normalizeFigmaContractName(value: string): string {
+  return value
+    .replace(/#\d+:\d+$/, "")
+    .trim()
+    .toLowerCase()
+}
+
+export async function loadPreskokDesignSystem() {
+  const catalogUrl = new URL("../generated/catalog.json", import.meta.url)
+  const catalog = JSON.parse(
+    await fs.readFile(catalogUrl, "utf8")
+  ) as PreskokCatalog
+  return createPreskokDesignSystem({ catalog })
+}
+
+function scoreComponent(
+  component: PreskokComponent,
+  query: string,
+  queryTokens: Array<string>,
+  semanticNames: Set<string>
+) {
+  const normalizedQuery = normalize(query)
+  const normalizedName = normalize(component.name)
+  let score = 0
+  if (normalizedName === normalizedQuery) {
+    score += 1_000
+  } else if (normalizedName.includes(normalizedQuery)) {
+    score += 300
+  }
+  if (semanticNames.has(component.name)) {
+    score += 120
+  }
+
+  const searchable = normalize(
+    [
+      component.name,
+      component.registryName,
+      component.description,
+      component.documentation?.title,
+      component.documentation?.description,
+      ...component.exports,
+      ...component.examples.map((example) => example.name),
+      ...Object.keys(component.variants),
+      ...Object.values(component.variants).flatMap((variant) => variant.values),
+    ]
+      .filter(Boolean)
+      .join(" ")
+  )
+  for (const token of queryTokens) {
+    if (searchable.includes(token)) {
+      score += 20
+    }
+    if (normalizedName.includes(token)) {
+      score += 80
+    }
+  }
+  return score
+}
+
+function tokenize(value: string) {
+  return normalize(value)
+    .split(" ")
+    .filter((token) => token.length > 1)
+}
+
+function normalize(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+}
+
+function resolveComponent(
+  input: ArtifactComponent,
+  byName: Map<string, PreskokComponent>,
+  byFigmaKey: Map<string, PreskokComponent>
+) {
+  if (input.codeName) {
+    const normalized = input.codeName.replace(/^@preskok\//, "")
+    const component = byName.get(normalized)
+    if (component) {
+      return component
+    }
+  }
+  if (input.figmaComponentKey) {
+    return byFigmaKey.get(input.figmaComponentKey)
+  }
+  return undefined
+}
+
+function primaryExport(component: PreskokComponent) {
+  const expected = component.name
+    .split("-")
+    .map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`)
+    .join("")
+  const exact = component.exports.find((name) => name === expected)
+  if (exact) {
+    return exact
+  }
+  const runtimeExport = component.exports.find(
+    (name) => !/(?:Props|Styles|Context)$/.test(name) && /^[A-Z]/.test(name)
+  )
+  return runtimeExport ?? component.exports[0] ?? expected
+}
+
+function uniqueStrings(values: Array<string>) {
+  return [...new Set(values)]
+}
+
+function figmaKeyOwnershipScore(
+  component: PreskokComponent,
+  assetName: string
+) {
+  let score = 0
+  if (component.figma.status === "verified") {
+    score += 100
+  } else if (component.figma.status === "partial") {
+    score += 50
+  }
+  if (normalize(assetName) === normalize(component.name)) {
+    score += 25
+  }
+  if (normalize(component.figma.query) === normalize(component.name)) {
+    score += 10
+  }
+  return score
+}
+
+function isFigmaPropertyValueValid(
+  type: "BOOLEAN" | "INSTANCE_SWAP" | "TEXT" | "VARIANT",
+  value: string | number | boolean
+) {
+  if (type === "BOOLEAN") {
+    return typeof value === "boolean"
+  }
+  return typeof value === "string"
+}

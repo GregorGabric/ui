@@ -1,0 +1,1539 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-08-12",
+  "contextFileKey": "jGwVPvHf0oT3uV4aLzGdDl",
+  "library": {
+    "name": "Preskok UI",
+    "libraryKey": "lk-46e05046e297a108a9b995aad38fbb0c3b67d59a51e08a1d07250d90ca40d06ac57264cc7314adb8eec854aa2c2d9129e74e174394f8e5a83d51e9baebd9cc95"
+  },
+  "components": {
+    "avatar": {
+      "query": "Avatar",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Avatar",
+          "assetType": "component_set",
+          "componentKey": "4d7d84f58f992c1c93aaabe47971d21898248a19",
+          "description": "Avatar with five sizes, round or 20%-radius square shape, and image or initials content.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Avatar"
+        }
+      ]
+    },
+    "async-image": {
+      "query": "Async Image",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Async Image",
+          "assetType": "component_set",
+          "componentKey": "b1b6292156815d4535af16b9883ddff58d06de35",
+          "description": null,
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Async Image"
+        }
+      ]
+    },
+    "badge": {
+      "query": "Badge",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Badge",
+          "assetType": "component_set",
+          "componentKey": "1c2302f26930ef3ead56664151e580d1408f2c23",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Badge"
+        }
+      ]
+    },
+    "button": {
+      "query": "Button",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Button",
+          "assetType": "component_set",
+          "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+          "description": "Preskok button. Configure Shape, Intent, Size, and State; edit the label and swap optional icons from the instance properties.",
+          "updatedAt": "2026-07-23T11:02:02Z",
+          "filePath": "design_systems/Preskok UI/components/Button"
+        }
+      ]
+    },
+    "button-group": {
+      "query": "Button Group",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Button Group",
+          "assetType": "component_set",
+          "componentKey": "27555964f1a3171366c40e2c0e5928e5ba440db4",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Button Group"
+        }
+      ]
+    },
+    "card": {
+      "query": "Card",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Card",
+          "assetType": "component",
+          "componentKey": "3638039a78b1caaa933c29f5fae59882d3967a06",
+          "description": "Transparent compositional card matching the Preskok Card API. Resize horizontally; optional action, description, content, and footer are exposed as component properties.",
+          "updatedAt": "2026-07-23T11:11:38Z",
+          "filePath": "design_systems/Preskok UI/components/Card"
+        }
+      ]
+    },
+    "container": {
+      "query": "Container",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Container",
+          "assetType": "component_set",
+          "componentKey": "dbbb77783e2cc02b0f9b5f374b86f9ac8104bd0a",
+          "description": "Responsive max-width container. Default: px-4 sm:px-6. Constrained: sm:px-6 with no mobile padding. Max width 1280px, increasing to 1536px at 2xl.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Container"
+        }
+      ]
+    },
+    "heading": {
+      "query": "Heading",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Heading",
+          "assetType": "component_set",
+          "componentKey": "35ebfcd1fa063c950e21122fe0af44e7443771ed",
+          "description": "Semantic h1–h6 headings. Levels 1–4 have responsive Preskok typography; levels 5–6 intentionally inherit surrounding typography.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Heading"
+        }
+      ]
+    },
+    "keyboard": {
+      "query": "Keyboard",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Keyboard",
+          "assetType": "component_set",
+          "componentKey": "6f2c6693af8b714c2f4871521d9352b2f790e195",
+          "description": "Inline keyboard shortcut. Hidden below the lg breakpoint; contextual parent hover, focus, and disabled states adjust emphasis.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Keyboard"
+        }
+      ]
+    },
+    "link": {
+      "query": "Link",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Link",
+          "assetType": "component_set",
+          "componentKey": "d7cc6e9a5aa28e08b97cc13c3f685f9602c67c18",
+          "description": "Accessible React Aria link. Hover and pressed retain the default visual; focus and disabled are the meaningful visual states.",
+          "updatedAt": "2026-07-23T11:01:48Z",
+          "filePath": "design_systems/Preskok UI/components/Link"
+        }
+      ]
+    },
+    "loader": {
+      "query": "Loader",
+      "status": "partial",
+      "reason": "The code Loader supports multiple visual variants; the library exposes corresponding icon assets but no aggregate Loader set.",
+      "assets": [
+        {
+          "name": "Icon / loader-circle",
+          "assetType": "component",
+          "componentKey": "83ab0c375306fc6e4743dae5c2910d3e8c17047e",
+          "description": "loading, wait, busy, progress, spinner, spinning, throbber, circle",
+          "updatedAt": "2026-07-23T11:06:08Z",
+          "filePath": "design_systems/Preskok UI/components/Icon / loader-circle"
+        },
+        {
+          "name": "Icon / loader-pinwheel",
+          "assetType": "component",
+          "componentKey": "9004314e3494368380605ca4048c87ae80fa76e2",
+          "description": "loading, wait, busy, progress, throbber, spinner, spinning, beach ball, frozen, freeze",
+          "updatedAt": "2026-07-23T11:06:08Z",
+          "filePath": "design_systems/Preskok UI/components/Icon / loader-pinwheel"
+        },
+        {
+          "name": "Icon / loader",
+          "assetType": "component",
+          "componentKey": "fbdc843a5f2fb45fd6028671b98080922e1e7fe3",
+          "description": "loading, wait, busy, progress, spinner, spinning, throbber",
+          "updatedAt": "2026-07-23T11:09:05Z",
+          "filePath": "design_systems/Preskok UI/components/Icon / loader"
+        }
+      ]
+    },
+    "note": {
+      "query": "Note",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Note",
+          "assetType": "component_set",
+          "componentKey": "4780412569615787573467021fadcfb7a7ccbcf2",
+          "description": "Responsive Note variants using the exact production intent tokens and canonical Lucide status icons. Indicator has no visual effect for default because production maps no default icon.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Note"
+        }
+      ]
+    },
+    "separator": {
+      "query": "Separator",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Separator",
+          "assetType": "component_set",
+          "componentKey": "2f0e9e29a1172f3c6dd30c6037132484fa513b11",
+          "description": "Preskok Separator. Orientation matches the public React Aria prop.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Separator"
+        }
+      ]
+    },
+    "skeleton": {
+      "query": "Skeleton",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Skeleton",
+          "assetType": "component_set",
+          "componentKey": "47ae5226816e76ecd8fc0607523ab45179c4b2b7",
+          "description": "Resizable Skeleton primitive. Soft maps to muted; default maps to secondary. Production pulse animation is represented at full-opacity rest.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Skeleton"
+        }
+      ]
+    },
+    "text": {
+      "query": "Text",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Text",
+          "assetType": "component_set",
+          "componentKey": "e7752065a70b863e9a8b1cd1632b27f4357acf54",
+          "description": "Responsive body text. Renders 16/24 on mobile and 14/24 from the small breakpoint.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Text"
+        }
+      ]
+    },
+    "switch": {
+      "query": "Switch",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Switch",
+          "assetType": "component_set",
+          "componentKey": "074088f22c1be7b242db63a173c01d4bec78cec5",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Switch"
+        }
+      ]
+    },
+    "preview-trigger": {
+      "query": "Preview Trigger",
+      "status": "missing",
+      "reason": "No published Preskok UI component represents the PreviewTrigger composition.",
+      "assets": [],
+      "fallbackComponents": ["button", "popover"]
+    },
+    "tooltip": {
+      "query": "Tooltip",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Tooltip",
+          "assetType": "component_set",
+          "componentKey": "bc9ebd4b748263c184b3059e103a790cf79efa89",
+          "description": "Preskok TooltipContent. Matches deployed 310px width and content-sized 82px/102px heights.",
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Tooltip"
+        }
+      ]
+    },
+    "field": {
+      "query": "Field",
+      "status": "partial",
+      "reason": "The library exposes the visual Field parts, while the code Field module is a compound composition.",
+      "assets": [
+        {
+          "name": "Field Label",
+          "assetType": "component_set",
+          "componentKey": "9cdb3333c15db66981fabfca5dee7deac33b36f9",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Field Label"
+        },
+        {
+          "name": "Field Error",
+          "assetType": "component_set",
+          "componentKey": "a78d6b3af15a6327dcca674acfa41dfb77af3a9c",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Field Error"
+        },
+        {
+          "name": "Field Legend",
+          "assetType": "component_set",
+          "componentKey": "66c0b3148d41d7b79113fc747f37000efc0813e8",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Field Legend"
+        },
+        {
+          "name": "Field Description",
+          "assetType": "component_set",
+          "componentKey": "6147f1f6e92a728b5c327bc1b15687823292d382",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Field Description"
+        }
+      ]
+    },
+    "form": {
+      "query": "Form",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Form",
+          "assetType": "component",
+          "componentKey": "da6c016741271f85c52716ea63b4d3944adefdaa",
+          "description": "Transparent React Aria form wrapper. The component has no intrinsic visual styling; swap or edit its exposed content instance.",
+          "updatedAt": "2026-07-23T11:04:05Z",
+          "filePath": "design_systems/Preskok UI/components/Form"
+        }
+      ]
+    },
+    "checkbox": {
+      "query": "Checkbox",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Checkbox",
+          "assetType": "component_set",
+          "componentKey": "1b0e195e5a158fa68246107cee01ef059483efe7",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Checkbox"
+        }
+      ]
+    },
+    "input": {
+      "query": "Input",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Input",
+          "assetType": "component_set",
+          "componentKey": "010c896516d2d28ecb199d05d6bb44fe294c1971",
+          "description": null,
+          "updatedAt": "2026-07-23T11:04:02Z",
+          "filePath": "design_systems/Preskok UI/components/Input"
+        }
+      ]
+    },
+    "input-otp": {
+      "query": "Input Otp",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Input OTP",
+          "assetType": "component_set",
+          "componentKey": "37af568ed6cd415b54ac73c17c948c9a781ac4d8",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Input OTP"
+        }
+      ]
+    },
+    "number-field": {
+      "query": "Number Field",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Number Field",
+          "assetType": "component_set",
+          "componentKey": "7260c0b4c04f1b1829b65f1e74a7e89c3733102e",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Number Field"
+        }
+      ]
+    },
+    "radio": {
+      "query": "Radio",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Radio",
+          "assetType": "component_set",
+          "componentKey": "e6c37a445cb6caf04767755162eafb51d268a1ef",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Radio"
+        }
+      ]
+    },
+    "search-field": {
+      "query": "Search Field",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Search Field",
+          "assetType": "component_set",
+          "componentKey": "11d22fe11164b142054c62e4daba5e7149de4422",
+          "description": "Search input with a leading Lucide Search icon and a conditional clear action. Mirrors the Preskok SearchField API and responsive control heights.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Search Field"
+        }
+      ]
+    },
+    "slider": {
+      "query": "Slider",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Slider",
+          "assetType": "component_set",
+          "componentKey": "e55c5ab639a446763a4c61cd8ff7680acdab3f49",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Slider"
+        }
+      ]
+    },
+    "resizable": {
+      "query": "Resizable",
+      "status": "partial",
+      "reason": "The library exposes the visual handle; panel grouping remains a Figma layout concern.",
+      "assets": [
+        {
+          "name": "Resizable Handle",
+          "assetType": "component_set",
+          "componentKey": "34c31b2d3c1014f344c82c0ab5491eed77f5e8ba",
+          "description": "Preskok ResizableHandle. Orientation mirrors the panel group; Show grip maps to withHandle.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Resizable Handle"
+        }
+      ]
+    },
+    "text-field": {
+      "query": "Text Field",
+      "status": "partial",
+      "reason": "The published compound Text Field preserves the input anatomy and states, but its nested label and description content are not exposed as instance properties. Compose exact content from the mapped Input plus code Field primitives and record that choice in the handoff.",
+      "assets": [
+        {
+          "name": "Text Field",
+          "assetType": "component_set",
+          "componentKey": "3ac4ca75e3c1aeedf5d3de1a7cc7a56230f3ed60",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Text Field"
+        }
+      ],
+      "fallbackComponents": ["input", "field"]
+    },
+    "textarea": {
+      "query": "Textarea",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Textarea",
+          "assetType": "component_set",
+          "componentKey": "fa9e1bdf85c5be692d2860d1267ad531997b879f",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Textarea"
+        }
+      ]
+    },
+    "time-field": {
+      "query": "Time Field",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Time Field",
+          "assetType": "component_set",
+          "componentKey": "ac8b473c861cffd9464db0084ed89199a0796648",
+          "description": null,
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Time Field"
+        }
+      ]
+    },
+    "popover": {
+      "query": "Popover",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Popover",
+          "assetType": "component_set",
+          "componentKey": "1c5a391efc64a159c3a4307100d15384732d6b8e",
+          "description": "Popover surface aligned with production: overlay tokens, max-width 320, 12px radius, four placements, optional arrow and Dialog-composed content.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Popover"
+        }
+      ]
+    },
+    "dialog": {
+      "query": "Dialog",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Dialog",
+          "assetType": "component_set",
+          "componentKey": "dc524d7fa873e38ed251a8fcf47d48d9dc11557b",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Dialog"
+        }
+      ]
+    },
+    "modal": {
+      "query": "Modal",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Modal",
+          "assetType": "component_set",
+          "componentKey": "db958c1d5a7d52b61f30df5d2ef0b445c93681e0",
+          "description": null,
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Modal"
+        }
+      ]
+    },
+    "drawer": {
+      "query": "Drawer",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Drawer",
+          "assetType": "component_set",
+          "componentKey": "6453e731b955bfa6248fe4c0a8cea90e1ce2e181",
+          "description": "Preskok Drawer variants: side top/right/bottom/left and floating inset mode, with complete header/body/footer composition shown on page.",
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Drawer"
+        }
+      ]
+    },
+    "sheet": {
+      "query": "Sheet",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Sheet",
+          "assetType": "component_set",
+          "componentKey": "5a64e851aeb91474a2ba6c580471a34a9c063089",
+          "description": "Sheet content aligned to production. Side, Float, and Blurred map to public props; close and Dialog-composed regions are exposed.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Sheet"
+        }
+      ]
+    },
+    "dropdown": {
+      "query": "Dropdown",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Dropdown",
+          "assetType": "component_set",
+          "componentKey": "88890172412919fce02630397fcb7bffba24ba22",
+          "description": "Dropdown — closed and open registered dropdown composition.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Dropdown"
+        }
+      ]
+    },
+    "menu": {
+      "query": "Menu",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Menu",
+          "assetType": "component_set",
+          "componentKey": "732204a0b6b60c50f6dd4adbe000a9024af177e8",
+          "description": "Menu — registered menu compositions across desktop and mobile, closed and open.",
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Menu"
+        }
+      ]
+    },
+    "context-menu": {
+      "query": "Context Menu",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Context Menu",
+          "assetType": "component_set",
+          "componentKey": "628e4c6097972bfd5daa046a3665aad16caea40f",
+          "description": "Context menu composition with closed and open states using shared Menu Item instances.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Context Menu"
+        }
+      ]
+    },
+    "list-box": {
+      "query": "List Box",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "List Box",
+          "assetType": "component_set",
+          "componentKey": "34a4689d50142e77c0bf7a2334760271fe581578",
+          "description": "Responsive List Box with none, single, and multiple selection scenarios.",
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/List Box"
+        }
+      ]
+    },
+    "select": {
+      "query": "Select",
+      "status": "missing",
+      "reason": "No published single-select component was returned by scoped Select and Select Field searches.",
+      "assets": [],
+      "fallbackComponents": ["combo-box", "field", "dropdown", "popover"]
+    },
+    "combo-box": {
+      "query": "Combo Box",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Combo Box",
+          "assetType": "component_set",
+          "componentKey": "3677888a02913efa1902ecb3d6b3a47198548f30",
+          "description": "Responsive autocomplete Combo Box matching the Preskok UI React Aria implementation. Empty open variants show the full section; filled open variants show the custom-create result.",
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Combo Box"
+        }
+      ]
+    },
+    "breadcrumbs": {
+      "query": "Breadcrumbs",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Breadcrumbs",
+          "assetType": "component_set",
+          "componentKey": "f84f9dfb6c160a4c9ab3fa99c44bcb018e82138f",
+          "description": "Navigation breadcrumbs with explicit Figma theme variants and exposed nested separator, item-count, labels, and current-page text.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Breadcrumbs"
+        }
+      ]
+    },
+    "description-list": {
+      "query": "Description List",
+      "status": "partial",
+      "reason": "The row maps to the visual code primitive; the list container is layout-only.",
+      "assets": [
+        {
+          "name": "Description List Row",
+          "assetType": "component_set",
+          "componentKey": "119efe28069d69d57d3e69eb7c863612030d0f18",
+          "description": "Responsive term/details row for Preskok Description List.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Description List Row"
+        }
+      ]
+    },
+    "disclosure": {
+      "query": "Disclosure",
+      "status": "partial",
+      "reason": "The item description names the exact code source; the group container remains layout-only.",
+      "assets": [
+        {
+          "name": "Disclosure Item",
+          "assetType": "component_set",
+          "componentKey": "e3feff9e31d9416589e29aa5293d521cc4845bfd",
+          "description": "Preskok UI disclosure item synced from apps/preskok/registry/preskok/ui/preskok-ui/disclosure-group.tsx. Trigger is 48px high with 16px horizontal gutter, 8px radius, 14/24 Geist text, and secondary/muted-foreground state surface.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Disclosure Item"
+        }
+      ]
+    },
+    "grid-list": {
+      "query": "Grid List",
+      "status": "partial",
+      "reason": "The item maps to the visual code primitive; the list container remains layout-only.",
+      "assets": [
+        {
+          "name": "Grid List Item",
+          "assetType": "component_set",
+          "componentKey": "8ddd2004e46d664b3f0b070ca935e4b57a3c7feb",
+          "description": "Preskok GridListItem with selection, drag, text, and metadata composition.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Grid List Item"
+        }
+      ]
+    },
+    "tabs": {
+      "query": "Tabs",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Tabs",
+          "assetType": "component_set",
+          "componentKey": "45ec2352b32389bcd68a1a41d3d261b4821acb87",
+          "description": "Composed Tabs matching tabs.tsx: horizontal border-bottom or vertical border-left, accent hover, primary selected indicator.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Tabs"
+        }
+      ]
+    },
+    "tree": {
+      "query": "Tree",
+      "status": "partial",
+      "reason": "The item maps to the visual code primitive; the tree container remains layout-only.",
+      "assets": [
+        {
+          "name": "Tree Item",
+          "assetType": "component_set",
+          "componentKey": "a24b7de993a0c505e50e4311fc12ba60b6dec6b4",
+          "description": "Preskok TreeItem and TreeContent. Resize Indent guide for nested levels and swap Indicator between Leaf, Collapsed, and Expanded.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Tree Item"
+        }
+      ]
+    },
+    "calendar": {
+      "query": "Calendar",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Calendar",
+          "assetType": "component_set",
+          "componentKey": "ab56200c159bb297d43dd24a19ee4fc6eb29fdc3",
+          "description": "Production Calendar with responsive sizes, selected or empty value, disabled, read-only, and invalid states. Header and Grid are exposed for navigation constraints, RTL, week count, and week-start customization.",
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Calendar"
+        }
+      ]
+    },
+    "date-field": {
+      "query": "Date Field",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Date Field",
+          "assetType": "component_set",
+          "componentKey": "f0cd1dd1018c341e8d2890605d91b515bde982f1",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Date Field"
+        }
+      ]
+    },
+    "date-picker": {
+      "query": "Date Picker",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Date Picker",
+          "assetType": "component_set",
+          "componentKey": "533e7ea2e167195c8070779b159ae8fcd2c70e2a",
+          "description": "Public Date Picker component with responsive empty/filled, hover, focus, invalid, invalid-focus, disabled, and read-only states.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Date Picker"
+        }
+      ]
+    },
+    "date-range-picker": {
+      "query": "Date Range Picker",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Date Range Picker",
+          "assetType": "component_set",
+          "componentKey": "cc13fe78f0f24fce6b60eabc90723cfb0afcbe88",
+          "description": "Public Date Range Picker field with responsive scale, value, validation, disabled, and read-only states.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Date Range Picker"
+        }
+      ]
+    },
+    "range-calendar": {
+      "query": "Range Calendar",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Range Calendar",
+          "assetType": "component_set",
+          "componentKey": "fbe219967de54cc229228aa1f4e2833a15da9bc9",
+          "description": "Range Calendar with corrected production month titles, Monday-first placement, and 342px responsive sheet contexts.",
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Range Calendar"
+        }
+      ]
+    },
+    "editor": {
+      "query": "Editor",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Editor",
+          "assetType": "component_set",
+          "componentKey": "a9a45ff79317d4882851901bc07b47349d500c6b",
+          "description": null,
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Editor"
+        }
+      ]
+    },
+    "tag-group": {
+      "query": "Tag Group",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Tag Group",
+          "assetType": "component_set",
+          "componentKey": "00aeea3aa992ac2d17538da9b6ba70d415d74943",
+          "description": "A responsive label, description, and wrapping Tag List composition. Source: apps/preskok/registry/preskok/ui/preskok-ui/tag-group.tsx",
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Tag Group"
+        }
+      ]
+    },
+    "multi-select": {
+      "query": "Multi Select",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Multi Select",
+          "assetType": "component_set",
+          "componentKey": "625724ed7ee6d1dc56e10fdce3234ad1e907b1b3",
+          "description": "A multi-select control with tags, search, filtering, and a portalled list box. The add action is a nested shared Button instance. Popup rows are shared List Box Item instances. Source: apps/preskok/registry/preskok/ui/preskok-ui/multi-select.tsx",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Multi Select"
+        }
+      ]
+    },
+    "tag-field": {
+      "query": "Tag Field",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Tag Field",
+          "assetType": "component_set",
+          "componentKey": "96a69f9f8e4adab23c7468d2d54c0b938d1c97a2",
+          "description": "Tag input field for entering, validating, and removing multiple string values. Nested Input and Tag assets remain editable.",
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Tag Field"
+        }
+      ]
+    },
+    "token-field": {
+      "query": "Token Field",
+      "status": "missing",
+      "reason": "No published Preskok UI Token Field asset was returned by scoped searches.",
+      "assets": [],
+      "fallbackComponents": ["tag-field", "field", "input"]
+    },
+    "toggle": {
+      "query": "Toggle",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Toggle",
+          "assetType": "component_set",
+          "componentKey": "f81e8f51d29246bf46595954a39bed3b154c7169",
+          "description": "Preskok Toggle. Use Size values xs/sm/md/lg for text toggles and sq-xs/sq-sm/sq-md/sq-lg for icon-only square toggles.",
+          "updatedAt": "2026-07-23T11:01:48Z",
+          "filePath": "design_systems/Preskok UI/components/Toggle"
+        }
+      ]
+    },
+    "toggle-group": {
+      "query": "Toggle Group",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Toggle Group",
+          "assetType": "component_set",
+          "componentKey": "8cb91113644f70b87d8b087ca8dc9890316d303f",
+          "description": "Preskok Toggle Group. Use Size values xs/sm/md/lg for text groups and sq-xs/sq-sm/sq-md/sq-lg for icon-only square groups.",
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Toggle Group"
+        }
+      ]
+    },
+    "choice-box": {
+      "query": "Choice Box",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Choice Box",
+          "assetType": "component_set",
+          "componentKey": "8619fbc0cb62f307bd12aca3f8b4574b60a3b2b9",
+          "description": "Choice Box group with responsive column presets, gaps, and single/multiple selection. Nested Choice Box Item instances are exposed for labels, descriptions, selection, disabled, hover, focus, and read-only states. Code supports columns 1–6 and gaps 0–6; the Figma matrix provides the documented 1–3 column and 0/12px presets.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Choice Box"
+        }
+      ]
+    },
+    "carousel": {
+      "query": "Carousel",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Carousel",
+          "assetType": "component_set",
+          "componentKey": "0128d9015cf14c0b3966d0f66bb3c7a1d2fee101",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Carousel"
+        }
+      ]
+    },
+    "preskok-icon": {
+      "query": "Preskok Icon",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Preskok Icon",
+          "assetType": "component_set",
+          "componentKey": "9a4381c29326ae5f2ce74cfcbe3a11d0a4532200",
+          "description": "Official Preskok brand mark using the exact production SVG paths and fixed #DF3B3B fill.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Icon"
+        }
+      ]
+    },
+    "preskok-auth-button": {
+      "query": "Preskok Auth Button",
+      "status": "verified",
+      "reason": "The code module's intent variants are published as separate Preskok Auth Button sets.",
+      "assets": [
+        {
+          "name": "Preskok Auth Button Primary",
+          "assetType": "component_set",
+          "componentKey": "7f76e27d012ade7eab7ca659419b4dada4f3b503",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Auth Button Primary"
+        },
+        {
+          "name": "Preskok Auth Button Plain",
+          "assetType": "component_set",
+          "componentKey": "5d777a98a7ee355f88fb76644a93cba1bb31b4d2",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Auth Button Plain"
+        },
+        {
+          "name": "Preskok Auth Button Outline",
+          "assetType": "component_set",
+          "componentKey": "e2ceb7ca3d916999bf18d015d14a27f0bd66e9ec",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Auth Button Outline"
+        },
+        {
+          "name": "Preskok Auth Button Danger",
+          "assetType": "component_set",
+          "componentKey": "a2a7e397c4a95cf341ca4c2fc2497c87484bc406",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Auth Button Danger"
+        },
+        {
+          "name": "Preskok Auth Button Secondary",
+          "assetType": "component_set",
+          "componentKey": "e83a451caf20c06db83466796e2f67d2cebc0ca1",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Auth Button Secondary"
+        },
+        {
+          "name": "Preskok Auth Button Warning",
+          "assetType": "component_set",
+          "componentKey": "b371fa26541004fe8afdc19bdebf734aa5c9b8ee",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Preskok Auth Button Warning"
+        }
+      ]
+    },
+    "navbar": {
+      "query": "Navbar",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Navbar",
+          "assetType": "component_set",
+          "componentKey": "11aad00a4ae710ebd52f934493c23cb96131ec58",
+          "description": "Responsive Navbar with explicit Figma theme and layout variants plus exposed nested intent, placement, mobile state, nav items, and shared action Buttons.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Navbar"
+        }
+      ]
+    },
+    "sidebar": {
+      "query": "Sidebar",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Sidebar",
+          "assetType": "component_set",
+          "componentKey": "12e9017e37fa1e221ded95d589f1b9954a0056cc",
+          "description": null,
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Sidebar"
+        }
+      ]
+    },
+    "pagination": {
+      "query": "Pagination",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Pagination",
+          "assetType": "component_set",
+          "componentKey": "e81de1cb3871ee6e7f47091eadc6594aa5c79ed3",
+          "description": "Preskok Pagination composed from pagination.tsx demo structure: info text, first/previous, page items/gap, next/last.",
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Pagination"
+        }
+      ]
+    },
+    "toolbar": {
+      "query": "Toolbar",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Toolbar",
+          "assetType": "component_set",
+          "componentKey": "002e04b42086c2205137083545d55e62967cba28",
+          "description": "Private composition set for Toolbar orientation and shape. Exposed through the public Toolbar component.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Toolbar"
+        }
+      ]
+    },
+    "meter": {
+      "query": "Meter",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Meter",
+          "assetType": "component_set",
+          "componentKey": "2275104cf42d7ff178f738a18850758ed3b5a115",
+          "description": "Source-accurate Meter with auto-growing text layout. Auto colors follow normalized percentage thresholds. Custom uses the feedback/meter/custom semantic variable; arbitrary per-instance CSS colors cannot be represented by this Figma API.",
+          "updatedAt": "2026-07-23T11:01:24Z",
+          "filePath": "design_systems/Preskok UI/components/Meter"
+        }
+      ]
+    },
+    "progress-bar": {
+      "query": "Progress Bar",
+      "status": "partial",
+      "reason": "The published track represents the visual continuous and indeterminate states; labels remain composed content.",
+      "assets": [
+        {
+          "name": "Progress Bar Track",
+          "assetType": "component_set",
+          "componentKey": "67e8443d9058fba8c3e7e3b64a99102e2b783faf",
+          "description": "Progress Bar track — representative values for the continuous numeric API plus indeterminate state.",
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Progress Bar Track"
+        }
+      ]
+    },
+    "progress-circle": {
+      "query": "Progress Circle",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Progress Circle",
+          "assetType": "component_set",
+          "componentKey": "f5e25352f5b67f726e9481adc52a4b22ddfceb50",
+          "description": "Source-accurate Progress Circle. Mode and size match the public API; Value specimens represent a continuous determinate value. Color inherits currentColor in code. Indeterminate rotates continuously for 1s.",
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Progress Circle"
+        }
+      ]
+    },
+    "tracker": {
+      "query": "Tracker",
+      "status": "partial",
+      "reason": "The published block is the repeated visual primitive used to compose the code Tracker.",
+      "assets": [
+        {
+          "name": "Tracker Block",
+          "assetType": "component_set",
+          "componentKey": "d941804a23f5d037dd13037b7e11d410294db2c9",
+          "description": "Segment primitive used by the public Tracker component.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Tracker Block"
+        }
+      ]
+    },
+    "toast": {
+      "query": "Toast",
+      "status": "verified",
+      "reason": "The two published sets cover the code module's individual toast and stacked presentation.",
+      "assets": [
+        {
+          "name": "Toast Item",
+          "assetType": "component_set",
+          "componentKey": "971e29ac458315400539c1a5b1cc2a5d1a1d6d3f",
+          "description": "Toast item — production Sonner type and responsive matrix with semantic feedback tokens.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Toast Item"
+        },
+        {
+          "name": "Toast Stack",
+          "assetType": "component_set",
+          "componentKey": "6641b90aa0151cc170e122e36f86a46890a140b4",
+          "description": "Toast stack — collapsed Sonner stack levels across desktop and mobile.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Toast Stack"
+        }
+      ]
+    },
+    "chart": {
+      "query": "Chart",
+      "status": "partial",
+      "reason": "The base code Chart module supports concrete chart compositions published as separate assets.",
+      "assets": [
+        {
+          "name": "Area Chart",
+          "assetType": "component_set",
+          "componentKey": "aecf5f15ecf73fc8543f3b042a253bf814298f29",
+          "description": "Public Area Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Area Chart"
+        },
+        {
+          "name": "Pie Chart",
+          "assetType": "component_set",
+          "componentKey": "e3dc4fb19baeec3625013a2fe39189b20b745b6a",
+          "description": "Public Pie Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Pie Chart"
+        },
+        {
+          "name": "Bar Chart",
+          "assetType": "component_set",
+          "componentKey": "aff5a1d9c0263447489390b3749f009e2a38ca6b",
+          "description": "Public Bar Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Bar Chart"
+        },
+        {
+          "name": "Line Chart",
+          "assetType": "component_set",
+          "componentKey": "558db1c6e5b308777c951cace55da87a3d2a2288",
+          "description": "Public Line Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Line Chart"
+        }
+      ]
+    },
+    "area-chart": {
+      "query": "Area Chart",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Area Chart",
+          "assetType": "component_set",
+          "componentKey": "aecf5f15ecf73fc8543f3b042a253bf814298f29",
+          "description": "Public Area Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T11:01:04Z",
+          "filePath": "design_systems/Preskok UI/components/Area Chart"
+        }
+      ]
+    },
+    "bar-chart": {
+      "query": "Bar Chart",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Bar Chart",
+          "assetType": "component_set",
+          "componentKey": "aff5a1d9c0263447489390b3749f009e2a38ca6b",
+          "description": "Public Bar Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Bar Chart"
+        }
+      ]
+    },
+    "line-chart": {
+      "query": "Line Chart",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Line Chart",
+          "assetType": "component_set",
+          "componentKey": "558db1c6e5b308777c951cace55da87a3d2a2288",
+          "description": "Public Line Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Line Chart"
+        }
+      ]
+    },
+    "pie-chart": {
+      "query": "Pie Chart",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Pie Chart",
+          "assetType": "component_set",
+          "componentKey": "e3dc4fb19baeec3625013a2fe39189b20b745b6a",
+          "description": "Public Pie Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Pie Chart"
+        }
+      ]
+    },
+    "bar-list": {
+      "query": "Bar List",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Bar List",
+          "assetType": "component_set",
+          "componentKey": "5ca55db9e0f1c0239dc3dab0396ac8336b425e42",
+          "description": "Public Bar List component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Bar List"
+        }
+      ]
+    },
+    "color-area": {
+      "query": "Color Area",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Area",
+          "assetType": "component_set",
+          "componentKey": "899953630de5270962bc751b262ba3638853230d",
+          "description": "Fixed 224×224 React Aria ColorArea. Value supplies representative generated gradients; State maps the nested ColorThumb interaction and disabled treatment.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Color Area"
+        }
+      ]
+    },
+    "color-field": {
+      "query": "Color Field",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Field",
+          "assetType": "component_set",
+          "componentKey": "5a0ddd6523e2f3e0be89dc5687643927c6f8c04d",
+          "description": "React Aria ColorField composed with Preskok Field Label and Input. Channel and colorSpace affect formatted content, not geometry; use the editable label and nested Input value.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Color Field"
+        }
+      ]
+    },
+    "color-slider": {
+      "query": "Color Slider",
+      "status": "verified",
+      "reason": "The two published sets cover both public code orientations.",
+      "assets": [
+        {
+          "name": "Color Slider Vertical",
+          "assetType": "component_set",
+          "componentKey": "4157436e6e44de2336ecb08719dac3deba3b7dae",
+          "description": "Source-derived vertical ColorSlider; this orientation is public but not shown on the deployed docs page.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Color Slider Vertical"
+        },
+        {
+          "name": "Color Slider Horizontal",
+          "assetType": "component_set",
+          "componentKey": "0e3519d1aaba6816c53f2127c6e22618b72a4df1",
+          "description": "Horizontal ColorSlider with responsive label row, channel gradient, output, and interaction states.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Color Slider Horizontal"
+        }
+      ]
+    },
+    "color-swatch": {
+      "query": "Color Swatch",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Swatch",
+          "assetType": "component_set",
+          "componentKey": "6cd94ff1c44ffacfde3be775af3f4ae4e3743093",
+          "description": "Static React Aria color preview. Scale: Desktop 36px, Mobile 40px, Compact 20px for Color Picker composition. Value samples include documented colors; instance fills remain directly overridable for arbitrary colors. Radius is the source-derived 7px. The 1px inset ring uses semantic foreground/20.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Color Swatch"
+        }
+      ]
+    },
+    "color-swatch-picker": {
+      "query": "Color Swatch Picker",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Swatch Picker",
+          "assetType": "component_set",
+          "componentKey": "ab6e5d3d8bd37a63e789a09a9d8c2c24b9f984aa",
+          "description": "Single-selection picker using the seven documented colors. Purple is disabled. Scale controls the deployed 7-column desktop or 4-column mobile geometry; Selection exposes all six enabled demo values.",
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Color Swatch Picker"
+        }
+      ]
+    },
+    "color-thumb": {
+      "query": "Color Thumb",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Thumb",
+          "assetType": "component_set",
+          "componentKey": "cec498cacf14e1d0ba397be911fa8d1931b5d990",
+          "description": "Draggable color-position thumb. Default, Dragging, and Disabled are 24px; Focus is 32px. Dragging retains the inline sampled color in deployed CSS. Disabled removes sampled fill and applies 50% opacity. Rings remain literal black/white per source.",
+          "updatedAt": "2026-07-23T11:04:02Z",
+          "filePath": "design_systems/Preskok UI/components/Color Thumb"
+        }
+      ]
+    },
+    "color-wheel": {
+      "query": "Color Wheel",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Wheel",
+          "assetType": "component_set",
+          "componentKey": "57212060062f30581221483708ae5d3414896f55",
+          "description": "Circular hue selector. Fixed 200px diameter with a 148px inner hole. Value variants are documented hue specimens; the public React API accepts arbitrary Color values.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Color Wheel"
+        }
+      ]
+    },
+    "color-picker": {
+      "query": "Color Picker",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Color Picker",
+          "assetType": "component_set",
+          "componentKey": "05bfac892cfc73e4ca38e75a93e0f3cd23bf322f",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:38Z",
+          "filePath": "design_systems/Preskok UI/components/Color Picker"
+        }
+      ]
+    },
+    "drop-zone": {
+      "query": "Drop Zone",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Drop Zone",
+          "assetType": "component_set",
+          "componentKey": "ca5fc6ed163ae7fccefa1bb5f8d05722afb7a029",
+          "description": "Responsive drag-and-drop target. Viewport documents intrinsic layout and the Label breakpoint; State mirrors production render states. Hover and Focus intentionally have no unique visual treatment.",
+          "updatedAt": "2026-07-23T11:00:40Z",
+          "filePath": "design_systems/Preskok UI/components/Drop Zone"
+        }
+      ]
+    },
+    "file-trigger": {
+      "query": "File Trigger",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "File Trigger",
+          "assetType": "component_set",
+          "componentKey": "4150a6fa80f62f9c6b90a7bf5c7a9950879fe0f3",
+          "description": "Text File Trigger composed from the public Button asset. Action derives the automatic icon/default label. Pending intentionally uses an enabled Default Button with Loader because production does not disable or apply Button Pending.",
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/File Trigger"
+        }
+      ]
+    },
+    "scroll-area": {
+      "query": "Scroll Area",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Scroll Area",
+          "assetType": "component_set",
+          "componentKey": "fc98772f878eb69ab798def1ca7593e3bc985bdc",
+          "description": "Preskok Scroll Area. Only the viewport intentionally clips.",
+          "updatedAt": "2026-07-23T11:03:12Z",
+          "filePath": "design_systems/Preskok UI/components/Scroll Area"
+        }
+      ]
+    },
+    "show-more": {
+      "query": "Show More",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Show More",
+          "assetType": "component_set",
+          "componentKey": "7b374a35a5eefbad1b786ddadea39b062af21350",
+          "description": "Progressively reveal or collapse content. Button presentation exposes Orientation, Expanded, State, and shared Button properties; Text presentation exposes Orientation and Text.",
+          "updatedAt": "2026-07-23T10:59:29Z",
+          "filePath": "design_systems/Preskok UI/components/Show More"
+        }
+      ]
+    },
+    "command": {
+      "query": "Command",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Command",
+          "assetType": "component_set",
+          "componentKey": "a46fb4b039b7e88db61385492b6ddcdd370f2e6d",
+          "description": "Command — default and empty searchable command surfaces.",
+          "updatedAt": "2026-07-23T11:02:58Z",
+          "filePath": "design_systems/Preskok UI/components/Command"
+        }
+      ]
+    },
+    "command-menu": {
+      "query": "Command Menu",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Command Menu",
+          "assetType": "component_set",
+          "componentKey": "ac5addf09a7e7bbe41a29ec4dc081afa836b0d3c",
+          "description": "Command Menu — responsive modal command palette sizes and result states.",
+          "updatedAt": "2026-07-23T10:59:58Z",
+          "filePath": "design_systems/Preskok UI/components/Command Menu"
+        }
+      ]
+    },
+    "table": {
+      "query": "Table",
+      "status": "verified",
+      "reason": "Exact normalized Figma asset name match from a search scoped to the published Preskok UI library.",
+      "assets": [
+        {
+          "name": "Table",
+          "assetType": "component_set",
+          "componentKey": "379dad46d55a58d258e4a9242aa275345375eeb7",
+          "description": null,
+          "updatedAt": "2026-07-23T11:02:19Z",
+          "filePath": "design_systems/Preskok UI/components/Table"
+        }
+      ]
+    },
+    "number-format": {
+      "query": "Number Format",
+      "status": "verified",
+      "reason": "Number Text is the published visual representation of the code NumberFormat output.",
+      "assets": [
+        {
+          "name": "Number Text",
+          "assetType": "component_set",
+          "componentKey": "e1c5f46b1b5c29383417f21ecaf9b1e0b656a6cd",
+          "description": null,
+          "updatedAt": "2026-07-23T11:00:23Z",
+          "filePath": "design_systems/Preskok UI/components/Number Text"
+        }
+      ]
+    },
+    "locale-context": {
+      "query": "Locale Context",
+      "status": "not_applicable",
+      "reason": "LocaleContext is non-visual infrastructure and intentionally has no Figma component.",
+      "assets": []
+    }
+  }
+}

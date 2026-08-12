@@ -1,0 +1,53 @@
+{
+  "name": "@preskok/design-mcp",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Preskok design-system MCP for component discovery, Figma translation, validation, and implementation handoff.",
+  "type": "module",
+  "bin": {
+    "preskok-design-mcp": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "generated",
+    "config",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "catalog:generate": "tsx src/generation/generate-catalog.ts",
+    "catalog:check": "tsx src/generation/generate-catalog.ts --check",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "start:http": "node dist/cli.js --http",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src test scripts --quiet",
+    "format:check": "oxfmt \"src/**/*.ts\" \"test/**/*.ts\" \"scripts/**/*.ts\" \"README.md\" --check",
+    "verify": "pnpm catalog:check && pnpm typecheck && pnpm lint && pnpm format:check && pnpm build && pnpm test && pnpm verify:dist",
+    "verify:companion": "tsx scripts/verify-shadcn-companion.ts",
+    "verify:dist": "tsx scripts/verify-built-cli.ts",
+    "verify:consumer": "tsx scripts/verify-consumer-workflow.ts",
+    "verify:theme": "pnpm --filter @preskok/figma-theme-builder verify",
+    "verify:workflows": "pnpm verify:companion && pnpm verify:consumer && pnpm verify:theme"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/node": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@types/node": "^26.0.0",
+    "tsx": "^4.23.12",
+    "vitest": "^4.1.10"
+  }
+}

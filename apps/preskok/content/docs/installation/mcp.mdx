@@ -1,9 +1,13 @@
 ---
 title: MCP
-description: Use Preskok UI with the shadcn MCP server.
+description: Connect Preskok UI code, Figma, Claude Design, and consuming applications.
 ---
 
-Preskok UI works with the official shadcn MCP server through the `@preskok` registry namespace. There is no separate Preskok MCP server.
+Preskok UI has a generated design-system MCP as well as support for the official shadcn MCP. The two servers solve different problems:
+
+- **Preskok Design MCP** understands Preskok components, tokens, documentation, published Figma mappings, validation, handoffs, and cross-tool workflows.
+- **shadcn MCP** performs generic registry discovery and installation through the `@preskok` namespace.
+- **Figma MCP** is the authenticated live connection to Figma. The Preskok MCP composes with it instead of storing Figma credentials.
 
 <Steps>
 
@@ -24,18 +28,35 @@ Start with a project initialized by Preskok UI. For MCP registry discovery, `com
 For a new project, the Preskok init command writes this configuration for you:
 
 ```bash
-npx preskok-ui@latest init
+pnpm dlx preskok-ui@latest init
 ```
 
 The equivalent shadcn command is:
 
 ```bash
-npx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
+pnpm dlx shadcn@latest init https://ui-three-mu.vercel.app/r/default.json
 ```
 
 ### Configure your MCP client
 
-Configure your MCP client to run the shadcn MCP server:
+This repository includes a project `.mcp.json` with both local servers:
+
+```json title=".mcp.json" showLineNumbers
+{
+  "mcpServers": {
+    "preskok-design-system": {
+      "command": "pnpm",
+      "args": ["--filter", "@preskok/design-mcp", "dev"]
+    },
+    "shadcn": {
+      "command": "pnpm",
+      "args": ["--filter", "preskok", "exec", "shadcn", "mcp"]
+    }
+  }
+}
+```
+
+For a consuming repository that only needs registry installation, configure the shadcn MCP server in the directory containing `components.json`:
 
 ```toml title="config.toml"
 [mcp_servers.shadcn]
@@ -47,13 +68,55 @@ The MCP process must start in the project directory that contains `components.js
 
 ### What the MCP can do
 
+The Preskok Design MCP can search by product intent, return exact component and token contracts, resolve published Figma component keys and properties, and issue digest-bound design plans. After the official Figma MCP builds or inspects a screen, `finalize_preskok_design` checks live evidence and returns an implementation handoff only when the plan, library or copied-file origin, hierarchy, properties, explicit root theme modes, and token bindings pass.
+
+Use `plan_preskok_design` before changing Figma. Choose one strategy: `published` uses remote assets and collections from Preskok UI; enabling the library is preferred, but clients that cannot enable it may direct-import every planned component and collection by its published key. A complete direct import can pass with a warning, while partial imports fail. `copied` uses local components and collections from a copy of the official source and verifies them with stable contract fingerprints. Do not mix strategies.
+
+Handoffs explicitly support `claude_design_to_code`, `claude_design_to_figma`, `figma_to_code`, and `code_to_figma`. Multi-component handoffs return one atomic shadcn install command so components that share generated dependencies are installed together.
+
+All registry components have an executable route. Components with exact published sets return those Figma assets directly; missing sets return explicit compositions built from published Preskok primitives. Code-only contracts such as locale context correctly require no Figma instance.
+
 The shadcn MCP server can list configured registries, search `@preskok` items, view item metadata, return example source code, and produce install commands.
 
 For example, an MCP client can resolve this install command:
 
 ```bash
-npx shadcn@latest add @preskok/button
+pnpm dlx shadcn@latest add @preskok/button
 ```
+
+### Connect Claude Design and Figma
+
+Claude Design imports the repository design system with `/design-sync` in Claude Code. Add the Claude Design server, install the official Figma plugin, authenticate both, then run `/design-sync` from this repository:
+
+```bash
+claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp
+claude plugin install figma@claude-plugins-official
+```
+
+The official Figma remote endpoint is `https://mcp.figma.com/mcp` for clients without plugin support. Claude Design supplies the design canvas, Figma MCP supplies live Figma access, and Preskok Design MCP supplies the shared code/design contract.
+
+Claude Code automatically discovers the repository's `/preskok-design-workflow` project skill. Invoke it when you want the strict plan-to-Figma-to-proof sequence. The equivalent Codex skill is included in `.agents/skills` and tested against the Claude copy for drift.
+
+### Local HTTP transport
+
+The Preskok server also supports local Streamable HTTP:
+
+```bash
+pnpm --filter @preskok/design-mcp dev -- --http --port 3333
+```
+
+Use `http://127.0.0.1:3333/mcp`. The local endpoint has Host and Origin protection but no user authentication; do not expose it publicly. A remote Claude connector requires an HTTPS deployment with OAuth.
+
+### Verify the full bridge
+
+From this repository, verify the generated catalog, both MCP transports, built CLI, and a fresh registry consumer app:
+
+```bash
+pnpm --filter @preskok/design-mcp verify
+pnpm --filter @preskok/design-mcp verify:workflows
+```
+
+The workflow check first verifies that the shadcn MCP reads `@preskok` from `apps/preskok/components.json`. It then plans and finalizes a representative design through Preskok MCP stdio, installs real public registry items, typechecks and builds a temporary Vite app, and exercises pointer, keyboard, desktop, and mobile behavior in Chrome. Finally, it builds the Preskok Theme Builder and runs a mocked Figma scan/save/apply cycle across all generated Style values and explicit Style/Mode assignments.
 
 ### Current shadcn MCP limitations
 

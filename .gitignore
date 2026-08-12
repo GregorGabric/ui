@@ -41,5 +41,20 @@ tsconfig.tsbuildinfo
 .vscode
 
 test
-.agents
 .vercel
+
+# Keep local agent skills private, except the Preskok design workflow that is
+# part of the repository's MCP integration.
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/preskok-design-workflow/
+!.agents/skills/preskok-design-workflow/**
+
+# Built only for package verification; source is the checked-in contract.
+tools/preskok-design-mcp/dist/
+
+# The repository historically ignores generic test artifacts, but the MCP's
+# source test suite is part of the package contract.
+!tools/preskok-design-mcp/test/
+!tools/preskok-design-mcp/test/**

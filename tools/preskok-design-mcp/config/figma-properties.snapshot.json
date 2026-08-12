@@ -1,0 +1,6239 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-08-12T12:28:40.485Z",
+  "contextFileKey": "jGwVPvHf0oT3uV4aLzGdDl",
+  "library": {
+    "name": "Preskok UI",
+    "libraryKey": "lk-46e05046e297a108a9b995aad38fbb0c3b67d59a51e08a1d07250d90ca40d06ac57264cc7314adb8eec854aa2c2d9129e74e174394f8e5a83d51e9baebd9cc95"
+  },
+  "assets": [
+    {
+      "requestedName": "Toolbar",
+      "componentKey": "002e04b42086c2205137083545d55e62967cba28",
+      "actualName": "Toolbar",
+      "type": "COMPONENT_SET",
+      "description": "Private composition set for Toolbar orientation and shape. Exposed through the public Toolbar component.",
+      "properties": [
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Horizontal",
+          "variantOptions": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Shape",
+          "type": "VARIANT",
+          "defaultValue": "Rounded",
+          "variantOptions": [
+            "Rounded",
+            "Circle"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Tag Group",
+      "componentKey": "00aeea3aa992ac2d17538da9b6ba70d415d74943",
+      "actualName": "Tag Group",
+      "type": "COMPONENT_SET",
+      "description": "A responsive label, description, and wrapping Tag List composition. Source: apps/preskok/registry/preskok/ui/preskok-ui/tag-group.tsx",
+      "properties": [
+        {
+          "name": "Label#3421:9",
+          "type": "TEXT",
+          "defaultValue": "Report filters",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3421:12",
+          "type": "TEXT",
+          "defaultValue": "Selected tags are included in the saved report view.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3421:15",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Input",
+      "componentKey": "010c896516d2d28ecb199d05d6bb44fe294c1971",
+      "actualName": "Input",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Text#3158:0",
+          "type": "TEXT",
+          "defaultValue": "Placeholder",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Filled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Carousel",
+      "componentKey": "0128d9015cf14c0b3966d0f66bb3c7a1d2fee101",
+      "actualName": "Carousel",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Horizontal",
+          "variantOptions": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "First",
+          "variantOptions": [
+            "First",
+            "Next"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Color Picker",
+      "componentKey": "05bfac892cfc73e4ca38e75a93e0f3cd23bf322f",
+      "actualName": "Color Picker",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3524:0",
+          "type": "TEXT",
+          "defaultValue": "Brand color",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3524:21",
+          "type": "TEXT",
+          "defaultValue": "#0D6DFD",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3524:42",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Swatch#3524:63",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:866",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Label",
+          "variantOptions": [
+            "Label",
+            "Swatch only"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Switch",
+      "componentKey": "074088f22c1be7b242db63a173c01d4bec78cec5",
+      "actualName": "Switch",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3356:48",
+          "type": "TEXT",
+          "defaultValue": "Product updates",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3356:49",
+          "type": "TEXT",
+          "defaultValue": "Send a digest when watched projects change.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3356:50",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "defaultValue": "Off",
+          "variantOptions": [
+            "Off",
+            "On"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 16
+    },
+    {
+      "requestedName": "Color Slider Horizontal",
+      "componentKey": "0e3519d1aaba6816c53f2127c6e22618b72a4df1",
+      "actualName": "Color Slider Horizontal",
+      "type": "COMPONENT_SET",
+      "description": "Horizontal ColorSlider with responsive label row, channel gradient, output, and interaction states.",
+      "properties": [
+        {
+          "name": "Label#3562:0",
+          "type": "TEXT",
+          "defaultValue": "Hue",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Output#3562:33",
+          "type": "TEXT",
+          "defaultValue": "216°",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show label#3562:66",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show output#3562:99",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Channel",
+          "type": "VARIANT",
+          "defaultValue": "Hue",
+          "variantOptions": [
+            "Hue",
+            "Saturation",
+            "Brightness",
+            "Alpha"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Focus",
+            "Dragging",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 32
+    },
+    {
+      "requestedName": "Description List Row",
+      "componentKey": "119efe28069d69d57d3e69eb7c863612030d0f18",
+      "actualName": "Description List Row",
+      "type": "COMPONENT_SET",
+      "description": "Responsive term/details row for Preskok Description List.",
+      "properties": [
+        {
+          "name": "Term#3747:0",
+          "type": "TEXT",
+          "defaultValue": "Plan",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Details#3747:5",
+          "type": "TEXT",
+          "defaultValue": "Enterprise",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Position",
+          "type": "VARIANT",
+          "defaultValue": "First",
+          "variantOptions": [
+            "First",
+            "Following"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Navbar",
+      "componentKey": "11aad00a4ae710ebd52f934493c23cb96131ec58",
+      "actualName": "Navbar",
+      "type": "COMPONENT_SET",
+      "description": "Responsive Navbar with explicit Figma theme and layout variants plus exposed nested intent, placement, mobile state, nav items, and shared action Buttons.",
+      "properties": [
+        {
+          "name": "Theme",
+          "type": "VARIANT",
+          "defaultValue": "Light",
+          "variantOptions": [
+            "Light",
+            "Dark"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Search Field",
+      "componentKey": "11d22fe11164b142054c62e4daba5e7149de4422",
+      "actualName": "Search Field",
+      "type": "COMPONENT_SET",
+      "description": "Search input with a leading Lucide Search icon and a conditional clear action. Mirrors the Preskok SearchField API and responsive control heights.",
+      "properties": [
+        {
+          "name": "Label#3311:0",
+          "type": "TEXT",
+          "defaultValue": "Search docs",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3311:21",
+          "type": "TEXT",
+          "defaultValue": "Clear button appears when the field has a value.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Query#3311:42",
+          "type": "TEXT",
+          "defaultValue": "invoice",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show label#4317:0",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#4317:21",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show field text#4320:21",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Filled",
+          "variantOptions": [
+            "Filled",
+            "Empty"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Sidebar",
+      "componentKey": "12e9017e37fa1e221ded95d589f1b9954a0056cc",
+      "actualName": "Sidebar",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Expanded",
+          "variantOptions": [
+            "Expanded",
+            "Collapsed"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Float",
+            "Inset"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Side",
+          "type": "VARIANT",
+          "defaultValue": "Left",
+          "variantOptions": [
+            "Left",
+            "Right"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 12
+    },
+    {
+      "requestedName": "Checkbox",
+      "componentKey": "1b0e195e5a158fa68246107cee01ef059483efe7",
+      "actualName": "Checkbox",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3351:90",
+          "type": "TEXT",
+          "defaultValue": "Accept terms and conditions",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3351:91",
+          "type": "TEXT",
+          "defaultValue": "Required checkboxes participate in native form validation.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3351:92",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Unchecked",
+          "variantOptions": [
+            "Unchecked",
+            "Checked",
+            "Indeterminate"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 30
+    },
+    {
+      "requestedName": "Badge",
+      "componentKey": "1c2302f26930ef3ead56664151e580d1408f2c23",
+      "actualName": "Badge",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#4031:43",
+          "type": "TEXT",
+          "defaultValue": "Label",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "primary",
+          "variantOptions": [
+            "primary",
+            "secondary",
+            "success",
+            "info",
+            "warning",
+            "danger",
+            "outline"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "isCircle",
+          "type": "VARIANT",
+          "defaultValue": "true",
+          "variantOptions": [
+            "true",
+            "false"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Icon",
+          "type": "VARIANT",
+          "defaultValue": "None",
+          "variantOptions": [
+            "Check",
+            "Clock",
+            "ShieldAlert",
+            "None"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 56
+    },
+    {
+      "requestedName": "Popover",
+      "componentKey": "1c5a391efc64a159c3a4307100d15384732d6b8e",
+      "actualName": "Popover",
+      "type": "COMPONENT_SET",
+      "description": "Popover surface aligned with production: overlay tokens, max-width 320, 12px radius, four placements, optional arrow and Dialog-composed content.",
+      "properties": [
+        {
+          "name": "Title#3863:36",
+          "type": "TEXT",
+          "defaultValue": "Popover title",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3863:37",
+          "type": "TEXT",
+          "defaultValue": "Supporting description for this popover.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Body text#3863:38",
+          "type": "TEXT",
+          "defaultValue": "Popover content",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3863:39",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show body#3863:40",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show footer#3863:41",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show arrow#3863:42",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Secondary action#3863:43",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1652",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "1d9b9374fb2000eee6de577001cfcabc8027f881"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "30dee0846dce615ec66ccbcc1830e3ef81aa63c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8b231b8da8ededac818fa6ef0324064d22bea89b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d26cf5f0038762b7fb8ef84bf64850bf355a916c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6412ef1e11e7d9eaad129501348806c096ea1642"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "04e3cd512fa783a8ae4dd3028b96f3f7e1d511c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d4f08acb8db3cb442ef91b21ba0126cbe76e8e1e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "632a5e6c62b54e54f81ff0e57d15e68245a6eefd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d71bad19e11c1745fb856a498faad0dff2046028"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5775f77dcfbe255e06280a3de85aa1a47d20b971"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a0d9fbf2c91606fa10ee00907420c2d9a0aae0b8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a28b3453e2a800d58df044430bc7feeb81d83acc"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5d39e77b5d152ea74048099adcd5d5d084dcf1f0"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "fc31d7ba44bbb8d51e4c6a16e41aa7d392bd8339"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9c7ab499b30b592907a894fc8a1cc23dc791e05a"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f8ea7b5f3824344e0af6b28fa3c821850c87b11b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9fd8277ee5a7f41fac81029460228f8334340075"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9aa5c80ad92daf06b0097c1a5bce77c2e5d77fc7"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Primary action#3863:44",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1557",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "1d9b9374fb2000eee6de577001cfcabc8027f881"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "30dee0846dce615ec66ccbcc1830e3ef81aa63c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8b231b8da8ededac818fa6ef0324064d22bea89b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d26cf5f0038762b7fb8ef84bf64850bf355a916c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6412ef1e11e7d9eaad129501348806c096ea1642"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "04e3cd512fa783a8ae4dd3028b96f3f7e1d511c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d4f08acb8db3cb442ef91b21ba0126cbe76e8e1e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "632a5e6c62b54e54f81ff0e57d15e68245a6eefd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d71bad19e11c1745fb856a498faad0dff2046028"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5775f77dcfbe255e06280a3de85aa1a47d20b971"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a0d9fbf2c91606fa10ee00907420c2d9a0aae0b8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a28b3453e2a800d58df044430bc7feeb81d83acc"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5d39e77b5d152ea74048099adcd5d5d084dcf1f0"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "fc31d7ba44bbb8d51e4c6a16e41aa7d392bd8339"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9c7ab499b30b592907a894fc8a1cc23dc791e05a"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f8ea7b5f3824344e0af6b28fa3c821850c87b11b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9fd8277ee5a7f41fac81029460228f8334340075"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9aa5c80ad92daf06b0097c1a5bce77c2e5d77fc7"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Placement",
+          "type": "VARIANT",
+          "defaultValue": "Top",
+          "variantOptions": [
+            "Top",
+            "Right",
+            "Bottom",
+            "Left"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Meter",
+      "componentKey": "2275104cf42d7ff178f738a18850758ed3b5a115",
+      "actualName": "Meter",
+      "type": "COMPONENT_SET",
+      "description": "Source-accurate Meter with auto-growing text layout. Auto colors follow normalized percentage thresholds. Custom uses the feedback/meter/custom semantic variable; arbitrary per-instance CSS colors cannot be represented by this Figma API.",
+      "properties": [
+        {
+          "name": "Label#3988:0",
+          "type": "TEXT",
+          "defaultValue": "Storage space",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show value#3988:26",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3988:39",
+          "type": "TEXT",
+          "defaultValue": "Healthy usage renders with the success color.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3988:52",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Color",
+          "type": "VARIANT",
+          "defaultValue": "Auto",
+          "variantOptions": [
+            "Auto",
+            "Custom"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "41",
+          "variantOptions": [
+            "41",
+            "78",
+            "92"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 12
+    },
+    {
+      "requestedName": "Button Group",
+      "componentKey": "27555964f1a3171366c40e2c0e5928e5ba440db4",
+      "actualName": "Button Group",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "First item#3127:0",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1664",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Second item#3127:3",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1664",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Third item#3127:6",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1664",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show third item#3127:9",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Horizontal",
+          "variantOptions": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Separator",
+      "componentKey": "2f0e9e29a1172f3c6dd30c6037132484fa513b11",
+      "actualName": "Separator",
+      "type": "COMPONENT_SET",
+      "description": "Preskok Separator. Orientation matches the public React Aria prop.",
+      "properties": [
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Horizontal",
+          "variantOptions": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "List Box",
+      "componentKey": "34a4689d50142e77c0bf7a2334760271fe581578",
+      "actualName": "List Box",
+      "type": "COMPONENT_SET",
+      "description": "Responsive List Box with none, single, and multiple selection scenarios.",
+      "properties": [
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selection",
+          "type": "VARIANT",
+          "defaultValue": "None",
+          "variantOptions": [
+            "None",
+            "Single",
+            "Multiple"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scenario",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Changed"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 18
+    },
+    {
+      "requestedName": "Resizable Handle",
+      "componentKey": "34c31b2d3c1014f344c82c0ab5491eed77f5e8ba",
+      "actualName": "Resizable Handle",
+      "type": "COMPONENT_SET",
+      "description": "Preskok ResizableHandle. Orientation mirrors the panel group; Show grip maps to withHandle.",
+      "properties": [
+        {
+          "name": "Show grip#3731:0",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Vertical",
+          "variantOptions": [
+            "Vertical",
+            "Horizontal"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Dragging"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Heading",
+      "componentKey": "35ebfcd1fa063c950e21122fe0af44e7443771ed",
+      "actualName": "Heading",
+      "type": "COMPONENT_SET",
+      "description": "Semantic h1–h6 headings. Levels 1–4 have responsive Preskok typography; levels 5–6 intentionally inherit surrounding typography.",
+      "properties": [
+        {
+          "name": "Content#3082:0",
+          "type": "TEXT",
+          "defaultValue": "Heading",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Level",
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 12
+    },
+    {
+      "requestedName": "Card",
+      "componentKey": "3638039a78b1caaa933c29f5fae59882d3967a06",
+      "actualName": "Card",
+      "type": "COMPONENT",
+      "description": "Transparent compositional card matching the Preskok Card API. Resize horizontally; optional action, description, content, and footer are exposed as component properties.",
+      "properties": [
+        {
+          "name": "Title#3682:0",
+          "type": "TEXT",
+          "defaultValue": "Card title",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3682:1",
+          "type": "TEXT",
+          "defaultValue": "Card description goes here",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3682:2",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show action#3682:3",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Action#3682:4",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1826",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "a82509d7b92fc4ca481a3b3070f93c4d4b773b03"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show content#3682:5",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content#3682:6",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:56347",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8aeb9f748d4239e15a85bc03f6c79460fb161afc"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "0031e685edb549d316eb874cde31a4703ced4dd9"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "225a8cd673884b92015fb2cafdb932d358138527"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show footer#3682:7",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Footer#3682:8",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:56349",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d99c848bf5ea459b1fb2c0274bb74b9b92ee14d8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "1ff27e23394c2863f540f3865c2ac0294c234d40"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f37eed9de2725016fd0871d0f663549e068a79b2"
+            }
+          ],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 1
+    },
+    {
+      "requestedName": "Combo Box",
+      "componentKey": "3677888a02913efa1902ecb3d6b3a47198548f30",
+      "actualName": "Combo Box",
+      "type": "COMPONENT_SET",
+      "description": "Responsive autocomplete Combo Box matching the Preskok UI React Aria implementation. Empty open variants show the full section; filled open variants show the custom-create result.",
+      "properties": [
+        {
+          "name": "Label#3381:0",
+          "type": "TEXT",
+          "defaultValue": "Team",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3381:25",
+          "type": "TEXT",
+          "defaultValue": "Filter existing teams or create a new one.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3381:50",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Placeholder#3381:75",
+          "type": "TEXT",
+          "defaultValue": "Search teams",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Input value#3381:100",
+          "type": "TEXT",
+          "defaultValue": "Ops",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Input",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Filled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Open",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Table",
+      "componentKey": "379dad46d55a58d258e4a9242aa275345375eeb7",
+      "actualName": "Table",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Variant",
+          "type": "VARIANT",
+          "defaultValue": "Selection",
+          "variantOptions": [
+            "Selection",
+            "Sortable",
+            "Resizable",
+            "Drag and Drop"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Input OTP",
+      "componentKey": "37af568ed6cd415b54ac73c17c948c9a781ac4d8",
+      "actualName": "Input OTP",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Digit 1#3320:0",
+          "type": "TEXT",
+          "defaultValue": "1",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Digit 2#3320:10",
+          "type": "TEXT",
+          "defaultValue": "2",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Digit 3#3320:20",
+          "type": "TEXT",
+          "defaultValue": "3",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Digit 4#3320:30",
+          "type": "TEXT",
+          "defaultValue": "4",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Digit 5#3320:40",
+          "type": "TEXT",
+          "defaultValue": "5",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Digit 6#3320:50",
+          "type": "TEXT",
+          "defaultValue": "6",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Partial",
+            "Complete"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Focus",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 9
+    },
+    {
+      "requestedName": "Text Field",
+      "componentKey": "3ac4ca75e3c1aeedf5d3de1a7cc7a56230f3ed60",
+      "actualName": "Text Field",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Value#3165:0",
+          "type": "TEXT",
+          "defaultValue": "Placeholder",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Reveal icon#4292:0",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:56165",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "147c73b29319c0612a4f4964fcf690cd4039978d"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "975185e7c2cba756047d740d2e2ae258ed365b4a"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Anatomy",
+          "type": "VARIANT",
+          "defaultValue": "Input",
+          "variantOptions": [
+            "Input",
+            "Input group",
+            "Password"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 30
+    },
+    {
+      "requestedName": "File Trigger",
+      "componentKey": "4150a6fa80f62f9c6b90a7bf5c7a9950879fe0f3",
+      "actualName": "File Trigger",
+      "type": "COMPONENT_SET",
+      "description": "Text File Trigger composed from the public Button asset. Action derives the automatic icon/default label. Pending intentionally uses an enabled Default Button with Loader because production does not disable or apply Button Pending.",
+      "properties": [
+        {
+          "name": "Action",
+          "type": "VARIANT",
+          "defaultValue": "File",
+          "variantOptions": [
+            "File",
+            "Multiple",
+            "Directory",
+            "Camera"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Color Slider Vertical",
+      "componentKey": "4157436e6e44de2336ecb08719dac3deba3b7dae",
+      "actualName": "Color Slider Vertical",
+      "type": "COMPONENT_SET",
+      "description": "Source-derived vertical ColorSlider; this orientation is public but not shown on the deployed docs page.",
+      "properties": [
+        {
+          "name": "Label#3562:132",
+          "type": "TEXT",
+          "defaultValue": "Hue",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Output#3562:149",
+          "type": "TEXT",
+          "defaultValue": "216°",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show label#3562:166",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show output#3562:183",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Channel",
+          "type": "VARIANT",
+          "defaultValue": "Hue",
+          "variantOptions": [
+            "Hue",
+            "Saturation",
+            "Brightness",
+            "Alpha"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Focus",
+            "Dragging",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 16
+    },
+    {
+      "requestedName": "Tabs",
+      "componentKey": "45ec2352b32389bcd68a1a41d3d261b4821acb87",
+      "actualName": "Tabs",
+      "type": "COMPONENT_SET",
+      "description": "Composed Tabs matching tabs.tsx: horizontal border-bottom or vertical border-left, accent hover, primary selected indicator.",
+      "properties": [
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Horizontal",
+          "variantOptions": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2",
+            "3"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 6
+    },
+    {
+      "requestedName": "Note",
+      "componentKey": "4780412569615787573467021fadcfb7a7ccbcf2",
+      "actualName": "Note",
+      "type": "COMPONENT_SET",
+      "description": "Responsive Note variants using the exact production intent tokens and canonical Lucide status icons. Indicator has no visual effect for default because production maps no default icon.",
+      "properties": [
+        {
+          "name": "Content#4013:0",
+          "type": "TEXT",
+          "defaultValue": "Note content",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "default",
+          "variantOptions": [
+            "default",
+            "info",
+            "warning",
+            "danger",
+            "success"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Indicator",
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Skeleton",
+      "componentKey": "47ae5226816e76ecd8fc0607523ab45179c4b2b7",
+      "actualName": "Skeleton",
+      "type": "COMPONENT_SET",
+      "description": "Resizable Skeleton primitive. Soft maps to muted; default maps to secondary. Production pulse animation is represented at full-opacity rest.",
+      "properties": [
+        {
+          "name": "Soft",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Avatar",
+      "componentKey": "4d7d84f58f992c1c93aaabe47971d21898248a19",
+      "actualName": "Avatar",
+      "type": "COMPONENT_SET",
+      "description": "Avatar with five sizes, round or 20%-radius square shape, and image or initials content.",
+      "properties": [
+        {
+          "name": "Initials#3100:0",
+          "type": "TEXT",
+          "defaultValue": "MC",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Shape",
+          "type": "VARIANT",
+          "defaultValue": "Round",
+          "variantOptions": [
+            "Round",
+            "Square"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Image",
+          "variantOptions": [
+            "Image",
+            "Initials"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Button",
+      "componentKey": "4eb4cd0146113729c1848c95644b871e3cb88d0a",
+      "actualName": "Button",
+      "type": "COMPONENT_SET",
+      "description": "Preskok button. Configure Shape, Intent, Size, and State; edit the label and swap optional icons from the instance properties.",
+      "properties": [
+        {
+          "name": "Label#3201:0",
+          "type": "TEXT",
+          "defaultValue": "Button",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show leading icon#3201:433",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading icon#3201:866",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show trailing icon#3201:1299",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Trailing icon#3201:1732",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1516",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Icon#3201:2165",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Shape",
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Square",
+            "Circle"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "primary",
+          "variantOptions": [
+            "primary",
+            "secondary",
+            "warning",
+            "danger",
+            "outline",
+            "plain"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 432
+    },
+    {
+      "requestedName": "Date Picker",
+      "componentKey": "533e7ea2e167195c8070779b159ae8fcd2c70e2a",
+      "actualName": "Date Picker",
+      "type": "COMPONENT_SET",
+      "description": "Public Date Picker component with responsive empty/filled, hover, focus, invalid, invalid-focus, disabled, and read-only states.",
+      "properties": [
+        {
+          "name": "Label#3467:20",
+          "type": "TEXT",
+          "defaultValue": "Event date",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Filled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled",
+            "Read-only",
+            "Invalid Focus"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 28
+    },
+    {
+      "requestedName": "Line Chart",
+      "componentKey": "558db1c6e5b308777c951cace55da87a3d2a2288",
+      "actualName": "Line Chart",
+      "type": "COMPONENT_SET",
+      "description": "Public Line Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Interactive",
+            "Linear",
+            "Multiple",
+            "Step"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 5
+    },
+    {
+      "requestedName": "Color Wheel",
+      "componentKey": "57212060062f30581221483708ae5d3414896f55",
+      "actualName": "Color Wheel",
+      "type": "COMPONENT_SET",
+      "description": "Circular hue selector. Fixed 200px diameter with a 148px inner hole. Value variants are documented hue specimens; the public React API accepts arbitrary Color values.",
+      "properties": [
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Blue",
+          "variantOptions": [
+            "Blue",
+            "Amber"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Dragging",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 10
+    },
+    {
+      "requestedName": "Color Field",
+      "componentKey": "5a0ddd6523e2f3e0be89dc5687643927c6f8c04d",
+      "actualName": "Color Field",
+      "type": "COMPONENT_SET",
+      "description": "React Aria ColorField composed with Preskok Field Label and Input. Channel and colorSpace affect formatted content, not geometry; use the editable label and nested Input value.",
+      "properties": [
+        {
+          "name": "Label#3540:100",
+          "type": "TEXT",
+          "defaultValue": "Hex",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3540:101",
+          "type": "TEXT",
+          "defaultValue": "Choose a color value.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3540:102",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Error#3540:103",
+          "type": "TEXT",
+          "defaultValue": "Enter a valid color.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show error#3540:104",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content#3545:0",
+          "type": "TEXT",
+          "defaultValue": "#1D4ED8",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Filled",
+          "variantOptions": [
+            "Filled",
+            "Empty"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Sheet",
+      "componentKey": "5a64e851aeb91474a2ba6c580471a34a9c063089",
+      "actualName": "Sheet",
+      "type": "COMPONENT_SET",
+      "description": "Sheet content aligned to production. Side, Float, and Blurred map to public props; close and Dialog-composed regions are exposed.",
+      "properties": [
+        {
+          "name": "Title#3867:144",
+          "type": "TEXT",
+          "defaultValue": "Sheet title",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3867:145",
+          "type": "TEXT",
+          "defaultValue": "Supporting description for this sheet.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Body text#3867:146",
+          "type": "TEXT",
+          "defaultValue": "Sheet content",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3867:147",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show body#3867:148",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show footer#3867:149",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show close#3867:150",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Primary action#3867:151",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1557",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "1d9b9374fb2000eee6de577001cfcabc8027f881"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "30dee0846dce615ec66ccbcc1830e3ef81aa63c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8b231b8da8ededac818fa6ef0324064d22bea89b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d26cf5f0038762b7fb8ef84bf64850bf355a916c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6412ef1e11e7d9eaad129501348806c096ea1642"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "04e3cd512fa783a8ae4dd3028b96f3f7e1d511c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d4f08acb8db3cb442ef91b21ba0126cbe76e8e1e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "632a5e6c62b54e54f81ff0e57d15e68245a6eefd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d71bad19e11c1745fb856a498faad0dff2046028"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5775f77dcfbe255e06280a3de85aa1a47d20b971"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a0d9fbf2c91606fa10ee00907420c2d9a0aae0b8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a28b3453e2a800d58df044430bc7feeb81d83acc"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5d39e77b5d152ea74048099adcd5d5d084dcf1f0"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "fc31d7ba44bbb8d51e4c6a16e41aa7d392bd8339"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9c7ab499b30b592907a894fc8a1cc23dc791e05a"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f8ea7b5f3824344e0af6b28fa3c821850c87b11b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9fd8277ee5a7f41fac81029460228f8334340075"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9aa5c80ad92daf06b0097c1a5bce77c2e5d77fc7"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Secondary action#3867:152",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1652",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d199a7b7765abb882bac815f7e9b0e69ed4f8937"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "1d9b9374fb2000eee6de577001cfcabc8027f881"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "30dee0846dce615ec66ccbcc1830e3ef81aa63c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8b231b8da8ededac818fa6ef0324064d22bea89b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d26cf5f0038762b7fb8ef84bf64850bf355a916c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6412ef1e11e7d9eaad129501348806c096ea1642"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "24e1dc2a81da6497243fafd320a4fc1730d8e3e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "04e3cd512fa783a8ae4dd3028b96f3f7e1d511c8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d4f08acb8db3cb442ef91b21ba0126cbe76e8e1e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "632a5e6c62b54e54f81ff0e57d15e68245a6eefd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d0b88744c866eb536cf21c03b65196e691619da1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d71bad19e11c1745fb856a498faad0dff2046028"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5775f77dcfbe255e06280a3de85aa1a47d20b971"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a0d9fbf2c91606fa10ee00907420c2d9a0aae0b8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6f88ef2f5afb46ede64aa442786487efc5e98c8b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "a28b3453e2a800d58df044430bc7feeb81d83acc"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5d39e77b5d152ea74048099adcd5d5d084dcf1f0"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "fc31d7ba44bbb8d51e4c6a16e41aa7d392bd8339"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f3d55808982a47299054c356a84155a1baf24f5f"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9c7ab499b30b592907a894fc8a1cc23dc791e05a"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f8ea7b5f3824344e0af6b28fa3c821850c87b11b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9fd8277ee5a7f41fac81029460228f8334340075"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6ac415c53a4e413e2d7d63594cc988b699b1a371"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9aa5c80ad92daf06b0097c1a5bce77c2e5d77fc7"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Side",
+          "type": "VARIANT",
+          "defaultValue": "Top",
+          "variantOptions": [
+            "Top",
+            "Right",
+            "Bottom",
+            "Left"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Float",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Blurred",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 16
+    },
+    {
+      "requestedName": "Bar List",
+      "componentKey": "5ca55db9e0f1c0239dc3dab0396ac8336b425e42",
+      "actualName": "Bar List",
+      "type": "COMPONENT_SET",
+      "description": "Public Bar List component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+      "properties": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Reports selected"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Preskok Auth Button Plain",
+      "componentKey": "5d777a98a7ee355f88fb76644a93cba1bb31b4d2",
+      "actualName": "Preskok Auth Button Plain",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Show leading content#3118:650",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading content#3118:675",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "plain",
+          "variantOptions": [
+            "plain"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Field Description",
+      "componentKey": "6147f1f6e92a728b5c327bc1b15687823292d382",
+      "actualName": "Field Description",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Text#3153:3",
+          "type": "TEXT",
+          "defaultValue": "Description",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Multi Select",
+      "componentKey": "625724ed7ee6d1dc56e10fdce3234ad1e907b1b3",
+      "actualName": "Multi Select",
+      "type": "COMPONENT_SET",
+      "description": "A multi-select control with tags, search, filtering, and a portalled list box. The add action is a nested shared Button instance. Popup rows are shared List Box Item instances. Source: apps/preskok/registry/preskok/ui/preskok-ui/multi-select.tsx",
+      "properties": [
+        {
+          "name": "Placeholder#3413:0",
+          "type": "TEXT",
+          "defaultValue": "Select fruits",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Tag 1#3413:31",
+          "type": "TEXT",
+          "defaultValue": "Apple",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Tag 2#3413:62",
+          "type": "TEXT",
+          "defaultValue": "Banana",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Query#3413:93",
+          "type": "TEXT",
+          "defaultValue": "",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show all options#3413:124",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "One",
+            "Multiple"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Open",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 30
+    },
+    {
+      "requestedName": "Context Menu",
+      "componentKey": "628e4c6097972bfd5daa046a3665aad16caea40f",
+      "actualName": "Context Menu",
+      "type": "COMPONENT_SET",
+      "description": "Context menu composition with closed and open states using shared Menu Item instances.",
+      "properties": [
+        {
+          "name": "Trigger label#3884:72",
+          "type": "TEXT",
+          "defaultValue": "Right click me",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Closed",
+          "variantOptions": [
+            "Closed",
+            "Open"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Drawer",
+      "componentKey": "6453e731b955bfa6248fe4c0a8cea90e1ce2e181",
+      "actualName": "Drawer",
+      "type": "COMPONENT_SET",
+      "description": "Preskok Drawer variants: side top/right/bottom/left and floating inset mode, with complete header/body/footer composition shown on page.",
+      "properties": [
+        {
+          "name": "Title#3892:40",
+          "type": "TEXT",
+          "defaultValue": "Schedule Test Drive",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3892:41",
+          "type": "TEXT",
+          "defaultValue": "Book your test drive experience with our latest vehicle models.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show notch#3892:42",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3892:43",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Footer action#3892:44",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1652",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "5d39e77b5d152ea74048099adcd5d5d084dcf1f0"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Side",
+          "type": "VARIANT",
+          "defaultValue": "Top",
+          "variantOptions": [
+            "Top",
+            "Right",
+            "Bottom",
+            "Left"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Float",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Toast Stack",
+      "componentKey": "6641b90aa0151cc170e122e36f86a46890a140b4",
+      "actualName": "Toast Stack",
+      "type": "COMPONENT_SET",
+      "description": "Toast stack — collapsed Sonner stack levels across desktop and mobile.",
+      "properties": [
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Stack",
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2",
+            "3"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 6
+    },
+    {
+      "requestedName": "Field Legend",
+      "componentKey": "66c0b3148d41d7b79113fc747f37000efc0813e8",
+      "actualName": "Field Legend",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Text#3153:9",
+          "type": "TEXT",
+          "defaultValue": "Legend",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Progress Bar Track",
+      "componentKey": "67e8443d9058fba8c3e7e3b64a99102e2b783faf",
+      "actualName": "Progress Bar Track",
+      "type": "COMPONENT_SET",
+      "description": "Progress Bar track — representative values for the continuous numeric API plus indeterminate state.",
+      "properties": [
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "0",
+          "variantOptions": [
+            "0",
+            "25",
+            "35",
+            "50",
+            "75",
+            "100",
+            "Indeterminate"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 7
+    },
+    {
+      "requestedName": "Color Swatch",
+      "componentKey": "6cd94ff1c44ffacfde3be775af3f4ae4e3743093",
+      "actualName": "Color Swatch",
+      "type": "COMPONENT_SET",
+      "description": "Static React Aria color preview. Scale: Desktop 36px, Mobile 40px, Compact 20px for Color Picker composition. Value samples include documented colors; instance fills remain directly overridable for arbitrary colors. Radius is the source-derived 7px. The 1px inset ring uses semantic foreground/20.",
+      "properties": [
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Compact",
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Blue",
+          "variantOptions": [
+            "Picker Blue",
+            "Blue",
+            "Picker Yellow",
+            "White",
+            "Teal",
+            "Slate",
+            "Transparent",
+            "Green",
+            "Amber",
+            "Red",
+            "Purple"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 33
+    },
+    {
+      "requestedName": "Keyboard",
+      "componentKey": "6f2c6693af8b714c2f4871521d9352b2f790e195",
+      "actualName": "Keyboard",
+      "type": "COMPONENT_SET",
+      "description": "Inline keyboard shortcut. Hidden below the lg breakpoint; contextual parent hover, focus, and disabled states adjust emphasis.",
+      "properties": [
+        {
+          "name": "Keys#3088:0",
+          "type": "TEXT",
+          "defaultValue": "⌘K",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Parent hover",
+            "Parent focus",
+            "Parent disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Number Field",
+      "componentKey": "7260c0b4c04f1b1829b65f1e74a7e89c3733102e",
+      "actualName": "Number Field",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3327:80",
+          "type": "TEXT",
+          "defaultValue": "Team seats",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3327:81",
+          "type": "TEXT",
+          "defaultValue": "Use steppers or type a value from 1 to 100.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3327:82",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value#3327:83",
+          "type": "TEXT",
+          "defaultValue": "12",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Format",
+          "type": "VARIANT",
+          "defaultValue": "Number",
+          "variantOptions": [
+            "Number",
+            "Currency"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 20
+    },
+    {
+      "requestedName": "Menu",
+      "componentKey": "732204a0b6b60c50f6dd4adbe000a9024af177e8",
+      "actualName": "Menu",
+      "type": "COMPONENT_SET",
+      "description": "Menu — registered menu compositions across desktop and mobile, closed and open.",
+      "properties": [
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Example",
+          "type": "VARIANT",
+          "defaultValue": "Main",
+          "variantOptions": [
+            "Main",
+            "Submenu",
+            "Description",
+            "Multiple"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Closed",
+          "variantOptions": [
+            "Closed",
+            "Open"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 16
+    },
+    {
+      "requestedName": "Show More",
+      "componentKey": "7b374a35a5eefbad1b786ddadea39b062af21350",
+      "actualName": "Show More",
+      "type": "COMPONENT_SET",
+      "description": "Progressively reveal or collapse content. Button presentation exposes Orientation, Expanded, State, and shared Button properties; Text presentation exposes Orientation and Text.",
+      "properties": [
+        {
+          "name": "Presentation",
+          "type": "VARIANT",
+          "defaultValue": "Button",
+          "variantOptions": [
+            "Button",
+            "Text"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Preskok Auth Button Primary",
+      "componentKey": "7f76e27d012ade7eab7ca659419b4dada4f3b503",
+      "actualName": "Preskok Auth Button Primary",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Show leading content#3118:25",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading content#3118:50",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "primary",
+          "variantOptions": [
+            "primary"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Icon / loader-circle",
+      "componentKey": "83ab0c375306fc6e4743dae5c2910d3e8c17047e",
+      "actualName": "Icon / loader-circle",
+      "type": "COMPONENT",
+      "description": "loading, wait, busy, progress, spinner, spinning, throbber, circle",
+      "properties": [],
+      "variantCount": 1
+    },
+    {
+      "requestedName": "Choice Box",
+      "componentKey": "8619fbc0cb62f307bd12aca3f8b4574b60a3b2b9",
+      "actualName": "Choice Box",
+      "type": "COMPONENT_SET",
+      "description": "Choice Box group with responsive column presets, gaps, and single/multiple selection. Nested Choice Box Item instances are exposed for labels, descriptions, selection, disabled, hover, focus, and read-only states. Code supports columns 1–6 and gaps 0–6; the Figma matrix provides the documented 1–3 column and 0/12px presets.",
+      "properties": [
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Columns",
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2",
+            "3"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Gap",
+          "type": "VARIANT",
+          "defaultValue": "0",
+          "variantOptions": [
+            "0",
+            "12"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selection",
+          "type": "VARIANT",
+          "defaultValue": "Single",
+          "variantOptions": [
+            "Single",
+            "Multiple"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Dropdown",
+      "componentKey": "88890172412919fce02630397fcb7bffba24ba22",
+      "actualName": "Dropdown",
+      "type": "COMPONENT_SET",
+      "description": "Dropdown — closed and open registered dropdown composition.",
+      "properties": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Closed",
+          "variantOptions": [
+            "Closed",
+            "Open"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Color Area",
+      "componentKey": "899953630de5270962bc751b262ba3638853230d",
+      "actualName": "Color Area",
+      "type": "COMPONENT_SET",
+      "description": "Fixed 224×224 React Aria ColorArea. Value supplies representative generated gradients; State maps the nested ColorThumb interaction and disabled treatment.",
+      "properties": [
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Blue",
+          "variantOptions": [
+            "Blue",
+            "Yellow"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled",
+            "Focus",
+            "Dragging"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Toggle Group",
+      "componentKey": "8cb91113644f70b87d8b087ca8dc9890316d303f",
+      "actualName": "Toggle Group",
+      "type": "COMPONENT_SET",
+      "description": "Preskok Toggle Group. Use Size values xs/sm/md/lg for text groups and sq-xs/sq-sm/sq-md/sq-lg for icon-only square groups.",
+      "properties": [
+        {
+          "name": "Left label#4101:0",
+          "type": "TEXT",
+          "defaultValue": "Left",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Center label#4101:65",
+          "type": "TEXT",
+          "defaultValue": "Center",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Right label#4101:130",
+          "type": "TEXT",
+          "defaultValue": "Right",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Grid label#4101:195",
+          "type": "TEXT",
+          "defaultValue": "Grid",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Guides label#4101:260",
+          "type": "TEXT",
+          "defaultValue": "Guides",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Comments label#4101:325",
+          "type": "TEXT",
+          "defaultValue": "Comments",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show icons#4101:390",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Left icon#4101:455",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:736",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2d541183e83d4a547056a020c80a687acf5a0909"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b94c3327098c6b90dd4d69e1813aaf69281ca65e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "eb0949353f380e3df21304c44fccf30d926ebba3"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Center icon#4101:520",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:741",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2d541183e83d4a547056a020c80a687acf5a0909"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b94c3327098c6b90dd4d69e1813aaf69281ca65e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "eb0949353f380e3df21304c44fccf30d926ebba3"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Right icon#4101:585",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:746",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2d541183e83d4a547056a020c80a687acf5a0909"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b94c3327098c6b90dd4d69e1813aaf69281ca65e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "eb0949353f380e3df21304c44fccf30d926ebba3"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Grid icon#4101:650",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:736",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2d541183e83d4a547056a020c80a687acf5a0909"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b94c3327098c6b90dd4d69e1813aaf69281ca65e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "eb0949353f380e3df21304c44fccf30d926ebba3"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Guides icon#4101:715",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:741",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2d541183e83d4a547056a020c80a687acf5a0909"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b94c3327098c6b90dd4d69e1813aaf69281ca65e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "eb0949353f380e3df21304c44fccf30d926ebba3"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Comments icon#4101:780",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:746",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2d541183e83d4a547056a020c80a687acf5a0909"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b94c3327098c6b90dd4d69e1813aaf69281ca65e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "eb0949353f380e3df21304c44fccf30d926ebba3"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Shape",
+          "type": "VARIANT",
+          "defaultValue": "Rounded",
+          "variantOptions": [
+            "Rounded",
+            "Circle"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Horizontal",
+          "variantOptions": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selection Mode",
+          "type": "VARIANT",
+          "defaultValue": "Single",
+          "variantOptions": [
+            "Single",
+            "Multiple"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "sq-xs",
+            "sq-sm",
+            "sq-md",
+            "sq-lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 64
+    },
+    {
+      "requestedName": "Grid List Item",
+      "componentKey": "8ddd2004e46d664b3f0b070ca935e4b57a3c7feb",
+      "actualName": "Grid List Item",
+      "type": "COMPONENT_SET",
+      "description": "Preskok GridListItem with selection, drag, text, and metadata composition.",
+      "properties": [
+        {
+          "name": "Label#3726:0",
+          "type": "TEXT",
+          "defaultValue": "Sync staging data",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3726:8",
+          "type": "TEXT",
+          "defaultValue": "Refresh anonymized customer records",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Meta#3726:16",
+          "type": "TEXT",
+          "defaultValue": "Data",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3726:24",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show meta#3726:32",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show checkbox#3726:40",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show drag handle#3726:48",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Selected",
+            "Disabled",
+            "Dragging",
+            "Drop target"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 7
+    },
+    {
+      "requestedName": "Icon / loader-pinwheel",
+      "componentKey": "9004314e3494368380605ca4048c87ae80fa76e2",
+      "actualName": "Icon / loader-pinwheel",
+      "type": "COMPONENT",
+      "description": "loading, wait, busy, progress, throbber, spinner, spinning, beach ball, frozen, freeze",
+      "properties": [],
+      "variantCount": 1
+    },
+    {
+      "requestedName": "Tag Field",
+      "componentKey": "96a69f9f8e4adab23c7468d2d54c0b938d1c97a2",
+      "actualName": "Tag Field",
+      "type": "COMPONENT_SET",
+      "description": "Tag input field for entering, validating, and removing multiple string values. Nested Input and Tag assets remain editable.",
+      "properties": [
+        {
+          "name": "Label#3429:96",
+          "type": "TEXT",
+          "defaultValue": "Coupon codes",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Error#3429:97",
+          "type": "TEXT",
+          "defaultValue": "At least one item is required",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show second tag#3429:98",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show third tag#3429:99",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Typing",
+            "Tags"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Toast Item",
+      "componentKey": "971e29ac458315400539c1a5b1cc2a5d1a1d6d3f",
+      "actualName": "Toast Item",
+      "type": "COMPONENT_SET",
+      "description": "Toast item — production Sonner type and responsive matrix with semantic feedback tokens.",
+      "properties": [
+        {
+          "name": "Title#3959:92",
+          "type": "TEXT",
+          "defaultValue": "Toast title",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3959:93",
+          "type": "TEXT",
+          "defaultValue": "Toast description",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3959:94",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Action label#3959:95",
+          "type": "TEXT",
+          "defaultValue": "View",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show action#3959:96",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show close#3959:97",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show status icon#3959:98",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Type",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Success",
+            "Error",
+            "Info",
+            "Warning",
+            "Loading"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 12
+    },
+    {
+      "requestedName": "Preskok Icon",
+      "componentKey": "9a4381c29326ae5f2ce74cfcbe3a11d0a4532200",
+      "actualName": "Preskok Icon",
+      "type": "COMPONENT_SET",
+      "description": "Official Preskok brand mark using the exact production SVG paths and fixed #DF3B3B fill.",
+      "properties": [
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "32",
+          "variantOptions": [
+            "32",
+            "48",
+            "64",
+            "96"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Field Label",
+      "componentKey": "9cdb3333c15db66981fabfca5dee7deac33b36f9",
+      "actualName": "Field Label",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Text#3153:0",
+          "type": "TEXT",
+          "defaultValue": "Label",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Tree Item",
+      "componentKey": "a24b7de993a0c505e50e4311fc12ba60b6dec6b4",
+      "actualName": "Tree Item",
+      "type": "COMPONENT_SET",
+      "description": "Preskok TreeItem and TreeContent. Resize Indent guide for nested levels and swap Indicator between Leaf, Collapsed, and Expanded.",
+      "properties": [
+        {
+          "name": "Label#3742:0",
+          "type": "TEXT",
+          "defaultValue": "Vehicle Models",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show checkbox#3742:5",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Indicator#3742:10",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:60544",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "e1acab80643bbd6f340a65ec9df62a1f578449ab"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "07c7e632722ad76952bb952ee33dced4fba2a9a6"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b282a68ccd3fb766d647fbf85a4fd73b4527a821"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Preskok Auth Button Danger",
+      "componentKey": "a2a7e397c4a95cf341ca4c2fc2497c87484bc406",
+      "actualName": "Preskok Auth Button Danger",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Show leading content#3118:400",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading content#3118:425",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "danger",
+          "variantOptions": [
+            "danger"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Command",
+      "componentKey": "a46fb4b039b7e88db61385492b6ddcdd370f2e6d",
+      "actualName": "Command",
+      "type": "COMPONENT_SET",
+      "description": "Command — default and empty searchable command surfaces.",
+      "properties": [
+        {
+          "name": "Placeholder#3909:20",
+          "type": "TEXT",
+          "defaultValue": "Type a command or search...",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Empty"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Field Error",
+      "componentKey": "a78d6b3af15a6327dcca674acfa41dfb77af3a9c",
+      "actualName": "Field Error",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Text#3153:6",
+          "type": "TEXT",
+          "defaultValue": "Error message",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Editor",
+      "componentKey": "a9a45ff79317d4882851901bc07b47349d500c6b",
+      "actualName": "Editor",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Selection",
+            "Link popover"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 3
+    },
+    {
+      "requestedName": "Calendar",
+      "componentKey": "ab56200c159bb297d43dd24a19ee4fc6eb29fdc3",
+      "actualName": "Calendar",
+      "type": "COMPONENT_SET",
+      "description": "Production Calendar with responsive sizes, selected or empty value, disabled, read-only, and invalid states. Header and Grid are exposed for navigation constraints, RTL, week count, and week-start customization.",
+      "properties": [
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled",
+            "Read-only",
+            "Invalid"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selection",
+          "type": "VARIANT",
+          "defaultValue": "Selected",
+          "variantOptions": [
+            "Selected",
+            "None"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 16
+    },
+    {
+      "requestedName": "Color Swatch Picker",
+      "componentKey": "ab6e5d3d8bd37a63e789a09a9d8c2c24b9f984aa",
+      "actualName": "Color Swatch Picker",
+      "type": "COMPONENT_SET",
+      "description": "Single-selection picker using the seven documented colors. Purple is disabled. Scale controls the deployed 7-column desktop or 4-column mobile geometry; Selection exposes all six enabled demo values.",
+      "properties": [
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selection",
+          "type": "VARIANT",
+          "defaultValue": "Blue",
+          "variantOptions": [
+            "Blue",
+            "White",
+            "Slate",
+            "Green",
+            "Amber",
+            "Red"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 12
+    },
+    {
+      "requestedName": "Command Menu",
+      "componentKey": "ac5addf09a7e7bbe41a29ec4dc081afa836b0d3c",
+      "actualName": "Command Menu",
+      "type": "COMPONENT_SET",
+      "description": "Command Menu — responsive modal command palette sizes and result states.",
+      "properties": [
+        {
+          "name": "Placeholder#3926:0",
+          "type": "TEXT",
+          "defaultValue": "Quick search...",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show escape#3926:22",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show scrollbar#3926:44",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "lg",
+          "variantOptions": [
+            "lg",
+            "xs",
+            "sm",
+            "md",
+            "xl",
+            "2xl",
+            "3xl"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Pending",
+            "Empty"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 21
+    },
+    {
+      "requestedName": "Time Field",
+      "componentKey": "ac8b473c861cffd9464db0084ed89199a0796648",
+      "actualName": "Time Field",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3501:0",
+          "type": "TEXT",
+          "defaultValue": "Service appointment",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3501:169",
+          "type": "TEXT",
+          "defaultValue": "Pick a time between 9:00 AM and 5:30 PM.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Error#3501:338",
+          "type": "TEXT",
+          "defaultValue": "12:30 PM to 1:00 PM is unavailable.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3501:507",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Invalid Focus",
+            "Disabled",
+            "Read-only"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 14
+    },
+    {
+      "requestedName": "Area Chart",
+      "componentKey": "aecf5f15ecf73fc8543f3b042a253bf814298f29",
+      "actualName": "Area Chart",
+      "type": "COMPONENT_SET",
+      "description": "Public Area Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Interactive",
+            "Linear",
+            "Default",
+            "Step",
+            "Stacked"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 5
+    },
+    {
+      "requestedName": "Bar Chart",
+      "componentKey": "aff5a1d9c0263447489390b3749f009e2a38ca6b",
+      "actualName": "Bar Chart",
+      "type": "COMPONENT_SET",
+      "description": "Public Bar Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Interactive",
+            "Default",
+            "Horizontal",
+            "Multiple",
+            "Stacked"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 5
+    },
+    {
+      "requestedName": "Async Image",
+      "componentKey": "b1b6292156815d4535af16b9883ddff58d06de35",
+      "actualName": "Async Image",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Loading",
+          "variantOptions": [
+            "Loading",
+            "Loaded",
+            "Error"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 3
+    },
+    {
+      "requestedName": "Preskok Auth Button Warning",
+      "componentKey": "b371fa26541004fe8afdc19bdebf734aa5c9b8ee",
+      "actualName": "Preskok Auth Button Warning",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Show leading content#3118:275",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading content#3118:300",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "warning",
+          "variantOptions": [
+            "warning"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Tooltip",
+      "componentKey": "bc9ebd4b748263c184b3059e103a790cf79efa89",
+      "actualName": "Tooltip",
+      "type": "COMPONENT_SET",
+      "description": "Preskok TooltipContent. Matches deployed 310px width and content-sized 82px/102px heights.",
+      "properties": [
+        {
+          "name": "Title#3886:24",
+          "type": "TEXT",
+          "defaultValue": "Vehicle specifications",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Body#3886:25",
+          "type": "TEXT",
+          "defaultValue": "View detailed vehicle specifications and features.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show arrow#3886:26",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Placement",
+          "type": "VARIANT",
+          "defaultValue": "Top",
+          "variantOptions": [
+            "Top",
+            "Right",
+            "Bottom",
+            "Left"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Inverse",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Drop Zone",
+      "componentKey": "ca5fc6ed163ae7fccefa1bb5f8d05722afb7a029",
+      "actualName": "Drop Zone",
+      "type": "COMPONENT_SET",
+      "description": "Responsive drag-and-drop target. Viewport documents intrinsic layout and the Label breakpoint; State mirrors production render states. Hover and Focus intentionally have no unique visual treatment.",
+      "properties": [
+        {
+          "name": "Label#3610:0",
+          "type": "TEXT",
+          "defaultValue": "Drop files here",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3610:11",
+          "type": "TEXT",
+          "defaultValue": "PNG and JPEG files are accepted; other types are rejected.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3610:22",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Drop target",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 10
+    },
+    {
+      "requestedName": "Date Range Picker",
+      "componentKey": "cc13fe78f0f24fce6b60eabc90723cfb0afcbe88",
+      "actualName": "Date Range Picker",
+      "type": "COMPONENT_SET",
+      "description": "Public Date Range Picker field with responsive scale, value, validation, disabled, and read-only states.",
+      "properties": [
+        {
+          "name": "Label#3481:28",
+          "type": "TEXT",
+          "defaultValue": "Event date",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Filled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled",
+            "Read-only",
+            "Invalid Focus"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 28
+    },
+    {
+      "requestedName": "Color Thumb",
+      "componentKey": "cec498cacf14e1d0ba397be911fa8d1931b5d990",
+      "actualName": "Color Thumb",
+      "type": "COMPONENT_SET",
+      "description": "Draggable color-position thumb. Default, Dragging, and Disabled are 24px; Focus is 32px. Dragging retains the inline sampled color in deployed CSS. Disabled removes sampled fill and applies 50% opacity. Rings remain literal black/white per source.",
+      "properties": [
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "Blue",
+          "variantOptions": [
+            "Blue",
+            "Yellow",
+            "Demo Blue"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Focus",
+            "Dragging",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 12
+    },
+    {
+      "requestedName": "Link",
+      "componentKey": "d7cc6e9a5aa28e08b97cc13c3f685f9602c67c18",
+      "actualName": "Link",
+      "type": "COMPONENT_SET",
+      "description": "Accessible React Aria link. Hover and pressed retain the default visual; focus and disabled are the meaningful visual states.",
+      "properties": [
+        {
+          "name": "Label#3086:0",
+          "type": "TEXT",
+          "defaultValue": "Documentation",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show icon#3086:4",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Icon#3086:8",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:65255",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "6e2387abb60bc3e6bdd323d1f046a2a9e8defc5c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b19d7849bdcd8b793bef37de43a1601ace299675"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8e15179504b814725110b120472322cbc34c65ff"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Focus",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 3
+    },
+    {
+      "requestedName": "Tracker Block",
+      "componentKey": "d941804a23f5d037dd13037b7e11d410294db2c9",
+      "actualName": "Tracker Block",
+      "type": "COMPONENT_SET",
+      "description": "Segment primitive used by the public Tracker component.",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "VARIANT",
+          "defaultValue": "Success",
+          "variantOptions": [
+            "Success",
+            "Issue",
+            "Delayed",
+            "Default"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Form",
+      "componentKey": "da6c016741271f85c52716ea63b4d3944adefdaa",
+      "actualName": "Form",
+      "type": "COMPONENT",
+      "description": "Transparent React Aria form wrapper. The component has no intrinsic visual styling; swap or edit its exposed content instance.",
+      "properties": [],
+      "variantCount": 1
+    },
+    {
+      "requestedName": "Modal",
+      "componentKey": "db958c1d5a7d52b61f30df5d2ef0b445c93681e0",
+      "actualName": "Modal",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Dialog content#3848:22",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:65405",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "70cb1674aee1fb582e620d52274646515db439a5"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "98f763cf97dc707287e07b17901feff13d249226"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d405276a66b3edb5e5f276f662721da607c2755a"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e6050bd0fda69a41db2e312fd64681de3bca3ab1"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "ef73a447acad397fd4853e6ef05129dcd32bdde8"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "1d61aac2ca86f3bce33f53d851aead5c7cbd28c5"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "78438ef7e1b0d002d6c1d6071e956960b9936a55"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "49ad4df67e2d750991d42e51999c685c9e9ac2b9"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "2xs",
+          "variantOptions": [
+            "2xs",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "4xl",
+            "5xl",
+            "fullscreen"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Overlay",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Blurred"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 22
+    },
+    {
+      "requestedName": "Container",
+      "componentKey": "dbbb77783e2cc02b0f9b5f374b86f9ac8104bd0a",
+      "actualName": "Container",
+      "type": "COMPONENT_SET",
+      "description": "Responsive max-width container. Default: px-4 sm:px-6. Constrained: sm:px-6 with no mobile padding. Max width 1280px, increasing to 1536px at 2xl.",
+      "properties": [
+        {
+          "name": "Content#3709:1",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:65610",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Mobile",
+          "variantOptions": [
+            "Mobile",
+            "Desktop"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Constrained",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 4
+    },
+    {
+      "requestedName": "Dialog",
+      "componentKey": "dc524d7fa873e38ed251a8fcf47d48d9dc11557b",
+      "actualName": "Dialog",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Title#3840:61",
+          "type": "TEXT",
+          "defaultValue": "Dialog title",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3840:62",
+          "type": "TEXT",
+          "defaultValue": "Optional description",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3840:63",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Body#3840:64",
+          "type": "TEXT",
+          "defaultValue": "Content inside the dialog.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show footer#3840:65",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Footer action#3840:66",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1676",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "1d9b9374fb2000eee6de577001cfcabc8027f881"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d26cf5f0038762b7fb8ef84bf64850bf355a916c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5d39e77b5d152ea74048099adcd5d5d084dcf1f0"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f8ea7b5f3824344e0af6b28fa3c821850c87b11b"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Dismiss control#3840:67",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:56806",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "2ddf230530084be0e9a83e08fd22a06dc92ca22c"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "7434de9662b86bafd0507f0703c9ba076cb0d358"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8285cba85248577d1c9d89638f2d90f6f890330a"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Basic",
+          "variantOptions": [
+            "Basic",
+            "Scrollable"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Dismissable",
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Number Text",
+      "componentKey": "e1c5f46b1b5c29383417f21ecaf9b1e0b656a6cd",
+      "actualName": "Number Text",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Value#3335:2",
+          "type": "TEXT",
+          "defaultValue": "12.345,67",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Format",
+          "type": "VARIANT",
+          "defaultValue": "Decimal",
+          "variantOptions": [
+            "Decimal",
+            "Percent"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Preskok Auth Button Outline",
+      "componentKey": "e2ceb7ca3d916999bf18d015d14a27f0bd66e9ec",
+      "actualName": "Preskok Auth Button Outline",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Show leading content#3118:525",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading content#3118:550",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "outline",
+          "variantOptions": [
+            "outline"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Pie Chart",
+      "componentKey": "e3dc4fb19baeec3625013a2fe39189b20b745b6a",
+      "actualName": "Pie Chart",
+      "type": "COMPONENT_SET",
+      "description": "Public Pie Chart component set. Positioned in the page asset zone; visible examples use instances on the documentation canvas.",
+      "properties": [
+        {
+          "name": "Variant",
+          "type": "VARIANT",
+          "defaultValue": "Pie",
+          "variantOptions": [
+            "Pie",
+            "Donut"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Disclosure Item",
+      "componentKey": "e3feff9e31d9416589e29aa5293d521cc4845bfd",
+      "actualName": "Disclosure Item",
+      "type": "COMPONENT_SET",
+      "description": "Preskok UI disclosure item synced from apps/preskok/registry/preskok/ui/preskok-ui/disclosure-group.tsx. Trigger is 48px high with 16px horizontal gutter, 8px radius, 14/24 Geist text, and secondary/muted-foreground state surface.",
+      "properties": [
+        {
+          "name": "Label#3065:0",
+          "type": "TEXT",
+          "defaultValue": "Add tax details",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Panel content#3269:0",
+          "type": "TEXT",
+          "defaultValue": "Additional details go here.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Closed",
+          "variantOptions": [
+            "Closed",
+            "Open",
+            "Focus",
+            "Disabled Closed",
+            "Disabled Open",
+            "Hover"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 6
+    },
+    {
+      "requestedName": "Slider",
+      "componentKey": "e55c5ab639a446763a4c61cd8ff7680acdab3f49",
+      "actualName": "Slider",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3344:16",
+          "type": "TEXT",
+          "defaultValue": "Rollout percentage",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Output#3344:17",
+          "type": "TEXT",
+          "defaultValue": "42",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Type",
+          "type": "VARIANT",
+          "defaultValue": "Single",
+          "variantOptions": [
+            "Single",
+            "Range"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 8
+    },
+    {
+      "requestedName": "Radio",
+      "componentKey": "e6c37a445cb6caf04767755162eafb51d268a1ef",
+      "actualName": "Radio",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3361:60",
+          "type": "TEXT",
+          "defaultValue": "Sedan",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3361:61",
+          "type": "TEXT",
+          "defaultValue": "Comfortable 4-door vehicle with trunk storage",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show description#3361:62",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "defaultValue": "Off",
+          "variantOptions": [
+            "Off",
+            "On"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Content",
+          "type": "VARIANT",
+          "defaultValue": "Description",
+          "variantOptions": [
+            "Description",
+            "Label"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 40
+    },
+    {
+      "requestedName": "Text",
+      "componentKey": "e7752065a70b863e9a8b1cd1632b27f4357acf54",
+      "actualName": "Text",
+      "type": "COMPONENT_SET",
+      "description": "Responsive body text. Renders 16/24 on mobile and 14/24 from the small breakpoint.",
+      "properties": [
+        {
+          "name": "Content#3078:0",
+          "type": "TEXT",
+          "defaultValue": "Text supports readable body copy across screen sizes.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Pagination",
+      "componentKey": "e81de1cb3871ee6e7f47091eadc6594aa5c79ed3",
+      "actualName": "Pagination",
+      "type": "COMPONENT_SET",
+      "description": "Preskok Pagination composed from pagination.tsx demo structure: info text, first/previous, page items/gap, next/last.",
+      "properties": [
+        {
+          "name": "Shape",
+          "type": "VARIANT",
+          "defaultValue": "Rounded",
+          "variantOptions": [
+            "Rounded",
+            "Circle"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Current",
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2",
+            "3"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 6
+    },
+    {
+      "requestedName": "Preskok Auth Button Secondary",
+      "componentKey": "e83a451caf20c06db83466796e2f67d2cebc0ca1",
+      "actualName": "Preskok Auth Button Secondary",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Show leading content#3118:150",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Leading content#3118:175",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:1026",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "8468c222fe05a903dbf068766cbd46c1f0e67f79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "5dd9b339bd541269d539ee1a5c6bfc12613c34a2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "cd73262bd731adba4dc6f204aa50e4e4d48664d3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b43a2ff05c3b8d1e987d716feac4bd3bcf9919e2"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9ff13ea8e4eb7aac295a118d0d31571792817cc7"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "d7594243a68b01143574a7fae78edc5d06554156"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "e0c826b4ef7ef75a1976f73a724e64c24bb10305"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "defaultValue": "secondary",
+          "variantOptions": [
+            "secondary"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled",
+            "Pending"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Date Field",
+      "componentKey": "f0cd1dd1018c341e8d2890605d91b515bde982f1",
+      "actualName": "Date Field",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Label#3455:108",
+          "type": "TEXT",
+          "defaultValue": "Launch date",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Description#3455:109",
+          "type": "TEXT",
+          "defaultValue": "Choose a date in the approved summer window.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Error#3455:110",
+          "type": "TEXT",
+          "defaultValue": "Value must be 8/31/2026 or earlier.",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show error#3455:111",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Date input#3455:112",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:65824",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Description",
+          "variantOptions": [
+            "Description",
+            "Inline"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled",
+            "Read-only"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 24
+    },
+    {
+      "requestedName": "Progress Circle",
+      "componentKey": "f5e25352f5b67f726e9481adc52a4b22ddfceb50",
+      "actualName": "Progress Circle",
+      "type": "COMPONENT_SET",
+      "description": "Source-accurate Progress Circle. Mode and size match the public API; Value specimens represent a continuous determinate value. Color inherits currentColor in code. Indeterminate rotates continuously for 1s.",
+      "properties": [
+        {
+          "name": "Mode",
+          "type": "VARIANT",
+          "defaultValue": "Determinate",
+          "variantOptions": [
+            "Determinate",
+            "Indeterminate"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Value",
+          "type": "VARIANT",
+          "defaultValue": "0",
+          "variantOptions": [
+            "0",
+            "25",
+            "50",
+            "72",
+            "75",
+            "100",
+            "NA"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 14
+    },
+    {
+      "requestedName": "Toggle",
+      "componentKey": "f81e8f51d29246bf46595954a39bed3b154c7169",
+      "actualName": "Toggle",
+      "type": "COMPONENT_SET",
+      "description": "Preskok Toggle. Use Size values xs/sm/md/lg for text toggles and sq-xs/sq-sm/sq-md/sq-lg for icon-only square toggles.",
+      "properties": [
+        {
+          "name": "Label#4100:291",
+          "type": "TEXT",
+          "defaultValue": "Toggle",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show label#4100:388",
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Show icon#4100:485",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Icon#4100:582",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4430:666",
+          "variantOptions": [],
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "861986f6e23543d5b2d60982840f737ab89e5b43"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "41b1abc35a55e6a5fe8c03cbe2bfaf24f1f26302"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b3e68f8ad7740f2006c91784ce4600c80096e517"
+            }
+          ],
+          "boundVariables": {}
+        },
+        {
+          "name": "Shape",
+          "type": "VARIANT",
+          "defaultValue": "Rounded",
+          "variantOptions": [
+            "Rounded",
+            "Circle"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "defaultValue": "xs",
+          "variantOptions": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "sq-xs",
+            "sq-sm",
+            "sq-md",
+            "sq-lg"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Selected",
+            "Selected Hover",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 96
+    },
+    {
+      "requestedName": "Breadcrumbs",
+      "componentKey": "f84f9dfb6c160a4c9ab3fa99c44bcb018e82138f",
+      "actualName": "Breadcrumbs",
+      "type": "COMPONENT_SET",
+      "description": "Navigation breadcrumbs with explicit Figma theme variants and exposed nested separator, item-count, labels, and current-page text.",
+      "properties": [
+        {
+          "name": "Theme",
+          "type": "VARIANT",
+          "defaultValue": "Light",
+          "variantOptions": [
+            "Light",
+            "Dark"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 2
+    },
+    {
+      "requestedName": "Textarea",
+      "componentKey": "fa9e1bdf85c5be692d2860d1267ad531997b879f",
+      "actualName": "Textarea",
+      "type": "COMPONENT_SET",
+      "description": null,
+      "properties": [
+        {
+          "name": "Value#3169:0",
+          "type": "TEXT",
+          "defaultValue": "Textarea value",
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scale",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 10
+    },
+    {
+      "requestedName": "Icon / loader",
+      "componentKey": "fbdc843a5f2fb45fd6028671b98080922e1e7fe3",
+      "actualName": "Icon / loader",
+      "type": "COMPONENT",
+      "description": "loading, wait, busy, progress, spinner, spinning, throbber",
+      "properties": [],
+      "variantCount": 1
+    },
+    {
+      "requestedName": "Range Calendar",
+      "componentKey": "fbe219967de54cc229228aa1f4e2833a15da9bc9",
+      "actualName": "Range Calendar",
+      "type": "COMPONENT_SET",
+      "description": "Range Calendar with corrected production month titles, Monday-first placement, and 342px responsive sheet contexts.",
+      "properties": [
+        {
+          "name": "Viewport",
+          "type": "VARIANT",
+          "defaultValue": "Desktop",
+          "variantOptions": [
+            "Desktop",
+            "Mobile"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Months",
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Status",
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Disabled",
+            "Invalid"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Selection",
+          "type": "VARIANT",
+          "defaultValue": "Empty",
+          "variantOptions": [
+            "Empty",
+            "Selected"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Context",
+          "type": "VARIANT",
+          "defaultValue": "Standalone",
+          "variantOptions": [
+            "Standalone",
+            "Sheet"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "First day",
+          "type": "VARIANT",
+          "defaultValue": "Monday",
+          "variantOptions": [
+            "Monday"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 30
+    },
+    {
+      "requestedName": "Scroll Area",
+      "componentKey": "fc98772f878eb69ab798def1ca7593e3bc985bdc",
+      "actualName": "Scroll Area",
+      "type": "COMPONENT_SET",
+      "description": "Preskok Scroll Area. Only the viewport intentionally clips.",
+      "properties": [
+        {
+          "name": "Scroll fade#3749:0",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Scrollbar gutter#3749:4",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": [],
+          "preferredValues": [],
+          "boundVariables": {}
+        },
+        {
+          "name": "Orientation",
+          "type": "VARIANT",
+          "defaultValue": "Vertical",
+          "variantOptions": [
+            "Vertical",
+            "Horizontal",
+            "Both"
+          ],
+          "preferredValues": [],
+          "boundVariables": {}
+        }
+      ],
+      "variantCount": 3
+    }
+  ]
+}
