@@ -188,6 +188,7 @@ function PieChart({
             domain: rows.map((row) => row.series),
             range: rows.map((row) => row.color),
           },
+          focusRing: false,
           marks: [
             polar({
               angle: { scale: scaleLinear().domain([0, Math.PI * 2]) },
