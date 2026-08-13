@@ -1444,7 +1444,7 @@ import * as React from "react"
   },
   "chart": {
     name: "chart",
-    description: "Core chart components and utilities for data visualization",
+    description: "TanStack-powered chart foundations and utilities",
     type: "registry:ui",
     registryDependencies: ["primitive"],
     files: [{
@@ -2972,7 +2972,7 @@ import * as React from "react"
     name: "chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["chart"],
+    registryDependencies: ["area-chart"],
     files: [{
       path: "registry/preskok/examples/chart-preskok-demo.tsx",
       type: "registry:example",

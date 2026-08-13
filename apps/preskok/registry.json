@@ -1741,10 +1741,12 @@
     },
     {
       "name": "chart",
-      "description": "Core chart components and utilities for data visualization",
+      "description": "TanStack-powered chart foundations and utilities",
       "dependencies": [
+        "@tanstack/charts",
+        "@types/d3-shape",
+        "d3-shape",
         "react-aria-components",
-        "recharts",
         "tailwind-merge"
       ],
       "registryDependencies": [
@@ -1762,8 +1764,7 @@
       "name": "area-chart",
       "description": "An area chart component with gradient fills and animations",
       "dependencies": [
-        "recharts",
-        "tailwind-merge"
+        "@tanstack/charts"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/chart.json"
@@ -1780,8 +1781,7 @@
       "name": "bar-chart",
       "description": "A bar chart component with stacking and percentage options",
       "dependencies": [
-        "recharts",
-        "tailwind-merge"
+        "@tanstack/charts"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/chart.json"
@@ -1798,8 +1798,7 @@
       "name": "line-chart",
       "description": "A line chart component with multiple line support",
       "dependencies": [
-        "recharts",
-        "tailwind-merge"
+        "@tanstack/charts"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/chart.json"
@@ -1816,8 +1815,7 @@
       "name": "pie-chart",
       "description": "A pie/donut chart component with customizable labels",
       "dependencies": [
-        "recharts",
-        "tailwind-merge"
+        "@tanstack/charts"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/chart.json"
@@ -3177,7 +3175,7 @@
     {
       "name": "chart-preskok-demo",
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/chart.json"
+        "https://ui-three-mu.vercel.app/r/area-chart.json"
       ],
       "files": [
         {

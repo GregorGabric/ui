@@ -1,170 +1,230 @@
 "use client"
 
-import React from "react"
-import { Line, LineChart as LineChartPrimitive, type LineProps } from "recharts"
-import type {
-  NameType,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent"
-import { twMerge } from "tailwind-merge"
+import { defineChart } from "@tanstack/charts"
+import { crosshair } from "@tanstack/charts/crosshair"
+import { lineY, type LineYOptions } from "@tanstack/charts/line"
+import { scaleLinear } from "@tanstack/charts/scales/linear"
+import { scalePoint } from "@tanstack/charts/scales/point"
+import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 
 import {
-  CartesianGrid,
   Chart,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-  constructCategoryColors,
-  DEFAULT_COLORS,
-  getColorValue,
+  ChartFrame,
+  createTooltipRenderer,
+  getAxisTickLabelOptions,
+  getAxisTickOptions,
+  getChartColors,
+  getChartCurve,
+  getChartTheme,
+  getEdgeValues,
+  getNumericAxisTickOptions,
+  toSeriesData,
   valueToPercent,
-  XAxis,
-  YAxis,
   type BaseChartProps,
+  type ChartCurveType,
+  type SeriesDatum,
 } from "./chart"
 
-interface LineChartProps<
-  TValue extends ValueType,
-  TName extends NameType,
-> extends BaseChartProps<TValue, TName> {
+type LineChartProps = BaseChartProps & {
+  chartProps?: {
+    aspectRatio?: number
+    height?: number
+    initialWidth?: number
+  }
   connectNulls?: boolean
-  lineProps?: LineProps
-  chartProps?: Omit<
-    React.ComponentProps<typeof LineChartPrimitive>,
-    "data" | "stackOffset"
+  lineProps?: Pick<
+    LineYOptions<SeriesDatum>,
+    "points" | "strokeDasharray" | "strokeWidth"
   >
+  lineType?: ChartCurveType
 }
 
-export const LineChart = <TValue extends ValueType, TName extends NameType>({
+const defaultValueFormatter = (value: number) => value.toString()
+
+function normalizePercent(rows: SeriesDatum[]) {
+  const totals = new Map<string, number>()
+
+  rows.forEach((row) => {
+    if (row.value === null) {
+      return
+    }
+
+    const category = String(row.category)
+    totals.set(category, (totals.get(category) ?? 0) + Math.abs(row.value))
+  })
+
+  return rows.map((row) => {
+    if (row.value === null) {
+      return row
+    }
+
+    const total = totals.get(String(row.category)) ?? 0
+    return { ...row, value: total === 0 ? 0 : row.value / total }
+  })
+}
+
+function LineChart({
+  ariaLabel = "Line chart",
+  chartProps,
+  className,
+  colors,
+  config,
+  connectNulls = false,
   data = [],
   dataKey,
-  colors = DEFAULT_COLORS,
-  connectNulls = false,
-  type = "default",
-  className,
-  config,
-  children,
-
-  // Components
-  tooltip = true,
-  tooltipProps,
-
+  displayEdgeLabelsOnly = false,
+  hideGridLines = false,
+  hideXAxis = false,
+  hideYAxis = false,
   legend = true,
   legendProps,
-
-  intervalType = "equidistantPreserveStart",
-
-  valueFormatter = (value: number) => value.toString(),
-
-  // XAxis
-  displayEdgeLabelsOnly = false,
-  xAxisProps,
-  hideXAxis = false,
-
-  // YAxis
-  yAxisProps,
-  hideYAxis = false,
-
-  hideGridLines = false,
-  chartProps,
   lineProps,
+  lineType = "linear",
+  tooltip = true,
+  tooltipProps,
+  type = "default",
+  valueFormatter = defaultValueFormatter,
+  xAxisProps,
+  yAxisProps,
   ...props
-}: LineChartProps<TValue, TName>) => {
-  const categoryColors = constructCategoryColors(Object.keys(config), colors)
+}: LineChartProps) {
+  const chartColors = getChartColors(config, colors)
+  const xAxisHidden = hideXAxis || xAxisProps?.hide
+  const yAxisHidden = hideYAxis || yAxisProps?.hide
+  const sourceRows = toSeriesData({ config, connectNulls, data, dataKey })
+  const rows = type === "percent" ? normalizePercent(sourceRows) : sourceRows
+  const seriesNames = Object.keys(config)
+  const tooltipValueFormatter =
+    type === "percent" ? valueToPercent : valueFormatter
 
   return (
-    <Chart
-      className={twMerge("w-full", className)}
+    <ChartFrame
+      className={className}
+      colors={colors}
       config={config}
-      data={data}
-      dataKey={dataKey}
+      legend={legend}
+      legendProps={legendProps}
       {...props}
     >
-      {({ onLegendSelect, selectedLegend }) => (
-        <LineChartPrimitive
-          onClick={() => {
-            onLegendSelect(null)
-          }}
-          data={data}
-          margin={{
-            bottom: 0,
-            left: 0,
-            right: 0,
-            top: 5,
-          }}
-          stackOffset={type === "percent" ? "expand" : undefined}
-          {...chartProps}
-        >
-          {!hideGridLines && <CartesianGrid strokeDasharray="4 4" />}
-          <XAxis
-            hide={hideXAxis}
-            displayEdgeLabelsOnly={displayEdgeLabelsOnly}
-            intervalType={intervalType}
-            {...xAxisProps}
+      {({ selectedLegend }) => {
+        const marks = seriesNames.map((series) =>
+          lineY(
+            rows.filter((row) => row.series === series),
+            {
+              color: "series",
+              curve: getChartCurve(lineType),
+              id: `line-${series}`,
+              key: (row) => `${row.series}-${row.index}`,
+              points: false,
+              stroke: chartColors[series],
+              strokeOpacity:
+                selectedLegend && selectedLegend !== series ? 0.12 : 1,
+              strokeWidth: 2.25,
+              x: "category",
+              y: "value",
+              ...lineProps,
+            }
+          )
+        )
+        const baseDefinition = defineChart({
+          color: {
+            domain: seriesNames,
+            range: seriesNames.map((series) => chartColors[series] ?? ""),
+          },
+          focus: "group-x",
+          marks: [
+            crosshair({
+              marker: {
+                fill: "var(--background)",
+                radius: 4,
+                stroke: "var(--foreground)",
+                strokeOpacity: 0.7,
+                strokeWidth: 2,
+              },
+              x: {
+                stroke: "var(--muted-foreground)",
+                strokeDasharray: "3 4",
+                strokeOpacity: 0.3,
+              },
+              y: false,
+            }),
+            ...marks,
+          ],
+          svgAnimation: true,
+          theme: getChartTheme(
+            seriesNames.map((series) => chartColors[series] ?? "")
+          ),
+          x: {
+            axis: xAxisHidden
+              ? false
+              : {
+                  line: false,
+                  label: xAxisProps?.label,
+                  tickLabels: getAxisTickLabelOptions(xAxisProps),
+                  ticks: getAxisTickOptions({
+                    displayEdgeLabelsOnly,
+                    edgeValues: getEdgeValues(data, dataKey),
+                    props: xAxisProps,
+                  }),
+                },
+            scale: () => scalePoint().padding(0.25),
+          },
+          y: {
+            axis: yAxisHidden
+              ? false
+              : {
+                  line: false,
+                  label: yAxisProps?.label,
+                  tickLabels: getAxisTickLabelOptions(yAxisProps),
+                  ticks: getNumericAxisTickOptions({
+                    props: yAxisProps,
+                    valueFormatter: (value) =>
+                      tooltipValueFormatter(Number(value)),
+                  }),
+                },
+            grid: !hideGridLines,
+            nice: true,
+            scale: scaleLinear,
+          },
+        })
+        const definition = tooltip
+          ? defineChart(baseDefinition, {
+              tooltip: {
+                offset: tooltipProps?.offset,
+                placement: tooltipProps?.placement,
+                use: tooltipExtension,
+              },
+            })
+          : baseDefinition
+
+        return (
+          <Chart
+            ariaLabel={ariaLabel}
+            aspectRatio={chartProps?.aspectRatio}
+            className="w-full"
+            definition={definition}
+            height={
+              chartProps?.aspectRatio
+                ? chartProps.height
+                : (chartProps?.height ?? 288)
+            }
+            initialWidth={chartProps?.initialWidth}
+            renderTooltipBody={
+              tooltip
+                ? createTooltipRenderer({
+                    config,
+                    tooltip,
+                    tooltipProps,
+                    valueFormatter: tooltipValueFormatter,
+                  })
+                : undefined
+            }
           />
-          <YAxis
-            hide={hideYAxis}
-            tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
-            {...yAxisProps}
-          />
-
-          {legend && (
-            <ChartLegend
-              content={
-                typeof legend === "boolean" ? <ChartLegendContent /> : legend
-              }
-              {...legendProps}
-            />
-          )}
-
-          {tooltip && (
-            <ChartTooltip
-              content={
-                typeof tooltip === "boolean" ? (
-                  <ChartTooltipContent accessibilityLayer />
-                ) : (
-                  tooltip
-                )
-              }
-              {...tooltipProps}
-            />
-          )}
-
-          {!children
-            ? Object.entries(config).map(([category, values]) => {
-                const strokeOpacity =
-                  selectedLegend && selectedLegend !== category ? 0.1 : 1
-
-                return (
-                  <Line
-                    key={category}
-                    dot={false}
-                    name={category}
-                    type="linear"
-                    dataKey={category}
-                    stroke={getColorValue(
-                      values.color || categoryColors.get(category)
-                    )}
-                    style={
-                      {
-                        strokeOpacity,
-                        strokeWidth: 2,
-                        "--line-color": getColorValue(
-                          values.color || categoryColors.get(category)
-                        ),
-                      } as React.CSSProperties
-                    }
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    connectNulls={connectNulls}
-                    {...lineProps}
-                  />
-                )
-              })
-            : children}
-        </LineChartPrimitive>
-      )}
-    </Chart>
+        )
+      }}
+    </ChartFrame>
   )
 }
+
+export { LineChart }
+export type { LineChartProps }

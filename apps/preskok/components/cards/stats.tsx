@@ -49,27 +49,36 @@ const data = [
 
 export function CardsStats() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+    <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
       <Card>
-        <CardHeader>
-          <CardDescription>Freight Revenue</CardDescription>
-          <CardTitle className="text-3xl">$15,231.89</CardTitle>
-          <CardDescription>+20.1% from last month</CardDescription>
+        <CardHeader className="grid-cols-[1fr_auto] items-end gap-x-4">
+          <div className="grid gap-1">
+            <CardDescription>Freight revenue</CardDescription>
+            <CardTitle className="text-3xl tabular-nums">$15,231.89</CardTitle>
+          </div>
+          <CardAction className="pb-1">
+            <span className="text-sm font-medium text-success tabular-nums">
+              +20.1%
+            </span>
+            <span className="sr-only"> from last month</span>
+          </CardAction>
         </CardHeader>
         <CardContent className="pb-0">
           <LineChart
+            ariaLabel="Freight revenue over eight periods"
+            chartProps={{ height: 96 }}
             config={{
               revenue: { label: "Freight Revenue", color: "var(--primary)" },
             }}
             data={data.map((d, i) => ({ name: i, revenue: d.revenue }))}
             dataKey="name"
-            className="h-[80px] w-full"
             legend={false}
+            lineProps={{ strokeWidth: 2.5 }}
+            lineType="monotone"
             tooltip={false}
             hideGridLines
+            hideXAxis
             hideYAxis
-            xAxisProps={{ hide: true }}
-            yAxisProps={{ hide: true }}
           />
         </CardContent>
       </Card>
@@ -91,6 +100,8 @@ export function CardsStats() {
         </CardHeader>
         <CardContent className="mt-auto max-h-[124px] flex-1 p-0">
           <AreaChart
+            ariaLabel="Completed trips over eight periods"
+            chartProps={{ height: 124 }}
             config={{
               subscription: {
                 label: "Completed Trips",
@@ -102,13 +113,13 @@ export function CardsStats() {
               subscription: d.subscription,
             }))}
             dataKey="name"
-            className="size-full"
+            fillType="gradient"
             legend={false}
+            lineType="monotone"
             tooltip={false}
             hideGridLines
+            hideXAxis
             hideYAxis
-            xAxisProps={{ hide: true }}
-            yAxisProps={{ hide: true }}
           />
         </CardContent>
       </Card>

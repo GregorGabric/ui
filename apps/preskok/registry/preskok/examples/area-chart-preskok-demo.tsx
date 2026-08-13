@@ -28,7 +28,7 @@ const salesData: Array<SalesPoint> = [
 
 export default function AreaChartPreskokDemo() {
   return (
-    <Card>
+    <Card className="w-3xl max-w-full">
       <CardHeader>
         <CardTitle>Qualified pipeline last 7d</CardTitle>
         <CardDescription>
@@ -37,13 +37,12 @@ export default function AreaChartPreskokDemo() {
       </CardHeader>
       <CardContent>
         <AreaChart
-          className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={salesData}
           dataKey="day"
+          fillType="gradient"
           lineType="monotone"
-          fillType="solid"
+          type="stacked"
           valueFormatter={(value) => `$${value}k`}
-          xAxisProps={{ interval: 0 }}
           tooltipProps={{ indicator: "line" }}
           config={{
             suv: { label: "Enterprise", color: "var(--chart-1)" },

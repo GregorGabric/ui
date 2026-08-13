@@ -1,194 +1,264 @@
 "use client"
 
-import React, { startTransition, type ComponentProps } from "react"
-import { Bar, BarChart as BarChartPrimitive } from "recharts"
-import type {
-  NameType,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent"
-import { twMerge } from "tailwind-merge"
+import { defineChart } from "@tanstack/charts"
+import type { GroupLayout, StackLayout } from "@tanstack/charts"
+import {
+  barX,
+  barY,
+  type BarXOptions,
+  type BarYOptions,
+} from "@tanstack/charts/bar"
+import { crosshair } from "@tanstack/charts/crosshair"
+import { group } from "@tanstack/charts/group"
+import { scaleBand } from "@tanstack/charts/scales/band"
+import { scaleLinear } from "@tanstack/charts/scales/linear"
+import { stack } from "@tanstack/charts/stack"
+import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 
 import {
-  CartesianGrid,
   Chart,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-  constructCategoryColors,
-  DEFAULT_COLORS,
-  getColorValue,
+  ChartFrame,
+  createTooltipRenderer,
+  getAxisTickLabelOptions,
+  getAxisTickOptions,
+  getChartColors,
+  getChartTheme,
+  getEdgeValues,
+  getNumericAxisTickOptions,
+  toSeriesData,
   valueToPercent,
-  XAxis,
-  YAxis,
   type BaseChartProps,
+  type SeriesDatum,
 } from "./chart"
 
-interface BarChartProps<
-  TValue extends ValueType,
-  TName extends NameType,
-> extends BaseChartProps<TValue, TName> {
-  barCategoryGap?: number
-  barRadius?: number
-  barGap?: number
-  barSize?: number
-  barProps?: Partial<React.ComponentProps<typeof Bar>>
+type BarOptions = Pick<
+  BarXOptions<SeriesDatum> & BarYOptions<SeriesDatum>,
+  "fillOpacity" | "inset" | "maxThickness" | "radius"
+>
 
-  chartProps?: Omit<
-    ComponentProps<typeof BarChartPrimitive>,
-    "data" | "stackOffset"
-  >
+type BarChartProps = BaseChartProps & {
+  barCategoryGap?: number
+  barGap?: number
+  barProps?: BarOptions
+  barRadius?: number
+  barSize?: number
+  chartProps?: {
+    aspectRatio?: number
+    height?: number
+    initialWidth?: number
+  }
 }
 
 const defaultValueFormatter = (value: number) => value.toString()
 
-const BarChart = <TValue extends ValueType, TName extends NameType>({
+function dimmedColor(color: string, dimmed: boolean) {
+  return dimmed ? `color-mix(in srgb, ${color} 12%, transparent)` : color
+}
+
+function BarChart({
+  ariaLabel = "Bar chart",
+  barCategoryGap = 5,
+  barGap = 4,
+  barProps,
+  barRadius,
+  barSize,
+  chartProps,
+  className,
+  colors,
+  config,
   data = [],
   dataKey,
-  colors = DEFAULT_COLORS,
-  type = "default",
-  className,
-  config,
-  children,
+  displayEdgeLabelsOnly = false,
+  hideGridLines = false,
+  hideXAxis = false,
+  hideYAxis = false,
   layout = "horizontal",
-
-  // Components
-  tooltip = true,
-  tooltipProps,
-
   legend = true,
   legendProps,
-
-  intervalType = "equidistantPreserveStart",
-
-  barCategoryGap = 5,
-  barGap,
-  barSize,
-  barRadius,
-  barProps,
-
+  tooltip = true,
+  tooltipProps,
+  type = "default",
   valueFormatter = defaultValueFormatter,
-
-  // XAxis
-  displayEdgeLabelsOnly = false,
   xAxisProps,
-  hideXAxis = false,
-
-  // YAxis
   yAxisProps,
-  hideYAxis = false,
-
-  hideGridLines = false,
-  chartProps,
   ...props
-}: BarChartProps<TValue, TName>) => {
-  const categoryColors = constructCategoryColors(Object.keys(config), colors)
+}: BarChartProps) {
+  const chartColors = getChartColors(config, colors)
+  const xAxisHidden = hideXAxis || xAxisProps?.hide
+  const yAxisHidden = hideYAxis || yAxisProps?.hide
+  const rows = toSeriesData({ config, data, dataKey })
+  const seriesNames = Object.keys(config)
+  const tooltipValueFormatter =
+    type === "percent" ? valueToPercent : valueFormatter
+  const vertical = layout !== "vertical"
 
-  const stacked = type === "stacked" || type === "percent"
   return (
-    <Chart
-      className={twMerge("w-full", className)}
+    <ChartFrame
+      className={className}
+      colors={colors}
       config={config}
-      data={data}
-      dataKey={dataKey}
-      layout={layout}
+      legend={legend}
+      legendProps={legendProps}
       {...props}
     >
-      {({ onLegendSelect, selectedLegend }) => (
-        <BarChartPrimitive
-          onClick={() => {
-            onLegendSelect(null)
-          }}
-          data={data}
-          margin={{
-            bottom: 0,
-            left: 5,
-            right: 0,
-            top: 5,
-          }}
-          layout={layout === "radial" ? "horizontal" : layout}
-          barGap={barGap}
-          barSize={barSize}
-          barCategoryGap={barCategoryGap}
-          stackOffset={
-            type === "percent" ? "expand" : stacked ? "sign" : undefined
-          }
-          {...chartProps}
-        >
-          {!hideGridLines && <CartesianGrid strokeDasharray="4 4" />}
-          <XAxis
-            hide={hideXAxis}
-            className="**:[text]:fill-muted-foreground"
-            displayEdgeLabelsOnly={displayEdgeLabelsOnly}
-            intervalType={intervalType}
-            {...xAxisProps}
-          />
-          <YAxis
-            hide={hideYAxis}
-            className="**:[text]:fill-muted-foreground"
-            tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
-            {...yAxisProps}
-          />
+      {({ onLegendSelect, selectedLegend }) => {
+        let barLayout: GroupLayout | StackLayout = group({
+          padding: Math.min(barGap / 20, 0.8),
+        })
+        if (type === "stacked") {
+          barLayout = stack()
+        } else if (type === "percent") {
+          barLayout = stack({ offset: "normalize" })
+        }
 
-          {legend && (
-            <ChartLegend
-              content={
-                typeof legend === "boolean" ? <ChartLegendContent /> : legend
+        const sharedOptions = {
+          color: "series" as const,
+          fill: (row: SeriesDatum) =>
+            dimmedColor(
+              chartColors[row.series] ?? "var(--chart-1)",
+              Boolean(selectedLegend && selectedLegend !== row.series)
+            ),
+          inset: barCategoryGap / 2,
+          key: (row: SeriesDatum) => `${row.series}-${row.index}`,
+          layout: barLayout,
+          maxThickness: barSize,
+          radius: barRadius ?? (type === "default" ? 4 : undefined),
+          z: "series" as const,
+          ...barProps,
+        }
+        const mark = vertical
+          ? barY(rows, {
+              ...sharedOptions,
+              x: "category",
+              y: "value",
+            })
+          : barX(rows, {
+              ...sharedOptions,
+              x: "value",
+              y: "category",
+            })
+
+        const categoricalAxis = {
+          line: false,
+          label: vertical ? xAxisProps?.label : yAxisProps?.label,
+          tickLabels: getAxisTickLabelOptions(
+            vertical ? xAxisProps : yAxisProps
+          ),
+          ticks: getAxisTickOptions({
+            displayEdgeLabelsOnly,
+            edgeValues: getEdgeValues(data, dataKey),
+            props: vertical ? xAxisProps : yAxisProps,
+          }),
+        }
+        const numericAxis = {
+          line: false,
+          label: vertical ? yAxisProps?.label : xAxisProps?.label,
+          tickLabels: getAxisTickLabelOptions(
+            vertical ? yAxisProps : xAxisProps
+          ),
+          ticks: getNumericAxisTickOptions({
+            props: vertical ? yAxisProps : xAxisProps,
+            valueFormatter: (value: unknown) =>
+              tooltipValueFormatter(Number(value)),
+          }),
+        }
+        const baseDefinition = defineChart({
+          color: {
+            domain: seriesNames,
+            range: seriesNames.map((series) => chartColors[series] ?? ""),
+          },
+          focus: vertical ? "group-x" : "group-y",
+          marks: [
+            crosshair({
+              x: vertical
+                ? {
+                    band: {
+                      fill: "var(--muted-foreground)",
+                      fillOpacity: 0.08,
+                      inset: -2,
+                      radius: 6,
+                    },
+                  }
+                : false,
+              y: vertical
+                ? false
+                : {
+                    band: {
+                      fill: "var(--muted-foreground)",
+                      fillOpacity: 0.08,
+                      inset: -2,
+                      radius: 6,
+                    },
+                  },
+            }),
+            mark,
+          ],
+          svgAnimation: true,
+          theme: getChartTheme(
+            seriesNames.map((series) => chartColors[series] ?? "")
+          ),
+          x: vertical
+            ? {
+                axis: xAxisHidden ? false : categoricalAxis,
+                scale: () => scaleBand().padding(0.12),
               }
-              {...legendProps}
-            />
-          )}
-
-          {tooltip && (
-            <ChartTooltip
-              content={
-                typeof tooltip === "boolean" ? (
-                  <ChartTooltipContent accessibilityLayer />
-                ) : (
-                  tooltip
-                )
+            : {
+                axis: xAxisHidden ? false : numericAxis,
+                grid: !hideGridLines,
+                nice: true,
+                scale: scaleLinear,
+              },
+          y: vertical
+            ? {
+                axis: yAxisHidden ? false : numericAxis,
+                grid: !hideGridLines,
+                nice: true,
+                scale: scaleLinear,
               }
-              {...tooltipProps}
-            />
-          )}
+            : {
+                axis: yAxisHidden ? false : categoricalAxis,
+                scale: () => scaleBand().padding(0.12),
+              },
+        })
+        const definition = tooltip
+          ? defineChart(baseDefinition, {
+              tooltip: {
+                offset: tooltipProps?.offset,
+                placement: tooltipProps?.placement,
+                use: tooltipExtension,
+              },
+            })
+          : baseDefinition
 
-          {!children
-            ? Object.entries(config).map(([category, values]) => {
-                return (
-                  <Bar
-                    key={category}
-                    name={category}
-                    dataKey={category}
-                    stroke={getColorValue(
-                      values.color || categoryColors.get(category)
-                    )}
-                    strokeWidth={1}
-                    stackId={stacked ? "stack" : undefined}
-                    onClick={(_item, _number, event) => {
-                      event.stopPropagation()
-
-                      startTransition(() => {
-                        onLegendSelect(category)
-                      })
-                    }}
-                    radius={barRadius ?? (stacked ? undefined : 4)}
-                    strokeOpacity={
-                      selectedLegend && selectedLegend !== category ? 0.2 : 0
-                    }
-                    fillOpacity={
-                      selectedLegend && selectedLegend !== category ? 0.1 : 1
-                    }
-                    fill={getColorValue(
-                      values.color || categoryColors.get(category)
-                    )}
-                    {...barProps}
-                  />
-                )
-              })
-            : children}
-        </BarChartPrimitive>
-      )}
-    </Chart>
+        return (
+          <Chart
+            ariaLabel={ariaLabel}
+            aspectRatio={chartProps?.aspectRatio}
+            className="w-full"
+            definition={definition}
+            height={
+              chartProps?.aspectRatio
+                ? chartProps.height
+                : (chartProps?.height ?? 288)
+            }
+            initialWidth={chartProps?.initialWidth}
+            onSelect={(point) => {
+              onLegendSelect(point?.datum.series ?? null)
+            }}
+            renderTooltipBody={
+              tooltip
+                ? createTooltipRenderer({
+                    config,
+                    tooltip,
+                    tooltipProps,
+                    valueFormatter: tooltipValueFormatter,
+                  })
+                : undefined
+            }
+          />
+        )
+      }}
+    </ChartFrame>
   )
 }
 

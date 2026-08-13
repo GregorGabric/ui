@@ -12,38 +12,38 @@ import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
 
 const data = [
   {
-    average: 400,
-    today: 240,
+    average: 8.6,
+    today: 7.8,
     day: "Monday",
   },
   {
-    average: 300,
-    today: 139,
+    average: 8.3,
+    today: 7.2,
     day: "Tuesday",
   },
   {
-    average: 200,
-    today: 980,
+    average: 8.1,
+    today: 7.5,
     day: "Wednesday",
   },
   {
-    average: 278,
-    today: 390,
+    average: 7.8,
+    today: 6.8,
     day: "Thursday",
   },
   {
-    average: 189,
-    today: 480,
+    average: 7.5,
+    today: 6.4,
     day: "Friday",
   },
   {
-    average: 239,
-    today: 380,
+    average: 7.2,
+    today: 6.1,
     day: "Saturday",
   },
   {
-    average: 349,
-    today: 430,
+    average: 6.9,
+    today: 5.7,
     day: "Sunday",
   },
 ]
@@ -51,11 +51,11 @@ const data = [
 const chartConfig = {
   today: {
     label: "Today",
-    color: "var(--primary)",
+    color: "var(--chart-1)",
   },
   average: {
     label: "Average",
-    color: "var(--primary)",
+    color: "var(--chart-3)",
   },
 } satisfies ChartConfig
 
@@ -70,10 +70,13 @@ export function CardsExerciseMinutes() {
       </CardHeader>
       <CardContent>
         <LineChart
+          ariaLabel="Daily transit time compared with the weekly average"
           data={data}
           dataKey="day"
           config={chartConfig}
           className="w-full"
+          lineType="monotone"
+          valueFormatter={(value) => `${value.toFixed(1)} h`}
           xAxisProps={{
             tickMargin: 8,
             tickFormatter: (value: string) => value.slice(0, 3),

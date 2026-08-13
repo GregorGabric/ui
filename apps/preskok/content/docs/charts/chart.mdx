@@ -1,6 +1,6 @@
 ---
 title: Chart (helpers)
-description: Core chart context, tooltip, legend, and axes used by Preskok chart components.
+description: Core TanStack chart wrapper, tooltip, legend, and data helpers used by Preskok chart components.
 ---
 
 import { CodeTabs } from "@/components/code-tabs"
@@ -9,7 +9,7 @@ import { ComponentSource } from "@/components/component-source"
 
 <ComponentPreview
   name="chart-preskok-demo"
-  description="Using the core Chart helpers directly with Recharts primitives."
+  description="Using the shared TanStack-powered Preskok chart foundation."
 />
 
 ## Installation
@@ -21,18 +21,7 @@ npx shadcn@latest add @preskok/chart
 ## Usage
 
 ```tsx
-import { Area, AreaChart as AreaChartPrimitive } from "recharts"
-
-import {
-  CartesianGrid,
-  Chart,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-  XAxis,
-  YAxis,
-} from "@/components/ui/preskok-ui/chart"
+import { AreaChart } from "@/components/ui/preskok-ui/area-chart"
 
 const data = [
   { day: "Mon", Desktop: 120, Mobile: 80 },
@@ -46,38 +35,14 @@ const config = {
 
 export function ChartDemo() {
   return (
-    <Chart data={data} dataKey="day" config={config}>
-      {() => (
-        <AreaChartPrimitive data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis />
-          <YAxis />
-          <ChartLegend content={<ChartLegendContent />} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Area
-            type="monotone"
-            dataKey="Desktop"
-            stroke="#2563eb"
-            fill="#2563eb"
-            fillOpacity={0.3}
-          />
-          <Area
-            type="monotone"
-            dataKey="Mobile"
-            stroke="#60a5fa"
-            fill="#60a5fa"
-            fillOpacity={0.3}
-          />
-        </AreaChartPrimitive>
-      )}
-    </Chart>
+    <AreaChart data={data} dataKey="day" config={config} lineType="monotone" />
   )
 }
 ```
 
 ## Features
 
-- **Context** for shared chart props and selection state
+- **TanStack Charts** rendering, scales, motion, and accessible focus
 - **Legend** with selection filtering
-- **Tooltip** with configurable content
-- **Axes** helpers with sensible defaults
+- **Tooltip** with configurable React content
+- **Shared helpers** for colors, axes, data shaping, and formatting

@@ -619,7 +619,7 @@ export const examples: Registry["items"] = [
   {
     name: "chart-preskok-demo",
     type: "registry:example",
-    registryDependencies: ["chart"],
+    registryDependencies: ["area-chart"],
     files: [
       {
         path: "examples/chart-preskok-demo.tsx",

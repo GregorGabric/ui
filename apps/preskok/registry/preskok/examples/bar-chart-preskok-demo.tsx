@@ -28,7 +28,7 @@ const salesData: Array<SalesPoint> = [
 
 export default function BarChartPreskokDemo() {
   return (
-    <Card>
+    <Card className="w-3xl max-w-full">
       <CardHeader>
         <CardTitle>Support workload last 7d</CardTitle>
         <CardDescription>
@@ -37,13 +37,11 @@ export default function BarChartPreskokDemo() {
       </CardHeader>
       <CardContent>
         <BarChart
-          className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={salesData}
           dataKey="day"
           type="stacked"
-          barRadius={6}
+          barRadius={3}
           valueFormatter={(value) => `${value} tickets`}
-          xAxisProps={{ interval: 0 }}
           tooltipProps={{ indicator: "dashed" }}
           config={{
             suv: { label: "API", color: "var(--chart-1)" },

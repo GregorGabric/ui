@@ -18,7 +18,7 @@ export default function PieChartPreskokDemo() {
   ]
 
   return (
-    <Card>
+    <Card className="w-xl max-w-full">
       <CardHeader className="text-center">
         <CardTitle>Weekly request mix</CardTitle>
         <CardDescription>
@@ -27,19 +27,44 @@ export default function PieChartPreskokDemo() {
       </CardHeader>
       <CardContent>
         <PieChart
-          className="mx-auto h-56"
+          centerLabel="Total requests"
+          className="mx-auto max-w-md"
           data={data}
           dataKey="amount"
           nameKey="name"
           variant="donut"
           showLabel
           valueFormatter={(value) => value.toLocaleString()}
-          pieProps={{ paddingAngle: 3, cornerRadius: 4 }}
+          pieProps={{ paddingAngle: 2, cornerRadius: 3 }}
           config={{
-            Product: { label: "Product", color: "var(--chart-1)" },
-            Sales: { label: "Sales", color: "var(--chart-2)" },
-            Support: { label: "Support", color: "var(--chart-3)" },
-            Success: { label: "Success", color: "var(--chart-4)" },
+            Product: {
+              label: "Product",
+              theme: {
+                light: "oklch(0.55 0.22 264)",
+                dark: "oklch(0.68 0.2 258)",
+              },
+            },
+            Sales: {
+              label: "Sales",
+              theme: {
+                light: "oklch(0.62 0.17 220)",
+                dark: "oklch(0.72 0.15 220)",
+              },
+            },
+            Support: {
+              label: "Support",
+              theme: {
+                light: "oklch(0.62 0.14 165)",
+                dark: "oklch(0.73 0.14 165)",
+              },
+            },
+            Success: {
+              label: "Success",
+              theme: {
+                light: "oklch(0.72 0.16 78)",
+                dark: "oklch(0.8 0.15 82)",
+              },
+            },
           }}
         />
       </CardContent>

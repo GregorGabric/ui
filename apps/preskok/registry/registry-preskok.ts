@@ -1225,8 +1225,14 @@ export const preskokUi: Registry["items"] = [
   {
     name: "chart",
     type: "registry:ui",
-    description: "Core chart components and utilities for data visualization",
-    dependencies: ["react-aria-components", "recharts", "tailwind-merge"],
+    description: "TanStack-powered chart foundations and utilities",
+    dependencies: [
+      "@tanstack/charts",
+      "@types/d3-shape",
+      "d3-shape",
+      "react-aria-components",
+      "tailwind-merge",
+    ],
     registryDependencies: ["primitive"],
     files: [
       {
@@ -1239,7 +1245,7 @@ export const preskokUi: Registry["items"] = [
     name: "area-chart",
     type: "registry:ui",
     description: "An area chart component with gradient fills and animations",
-    dependencies: ["recharts", "tailwind-merge"],
+    dependencies: ["@tanstack/charts"],
     registryDependencies: ["chart"],
     files: [
       {
@@ -1252,7 +1258,7 @@ export const preskokUi: Registry["items"] = [
     name: "bar-chart",
     type: "registry:ui",
     description: "A bar chart component with stacking and percentage options",
-    dependencies: ["recharts", "tailwind-merge"],
+    dependencies: ["@tanstack/charts"],
     registryDependencies: ["chart"],
     files: [
       {
@@ -1265,7 +1271,7 @@ export const preskokUi: Registry["items"] = [
     name: "line-chart",
     type: "registry:ui",
     description: "A line chart component with multiple line support",
-    dependencies: ["recharts", "tailwind-merge"],
+    dependencies: ["@tanstack/charts"],
     registryDependencies: ["chart"],
     files: [
       {
@@ -1278,7 +1284,7 @@ export const preskokUi: Registry["items"] = [
     name: "pie-chart",
     type: "registry:ui",
     description: "A pie/donut chart component with customizable labels",
-    dependencies: ["recharts", "tailwind-merge"],
+    dependencies: ["@tanstack/charts"],
     registryDependencies: ["chart"],
     files: [
       {
