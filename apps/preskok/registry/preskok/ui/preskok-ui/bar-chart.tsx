@@ -223,9 +223,9 @@ function BarChart({
         const definition = tooltip
           ? defineChart(baseDefinition, {
               tooltip: {
-                anchor: tooltipProps?.anchor,
-                offset: tooltipProps?.offset,
-                placement: tooltipProps?.placement,
+                anchor: tooltipProps?.anchor ?? "pointer",
+                offset: tooltipProps?.offset ?? 10,
+                placement: tooltipProps?.placement ?? "top",
                 use: tooltipExtension,
               },
             })
