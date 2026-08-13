@@ -7,6 +7,37 @@
 - `cfg.extraFonts` points at a second, smaller compiled chunk that carries the `@font-face` rules (Geist/Geist Mono, self-hosted via `next/font/google`) — also content-hashed, also needs updating on rebuild.
 - The exported surface is 339 components (every composable sub-part is its own export — e.g. `Dialog`, `DialogBody`, `DialogClose`, `DialogTrigger` are 4 separate exports). Authoring was scoped to **91 real top-level components** (`.design-sync/scoped-components.txt`); the other 248 are compound sub-parts that ship as fully-functional floor cards (composed inside their parent's authored preview, never demoed standalone).
 
+## REQUIRED pre-sync step: regenerate TypeScript declarations
+
+`apps/preskok/types/` is **gitignored and generated** — a fresh clone has none. Regenerate it before every sync:
+
+```bash
+cd apps/preskok
+./node_modules/.bin/tsc -p tsconfig.dts.json      # emits 128 .d.ts into types/
+# then regenerate the barrel (types/index.d.ts): one `export * from './<rel-path>'` per emitted .d.ts
+```
+
+**Why this matters far more than it looks.** Without it the sync silently degrades in two ways at once:
+
+1. **All prop contracts vanish.** Every emitted `<Name>.d.ts` falls back to `{ [key: string]: unknown }`, so the design agent gets zero prop information — it can't know `Button` has `intent`/`size`/`isCircle`. (Measured: 0/339 components had real props before this was wired up; 90/91 scoped components have them now.)
+2. **Component discovery changes source.** With a `.d.ts` tree present, discovery reads it; without one it falls back to scanning `src/`. The two produce different component sets.
+
+Supporting pieces, all committed:
+- `apps/preskok/tsconfig.dts.json` — declaration-emit config (extends the app tsconfig, overrides `noEmit`).
+- `apps/preskok/package.json` `"types": "./types/index.d.ts"` — **load-bearing**. `lib/dts.mjs` has a fallback that derives props from a component's call signature when it has no named `<Name>Props` interface, but that fallback needs `project.getSourceFile(entry)` to resolve. Without this field `entry` points at a non-existent `index.d.ts` and the fallback silently no-ops — which is exactly why `Card`, `Switch`, `Dialog`, `TextField` etc. had empty props even after declarations existed.
+- `apps/preskok/types/` is in `.gitignore` and in the app tsconfig's `exclude` (otherwise `**/*.ts` pulls generated declarations into the app's typecheck).
+
+The `tsc -p tsconfig.dts.json` run prints ~5 non-fatal errors (missing `@types/node`, a CSS side-effect import, a `NumberFormatContextProviderProps` portability warning). These do **not** block emit — but any error of the `TS2883 "cannot be named"` family **does** silently skip that file's declaration, which drops its components from the sync entirely. Two such errors were fixed at source (see below); if a new one appears, fix it rather than ignoring it.
+
+## Source fixes made for declaration emit
+
+Two shipped source files carried `TS2883` errors that prevented their declarations from being emitted, which silently dropped `Menu` and `ContextMenu` (and 12 sub-parts) from the sync:
+
+- `registry/preskok/ui/preskok-ui/menu.tsx`: `const MenuShortcut: typeof DropdownKeyboard = DropdownKeyboard`
+- `registry/preskok/ui/preskok-ui/context-menu.tsx`: `const ContextMenuShortcut: typeof MenuShortcut = MenuShortcut`
+
+Both are **pure type annotations, no behavior change**. The bare aliased re-exports forced TS to inline a type reaching through the `@/*` alias into `node_modules` (`react-aria-components/dist/types/src/Keyboard`), which isn't portably nameable. This is a genuine latent bug, not just a sync artifact — anyone running `tsc --declaration` on the library hits it.
+
 ## Re-sync risks
 
 - **`cssEntry`/`extraFonts` paths will go stale.** They're content-hashed `.next/static/chunks/*.css` filenames from one specific production build. Any re-sync must re-run `pnpm build` in `apps/preskok` first and re-resolve which chunk carries the compiled utilities vs. the `@font-face` rules (grep for `@font-face` to tell them apart — see below).
@@ -14,9 +45,19 @@
 - **The `node_modules/preskok` symlink is not committed** (gitignored) — recreate it on every fresh clone: `ln -sfn .. apps/preskok/node_modules/preskok` (run from inside `apps/preskok/node_modules/`).
 - Grades/carried-forward state lives in `.design-sync/.cache/review/*.grade.json` (gitignored) — a fresh clone re-verifies everything from scratch unless the uploaded project's `_ds_sync.json` anchor is fetched first for a real re-sync.
 
+## Sub-part exclusion: importable but not carded
+
+`componentSrcMap` sets **251 compound sub-parts to `null`** (`CarouselItem`, `DialogBody`, `CardHeader`, `MenuItem`, `TableRow`, …), leaving 91 carded components.
+
+The key distinction: **excluding a component from `componentSrcMap` removes its card, `.d.ts` and `.prompt.md` — but NOT its runtime export.** The bundle is built by esbuild from the entry and assigns every export to the global independently of component discovery. Verified empirically in headless chromium after the change: `Object.keys(window.PreskokUI).length === 364` (unchanged), with `CarouselItem`, `DialogBody`, `CardHeader`, `MenuItem`, `SelectItem`, `PopoverContent`, `DialogTrigger`, `TableRow` all present. **Re-verify this after any change to the exclusion list** — if sub-parts ever drop off the global, composition breaks (you cannot build a Carousel without `CarouselItem`).
+
+Rationale: nobody browses a component picker for "CarouselItem", and ~250 cards reading *"preview not yet authored"* (36 of which rendered visually blank, being layout wrappers with no default children) was noise. Their real usage is demonstrated inside the parent's authored preview instead. Side benefit: the render check went from 36 flagged to **91/91 clean**, because every previously-flagged blank was one of these sub-parts.
+
 ## Known render warns (accepted, not chased)
 
-36 out-of-scope compound sub-parts render as blank/thin floor cards (not the typographic fallback — genuinely empty, since they're layout wrappers with no default children): `ToolbarButton`, `ButtonGroupText`, `CardHeader`, `CommandMenuFooter`, `ContextMenuHeader`, `DescriptionDetails`, `DescriptionTerm`, `DialogBody`, `DialogClose`, `DialogTrigger`, `GridListEmptyState`, `InputGroupAddon`, `InputGroupButton`, `Logo`, `MenuHeader`, `MenuTrigger`, `ModalBody`, `ModalClose`, `ModalTrigger`, `NavbarSeparator`, `NavbarStart`, `PaginationGap`, `PaginationItem`, `PopoverBody`, `PopoverClose`, `PopoverTrigger`, `SheetBody`, `SheetClose`, `SheetTrigger`, `SidebarFooter`, `SidebarLink`, `SidebarNav`, `ToggleGroupItem`, `ToolbarItem`, `ToolbarSeparator`, `TooltipTrigger`, `TreeContent`. None of these are in the 91-component authoring scope — they're demonstrated in composition inside their parent's authored preview instead (e.g. `DialogBody`/`DialogClose` appear inside `Dialog`'s own card). Authorable individually on a future re-sync if ever wanted standalone.
+**None.** The render check is currently **91/91 clean**. The 36 previously-flagged blank/thin cards were all compound sub-parts (`DialogBody`, `CardHeader`, `MenuTrigger`, `Logo`, …), now excluded per the section above — they were layout wrappers with no default children, so they legitimately rendered empty on their own.
+
+If a new warn appears on a re-sync, it is genuinely new: investigate rather than assuming it's a known blank.
 
 ## cardMode overrides applied (14)
 

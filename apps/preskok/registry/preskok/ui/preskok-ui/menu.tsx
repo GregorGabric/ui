@@ -216,7 +216,7 @@ const MenuSection = <T extends object>({
 }
 
 const MenuSeparator = DropdownSeparator
-const MenuShortcut = DropdownKeyboard
+const MenuShortcut: typeof DropdownKeyboard = DropdownKeyboard
 const MenuLabel = DropdownLabel
 const MenuDescription = DropdownDescription
 
