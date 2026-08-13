@@ -224,8 +224,8 @@ function BarChart({
           ? defineChart(baseDefinition, {
               tooltip: {
                 anchor: tooltipProps?.anchor ?? "pointer",
-                offset: tooltipProps?.offset ?? 10,
-                placement: tooltipProps?.placement ?? "top",
+                offset: tooltipProps?.offset ?? 24,
+                placement: tooltipProps?.placement ?? "auto",
                 use: tooltipExtension,
               },
             })
