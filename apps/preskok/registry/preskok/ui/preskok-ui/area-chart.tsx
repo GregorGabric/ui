@@ -235,6 +235,7 @@ function AreaChart({
         const definition = tooltip
           ? defineChart(baseDefinition, {
               tooltip: {
+                anchor: tooltipProps?.anchor,
                 offset: tooltipProps?.offset,
                 placement: tooltipProps?.placement,
                 use: tooltipExtension,

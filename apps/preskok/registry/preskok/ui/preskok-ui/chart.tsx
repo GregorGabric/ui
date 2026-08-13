@@ -14,6 +14,8 @@ import type {
   ChartAxisTickOptions,
   ChartCurve,
   ChartPoint,
+  ChartTooltipAnchor,
+  ChartTooltipPlacement,
   ChartValue,
   DomChartDefinition,
 } from "@tanstack/charts"
@@ -79,6 +81,7 @@ type ChartAxisProps = {
 }
 
 type ChartTooltipProps = {
+  anchor?: ChartTooltipAnchor
   className?: string
   hideIndicator?: boolean
   hideLabel?: boolean
@@ -88,16 +91,7 @@ type ChartTooltipProps = {
   labelSeparator?: boolean
   nameKey?: string
   offset?: number
-  placement?:
-    | "auto"
-    | "top"
-    | "top-right"
-    | "right"
-    | "bottom-right"
-    | "bottom"
-    | "bottom-left"
-    | "left"
-    | "top-left"
+  placement?: "auto" | ChartTooltipPlacement | readonly ChartTooltipPlacement[]
 }
 
 type ChartLegendProps = HTMLAttributes<HTMLDivElement> & {

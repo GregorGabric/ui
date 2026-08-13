@@ -1,6 +1,6 @@
 "use client"
 
-import { defineChart } from "@tanstack/charts"
+import { defineChart, type ChartTooltipAnchor } from "@tanstack/charts"
 import {
   pie,
   polar,
@@ -61,6 +61,20 @@ type PieSourceDatum = TooltipDatum & {
 type PieSliceDatum = ReturnType<typeof pie<PieSourceDatum>>[number]
 
 const defaultValueFormatter = (value: number) => value.toString()
+
+const pieTooltipAnchor: ChartTooltipAnchor = (points, { plot }) => {
+  const point = points[0]
+  if (!point) {
+    return null
+  }
+
+  const plotCenterX = plot.x + plot.width / 2
+  const plotCenterY = plot.y + plot.height / 2
+  return {
+    x: point.x < plotCenterX ? plot.x + plot.width : plot.x,
+    y: point.y < plotCenterY ? plot.y + plot.height : plot.y,
+  }
+}
 
 function calculateDefaultLabel(data: ChartDatum[], valueKey: string) {
   return data.reduce((total, dataPoint) => {
@@ -204,8 +218,9 @@ function PieChart({
         const definition = tooltip
           ? defineChart(baseDefinition, {
               tooltip: {
-                offset: tooltipProps?.offset,
-                placement: tooltipProps?.placement,
+                anchor: tooltipProps?.anchor ?? pieTooltipAnchor,
+                offset: tooltipProps?.offset ?? 10,
+                placement: tooltipProps?.placement ?? "right",
                 use: tooltipExtension,
               },
             })
@@ -233,6 +248,8 @@ function PieChart({
                       config,
                       tooltip,
                       tooltipProps: {
+                        className: "min-w-0 rounded-lg px-3 py-2.5",
+                        hideIndicator: true,
                         hideLabel: true,
                         labelSeparator: false,
                         ...tooltipProps,
