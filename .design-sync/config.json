@@ -1,0 +1,27 @@
+{
+  "projectId": "c69a73d1-f5bb-4ba7-8169-2de3ab34cb07",
+  "pkg": "preskok",
+  "globalName": "PreskokUI",
+  "shape": "package",
+  "srcDir": "registry/preskok/ui/preskok-ui",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": ".next/static/chunks/3du0gk-8_xmd-.css",
+  "extraFonts": [".next/static/chunks/43cbvvhko254d.css"],
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "Breadcrumbs": { "cardMode": "column" },
+    "CommandMenu": { "cardMode": "single", "primaryStory": "Open" },
+    "Drawer": { "cardMode": "single", "primaryStory": "BottomDrawer" },
+    "InputOTP": { "cardMode": "column" },
+    "Menu": { "cardMode": "single", "primaryStory": "Open" },
+    "Modal": { "cardMode": "single", "primaryStory": "DeleteConfirmation" },
+    "MultiSelect": { "cardMode": "single", "primaryStory": "Selected" },
+    "Navbar": { "cardMode": "column" },
+    "Popover": { "cardMode": "single", "primaryStory": "DeploymentSummary" },
+    "RangeCalendar": { "cardMode": "column" },
+    "Sheet": { "cardMode": "single", "primaryStory": "QuickSettings" },
+    "Sidebar": { "cardMode": "single", "primaryStory": "Default" },
+    "Skeleton": { "cardMode": "column" },
+    "Tooltip": { "cardMode": "single", "primaryStory": "Default" }
+  }
+}
