@@ -334,7 +334,7 @@ function Chart<
       initialWidth={initialWidth}
       onSelect={onSelect}
       renderTooltipBody={renderTooltipBody}
-      style={{ ...chartTooltipStyle, ...style }}
+      style={{ ...(renderTooltipBody ? chartTooltipStyle : {}), ...style }}
     />
   )
 }
