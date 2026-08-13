@@ -235,7 +235,7 @@ function BarChart({
           <Chart
             ariaLabel={ariaLabel}
             aspectRatio={chartProps?.aspectRatio}
-            className="w-full"
+            className="w-full [&_g:has(>rect[data-ts-key^=bar-]:hover)>rect[data-ts-key^=bar-]:not(:hover)]:opacity-60 [&_rect[data-ts-key^=bar-]]:cursor-pointer [&_rect[data-ts-key^=bar-]]:transition-[filter,opacity] [&_rect[data-ts-key^=bar-]]:duration-150 [&_rect[data-ts-key^=bar-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_rect[data-ts-key^=bar-]]:transition-none [&_rect[data-ts-key^=bar-]:hover]:brightness-110"
             definition={definition}
             height={
               chartProps?.aspectRatio

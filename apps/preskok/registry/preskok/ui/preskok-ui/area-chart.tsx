@@ -247,7 +247,7 @@ function AreaChart({
           <Chart
             ariaLabel={ariaLabel}
             aspectRatio={chartProps?.aspectRatio}
-            className="w-full"
+            className="w-full [&_g:has(>path[data-ts-key^=preskok-area]:hover)>path[data-ts-key^=preskok-area]:not(:hover)]:opacity-60 [&_path[data-ts-key^=preskok-area]]:cursor-pointer [&_path[data-ts-key^=preskok-area]]:transition-[filter,opacity] [&_path[data-ts-key^=preskok-area]]:duration-150 [&_path[data-ts-key^=preskok-area]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_path[data-ts-key^=preskok-area]]:transition-none [&_path[data-ts-key^=preskok-area]:hover]:brightness-110"
             definition={definition}
             height={
               chartProps?.aspectRatio

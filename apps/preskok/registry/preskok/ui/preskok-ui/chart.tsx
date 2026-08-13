@@ -334,7 +334,7 @@ function Chart<
       initialWidth={initialWidth}
       onSelect={onSelect}
       renderTooltipBody={renderTooltipBody}
-      style={{ ...(renderTooltipBody ? chartTooltipStyle : {}), ...style }}
+      style={style}
     />
   )
 }
@@ -506,7 +506,7 @@ function ChartTooltipContent<TDatum extends TooltipDatum>({
   return (
     <div
       className={twMerge(
-        "grid min-w-44 items-start rounded-xl bg-popover/95 px-3.5 py-3 text-xs text-popover-foreground shadow-[0_12px_32px_-12px_rgb(0_0_0/0.3),0_2px_8px_-3px_rgb(0_0_0/0.12)] ring-1 ring-black/6 backdrop-blur-xl dark:ring-white/10",
+        "grid min-w-36 items-start text-xs text-current",
         className
       )}
     >
