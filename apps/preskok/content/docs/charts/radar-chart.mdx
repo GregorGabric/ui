@@ -32,7 +32,8 @@ export function RadarChartDemo() {
     <RadarChart
       data={data}
       dataKey="metric"
-      maxValue={100}
+      grid={{ shape: "polygon", ticks: 4, valueLabels: "visible" }}
+      valueAxis={{ domain: [0, 100] }}
       valueFormatter={(value) => `${value}%`}
       config={{
         current: { label: "Current", color: "var(--chart-1)" },
@@ -50,6 +51,6 @@ export function RadarChartDemo() {
 - **Closed areas, outlines, and points** using TanStack's native polar marks
 - **Grouped angular tooltips** for comparing series at one dimension
 - **Interactive legends** with theme-aware series colors
-- **Explicit shared domain** through `maxValue`
+- **Explicit shared domain** through `valueAxis.domain`
 
 Radar charts work best with a small, fixed set of compatible dimensions. Keep their units, direction, and domain consistent, and avoid ranking profiles by apparent filled area.

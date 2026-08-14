@@ -1446,9 +1446,13 @@ import * as React from "react"
     name: "chart",
     description: "TanStack-powered chart foundations and utilities",
     type: "registry:ui",
-    registryDependencies: ["primitive"],
+    registryDependencies: undefined,
     files: [{
       path: "registry/preskok/ui/preskok-ui/chart.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/chart-core.ts",
       type: "registry:ui",
       target: ""
     }],

@@ -76,9 +76,9 @@ export function CardsStats() {
             lineProps={{ strokeWidth: 2.5 }}
             lineType="monotone"
             tooltip={false}
-            hideGridLines
-            hideXAxis
-            hideYAxis
+            grid="hidden"
+            xAxis={false}
+            yAxis={false}
           />
         </CardContent>
       </Card>
@@ -117,9 +117,9 @@ export function CardsStats() {
             legend={false}
             lineType="monotone"
             tooltip={false}
-            hideGridLines
-            hideXAxis
-            hideYAxis
+            grid="hidden"
+            xAxis={false}
+            yAxis={false}
           />
         </CardContent>
       </Card>

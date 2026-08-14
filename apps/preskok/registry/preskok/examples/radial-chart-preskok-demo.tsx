@@ -33,7 +33,6 @@ export default function RadialChartPreskokDemo() {
           dataKey="value"
           maxValue={100}
           nameKey="name"
-          showLabel
           tooltipProps={{ hideLabel: true }}
           valueFormatter={(value) => `${Math.round(value)}%`}
           config={{

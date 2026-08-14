@@ -1233,10 +1233,13 @@ export const preskokUi: Registry["items"] = [
       "react-aria-components",
       "tailwind-merge",
     ],
-    registryDependencies: ["primitive"],
     files: [
       {
         path: "ui/preskok-ui/chart.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/preskok-ui/chart-core.ts",
         type: "registry:ui",
       },
     ],

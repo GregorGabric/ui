@@ -21,6 +21,7 @@ npx shadcn@latest add @preskok/chart
 ## Usage
 
 ```tsx
+import { ChartLegend } from "@/components/ui/preskok-ui/chart"
 import { AreaChart } from "@/components/ui/preskok-ui/area-chart"
 
 const data = [
@@ -35,14 +36,36 @@ const config = {
 
 export function ChartDemo() {
   return (
-    <AreaChart data={data} dataKey="day" config={config} lineType="monotone" />
+    <AreaChart
+      aria-describedby="traffic-chart-summary"
+      data={data}
+      dataKey="day"
+      config={config}
+      grid="hidden"
+      legend={<ChartLegend align="left" />}
+      lineType="monotone"
+      xAxis={{ tickStrategy: "edges" }}
+      yAxis={{ domain: [0, 250], tickFormatter: String }}
+    />
   )
 }
 ```
+
+## Composition
+
+Chart variants share one small API surface:
+
+- Pass a React element to `legend` to compose your own legend placement and props, or `false` to remove it.
+- Pass a renderer to `tooltip` for custom content, or `false` to remove it.
+- Cartesian charts use `grid`, `xAxis`, and `yAxis`. Pass `false` to hide an axis; pass an object to configure it.
+- Bar charts use orientation-independent `categoryAxis` and `valueAxis` names, so changing `layout` does not change which configuration controls each axis.
+- Standard `<div>` attributes such as `id`, `style`, `data-*`, and ARIA relationships are forwarded to the chart frame.
+
+Chart variants own their plot content. Compose captions, summaries, and controls around the chart, and use `legend` or `tooltip` for chart-aware content.
 
 ## Features
 
 - **TanStack Charts** rendering, scales, motion, and accessible focus
 - **Legend** with selection filtering
 - **Tooltip** with configurable React content
-- **Shared helpers** for colors, axes, data shaping, and formatting
+- **Shared helpers** for colors, axes, sizing, data shaping, and formatting

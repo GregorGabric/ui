@@ -34,8 +34,8 @@ export default function RadarChartPreskokDemo() {
           className="mx-auto max-w-lg"
           data={readinessData}
           dataKey="metric"
-          maxValue={100}
           tooltipProps={{ hideLabel: false }}
+          valueAxis={{ domain: [0, 100] }}
           valueFormatter={(value) => `${value}%`}
           config={{
             current: { label: "Current", color: "var(--chart-1)" },

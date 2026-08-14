@@ -34,13 +34,22 @@ const chartConfig = {
 }
 
 export function BarChartDemo() {
-  return <BarChart data={chartData} dataKey="month" config={chartConfig} />
+  return (
+    <BarChart
+      data={chartData}
+      dataKey="month"
+      config={chartConfig}
+      categoryAxis={{ tickStrategy: "all" }}
+      valueAxis={{ domain: [0, 400] }}
+    />
+  )
 }
 ```
 
 ## Features
 
 - **Stacked/percent** modes
+- **Orientation-independent axes** through `categoryAxis` and `valueAxis`
 - **Legend selection** with interactive filtering
 - **Config-driven** colors and labels
 - **Responsive** container

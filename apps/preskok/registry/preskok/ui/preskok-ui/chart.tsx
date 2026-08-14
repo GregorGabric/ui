@@ -1,204 +1,92 @@
 "use client"
 
 import {
+  createContext,
   startTransition,
+  use,
   useId,
   useState,
-  type ComponentType,
   type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
 } from "react"
 import type {
-  ChartAxisTickLabelOptions,
-  ChartAxisTickOptions,
-  ChartCurve,
   ChartPoint,
-  ChartTooltipAnchor,
-  ChartTooltipPlacement,
   ChartValue,
   DomChartDefinition,
 } from "@tanstack/charts"
-import { d3Curve } from "@tanstack/charts/d3/shape"
 import {
   Chart as ChartPrimitive,
   type ChartTooltipBodyRenderContext,
 } from "@tanstack/charts/react/tooltip"
-import {
-  curveBasis,
-  curveBumpX,
-  curveLinear,
-  curveMonotoneX,
-  curveNatural,
-  curveStep,
-  curveStepAfter,
-  curveStepBefore,
-} from "d3-shape"
 import {
   ToggleButton,
   ToggleButtonGroup,
 } from "react-aria-components/ToggleButtonGroup"
 import { twMerge } from "tailwind-merge"
 
-type ChartType = "default" | "stacked" | "percent"
-type ChartLayout = "horizontal" | "vertical" | "radial"
-type IntervalType = "preserveStartEnd" | "equidistantPreserveStart"
-type ChartColorKeys = keyof typeof CHART_COLORS | (string & {})
-type ChartDatum = Record<string, unknown>
-type ChartCurveType =
-  | "basis"
-  | "bump"
-  | "linear"
-  | "monotone"
-  | "monotoneX"
-  | "natural"
-  | "step"
-  | "stepAfter"
-  | "stepBefore"
-  | ChartCurve
+import {
+  CHART_COLORS,
+  DEFAULT_COLORS,
+  constructCategoryColors,
+  getAxisTickLabelOptions,
+  getAxisTickOptions,
+  getCategoryAxis,
+  getChartColors,
+  getChartSize,
+  getChartCurve,
+  getChartTheme,
+  getColorValue,
+  getEdgeValues,
+  getLabel,
+  getNumericAxis,
+  getNumericScale,
+  getSeriesChartOptions,
+  getTextLabel,
+  getTooltipOptions,
+  toNamedSeriesData,
+  toSeriesData,
+  valueToPercent,
+  type BaseChartProps,
+  type CartesianChartProps,
+  type ChartAxisProps,
+  type ChartColorKeys,
+  type ChartConfig,
+  type ChartCurveType,
+  type ChartDatum,
+  type ChartLegendProps,
+  type ChartNumericAxisProps,
+  type ChartSizeProps,
+  type ChartTooltipContentProps,
+  type ChartTooltipProps,
+  type ChartTooltipRenderer,
+  type ChartType,
+  type NamedSeriesDatum,
+  type SeriesDatum,
+  type TooltipDatum,
+} from "./chart-core"
 
-type ChartConfig = Record<
-  string,
-  {
-    label?: ReactNode
-    icon?: ComponentType<{ "data-slot"?: string }>
-  } & (
-    | { color?: ChartColorKeys | (string & {}); theme?: never }
-    | { color?: never; theme: { light: string; dark: string } }
-  )
->
-
-type ChartAxisProps = {
-  domain?: readonly [number | "auto", number | "auto"]
-  hide?: boolean
-  interval?: number | IntervalType
-  label?: string
-  minTickGap?: number
-  tickMargin?: number
-  tickFormatter?: (value: any, index?: number) => string
-  ticks?: readonly ChartValue[]
-  width?: number
-}
-
-type ChartTooltipProps = {
-  anchor?: ChartTooltipAnchor
-  className?: string
-  hideIndicator?: boolean
-  hideLabel?: boolean
-  indicator?: "line" | "dot" | "dashed"
-  labelFormatter?: (label: ReactNode) => ReactNode
-  labelKey?: string
-  labelSeparator?: boolean
-  nameKey?: string
-  offset?: number
-  placement?: "auto" | ChartTooltipPlacement | readonly ChartTooltipPlacement[]
-}
-
-type ChartLegendProps = HTMLAttributes<HTMLDivElement> & {
-  align?: "left" | "center" | "right"
-  hideIcon?: boolean
-  verticalAlign?: "top" | "bottom"
-}
-
-type ChartTooltipRenderer<TDatum extends TooltipDatum = TooltipDatum> = (
-  props: ChartTooltipContentProps<TDatum>
-) => ReactNode
-
-interface BaseChartProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
-  ariaLabel?: string
-  children?: ReactNode
-  colors?: readonly ChartColorKeys[]
-  config: ChartConfig
-  data: ChartDatum[]
-  dataKey: string
-  displayEdgeLabelsOnly?: boolean
-  hideGridLines?: boolean
-  hideXAxis?: boolean
-  hideYAxis?: boolean
-  intervalType?: IntervalType
-  layout?: ChartLayout
-  legend?: ReactNode | boolean
-  legendProps?: ChartLegendProps
-  tooltip?: ChartTooltipRenderer | boolean
-  tooltipProps?: ChartTooltipProps
-  type?: ChartType
-  valueFormatter?: (value: number) => string
-  xAxisProps?: ChartAxisProps
-  yAxisProps?: ChartAxisProps
-}
-
-type SeriesDatum = {
-  category: ChartValue
-  index: number
-  series: string
-  source: ChartDatum
-  value: number | null
-}
-
-type TooltipDatum = {
-  category: ChartValue
-  series: string
-  source: unknown
-  value: number | null
-}
-
-const CHART_COLORS = {
-  "chart-1": "var(--chart-1)",
-  "chart-2": "var(--chart-2)",
-  "chart-3": "var(--chart-3)",
-  "chart-4": "var(--chart-4)",
-  "chart-5": "var(--chart-5)",
-} as const
-
-const DEFAULT_COLORS = [
-  "chart-1",
-  "chart-2",
-  "chart-3",
-  "chart-4",
-  "chart-5",
-] as const
-
-function valueToPercent(value: number) {
-  return `${(value * 100).toFixed(0)}%`
-}
-
-function getColorValue(color?: string) {
-  if (!color) {
-    return "var(--chart-1)"
+type ChartFrameContextValue = {
+  actions: {
+    selectSeries: (series: string | null) => void
   }
-
-  return CHART_COLORS[color as keyof typeof CHART_COLORS] ?? color
+  meta: {
+    colors?: readonly ChartColorKeys[]
+    config: ChartConfig
+  }
+  state: {
+    selectedSeries: string | null
+  }
 }
 
-function constructCategoryColors(
-  categories: string[],
-  colors: readonly ChartColorKeys[]
-) {
-  return new Map(
-    categories.map((category, index) => [
-      category,
-      colors[index % colors.length] ?? "chart-1",
-    ])
-  )
-}
+const ChartFrameContext = createContext<ChartFrameContextValue | null>(null)
 
-function getChartColors(
-  config: ChartConfig,
-  colors: readonly ChartColorKeys[] = DEFAULT_COLORS
-) {
-  const categoryColors = constructCategoryColors(Object.keys(config), colors)
-
-  return Object.fromEntries(
-    Object.entries(config).map(([series, item]) => [
-      series,
-      item.theme
-        ? `var(--color-${series})`
-        : getColorValue(item.color ?? categoryColors.get(series)),
-    ])
-  )
+function useChartFrame() {
+  const context = use(ChartFrameContext)
+  if (!context) {
+    throw new Error("Chart components must be rendered inside <ChartFrame>")
+  }
+  return context
 }
 
 const THEMES = { light: "", dark: ".dark" } as const
@@ -234,75 +122,19 @@ function ChartStyle({ id, config }: { id: string; config: ChartConfig }) {
   )
 }
 
-function isChartValue(value: unknown): value is ChartValue {
-  return (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    value instanceof Date
-  )
-}
-
-function toSeriesData({
-  config,
-  connectNulls = false,
-  data,
-  dataKey,
-}: {
-  config: ChartConfig
-  connectNulls?: boolean
-  data: ChartDatum[]
-  dataKey: string
-}) {
-  const seriesNames = Object.keys(config)
-
-  return data.flatMap((source, index) => {
-    const category = source[dataKey]
-    if (!isChartValue(category)) {
-      return []
-    }
-
-    return seriesNames.flatMap((series) => {
-      const rawValue = source[series]
-      const value =
-        typeof rawValue === "number" && Number.isFinite(rawValue)
-          ? rawValue
-          : null
-
-      if (connectNulls && value === null) {
-        return []
-      }
-
-      return [{ category, index, series, source, value } satisfies SeriesDatum]
-    })
-  })
-}
-
-function getLabel(config: ChartConfig, series: string) {
-  return config[series]?.label ?? series
-}
-
-function getTextLabel(config: ChartConfig, series: string) {
-  const label = getLabel(config, series)
-  return typeof label === "string" || typeof label === "number"
-    ? String(label)
-    : series
-}
-
 type ChartProps<
   TDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 > = {
   ariaLabel: string
-  aspectRatio?: number
   className?: string
   definition: DomChartDefinition<TDatum, TXValue, TYValue>
-  height?: number
-  initialWidth?: number
   onSelect?: (point: ChartPoint<TDatum, TXValue, TYValue> | null) => void
   renderTooltipBody?: (
     context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>
   ) => ReactNode
+  size?: ChartSizeProps
   style?: CSSProperties
 }
 
@@ -312,33 +144,40 @@ function Chart<
   TYValue extends ChartValue = ChartValue,
 >({
   ariaLabel,
-  aspectRatio,
   className,
   definition,
-  height,
-  initialWidth = 720,
   onSelect,
   renderTooltipBody,
+  size,
   style,
 }: ChartProps<TDatum, TXValue, TYValue>) {
+  const [ready, setReady] = useState(false)
+  let height = size?.height
+  if (height === undefined && size?.aspectRatio === undefined) {
+    height = 288
+  }
+
   return (
     <ChartPrimitive
       ariaLabel={ariaLabel}
-      aspectRatio={aspectRatio}
+      aspectRatio={size?.aspectRatio}
       className={twMerge(
-        "min-w-0 opacity-0 text-xs text-muted-foreground data-[chart-ready]:opacity-100 [&_svg.ts-chart]:outline-none",
+        "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
+        ready ? "opacity-100" : "opacity-0",
         className
       )}
       definition={definition}
       height={height}
-      initialWidth={initialWidth}
+      initialWidth={size?.initialWidth ?? 720}
       onRender={(context) => {
-        const measuredWidth = context.container.getBoundingClientRect().width
-        const isMeasuredRender =
-          measuredWidth > 0 && Math.abs(context.scene.width - measuredWidth) < 1
+        if (ready) {
+          return
+        }
 
-        if (isMeasuredRender) {
-          context.container.parentElement?.setAttribute("data-chart-ready", "")
+        const measuredWidth = context.container.getBoundingClientRect().width
+        const widthMatches = Math.abs(context.scene.width - measuredWidth) < 1
+        if (measuredWidth > 0 && widthMatches) {
+          setReady(true)
         }
       }}
       onSelect={onSelect}
@@ -348,15 +187,11 @@ function Chart<
   )
 }
 
-type ChartFrameProps = {
-  children: (props: {
-    onLegendSelect: (legendItem: string | null) => void
-    selectedLegend: string | null
-  }) => ReactNode
-  className?: string
+type ChartFrameProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
+  children: ReactNode
   colors?: readonly ChartColorKeys[]
   config: ChartConfig
-  legend?: ReactNode | boolean
+  legend?: ReactNode | false
   legendProps?: ChartLegendProps
 }
 
@@ -365,63 +200,57 @@ function ChartFrame({
   className,
   colors,
   config,
-  legend = true,
+  legend,
   legendProps,
+  ...props
 }: ChartFrameProps) {
   const chartId = useId().replaceAll(":", "")
-  const [selectedLegend, setSelectedLegend] = useState<string | null>(null)
+  const [selectedSeries, setSelectedSeries] = useState<string | null>(null)
 
-  const onLegendSelect = (legendItem: string | null) => {
+  const selectSeries = (series: string | null) => {
     startTransition(() => {
-      setSelectedLegend(legendItem)
+      setSelectedSeries(series)
     })
   }
 
-  let legendContent: ReactNode = null
-  if (legend === true) {
-    legendContent = (
-      <ChartLegendContent
-        colors={colors}
-        config={config}
-        onLegendSelect={onLegendSelect}
-        selectedLegend={selectedLegend}
-        {...legendProps}
-      />
-    )
-  } else if (legend) {
-    legendContent = legend
+  let legendContent = legend
+  if (legend === undefined) {
+    legendContent = <ChartLegend {...legendProps} />
+  }
+
+  const context = {
+    actions: { selectSeries },
+    meta: { colors, config },
+    state: { selectedSeries },
   }
 
   return (
-    <div
-      className={twMerge("z-20 flex w-full min-w-0 flex-col", className)}
-      data-chart={chartId}
-    >
-      <ChartStyle config={config} id={chartId} />
-      {children({ onLegendSelect, selectedLegend })}
-      {legendContent}
-    </div>
+    <ChartFrameContext value={context}>
+      <div
+        {...props}
+        className={twMerge("z-20 flex w-full min-w-0 flex-col", className)}
+        data-chart={chartId}
+      >
+        <ChartStyle config={config} id={chartId} />
+        {children}
+        {legendContent}
+      </div>
+    </ChartFrameContext>
   )
-}
-
-type ChartLegendContentProps = ChartLegendProps & {
-  colors?: readonly ChartColorKeys[]
-  config: ChartConfig
-  onLegendSelect: (legendItem: string | null) => void
-  selectedLegend: string | null
 }
 
 function ChartLegendContent({
   align = "center",
   className,
-  colors,
-  config,
   hideIcon = false,
-  onLegendSelect,
-  selectedLegend,
   verticalAlign = "bottom",
   ...props
-}: ChartLegendContentProps) {
+}: ChartLegendProps) {
+  const {
+    actions: { selectSeries },
+    meta: { colors, config },
+    state: { selectedSeries },
+  } = useChartFrame()
   const chartColors = getChartColors(config, colors)
   let justifyClass = "justify-center"
   if (align === "left") {
@@ -441,9 +270,9 @@ function ChartLegendContent({
       )}
       onSelectionChange={(keys) => {
         const key = [...keys][0]?.toString() ?? null
-        onLegendSelect(key)
+        selectSeries(key)
       }}
-      selectedKeys={selectedLegend ? [selectedLegend] : []}
+      selectedKeys={selectedSeries ? [selectedSeries] : []}
       selectionMode="single"
       {...props}
     >
@@ -478,15 +307,8 @@ function ChartLegendContent({
   )
 }
 
-function ChartLegend(props: ChartLegendContentProps) {
+function ChartLegend(props: ChartLegendProps) {
   return <ChartLegendContent {...props} />
-}
-
-type ChartTooltipContentProps<TDatum extends TooltipDatum = TooltipDatum> = {
-  config: ChartConfig
-  points: readonly ChartPoint<TDatum>[]
-  tooltipProps?: ChartTooltipProps
-  valueFormatter: (value: number) => string
 }
 
 function ChartTooltipContent<TDatum extends TooltipDatum>({
@@ -511,6 +333,16 @@ function ChartTooltipContent<TDatum extends TooltipDatum>({
 
   const rawLabel = String(firstPoint.datum.category)
   const label = labelFormatter ? labelFormatter(rawLabel) : rawLabel
+  const labelContent = hideLabel ? null : (
+    <span className="font-semibold text-foreground">{label}</span>
+  )
+  const separator =
+    hideLabel || !labelSeparator ? null : (
+      <span
+        aria-hidden
+        className="mt-2 mb-2.5 block h-px w-full bg-border/70"
+      />
+    )
 
   return (
     <div
@@ -519,20 +351,18 @@ function ChartTooltipContent<TDatum extends TooltipDatum>({
         className
       )}
     >
-      {!hideLabel ? (
-        <span className="font-semibold text-foreground">{label}</span>
-      ) : null}
-      {!hideLabel && labelSeparator ? (
-        <span
-          aria-hidden
-          className="mt-2 mb-2.5 block h-px w-full bg-border/70"
-        />
-      ) : null}
+      {labelContent}
+      {separator}
       <div className="grid gap-2.5">
         {points.map((point) => {
           const { series, value } = point.datum
           if (value === null) {
             return null
+          }
+
+          let indicatorStyle = { backgroundColor: point.color }
+          if (indicator === "dashed") {
+            indicatorStyle = { backgroundColor: "transparent" }
           }
 
           return (
@@ -547,11 +377,10 @@ function ChartTooltipContent<TDatum extends TooltipDatum>({
                     indicator === "dashed" &&
                       "h-4 w-0 border-l-2 border-dashed bg-transparent"
                   )}
-                  style={
-                    indicator === "dashed"
-                      ? { borderColor: point.color }
-                      : { backgroundColor: point.color }
-                  }
+                  style={{
+                    ...indicatorStyle,
+                    borderColor: point.color,
+                  }}
                 />
               ) : null}
               <span className="flex-1 text-muted-foreground">
@@ -575,7 +404,7 @@ function createTooltipRenderer<TDatum extends TooltipDatum>({
   valueFormatter,
 }: {
   config: ChartConfig
-  tooltip: ChartTooltipRenderer<TDatum> | boolean
+  tooltip?: ChartTooltipRenderer<TDatum> | false
   tooltipProps?: ChartTooltipProps
   valueFormatter: (value: number) => string
 }) {
@@ -595,108 +424,6 @@ function createTooltipRenderer<TDatum extends TooltipDatum>({
   }
 }
 
-function getChartTheme(colors: readonly string[]) {
-  return {
-    background: "transparent",
-    foreground: "var(--muted-foreground)",
-    grid: "color-mix(in srgb, var(--muted-foreground) 14%, transparent)",
-    muted: "color-mix(in srgb, var(--muted-foreground) 78%, transparent)",
-    palette: colors,
-  }
-}
-
-function getChartCurve(lineType: ChartCurveType = "linear") {
-  if (typeof lineType !== "string") {
-    return lineType
-  }
-
-  switch (lineType) {
-    case "basis":
-      return d3Curve(curveBasis)
-    case "bump":
-      return d3Curve(curveBumpX)
-    case "monotone":
-    case "monotoneX":
-      return d3Curve(curveMonotoneX)
-    case "natural":
-      return d3Curve(curveNatural)
-    case "step":
-      return d3Curve(curveStep)
-    case "stepAfter":
-      return d3Curve(curveStepAfter)
-    case "stepBefore":
-      return d3Curve(curveStepBefore)
-    default:
-      return d3Curve(curveLinear)
-  }
-}
-
-function getAxisTickOptions({
-  displayEdgeLabelsOnly,
-  edgeValues,
-  props,
-  valueFormatter,
-}: {
-  displayEdgeLabelsOnly?: boolean
-  edgeValues?: readonly ChartValue[]
-  props?: ChartAxisProps
-  valueFormatter?: (value: any, index?: number) => string
-}) {
-  let values = props?.ticks
-  if (displayEdgeLabelsOnly) {
-    values = edgeValues
-  }
-
-  return {
-    format: props?.tickFormatter ?? valueFormatter,
-    padding: props?.tickMargin ?? 9,
-    size: 0,
-    values,
-  }
-}
-
-function getAxisTickLabelOptions(
-  props?: ChartAxisProps
-): ChartAxisTickLabelOptions {
-  if (props?.interval === 0) {
-    return { fontSize: 11, fontWeight: 450, opacity: 0.78, thin: false }
-  }
-
-  return {
-    fontSize: 11,
-    fontWeight: 450,
-    opacity: 0.78,
-    thin: {
-      minGap: props?.minTickGap ?? 8,
-      priority: "ends",
-    },
-  }
-}
-
-function getNumericAxisTickOptions({
-  props,
-  valueFormatter,
-}: {
-  props?: ChartAxisProps
-  valueFormatter?: (value: number, index?: number) => string
-}): ChartAxisTickOptions<number> {
-  return {
-    format: props?.tickFormatter ?? valueFormatter,
-    padding: props?.tickMargin ?? 9,
-    size: 0,
-    values: props?.ticks?.filter(
-      (value): value is number => typeof value === "number"
-    ),
-  }
-}
-
-function getEdgeValues(data: ChartDatum[], dataKey: string) {
-  const first = data.at(0)?.[dataKey]
-  const last = data.at(-1)?.[dataKey]
-
-  return isChartValue(first) && isChartValue(last) ? [first, last] : undefined
-}
-
 const chartTooltipStyle = {
   "--ts-chart-tooltip-background": "transparent",
   "--ts-chart-tooltip-border": "0",
@@ -706,20 +433,23 @@ const chartTooltipStyle = {
 
 export type {
   BaseChartProps,
+  CartesianChartProps,
   ChartAxisProps,
   ChartColorKeys,
   ChartConfig,
   ChartCurveType,
   ChartDatum,
-  ChartLayout,
-  ChartLegendContentProps,
+  ChartFrameContextValue,
+  ChartFrameProps,
   ChartLegendProps,
+  ChartNumericAxisProps,
   ChartProps,
+  ChartSizeProps,
   ChartTooltipContentProps,
   ChartTooltipProps,
   ChartTooltipRenderer,
   ChartType,
-  IntervalType,
+  NamedSeriesDatum,
   SeriesDatum,
   TooltipDatum,
 }
@@ -727,25 +457,32 @@ export type {
 export {
   Chart,
   ChartFrame,
-  ChartStyle,
-  CHART_COLORS,
   ChartLegend,
   ChartLegendContent,
+  ChartStyle,
   ChartTooltipContent,
+  CHART_COLORS,
   DEFAULT_COLORS,
   chartTooltipStyle,
   constructCategoryColors,
   createTooltipRenderer,
-  getAxisTickOptions,
   getAxisTickLabelOptions,
+  getAxisTickOptions,
+  getCategoryAxis,
   getChartColors,
+  getChartSize,
   getChartCurve,
   getChartTheme,
   getColorValue,
   getEdgeValues,
-  getNumericAxisTickOptions,
   getLabel,
+  getNumericAxis,
+  getNumericScale,
+  getSeriesChartOptions,
   getTextLabel,
+  getTooltipOptions,
+  toNamedSeriesData,
   toSeriesData,
+  useChartFrame,
   valueToPercent,
 }

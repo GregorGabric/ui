@@ -33,7 +33,6 @@ export default function PieChartPreskokDemo() {
           dataKey="amount"
           nameKey="name"
           variant="donut"
-          showLabel
           valueFormatter={(value) => value.toLocaleString()}
           pieProps={{ paddingAngle: 2, cornerRadius: 3 }}
           config={{

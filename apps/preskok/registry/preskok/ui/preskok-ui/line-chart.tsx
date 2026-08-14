@@ -3,54 +3,72 @@
 import { defineChart } from "@tanstack/charts"
 import { crosshair } from "@tanstack/charts/crosshair"
 import { lineY, type LineYOptions } from "@tanstack/charts/line"
-import { scaleLinear } from "@tanstack/charts/scales/linear"
 import { scalePoint } from "@tanstack/charts/scales/point"
-import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 
 import {
   Chart,
   ChartFrame,
   createTooltipRenderer,
-  getAxisTickLabelOptions,
-  getAxisTickOptions,
-  getChartColors,
+  getCategoryAxis,
   getChartCurve,
-  getChartTheme,
-  getEdgeValues,
-  getNumericAxisTickOptions,
+  getNumericAxis,
+  getNumericScale,
+  getSeriesChartOptions,
+  getTooltipOptions,
   toSeriesData,
+  useChartFrame,
   valueToPercent,
-  type BaseChartProps,
+  type CartesianChartProps,
   type ChartCurveType,
+  type ChartSizeProps,
   type SeriesDatum,
 } from "./chart"
 
-type LineChartProps = BaseChartProps & {
-  chartProps?: {
-    aspectRatio?: number
-    height?: number
-    initialWidth?: number
-  }
+type LineChartProps = CartesianChartProps & {
+  chartProps?: ChartSizeProps
   connectNulls?: boolean
   lineProps?: Pick<
     LineYOptions<SeriesDatum>,
     "points" | "strokeDasharray" | "strokeWidth"
   >
   lineType?: ChartCurveType
+  type?: "default" | "percent"
 }
+
+type LineChartPlotProps = Pick<
+  LineChartProps,
+  | "ariaLabel"
+  | "chartProps"
+  | "colors"
+  | "config"
+  | "connectNulls"
+  | "data"
+  | "dataKey"
+  | "grid"
+  | "lineProps"
+  | "lineType"
+  | "tooltip"
+  | "tooltipProps"
+  | "type"
+  | "valueFormatter"
+  | "xAxis"
+  | "yAxis"
+>
 
 const defaultValueFormatter = (value: number) => value.toString()
 
 function normalizePercent(rows: SeriesDatum[]) {
-  const totals = new Map<string, number>()
+  const totals = new Map<SeriesDatum["category"], number>()
 
   rows.forEach((row) => {
     if (row.value === null) {
       return
     }
 
-    const category = String(row.category)
-    totals.set(category, (totals.get(category) ?? 0) + Math.abs(row.value))
+    totals.set(
+      row.category,
+      (totals.get(row.category) ?? 0) + Math.abs(row.value)
+    )
   })
 
   return rows.map((row) => {
@@ -58,171 +76,167 @@ function normalizePercent(rows: SeriesDatum[]) {
       return row
     }
 
-    const total = totals.get(String(row.category)) ?? 0
+    const total = totals.get(row.category) ?? 0
     return { ...row, value: total === 0 ? 0 : row.value / total }
   })
 }
 
-function LineChart({
+function LineChartPlot({
   ariaLabel = "Line chart",
   chartProps,
-  className,
   colors,
   config,
   connectNulls = false,
   data = [],
   dataKey,
-  displayEdgeLabelsOnly = false,
-  hideGridLines = false,
-  hideXAxis = false,
-  hideYAxis = false,
-  legend = true,
-  legendProps,
+  grid = "visible",
   lineProps,
   lineType = "linear",
-  tooltip = true,
+  tooltip,
   tooltipProps,
   type = "default",
   valueFormatter = defaultValueFormatter,
-  xAxisProps,
-  yAxisProps,
-  ...props
-}: LineChartProps) {
-  const chartColors = getChartColors(config, colors)
-  const xAxisHidden = hideXAxis || xAxisProps?.hide
-  const yAxisHidden = hideYAxis || yAxisProps?.hide
+  xAxis,
+  yAxis,
+}: LineChartPlotProps) {
+  const {
+    state: { selectedSeries },
+  } = useChartFrame()
   const sourceRows = toSeriesData({ config, connectNulls, data, dataKey })
   const rows = type === "percent" ? normalizePercent(sourceRows) : sourceRows
-  const seriesNames = Object.keys(config)
+  const { chartColors, options, seriesNames } = getSeriesChartOptions(
+    config,
+    colors
+  )
   const tooltipValueFormatter =
     type === "percent" ? valueToPercent : valueFormatter
+  const marks = seriesNames.map((series) =>
+    lineY(
+      rows.filter((row) => row.series === series),
+      {
+        color: "series",
+        curve: getChartCurve(lineType),
+        id: `line-${series}`,
+        key: (row) => `${row.series}-${row.index}`,
+        points: false,
+        stroke: chartColors[series],
+        strokeOpacity: selectedSeries && selectedSeries !== series ? 0.12 : 1,
+        strokeWidth: 2.25,
+        x: "category",
+        y: "value",
+        ...lineProps,
+      }
+    )
+  )
+  const baseDefinition = defineChart({
+    ...options,
+    focus: "group-x",
+    marks: [
+      crosshair({
+        marker: {
+          fill: "var(--background)",
+          radius: 4,
+          stroke: "var(--foreground)",
+          strokeOpacity: 0.7,
+          strokeWidth: 2,
+        },
+        x: {
+          stroke: "var(--muted-foreground)",
+          strokeDasharray: "3 4",
+          strokeOpacity: 0.3,
+        },
+        y: false,
+      }),
+      ...marks,
+    ],
+    x: {
+      axis: getCategoryAxis({ data, dataKey, props: xAxis }),
+      scale: () => scalePoint().padding(0.25),
+    },
+    y: {
+      axis: getNumericAxis({
+        props: yAxis,
+        valueFormatter: tooltipValueFormatter,
+      }),
+      grid: grid === "visible",
+      nice: true,
+      scale: getNumericScale(yAxis),
+    },
+  })
+  const definition =
+    tooltip === false
+      ? baseDefinition
+      : defineChart(baseDefinition, getTooltipOptions(tooltipProps))
 
   return (
+    <Chart
+      ariaLabel={ariaLabel}
+      className="w-full"
+      definition={definition}
+      renderTooltipBody={
+        tooltip === false
+          ? undefined
+          : createTooltipRenderer({
+              config,
+              tooltip,
+              tooltipProps,
+              valueFormatter: tooltipValueFormatter,
+            })
+      }
+      size={chartProps}
+    />
+  )
+}
+
+function LineChart({
+  ariaLabel,
+  chartProps,
+  className,
+  colors,
+  config,
+  connectNulls,
+  data,
+  dataKey,
+  grid,
+  legend,
+  legendProps,
+  lineProps,
+  lineType,
+  tooltip,
+  tooltipProps,
+  type,
+  valueFormatter,
+  xAxis,
+  yAxis,
+  ...frameProps
+}: LineChartProps) {
+  return (
     <ChartFrame
+      {...frameProps}
       className={className}
       colors={colors}
       config={config}
       legend={legend}
       legendProps={legendProps}
-      {...props}
     >
-      {({ selectedLegend }) => {
-        const marks = seriesNames.map((series) =>
-          lineY(
-            rows.filter((row) => row.series === series),
-            {
-              color: "series",
-              curve: getChartCurve(lineType),
-              id: `line-${series}`,
-              key: (row) => `${row.series}-${row.index}`,
-              points: false,
-              stroke: chartColors[series],
-              strokeOpacity:
-                selectedLegend && selectedLegend !== series ? 0.12 : 1,
-              strokeWidth: 2.25,
-              x: "category",
-              y: "value",
-              ...lineProps,
-            }
-          )
-        )
-        const baseDefinition = defineChart({
-          color: {
-            domain: seriesNames,
-            range: seriesNames.map((series) => chartColors[series] ?? ""),
-          },
-          focus: "group-x",
-          marks: [
-            crosshair({
-              marker: {
-                fill: "var(--background)",
-                radius: 4,
-                stroke: "var(--foreground)",
-                strokeOpacity: 0.7,
-                strokeWidth: 2,
-              },
-              x: {
-                stroke: "var(--muted-foreground)",
-                strokeDasharray: "3 4",
-                strokeOpacity: 0.3,
-              },
-              y: false,
-            }),
-            ...marks,
-          ],
-          svgAnimation: true,
-          theme: getChartTheme(
-            seriesNames.map((series) => chartColors[series] ?? "")
-          ),
-          x: {
-            axis: xAxisHidden
-              ? false
-              : {
-                  line: false,
-                  label: xAxisProps?.label,
-                  tickLabels: getAxisTickLabelOptions(xAxisProps),
-                  ticks: getAxisTickOptions({
-                    displayEdgeLabelsOnly,
-                    edgeValues: getEdgeValues(data, dataKey),
-                    props: xAxisProps,
-                  }),
-                },
-            scale: () => scalePoint().padding(0.25),
-          },
-          y: {
-            axis: yAxisHidden
-              ? false
-              : {
-                  line: false,
-                  label: yAxisProps?.label,
-                  tickLabels: getAxisTickLabelOptions(yAxisProps),
-                  ticks: getNumericAxisTickOptions({
-                    props: yAxisProps,
-                    valueFormatter: (value) =>
-                      tooltipValueFormatter(Number(value)),
-                  }),
-                },
-            grid: !hideGridLines,
-            nice: true,
-            scale: scaleLinear,
-          },
-        })
-        const definition = tooltip
-          ? defineChart(baseDefinition, {
-              tooltip: {
-                anchor: tooltipProps?.anchor,
-                offset: tooltipProps?.offset,
-                placement: tooltipProps?.placement,
-                use: tooltipExtension,
-              },
-            })
-          : baseDefinition
-
-        return (
-          <Chart
-            ariaLabel={ariaLabel}
-            aspectRatio={chartProps?.aspectRatio}
-            className="w-full"
-            definition={definition}
-            height={
-              chartProps?.aspectRatio
-                ? chartProps.height
-                : (chartProps?.height ?? 288)
-            }
-            initialWidth={chartProps?.initialWidth}
-            renderTooltipBody={
-              tooltip
-                ? createTooltipRenderer({
-                    config,
-                    tooltip,
-                    tooltipProps,
-                    valueFormatter: tooltipValueFormatter,
-                  })
-                : undefined
-            }
-          />
-        )
-      }}
+      <LineChartPlot
+        ariaLabel={ariaLabel}
+        chartProps={chartProps}
+        colors={colors}
+        config={config}
+        connectNulls={connectNulls}
+        data={data}
+        dataKey={dataKey}
+        grid={grid}
+        lineProps={lineProps}
+        lineType={lineType}
+        tooltip={tooltip}
+        tooltipProps={tooltipProps}
+        type={type}
+        valueFormatter={valueFormatter}
+        xAxis={xAxis}
+        yAxis={yAxis}
+      />
     </ChartFrame>
   )
 }

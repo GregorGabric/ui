@@ -4,52 +4,56 @@ import { defineChart } from "@tanstack/charts"
 import { polar, radialBarAngle } from "@tanstack/charts/polar"
 import { scaleBand } from "@tanstack/charts/scales/band"
 import { scaleLinear } from "@tanstack/charts/scales/linear"
-import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 
 import {
   Chart,
   ChartFrame,
   createTooltipRenderer,
-  getChartColors,
+  getChartSize,
   getChartTheme,
-  getColorValue,
   getTextLabel,
+  getTooltipOptions,
+  toNamedSeriesData,
+  useChartFrame,
   type BaseChartProps,
-  type TooltipDatum,
+  type ChartSizeProps,
+  type NamedSeriesDatum,
 } from "./chart"
 
-type RadialChartProps = Omit<
-  BaseChartProps,
-  | "displayEdgeLabelsOnly"
-  | "hideGridLines"
-  | "hideXAxis"
-  | "hideYAxis"
-  | "intervalType"
-  | "layout"
-  | "type"
-  | "xAxisProps"
-  | "yAxisProps"
-> & {
-  chartProps?: {
-    aspectRatio?: number
-    height?: number
-    initialWidth?: number
-  }
+type RadialChartProps = BaseChartProps & {
   centerLabel?: string
+  centerValue?: string
+  chartProps?: ChartSizeProps
   endAngle?: number
-  label?: string
   maxValue?: number
   nameKey?: string
   radiusRatio?: number
-  showLabel?: boolean
-  showTrack?: boolean
   startAngle?: number
+  track?: "hidden" | "visible"
 }
 
-type RadialDatum = TooltipDatum & {
-  color: string
-  index: number
-}
+type RadialChartPlotProps = Pick<
+  RadialChartProps,
+  | "ariaLabel"
+  | "centerLabel"
+  | "centerValue"
+  | "chartProps"
+  | "colors"
+  | "config"
+  | "data"
+  | "dataKey"
+  | "endAngle"
+  | "maxValue"
+  | "nameKey"
+  | "radiusRatio"
+  | "startAngle"
+  | "tooltip"
+  | "tooltipProps"
+  | "track"
+  | "valueFormatter"
+>
+
+type RadialDatum = NamedSeriesDatum
 
 const defaultValueFormatter = (value: number) => value.toString()
 
@@ -70,204 +74,203 @@ function getAverageValue(rows: RadialDatum[]) {
   return total / rows.length
 }
 
-function RadialChart({
+function RadialChartPlot({
   ariaLabel = "Radial chart",
+  centerLabel,
+  centerValue,
   chartProps,
-  children,
-  className,
   colors,
   config,
   data = [],
   dataKey,
-  centerLabel = "Average",
   endAngle = Math.PI * 2,
-  label,
-  legend,
-  legendProps,
   maxValue,
   nameKey = "name",
   radiusRatio = 0.84,
-  showLabel = false,
-  showTrack = true,
   startAngle = 0,
-  tooltip = true,
+  tooltip,
   tooltipProps,
+  track = "visible",
   valueFormatter = defaultValueFormatter,
-  ...props
+}: RadialChartPlotProps) {
+  const {
+    actions: { selectSeries },
+    state: { selectedSeries },
+  } = useChartFrame()
+  const rows = toNamedSeriesData({
+    colors,
+    config,
+    data,
+    nameKey,
+    selectedOpacity: 20,
+    selectedSeries,
+    valueKey: dataKey,
+  })
+  let resolvedMaximum = maxValue
+  if (resolvedMaximum === undefined) {
+    resolvedMaximum = Math.max(...rows.map((row) => row.value ?? 0), 1)
+  }
+  if (!Number.isFinite(resolvedMaximum) || resolvedMaximum <= 0) {
+    resolvedMaximum = 1
+  }
+
+  const marks = []
+  if (track === "visible") {
+    marks.push(
+      radialBarAngle(rows, {
+        angle: () => resolvedMaximum,
+        cornerRadius: "full",
+        fill: "color-mix(in srgb, var(--muted-foreground) 13%, transparent)",
+        id: "preskok-radial-track",
+        key: "series",
+        radius: "category",
+      })
+    )
+  }
+  marks.push(
+    radialBarAngle(rows, {
+      angle: (row) => clampValue(row.value, resolvedMaximum),
+      color: "series",
+      cornerRadius: "full",
+      fill: (row) => row.color,
+      id: "preskok-radial-value",
+      key: "series",
+      radius: "category",
+      z: "series",
+    })
+  )
+
+  const baseDefinition = defineChart({
+    color: {
+      domain: rows.map((row) => row.series),
+      range: rows.map((row) => row.color),
+    },
+    focusRing: false,
+    guides: false,
+    marks: [
+      polar({
+        angle: {
+          scale: scaleLinear().domain([0, resolvedMaximum]),
+        },
+        endAngle,
+        marks,
+        radius: {
+          range: [({ radius }) => radius * 0.34, ({ radius }) => radius],
+          scale: () => scaleBand().padding(0.18),
+        },
+        radiusRatio,
+        startAngle,
+      }),
+    ],
+    svgAnimation: true,
+    theme: getChartTheme(rows.map((row) => row.color)),
+    x: null,
+    y: null,
+  })
+  const definition =
+    tooltip === false
+      ? baseDefinition
+      : defineChart(baseDefinition, getTooltipOptions(tooltipProps))
+  const selectedRow = rows.find((row) => row.series === selectedSeries)
+  const displayedValue = selectedRow
+    ? valueFormatter(selectedRow.value ?? 0)
+    : (centerValue ?? valueFormatter(getAverageValue(rows)))
+  const displayedLabel = selectedRow
+    ? getTextLabel(config, selectedRow.series)
+    : centerLabel
+  const size = getChartSize(chartProps, 260)
+
+  return (
+    <div className="relative">
+      <Chart
+        ariaLabel={ariaLabel}
+        className="w-full [&_g:has(>path[data-ts-key*=preskok-radial-value]:hover)>path[data-ts-key*=preskok-radial-value]:not(:hover)]:opacity-55 [&_path[data-ts-key*=preskok-radial-value]]:cursor-pointer [&_path[data-ts-key*=preskok-radial-value]]:transition-[filter,opacity] [&_path[data-ts-key*=preskok-radial-value]]:duration-150 [&_path[data-ts-key*=preskok-radial-value]]:ease-out motion-reduce:[&_path[data-ts-key*=preskok-radial-value]]:transition-none [&_path[data-ts-key*=preskok-radial-value]:hover]:brightness-110"
+        definition={definition}
+        onSelect={(point) => {
+          selectSeries(point?.datum.series ?? null)
+        }}
+        renderTooltipBody={
+          tooltip === false
+            ? undefined
+            : createTooltipRenderer<RadialDatum>({
+                config,
+                tooltip,
+                tooltipProps,
+                valueFormatter,
+              })
+        }
+        size={size}
+      />
+      {centerLabel !== undefined ? (
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span className="text-xl font-semibold tracking-tight text-foreground tabular-nums">
+            {displayedValue}
+          </span>
+          <span className="max-w-24 text-xs text-muted-foreground">
+            {displayedLabel}
+          </span>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function RadialChart({
+  ariaLabel,
+  centerLabel,
+  centerValue,
+  chartProps,
+  className,
+  colors,
+  config,
+  data,
+  dataKey,
+  endAngle,
+  legend,
+  legendProps,
+  maxValue,
+  nameKey,
+  radiusRatio,
+  startAngle,
+  tooltip,
+  tooltipProps,
+  track,
+  valueFormatter,
+  ...frameProps
 }: RadialChartProps) {
-  const chartColors = getChartColors(config, colors)
-  const fallbackColors = colors ?? Object.keys(config)
-  const resolvedLegend = legend ?? Object.keys(config).length > 1
+  let resolvedLegend = legend
+  if (legend === undefined && Object.keys(config).length < 2) {
+    resolvedLegend = false
+  }
 
   return (
     <ChartFrame
+      {...frameProps}
       className={className}
       colors={colors}
       config={config}
       legend={resolvedLegend}
       legendProps={legendProps}
-      {...props}
     >
-      {({ onLegendSelect, selectedLegend }) => {
-        const rows = data.flatMap((source, index) => {
-          const rawName = source[nameKey]
-          const rawValue = source[dataKey]
-          if (
-            (typeof rawName !== "string" && typeof rawName !== "number") ||
-            typeof rawValue !== "number" ||
-            !Number.isFinite(rawValue)
-          ) {
-            return []
-          }
-
-          const series = String(rawName)
-          const fallback = fallbackColors[index % fallbackColors.length]
-          const color = chartColors[series] ?? getColorValue(fallback)
-          return [
-            {
-              category: series,
-              color:
-                selectedLegend && selectedLegend !== series
-                  ? `color-mix(in srgb, ${color} 20%, transparent)`
-                  : color,
-              index,
-              series,
-              source,
-              value: rawValue,
-            } satisfies RadialDatum,
-          ]
-        })
-        let resolvedMaximum = maxValue
-        if (resolvedMaximum === undefined) {
-          resolvedMaximum = Math.max(...rows.map((row) => row.value ?? 0), 1)
-        }
-        if (!Number.isFinite(resolvedMaximum) || resolvedMaximum <= 0) {
-          resolvedMaximum = 1
-        }
-
-        const marks = []
-        if (showTrack) {
-          marks.push(
-            radialBarAngle(rows, {
-              angle: () => resolvedMaximum,
-              cornerRadius: "full",
-              fill: "color-mix(in srgb, var(--muted-foreground) 13%, transparent)",
-              id: "preskok-radial-track",
-              key: "series",
-              radius: "category",
-            })
-          )
-        }
-        marks.push(
-          radialBarAngle(rows, {
-            angle: (row) => clampValue(row.value, resolvedMaximum),
-            color: "series",
-            cornerRadius: "full",
-            fill: (row) => row.color,
-            id: "preskok-radial-value",
-            key: "series",
-            radius: "category",
-            z: "series",
-          })
-        )
-
-        const baseDefinition = defineChart({
-          color: {
-            domain: rows.map((row) => row.series),
-            range: rows.map((row) => row.color),
-          },
-          focusRing: false,
-          guides: false,
-          marks: [
-            polar({
-              angle: {
-                scale: scaleLinear().domain([0, resolvedMaximum]),
-              },
-              endAngle,
-              marks,
-              radius: {
-                range: [({ radius }) => radius * 0.34, ({ radius }) => radius],
-                scale: () => scaleBand().padding(0.18),
-              },
-              radiusRatio,
-              startAngle,
-            }),
-          ],
-          svgAnimation: true,
-          theme: getChartTheme(rows.map((row) => row.color)),
-          x: null,
-          y: null,
-        })
-        const definition = tooltip
-          ? defineChart(baseDefinition, {
-              tooltip: {
-                anchor: tooltipProps?.anchor,
-                className: tooltipProps?.className,
-                format: ({ datum }) => {
-                  const tooltipLabel = getTextLabel(config, datum.series)
-                  const formattedLabel = tooltipProps?.labelFormatter
-                    ? tooltipProps.labelFormatter(tooltipLabel)
-                    : tooltipLabel
-                  const formattedValue = valueFormatter(datum.value ?? 0)
-                  return tooltipProps?.hideLabel
-                    ? formattedValue
-                    : `${formattedLabel} · ${formattedValue}`
-                },
-                offset: tooltipProps?.offset,
-                placement: tooltipProps?.placement,
-                use: tooltipExtension,
-              },
-            })
-          : baseDefinition
-        const selectedRow = rows.find((row) => row.series === selectedLegend)
-        const displayedValue = selectedRow?.value ?? getAverageValue(rows)
-        const displayedLabel = selectedRow
-          ? getTextLabel(config, selectedRow.series)
-          : centerLabel
-
-        return (
-          <>
-            <div className="relative">
-              <Chart
-                ariaLabel={ariaLabel}
-                aspectRatio={chartProps?.aspectRatio}
-                className="w-full [&_g:has(>path[data-ts-key*=preskok-radial-value]:hover)>path[data-ts-key*=preskok-radial-value]:not(:hover)]:opacity-55 [&_path[data-ts-key*=preskok-radial-value]]:cursor-pointer [&_path[data-ts-key*=preskok-radial-value]]:transition-[filter,opacity] [&_path[data-ts-key*=preskok-radial-value]]:duration-150 [&_path[data-ts-key*=preskok-radial-value]]:ease-out motion-reduce:[&_path[data-ts-key*=preskok-radial-value]]:transition-none [&_path[data-ts-key*=preskok-radial-value]:hover]:brightness-110"
-                definition={definition}
-                height={
-                  chartProps?.aspectRatio
-                    ? chartProps.height
-                    : (chartProps?.height ?? 260)
-                }
-                initialWidth={chartProps?.initialWidth}
-                onSelect={(point) => {
-                  onLegendSelect(point?.datum.series ?? null)
-                }}
-                renderTooltipBody={
-                  typeof tooltip === "function"
-                    ? createTooltipRenderer<RadialDatum>({
-                        config,
-                        tooltip,
-                        tooltipProps,
-                        valueFormatter,
-                      })
-                    : undefined
-                }
-              />
-              {showLabel ? (
-                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="text-xl font-semibold tracking-tight text-foreground tabular-nums">
-                    {label ?? valueFormatter(displayedValue)}
-                  </span>
-                  <span className="max-w-24 text-xs text-muted-foreground">
-                    {displayedLabel}
-                  </span>
-                </div>
-              ) : null}
-            </div>
-            {children}
-          </>
-        )
-      }}
+      <RadialChartPlot
+        ariaLabel={ariaLabel}
+        centerLabel={centerLabel}
+        centerValue={centerValue}
+        chartProps={chartProps}
+        colors={colors}
+        config={config}
+        data={data}
+        dataKey={dataKey}
+        endAngle={endAngle}
+        maxValue={maxValue}
+        nameKey={nameKey}
+        radiusRatio={radiusRatio}
+        startAngle={startAngle}
+        tooltip={tooltip}
+        tooltipProps={tooltipProps}
+        track={track}
+        valueFormatter={valueFormatter}
+      />
     </ChartFrame>
   )
 }

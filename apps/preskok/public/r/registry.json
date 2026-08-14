@@ -1749,12 +1749,13 @@
         "react-aria-components",
         "tailwind-merge"
       ],
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/primitive.json"
-      ],
       "files": [
         {
           "path": "registry/preskok/ui/preskok-ui/chart.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/preskok/ui/preskok-ui/chart-core.ts",
           "type": "registry:ui"
         }
       ],

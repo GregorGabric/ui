@@ -77,9 +77,9 @@ export function CardsExerciseMinutes() {
           className="w-full"
           lineType="monotone"
           valueFormatter={(value) => `${value.toFixed(1)} h`}
-          xAxisProps={{
+          xAxis={{
             tickMargin: 8,
-            tickFormatter: (value: string) => value.slice(0, 3),
+            tickFormatter: (value) => String(value).slice(0, 3),
           }}
         />
       </CardContent>
