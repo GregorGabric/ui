@@ -326,12 +326,21 @@ function Chart<
       ariaLabel={ariaLabel}
       aspectRatio={aspectRatio}
       className={twMerge(
-        "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
+        "min-w-0 opacity-0 text-xs text-muted-foreground data-[chart-ready]:opacity-100 [&_svg.ts-chart]:outline-none",
         className
       )}
       definition={definition}
       height={height}
       initialWidth={initialWidth}
+      onRender={(context) => {
+        const measuredWidth = context.container.getBoundingClientRect().width
+        const isMeasuredRender =
+          measuredWidth > 0 && Math.abs(context.scene.width - measuredWidth) < 1
+
+        if (isMeasuredRender) {
+          context.container.parentElement?.setAttribute("data-chart-ready", "")
+        }
+      }}
       onSelect={onSelect}
       renderTooltipBody={renderTooltipBody}
       style={style}
