@@ -8,24 +8,23 @@ import { scalePoint } from "@tanstack/charts/scales/point"
 import {
   Chart,
   ChartFrame,
-  createTooltipRenderer,
+  defaultValueFormatter,
   getCategoryAxis,
+  getChartTooltip,
   getChartCurve,
   getNumericAxis,
   getNumericScale,
   getSeriesChartOptions,
-  getTooltipOptions,
   toSeriesData,
   useChartFrame,
   valueToPercent,
   type CartesianChartProps,
   type ChartCurveType,
-  type ChartSizeProps,
+  type ChartPlotProps,
   type SeriesDatum,
 } from "./chart"
 
 type LineChartProps = CartesianChartProps & {
-  chartProps?: ChartSizeProps
   connectNulls?: boolean
   lineProps?: Pick<
     LineYOptions<SeriesDatum>,
@@ -35,27 +34,7 @@ type LineChartProps = CartesianChartProps & {
   type?: "default" | "percent"
 }
 
-type LineChartPlotProps = Pick<
-  LineChartProps,
-  | "ariaLabel"
-  | "chartProps"
-  | "colors"
-  | "config"
-  | "connectNulls"
-  | "data"
-  | "dataKey"
-  | "grid"
-  | "lineProps"
-  | "lineType"
-  | "tooltip"
-  | "tooltipProps"
-  | "type"
-  | "valueFormatter"
-  | "xAxis"
-  | "yAxis"
->
-
-const defaultValueFormatter = (value: number) => value.toString()
+type LineChartPlotProps = ChartPlotProps<LineChartProps>
 
 function normalizePercent(rows: SeriesDatum[]) {
   const totals = new Map<SeriesDatum["category"], number>()
@@ -83,15 +62,15 @@ function normalizePercent(rows: SeriesDatum[]) {
 
 function LineChartPlot({
   ariaLabel = "Line chart",
-  chartProps,
   colors,
   config,
   connectNulls = false,
-  data = [],
+  data,
   dataKey,
   grid = "visible",
   lineProps,
   lineType = "linear",
+  size,
   tooltip,
   tooltipProps,
   type = "default",
@@ -163,34 +142,27 @@ function LineChartPlot({
       scale: getNumericScale(yAxis),
     },
   })
-  const definition =
-    tooltip === false
-      ? baseDefinition
-      : defineChart(baseDefinition, getTooltipOptions(tooltipProps))
+  const { definition, renderTooltipBody } = getChartTooltip({
+    config,
+    definition: baseDefinition,
+    tooltip,
+    tooltipProps,
+    valueFormatter: tooltipValueFormatter,
+  })
 
   return (
     <Chart
       ariaLabel={ariaLabel}
       className="w-full"
       definition={definition}
-      renderTooltipBody={
-        tooltip === false
-          ? undefined
-          : createTooltipRenderer({
-              config,
-              tooltip,
-              tooltipProps,
-              valueFormatter: tooltipValueFormatter,
-            })
-      }
-      size={chartProps}
+      renderTooltipBody={renderTooltipBody}
+      size={size}
     />
   )
 }
 
 function LineChart({
   ariaLabel,
-  chartProps,
   className,
   colors,
   config,
@@ -199,9 +171,9 @@ function LineChart({
   dataKey,
   grid,
   legend,
-  legendProps,
   lineProps,
   lineType,
+  size,
   tooltip,
   tooltipProps,
   type,
@@ -217,11 +189,9 @@ function LineChart({
       colors={colors}
       config={config}
       legend={legend}
-      legendProps={legendProps}
     >
       <LineChartPlot
         ariaLabel={ariaLabel}
-        chartProps={chartProps}
         colors={colors}
         config={config}
         connectNulls={connectNulls}
@@ -230,6 +200,7 @@ function LineChart({
         grid={grid}
         lineProps={lineProps}
         lineType={lineType}
+        size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
         type={type}

@@ -13,15 +13,15 @@ import { scaleLinear } from "@tanstack/charts/scales/linear"
 import {
   Chart,
   ChartFrame,
-  createTooltipRenderer,
+  defaultValueFormatter,
   getChartSize,
+  getChartTooltip,
   getChartTheme,
   getTextLabel,
-  getTooltipOptions,
   toNamedSeriesData,
   useChartFrame,
   type BaseChartProps,
-  type ChartSizeProps,
+  type ChartPlotProps,
   type NamedSeriesDatum,
 } from "./chart"
 
@@ -31,7 +31,6 @@ type PieSliceDatum = ReturnType<typeof pie<PieSourceDatum>>[number]
 type PieChartProps = BaseChartProps & {
   centerLabel?: string
   centerValue?: string
-  chartProps?: ChartSizeProps
   nameKey?: string
   pieProps?: Pick<
     RadialArcOptions<PieSliceDatum>,
@@ -42,41 +41,23 @@ type PieChartProps = BaseChartProps & {
   variant?: "pie" | "donut"
 }
 
-type PieChartPlotProps = Pick<
-  PieChartProps,
-  | "ariaLabel"
-  | "centerLabel"
-  | "centerValue"
-  | "chartProps"
-  | "colors"
-  | "config"
-  | "data"
-  | "dataKey"
-  | "nameKey"
-  | "pieProps"
-  | "tooltip"
-  | "tooltipProps"
-  | "valueFormatter"
-  | "variant"
->
-
-const defaultValueFormatter = (value: number) => value.toString()
+type PieChartPlotProps = ChartPlotProps<PieChartProps>
 
 function calculateTotal(rows: PieSourceDatum[]) {
-  return rows.reduce((total, row) => total + (row.value ?? 0), 0)
+  return rows.reduce((total, row) => total + row.value, 0)
 }
 
 function PieChartPlot({
   ariaLabel = "Pie chart",
   centerLabel,
   centerValue,
-  chartProps,
   colors,
   config,
-  data = [],
+  data,
   dataKey,
   nameKey = "name",
   pieProps,
+  size,
   tooltip,
   tooltipProps,
   valueFormatter = defaultValueFormatter,
@@ -104,7 +85,7 @@ function PieChartPlot({
   })
   const selectedRow = rows.find((row) => row.series === selectedSeries)
   const displayedValue = selectedRow
-    ? valueFormatter(selectedRow.value ?? 0)
+    ? valueFormatter(selectedRow.value)
     : (centerValue ?? valueFormatter(calculateTotal(rows)))
   const displayedLabel = selectedRow
     ? getTextLabel(config, selectedRow.series)
@@ -163,11 +144,14 @@ function PieChartPlot({
     svgAnimation: true,
     theme: getChartTheme(rows.map((row) => row.color)),
   })
-  const definition =
-    tooltip === false
-      ? baseDefinition
-      : defineChart(baseDefinition, getTooltipOptions(tooltipProps))
-  const size = getChartSize(chartProps, 240)
+  const { definition, renderTooltipBody } = getChartTooltip({
+    config,
+    definition: baseDefinition,
+    tooltip,
+    tooltipProps,
+    valueFormatter,
+  })
+  const chartSize = getChartSize(size, 240)
 
   return (
     <Chart
@@ -177,17 +161,8 @@ function PieChartPlot({
       onSelect={(point) => {
         selectSeries(point?.datum.series ?? null)
       }}
-      renderTooltipBody={
-        tooltip === false
-          ? undefined
-          : createTooltipRenderer<PieSliceDatum>({
-              config,
-              tooltip,
-              tooltipProps,
-              valueFormatter,
-            })
-      }
-      size={size}
+      renderTooltipBody={renderTooltipBody}
+      size={chartSize}
     />
   )
 }
@@ -196,16 +171,15 @@ function PieChart({
   ariaLabel,
   centerLabel,
   centerValue,
-  chartProps,
   className,
   colors,
   config,
   data,
   dataKey,
   legend,
-  legendProps,
   nameKey,
   pieProps,
+  size,
   tooltip,
   tooltipProps,
   valueFormatter,
@@ -219,19 +193,18 @@ function PieChart({
       colors={colors}
       config={config}
       legend={legend}
-      legendProps={legendProps}
     >
       <PieChartPlot
         ariaLabel={ariaLabel}
         centerLabel={centerLabel}
         centerValue={centerValue}
-        chartProps={chartProps}
         colors={colors}
         config={config}
         data={data}
         dataKey={dataKey}
         nameKey={nameKey}
         pieProps={pieProps}
+        size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
         valueFormatter={valueFormatter}

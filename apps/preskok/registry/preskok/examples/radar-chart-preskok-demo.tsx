@@ -30,7 +30,7 @@ export default function RadarChartPreskokDemo() {
       </CardHeader>
       <CardContent className="pb-0">
         <RadarChart
-          chartProps={{ height: 330 }}
+          size={{ height: 330 }}
           className="mx-auto max-w-lg"
           data={readinessData}
           dataKey="metric"

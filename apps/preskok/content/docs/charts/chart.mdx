@@ -30,8 +30,8 @@ const data = [
 ]
 
 const config = {
-  Desktop: { label: "Desktop", color: "#2563eb" },
-  Mobile: { label: "Mobile", color: "#60a5fa" },
+  Desktop: { label: "Desktop", color: "var(--chart-1)" },
+  Mobile: { label: "Mobile", color: "var(--chart-2)" },
 }
 
 export function ChartDemo() {
@@ -57,6 +57,7 @@ Chart variants share one small API surface:
 
 - Pass a React element to `legend` to compose your own legend placement and props, or `false` to remove it.
 - Pass a renderer to `tooltip` for custom content, or `false` to remove it.
+- Use `size` for `height`, `aspectRatio`, or the initial responsive width.
 - Cartesian charts use `grid`, `xAxis`, and `yAxis`. Pass `false` to hide an axis; pass an object to configure it.
 - Bar charts use orientation-independent `categoryAxis` and `valueAxis` names, so changing `layout` does not change which configuration controls each axis.
 - Standard `<div>` attributes such as `id`, `style`, `data-*`, and ARIA relationships are forwarded to the chart frame.

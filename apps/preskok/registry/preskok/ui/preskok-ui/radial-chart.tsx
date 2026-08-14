@@ -8,22 +8,22 @@ import { scaleLinear } from "@tanstack/charts/scales/linear"
 import {
   Chart,
   ChartFrame,
-  createTooltipRenderer,
+  defaultValueFormatter,
   getChartSize,
+  getChartTooltip,
   getChartTheme,
+  getPositiveMaximum,
   getTextLabel,
-  getTooltipOptions,
   toNamedSeriesData,
   useChartFrame,
   type BaseChartProps,
-  type ChartSizeProps,
+  type ChartPlotProps,
   type NamedSeriesDatum,
 } from "./chart"
 
 type RadialChartProps = BaseChartProps & {
   centerLabel?: string
   centerValue?: string
-  chartProps?: ChartSizeProps
   endAngle?: number
   maxValue?: number
   nameKey?: string
@@ -32,36 +32,11 @@ type RadialChartProps = BaseChartProps & {
   track?: "hidden" | "visible"
 }
 
-type RadialChartPlotProps = Pick<
-  RadialChartProps,
-  | "ariaLabel"
-  | "centerLabel"
-  | "centerValue"
-  | "chartProps"
-  | "colors"
-  | "config"
-  | "data"
-  | "dataKey"
-  | "endAngle"
-  | "maxValue"
-  | "nameKey"
-  | "radiusRatio"
-  | "startAngle"
-  | "tooltip"
-  | "tooltipProps"
-  | "track"
-  | "valueFormatter"
->
+type RadialChartPlotProps = ChartPlotProps<RadialChartProps>
 
 type RadialDatum = NamedSeriesDatum
 
-const defaultValueFormatter = (value: number) => value.toString()
-
-function clampValue(value: number | null, maximum: number) {
-  if (value === null) {
-    return 0
-  }
-
+function clampValue(value: number, maximum: number) {
   return Math.min(Math.max(value, 0), maximum)
 }
 
@@ -70,7 +45,7 @@ function getAverageValue(rows: RadialDatum[]) {
     return 0
   }
 
-  const total = rows.reduce((sum, row) => sum + (row.value ?? 0), 0)
+  const total = rows.reduce((sum, row) => sum + row.value, 0)
   return total / rows.length
 }
 
@@ -78,15 +53,15 @@ function RadialChartPlot({
   ariaLabel = "Radial chart",
   centerLabel,
   centerValue,
-  chartProps,
   colors,
   config,
-  data = [],
+  data,
   dataKey,
   endAngle = Math.PI * 2,
   maxValue,
   nameKey = "name",
   radiusRatio = 0.84,
+  size,
   startAngle = 0,
   tooltip,
   tooltipProps,
@@ -106,13 +81,10 @@ function RadialChartPlot({
     selectedSeries,
     valueKey: dataKey,
   })
-  let resolvedMaximum = maxValue
-  if (resolvedMaximum === undefined) {
-    resolvedMaximum = Math.max(...rows.map((row) => row.value ?? 0), 1)
-  }
-  if (!Number.isFinite(resolvedMaximum) || resolvedMaximum <= 0) {
-    resolvedMaximum = 1
-  }
+  const resolvedMaximum = getPositiveMaximum(
+    rows.map((row) => row.value),
+    maxValue
+  )
 
   const marks = []
   if (track === "visible") {
@@ -167,18 +139,21 @@ function RadialChartPlot({
     x: null,
     y: null,
   })
-  const definition =
-    tooltip === false
-      ? baseDefinition
-      : defineChart(baseDefinition, getTooltipOptions(tooltipProps))
+  const { definition, renderTooltipBody } = getChartTooltip({
+    config,
+    definition: baseDefinition,
+    tooltip,
+    tooltipProps,
+    valueFormatter,
+  })
   const selectedRow = rows.find((row) => row.series === selectedSeries)
   const displayedValue = selectedRow
-    ? valueFormatter(selectedRow.value ?? 0)
+    ? valueFormatter(selectedRow.value)
     : (centerValue ?? valueFormatter(getAverageValue(rows)))
   const displayedLabel = selectedRow
     ? getTextLabel(config, selectedRow.series)
     : centerLabel
-  const size = getChartSize(chartProps, 260)
+  const chartSize = getChartSize(size, 260)
 
   return (
     <div className="relative">
@@ -189,17 +164,8 @@ function RadialChartPlot({
         onSelect={(point) => {
           selectSeries(point?.datum.series ?? null)
         }}
-        renderTooltipBody={
-          tooltip === false
-            ? undefined
-            : createTooltipRenderer<RadialDatum>({
-                config,
-                tooltip,
-                tooltipProps,
-                valueFormatter,
-              })
-        }
-        size={size}
+        renderTooltipBody={renderTooltipBody}
+        size={chartSize}
       />
       {centerLabel !== undefined ? (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
@@ -219,7 +185,6 @@ function RadialChart({
   ariaLabel,
   centerLabel,
   centerValue,
-  chartProps,
   className,
   colors,
   config,
@@ -227,10 +192,10 @@ function RadialChart({
   dataKey,
   endAngle,
   legend,
-  legendProps,
   maxValue,
   nameKey,
   radiusRatio,
+  size,
   startAngle,
   tooltip,
   tooltipProps,
@@ -250,13 +215,11 @@ function RadialChart({
       colors={colors}
       config={config}
       legend={resolvedLegend}
-      legendProps={legendProps}
     >
       <RadialChartPlot
         ariaLabel={ariaLabel}
         centerLabel={centerLabel}
         centerValue={centerValue}
-        chartProps={chartProps}
         colors={colors}
         config={config}
         data={data}
@@ -265,6 +228,7 @@ function RadialChart({
         maxValue={maxValue}
         nameKey={nameKey}
         radiusRatio={radiusRatio}
+        size={size}
         startAngle={startAngle}
         tooltip={tooltip}
         tooltipProps={tooltipProps}

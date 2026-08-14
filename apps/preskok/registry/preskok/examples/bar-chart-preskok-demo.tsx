@@ -39,7 +39,7 @@ export default function BarChartPreskokDemo() {
           data={supportData}
           dataKey="day"
           type="stacked"
-          chartProps={{ height: 240 }}
+          size={{ height: 240 }}
           valueFormatter={(value) => `${value} tickets`}
           tooltipProps={{ hideLabel: true }}
           config={{

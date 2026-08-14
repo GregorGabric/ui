@@ -66,9 +66,9 @@ export function CardsStats() {
         <CardContent className="pb-0">
           <LineChart
             ariaLabel="Freight revenue over eight periods"
-            chartProps={{ height: 96 }}
+            size={{ height: 96 }}
             config={{
-              revenue: { label: "Freight Revenue", color: "var(--primary)" },
+              revenue: { label: "Freight Revenue", color: "var(--chart-1)" },
             }}
             data={data.map((d, i) => ({ name: i, revenue: d.revenue }))}
             dataKey="name"
@@ -101,11 +101,11 @@ export function CardsStats() {
         <CardContent className="mt-auto max-h-[124px] flex-1 p-0">
           <AreaChart
             ariaLabel="Completed trips over eight periods"
-            chartProps={{ height: 124 }}
+            size={{ height: 124 }}
             config={{
               subscription: {
                 label: "Completed Trips",
-                color: "var(--primary)",
+                color: "var(--chart-1)",
               },
             }}
             data={data.map((d, i) => ({

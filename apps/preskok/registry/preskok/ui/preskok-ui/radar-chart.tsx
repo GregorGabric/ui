@@ -18,16 +18,18 @@ import { curveLinearClosed } from "d3-shape"
 import {
   Chart,
   ChartFrame,
-  createTooltipRenderer,
+  defaultValueFormatter,
   getChartSize,
+  getChartTooltip,
+  getPositiveMaximum,
+  getSelectedSeriesColor,
   getSeriesChartOptions,
-  getTooltipOptions,
   toSeriesData,
   useChartFrame,
   type BaseChartProps,
   type ChartAxisProps,
   type ChartNumericAxisProps,
-  type ChartSizeProps,
+  type ChartPlotProps,
   type SeriesDatum,
 } from "./chart"
 
@@ -56,7 +58,6 @@ type RadarValueAxisProps = Pick<
 
 type RadarChartProps = BaseChartProps & {
   categoryAxis?: RadarCategoryAxisProps | false
-  chartProps?: ChartSizeProps
   dots?: RadarDotProps | false
   grid?: RadarGridProps | false
   radarAreaProps?: RadarAreaProps
@@ -64,26 +65,7 @@ type RadarChartProps = BaseChartProps & {
   valueAxis?: RadarValueAxisProps | false
 }
 
-type RadarChartPlotProps = Pick<
-  RadarChartProps,
-  | "ariaLabel"
-  | "categoryAxis"
-  | "chartProps"
-  | "colors"
-  | "config"
-  | "data"
-  | "dataKey"
-  | "dots"
-  | "grid"
-  | "radarAreaProps"
-  | "radiusRatio"
-  | "tooltip"
-  | "tooltipProps"
-  | "valueAxis"
-  | "valueFormatter"
->
-
-const defaultValueFormatter = (value: number) => value.toString()
+type RadarChartPlotProps = ChartPlotProps<RadarChartProps>
 
 function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
   points: readonly TPoint[]
@@ -101,15 +83,15 @@ function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
 function RadarChartPlot({
   ariaLabel = "Radar chart",
   categoryAxis,
-  chartProps,
   colors,
   config,
-  data = [],
+  data,
   dataKey,
   dots,
   grid,
   radarAreaProps,
   radiusRatio = 0.72,
+  size,
   tooltip,
   tooltipProps,
   valueAxis,
@@ -121,10 +103,7 @@ function RadarChartPlot({
   } = useChartFrame()
   const rows = toSeriesData({ config, data, dataKey })
   const { chartColors, options } = getSeriesChartOptions(config, colors)
-  let resolvedMaximum = Math.max(...rows.map((row) => row.value ?? 0), 1)
-  if (!Number.isFinite(resolvedMaximum) || resolvedMaximum <= 0) {
-    resolvedMaximum = 1
-  }
+  const resolvedMaximum = getPositiveMaximum(rows.map((row) => row.value ?? 0))
   let radiusScale = scaleLinear().domain([0, resolvedMaximum]).nice(4)
   if (valueAxis && valueAxis.domain) {
     radiusScale = scaleLinear().domain(valueAxis.domain)
@@ -132,9 +111,12 @@ function RadarChartPlot({
 
   const colorForSeries = (series: string) => {
     const color = chartColors[series] ?? "var(--chart-1)"
-    return selectedSeries && selectedSeries !== series
-      ? `color-mix(in srgb, ${color} 16%, transparent)`
-      : color
+    return getSelectedSeriesColor({
+      color,
+      opacity: 16,
+      selectedSeries,
+      series,
+    })
   }
   const guides = []
   const gridProps = grid === false ? undefined : grid
@@ -260,28 +242,19 @@ function RadarChartPlot({
     x: null,
     y: null,
   })
-  const definition =
-    tooltip === false
-      ? baseDefinition
-      : defineChart(
-          baseDefinition,
-          getTooltipOptions({
-            anchor: "pointer",
-            offset: 20,
-            placement: "auto",
-            ...tooltipProps,
-          })
-        )
-  const renderTooltip =
-    tooltip === false
-      ? undefined
-      : createTooltipRenderer<SeriesDatum>({
-          config,
-          tooltip,
-          tooltipProps,
-          valueFormatter,
-        })
-  const size = getChartSize(chartProps, 320)
+  const { definition, renderTooltipBody } = getChartTooltip({
+    config,
+    definition: baseDefinition,
+    tooltip,
+    tooltipProps: {
+      anchor: "pointer",
+      offset: 20,
+      placement: "auto",
+      ...tooltipProps,
+    },
+    valueFormatter,
+  })
+  const chartSize = getChartSize(size, 320)
 
   return (
     <Chart
@@ -292,15 +265,15 @@ function RadarChartPlot({
         selectSeries(point?.datum.series ?? null)
       }}
       renderTooltipBody={
-        renderTooltip
+        renderTooltipBody
           ? (context) =>
-              renderTooltip({
+              renderTooltipBody({
                 ...context,
                 points: uniqueSeriesPoints(context.points),
               })
           : undefined
       }
-      size={size}
+      size={chartSize}
     />
   )
 }
@@ -308,7 +281,6 @@ function RadarChartPlot({
 function RadarChart({
   ariaLabel,
   categoryAxis,
-  chartProps,
   className,
   colors,
   config,
@@ -317,9 +289,9 @@ function RadarChart({
   dots,
   grid,
   legend,
-  legendProps,
   radarAreaProps,
   radiusRatio,
+  size,
   tooltip,
   tooltipProps,
   valueAxis,
@@ -338,12 +310,10 @@ function RadarChart({
       colors={colors}
       config={config}
       legend={resolvedLegend}
-      legendProps={legendProps}
     >
       <RadarChartPlot
         ariaLabel={ariaLabel}
         categoryAxis={categoryAxis}
-        chartProps={chartProps}
         colors={colors}
         config={config}
         data={data}
@@ -352,6 +322,7 @@ function RadarChart({
         grid={grid}
         radarAreaProps={radarAreaProps}
         radiusRatio={radiusRatio}
+        size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
         valueAxis={valueAxis}

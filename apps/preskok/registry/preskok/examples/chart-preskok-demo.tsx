@@ -24,8 +24,8 @@ export default function ChartPreskokDemo() {
       <AreaChart
         ariaLabel="SUV and sedan sales over seven days"
         config={{
-          SUV: { label: "SUV", color: "#2563eb" },
-          Sedan: { label: "Sedan", color: "#60a5fa" },
+          SUV: { label: "SUV", color: "var(--chart-1)" },
+          Sedan: { label: "Sedan", color: "var(--chart-2)" },
         }}
         data={data}
         dataKey="day"

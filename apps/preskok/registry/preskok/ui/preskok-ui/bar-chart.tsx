@@ -19,19 +19,20 @@ import { stack } from "@tanstack/charts/stack"
 import {
   Chart,
   ChartFrame,
-  createTooltipRenderer,
+  defaultValueFormatter,
   getCategoryAxis,
+  getChartTooltip,
   getNumericAxis,
   getNumericScale,
+  getSelectedSeriesColor,
   getSeriesChartOptions,
-  getTooltipOptions,
   toSeriesData,
   useChartFrame,
   valueToPercent,
   type BaseChartProps,
   type ChartAxisProps,
   type ChartNumericAxisProps,
-  type ChartSizeProps,
+  type ChartPlotProps,
   type ChartType,
   type SeriesDatum,
 } from "./chart"
@@ -48,41 +49,13 @@ type BarChartProps = BaseChartProps & {
   barRadius?: number
   barSize?: number
   categoryAxis?: ChartAxisProps | false
-  chartProps?: ChartSizeProps
   grid?: "hidden" | "visible"
   layout?: "horizontal" | "vertical"
   type?: ChartType
   valueAxis?: ChartNumericAxisProps | false
 }
 
-type BarChartPlotProps = Pick<
-  BarChartProps,
-  | "ariaLabel"
-  | "barCategoryGap"
-  | "barGap"
-  | "barProps"
-  | "barRadius"
-  | "barSize"
-  | "categoryAxis"
-  | "chartProps"
-  | "colors"
-  | "config"
-  | "data"
-  | "dataKey"
-  | "grid"
-  | "layout"
-  | "tooltip"
-  | "tooltipProps"
-  | "type"
-  | "valueAxis"
-  | "valueFormatter"
->
-
-const defaultValueFormatter = (value: number) => value.toString()
-
-function dimmedColor(color: string, dimmed: boolean) {
-  return dimmed ? `color-mix(in srgb, ${color} 12%, transparent)` : color
-}
+type BarChartPlotProps = ChartPlotProps<BarChartProps>
 
 function getBarDirection(value: number | null) {
   return value !== null && value < 0 ? "negative" : "positive"
@@ -110,13 +83,13 @@ function BarChartPlot({
   barRadius,
   barSize,
   categoryAxis,
-  chartProps,
   colors,
   config,
-  data = [],
+  data,
   dataKey,
   grid = "visible",
   layout = "horizontal",
+  size,
   tooltip,
   tooltipProps,
   type = "default",
@@ -154,10 +127,12 @@ function BarChartPlot({
   const sharedOptions = {
     color: "series" as const,
     fill: (row: SeriesDatum) =>
-      dimmedColor(
-        chartColors[row.series] ?? "var(--chart-1)",
-        Boolean(selectedSeries && selectedSeries !== row.series)
-      ),
+      getSelectedSeriesColor({
+        color: chartColors[row.series] ?? "var(--chart-1)",
+        opacity: 12,
+        selectedSeries,
+        series: row.series,
+      }),
     inset: barCategoryGap / 2,
     key: (row: SeriesDatum) => {
       const direction = getBarDirection(row.value)
@@ -186,12 +161,12 @@ function BarChartPlot({
     props: valueAxis,
     valueFormatter: tooltipValueFormatter,
   })
-  const tooltipOptions = getTooltipOptions({
-    anchor: "pointer",
+  const resolvedTooltipProps = {
+    anchor: "pointer" as const,
     offset: 24,
-    placement: "auto",
+    placement: "auto" as const,
     ...tooltipProps,
-  })
+  }
 
   function createVerticalDefinition() {
     const baseDefinition = defineChart({
@@ -216,11 +191,7 @@ function BarChartPlot({
       },
     })
 
-    if (tooltip === false) {
-      return baseDefinition
-    }
-
-    return defineChart(baseDefinition, tooltipOptions)
+    return baseDefinition
   }
 
   function createHorizontalDefinition() {
@@ -246,16 +217,19 @@ function BarChartPlot({
       },
     })
 
-    if (tooltip === false) {
-      return baseDefinition
-    }
-
-    return defineChart(baseDefinition, tooltipOptions)
+    return baseDefinition
   }
 
-  const definition = vertical
+  const baseDefinition = vertical
     ? createVerticalDefinition()
     : createHorizontalDefinition()
+  const { definition, renderTooltipBody } = getChartTooltip({
+    config,
+    definition: baseDefinition,
+    tooltip,
+    tooltipProps: resolvedTooltipProps,
+    valueFormatter: tooltipValueFormatter,
+  })
   let roundedBarClass =
     "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_var(--bar-radius)_0_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_0_0_var(--bar-radius)_var(--bar-radius))]"
   if (!vertical) {
@@ -274,17 +248,8 @@ function BarChartPlot({
       onSelect={(point) => {
         selectSeries(point?.datum.series ?? null)
       }}
-      renderTooltipBody={
-        tooltip === false
-          ? undefined
-          : createTooltipRenderer({
-              config,
-              tooltip,
-              tooltipProps,
-              valueFormatter: tooltipValueFormatter,
-            })
-      }
-      size={chartProps}
+      renderTooltipBody={renderTooltipBody}
+      size={size}
       style={
         {
           "--bar-radius": `${resolvedBarRadius}px`,
@@ -302,7 +267,6 @@ function BarChart({
   barRadius,
   barSize,
   categoryAxis,
-  chartProps,
   className,
   colors,
   config,
@@ -311,10 +275,10 @@ function BarChart({
   grid,
   layout,
   legend,
-  legendProps,
   tooltip,
   tooltipProps,
   type = "default",
+  size,
   valueAxis,
   valueFormatter,
   ...frameProps
@@ -331,7 +295,6 @@ function BarChart({
       colors={colors}
       config={config}
       legend={resolvedLegend}
-      legendProps={legendProps}
     >
       <BarChartPlot
         ariaLabel={ariaLabel}
@@ -341,13 +304,13 @@ function BarChart({
         barRadius={barRadius}
         barSize={barSize}
         categoryAxis={categoryAxis}
-        chartProps={chartProps}
         colors={colors}
         config={config}
         data={data}
         dataKey={dataKey}
         grid={grid}
         layout={layout}
+        size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
         type={type}

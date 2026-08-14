@@ -11,8 +11,8 @@ const data = [
   { month: "Feb", revenue: 64, sales: 39 },
 ]
 const config = {
-  revenue: { label: "Revenue", color: "chart-1" },
-  sales: { label: "Sales", color: "chart-2" },
+  revenue: { label: "Revenue", color: "var(--chart-1)" },
+  sales: { label: "Sales", color: "var(--chart-2)" },
 } as const
 const cartesianProps = { config, data, dataKey: "month" }
 
@@ -20,7 +20,7 @@ const composableLineChart = (
   <LineChart
     {...cartesianProps}
     aria-describedby="chart-summary"
-    chartProps={{ initialWidth: 640 }}
+    size={{ initialWidth: 640 }}
     grid="hidden"
     legend={<ChartLegend align="left" />}
     style={{ minHeight: 240 }}
@@ -55,8 +55,8 @@ const polarData = [
 ]
 const polarProps = {
   config: {
-    Product: { color: "chart-1", label: "Product" },
-    Sales: { color: "chart-2", label: "Sales" },
+    Product: { color: "var(--chart-1)", label: "Product" },
+    Sales: { color: "var(--chart-2)", label: "Sales" },
   },
   data: polarData,
   dataKey: "amount",
@@ -87,6 +87,46 @@ const removedIntervalType = (
   <LineChart {...cartesianProps} intervalType="preserveStart" />
 )
 
+const removedChartProps = (
+  // @ts-expect-error size is the single sizing API shared by every chart variant.
+  <LineChart {...cartesianProps} chartProps={{ initialWidth: 640 }} />
+)
+
+const removedLegendProps = (
+  // @ts-expect-error compose legend options through the legend element.
+  <LineChart {...cartesianProps} legendProps={{ align: "left" }} />
+)
+
+const removedEmptyColorPalette = (
+  // @ts-expect-error a custom palette must contain at least one defined chart color.
+  <LineChart {...cartesianProps} colors={[]} />
+)
+
+const removedRawPaletteColor = (
+  // @ts-expect-error palette overrides can only reorder defined chart colors.
+  <LineChart {...cartesianProps} colors={["#2563eb"]} />
+)
+
+const removedRawSeriesColor = (
+  <LineChart
+    {...cartesianProps}
+    config={{
+      // @ts-expect-error series colors must reference the shared chart palette.
+      revenue: { color: "#2563eb", label: "Revenue" },
+    }}
+  />
+)
+
+const removedSeriesTheme = (
+  <LineChart
+    {...cartesianProps}
+    config={{
+      // @ts-expect-error light and dark series colors come from globals.css.
+      revenue: { label: "Revenue", theme: { light: "red", dark: "blue" } },
+    }}
+  />
+)
+
 // @ts-expect-error chart variants own plot content; compose surrounding UI through legend and HTML props.
 const removedChildren = <LineChart {...cartesianProps}>content</LineChart>
 
@@ -107,10 +147,16 @@ export {
   composableLineChart,
   configuredAreaChart,
   orientedBarChart,
+  removedChartProps,
   removedChildren,
+  removedEmptyColorPalette,
   removedGridBoolean,
   removedIntervalType,
+  removedLegendProps,
+  removedRawPaletteColor,
+  removedRawSeriesColor,
   removedRadarMaxValue,
+  removedSeriesTheme,
   removedShowLabel,
   removedStackedLine,
 }

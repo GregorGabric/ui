@@ -4,19 +4,15 @@ import {
   createContext,
   startTransition,
   use,
-  useId,
   useState,
   type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
 } from "react"
-import type {
-  ChartPoint,
-  ChartValue,
-  DomChartDefinition,
-} from "@tanstack/charts"
+import type { ChartValue, DomChartDefinition } from "@tanstack/charts"
 import {
   Chart as ChartPrimitive,
+  type ChartProps as TanStackChartProps,
   type ChartTooltipBodyRenderContext,
 } from "@tanstack/charts/react/tooltip"
 import {
@@ -26,43 +22,17 @@ import {
 import { twMerge } from "tailwind-merge"
 
 import {
-  CHART_COLORS,
-  DEFAULT_COLORS,
-  constructCategoryColors,
-  getAxisTickLabelOptions,
-  getAxisTickOptions,
-  getCategoryAxis,
   getChartColors,
-  getChartSize,
-  getChartCurve,
-  getChartTheme,
-  getColorValue,
-  getEdgeValues,
   getLabel,
-  getNumericAxis,
-  getNumericScale,
-  getSeriesChartOptions,
   getTextLabel,
   getTooltipOptions,
-  toNamedSeriesData,
-  toSeriesData,
-  valueToPercent,
-  type BaseChartProps,
-  type CartesianChartProps,
-  type ChartAxisProps,
-  type ChartColorKeys,
+  type ChartColorPalette,
   type ChartConfig,
-  type ChartCurveType,
-  type ChartDatum,
   type ChartLegendProps,
-  type ChartNumericAxisProps,
   type ChartSizeProps,
   type ChartTooltipContentProps,
   type ChartTooltipProps,
   type ChartTooltipRenderer,
-  type ChartType,
-  type NamedSeriesDatum,
-  type SeriesDatum,
   type TooltipDatum,
 } from "./chart-core"
 
@@ -71,7 +41,7 @@ type ChartFrameContextValue = {
     selectSeries: (series: string | null) => void
   }
   meta: {
-    colors?: readonly ChartColorKeys[]
+    colors?: ChartColorPalette
     config: ChartConfig
   }
   state: {
@@ -89,53 +59,20 @@ function useChartFrame() {
   return context
 }
 
-const THEMES = { light: "", dark: ".dark" } as const
-
-function ChartStyle({ id, config }: { id: string; config: ChartConfig }) {
-  const colorConfig = Object.entries(config).filter(
-    ([, item]) => item.theme || item.color
-  )
-
-  if (colorConfig.length === 0) {
-    return null
-  }
-
-  return (
-    <style
-      dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES)
-          .map(([theme, prefix]) => {
-            const variables = colorConfig
-              .map(([key, item]) => {
-                const color =
-                  item.theme?.[theme as keyof typeof item.theme] ?? item.color
-                return color ? `  --color-${key}: ${color};` : null
-              })
-              .filter(Boolean)
-              .join("\n")
-
-            return `${prefix} [data-chart=${id}] {\n${variables}\n}`
-          })
-          .join("\n"),
-      }}
-    />
-  )
-}
-
 type ChartProps<
   TDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
-> = {
-  ariaLabel: string
-  className?: string
-  definition: DomChartDefinition<TDatum, TXValue, TYValue>
-  onSelect?: (point: ChartPoint<TDatum, TXValue, TYValue> | null) => void
-  renderTooltipBody?: (
-    context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>
-  ) => ReactNode
+> = Pick<
+  TanStackChartProps<TDatum, TXValue, TYValue>,
+  | "ariaLabel"
+  | "className"
+  | "definition"
+  | "onSelect"
+  | "renderTooltipBody"
+  | "style"
+> & {
   size?: ChartSizeProps
-  style?: CSSProperties
 }
 
 function Chart<
@@ -189,10 +126,9 @@ function Chart<
 
 type ChartFrameProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
   children: ReactNode
-  colors?: readonly ChartColorKeys[]
+  colors?: ChartColorPalette
   config: ChartConfig
   legend?: ReactNode | false
-  legendProps?: ChartLegendProps
 }
 
 function ChartFrame({
@@ -201,10 +137,8 @@ function ChartFrame({
   colors,
   config,
   legend,
-  legendProps,
   ...props
 }: ChartFrameProps) {
-  const chartId = useId().replaceAll(":", "")
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null)
 
   const selectSeries = (series: string | null) => {
@@ -215,7 +149,7 @@ function ChartFrame({
 
   let legendContent = legend
   if (legend === undefined) {
-    legendContent = <ChartLegend {...legendProps} />
+    legendContent = <ChartLegend />
   }
 
   const context = {
@@ -229,9 +163,7 @@ function ChartFrame({
       <div
         {...props}
         className={twMerge("z-20 flex w-full min-w-0 flex-col", className)}
-        data-chart={chartId}
       >
-        <ChartStyle config={config} id={chartId} />
         {children}
         {legendContent}
       </div>
@@ -311,12 +243,16 @@ function ChartLegend(props: ChartLegendProps) {
   return <ChartLegendContent {...props} />
 }
 
-function ChartTooltipContent<TDatum extends TooltipDatum>({
+function ChartTooltipContent<
+  TDatum extends TooltipDatum,
+  TXValue extends ChartValue = ChartValue,
+  TYValue extends ChartValue = ChartValue,
+>({
   config,
   points,
   tooltipProps,
   valueFormatter,
-}: ChartTooltipContentProps<TDatum>) {
+}: ChartTooltipContentProps<TDatum, TXValue, TYValue>) {
   const {
     className,
     hideIndicator = false,
@@ -397,18 +333,22 @@ function ChartTooltipContent<TDatum extends TooltipDatum>({
   )
 }
 
-function createTooltipRenderer<TDatum extends TooltipDatum>({
+function createTooltipRenderer<
+  TDatum extends TooltipDatum,
+  TXValue extends ChartValue = ChartValue,
+  TYValue extends ChartValue = ChartValue,
+>({
   config,
   tooltip,
   tooltipProps,
   valueFormatter,
 }: {
   config: ChartConfig
-  tooltip?: ChartTooltipRenderer<TDatum> | false
+  tooltip?: ChartTooltipRenderer<TDatum, TXValue, TYValue> | false
   tooltipProps?: ChartTooltipProps
   valueFormatter: (value: number) => string
 }) {
-  return (context: ChartTooltipBodyRenderContext<TDatum>) => {
+  return (context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>) => {
     const contentProps = {
       config,
       points: context.points,
@@ -424,6 +364,38 @@ function createTooltipRenderer<TDatum extends TooltipDatum>({
   }
 }
 
+function getChartTooltip<
+  TDatum extends TooltipDatum,
+  TXValue extends ChartValue = ChartValue,
+  TYValue extends ChartValue = ChartValue,
+>({
+  config,
+  definition,
+  tooltip,
+  tooltipProps,
+  valueFormatter,
+}: {
+  config: ChartConfig
+  definition: DomChartDefinition<TDatum, TXValue, TYValue>
+  tooltip?: ChartTooltipRenderer<TDatum, TXValue, TYValue> | false
+  tooltipProps?: ChartTooltipProps
+  valueFormatter: (value: number) => string
+}) {
+  if (tooltip === false) {
+    return { definition, renderTooltipBody: undefined }
+  }
+
+  return {
+    definition: { ...definition, ...getTooltipOptions(tooltipProps) },
+    renderTooltipBody: createTooltipRenderer({
+      config,
+      tooltip,
+      tooltipProps,
+      valueFormatter,
+    }),
+  }
+}
+
 const chartTooltipStyle = {
   "--ts-chart-tooltip-background": "transparent",
   "--ts-chart-tooltip-border": "0",
@@ -431,58 +403,18 @@ const chartTooltipStyle = {
   "--ts-chart-tooltip-shadow": "none",
 } as CSSProperties
 
-export type {
-  BaseChartProps,
-  CartesianChartProps,
-  ChartAxisProps,
-  ChartColorKeys,
-  ChartConfig,
-  ChartCurveType,
-  ChartDatum,
-  ChartFrameContextValue,
-  ChartFrameProps,
-  ChartLegendProps,
-  ChartNumericAxisProps,
-  ChartProps,
-  ChartSizeProps,
-  ChartTooltipContentProps,
-  ChartTooltipProps,
-  ChartTooltipRenderer,
-  ChartType,
-  NamedSeriesDatum,
-  SeriesDatum,
-  TooltipDatum,
-}
+export type { ChartFrameContextValue, ChartFrameProps, ChartProps }
 
 export {
   Chart,
   ChartFrame,
   ChartLegend,
   ChartLegendContent,
-  ChartStyle,
   ChartTooltipContent,
-  CHART_COLORS,
-  DEFAULT_COLORS,
   chartTooltipStyle,
-  constructCategoryColors,
   createTooltipRenderer,
-  getAxisTickLabelOptions,
-  getAxisTickOptions,
-  getCategoryAxis,
-  getChartColors,
-  getChartSize,
-  getChartCurve,
-  getChartTheme,
-  getColorValue,
-  getEdgeValues,
-  getLabel,
-  getNumericAxis,
-  getNumericScale,
-  getSeriesChartOptions,
-  getTextLabel,
-  getTooltipOptions,
-  toNamedSeriesData,
-  toSeriesData,
+  getChartTooltip,
   useChartFrame,
-  valueToPercent,
 }
+
+export * from "./chart-core"

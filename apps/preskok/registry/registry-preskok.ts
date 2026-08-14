@@ -1198,7 +1198,7 @@ export const preskokUi: Registry["items"] = [
     name: "tracker",
     type: "registry:ui",
     description:
-      "A tracker component for visualizing data over time with tooltips",
+      "Interactive and static trackers for visualizing labeled data over time",
     dependencies: ["react-aria-components", "tailwind-merge"],
     registryDependencies: ["tooltip"],
     files: [

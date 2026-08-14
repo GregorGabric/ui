@@ -9,54 +9,32 @@ import { stack } from "@tanstack/charts/stack"
 import {
   Chart,
   ChartFrame,
-  createTooltipRenderer,
+  defaultValueFormatter,
   getCategoryAxis,
+  getChartTooltip,
   getChartCurve,
   getNumericAxis,
   getNumericScale,
   getSeriesChartOptions,
-  getTooltipOptions,
   toSeriesData,
   useChartFrame,
   valueToPercent,
   type CartesianChartProps,
   type ChartCurveType,
-  type ChartSizeProps,
+  type ChartPlotProps,
   type ChartType,
   type SeriesDatum,
 } from "./chart"
 
 type AreaChartProps = CartesianChartProps & {
   areaProps?: Pick<AreaYOptions<SeriesDatum>, "fillOpacity" | "strokeWidth">
-  chartProps?: ChartSizeProps
   connectNulls?: boolean
   fillType?: "gradient" | "solid" | "none"
   lineType?: ChartCurveType
   type?: ChartType
 }
 
-type AreaChartPlotProps = Pick<
-  AreaChartProps,
-  | "areaProps"
-  | "ariaLabel"
-  | "chartProps"
-  | "colors"
-  | "config"
-  | "connectNulls"
-  | "data"
-  | "dataKey"
-  | "fillType"
-  | "grid"
-  | "lineType"
-  | "tooltip"
-  | "tooltipProps"
-  | "type"
-  | "valueFormatter"
-  | "xAxis"
-  | "yAxis"
->
-
-const defaultValueFormatter = (value: number) => value.toString()
+type AreaChartPlotProps = ChartPlotProps<AreaChartProps>
 
 function getGradientId(series: string) {
   return `area-${series.replaceAll(/[^a-zA-Z0-9_-]/g, "")}`
@@ -87,15 +65,15 @@ function getAreaPaint({
 function AreaChartPlot({
   areaProps,
   ariaLabel = "Area chart",
-  chartProps,
   colors,
   config,
   connectNulls = false,
-  data = [],
+  data,
   dataKey,
   fillType = "gradient",
   grid = "visible",
   lineType = "linear",
+  size,
   tooltip,
   tooltipProps,
   type = "default",
@@ -212,27 +190,21 @@ function AreaChartPlot({
       scale: getNumericScale(yAxis),
     },
   })
-  const definition =
-    tooltip === false
-      ? baseDefinition
-      : defineChart(baseDefinition, getTooltipOptions(tooltipProps))
+  const { definition, renderTooltipBody } = getChartTooltip({
+    config,
+    definition: baseDefinition,
+    tooltip,
+    tooltipProps,
+    valueFormatter: tooltipValueFormatter,
+  })
 
   return (
     <Chart
       ariaLabel={ariaLabel}
       className="w-full [&_g:has(>path[data-ts-key^=preskok-area]:hover)>path[data-ts-key^=preskok-area]:not(:hover)]:opacity-60 [&_path[data-ts-key^=preskok-area]]:cursor-pointer [&_path[data-ts-key^=preskok-area]]:transition-[filter,opacity] [&_path[data-ts-key^=preskok-area]]:duration-150 [&_path[data-ts-key^=preskok-area]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_path[data-ts-key^=preskok-area]]:transition-none [&_path[data-ts-key^=preskok-area]:hover]:brightness-110"
       definition={definition}
-      renderTooltipBody={
-        tooltip === false
-          ? undefined
-          : createTooltipRenderer({
-              config,
-              tooltip,
-              tooltipProps,
-              valueFormatter: tooltipValueFormatter,
-            })
-      }
-      size={chartProps}
+      renderTooltipBody={renderTooltipBody}
+      size={size}
     />
   )
 }
@@ -240,7 +212,6 @@ function AreaChartPlot({
 function AreaChart({
   areaProps,
   ariaLabel,
-  chartProps,
   className,
   colors,
   config,
@@ -250,8 +221,8 @@ function AreaChart({
   fillType,
   grid,
   legend,
-  legendProps,
   lineType,
+  size,
   tooltip,
   tooltipProps,
   type,
@@ -267,12 +238,10 @@ function AreaChart({
       colors={colors}
       config={config}
       legend={legend}
-      legendProps={legendProps}
     >
       <AreaChartPlot
         areaProps={areaProps}
         ariaLabel={ariaLabel}
-        chartProps={chartProps}
         colors={colors}
         config={config}
         connectNulls={connectNulls}
@@ -281,6 +250,7 @@ function AreaChart({
         fillType={fillType}
         grid={grid}
         lineType={lineType}
+        size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
         type={type}

@@ -3,11 +3,11 @@ import type {
   ChartAxisTickLabelOptions,
   ChartAxisTickOptions,
   ChartCurve,
-  ChartTooltipAnchor,
-  ChartTooltipPlacement,
+  ChartTooltipOptions,
   ChartValue,
 } from "@tanstack/charts"
 import { d3Curve } from "@tanstack/charts/d3/shape"
+import type { ChartProps as TanStackChartProps } from "@tanstack/charts/react/tooltip"
 import { scaleLinear } from "@tanstack/charts/scales/linear"
 import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 import {
@@ -20,9 +20,11 @@ import {
   curveStepAfter,
   curveStepBefore,
 } from "d3-shape"
+import type { ToggleButtonGroupProps } from "react-aria-components/ToggleButtonGroup"
 
 type ChartType = "default" | "stacked" | "percent"
-type ChartColorKeys = keyof typeof CHART_COLORS | (string & {})
+type ChartColor = (typeof CHART_COLORS)[number]
+type ChartColorPalette = readonly [ChartColor, ...ChartColor[]]
 type ChartDatum = Record<string, unknown>
 type ChartCurveType =
   | "basis"
@@ -39,12 +41,10 @@ type ChartCurveType =
 type ChartConfig = Record<
   string,
   {
-    label?: ReactNode
+    color?: ChartColor
     icon?: ComponentType<{ "data-slot"?: string }>
-  } & (
-    | { color?: ChartColorKeys; theme?: never }
-    | { color?: never; theme: { light: string; dark: string } }
-  )
+    label?: ReactNode
+  }
 >
 
 type ChartAxisProps<TValue extends ChartValue = ChartValue> = {
@@ -60,29 +60,36 @@ type ChartNumericAxisProps = ChartAxisProps<number> & {
   domain?: readonly [number, number]
 }
 
-type ChartTooltipProps = {
-  anchor?: ChartTooltipAnchor
+type ChartTooltipProps = Pick<
+  ChartTooltipOptions,
+  "anchor" | "offset" | "placement"
+> & {
   className?: string
   hideIndicator?: boolean
   hideLabel?: boolean
   indicator?: "line" | "dot" | "dashed"
   labelFormatter?: (label: ReactNode) => ReactNode
   labelSeparator?: boolean
-  offset?: number
-  placement?: "auto" | ChartTooltipPlacement | readonly ChartTooltipPlacement[]
 }
 
-type ChartLegendProps = HTMLAttributes<HTMLDivElement> & {
+type ChartLegendProps = Omit<
+  ToggleButtonGroupProps,
+  | "children"
+  | "className"
+  | "onSelectionChange"
+  | "selectedKeys"
+  | "selectionMode"
+> & {
   align?: "left" | "center" | "right"
+  className?: string
   hideIcon?: boolean
   verticalAlign?: "top" | "bottom"
 }
 
-type ChartSizeProps = {
-  aspectRatio?: number
-  height?: number
-  initialWidth?: number
-}
+type ChartSizeProps = Pick<
+  TanStackChartProps,
+  "aspectRatio" | "height" | "initialWidth"
+>
 
 type TooltipDatum = {
   category: ChartValue
@@ -91,16 +98,26 @@ type TooltipDatum = {
   value: number | null
 }
 
-type ChartTooltipContentProps<TDatum extends TooltipDatum = TooltipDatum> = {
+type ChartTooltipContentProps<
+  TDatum extends TooltipDatum = TooltipDatum,
+  TXValue extends ChartValue = ChartValue,
+  TYValue extends ChartValue = ChartValue,
+> = {
   config: ChartConfig
-  points: readonly import("@tanstack/charts").ChartPoint<TDatum>[]
+  points: readonly import("@tanstack/charts").ChartPoint<
+    TDatum,
+    TXValue,
+    TYValue
+  >[]
   tooltipProps?: ChartTooltipProps
   valueFormatter: (value: number) => string
 }
 
-type ChartTooltipRenderer<TDatum extends TooltipDatum = TooltipDatum> = (
-  props: ChartTooltipContentProps<TDatum>
-) => ReactNode
+type ChartTooltipRenderer<
+  TDatum extends TooltipDatum = TooltipDatum,
+  TXValue extends ChartValue = ChartValue,
+  TYValue extends ChartValue = ChartValue,
+> = (props: ChartTooltipContentProps<TDatum, TXValue, TYValue>) => ReactNode
 
 interface BaseChartProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -108,16 +125,21 @@ interface BaseChartProps extends Omit<
 > {
   ariaLabel?: string
   children?: never
-  colors?: readonly ChartColorKeys[]
+  colors?: ChartColorPalette
   config: ChartConfig
   data: ChartDatum[]
   dataKey: string
   legend?: ReactNode | false
-  legendProps?: ChartLegendProps
+  size?: ChartSizeProps
   tooltip?: ChartTooltipRenderer | false
   tooltipProps?: ChartTooltipProps
   valueFormatter?: (value: number) => string
 }
+
+type ChartPlotProps<TProps extends BaseChartProps> = Omit<
+  TProps,
+  keyof HTMLAttributes<HTMLDivElement> | "legend"
+>
 
 type CartesianChartProps = BaseChartProps & {
   grid?: "hidden" | "visible"
@@ -130,30 +152,27 @@ type SeriesDatum = TooltipDatum & {
   source: ChartDatum
 }
 
-type NamedSeriesDatum = TooltipDatum & {
+type NamedSeriesDatum = Omit<TooltipDatum, "value"> & {
   color: string
   index: number
   source: ChartDatum
+  value: number
 }
 
-const CHART_COLORS = {
-  "chart-1": "var(--chart-1)",
-  "chart-2": "var(--chart-2)",
-  "chart-3": "var(--chart-3)",
-  "chart-4": "var(--chart-4)",
-  "chart-5": "var(--chart-5)",
-} as const
-
-const DEFAULT_COLORS = [
-  "chart-1",
-  "chart-2",
-  "chart-3",
-  "chart-4",
-  "chart-5",
+const CHART_COLORS = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
 ] as const
 
 function valueToPercent(value: number) {
   return `${(value * 100).toFixed(0)}%`
+}
+
+function defaultValueFormatter(value: number) {
+  return String(value)
 }
 
 function getChartSize(
@@ -167,45 +186,60 @@ function getChartSize(
   return { ...size, height: defaultHeight }
 }
 
-function getColorValue(color?: string) {
-  if (!color) {
-    return "var(--chart-1)"
+function getSelectedSeriesColor({
+  color,
+  opacity,
+  selectedSeries,
+  series,
+}: {
+  color: string
+  opacity: number
+  selectedSeries: string | null
+  series: string
+}) {
+  if (selectedSeries === null || selectedSeries === series) {
+    return color
   }
 
-  return CHART_COLORS[color as keyof typeof CHART_COLORS] ?? color
+  return `color-mix(in srgb, ${color} ${opacity}%, transparent)`
+}
+
+function getPositiveMaximum(values: readonly number[], maximum?: number) {
+  const resolvedMaximum = maximum ?? Math.max(...values, 1)
+  return Number.isFinite(resolvedMaximum) && resolvedMaximum > 0
+    ? resolvedMaximum
+    : 1
 }
 
 function constructCategoryColors(
   categories: string[],
-  colors: readonly ChartColorKeys[]
+  colors: ChartColorPalette
 ) {
   return new Map(
     categories.map((category, index) => [
       category,
-      colors[index % colors.length] ?? "chart-1",
+      colors[index % colors.length] ?? colors[0],
     ])
   )
 }
 
 function getChartColors(
   config: ChartConfig,
-  colors: readonly ChartColorKeys[] = DEFAULT_COLORS
+  colors: ChartColorPalette = CHART_COLORS
 ) {
   const categoryColors = constructCategoryColors(Object.keys(config), colors)
 
   return Object.fromEntries(
-    Object.entries(config).map(([series, item]) => [
-      series,
-      item.theme
-        ? `var(--color-${series})`
-        : getColorValue(item.color ?? categoryColors.get(series)),
-    ])
+    Object.entries(config).map(([series, item]) => {
+      const color = item.color ?? categoryColors.get(series) ?? colors[0]
+      return [series, color]
+    })
   )
 }
 
 function getSeriesChartOptions(
   config: ChartConfig,
-  colors?: readonly ChartColorKeys[]
+  colors?: ChartColorPalette
 ) {
   const chartColors = getChartColors(config, colors)
   const seriesNames = Object.keys(config)
@@ -278,7 +312,7 @@ function toNamedSeriesData({
   selectedOpacity,
   valueKey,
 }: {
-  colors?: readonly ChartColorKeys[]
+  colors?: ChartColorPalette
   config: ChartConfig
   data: ChartDatum[]
   nameKey: string
@@ -287,7 +321,7 @@ function toNamedSeriesData({
   valueKey: string
 }) {
   const chartColors = getChartColors(config, colors)
-  const fallbackColors = colors ?? DEFAULT_COLORS
+  const fallbackColors = colors ?? CHART_COLORS
 
   return data.flatMap((source, index) => {
     const rawName = source[nameKey]
@@ -301,16 +335,19 @@ function toNamedSeriesData({
     }
 
     const series = String(rawName)
-    const fallback = fallbackColors[index % fallbackColors.length]
-    const color = chartColors[series] ?? getColorValue(fallback)
-    const dimmed = selectedSeries && selectedSeries !== series
+    const fallback =
+      fallbackColors[index % fallbackColors.length] ?? fallbackColors[0]
+    const color = chartColors[series] ?? fallback
 
     return [
       {
         category: series,
-        color: dimmed
-          ? `color-mix(in srgb, ${color} ${selectedOpacity}%, transparent)`
-          : color,
+        color: getSelectedSeriesColor({
+          color,
+          opacity: selectedOpacity,
+          selectedSeries,
+          series,
+        }),
         index,
         series,
         source,
@@ -482,12 +519,14 @@ export type {
   BaseChartProps,
   CartesianChartProps,
   ChartAxisProps,
-  ChartColorKeys,
+  ChartColor,
+  ChartColorPalette,
   ChartConfig,
   ChartCurveType,
   ChartDatum,
   ChartLegendProps,
   ChartNumericAxisProps,
+  ChartPlotProps,
   ChartSizeProps,
   ChartTooltipContentProps,
   ChartTooltipProps,
@@ -500,7 +539,6 @@ export type {
 
 export {
   CHART_COLORS,
-  DEFAULT_COLORS,
   constructCategoryColors,
   getAxisTickLabelOptions,
   getAxisTickOptions,
@@ -509,15 +547,17 @@ export {
   getChartSize,
   getChartCurve,
   getChartTheme,
-  getColorValue,
   getEdgeValues,
   getLabel,
   getNumericAxis,
   getNumericScale,
+  getPositiveMaximum,
+  getSelectedSeriesColor,
   getSeriesChartOptions,
   getTextLabel,
   getTooltipOptions,
   toNamedSeriesData,
   toSeriesData,
+  defaultValueFormatter,
   valueToPercent,
 }

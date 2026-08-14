@@ -37,32 +37,20 @@ export default function PieChartPreskokDemo() {
           pieProps={{ paddingAngle: 2, cornerRadius: 3 }}
           config={{
             Product: {
+              color: "var(--chart-1)",
               label: "Product",
-              theme: {
-                light: "oklch(0.55 0.22 264)",
-                dark: "oklch(0.68 0.2 258)",
-              },
             },
             Sales: {
+              color: "var(--chart-2)",
               label: "Sales",
-              theme: {
-                light: "oklch(0.62 0.17 220)",
-                dark: "oklch(0.72 0.15 220)",
-              },
             },
             Support: {
+              color: "var(--chart-3)",
               label: "Support",
-              theme: {
-                light: "oklch(0.62 0.14 165)",
-                dark: "oklch(0.73 0.14 165)",
-              },
             },
             Success: {
+              color: "var(--chart-4)",
               label: "Success",
-              theme: {
-                light: "oklch(0.72 0.16 78)",
-                dark: "oklch(0.8 0.15 82)",
-              },
             },
           }}
         />

@@ -1408,7 +1408,7 @@ import * as React from "react"
   },
   "tracker": {
     name: "tracker",
-    description: "A tracker component for visualizing data over time with tooltips",
+    description: "Interactive and static trackers for visualizing labeled data over time",
     type: "registry:ui",
     registryDependencies: ["tooltip"],
     files: [{
