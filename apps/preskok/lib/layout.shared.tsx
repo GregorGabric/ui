@@ -1,6 +1,5 @@
 import Image from "next/image"
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
-import { DatabaseIcon } from "lucide-react"
 
 import { siteConfig } from "@/lib/config"
 
@@ -26,16 +25,6 @@ export function baseOptions(): BaseLayoutProps {
       ),
       url: "/",
     },
-    links: [
-      {
-        type: "icon",
-        text: "Registry",
-        label: "Open registry index",
-        url: siteConfig.links.registry,
-        icon: <DatabaseIcon />,
-        on: "menu",
-      },
-    ],
     searchToggle: {
       enabled: true,
     },
