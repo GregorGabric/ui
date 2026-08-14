@@ -1,216 +1,172 @@
 "use client"
 
-import { defineChart } from "@tanstack/charts"
-import {
-  pie,
-  polar,
-  radialArc,
-  radialText,
-  type RadialArcOptions,
-} from "@tanstack/charts/polar"
-import { scaleLinear } from "@tanstack/charts/scales/linear"
+import { type ComponentProps } from "react"
+import { Cell, Pie, PieChart as PieChartPrimitive } from "recharts"
+import type {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent"
+import { twMerge } from "tailwind-merge"
 
 import {
   Chart,
-  ChartFrame,
-  defaultValueFormatter,
-  getChartSize,
-  getChartTooltip,
-  getChartTheme,
-  getTextLabel,
-  toNamedSeriesData,
-  useChartFrame,
+  ChartTooltip,
+  ChartTooltipContent,
+  DEFAULT_COLORS,
+  getColorValue,
   type BaseChartProps,
-  type ChartPlotProps,
-  type NamedSeriesDatum,
+  type ChartDatum,
 } from "./chart"
 
-type PieSourceDatum = NamedSeriesDatum
-type PieSliceDatum = ReturnType<typeof pie<PieSourceDatum>>[number]
+const sumNumericArray = (arr: number[]): number =>
+  arr.reduce((sum, num) => sum + num, 0)
 
-type PieChartProps = BaseChartProps & {
-  centerLabel?: string
-  centerValue?: string
-  nameKey?: string
-  pieProps?: Pick<
-    RadialArcOptions<PieSliceDatum>,
-    "cornerRadius" | "fillOpacity" | "stroke" | "strokeWidth"
-  > & {
-    paddingAngle?: number
-  }
+const calculateDefaultLabel = (data: ChartDatum[], valueKey: string): number =>
+  sumNumericArray(data.map((dataPoint) => Number(dataPoint[valueKey]) || 0))
+
+const parseLabelInput = (
+  labelInput: string | undefined,
+  valueFormatter: (value: number) => string,
+  data: ChartDatum[],
+  valueKey: string
+): string => labelInput || valueFormatter(calculateDefaultLabel(data, valueKey))
+
+interface PieChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends Omit<
+  BaseChartProps<TValue, TName>,
+  | "hideGridLines"
+  | "hideXAxis"
+  | "hideYAxis"
+  | "xAxisProps"
+  | "yAxisProps"
+  | "displayEdgeLabelsOnly"
+  | "legend"
+  | "legendProps"
+> {
   variant?: "pie" | "donut"
+  nameKey?: string
+
+  chartProps?: Omit<
+    ComponentProps<typeof PieChartPrimitive>,
+    "data" | "stackOffset"
+  >
+
+  label?: string
+  showLabel?: boolean
+  pieProps?: Omit<ComponentProps<typeof Pie>, "data" | "dataKey" | "name">
 }
 
-type PieChartPlotProps = ChartPlotProps<PieChartProps>
-
-function calculateTotal(rows: PieSourceDatum[]) {
-  return rows.reduce((total, row) => total + row.value, 0)
-}
-
-function PieChartPlot({
-  ariaLabel = "Pie chart",
-  centerLabel,
-  centerValue,
-  colors,
-  config,
-  data,
+const PieChart = <TValue extends ValueType, TName extends NameType>({
+  data = [],
   dataKey,
-  nameKey = "name",
-  pieProps,
-  size,
-  tooltip,
+  colors = DEFAULT_COLORS,
+  className,
+  config,
+  children,
+  label,
+  showLabel,
+
+  // Components
+  tooltip = true,
   tooltipProps,
-  valueFormatter = defaultValueFormatter,
+
   variant = "pie",
-}: PieChartPlotProps) {
-  const {
-    actions: { selectSeries },
-    state: { selectedSeries },
-  } = useChartFrame()
-  const rows = toNamedSeriesData({
-    colors,
-    config,
-    data,
-    nameKey,
-    selectedOpacity: 26,
-    selectedSeries,
-    valueKey: dataKey,
-  })
-  const { paddingAngle = 0, ...arcProps } = pieProps ?? {}
-  const slices = pie(rows, {
-    endAngle: Math.PI * 2,
-    gapAngle: (paddingAngle * Math.PI) / 180,
-    startAngle: 0,
-    value: "value",
-  })
-  const selectedRow = rows.find((row) => row.series === selectedSeries)
-  const displayedValue = selectedRow
-    ? valueFormatter(selectedRow.value)
-    : (centerValue ?? valueFormatter(calculateTotal(rows)))
-  const displayedLabel = selectedRow
-    ? getTextLabel(config, selectedRow.series)
-    : centerLabel
-  const marks = [
-    radialArc(slices, {
-      color: "series",
-      fill: (row) => row.color,
-      innerRadius:
-        variant === "donut" ? ({ radius }) => radius * 0.58 : undefined,
-      key: "series",
-      ...arcProps,
-    }),
-  ]
+  nameKey,
 
-  if (centerLabel !== undefined && variant === "donut") {
-    marks.push(
-      radialText(slices.slice(0, 1), {
-        angle: 0,
-        dy: -5,
-        fill: "var(--foreground)",
-        fontSize: 20,
-        fontWeight: 600,
-        key: "series",
-        radius: 0,
-        text: () => displayedValue,
-      }),
-      radialText(slices.slice(0, 1), {
-        angle: 0,
-        dy: 14,
-        fill: "var(--muted-foreground)",
-        fontSize: 10,
-        fontWeight: 500,
-        key: "series",
-        radius: 0,
-        text: () => displayedLabel ?? "",
-      })
-    )
-  }
+  chartProps,
 
-  const baseDefinition = defineChart({
-    color: {
-      domain: rows.map((row) => row.series),
-      range: rows.map((row) => row.color),
-    },
-    focusRing: false,
-    marks: [
-      polar({
-        angle: { scale: scaleLinear().domain([0, Math.PI * 2]) },
-        inset: 10,
-        marks,
-        radius: { scale: scaleLinear().domain([0, 1]) },
-        radiusRatio: 0.84,
-      }),
-    ],
-    svgAnimation: true,
-    theme: getChartTheme(rows.map((row) => row.color)),
-  })
-  const { definition, renderTooltipBody } = getChartTooltip({
-    config,
-    definition: baseDefinition,
-    tooltip,
-    tooltipProps,
-    valueFormatter,
-  })
-  const chartSize = getChartSize(size, 240)
+  valueFormatter = (value: number) => value.toString(),
+  pieProps,
+  ...props
+}: PieChartProps<TValue, TName>) => {
+  const parsedLabelInput = parseLabelInput(label, valueFormatter, data, dataKey)
 
   return (
     <Chart
-      ariaLabel={ariaLabel}
-      className="w-full [&_g:has(>path[data-ts-key*=arc-]:hover)>path[data-ts-key*=arc-]:not(:hover)]:opacity-60 [&_path[data-ts-key*=arc-]]:cursor-pointer [&_path[data-ts-key*=arc-]]:transition-[filter,opacity] [&_path[data-ts-key*=arc-]]:duration-150 [&_path[data-ts-key*=arc-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_path[data-ts-key*=arc-]]:transition-none [&_path[data-ts-key*=arc-]:hover]:brightness-110"
-      definition={definition}
-      onSelect={(point) => {
-        selectSeries(point?.datum.series ?? null)
-      }}
-      renderTooltipBody={renderTooltipBody}
-      size={chartSize}
-    />
-  )
-}
-
-function PieChart({
-  ariaLabel,
-  centerLabel,
-  centerValue,
-  className,
-  colors,
-  config,
-  data,
-  dataKey,
-  legend,
-  nameKey,
-  pieProps,
-  size,
-  tooltip,
-  tooltipProps,
-  valueFormatter,
-  variant,
-  ...frameProps
-}: PieChartProps) {
-  return (
-    <ChartFrame
-      {...frameProps}
-      className={className}
-      colors={colors}
+      className={twMerge("aspect-square", className)}
       config={config}
-      legend={legend}
+      data={data}
+      layout="radial"
+      dataKey={dataKey}
+      {...props}
     >
-      <PieChartPlot
-        ariaLabel={ariaLabel}
-        centerLabel={centerLabel}
-        centerValue={centerValue}
-        colors={colors}
-        config={config}
-        data={data}
-        dataKey={dataKey}
-        nameKey={nameKey}
-        pieProps={pieProps}
-        size={size}
-        tooltip={tooltip}
-        tooltipProps={tooltipProps}
-        valueFormatter={valueFormatter}
-        variant={variant}
-      />
-    </ChartFrame>
+      {({ onLegendSelect }) => (
+        <PieChartPrimitive
+          data={data}
+          onClick={() => {
+            onLegendSelect(null)
+          }}
+          margin={{
+            bottom: 0,
+            left: 0,
+            right: 0,
+            top: 0,
+          }}
+          {...chartProps}
+        >
+          {showLabel && variant === "donut" && (
+            <text
+              className="fill-foreground font-medium"
+              x="50%"
+              y="50%"
+              textAnchor="middle"
+              dominantBaseline="middle"
+            >
+              {parsedLabelInput}
+            </text>
+          )}
+          <Pie
+            name={nameKey}
+            dataKey={dataKey}
+            data={data}
+            cx={pieProps?.cx ?? "50%"}
+            cy={pieProps?.cy ?? "50%"}
+            startAngle={pieProps?.startAngle ?? 90}
+            endAngle={pieProps?.endAngle ?? -270}
+            strokeLinejoin="round"
+            innerRadius={variant === "donut" ? "50%" : "0%"}
+            isAnimationActive
+            {...pieProps}
+          >
+            {data.map((dataPoint, index) => {
+              let colorKey: string | undefined
+              if (typeof dataPoint.code === "string") {
+                colorKey = dataPoint.code
+              } else if (typeof dataPoint.name === "string") {
+                colorKey = dataPoint.name
+              }
+              const color = colorKey ? config?.[colorKey]?.color : undefined
+              return (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={getColorValue(color ?? colors[index % colors.length])}
+                />
+              )
+            })}
+          </Pie>
+
+          {tooltip && (
+            <ChartTooltip
+              content={
+                typeof tooltip === "boolean" ? (
+                  <ChartTooltipContent
+                    labelSeparator={false}
+                    accessibilityLayer
+                  />
+                ) : (
+                  tooltip
+                )
+              }
+              {...tooltipProps}
+            />
+          )}
+
+          {children}
+        </PieChartPrimitive>
+      )}
+    </Chart>
   )
 }
 

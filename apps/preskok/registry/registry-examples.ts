@@ -112,30 +112,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "radial-chart-preskok-demo",
-    type: "registry:example",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["radial-chart", "card"],
-    files: [
-      {
-        path: "examples/radial-chart-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "radar-chart-preskok-demo",
-    type: "registry:example",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["radar-chart", "card"],
-    files: [
-      {
-        path: "examples/radar-chart-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "progress-bar-preskok-demo",
     type: "registry:example",
     registryDependencies: ["progress-bar"],
@@ -643,10 +619,105 @@ export const examples: Registry["items"] = [
   {
     name: "chart-preskok-demo",
     type: "registry:example",
-    registryDependencies: ["area-chart"],
+    registryDependencies: ["chart"],
     files: [
       {
         path: "examples/chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["experimental-area-chart"],
+    files: [
+      {
+        path: "examples/experimental-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-area-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["experimental-area-chart", "card"],
+    files: [
+      {
+        path: "examples/experimental-area-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-bar-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["experimental-bar-chart", "card"],
+    files: [
+      {
+        path: "examples/experimental-bar-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-line-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["experimental-line-chart", "card"],
+    files: [
+      {
+        path: "examples/experimental-line-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-pie-chart-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["experimental-pie-chart", "card"],
+    files: [
+      {
+        path: "examples/experimental-pie-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-radial-chart-preskok-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["experimental-radial-chart", "card"],
+    files: [
+      {
+        path: "examples/experimental-radial-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-radar-chart-preskok-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["experimental-radar-chart", "card"],
+    files: [
+      {
+        path: "examples/experimental-radar-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "experimental-charts-toggle-preskok-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "area-chart",
+      "experimental-area-chart",
+      "card",
+      "tabs",
+    ],
+    files: [
+      {
+        path: "examples/experimental-charts-toggle-preskok-demo.tsx",
         type: "registry:example",
       },
     ],

@@ -56,17 +56,6 @@ Copy and paste the following code into your project.
 import { Tracker } from "@/components/ui/preskok-ui/tracker"
 
 export function TrackerDemo() {
-  const data = [
-    {
-      id: "09:00",
-      label: "On time at 09:00",
-      color: "var(--chart-1)",
-    },
-  ]
-
-  return <Tracker aria-label="Delivery status by hour" data={data} />
+  return <Tracker data={[]} />
 }
 ```
-
-Use `StaticTracker` when the segments should expose their labels without
-interactive tooltips.

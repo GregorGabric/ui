@@ -1,25 +1,26 @@
 ---
-title: Radial Chart
+title: Experimental Radial Chart
 description: Concentric radial bars built on TanStack Charts with tracks, labels, legends, and tooltips.
+status: new
 ---
 
 import { ComponentPreview } from "@/components/component-preview"
 
 <ComponentPreview
-  name="radial-chart-preskok-demo"
+  name="experimental-radial-chart-preskok-demo"
   description="A responsive concentric radial chart for compact progress and attainment summaries."
 />
 
 ## Installation
 
 ```bash
-npx preskok-ui@latest add radial-chart
+npx shadcn@latest add @preskok/experimental-radial-chart
 ```
 
 ## Usage
 
 ```tsx
-import { RadialChart } from "@/components/ui/preskok-ui/radial-chart"
+import { ExperimentalRadialChart } from "@/components/ui/preskok-ui/experimental-radial-chart"
 
 const data = [
   { name: "Onboarding", value: 86 },
@@ -27,9 +28,9 @@ const data = [
   { name: "Retention", value: 92 },
 ]
 
-export function RadialChartDemo() {
+export function ExperimentalRadialChartDemo() {
   return (
-    <RadialChart
+    <ExperimentalRadialChart
       data={data}
       dataKey="value"
       nameKey="name"

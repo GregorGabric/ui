@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-radar-chart-preskok-demo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-radar-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { TrendingUp } from \"lucide-react\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalRadarChart } from \"@/components/ui/preskok-ui/experimental-radar-chart\"\n\nconst readinessData = [\n  { metric: \"Reliability\", current: 88, previous: 75 },\n  { metric: \"Security\", current: 82, previous: 78 },\n  { metric: \"Performance\", current: 74, previous: 68 },\n  { metric: \"Accessibility\", current: 91, previous: 80 },\n  { metric: \"Coverage\", current: 69, previous: 64 },\n  { metric: \"Observability\", current: 84, previous: 72 },\n]\n\nexport default function ExperimentalRadarChartPreskokDemo() {\n  return (\n    <Card className=\"w-xl max-w-full\">\n      <CardHeader className=\"items-center pb-0 text-center\">\n        <CardTitle>Release readiness</CardTitle>\n        <CardDescription>Current release compared with v2.8</CardDescription>\n      </CardHeader>\n      <CardContent className=\"pb-0\">\n        <ExperimentalRadarChart\n          size={{ height: 330 }}\n          className=\"mx-auto max-w-lg\"\n          data={readinessData}\n          dataKey=\"metric\"\n          tooltipProps={{ hideLabel: false }}\n          valueAxis={{ domain: [0, 100] }}\n          valueFormatter={(value) => `${value}%`}\n          config={{\n            current: { label: \"Current\", color: \"var(--chart-1)\" },\n            previous: { label: \"Previous\", color: \"var(--chart-2)\" },\n          }}\n        />\n      </CardContent>\n      <CardFooter className=\"flex-col items-center gap-2 text-sm\">\n        <div className=\"flex items-center gap-2 leading-none font-medium\">\n          Readiness improved across all six dimensions\n          <TrendingUp aria-hidden className=\"size-4\" />\n        </div>\n        <div className=\"leading-none text-muted-foreground\">\n          Values are normalized to a shared 0–100 scale\n        </div>\n      </CardFooter>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

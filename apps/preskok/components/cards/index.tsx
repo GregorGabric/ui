@@ -14,8 +14,8 @@ import { CardsTeamMembers } from "@/components/cards/team-members"
 
 export function CardsDemo() {
   return (
-    <div className="grid grid-cols-1 **:data-[slot=card]:shadow-none md:gap-4 lg:grid-cols-6">
-      <div className="grid min-w-0 grid-cols-1 gap-4 lg:col-span-4 xl:col-span-6">
+    <div className="md:grids-col-2 grid **:data-[slot=card]:shadow-none md:gap-4 lg:grid-cols-6">
+      <div className="grid gap-4 lg:col-span-4 xl:col-span-6">
         <CardsStats />
         <div className="grid gap-1 sm:grid-cols-[auto_1fr] md:hidden">
           <CardsCalendar />

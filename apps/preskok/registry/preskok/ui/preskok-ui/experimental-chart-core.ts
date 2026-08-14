@@ -22,11 +22,14 @@ import {
 } from "d3-shape"
 import type { ToggleButtonGroupProps } from "react-aria-components/ToggleButtonGroup"
 
-type ChartType = "default" | "stacked" | "percent"
-type ChartColor = (typeof CHART_COLORS)[number]
-type ChartColorPalette = readonly [ChartColor, ...ChartColor[]]
-type ChartDatum = Record<string, unknown>
-type ChartCurveType =
+type ExperimentalChartType = "default" | "stacked" | "percent"
+type ExperimentalChartColor = (typeof EXPERIMENTAL_CHART_COLORS)[number]
+type ExperimentalChartColorPalette = readonly [
+  ExperimentalChartColor,
+  ...ExperimentalChartColor[],
+]
+type ExperimentalChartDatum = Record<string, unknown>
+type ExperimentalChartCurveType =
   | "basis"
   | "bump"
   | "linear"
@@ -38,16 +41,16 @@ type ChartCurveType =
   | "stepBefore"
   | ChartCurve
 
-type ChartConfig = Record<
+type ExperimentalChartConfig = Record<
   string,
   {
-    color?: ChartColor
+    color?: ExperimentalChartColor
     icon?: ComponentType<{ "data-slot"?: string }>
     label?: ReactNode
   }
 >
 
-type ChartAxisProps<TValue extends ChartValue = ChartValue> = {
+type ExperimentalChartAxisProps<TValue extends ChartValue = ChartValue> = {
   label?: string
   minTickGap?: number
   tickFormatter?: (value: TValue) => string
@@ -56,11 +59,11 @@ type ChartAxisProps<TValue extends ChartValue = ChartValue> = {
   tickStrategy?: "all" | "auto" | "edges"
 }
 
-type ChartNumericAxisProps = ChartAxisProps<number> & {
+type ExperimentalChartNumericAxisProps = ExperimentalChartAxisProps<number> & {
   domain?: readonly [number, number]
 }
 
-type ChartTooltipProps = Pick<
+type ExperimentalChartTooltipProps = Pick<
   ChartTooltipOptions,
   "anchor" | "offset" | "placement"
 > & {
@@ -72,7 +75,7 @@ type ChartTooltipProps = Pick<
   labelSeparator?: boolean
 }
 
-type ChartLegendProps = Omit<
+type ExperimentalChartLegendProps = Omit<
   ToggleButtonGroupProps,
   | "children"
   | "className"
@@ -86,80 +89,80 @@ type ChartLegendProps = Omit<
   verticalAlign?: "top" | "bottom"
 }
 
-type ChartSizeProps = Pick<
+type ExperimentalChartSizeProps = Pick<
   TanStackChartProps,
   "aspectRatio" | "height" | "initialWidth"
 >
 
-type TooltipDatum = {
+type ExperimentalTooltipDatum = {
   category: ChartValue
   series: string
   source: unknown
   value: number | null
 }
 
-type ChartTooltipContentProps<
-  TDatum extends TooltipDatum = TooltipDatum,
+type ExperimentalChartTooltipContentProps<
+  TDatum extends ExperimentalTooltipDatum = ExperimentalTooltipDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 > = {
-  config: ChartConfig
+  config: ExperimentalChartConfig
   points: readonly import("@tanstack/charts").ChartPoint<
     TDatum,
     TXValue,
     TYValue
   >[]
-  tooltipProps?: ChartTooltipProps
+  tooltipProps?: ExperimentalChartTooltipProps
   valueFormatter: (value: number) => string
 }
 
-type ChartTooltipRenderer<
-  TDatum extends TooltipDatum = TooltipDatum,
+type ExperimentalChartTooltipRenderer<
+  TDatum extends ExperimentalTooltipDatum = ExperimentalTooltipDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
-> = (props: ChartTooltipContentProps<TDatum, TXValue, TYValue>) => ReactNode
+> = (
+  props: ExperimentalChartTooltipContentProps<TDatum, TXValue, TYValue>
+) => ReactNode
 
-interface BaseChartProps extends Omit<
+interface ExperimentalBaseChartProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "children"
 > {
   ariaLabel?: string
   children?: never
-  colors?: ChartColorPalette
-  config: ChartConfig
-  data: ChartDatum[]
+  colors?: ExperimentalChartColorPalette
+  config: ExperimentalChartConfig
+  data: ExperimentalChartDatum[]
   dataKey: string
   legend?: ReactNode | false
-  size?: ChartSizeProps
-  tooltip?: ChartTooltipRenderer | false
-  tooltipProps?: ChartTooltipProps
+  size?: ExperimentalChartSizeProps
+  tooltip?: ExperimentalChartTooltipRenderer | false
+  tooltipProps?: ExperimentalChartTooltipProps
   valueFormatter?: (value: number) => string
 }
 
-type ChartPlotProps<TProps extends BaseChartProps> = Omit<
-  TProps,
-  keyof HTMLAttributes<HTMLDivElement> | "legend"
->
+type ExperimentalChartPlotProps<TProps extends ExperimentalBaseChartProps> =
+  Omit<TProps, keyof HTMLAttributes<HTMLDivElement> | "legend">
 
-type CartesianChartProps = BaseChartProps & {
+type ExperimentalCartesianChartProps = ExperimentalBaseChartProps & {
   grid?: "hidden" | "visible"
-  xAxis?: ChartAxisProps | false
-  yAxis?: ChartNumericAxisProps | false
+  xAxis?: ExperimentalChartAxisProps | false
+  yAxis?: ExperimentalChartNumericAxisProps | false
 }
 
-type SeriesDatum = TooltipDatum & {
+type ExperimentalSeriesDatum = ExperimentalTooltipDatum & {
   index: number
-  source: ChartDatum
+  source: ExperimentalChartDatum
 }
 
-type NamedSeriesDatum = Omit<TooltipDatum, "value"> & {
+type ExperimentalNamedSeriesDatum = Omit<ExperimentalTooltipDatum, "value"> & {
   color: string
   index: number
-  source: ChartDatum
+  source: ExperimentalChartDatum
   value: number
 }
 
-const CHART_COLORS = [
+const EXPERIMENTAL_CHART_COLORS = [
   "var(--chart-1)",
   "var(--chart-2)",
   "var(--chart-3)",
@@ -167,18 +170,18 @@ const CHART_COLORS = [
   "var(--chart-5)",
 ] as const
 
-function valueToPercent(value: number) {
+function experimentalValueToPercent(value: number) {
   return `${(value * 100).toFixed(0)}%`
 }
 
-function defaultValueFormatter(value: number) {
+function experimentalDefaultValueFormatter(value: number) {
   return String(value)
 }
 
-function getChartSize(
-  size: ChartSizeProps | undefined,
+function getExperimentalChartSize(
+  size: ExperimentalChartSizeProps | undefined,
   defaultHeight: number
-): ChartSizeProps {
+): ExperimentalChartSizeProps {
   if (size?.height !== undefined || size?.aspectRatio !== undefined) {
     return size
   }
@@ -186,7 +189,7 @@ function getChartSize(
   return { ...size, height: defaultHeight }
 }
 
-function getSelectedSeriesColor({
+function getExperimentalSelectedSeriesColor({
   color,
   opacity,
   selectedSeries,
@@ -204,16 +207,19 @@ function getSelectedSeriesColor({
   return `color-mix(in srgb, ${color} ${opacity}%, transparent)`
 }
 
-function getPositiveMaximum(values: readonly number[], maximum?: number) {
+function getExperimentalPositiveMaximum(
+  values: readonly number[],
+  maximum?: number
+) {
   const resolvedMaximum = maximum ?? Math.max(...values, 1)
   return Number.isFinite(resolvedMaximum) && resolvedMaximum > 0
     ? resolvedMaximum
     : 1
 }
 
-function constructCategoryColors(
+function constructExperimentalCategoryColors(
   categories: string[],
-  colors: ChartColorPalette
+  colors: ExperimentalChartColorPalette
 ) {
   return new Map(
     categories.map((category, index) => [
@@ -223,11 +229,14 @@ function constructCategoryColors(
   )
 }
 
-function getChartColors(
-  config: ChartConfig,
-  colors: ChartColorPalette = CHART_COLORS
+function getExperimentalChartColors(
+  config: ExperimentalChartConfig,
+  colors: ExperimentalChartColorPalette = EXPERIMENTAL_CHART_COLORS
 ) {
-  const categoryColors = constructCategoryColors(Object.keys(config), colors)
+  const categoryColors = constructExperimentalCategoryColors(
+    Object.keys(config),
+    colors
+  )
 
   return Object.fromEntries(
     Object.entries(config).map(([series, item]) => {
@@ -237,11 +246,11 @@ function getChartColors(
   )
 }
 
-function getSeriesChartOptions(
-  config: ChartConfig,
-  colors?: ChartColorPalette
+function getExperimentalSeriesChartOptions(
+  config: ExperimentalChartConfig,
+  colors?: ExperimentalChartColorPalette
 ) {
-  const chartColors = getChartColors(config, colors)
+  const chartColors = getExperimentalChartColors(config, colors)
   const seriesNames = Object.keys(config)
 
   return {
@@ -252,7 +261,7 @@ function getSeriesChartOptions(
         range: seriesNames.map((series) => chartColors[series] ?? ""),
       },
       svgAnimation: true,
-      theme: getChartTheme(
+      theme: getExperimentalChartTheme(
         seriesNames.map((series) => chartColors[series] ?? "")
       ),
     },
@@ -268,15 +277,15 @@ function isChartValue(value: unknown): value is ChartValue {
   )
 }
 
-function toSeriesData({
+function toExperimentalSeriesData({
   config,
   connectNulls = false,
   data,
   dataKey,
 }: {
-  config: ChartConfig
+  config: ExperimentalChartConfig
   connectNulls?: boolean
-  data: ChartDatum[]
+  data: ExperimentalChartDatum[]
   dataKey: string
 }) {
   const seriesNames = Object.keys(config)
@@ -298,12 +307,20 @@ function toSeriesData({
         return []
       }
 
-      return [{ category, index, series, source, value } satisfies SeriesDatum]
+      return [
+        {
+          category,
+          index,
+          series,
+          source,
+          value,
+        } satisfies ExperimentalSeriesDatum,
+      ]
     })
   })
 }
 
-function toNamedSeriesData({
+function toExperimentalNamedSeriesData({
   colors,
   config,
   data,
@@ -312,16 +329,16 @@ function toNamedSeriesData({
   selectedOpacity,
   valueKey,
 }: {
-  colors?: ChartColorPalette
-  config: ChartConfig
-  data: ChartDatum[]
+  colors?: ExperimentalChartColorPalette
+  config: ExperimentalChartConfig
+  data: ExperimentalChartDatum[]
   nameKey: string
   selectedSeries: string | null
   selectedOpacity: number
   valueKey: string
 }) {
-  const chartColors = getChartColors(config, colors)
-  const fallbackColors = colors ?? CHART_COLORS
+  const chartColors = getExperimentalChartColors(config, colors)
+  const fallbackColors = colors ?? EXPERIMENTAL_CHART_COLORS
 
   return data.flatMap((source, index) => {
     const rawName = source[nameKey]
@@ -342,7 +359,7 @@ function toNamedSeriesData({
     return [
       {
         category: series,
-        color: getSelectedSeriesColor({
+        color: getExperimentalSelectedSeriesColor({
           color,
           opacity: selectedOpacity,
           selectedSeries,
@@ -352,23 +369,26 @@ function toNamedSeriesData({
         series,
         source,
         value: rawValue,
-      } satisfies NamedSeriesDatum,
+      } satisfies ExperimentalNamedSeriesDatum,
     ]
   })
 }
 
-function getLabel(config: ChartConfig, series: string) {
+function getExperimentalLabel(config: ExperimentalChartConfig, series: string) {
   return config[series]?.label ?? series
 }
 
-function getTextLabel(config: ChartConfig, series: string) {
-  const label = getLabel(config, series)
+function getExperimentalTextLabel(
+  config: ExperimentalChartConfig,
+  series: string
+) {
+  const label = getExperimentalLabel(config, series)
   return typeof label === "string" || typeof label === "number"
     ? String(label)
     : series
 }
 
-function getChartTheme(colors: readonly string[]) {
+function getExperimentalChartTheme(colors: readonly string[]) {
   return {
     background: "transparent",
     foreground: "var(--muted-foreground)",
@@ -378,7 +398,9 @@ function getChartTheme(colors: readonly string[]) {
   }
 }
 
-function getChartCurve(lineType: ChartCurveType = "linear") {
+function getExperimentalChartCurve(
+  lineType: ExperimentalChartCurveType = "linear"
+) {
   if (typeof lineType !== "string") {
     return lineType
   }
@@ -404,12 +426,12 @@ function getChartCurve(lineType: ChartCurveType = "linear") {
   }
 }
 
-function getAxisTickOptions<TValue extends ChartValue>({
+function getExperimentalAxisTickOptions<TValue extends ChartValue>({
   edgeValues,
   props,
 }: {
   edgeValues?: readonly TValue[]
-  props?: ChartAxisProps<TValue>
+  props?: ExperimentalChartAxisProps<TValue>
 }): ChartAxisTickOptions<TValue> {
   let values = props?.ticks
   if (props?.tickStrategy === "edges") {
@@ -424,8 +446,8 @@ function getAxisTickOptions<TValue extends ChartValue>({
   }
 }
 
-function getAxisTickLabelOptions<TValue extends ChartValue>(
-  props?: ChartAxisProps<TValue>
+function getExperimentalAxisTickLabelOptions<TValue extends ChartValue>(
+  props?: ExperimentalChartAxisProps<TValue>
 ): ChartAxisTickLabelOptions<TValue> {
   if (props?.tickStrategy === "all") {
     return { fontSize: 11, fontWeight: 450, opacity: 0.78, thin: false }
@@ -442,14 +464,14 @@ function getAxisTickLabelOptions<TValue extends ChartValue>(
   }
 }
 
-function getCategoryAxis({
+function getExperimentalCategoryAxis({
   data,
   dataKey,
   props,
 }: {
-  data: ChartDatum[]
+  data: ExperimentalChartDatum[]
   dataKey: string
-  props?: ChartAxisProps | false
+  props?: ExperimentalChartAxisProps | false
 }) {
   if (props === false) {
     return false
@@ -458,19 +480,19 @@ function getCategoryAxis({
   return {
     line: false,
     label: props?.label,
-    tickLabels: getAxisTickLabelOptions(props),
-    ticks: getAxisTickOptions({
-      edgeValues: getEdgeValues(data, dataKey),
+    tickLabels: getExperimentalAxisTickLabelOptions(props),
+    ticks: getExperimentalAxisTickOptions({
+      edgeValues: getExperimentalEdgeValues(data, dataKey),
       props,
     }),
   }
 }
 
-function getNumericAxis({
+function getExperimentalNumericAxis({
   props,
   valueFormatter,
 }: {
-  props?: ChartNumericAxisProps | false
+  props?: ExperimentalChartNumericAxisProps | false
   valueFormatter: (value: number) => string
 }) {
   if (props === false) {
@@ -480,15 +502,17 @@ function getNumericAxis({
   return {
     line: false,
     label: props?.label,
-    tickLabels: getAxisTickLabelOptions(props),
+    tickLabels: getExperimentalAxisTickLabelOptions(props),
     ticks: {
-      ...getAxisTickOptions({ props }),
+      ...getExperimentalAxisTickOptions({ props }),
       format: props?.tickFormatter ?? valueFormatter,
     },
   }
 }
 
-function getNumericScale(props?: ChartNumericAxisProps | false) {
+function getExperimentalNumericScale(
+  props?: ExperimentalChartNumericAxisProps | false
+) {
   if (!props || !props.domain) {
     return scaleLinear
   }
@@ -497,7 +521,9 @@ function getNumericScale(props?: ChartNumericAxisProps | false) {
   return () => scaleLinear().domain(domain)
 }
 
-function getTooltipOptions(tooltipProps?: ChartTooltipProps) {
+function getExperimentalTooltipOptions(
+  tooltipProps?: ExperimentalChartTooltipProps
+) {
   return {
     tooltip: {
       anchor: tooltipProps?.anchor,
@@ -508,7 +534,10 @@ function getTooltipOptions(tooltipProps?: ChartTooltipProps) {
   } as const
 }
 
-function getEdgeValues(data: ChartDatum[], dataKey: string) {
+function getExperimentalEdgeValues(
+  data: ExperimentalChartDatum[],
+  dataKey: string
+) {
   const first = data.at(0)?.[dataKey]
   const last = data.at(-1)?.[dataKey]
 
@@ -516,48 +545,48 @@ function getEdgeValues(data: ChartDatum[], dataKey: string) {
 }
 
 export type {
-  BaseChartProps,
-  CartesianChartProps,
-  ChartAxisProps,
-  ChartColor,
-  ChartColorPalette,
-  ChartConfig,
-  ChartCurveType,
-  ChartDatum,
-  ChartLegendProps,
-  ChartNumericAxisProps,
-  ChartPlotProps,
-  ChartSizeProps,
-  ChartTooltipContentProps,
-  ChartTooltipProps,
-  ChartTooltipRenderer,
-  ChartType,
-  NamedSeriesDatum,
-  SeriesDatum,
-  TooltipDatum,
+  ExperimentalBaseChartProps,
+  ExperimentalCartesianChartProps,
+  ExperimentalChartAxisProps,
+  ExperimentalChartColor,
+  ExperimentalChartColorPalette,
+  ExperimentalChartConfig,
+  ExperimentalChartCurveType,
+  ExperimentalChartDatum,
+  ExperimentalChartLegendProps,
+  ExperimentalChartNumericAxisProps,
+  ExperimentalChartPlotProps,
+  ExperimentalChartSizeProps,
+  ExperimentalChartTooltipContentProps,
+  ExperimentalChartTooltipProps,
+  ExperimentalChartTooltipRenderer,
+  ExperimentalChartType,
+  ExperimentalNamedSeriesDatum,
+  ExperimentalSeriesDatum,
+  ExperimentalTooltipDatum,
 }
 
 export {
-  CHART_COLORS,
-  constructCategoryColors,
-  getAxisTickLabelOptions,
-  getAxisTickOptions,
-  getCategoryAxis,
-  getChartColors,
-  getChartSize,
-  getChartCurve,
-  getChartTheme,
-  getEdgeValues,
-  getLabel,
-  getNumericAxis,
-  getNumericScale,
-  getPositiveMaximum,
-  getSelectedSeriesColor,
-  getSeriesChartOptions,
-  getTextLabel,
-  getTooltipOptions,
-  toNamedSeriesData,
-  toSeriesData,
-  defaultValueFormatter,
-  valueToPercent,
+  EXPERIMENTAL_CHART_COLORS,
+  constructExperimentalCategoryColors,
+  getExperimentalAxisTickLabelOptions,
+  getExperimentalAxisTickOptions,
+  getExperimentalCategoryAxis,
+  getExperimentalChartColors,
+  getExperimentalChartSize,
+  getExperimentalChartCurve,
+  getExperimentalChartTheme,
+  getExperimentalEdgeValues,
+  getExperimentalLabel,
+  getExperimentalNumericAxis,
+  getExperimentalNumericScale,
+  getExperimentalPositiveMaximum,
+  getExperimentalSelectedSeriesColor,
+  getExperimentalSeriesChartOptions,
+  getExperimentalTextLabel,
+  getExperimentalTooltipOptions,
+  toExperimentalNamedSeriesData,
+  toExperimentalSeriesData,
+  experimentalDefaultValueFormatter,
+  experimentalValueToPercent,
 }

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-charts-toggle-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/area-chart.json",
+    "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json",
+    "https://ui-three-mu.vercel.app/r/tabs.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-charts-toggle-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { AreaChart } from \"@/components/ui/preskok-ui/area-chart\"\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalAreaChart } from \"@/components/ui/preskok-ui/experimental-area-chart\"\nimport {\n  Tab,\n  TabList,\n  TabPanel,\n  Tabs,\n} from \"@/components/ui/preskok-ui/tabs\"\n\nconst data = [\n  { month: \"Jan\", revenue: 42, sales: 28 },\n  { month: \"Feb\", revenue: 64, sales: 39 },\n  { month: \"Mar\", revenue: 51, sales: 35 },\n  { month: \"Apr\", revenue: 78, sales: 46 },\n  { month: \"May\", revenue: 69, sales: 43 },\n  { month: \"Jun\", revenue: 91, sales: 57 },\n]\n\nconst config = {\n  revenue: { label: \"Revenue\", color: \"var(--chart-1)\" },\n  sales: { label: \"Sales\", color: \"var(--chart-2)\" },\n} as const\n\nexport default function ExperimentalChartsTogglePreskokDemo() {\n  return (\n    <Card className=\"w-3xl max-w-full\">\n      <CardHeader>\n        <CardTitle>Compare chart implementations</CardTitle>\n        <CardDescription>\n          Switch between the stable Recharts component and the experimental\n          TanStack implementation using the same data and configuration.\n        </CardDescription>\n      </CardHeader>\n      <CardContent>\n        <Tabs aria-label=\"Chart implementation\" defaultSelectedKey=\"stable\">\n          <TabList>\n            <Tab id=\"stable\">Recharts · Stable</Tab>\n            <Tab id=\"experimental\">TanStack · Experimental</Tab>\n          </TabList>\n          <TabPanel id=\"stable\">\n            <AreaChart\n              className=\"h-64 min-h-64\"\n              config={config}\n              data={data}\n              dataKey=\"month\"\n              fillType=\"gradient\"\n              lineType=\"monotone\"\n              valueFormatter={(value) => `$${value}k`}\n            />\n          </TabPanel>\n          <TabPanel id=\"experimental\">\n            <ExperimentalAreaChart\n              config={config}\n              data={data}\n              dataKey=\"month\"\n              fillType=\"gradient\"\n              lineType=\"monotone\"\n              size={{ height: 256 }}\n              valueFormatter={(value) => `$${value}k`}\n            />\n          </TabPanel>\n        </Tabs>\n      </CardContent>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

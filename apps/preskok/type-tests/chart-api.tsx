@@ -1,10 +1,10 @@
-import { AreaChart } from "@/registry/preskok/ui/preskok-ui/area-chart"
-import { BarChart } from "@/registry/preskok/ui/preskok-ui/bar-chart"
-import { ChartLegend } from "@/registry/preskok/ui/preskok-ui/chart"
-import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
-import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
-import { RadarChart } from "@/registry/preskok/ui/preskok-ui/radar-chart"
-import { RadialChart } from "@/registry/preskok/ui/preskok-ui/radial-chart"
+import { ExperimentalAreaChart } from "@/registry/preskok/ui/preskok-ui/experimental-area-chart"
+import { ExperimentalBarChart } from "@/registry/preskok/ui/preskok-ui/experimental-bar-chart"
+import { ExperimentalChartLegend } from "@/registry/preskok/ui/preskok-ui/experimental-chart"
+import { ExperimentalLineChart } from "@/registry/preskok/ui/preskok-ui/experimental-line-chart"
+import { ExperimentalPieChart } from "@/registry/preskok/ui/preskok-ui/experimental-pie-chart"
+import { ExperimentalRadarChart } from "@/registry/preskok/ui/preskok-ui/experimental-radar-chart"
+import { ExperimentalRadialChart } from "@/registry/preskok/ui/preskok-ui/experimental-radial-chart"
 
 const data = [
   { month: "Jan", revenue: 42, sales: 28 },
@@ -15,14 +15,18 @@ const config = {
   sales: { label: "Sales", color: "var(--chart-2)" },
 } as const
 const cartesianProps = { config, data, dataKey: "month" }
+const Area = ExperimentalAreaChart
+const Line = ExperimentalLineChart
+const Radar = ExperimentalRadarChart
+const Radial = ExperimentalRadialChart
 
 const composableLineChart = (
-  <LineChart
+  <ExperimentalLineChart
     {...cartesianProps}
     aria-describedby="chart-summary"
     size={{ initialWidth: 640 }}
     grid="hidden"
-    legend={<ChartLegend align="left" />}
+    legend={<ExperimentalChartLegend align="left" />}
     style={{ minHeight: 240 }}
     xAxis={{ tickStrategy: "edges" }}
     yAxis={{ domain: [0, 100], tickFormatter: String }}
@@ -30,7 +34,7 @@ const composableLineChart = (
 )
 
 const configuredAreaChart = (
-  <AreaChart
+  <ExperimentalAreaChart
     {...cartesianProps}
     legend={false}
     tooltip={false}
@@ -40,7 +44,7 @@ const configuredAreaChart = (
 )
 
 const orientedBarChart = (
-  <BarChart
+  <ExperimentalBarChart
     {...cartesianProps}
     categoryAxis={{ tickFormatter: String }}
     grid="visible"
@@ -65,14 +69,18 @@ const polarProps = {
 
 const composedPolarCharts = (
   <>
-    <PieChart
+    <ExperimentalPieChart
       {...polarProps}
       centerLabel="Total"
       centerValue="100"
       variant="donut"
     />
-    <RadialChart {...polarProps} centerLabel="Average" track="hidden" />
-    <RadarChart
+    <ExperimentalRadialChart
+      {...polarProps}
+      centerLabel="Average"
+      track="hidden"
+    />
+    <ExperimentalRadarChart
       {...cartesianProps}
       categoryAxis={{ tickFormatter: String }}
       dots={{ r: 4 }}
@@ -84,31 +92,31 @@ const composedPolarCharts = (
 
 const removedIntervalType = (
   // @ts-expect-error intervalType was never implemented and is no longer exposed.
-  <LineChart {...cartesianProps} intervalType="preserveStart" />
+  <ExperimentalLineChart {...cartesianProps} intervalType="preserveStart" />
 )
 
 const removedChartProps = (
   // @ts-expect-error size is the single sizing API shared by every chart variant.
-  <LineChart {...cartesianProps} chartProps={{ initialWidth: 640 }} />
+  <Line {...cartesianProps} chartProps={{ initialWidth: 640 }} />
 )
 
 const removedLegendProps = (
   // @ts-expect-error compose legend options through the legend element.
-  <LineChart {...cartesianProps} legendProps={{ align: "left" }} />
+  <ExperimentalLineChart {...cartesianProps} legendProps={{ align: "left" }} />
 )
 
 const removedEmptyColorPalette = (
   // @ts-expect-error a custom palette must contain at least one defined chart color.
-  <LineChart {...cartesianProps} colors={[]} />
+  <ExperimentalLineChart {...cartesianProps} colors={[]} />
 )
 
 const removedRawPaletteColor = (
   // @ts-expect-error palette overrides can only reorder defined chart colors.
-  <LineChart {...cartesianProps} colors={["#2563eb"]} />
+  <ExperimentalLineChart {...cartesianProps} colors={["#2563eb"]} />
 )
 
 const removedRawSeriesColor = (
-  <LineChart
+  <ExperimentalLineChart
     {...cartesianProps}
     config={{
       // @ts-expect-error series colors must reference the shared chart palette.
@@ -118,7 +126,7 @@ const removedRawSeriesColor = (
 )
 
 const removedSeriesTheme = (
-  <LineChart
+  <ExperimentalLineChart
     {...cartesianProps}
     config={{
       // @ts-expect-error light and dark series colors come from globals.css.
@@ -128,19 +136,19 @@ const removedSeriesTheme = (
 )
 
 // @ts-expect-error chart variants own plot content; compose surrounding UI through legend and HTML props.
-const removedChildren = <LineChart {...cartesianProps}>content</LineChart>
+const removedChildren = <Line {...cartesianProps}>content</Line>
 
 // @ts-expect-error use the explicit grid option instead of competing hide booleans.
-const removedGridBoolean = <AreaChart {...cartesianProps} hideGridLines />
+const removedGridBoolean = <Area {...cartesianProps} hideGridLines />
 
 // @ts-expect-error a center label now directly opts into the radial center annotation.
-const removedShowLabel = <RadialChart {...polarProps} showLabel />
+const removedShowLabel = <Radial {...polarProps} showLabel />
 
 // @ts-expect-error line charts support independent or percent-normalized series, not stacking.
-const removedStackedLine = <LineChart {...cartesianProps} type="stacked" />
+const removedStackedLine = <Line {...cartesianProps} type="stacked" />
 
 // @ts-expect-error configure the Radar value scale through valueAxis.domain.
-const removedRadarMaxValue = <RadarChart {...cartesianProps} maxValue={100} />
+const removedRadarMaxValue = <Radar {...cartesianProps} maxValue={100} />
 
 export {
   composedPolarCharts,

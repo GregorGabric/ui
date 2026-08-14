@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { RadialChart } from "@/registry/preskok/ui/preskok-ui/radial-chart"
+import { ExperimentalRadialChart } from "@/registry/preskok/ui/preskok-ui/experimental-radial-chart"
 
 const attainmentData = [
   { name: "Onboarding", value: 86 },
@@ -18,7 +18,7 @@ const attainmentData = [
   { name: "Retention", value: 92 },
 ]
 
-export default function RadialChartPreskokDemo() {
+export default function ExperimentalRadialChartPreskokDemo() {
   return (
     <Card className="w-lg max-w-full">
       <CardHeader className="items-center pb-0 text-center">
@@ -26,7 +26,7 @@ export default function RadialChartPreskokDemo() {
         <CardDescription>Quarterly target attainment</CardDescription>
       </CardHeader>
       <CardContent className="pb-0">
-        <RadialChart
+        <ExperimentalRadialChart
           centerLabel="Average"
           className="mx-auto max-w-sm"
           data={attainmentData}

@@ -6,22 +6,22 @@ import { scaleBand } from "@tanstack/charts/scales/band"
 import { scaleLinear } from "@tanstack/charts/scales/linear"
 
 import {
-  Chart,
-  ChartFrame,
-  defaultValueFormatter,
-  getChartSize,
-  getChartTooltip,
-  getChartTheme,
-  getPositiveMaximum,
-  getTextLabel,
-  toNamedSeriesData,
-  useChartFrame,
-  type BaseChartProps,
-  type ChartPlotProps,
-  type NamedSeriesDatum,
-} from "./chart"
+  ExperimentalChart,
+  ExperimentalChartFrame,
+  experimentalDefaultValueFormatter,
+  getExperimentalChartSize,
+  getExperimentalChartTooltip,
+  getExperimentalChartTheme,
+  getExperimentalPositiveMaximum,
+  getExperimentalTextLabel,
+  toExperimentalNamedSeriesData,
+  useExperimentalChartFrame,
+  type ExperimentalBaseChartProps,
+  type ExperimentalChartPlotProps,
+  type ExperimentalNamedSeriesDatum,
+} from "./experimental-chart"
 
-type RadialChartProps = BaseChartProps & {
+type ExperimentalRadialChartProps = ExperimentalBaseChartProps & {
   centerLabel?: string
   centerValue?: string
   endAngle?: number
@@ -32,9 +32,10 @@ type RadialChartProps = BaseChartProps & {
   track?: "hidden" | "visible"
 }
 
-type RadialChartPlotProps = ChartPlotProps<RadialChartProps>
+type ExperimentalRadialChartPlotProps =
+  ExperimentalChartPlotProps<ExperimentalRadialChartProps>
 
-type RadialDatum = NamedSeriesDatum
+type RadialDatum = ExperimentalNamedSeriesDatum
 
 function clampValue(value: number, maximum: number) {
   return Math.min(Math.max(value, 0), maximum)
@@ -49,7 +50,7 @@ function getAverageValue(rows: RadialDatum[]) {
   return total / rows.length
 }
 
-function RadialChartPlot({
+function ExperimentalRadialChartPlot({
   ariaLabel = "Radial chart",
   centerLabel,
   centerValue,
@@ -66,13 +67,13 @@ function RadialChartPlot({
   tooltip,
   tooltipProps,
   track = "visible",
-  valueFormatter = defaultValueFormatter,
-}: RadialChartPlotProps) {
+  valueFormatter = experimentalDefaultValueFormatter,
+}: ExperimentalRadialChartPlotProps) {
   const {
     actions: { selectSeries },
     state: { selectedSeries },
-  } = useChartFrame()
-  const rows = toNamedSeriesData({
+  } = useExperimentalChartFrame()
+  const rows = toExperimentalNamedSeriesData({
     colors,
     config,
     data,
@@ -81,7 +82,7 @@ function RadialChartPlot({
     selectedSeries,
     valueKey: dataKey,
   })
-  const resolvedMaximum = getPositiveMaximum(
+  const resolvedMaximum = getExperimentalPositiveMaximum(
     rows.map((row) => row.value),
     maxValue
   )
@@ -135,11 +136,11 @@ function RadialChartPlot({
       }),
     ],
     svgAnimation: true,
-    theme: getChartTheme(rows.map((row) => row.color)),
+    theme: getExperimentalChartTheme(rows.map((row) => row.color)),
     x: null,
     y: null,
   })
-  const { definition, renderTooltipBody } = getChartTooltip({
+  const { definition, renderTooltipBody } = getExperimentalChartTooltip({
     config,
     definition: baseDefinition,
     tooltip,
@@ -151,13 +152,13 @@ function RadialChartPlot({
     ? valueFormatter(selectedRow.value)
     : (centerValue ?? valueFormatter(getAverageValue(rows)))
   const displayedLabel = selectedRow
-    ? getTextLabel(config, selectedRow.series)
+    ? getExperimentalTextLabel(config, selectedRow.series)
     : centerLabel
-  const chartSize = getChartSize(size, 260)
+  const chartSize = getExperimentalChartSize(size, 260)
 
   return (
     <div className="relative">
-      <Chart
+      <ExperimentalChart
         ariaLabel={ariaLabel}
         className="w-full [&_g:has(>path[data-ts-key*=preskok-radial-value]:hover)>path[data-ts-key*=preskok-radial-value]:not(:hover)]:opacity-55 [&_path[data-ts-key*=preskok-radial-value]]:cursor-pointer [&_path[data-ts-key*=preskok-radial-value]]:transition-[filter,opacity] [&_path[data-ts-key*=preskok-radial-value]]:duration-150 [&_path[data-ts-key*=preskok-radial-value]]:ease-out motion-reduce:[&_path[data-ts-key*=preskok-radial-value]]:transition-none [&_path[data-ts-key*=preskok-radial-value]:hover]:brightness-110"
         definition={definition}
@@ -181,7 +182,7 @@ function RadialChartPlot({
   )
 }
 
-function RadialChart({
+function ExperimentalRadialChart({
   ariaLabel,
   centerLabel,
   centerValue,
@@ -202,21 +203,21 @@ function RadialChart({
   track,
   valueFormatter,
   ...frameProps
-}: RadialChartProps) {
+}: ExperimentalRadialChartProps) {
   let resolvedLegend = legend
   if (legend === undefined && Object.keys(config).length < 2) {
     resolvedLegend = false
   }
 
   return (
-    <ChartFrame
+    <ExperimentalChartFrame
       {...frameProps}
       className={className}
       colors={colors}
       config={config}
       legend={resolvedLegend}
     >
-      <RadialChartPlot
+      <ExperimentalRadialChartPlot
         ariaLabel={ariaLabel}
         centerLabel={centerLabel}
         centerValue={centerValue}
@@ -235,9 +236,9 @@ function RadialChart({
         track={track}
         valueFormatter={valueFormatter}
       />
-    </ChartFrame>
+    </ExperimentalChartFrame>
   )
 }
 
-export { RadialChart }
-export type { RadialChartProps }
+export { ExperimentalRadialChart }
+export type { ExperimentalRadialChartProps }

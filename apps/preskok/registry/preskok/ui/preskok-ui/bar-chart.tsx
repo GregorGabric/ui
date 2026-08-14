@@ -1,323 +1,194 @@
 "use client"
 
-import type { CSSProperties } from "react"
-import {
-  defineChart,
-  type GroupLayout,
-  type StackLayout,
-} from "@tanstack/charts"
-import {
-  barX,
-  barY,
-  type BarXOptions,
-  type BarYOptions,
-} from "@tanstack/charts/bar"
-import { group } from "@tanstack/charts/group"
-import { scaleBand } from "@tanstack/charts/scales/band"
-import { stack } from "@tanstack/charts/stack"
+import React, { startTransition, type ComponentProps } from "react"
+import { Bar, BarChart as BarChartPrimitive } from "recharts"
+import type {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent"
+import { twMerge } from "tailwind-merge"
 
 import {
+  CartesianGrid,
   Chart,
-  ChartFrame,
-  defaultValueFormatter,
-  getCategoryAxis,
-  getChartTooltip,
-  getNumericAxis,
-  getNumericScale,
-  getSelectedSeriesColor,
-  getSeriesChartOptions,
-  toSeriesData,
-  useChartFrame,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+  constructCategoryColors,
+  DEFAULT_COLORS,
+  getColorValue,
   valueToPercent,
+  XAxis,
+  YAxis,
   type BaseChartProps,
-  type ChartAxisProps,
-  type ChartNumericAxisProps,
-  type ChartPlotProps,
-  type ChartType,
-  type SeriesDatum,
 } from "./chart"
 
-type BarOptions = Pick<
-  BarXOptions<SeriesDatum> & BarYOptions<SeriesDatum>,
-  "fillOpacity" | "inset" | "maxThickness" | "radius"
->
-
-type BarChartProps = BaseChartProps & {
+interface BarChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends BaseChartProps<TValue, TName> {
   barCategoryGap?: number
-  barGap?: number
-  barProps?: BarOptions
   barRadius?: number
+  barGap?: number
   barSize?: number
-  categoryAxis?: ChartAxisProps | false
-  grid?: "hidden" | "visible"
-  layout?: "horizontal" | "vertical"
-  type?: ChartType
-  valueAxis?: ChartNumericAxisProps | false
+  barProps?: Partial<React.ComponentProps<typeof Bar>>
+
+  chartProps?: Omit<
+    ComponentProps<typeof BarChartPrimitive>,
+    "data" | "stackOffset"
+  >
 }
 
-type BarChartPlotProps = ChartPlotProps<BarChartProps>
+const defaultValueFormatter = (value: number) => value.toString()
 
-function getBarDirection(value: number | null) {
-  return value !== null && value < 0 ? "negative" : "positive"
-}
-
-function getTerminalSeries(rows: SeriesDatum[]) {
-  const terminalSeries = new Map<string, string>()
-
-  for (const row of rows) {
-    if (row.value === null || row.value === 0) {
-      continue
-    }
-
-    terminalSeries.set(`${row.index}-${getBarDirection(row.value)}`, row.series)
-  }
-
-  return terminalSeries
-}
-
-function BarChartPlot({
-  ariaLabel = "Bar chart",
-  barCategoryGap = 5,
-  barGap = 4,
-  barProps,
-  barRadius,
-  barSize,
-  categoryAxis,
-  colors,
-  config,
-  data,
+const BarChart = <TValue extends ValueType, TName extends NameType>({
+  data = [],
   dataKey,
-  grid = "visible",
-  layout = "horizontal",
-  size,
-  tooltip,
-  tooltipProps,
+  colors = DEFAULT_COLORS,
   type = "default",
-  valueAxis,
+  className,
+  config,
+  children,
+  layout = "horizontal",
+
+  // Components
+  tooltip = true,
+  tooltipProps,
+
+  legend = true,
+  legendProps,
+
+  intervalType = "equidistantPreserveStart",
+
+  barCategoryGap = 5,
+  barGap,
+  barSize,
+  barRadius,
+  barProps,
+
   valueFormatter = defaultValueFormatter,
-}: BarChartPlotProps) {
-  const {
-    actions: { selectSeries },
-    state: { selectedSeries },
-  } = useChartFrame()
-  const rows = toSeriesData({ config, data, dataKey })
-  const { chartColors, options, seriesNames } = getSeriesChartOptions(
-    config,
-    colors
-  )
-  const tooltipValueFormatter =
-    type === "percent" ? valueToPercent : valueFormatter
-  const vertical = layout === "horizontal"
+
+  // XAxis
+  displayEdgeLabelsOnly = false,
+  xAxisProps,
+  hideXAxis = false,
+
+  // YAxis
+  yAxisProps,
+  hideYAxis = false,
+
+  hideGridLines = false,
+  chartProps,
+  ...props
+}: BarChartProps<TValue, TName>) => {
+  const categoryColors = constructCategoryColors(Object.keys(config), colors)
+
   const stacked = type === "stacked" || type === "percent"
-  let resolvedBarRadius = barRadius
-  if (resolvedBarRadius === undefined) {
-    resolvedBarRadius = type === "default" && seriesNames.length === 1 ? 8 : 4
-  }
-
-  const terminalSeries = getTerminalSeries(rows)
-  let barLayout: GroupLayout | StackLayout = group({
-    padding: Math.min(barGap / 20, 0.8),
-  })
-  if (type === "stacked") {
-    barLayout = stack()
-  } else if (type === "percent") {
-    barLayout = stack({ offset: "normalize" })
-  }
-
-  const sharedOptions = {
-    color: "series" as const,
-    fill: (row: SeriesDatum) =>
-      getSelectedSeriesColor({
-        color: chartColors[row.series] ?? "var(--chart-1)",
-        opacity: 12,
-        selectedSeries,
-        series: row.series,
-      }),
-    inset: barCategoryGap / 2,
-    key: (row: SeriesDatum) => {
-      const direction = getBarDirection(row.value)
-      let position = "outer"
-      if (
-        stacked &&
-        terminalSeries.get(`${row.index}-${direction}`) !== row.series
-      ) {
-        position = "inner"
-      }
-
-      return `${direction}-${position}-${row.series}-${row.index}`
-    },
-    layout: barLayout,
-    maxThickness: barSize ?? 48,
-    radius: 0,
-    z: "series" as const,
-    ...barProps,
-  }
-  const categoryAxisDefinition = getCategoryAxis({
-    data,
-    dataKey,
-    props: categoryAxis,
-  })
-  const valueAxisDefinition = getNumericAxis({
-    props: valueAxis,
-    valueFormatter: tooltipValueFormatter,
-  })
-  const resolvedTooltipProps = {
-    anchor: "pointer" as const,
-    offset: 24,
-    placement: "auto" as const,
-    ...tooltipProps,
-  }
-
-  function createVerticalDefinition() {
-    const baseDefinition = defineChart({
-      ...options,
-      focus: "group-x",
-      marks: [
-        barY(rows, {
-          ...sharedOptions,
-          x: "category",
-          y: "value",
-        }),
-      ],
-      x: {
-        axis: categoryAxisDefinition,
-        scale: () => scaleBand().padding(0.12),
-      },
-      y: {
-        axis: valueAxisDefinition,
-        grid: grid === "visible",
-        nice: true,
-        scale: getNumericScale(valueAxis),
-      },
-    })
-
-    return baseDefinition
-  }
-
-  function createHorizontalDefinition() {
-    const baseDefinition = defineChart({
-      ...options,
-      focus: "group-y",
-      marks: [
-        barX(rows, {
-          ...sharedOptions,
-          x: "value",
-          y: "category",
-        }),
-      ],
-      x: {
-        axis: valueAxisDefinition,
-        grid: grid === "visible",
-        nice: true,
-        scale: getNumericScale(valueAxis),
-      },
-      y: {
-        axis: categoryAxisDefinition,
-        scale: () => scaleBand().padding(0.12),
-      },
-    })
-
-    return baseDefinition
-  }
-
-  const baseDefinition = vertical
-    ? createVerticalDefinition()
-    : createHorizontalDefinition()
-  const { definition, renderTooltipBody } = getChartTooltip({
-    config,
-    definition: baseDefinition,
-    tooltip,
-    tooltipProps: resolvedTooltipProps,
-    valueFormatter: tooltipValueFormatter,
-  })
-  let roundedBarClass =
-    "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_var(--bar-radius)_0_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_0_0_var(--bar-radius)_var(--bar-radius))]"
-  if (!vertical) {
-    roundedBarClass =
-      "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_0_var(--bar-radius)_var(--bar-radius)_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_0_0_var(--bar-radius))]"
-  }
-  if (barProps?.radius !== undefined) {
-    roundedBarClass = ""
-  }
-
   return (
     <Chart
-      ariaLabel={ariaLabel}
-      className={`w-full ${roundedBarClass} [&_g:has(>rect[data-ts-key^=bar-]:hover)>rect[data-ts-key^=bar-]:not(:hover)]:opacity-60 [&_rect[data-ts-key^=bar-]]:cursor-pointer [&_rect[data-ts-key^=bar-]]:transition-[filter,opacity] [&_rect[data-ts-key^=bar-]]:duration-150 [&_rect[data-ts-key^=bar-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_rect[data-ts-key^=bar-]]:transition-none [&_rect[data-ts-key^=bar-]:hover]:brightness-110`}
-      definition={definition}
-      onSelect={(point) => {
-        selectSeries(point?.datum.series ?? null)
-      }}
-      renderTooltipBody={renderTooltipBody}
-      size={size}
-      style={
-        {
-          "--bar-radius": `${resolvedBarRadius}px`,
-        } as CSSProperties
-      }
-    />
-  )
-}
-
-function BarChart({
-  ariaLabel,
-  barCategoryGap,
-  barGap,
-  barProps,
-  barRadius,
-  barSize,
-  categoryAxis,
-  className,
-  colors,
-  config,
-  data,
-  dataKey,
-  grid,
-  layout,
-  legend,
-  tooltip,
-  tooltipProps,
-  type = "default",
-  size,
-  valueAxis,
-  valueFormatter,
-  ...frameProps
-}: BarChartProps) {
-  let resolvedLegend = legend
-  if (legend === undefined && type === "default") {
-    resolvedLegend = false
-  }
-
-  return (
-    <ChartFrame
-      {...frameProps}
-      className={className}
-      colors={colors}
+      className={twMerge("w-full", className)}
       config={config}
-      legend={resolvedLegend}
+      data={data}
+      dataKey={dataKey}
+      layout={layout}
+      {...props}
     >
-      <BarChartPlot
-        ariaLabel={ariaLabel}
-        barCategoryGap={barCategoryGap}
-        barGap={barGap}
-        barProps={barProps}
-        barRadius={barRadius}
-        barSize={barSize}
-        categoryAxis={categoryAxis}
-        colors={colors}
-        config={config}
-        data={data}
-        dataKey={dataKey}
-        grid={grid}
-        layout={layout}
-        size={size}
-        tooltip={tooltip}
-        tooltipProps={tooltipProps}
-        type={type}
-        valueAxis={valueAxis}
-        valueFormatter={valueFormatter}
-      />
-    </ChartFrame>
+      {({ onLegendSelect, selectedLegend }) => (
+        <BarChartPrimitive
+          onClick={() => {
+            onLegendSelect(null)
+          }}
+          data={data}
+          margin={{
+            bottom: 0,
+            left: 5,
+            right: 0,
+            top: 5,
+          }}
+          layout={layout === "radial" ? "horizontal" : layout}
+          barGap={barGap}
+          barSize={barSize}
+          barCategoryGap={barCategoryGap}
+          stackOffset={
+            type === "percent" ? "expand" : stacked ? "sign" : undefined
+          }
+          {...chartProps}
+        >
+          {!hideGridLines && <CartesianGrid strokeDasharray="4 4" />}
+          <XAxis
+            hide={hideXAxis}
+            className="**:[text]:fill-muted-foreground"
+            displayEdgeLabelsOnly={displayEdgeLabelsOnly}
+            intervalType={intervalType}
+            {...xAxisProps}
+          />
+          <YAxis
+            hide={hideYAxis}
+            className="**:[text]:fill-muted-foreground"
+            tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
+            {...yAxisProps}
+          />
+
+          {legend && (
+            <ChartLegend
+              content={
+                typeof legend === "boolean" ? <ChartLegendContent /> : legend
+              }
+              {...legendProps}
+            />
+          )}
+
+          {tooltip && (
+            <ChartTooltip
+              content={
+                typeof tooltip === "boolean" ? (
+                  <ChartTooltipContent accessibilityLayer />
+                ) : (
+                  tooltip
+                )
+              }
+              {...tooltipProps}
+            />
+          )}
+
+          {!children
+            ? Object.entries(config).map(([category, values]) => {
+                return (
+                  <Bar
+                    key={category}
+                    name={category}
+                    dataKey={category}
+                    stroke={getColorValue(
+                      values.color || categoryColors.get(category)
+                    )}
+                    strokeWidth={1}
+                    stackId={stacked ? "stack" : undefined}
+                    onClick={(_item, _number, event) => {
+                      event.stopPropagation()
+
+                      startTransition(() => {
+                        onLegendSelect(category)
+                      })
+                    }}
+                    radius={barRadius ?? (stacked ? undefined : 4)}
+                    strokeOpacity={
+                      selectedLegend && selectedLegend !== category ? 0.2 : 0
+                    }
+                    fillOpacity={
+                      selectedLegend && selectedLegend !== category ? 0.1 : 1
+                    }
+                    fill={getColorValue(
+                      values.color || categoryColors.get(category)
+                    )}
+                    {...barProps}
+                  />
+                )
+              })
+            : children}
+        </BarChartPrimitive>
+      )}
+    </Chart>
   )
 }
 

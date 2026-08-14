@@ -1,266 +1,235 @@
 "use client"
 
-import { defineChart, type ChartLinearGradient } from "@tanstack/charts"
-import { areaY, type AreaYOptions } from "@tanstack/charts/area"
-import { crosshair } from "@tanstack/charts/crosshair"
-import { scalePoint } from "@tanstack/charts/scales/point"
-import { stack } from "@tanstack/charts/stack"
+import { Fragment, useId, type ComponentProps } from "react"
+import { Area, AreaChart as AreaChartPrimitive } from "recharts"
+import type {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent"
+import type { CurveType } from "recharts/types/shape/Curve"
+import { twMerge } from "tailwind-merge"
 
 import {
+  CartesianGrid,
   Chart,
-  ChartFrame,
-  defaultValueFormatter,
-  getCategoryAxis,
-  getChartTooltip,
-  getChartCurve,
-  getNumericAxis,
-  getNumericScale,
-  getSeriesChartOptions,
-  toSeriesData,
-  useChartFrame,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+  constructCategoryColors,
+  DEFAULT_COLORS,
+  getColorValue,
   valueToPercent,
-  type CartesianChartProps,
-  type ChartCurveType,
-  type ChartPlotProps,
-  type ChartType,
-  type SeriesDatum,
+  XAxis,
+  YAxis,
+  type BaseChartProps,
 } from "./chart"
 
-type AreaChartProps = CartesianChartProps & {
-  areaProps?: Pick<AreaYOptions<SeriesDatum>, "fillOpacity" | "strokeWidth">
+interface AreaChartProps<
+  TValue extends ValueType,
+  TName extends NameType,
+> extends BaseChartProps<TValue, TName> {
+  chartProps?: Omit<
+    ComponentProps<typeof AreaChartPrimitive>,
+    "data" | "stackOffset"
+  >
+  areaProps?: Partial<ComponentProps<typeof Area>>
   connectNulls?: boolean
   fillType?: "gradient" | "solid" | "none"
-  lineType?: ChartCurveType
-  type?: ChartType
+  lineType?: CurveType
 }
 
-type AreaChartPlotProps = ChartPlotProps<AreaChartProps>
-
-function getGradientId(series: string) {
-  return `area-${series.replaceAll(/[^a-zA-Z0-9_-]/g, "")}`
-}
-
-function getAreaPaint({
-  color,
-  dimmed,
-  fillType,
-  gradientId,
-}: {
-  color: string
-  dimmed: boolean
-  fillType: AreaChartProps["fillType"]
-  gradientId: string
-}) {
-  if (fillType === "none") {
-    return "transparent"
-  }
-
-  if (fillType === "gradient") {
-    return `url(#${gradientId})`
-  }
-
-  return dimmed ? `color-mix(in srgb, ${color} 10%, transparent)` : color
-}
-
-function AreaChartPlot({
-  areaProps,
-  ariaLabel = "Area chart",
-  colors,
-  config,
-  connectNulls = false,
-  data,
+export const AreaChart = <TValue extends ValueType, TName extends NameType>({
+  data = [],
   dataKey,
-  fillType = "gradient",
-  grid = "visible",
-  lineType = "linear",
-  size,
-  tooltip,
-  tooltipProps,
+  colors = DEFAULT_COLORS,
+  connectNulls = false,
   type = "default",
-  valueFormatter = defaultValueFormatter,
-  xAxis,
-  yAxis,
-}: AreaChartPlotProps) {
-  const {
-    state: { selectedSeries },
-  } = useChartFrame()
-  const rows = toSeriesData({ config, connectNulls, data, dataKey })
-  const { chartColors, options, seriesNames } = getSeriesChartOptions(
-    config,
-    colors
-  )
-  const gradientIds = new Map(
-    seriesNames.map((series, index) => [series, `preskok-area-${index}`])
-  )
-  const tooltipValueFormatter =
-    type === "percent" ? valueToPercent : valueFormatter
-  const gradients: ChartLinearGradient[] = seriesNames.map((series) => {
-    const dimmed = Boolean(selectedSeries && selectedSeries !== series)
-    return {
-      id: gradientIds.get(series) ?? getGradientId(series),
-      stops: [
-        {
-          color: chartColors[series] ?? "var(--chart-1)",
-          offset: 0,
-          opacity: 0.03,
-        },
-        {
-          color: chartColors[series] ?? "var(--chart-1)",
-          offset: 1,
-          opacity: dimmed ? 0.04 : 0.38,
-        },
-      ],
-      y1: 1,
-      y2: 0,
-    }
-  })
-  const sharedOptions = {
-    color: "series" as const,
-    curve: getChartCurve(lineType),
-    fill: (row: SeriesDatum) =>
-      getAreaPaint({
-        color: chartColors[row.series] ?? "var(--chart-1)",
-        dimmed: Boolean(selectedSeries && selectedSeries !== row.series),
-        fillType,
-        gradientId: gradientIds.get(row.series) ?? getGradientId(row.series),
-      }),
-    fillOpacity: fillType === "solid" ? 0.28 : 1,
-    id: "preskok-area",
-    key: (row: SeriesDatum) => `${row.series}-${row.index}`,
-    stroke: (row: SeriesDatum) => {
-      const color = chartColors[row.series] ?? "var(--chart-1)"
-      return selectedSeries && selectedSeries !== row.series
-        ? `color-mix(in srgb, ${color} 10%, transparent)`
-        : color
-    },
-    strokeWidth: 2.25,
-    x: "category" as const,
-    z: "series" as const,
-    ...areaProps,
-  }
-  let mark
-  if (type === "default") {
-    mark = areaY(rows, {
-      ...sharedOptions,
-      y1: 0,
-      y2: "value",
-    })
-  } else {
-    const layout = type === "percent" ? stack({ offset: "normalize" }) : stack()
-    mark = areaY(rows, {
-      ...sharedOptions,
-      layout,
-      y: "value",
-    })
-  }
+  className,
 
-  const baseDefinition = defineChart({
-    ...options,
-    focus: "group-x",
-    gradients: fillType === "gradient" ? gradients : undefined,
-    marks: [
-      crosshair({
-        marker: {
-          fill: "var(--background)",
-          radius: 4,
-          stroke: "var(--foreground)",
-          strokeOpacity: 0.7,
-          strokeWidth: 2,
-        },
-        x: {
-          stroke: "var(--muted-foreground)",
-          strokeDasharray: "3 4",
-          strokeOpacity: 0.3,
-        },
-        y: false,
-      }),
-      mark,
-    ],
-    x: {
-      axis: getCategoryAxis({ data, dataKey, props: xAxis }),
-      scale: () => scalePoint().padding(0.25),
-    },
-    y: {
-      axis: getNumericAxis({
-        props: yAxis,
-        valueFormatter: tooltipValueFormatter,
-      }),
-      grid: grid === "visible",
-      nice: true,
-      scale: getNumericScale(yAxis),
-    },
-  })
-  const { definition, renderTooltipBody } = getChartTooltip({
-    config,
-    definition: baseDefinition,
-    tooltip,
-    tooltipProps,
-    valueFormatter: tooltipValueFormatter,
-  })
+  fillType = "gradient",
+  config,
+  children,
+
+  areaProps,
+
+  // Components
+  tooltip = true,
+  tooltipProps,
+
+  cartesianGridProps,
+
+  legend = true,
+  legendProps,
+
+  intervalType = "equidistantPreserveStart",
+
+  valueFormatter = (value: number) => value.toString(),
+
+  // XAxis
+  displayEdgeLabelsOnly = false,
+  hideXAxis = false,
+  xAxisProps,
+
+  // YAxis
+  hideYAxis = false,
+  yAxisProps,
+
+  hideGridLines = false,
+  lineType = "linear",
+  chartProps,
+  ...props
+}: AreaChartProps<TValue, TName>) => {
+  const categoryColors = constructCategoryColors(Object.keys(config), colors)
+  const stacked = type === "stacked" || type === "percent"
+  const areaId = useId()
+  const getFillContent = ({
+    fillType,
+    activeLegend,
+    category,
+  }: {
+    fillType: AreaChartProps<TValue, TName>["fillType"]
+    activeLegend: string | null
+    category: string
+  }) => {
+    const stopOpacity = activeLegend && activeLegend !== category ? 0.1 : 0.5
+
+    switch (fillType) {
+      case "none":
+        return <stop stopColor="currentColor" stopOpacity={0} />
+      case "gradient":
+        return (
+          <>
+            <stop
+              offset="5%"
+              stopColor="currentColor"
+              stopOpacity={stopOpacity}
+            />
+            <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+          </>
+        )
+      default:
+        return <stop stopColor="currentColor" stopOpacity={stopOpacity} />
+    }
+  }
 
   return (
     <Chart
-      ariaLabel={ariaLabel}
-      className="w-full [&_g:has(>path[data-ts-key^=preskok-area]:hover)>path[data-ts-key^=preskok-area]:not(:hover)]:opacity-60 [&_path[data-ts-key^=preskok-area]]:cursor-pointer [&_path[data-ts-key^=preskok-area]]:transition-[filter,opacity] [&_path[data-ts-key^=preskok-area]]:duration-150 [&_path[data-ts-key^=preskok-area]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_path[data-ts-key^=preskok-area]]:transition-none [&_path[data-ts-key^=preskok-area]:hover]:brightness-110"
-      definition={definition}
-      renderTooltipBody={renderTooltipBody}
-      size={size}
-    />
-  )
-}
-
-function AreaChart({
-  areaProps,
-  ariaLabel,
-  className,
-  colors,
-  config,
-  connectNulls,
-  data,
-  dataKey,
-  fillType,
-  grid,
-  legend,
-  lineType,
-  size,
-  tooltip,
-  tooltipProps,
-  type,
-  valueFormatter,
-  xAxis,
-  yAxis,
-  ...frameProps
-}: AreaChartProps) {
-  return (
-    <ChartFrame
-      {...frameProps}
-      className={className}
-      colors={colors}
+      className={twMerge("h-56 w-full", className)}
       config={config}
-      legend={legend}
+      data={data}
+      dataKey={dataKey}
+      {...props}
     >
-      <AreaChartPlot
-        areaProps={areaProps}
-        ariaLabel={ariaLabel}
-        colors={colors}
-        config={config}
-        connectNulls={connectNulls}
-        data={data}
-        dataKey={dataKey}
-        fillType={fillType}
-        grid={grid}
-        lineType={lineType}
-        size={size}
-        tooltip={tooltip}
-        tooltipProps={tooltipProps}
-        type={type}
-        valueFormatter={valueFormatter}
-        xAxis={xAxis}
-        yAxis={yAxis}
-      />
-    </ChartFrame>
+      {({ onLegendSelect, selectedLegend }) => (
+        <AreaChartPrimitive
+          onClick={() => {
+            onLegendSelect(null)
+          }}
+          data={data}
+          margin={{
+            bottom: 0,
+            left: 0,
+            right: 0,
+            top: 5,
+          }}
+          stackOffset={type === "percent" ? "expand" : undefined}
+          {...chartProps}
+        >
+          {!hideGridLines && (
+            <CartesianGrid {...cartesianGridProps} strokeDasharray="3 3" />
+          )}
+          <XAxis
+            className="**:[text]:fill-muted-foreground"
+            hide={hideXAxis}
+            displayEdgeLabelsOnly={displayEdgeLabelsOnly}
+            intervalType={intervalType}
+            {...xAxisProps}
+          />
+          <YAxis
+            className="**:[text]:fill-muted-foreground"
+            hide={hideYAxis}
+            tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
+            {...yAxisProps}
+          />
+
+          {legend && (
+            <ChartLegend
+              content={
+                typeof legend === "boolean" ? <ChartLegendContent /> : legend
+              }
+              {...legendProps}
+            />
+          )}
+
+          {tooltip && (
+            <ChartTooltip
+              content={
+                typeof tooltip === "boolean" ? (
+                  <ChartTooltipContent accessibilityLayer />
+                ) : (
+                  tooltip
+                )
+              }
+              {...tooltipProps}
+            />
+          )}
+
+          {!children
+            ? Object.entries(config).map(([category, values]) => {
+                const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
+
+                const strokeOpacity =
+                  selectedLegend && selectedLegend !== category ? 0.1 : 1
+
+                return (
+                  <Fragment key={categoryId}>
+                    <defs>
+                      <linearGradient
+                        style={{
+                          color: getColorValue(
+                            values.color || categoryColors.get(category)
+                          ),
+                        }}
+                        id={categoryId}
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        {getFillContent({
+                          fillType,
+                          activeLegend: selectedLegend,
+                          category: category,
+                        })}
+                      </linearGradient>
+                    </defs>
+                    <Area
+                      dot={false}
+                      name={category}
+                      type={lineType}
+                      dataKey={category}
+                      stroke={getColorValue(
+                        values.color || categoryColors.get(category)
+                      )}
+                      style={{
+                        strokeWidth: 2,
+                        strokeOpacity,
+                      }}
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      isAnimationActive={true}
+                      connectNulls={connectNulls}
+                      stackId={stacked ? "stack" : undefined}
+                      fill={`url(#${categoryId})`}
+                      {...areaProps}
+                    />
+                  </Fragment>
+                )
+              })
+            : children}
+        </AreaChartPrimitive>
+      )}
+    </Chart>
   )
 }
-
-export { AreaChart }
-export type { AreaChartProps }

@@ -7,12 +7,6 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { Tracker } from "@/registry/preskok/ui/preskok-ui/tracker"
 
-const deliveryStatus = {
-  "on-time": { color: "var(--chart-1)", label: "On time" },
-  issue: { color: "var(--chart-2)", label: "Issue" },
-  delayed: { color: "var(--chart-3)", label: "Delayed" },
-} as const
-
 const deliveries = [
   { status: "on-time", time: "2025-06-24T00:00:00Z" },
   { status: "on-time", time: "2025-06-24T01:00:00Z" },
@@ -62,15 +56,16 @@ const deliveries = [
   { status: "on-time", time: "2025-06-25T21:00:00Z" },
   { status: "on-time", time: "2025-06-25T22:00:00Z" },
   { status: "on-time", time: "2025-06-25T23:00:00Z" },
-] satisfies Array<{
-  status: keyof typeof deliveryStatus
-  time: string
-}>
+]
 
-const data = deliveries.map(({ status, time }) => ({
-  id: time,
-  color: deliveryStatus[status].color,
-  label: `${deliveryStatus[status].label} at ${new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
+const data = deliveries.map((d) => ({
+  color:
+    d.status === "on-time"
+      ? "bg-success"
+      : d.status === "issue"
+        ? "bg-destructive"
+        : "bg-warning",
+  tooltip: `${d.status} @ ${new Date(d.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
 }))
 
 export function Component() {
@@ -83,7 +78,7 @@ export function Component() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tracker aria-label="Delivery status by hour" data={data} />
+        <Tracker data={data} />
       </CardContent>
     </Card>
   )

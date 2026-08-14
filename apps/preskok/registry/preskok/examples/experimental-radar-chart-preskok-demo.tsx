@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
-import { RadarChart } from "@/registry/preskok/ui/preskok-ui/radar-chart"
+import { ExperimentalRadarChart } from "@/registry/preskok/ui/preskok-ui/experimental-radar-chart"
 
 const readinessData = [
   { metric: "Reliability", current: 88, previous: 75 },
@@ -21,7 +21,7 @@ const readinessData = [
   { metric: "Observability", current: 84, previous: 72 },
 ]
 
-export default function RadarChartPreskokDemo() {
+export default function ExperimentalRadarChartPreskokDemo() {
   return (
     <Card className="w-xl max-w-full">
       <CardHeader className="items-center pb-0 text-center">
@@ -29,7 +29,7 @@ export default function RadarChartPreskokDemo() {
         <CardDescription>Current release compared with v2.8</CardDescription>
       </CardHeader>
       <CardContent className="pb-0">
-        <RadarChart
+        <ExperimentalRadarChart
           size={{ height: 330 }}
           className="mx-auto max-w-lg"
           data={readinessData}

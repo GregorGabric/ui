@@ -16,30 +16,30 @@ import { scaleLinear } from "@tanstack/charts/scales/linear"
 import { curveLinearClosed } from "d3-shape"
 
 import {
-  Chart,
-  ChartFrame,
-  defaultValueFormatter,
-  getChartSize,
-  getChartTooltip,
-  getPositiveMaximum,
-  getSelectedSeriesColor,
-  getSeriesChartOptions,
-  toSeriesData,
-  useChartFrame,
-  type BaseChartProps,
-  type ChartAxisProps,
-  type ChartNumericAxisProps,
-  type ChartPlotProps,
-  type SeriesDatum,
-} from "./chart"
+  ExperimentalChart,
+  ExperimentalChartFrame,
+  experimentalDefaultValueFormatter,
+  getExperimentalChartSize,
+  getExperimentalChartTooltip,
+  getExperimentalPositiveMaximum,
+  getExperimentalSelectedSeriesColor,
+  getExperimentalSeriesChartOptions,
+  toExperimentalSeriesData,
+  useExperimentalChartFrame,
+  type ExperimentalBaseChartProps,
+  type ExperimentalChartAxisProps,
+  type ExperimentalChartNumericAxisProps,
+  type ExperimentalChartPlotProps,
+  type ExperimentalSeriesDatum,
+} from "./experimental-chart"
 
 type RadarAreaProps = Pick<
-  RadialAreaOptions<SeriesDatum>,
+  RadialAreaOptions<ExperimentalSeriesDatum>,
   "fillOpacity" | "strokeOpacity" | "strokeWidth"
 >
 
 type RadarDotProps = Pick<
-  RadialDotOptions<SeriesDatum>,
+  RadialDotOptions<ExperimentalSeriesDatum>,
   "fillOpacity" | "r" | "strokeOpacity" | "strokeWidth"
 >
 
@@ -49,14 +49,17 @@ type RadarGridProps = {
   valueLabels?: "hidden" | "visible"
 }
 
-type RadarCategoryAxisProps = Pick<ChartAxisProps, "tickFormatter" | "ticks">
+type RadarCategoryAxisProps = Pick<
+  ExperimentalChartAxisProps,
+  "tickFormatter" | "ticks"
+>
 
 type RadarValueAxisProps = Pick<
-  ChartNumericAxisProps,
+  ExperimentalChartNumericAxisProps,
   "domain" | "tickFormatter" | "ticks"
 >
 
-type RadarChartProps = BaseChartProps & {
+type ExperimentalRadarChartProps = ExperimentalBaseChartProps & {
   categoryAxis?: RadarCategoryAxisProps | false
   dots?: RadarDotProps | false
   grid?: RadarGridProps | false
@@ -65,7 +68,8 @@ type RadarChartProps = BaseChartProps & {
   valueAxis?: RadarValueAxisProps | false
 }
 
-type RadarChartPlotProps = ChartPlotProps<RadarChartProps>
+type ExperimentalRadarChartPlotProps =
+  ExperimentalChartPlotProps<ExperimentalRadarChartProps>
 
 function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
   points: readonly TPoint[]
@@ -80,7 +84,7 @@ function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
   })
 }
 
-function RadarChartPlot({
+function ExperimentalRadarChartPlot({
   ariaLabel = "Radar chart",
   categoryAxis,
   colors,
@@ -95,15 +99,20 @@ function RadarChartPlot({
   tooltip,
   tooltipProps,
   valueAxis,
-  valueFormatter = defaultValueFormatter,
-}: RadarChartPlotProps) {
+  valueFormatter = experimentalDefaultValueFormatter,
+}: ExperimentalRadarChartPlotProps) {
   const {
     actions: { selectSeries },
     state: { selectedSeries },
-  } = useChartFrame()
-  const rows = toSeriesData({ config, data, dataKey })
-  const { chartColors, options } = getSeriesChartOptions(config, colors)
-  const resolvedMaximum = getPositiveMaximum(rows.map((row) => row.value ?? 0))
+  } = useExperimentalChartFrame()
+  const rows = toExperimentalSeriesData({ config, data, dataKey })
+  const { chartColors, options } = getExperimentalSeriesChartOptions(
+    config,
+    colors
+  )
+  const resolvedMaximum = getExperimentalPositiveMaximum(
+    rows.map((row) => row.value ?? 0)
+  )
   let radiusScale = scaleLinear().domain([0, resolvedMaximum]).nice(4)
   if (valueAxis && valueAxis.domain) {
     radiusScale = scaleLinear().domain(valueAxis.domain)
@@ -111,7 +120,7 @@ function RadarChartPlot({
 
   const colorForSeries = (series: string) => {
     const color = chartColors[series] ?? "var(--chart-1)"
-    return getSelectedSeriesColor({
+    return getExperimentalSelectedSeriesColor({
       color,
       opacity: 16,
       selectedSeries,
@@ -242,7 +251,7 @@ function RadarChartPlot({
     x: null,
     y: null,
   })
-  const { definition, renderTooltipBody } = getChartTooltip({
+  const { definition, renderTooltipBody } = getExperimentalChartTooltip({
     config,
     definition: baseDefinition,
     tooltip,
@@ -254,10 +263,10 @@ function RadarChartPlot({
     },
     valueFormatter,
   })
-  const chartSize = getChartSize(size, 320)
+  const chartSize = getExperimentalChartSize(size, 320)
 
   return (
-    <Chart
+    <ExperimentalChart
       ariaLabel={ariaLabel}
       className="w-full [&_path[data-ts-key*=preskok-radar-area]]:cursor-pointer [&_path[data-ts-key*=preskok-radar-area]]:transition-[filter,opacity] [&_path[data-ts-key*=preskok-radar-area]]:duration-150 [&_path[data-ts-key*=preskok-radar-area]]:ease-out motion-reduce:[&_path[data-ts-key*=preskok-radar-area]]:transition-none [&_path[data-ts-key*=preskok-radar-area]:hover]:brightness-110"
       definition={definition}
@@ -278,7 +287,7 @@ function RadarChartPlot({
   )
 }
 
-function RadarChart({
+function ExperimentalRadarChart({
   ariaLabel,
   categoryAxis,
   className,
@@ -297,21 +306,21 @@ function RadarChart({
   valueAxis,
   valueFormatter,
   ...frameProps
-}: RadarChartProps) {
+}: ExperimentalRadarChartProps) {
   let resolvedLegend = legend
   if (legend === undefined && Object.keys(config).length < 2) {
     resolvedLegend = false
   }
 
   return (
-    <ChartFrame
+    <ExperimentalChartFrame
       {...frameProps}
       className={className}
       colors={colors}
       config={config}
       legend={resolvedLegend}
     >
-      <RadarChartPlot
+      <ExperimentalRadarChartPlot
         ariaLabel={ariaLabel}
         categoryAxis={categoryAxis}
         colors={colors}
@@ -328,9 +337,9 @@ function RadarChart({
         valueAxis={valueAxis}
         valueFormatter={valueFormatter}
       />
-    </ChartFrame>
+    </ExperimentalChartFrame>
   )
 }
 
-export { RadarChart }
-export type { RadarChartProps }
+export { ExperimentalRadarChart }
+export type { ExperimentalRadarChartProps }

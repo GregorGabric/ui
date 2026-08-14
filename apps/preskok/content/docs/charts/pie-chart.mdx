@@ -56,21 +56,6 @@ Copy and paste the following code into your project.
 import { PieChart } from "@/components/ui/preskok-ui/pie-chart"
 
 export function PieChartDemo() {
-  return (
-    <PieChart
-      centerLabel="Total"
-      data={[
-        { name: "Product", value: 42 },
-        { name: "Sales", value: 58 },
-      ]}
-      dataKey="value"
-      nameKey="name"
-      variant="donut"
-      config={{
-        Product: { label: "Product", color: "var(--chart-1)" },
-        Sales: { label: "Sales", color: "var(--chart-2)" },
-      }}
-    />
-  )
+  return <PieChart data={[]} />
 }
 ```
