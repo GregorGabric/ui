@@ -1,11 +1,12 @@
+import { Suspense } from "react"
 import { notFound } from "next/navigation"
-import { createRelativeLink } from "fumadocs-ui/mdx"
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
-} from "fumadocs-ui/page"
+} from "fumadocs-ui/layouts/glass/page"
+import { createRelativeLink } from "fumadocs-ui/mdx"
 
 import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source"
 import { absoluteUrl } from "@/lib/utils"
@@ -67,9 +68,19 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function Page(props: {
+type DocsPageProps = {
   params: Promise<{ slug?: Array<string> }>
-}) {
+}
+
+export default function Page(props: DocsPageProps) {
+  return (
+    <Suspense fallback={<DocsPageFallback />}>
+      <DocsPageContent {...props} />
+    </Suspense>
+  )
+}
+
+async function DocsPageContent(props: DocsPageProps) {
   const params = await props.params
   const page = source.getPage(params.slug)
 
@@ -81,14 +92,13 @@ export default async function Page(props: {
   const MDX = doc.body
   const isFullPage = doc.full === true
   const markdownUrl = getPageMarkdownUrl(page)
+  const chatUrl = `https://chatgpt.com/?${new URLSearchParams({
+    prompt: `Read ${absoluteUrl(page.url)}, I want to ask questions about it.`,
+    hints: "search",
+  })}`
 
   return (
-    <DocsPage
-      className={isFullPage ? "max-w-none" : undefined}
-      full={isFullPage}
-      breadcrumb={{ enabled: false }}
-      toc={doc.toc}
-    >
+    <DocsPage full={isFullPage} toc={doc.toc}>
       <DocsTitle className="text-3xl font-semibold tracking-tight text-balance">
         {doc.title}
       </DocsTitle>
@@ -106,10 +116,7 @@ export default async function Page(props: {
         </a>
         <a
           className="rounded-md border border-fd-border px-2.5 py-1.5 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
-          href={`https://chatgpt.com/?${new URLSearchParams({
-            prompt: `Read ${absoluteUrl(page.url)}, I want to ask questions about it.`,
-            hints: "search",
-          })}`}
+          href={chatUrl}
           rel="noreferrer noopener"
           target="_blank"
         >
@@ -123,6 +130,24 @@ export default async function Page(props: {
           })}
         />
       </DocsBody>
+    </DocsPage>
+  )
+}
+
+function DocsPageFallback() {
+  return (
+    <DocsPage>
+      <div
+        aria-label="Loading page"
+        className="animate-pulse space-y-4"
+        role="status"
+      >
+        <div className="h-9 w-2/5 rounded-md bg-fd-muted" />
+        <div className="h-5 w-3/5 rounded-md bg-fd-muted" />
+        <div className="h-px bg-fd-border" />
+        <div className="h-4 w-full rounded-md bg-fd-muted" />
+        <div className="h-4 w-5/6 rounded-md bg-fd-muted" />
+      </div>
     </DocsPage>
   )
 }

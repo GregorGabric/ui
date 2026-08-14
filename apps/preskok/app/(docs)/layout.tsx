@@ -1,8 +1,7 @@
 import * as React from "react"
-import { DocsLayout } from "fumadocs-ui/layouts/docs"
+import { GlassLayout } from "fumadocs-ui/layouts/glass"
 import { RootProvider } from "fumadocs-ui/provider/next"
 
-import { DocsSidebarFooter } from "@/components/docs-sidebar-footer"
 import { ClientProviders } from "@/components/router-provider"
 import { baseOptions } from "@/lib/layout.shared"
 import { source } from "@/lib/source"
@@ -18,19 +17,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }}
     >
       <ClientProviders>
-        <DocsLayout
-          {...baseOptions()}
-          tree={source.getPageTree()}
-          sidebar={{
-            footer: (
-              <React.Fragment key="docs-sidebar-footer">
-                <DocsSidebarFooter />
-              </React.Fragment>
-            ),
-          }}
-        >
+        <GlassLayout {...baseOptions()} tree={source.getPageTree()}>
           {children}
-        </DocsLayout>
+        </GlassLayout>
       </ClientProviders>
     </RootProvider>
   )
