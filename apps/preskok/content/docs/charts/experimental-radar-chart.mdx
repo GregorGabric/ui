@@ -1,0 +1,57 @@
+---
+title: Experimental Radar Chart
+description: Single and comparative radar profiles built on TanStack Charts with polygon grids, labels, legends, points, and grouped tooltips.
+status: new
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+<ComponentPreview
+  name="experimental-radar-chart-preskok-demo"
+  description="A comparative radar profile with a shared domain, polygon guides, interactive legend, and grouped tooltip."
+/>
+
+## Installation
+
+```bash
+npx shadcn@latest add @preskok/experimental-radar-chart
+```
+
+## Usage
+
+```tsx
+import { ExperimentalRadarChart } from "@/components/ui/preskok-ui/experimental-radar-chart"
+
+const data = [
+  { metric: "Reliability", current: 88, previous: 75 },
+  { metric: "Security", current: 82, previous: 78 },
+  { metric: "Performance", current: 74, previous: 68 },
+]
+
+export function ExperimentalRadarChartDemo() {
+  return (
+    <ExperimentalRadarChart
+      data={data}
+      dataKey="metric"
+      grid={{ shape: "polygon", ticks: 4, valueLabels: "visible" }}
+      valueAxis={{ domain: [0, 100] }}
+      valueFormatter={(value) => `${value}%`}
+      config={{
+        current: { label: "Current", color: "var(--chart-1)" },
+        previous: { label: "Previous", color: "var(--chart-2)" },
+      }}
+    />
+  )
+}
+```
+
+## Features
+
+- **Single or comparative profiles** from the same config-driven data shape as other charts
+- **Polygon or circular grids** with configurable tick counts and labels
+- **Closed areas, outlines, and points** using TanStack's native polar marks
+- **Grouped angular tooltips** for comparing series at one dimension
+- **Interactive legends** with shared, theme-aware chart palette colors
+- **Explicit shared domain** through `valueAxis.domain`
+
+Radar charts work best with a small, fixed set of compatible dimensions. Keep their units, direction, and domain consistent, and avoid ranking profiles by apparent filled area.

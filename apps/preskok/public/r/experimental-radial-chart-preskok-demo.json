@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-radial-chart-preskok-demo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-radial-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { TrendingUp } from \"lucide-react\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalRadialChart } from \"@/components/ui/preskok-ui/experimental-radial-chart\"\n\nconst attainmentData = [\n  { name: \"Onboarding\", value: 86 },\n  { name: \"Activation\", value: 74 },\n  { name: \"Retention\", value: 92 },\n]\n\nexport default function ExperimentalRadialChartPreskokDemo() {\n  return (\n    <Card className=\"w-lg max-w-full\">\n      <CardHeader className=\"items-center pb-0 text-center\">\n        <CardTitle>Customer journey health</CardTitle>\n        <CardDescription>Quarterly target attainment</CardDescription>\n      </CardHeader>\n      <CardContent className=\"pb-0\">\n        <ExperimentalRadialChart\n          centerLabel=\"Average\"\n          className=\"mx-auto max-w-sm\"\n          data={attainmentData}\n          dataKey=\"value\"\n          maxValue={100}\n          nameKey=\"name\"\n          tooltipProps={{ hideLabel: true }}\n          valueFormatter={(value) => `${Math.round(value)}%`}\n          config={{\n            Onboarding: { label: \"Onboarding\", color: \"var(--chart-1)\" },\n            Activation: { label: \"Activation\", color: \"var(--chart-2)\" },\n            Retention: { label: \"Retention\", color: \"var(--chart-3)\" },\n          }}\n        />\n      </CardContent>\n      <CardFooter className=\"flex-col items-center gap-2 text-sm\">\n        <div className=\"flex items-center gap-2 leading-none font-medium\">\n          Retention is 7% above target\n          <TrendingUp aria-hidden className=\"size-4\" />\n        </div>\n        <div className=\"leading-none text-muted-foreground\">\n          Select a ring or legend item to inspect a stage\n        </div>\n      </CardFooter>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,70 @@
+---
+title: Experimental Charts
+description: Try the TanStack Charts implementation alongside the stable Recharts components.
+status: new
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+The existing chart components remain stable and continue to use Recharts. These
+separately named components use the pre-release TanStack Charts package so you
+can evaluate the new implementation without migrating production code.
+
+<ComponentPreview
+  name="experimental-charts-toggle-preskok-demo"
+  description="Switch the same area chart between the stable Recharts and experimental TanStack implementations."
+/>
+
+## Installation
+
+Install only the experimental chart variant you want to evaluate:
+
+```bash
+npx shadcn@latest add @preskok/experimental-area-chart
+```
+
+## Area chart
+
+<ComponentPreview name="experimental-area-chart-preskok-demo" />
+
+```tsx
+import { ExperimentalAreaChart } from "@/components/ui/preskok-ui/experimental-area-chart"
+
+;<ExperimentalAreaChart
+  config={config}
+  data={data}
+  dataKey="month"
+  fillType="gradient"
+  lineType="monotone"
+/>
+```
+
+## Bar chart
+
+<ComponentPreview name="experimental-bar-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/experimental-bar-chart
+```
+
+## Line chart
+
+<ComponentPreview name="experimental-line-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/experimental-line-chart
+```
+
+## Pie chart
+
+<ComponentPreview name="experimental-pie-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/experimental-pie-chart
+```
+
+## Stability
+
+TanStack Charts is still pre-release. Treat these components as opt-in and
+expect their API to change. The unprefixed `AreaChart`, `BarChart`, `LineChart`,
+and `PieChart` APIs are not changed by installing or testing them.
