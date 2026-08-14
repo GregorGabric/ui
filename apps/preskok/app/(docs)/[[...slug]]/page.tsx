@@ -74,7 +74,7 @@ type DocsPageProps = {
 
 export default function Page(props: DocsPageProps) {
   return (
-    <Suspense fallback={<DocsPageFallback />}>
+    <Suspense fallback={null}>
       <DocsPageContent {...props} />
     </Suspense>
   )
@@ -130,24 +130,6 @@ async function DocsPageContent(props: DocsPageProps) {
           })}
         />
       </DocsBody>
-    </DocsPage>
-  )
-}
-
-function DocsPageFallback() {
-  return (
-    <DocsPage>
-      <div
-        aria-label="Loading page"
-        className="animate-pulse space-y-4"
-        role="status"
-      >
-        <div className="h-9 w-2/5 rounded-md bg-fd-muted" />
-        <div className="h-5 w-3/5 rounded-md bg-fd-muted" />
-        <div className="h-px bg-fd-border" />
-        <div className="h-4 w-full rounded-md bg-fd-muted" />
-        <div className="h-4 w-5/6 rounded-md bg-fd-muted" />
-      </div>
     </DocsPage>
   )
 }
