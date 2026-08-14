@@ -213,18 +213,18 @@ function getPreskokAddCommand(
   componentName: string
 ) {
   if (packageManager === "npm") {
-    return `npx preskok-ui@latest add ${componentName}`
+    return `npx shadcn@latest add @preskok/${componentName}`
   }
 
   if (packageManager === "yarn") {
-    return `yarn preskok-ui@latest add ${componentName}`
+    return `yarn dlx shadcn@latest add @preskok/${componentName}`
   }
 
   if (packageManager === "bun") {
-    return `bunx --bun preskok-ui@latest add ${componentName}`
+    return `bunx --bun shadcn@latest add @preskok/${componentName}`
   }
 
-  return `pnpm dlx preskok-ui@latest add ${componentName}`
+  return `pnpm dlx shadcn@latest add @preskok/${componentName}`
 }
 
 function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {

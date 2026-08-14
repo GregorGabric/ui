@@ -17,6 +17,7 @@
     "@internationalized/date": "^3.12.3",
     "@tabler/icons-react": "^3.44.0",
     "@tailwindcss/postcss": "^4.3.1",
+    "@tanstack/charts": "0.12.0",
     "@tanstack/react-table": "^8.21.3",
     "@tiptap/extension-color": "^3.27.1",
     "@tiptap/extension-horizontal-rule": "^3.27.1",
@@ -31,6 +32,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "culori": "^4.0.2",
+    "d3-shape": "3.2.0",
     "embla-carousel-react": "8.6.0",
     "fumadocs-core": "^16.10.5",
     "fumadocs-mdx": "^15.0.12",
@@ -62,6 +64,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/d3-shape": "3.1.8",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.0.0",
     "@types/react": "19.2.17",

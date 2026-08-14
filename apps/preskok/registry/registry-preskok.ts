@@ -1288,6 +1288,100 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "experimental-chart",
+    type: "registry:ui",
+    description: "Experimental TanStack chart foundations and utilities",
+    dependencies: [
+      "@tanstack/charts@0.12.0",
+      "d3-shape@3.2.0",
+      "react-aria-components",
+      "tailwind-merge",
+    ],
+    devDependencies: ["@types/d3-shape@3.1.8"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-chart.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/preskok-ui/experimental-chart-core.ts",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "experimental-area-chart",
+    type: "registry:ui",
+    description: "An experimental TanStack-powered area chart",
+    registryDependencies: ["experimental-chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-area-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "experimental-bar-chart",
+    type: "registry:ui",
+    description: "An experimental TanStack-powered bar chart",
+    registryDependencies: ["experimental-chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-bar-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "experimental-line-chart",
+    type: "registry:ui",
+    description: "An experimental TanStack-powered line chart",
+    registryDependencies: ["experimental-chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-line-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "experimental-pie-chart",
+    type: "registry:ui",
+    description: "An experimental TanStack-powered pie and donut chart",
+    registryDependencies: ["experimental-chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-pie-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "experimental-radial-chart",
+    type: "registry:ui",
+    description: "An experimental TanStack-powered concentric radial chart",
+    registryDependencies: ["experimental-chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-radial-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "experimental-radar-chart",
+    type: "registry:ui",
+    description: "An experimental TanStack-powered radar chart",
+    registryDependencies: ["experimental-chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/experimental-radar-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "bar-list",
     type: "registry:ui",
     description: "A horizontal bar list component for displaying ranked data",

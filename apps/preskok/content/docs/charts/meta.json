@@ -6,6 +6,9 @@
     "bar-chart",
     "line-chart",
     "pie-chart",
+    "experimental-charts",
+    "experimental-radial-chart",
+    "experimental-radar-chart",
     "bar-list",
     "tracker"
   ]

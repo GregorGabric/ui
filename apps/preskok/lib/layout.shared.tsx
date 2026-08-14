@@ -1,6 +1,6 @@
 import Image from "next/image"
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
-import { DatabaseIcon, PackageIcon } from "lucide-react"
+import { DatabaseIcon } from "lucide-react"
 
 import { siteConfig } from "@/lib/config"
 
@@ -27,15 +27,6 @@ export function baseOptions(): BaseLayoutProps {
       url: "/",
     },
     links: [
-      {
-        type: "icon",
-        text: "npm",
-        label: "Open preskok-ui on npm",
-        url: siteConfig.links.npm,
-        icon: <PackageIcon />,
-        external: true,
-        on: "menu",
-      },
       {
         type: "icon",
         text: "Registry",

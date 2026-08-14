@@ -5,13 +5,11 @@ export const siteConfig = {
   description: "A set of well-designed, accessible react-aria components",
   links: {
     github: "https://github.com/GregorGabric/ui",
-    npm: "https://www.npmjs.com/package/preskok-ui",
     registry: "/r/index.json",
   },
-  package: {
-    installCommand: "npx preskok-ui@latest init",
-    name: "preskok-ui",
-    version: "0.0.6",
+  cli: {
+    installCommand: "npx shadcn@latest init @preskok/default",
+    name: "shadcn",
   },
   navItems: [
     {

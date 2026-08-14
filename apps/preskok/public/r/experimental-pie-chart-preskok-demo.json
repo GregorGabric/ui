@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-pie-chart-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-pie-chart-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalPieChart } from \"@/components/ui/preskok-ui/experimental-pie-chart\"\n\nexport default function ExperimentalPieChartPreskokDemo() {\n  const data = [\n    { name: \"Product\", amount: 420 },\n    { name: \"Sales\", amount: 580 },\n    { name: \"Support\", amount: 260 },\n    { name: \"Success\", amount: 180 },\n  ]\n\n  return (\n    <Card className=\"w-xl max-w-full\">\n      <CardHeader className=\"text-center\">\n        <CardTitle>Weekly request mix</CardTitle>\n        <CardDescription>\n          Inbound requests grouped by owning team.\n        </CardDescription>\n      </CardHeader>\n      <CardContent>\n        <ExperimentalPieChart\n          centerLabel=\"Total requests\"\n          className=\"mx-auto max-w-md\"\n          data={data}\n          dataKey=\"amount\"\n          nameKey=\"name\"\n          variant=\"donut\"\n          valueFormatter={(value) => value.toLocaleString()}\n          pieProps={{ paddingAngle: 2, cornerRadius: 3 }}\n          config={{\n            Product: {\n              color: \"var(--chart-1)\",\n              label: \"Product\",\n            },\n            Sales: {\n              color: \"var(--chart-2)\",\n              label: \"Sales\",\n            },\n            Support: {\n              color: \"var(--chart-3)\",\n              label: \"Support\",\n            },\n            Success: {\n              color: \"var(--chart-4)\",\n              label: \"Success\",\n            },\n          }}\n        />\n      </CardContent>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}
