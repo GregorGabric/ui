@@ -1,5 +1,6 @@
 "use client"
 
+import type { CSSProperties } from "react"
 import { defineChart } from "@tanstack/charts"
 import type { GroupLayout, StackLayout } from "@tanstack/charts"
 import {
@@ -54,6 +55,24 @@ function dimmedColor(color: string, dimmed: boolean) {
   return dimmed ? `color-mix(in srgb, ${color} 12%, transparent)` : color
 }
 
+function getBarDirection(value: number | null) {
+  return value !== null && value < 0 ? "negative" : "positive"
+}
+
+function getTerminalSeries(rows: SeriesDatum[]) {
+  const terminalSeries = new Map<string, string>()
+
+  for (const row of rows) {
+    if (row.value === null || row.value === 0) {
+      continue
+    }
+
+    terminalSeries.set(`${row.index}-${getBarDirection(row.value)}`, row.series)
+  }
+
+  return terminalSeries
+}
+
 function BarChart({
   ariaLabel = "Bar chart",
   barCategoryGap = 5,
@@ -91,6 +110,7 @@ function BarChart({
     type === "percent" ? valueToPercent : valueFormatter
   const vertical = layout !== "vertical"
   const resolvedLegend = legend ?? type !== "default"
+  const stacked = type === "stacked" || type === "percent"
   let resolvedBarRadius = barRadius
   if (resolvedBarRadius === undefined) {
     resolvedBarRadius = type === "default" && seriesNames.length === 1 ? 8 : 4
@@ -106,6 +126,7 @@ function BarChart({
       {...props}
     >
       {({ onLegendSelect, selectedLegend }) => {
+        const terminalSeries = getTerminalSeries(rows)
         let barLayout: GroupLayout | StackLayout = group({
           padding: Math.min(barGap / 20, 0.8),
         })
@@ -123,10 +144,21 @@ function BarChart({
               Boolean(selectedLegend && selectedLegend !== row.series)
             ),
           inset: barCategoryGap / 2,
-          key: (row: SeriesDatum) => `${row.series}-${row.index}`,
+          key: (row: SeriesDatum) => {
+            const direction = getBarDirection(row.value)
+            let position = "outer"
+            if (
+              stacked &&
+              terminalSeries.get(`${row.index}-${direction}`) !== row.series
+            ) {
+              position = "inner"
+            }
+
+            return `${direction}-${position}-${row.series}-${row.index}`
+          },
           layout: barLayout,
           maxThickness: barSize ?? 48,
-          radius: resolvedBarRadius,
+          radius: 0,
           z: "series" as const,
           ...barProps,
         }
@@ -210,12 +242,21 @@ function BarChart({
               },
             })
           : baseDefinition
+        let roundedBarClass =
+          "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_var(--bar-radius)_0_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_0_0_var(--bar-radius)_var(--bar-radius))]"
+        if (!vertical) {
+          roundedBarClass =
+            "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_0_var(--bar-radius)_var(--bar-radius)_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_0_0_var(--bar-radius))]"
+        }
+        if (barProps?.radius !== undefined) {
+          roundedBarClass = ""
+        }
 
         return (
           <Chart
             ariaLabel={ariaLabel}
             aspectRatio={chartProps?.aspectRatio}
-            className="w-full [&_g:has(>rect[data-ts-key^=bar-]:hover)>rect[data-ts-key^=bar-]:not(:hover)]:opacity-60 [&_rect[data-ts-key^=bar-]]:cursor-pointer [&_rect[data-ts-key^=bar-]]:transition-[filter,opacity] [&_rect[data-ts-key^=bar-]]:duration-150 [&_rect[data-ts-key^=bar-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_rect[data-ts-key^=bar-]]:transition-none [&_rect[data-ts-key^=bar-]:hover]:brightness-110"
+            className={`w-full ${roundedBarClass} [&_g:has(>rect[data-ts-key^=bar-]:hover)>rect[data-ts-key^=bar-]:not(:hover)]:opacity-60 [&_rect[data-ts-key^=bar-]]:cursor-pointer [&_rect[data-ts-key^=bar-]]:transition-[filter,opacity] [&_rect[data-ts-key^=bar-]]:duration-150 [&_rect[data-ts-key^=bar-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_rect[data-ts-key^=bar-]]:transition-none [&_rect[data-ts-key^=bar-]:hover]:brightness-110`}
             definition={definition}
             height={
               chartProps?.aspectRatio
@@ -223,6 +264,11 @@ function BarChart({
                 : (chartProps?.height ?? 288)
             }
             initialWidth={chartProps?.initialWidth}
+            style={
+              {
+                "--bar-radius": `${resolvedBarRadius}px`,
+              } as CSSProperties
+            }
             onSelect={(point) => {
               onLegendSelect(point?.datum.series ?? null)
             }}
