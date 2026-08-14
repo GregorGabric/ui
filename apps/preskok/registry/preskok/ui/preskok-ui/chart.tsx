@@ -326,7 +326,7 @@ function Chart<
       ariaLabel={ariaLabel}
       aspectRatio={aspectRatio}
       className={twMerge(
-        "min-w-0 text-xs text-muted-foreground [&_svg:focus-visible]:outline-none [&_svg:focus-visible]:ring-2 [&_svg:focus-visible]:ring-ring/40 [&_svg:focus-visible]:ring-offset-2 [&_svg:focus-visible]:ring-offset-background",
+        "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
         className
       )}
       definition={definition}
