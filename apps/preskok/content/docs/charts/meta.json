@@ -6,6 +6,8 @@
     "bar-chart",
     "line-chart",
     "pie-chart",
+    "radial-chart",
+    "radar-chart",
     "bar-list",
     "tracker"
   ]

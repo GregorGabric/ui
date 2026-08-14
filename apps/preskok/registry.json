@@ -1829,6 +1829,41 @@
       "type": "registry:ui"
     },
     {
+      "name": "radial-chart",
+      "description": "A concentric radial chart with tracks, labels, legends, and tooltips",
+      "dependencies": [
+        "@tanstack/charts"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/chart.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/ui/preskok-ui/radial-chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "radar-chart",
+      "description": "A radar chart with polygon guides, comparative series, and grouped tooltips",
+      "dependencies": [
+        "@tanstack/charts",
+        "d3-shape"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/chart.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/ui/preskok-ui/radar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "bar-list",
       "description": "A horizontal bar list component for displaying ranked data",
       "dependencies": [
@@ -2544,6 +2579,40 @@
       "files": [
         {
           "path": "registry/preskok/examples/pie-chart-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "radial-chart-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/radial-chart-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "radar-chart-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/radar-chart-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],

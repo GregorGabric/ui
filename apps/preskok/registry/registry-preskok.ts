@@ -1294,6 +1294,34 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "radial-chart",
+    type: "registry:ui",
+    description:
+      "A concentric radial chart with tracks, labels, legends, and tooltips",
+    dependencies: ["@tanstack/charts"],
+    registryDependencies: ["chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/radial-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "radar-chart",
+    type: "registry:ui",
+    description:
+      "A radar chart with polygon guides, comparative series, and grouped tooltips",
+    dependencies: ["@tanstack/charts", "d3-shape"],
+    registryDependencies: ["chart"],
+    files: [
+      {
+        path: "ui/preskok-ui/radar-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "bar-list",
     type: "registry:ui",
     description: "A horizontal bar list component for displaying ranked data",

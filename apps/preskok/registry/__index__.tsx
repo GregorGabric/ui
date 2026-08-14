@@ -1532,6 +1532,42 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
+  "radial-chart": {
+    name: "radial-chart",
+    description: "A concentric radial chart with tracks, labels, legends, and tooltips",
+    type: "registry:ui",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/radial-chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/radial-chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "radar-chart": {
+    name: "radar-chart",
+    description: "A radar chart with polygon guides, comparative series, and grouped tooltips",
+    type: "registry:ui",
+    registryDependencies: ["chart"],
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/radar-chart.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/radar-chart.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "bar-list": {
     name: "bar-list",
     description: "A horizontal bar list component for displaying ranked data",
@@ -2148,6 +2184,42 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/pie-chart-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "radial-chart-preskok-demo": {
+    name: "radial-chart-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["radial-chart","card"],
+    files: [{
+      path: "registry/preskok/examples/radial-chart-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/radial-chart-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "radar-chart-preskok-demo": {
+    name: "radar-chart-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["radar-chart","card"],
+    files: [{
+      path: "registry/preskok/examples/radar-chart-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/radar-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

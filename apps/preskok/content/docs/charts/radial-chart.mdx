@@ -1,0 +1,58 @@
+---
+title: Radial Chart
+description: Concentric radial bars built on TanStack Charts with tracks, labels, legends, and tooltips.
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+<ComponentPreview
+  name="radial-chart-preskok-demo"
+  description="A responsive concentric radial chart for compact progress and attainment summaries."
+/>
+
+## Installation
+
+```bash
+npx preskok-ui@latest add radial-chart
+```
+
+## Usage
+
+```tsx
+import { RadialChart } from "@/components/ui/preskok-ui/radial-chart"
+
+const data = [
+  { name: "Onboarding", value: 86 },
+  { name: "Activation", value: 74 },
+  { name: "Retention", value: 92 },
+]
+
+export function RadialChartDemo() {
+  return (
+    <RadialChart
+      data={data}
+      dataKey="value"
+      nameKey="name"
+      maxValue={100}
+      showLabel
+      valueFormatter={(value) => `${Math.round(value)}%`}
+      config={{
+        Onboarding: { label: "Onboarding", color: "var(--chart-1)" },
+        Activation: { label: "Activation", color: "var(--chart-2)" },
+        Retention: { label: "Retention", color: "var(--chart-3)" },
+      }}
+    />
+  )
+}
+```
+
+## Features
+
+- **Concentric radial bars** with optional background tracks
+- **Explicit maximum** for comparable progress and attainment values
+- **Config-driven** colors, labels, and interactive legend selection
+- **Responsive center label** with selected-ring values
+- **Native TanStack tooltips** with collision-aware placement
+- **Full or partial circles** through `startAngle` and `endAngle`
+
+Use radial length for a compact status summary. Prefer an aligned bar chart when precise comparison is the primary task.

@@ -112,6 +112,30 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "radial-chart-preskok-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["radial-chart", "card"],
+    files: [
+      {
+        path: "examples/radial-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "radar-chart-preskok-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["radar-chart", "card"],
+    files: [
+      {
+        path: "examples/radar-chart-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "progress-bar-preskok-demo",
     type: "registry:example",
     registryDependencies: ["progress-bar"],
