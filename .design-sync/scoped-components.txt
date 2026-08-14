@@ -34,6 +34,13 @@ Dialog
 DisclosureGroup
 Drawer
 DropZone
+ExperimentalAreaChart
+ExperimentalBarChart
+ExperimentalChart
+ExperimentalLineChart
+ExperimentalPieChart
+ExperimentalRadarChart
+ExperimentalRadialChart
 FileTrigger
 Form
 GridList

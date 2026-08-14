@@ -5,7 +5,7 @@
   "shape": "package",
   "srcDir": "registry/preskok/ui/preskok-ui",
   "tsconfig": "tsconfig.json",
-  "cssEntry": ".next/static/chunks/3du0gk-8_xmd-.css",
+  "cssEntry": ".next/static/chunks/1r9nlndo1h8ti.css",
   "extraFonts": [
     ".next/static/chunks/43cbvvhko254d.css"
   ],
@@ -314,6 +314,7 @@
     "TreeItem": null,
     "UnsetAllMarks": null,
     "XAxis": null,
-    "YAxis": null
+    "YAxis": null,
+    "ExperimentalChart": "registry/preskok/ui/preskok-ui/experimental-chart.tsx"
   }
 }

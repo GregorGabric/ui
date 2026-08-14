@@ -63,14 +63,34 @@ Both filenames are **content-hashed and change on every build**. Stale values ar
 
 **Why the declarations matter:** without `types/`, every emitted `.d.ts` degrades to an empty `{ [key: string]: unknown }` stub — the design agent then has zero prop information — *and* component discovery silently falls back to scanning `src/`, which produces a different component set. `apps/preskok/package.json`'s `"types": "./types/index.d.ts"` is load-bearing: it's what lets the extractor's call-signature fallback resolve props for components without a named `<Name>Props` interface.
 
-**Check the tsc output for `TS2883`.** It doesn't fail the build, but it *skips that file's declarations*, which drops its components from the sync entirely. Fix at source with an explicit type annotation:
+**Check the tsc output for the "cannot be named" error family — `TS2883`, `TS4023`, `TS4058`.** None fail the build, but each *skips that file's declarations*, which drops its components from the sync entirely. Always diff the emitted file list against the source list rather than trusting exit code 0:
+
+```bash
+for f in registry/preskok/ui/preskok-ui/*.tsx; do
+  b=$(basename "$f" .tsx)
+  [ -f "types/registry/preskok/ui/preskok-ui/$b.d.ts" ] || echo "MISSING: $b"
+done
+```
+
+Cause is always the same: an inferred type references something TS can't name portably. Fix at source with an explicit annotation.
 
 ```ts
-// bad — inferred type isn't portably nameable, kills declaration emit
-const MenuShortcut = DropdownKeyboard
-// good
-const MenuShortcut: typeof DropdownKeyboard = DropdownKeyboard
+// TS2883 — aliased re-export whose inferred type reaches through @/* into node_modules
+const MenuShortcut = DropdownKeyboard                          // bad
+const MenuShortcut: typeof DropdownKeyboard = DropdownKeyboard // good
+
+// TS4058 — return type leaks a type the dependency declares but doesn't export
+function getExperimentalChartTooltip(...) { ... }              // bad: leaks StoredChartSpec
+function getExperimentalChartTooltip(...): TooltipResult { ... } // good
 ```
+
+**If the source fix isn't yours to make** (someone else's open PR, or an upstream type that genuinely can't be named), pin the affected component instead — `componentSrcMap` with a non-null path *adds* it to discovery even with no `.d.ts`:
+
+```json
+"ExperimentalChart": "registry/preskok/ui/preskok-ui/experimental-chart.tsx"
+```
+
+It then syncs and renders, but its props stay empty stubs until the emit error is fixed. Its uncarded sub-parts still reach `window.PreskokUI`, because the bundle is built from the src synth entry, not from discovery.
 
 ## Step 2 — Decide: card or sub-part
 
@@ -153,7 +173,7 @@ The anchor must only ever vouch for a fully-applied state. If a write or delete 
 | Symptom | Cause |
 |---|---|
 | Props are `{ [key: string]: unknown }` | `types/` not regenerated, or `package.json` `"types"` missing |
-| Component missing entirely from sync | `TS2883` skipped its declaration emit |
+| Component missing entirely from sync | a "cannot be named" error (`TS2883`/`TS4023`/`TS4058`) skipped its declaration emit — check the emitted file list, not the exit code |
 | Card shows `file not found` | stale client view — hard-refresh; verify `_ds_manifest.json` server-side first |
 | New sub-part appears as a blank card | missing from `componentSrcMap` |
 | Preview renders unstyled | unfamiliar Tailwind utility generated no CSS — use a common class or inline `style` with the CSS var |

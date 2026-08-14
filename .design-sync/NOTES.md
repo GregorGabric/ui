@@ -38,6 +38,25 @@ Two shipped source files carried `TS2883` errors that prevented their declaratio
 
 Both are **pure type annotations, no behavior change**. The bare aliased re-exports forced TS to inline a type reaching through the `@/*` alias into `node_modules` (`react-aria-components/dist/types/src/Keyboard`), which isn't portably nameable. This is a genuine latent bug, not just a sync artifact — anyone running `tsc --declaration` on the library hits it.
 
+## Experimental TanStack charts (added after PR #37)
+
+7 components carded: `ExperimentalAreaChart`, `ExperimentalBarChart`, `ExperimentalChart`, `ExperimentalLineChart`, `ExperimentalPieChart`, `ExperimentalRadarChart`, `ExperimentalRadialChart`. They're published (registry entries, docs, demos, live on the deployed site), so "experimental" is an API-stability label, not "unreleased".
+
+**`experimental-chart.tsx` emits no `.d.ts`** — `TS4058`: `@tanstack/charts` declares `StoredChartSpec` without exporting it, and it leaks into `getExperimentalChartTooltip`'s inferred return type. Worked around with a `componentSrcMap` pin (non-null path adds to discovery without a `.d.ts`); its props are empty stubs and its 4 sub-parts (`ExperimentalChartFrame`, `ExperimentalChartLegend`, `ExperimentalChartLegendContent`, `ExperimentalChartTooltipContent`) stay uncarded but remain on `window.PreskokUI`. **Proper fix** is an explicit return type on `getExperimentalChartTooltip`; real props then appear automatically on the next sync and the pin can be dropped.
+
+API notes worth knowing when authoring previews:
+
+- `config` keys map to **series keys** for cartesian/radar charts, but to **`nameKey` values** for pie/radial.
+- `ExperimentalPieChart variant="pie"` ignores `centerLabel` (donut only).
+- `ExperimentalChart` isn't directly previewable — `defineChart`/`polar`/marks aren't re-exported from the `preskok` package. The registry demo sidesteps this the same way, by rendering an area chart.
+- `ExperimentalChart` renders at `opacity-0` until `onRender` confirms measured width matches scene width, so its capture failure mode is a **blank** card, not a half-drawn one.
+- `svgAnimation: true` is hardcoded inside `defineChart({…})` in `experimental-pie-chart.tsx` (~L145) and `experimental-radial-chart.tsx` (~L138) — not a prop. TanStack charts did **not** reproduce the recharts mid-animation freeze, but if that ever regresses there is no preview-side workaround; the component would have to expose it.
+
+Two component bugs found while authoring previews (not fixed — worth raising):
+
+- **`ExperimentalRadialChart`**: custom `startAngle`/`endAngle` leaves `centerLabel` anchored to the full-circle center, so a half-circle gauge renders its label off-center/clipped. Preview uses a default full-circle sweep instead.
+- **`ExperimentalRadarChart`**: a single-series `config` (one key) renders no legend row at all. Preview uses a two-series variant instead.
+
 ## Re-sync risks
 
 - **`cssEntry`/`extraFonts` paths will go stale.** They're content-hashed `.next/static/chunks/*.css` filenames from one specific production build. Any re-sync must re-run `pnpm build` in `apps/preskok` first and re-resolve which chunk carries the compiled utilities vs. the `@font-face` rules (grep for `@font-face` to tell them apart — see below).
