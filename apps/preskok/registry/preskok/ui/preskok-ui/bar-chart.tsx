@@ -8,7 +8,6 @@ import {
   type BarXOptions,
   type BarYOptions,
 } from "@tanstack/charts/bar"
-import { crosshair } from "@tanstack/charts/crosshair"
 import { group } from "@tanstack/charts/group"
 import { scaleBand } from "@tanstack/charts/scales/band"
 import { scaleLinear } from "@tanstack/charts/scales/linear"
@@ -71,9 +70,9 @@ function BarChart({
   displayEdgeLabelsOnly = false,
   hideGridLines = false,
   hideXAxis = false,
-  hideYAxis = false,
+  hideYAxis = true,
   layout = "horizontal",
-  legend = true,
+  legend,
   legendProps,
   tooltip = true,
   tooltipProps,
@@ -91,13 +90,18 @@ function BarChart({
   const tooltipValueFormatter =
     type === "percent" ? valueToPercent : valueFormatter
   const vertical = layout !== "vertical"
+  const resolvedLegend = legend ?? type !== "default"
+  let resolvedBarRadius = barRadius
+  if (resolvedBarRadius === undefined) {
+    resolvedBarRadius = type === "default" && seriesNames.length === 1 ? 8 : 4
+  }
 
   return (
     <ChartFrame
       className={className}
       colors={colors}
       config={config}
-      legend={legend}
+      legend={resolvedLegend}
       legendProps={legendProps}
       {...props}
     >
@@ -121,8 +125,8 @@ function BarChart({
           inset: barCategoryGap / 2,
           key: (row: SeriesDatum) => `${row.series}-${row.index}`,
           layout: barLayout,
-          maxThickness: barSize,
-          radius: barRadius ?? (type === "default" ? 4 : undefined),
+          maxThickness: barSize ?? 48,
+          radius: resolvedBarRadius,
           z: "series" as const,
           ...barProps,
         }
@@ -168,31 +172,7 @@ function BarChart({
             range: seriesNames.map((series) => chartColors[series] ?? ""),
           },
           focus: vertical ? "group-x" : "group-y",
-          marks: [
-            crosshair({
-              x: vertical
-                ? {
-                    band: {
-                      fill: "var(--muted-foreground)",
-                      fillOpacity: 0.08,
-                      inset: -2,
-                      radius: 6,
-                    },
-                  }
-                : false,
-              y: vertical
-                ? false
-                : {
-                    band: {
-                      fill: "var(--muted-foreground)",
-                      fillOpacity: 0.08,
-                      inset: -2,
-                      radius: 6,
-                    },
-                  },
-            }),
-            mark,
-          ],
+          marks: [mark],
           svgAnimation: true,
           theme: getChartTheme(
             seriesNames.map((series) => chartColors[series] ?? "")
