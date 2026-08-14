@@ -199,8 +199,6 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
 
-  packages/cli: {}
-
 packages:
 
   '@alloc/quick-lru@5.2.0':
