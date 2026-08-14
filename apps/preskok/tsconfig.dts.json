@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
+    "outDir": "./types",
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "incremental": false
+  },
+  "include": [
+    "registry/preskok/ui/preskok-ui/**/*.ts",
+    "registry/preskok/ui/preskok-ui/**/*.tsx"
+  ],
+  "exclude": ["node_modules", "types"]
+}

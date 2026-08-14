@@ -123,7 +123,7 @@ const ContextMenuSeparator = MenuSeparator
 const ContextMenuDescription = MenuDescription
 const ContextMenuSection = MenuSection
 const ContextMenuHeader = MenuHeader
-const ContextMenuShortcut = MenuShortcut
+const ContextMenuShortcut: typeof MenuShortcut = MenuShortcut
 const ContextMenuLabel = MenuLabel
 
 export type { ContextMenuProps }
