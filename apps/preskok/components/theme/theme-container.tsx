@@ -133,10 +133,7 @@ export function ThemeContainer() {
     <>
       <div className="space-y-6 pb-16">
         <DocsCards className="grid-cols-1 items-start gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-          <DocsCard
-            title="Project theme"
-            description="Choose exact source colors; the full light and dark systems are generated for you."
-          >
+          <DocsCard title="Project theme">
             <div className="not-prose mt-4 text-fd-foreground">
               <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
               <div className="mt-5 flex flex-wrap gap-2 border-t pt-4">
@@ -163,10 +160,7 @@ export function ThemeContainer() {
             </div>
           </DocsCard>
 
-          <DocsCard
-            title="Generated system"
-            description="Radix-style scales, surfaces, semantic tokens, and contrast checks from one configuration."
-          >
+          <DocsCard title="Preview">
             <div className="mt-4 flex justify-end">
               <Menu>
                 <Button>
@@ -221,7 +215,7 @@ export function ThemeContainer() {
         >
           <SheetHeader
             title="Generated project theme"
-            description="CSS primitives, semantic tokens, Figma variables, and the editable manifest are generated together."
+            description="Use the same theme in code and Figma."
           />
           <SheetBody className="border-y pb-4">
             <Tabs defaultSelectedKey="css" className="mt-2">
@@ -235,11 +229,8 @@ export function ThemeContainer() {
               </TabPanel>
               <TabPanel id="figma">
                 <p className="mb-3 text-sm text-muted-foreground">
-                  In Figma, duplicate the <code>Default</code> mode in the
-                  <code> Style</code> collection, rename it for the project,
-                  then use <strong>Import mode</strong> with this JSON file. It
-                  includes both semantic variables and the 12-step primitive
-                  scales.
+                  Import this file as a new mode in Figma&apos;s
+                  <code> Style</code> collection.
                 </p>
                 <GeneratedCode
                   title="preskok-style-mode.json"
@@ -248,8 +239,7 @@ export function ThemeContainer() {
               </TabPanel>
               <TabPanel id="manifest">
                 <p className="mb-3 text-sm text-muted-foreground">
-                  Commit this small file with a project to reopen the exact
-                  configuration later.
+                  Save this file to edit the same theme later.
                 </p>
                 <GeneratedCode
                   title="preskok-theme.json"

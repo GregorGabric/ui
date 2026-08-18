@@ -26,13 +26,8 @@ export function GeneratedTheme({
       )}
     >
       <div className="grid gap-4 p-4">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h3 className="text-sm font-medium">Generated scales</h3>
-            <p className="text-xs/5 text-muted-foreground">
-              Steps follow Radix usage roles from canvas through text.
-            </p>
-          </div>
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-sm font-medium">Generated scales</h3>
           <span className="shrink-0 rounded-full border px-2 py-0.5 text-xs tabular-nums">
             2 × 12 steps
           </span>
@@ -61,13 +56,7 @@ export function GeneratedTheme({
 
         <div className="border-t pt-4">
           <div className="flex items-center justify-between gap-3">
-            <div>
-              <h3 className="text-sm font-medium">Text contrast</h3>
-              <p className="text-xs/5 text-muted-foreground">
-                WCAG ratios are gated at 4.5:1; APCA is reported as additional
-                guidance.
-              </p>
-            </div>
+            <h3 className="text-sm font-medium">Text contrast</h3>
             <span
               className={twMerge(
                 "inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs",
@@ -124,7 +113,7 @@ function PalettePreview({
       <ScalePreview label="Accent" colors={accent} />
       <ScalePreview label="Gray" colors={gray} />
       <div className="grid grid-cols-3 gap-1.5 text-center text-[10px]">
-        <SurfacePreview label="Canvas" color={background} />
+        <SurfacePreview label="Background" color={background} />
         <SurfacePreview label="Panel" color={panel} />
         <SurfacePreview label="Control" color={surface} />
       </div>
@@ -151,11 +140,6 @@ function ScalePreview({
             style={{ backgroundColor: color }}
           />
         ))}
-      </div>
-      <div className="grid grid-cols-3 text-[9px] opacity-55">
-        <span>Canvas</span>
-        <span className="text-center">UI</span>
-        <span className="text-right">Text</span>
       </div>
     </div>
   )

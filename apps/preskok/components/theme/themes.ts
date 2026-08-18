@@ -17,7 +17,6 @@ import {
 
 type ThemeMode = ThemeAppearance
 type Shade = keyof (typeof colors)["slate"]
-type PanelBackground = "solid" | "translucent"
 type GrayMode = "auto" | "custom"
 
 export const THEME_MANIFEST_VERSION = 2
@@ -45,7 +44,6 @@ export type ThemeSelection = {
   light: ThemeAppearanceSelection
   dark: ThemeAppearanceSelection
   grayMode: GrayMode
-  panelBackground: PanelBackground
   radius: ThemeRadius
 }
 
@@ -66,7 +64,6 @@ export const DEFAULT_THEME_SELECTION: ThemeSelection = {
     background: "#09090b",
   },
   grayMode: "auto",
-  panelBackground: "translucent",
   radius: "0.5rem",
 }
 
@@ -119,8 +116,6 @@ export const THEME_COLOR_TOKEN_NAMES = [
   "panel-foreground",
   "panel-solid",
   "panel-solid-foreground",
-  "panel-translucent",
-  "panel-translucent-foreground",
   "accent-surface",
   "accent-indicator",
   "accent-track",
@@ -263,12 +258,7 @@ function createColorMode(
     palette.gray[11],
     foreground,
   ])
-  const panelSolid = palette.gray[1]
-  const panelTranslucent = palette.graySurface
-  let panel = panelTranslucent
-  if (selection.panelBackground === "solid") {
-    panel = panelSolid
-  }
+  const panel = palette.gray[1]
 
   const panelForeground = chooseReadableForeground(
     flattenColor(panel, palette.background),
@@ -310,7 +300,7 @@ function createColorMode(
     "destructive-foreground": status.destructive.foreground,
     card: panel,
     "card-foreground": panelForeground,
-    popover: panelSolid,
+    popover: panel,
     "popover-foreground": foreground,
     overlay: panel,
     "overlay-foreground": panelForeground,
@@ -336,10 +326,8 @@ function createColorMode(
     "surface-foreground": surfaceForeground,
     panel,
     "panel-foreground": panelForeground,
-    "panel-solid": panelSolid,
+    "panel-solid": panel,
     "panel-solid-foreground": foreground,
-    "panel-translucent": panelTranslucent,
-    "panel-translucent-foreground": panelForeground,
     "accent-surface": palette.accentSurface,
     "accent-indicator": palette.accent[8],
     "accent-track": palette.accent[4],
@@ -758,13 +746,6 @@ export function assertThemeSelection(
     throw new Error('Theme gray mode must be "auto" or "custom".')
   }
 
-  if (
-    selection.panelBackground !== "solid" &&
-    selection.panelBackground !== "translucent"
-  ) {
-    throw new Error('Theme panel background must be "solid" or "translucent".')
-  }
-
   if (!isThemeRadius(selection.radius)) {
     throw new Error("Theme radius is not supported.")
   }
@@ -841,7 +822,6 @@ function migrateLegacySelection(value: unknown): ThemeSelection {
       background: "#09090b",
     },
     grayMode: "custom",
-    panelBackground: "translucent",
     radius: value.radius,
   }
 }
