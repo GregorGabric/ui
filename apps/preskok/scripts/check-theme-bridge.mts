@@ -12,6 +12,8 @@ import {
   generateTheme,
   generateThemeManifestJson,
   parseThemeManifestJson,
+  resolveThemeBackground,
+  THEME_BACKGROUND_MODES,
   THEME_COLOR_TOKEN_NAMES,
   THEME_MANIFEST_VERSION,
   THEME_PRIMITIVE_STEPS,
@@ -171,6 +173,37 @@ for (const radius of THEME_RADIUS_OPTIONS) {
   assertSelection({ ...DEFAULT_THEME_SELECTION, radius })
 }
 
+for (const backgroundMode of THEME_BACKGROUND_MODES) {
+  assertSelection({
+    ...DEFAULT_THEME_SELECTION,
+    light: { ...DEFAULT_THEME_SELECTION.light, backgroundMode },
+    dark: { ...DEFAULT_THEME_SELECTION.dark, backgroundMode },
+  })
+}
+
+assert.equal(
+  resolveThemeBackground("light", {
+    ...DEFAULT_THEME_SELECTION.light,
+    backgroundMode: "pure",
+  }),
+  "#ffffff"
+)
+assert.equal(
+  resolveThemeBackground("dark", {
+    ...DEFAULT_THEME_SELECTION.dark,
+    backgroundMode: "pure",
+  }),
+  "#09090b"
+)
+assert.equal(
+  resolveThemeBackground("light", {
+    ...DEFAULT_THEME_SELECTION.light,
+    backgroundMode: "custom",
+    customBackground: "#f3f4f6",
+  }),
+  "#f3f4f6"
+)
+
 const colorSamples = [
   "#000000",
   "#ffffff",
@@ -240,7 +273,7 @@ assert.equal(
 )
 
 const manifestJson = generateThemeManifestJson(DEFAULT_THEME_SELECTION)
-assert.equal(THEME_MANIFEST_VERSION, 2)
+assert.equal(THEME_MANIFEST_VERSION, 3)
 assert.deepEqual(
   parseThemeManifestJson(manifestJson).selection,
   DEFAULT_THEME_SELECTION
@@ -262,20 +295,47 @@ const migrated = parseThemeManifestJson(
     },
   })
 )
-assert.equal(migrated.schemaVersion, 2)
+assert.equal(migrated.schemaVersion, 3)
 assert.equal(migrated.selection.light.accent, "#155dfc")
 assert.equal(migrated.selection.dark.accent, "#155dfc")
+assert.equal(migrated.selection.light.backgroundMode, "pure")
+assert.equal(migrated.selection.dark.backgroundMode, "pure")
 assert.equal(migrated.selection.grayMode, "custom")
 assert.equal(migrated.selection.radius, "0.75rem")
 
+const migratedVersionTwo = parseThemeManifestJson(
+  JSON.stringify({
+    schemaVersion: 2,
+    selection: {
+      light: {
+        accent: "#2563eb",
+        gray: "#737b8a",
+        background: "#fff7ed",
+      },
+      dark: {
+        accent: "#3b82f6",
+        gray: "#737b88",
+        background: "#18181b",
+      },
+      grayMode: "auto",
+      radius: "0.5rem",
+    },
+  })
+)
+assert.equal(migratedVersionTwo.schemaVersion, 3)
+assert.equal(migratedVersionTwo.selection.light.backgroundMode, "custom")
+assert.equal(migratedVersionTwo.selection.light.customBackground, "#fff7ed")
+assert.equal(migratedVersionTwo.selection.dark.backgroundMode, "custom")
+assert.equal(migratedVersionTwo.selection.dark.customBackground, "#18181b")
+
 assert.throws(
-  () => parseThemeManifestJson('{"schemaVersion":3,"selection":{}}'),
+  () => parseThemeManifestJson('{"schemaVersion":4,"selection":{}}'),
   /unsupported schema version/
 )
 assert.throws(
   () =>
     parseThemeManifestJson(
-      '{"schemaVersion":2,"selection":{"light":{"accent":"red"}}}'
+      '{"schemaVersion":3,"selection":{"light":{"accent":"red"}}}'
     ),
   /six-digit hex color/
 )
@@ -288,5 +348,5 @@ assert.throws(
 )
 
 console.log(
-  `Theme V2 checks passed for ${colorSamples.length} source colors, ${THEME_RADIUS_OPTIONS.length} radii, ${THEME_PRIMITIVE_STEPS.length} primitive steps per scale, ${THEME_COLOR_TOKEN_NAMES.length} semantic tokens, and ${defaultChecks.length} contrast pairs.`
+  `Theme V3 checks passed for ${colorSamples.length} source colors, ${THEME_BACKGROUND_MODES.length} background treatments, ${THEME_RADIUS_OPTIONS.length} radii, ${THEME_PRIMITIVE_STEPS.length} primitive steps per scale, ${THEME_COLOR_TOKEN_NAMES.length} semantic tokens, and ${defaultChecks.length} contrast pairs.`
 )

@@ -1,13 +1,23 @@
 "use client"
 
 import type React from "react"
-import { MoonIcon, SunIcon } from "lucide-react"
+import { CheckIcon, ChevronDownIcon, MoonIcon, SunIcon } from "lucide-react"
 import type { Key } from "react-aria-components/Select"
 import { parseColor } from "react-stately/Color"
+import { twMerge } from "tailwind-merge"
 
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { ColorPicker } from "@/registry/preskok/ui/preskok-ui/color-picker"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import {
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+} from "@/registry/preskok/ui/preskok-ui/popover"
 import {
   Select,
   SelectContent,
@@ -21,10 +31,12 @@ import {
   ToggleGroupItem,
 } from "@/registry/preskok/ui/preskok-ui/toggle-group"
 
-import { deriveGraySource } from "./palette"
+import { deriveGraySource, generatePalette } from "./palette"
 import {
+  resolveThemeBackground,
   THEME_RADIUS_OPTIONS,
   type ThemeAppearanceSelection,
+  type ThemeBackgroundMode,
   type ThemeSelection,
 } from "./themes"
 
@@ -36,8 +48,18 @@ type ThemeCustomizerProps = {
   setSelectedColors: React.Dispatch<React.SetStateAction<ThemeSelection>>
 }
 
-type EditableColor = keyof ThemeAppearanceSelection
+type EditableColor = "accent" | "gray" | "customBackground"
 export type ThemeAppearance = "light" | "dark"
+
+const BACKGROUND_OPTIONS = [
+  { id: "neutral", label: "Neutral" },
+  { id: "pure", label: "Pure" },
+  { id: "accent", label: "Brand tint" },
+  { id: "custom", label: "Custom" },
+] as const satisfies readonly {
+  id: ThemeBackgroundMode
+  label: string
+}[]
 
 export function ThemeCustomizer({
   actions,
@@ -95,6 +117,16 @@ export function ThemeCustomizer({
         },
       }
     })
+  }
+
+  function setBackgroundMode(backgroundMode: ThemeBackgroundMode) {
+    setSelectedColors((previous) => ({
+      ...previous,
+      [appearance]: {
+        ...previous[appearance],
+        backgroundMode,
+      },
+    }))
   }
 
   function setRadius(key: Key | Key[] | null) {
@@ -158,10 +190,11 @@ export function ThemeCustomizer({
           }
           onChange={(value) => updateAppearanceColor("gray", value)}
         />
-        <ThemeColorControl
-          label="Background"
-          value={values.background}
-          onChange={(value) => updateAppearanceColor("background", value)}
+        <BackgroundControl
+          appearance={appearance}
+          selection={values}
+          onChange={(value) => updateAppearanceColor("customBackground", value)}
+          onModeChange={setBackgroundMode}
         />
 
         <div className="grid gap-1.5">
@@ -197,6 +230,153 @@ export function ThemeCustomizer({
         )}
       </div>
     </section>
+  )
+}
+
+function BackgroundControl({
+  appearance,
+  selection,
+  onChange,
+  onModeChange,
+}: {
+  appearance: ThemeAppearance
+  selection: ThemeAppearanceSelection
+  onChange: (value: string) => void
+  onModeChange: (mode: ThemeBackgroundMode) => void
+}) {
+  const selectedOption = BACKGROUND_OPTIONS.find(
+    (option) => option.id === selection.backgroundMode
+  )
+  const preview = createBackgroundPreview(
+    appearance,
+    selection,
+    selection.backgroundMode
+  )
+
+  return (
+    <div className="grid min-w-0 gap-1.5">
+      <Label elementType="span">Page background</Label>
+      <Popover>
+        <Button
+          className="min-w-0 justify-start bg-background/80 shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] backdrop-blur-sm dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]"
+          intent="outline"
+        >
+          <SurfacePreview {...preview} />
+          <span className="min-w-0 flex-1 truncate text-left">
+            {selectedOption?.label}
+          </span>
+          <ChevronDownIcon data-slot="icon" />
+        </Button>
+        <PopoverContent className="max-w-sm" placement="bottom">
+          <PopoverHeader>
+            <PopoverTitle>Page background</PopoverTitle>
+            <PopoverDescription>
+              Choose the surface treatment for this appearance.
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverBody className="grid gap-4">
+            <div className="grid grid-cols-2 gap-2">
+              {BACKGROUND_OPTIONS.map((option) => {
+                const isSelected = option.id === selection.backgroundMode
+                const optionPreview = createBackgroundPreview(
+                  appearance,
+                  selection,
+                  option.id
+                )
+
+                return (
+                  <Button
+                    aria-pressed={isSelected}
+                    className={twMerge(
+                      "relative h-auto justify-start gap-3 rounded-xl p-3 text-left",
+                      isSelected && "border-primary/40 bg-accent"
+                    )}
+                    intent="outline"
+                    key={option.id}
+                    onPress={() => onModeChange(option.id)}
+                  >
+                    <SurfacePreview {...optionPreview} size="lg" />
+                    <span className="flex-1">{option.label}</span>
+                    {isSelected && (
+                      <CheckIcon className="absolute top-2 right-2 size-3.5" />
+                    )}
+                  </Button>
+                )
+              })}
+            </div>
+
+            {selection.backgroundMode === "custom" && (
+              <div className="grid gap-1.5 border-t pt-4">
+                <Label elementType="span">Custom color</Label>
+                <ColorPicker
+                  aria-label="Custom page background color"
+                  className="[&_button]:w-full [&_button]:justify-start [&_button]:font-mono [&_button]:font-normal [&_button]:uppercase"
+                  eyeDropper
+                  label={selection.customBackground.replace("#", "")}
+                  value={parseColor(selection.customBackground)}
+                  onChange={(color) => onChange(color.toString("hex"))}
+                />
+              </div>
+            )}
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </div>
+  )
+}
+
+function createBackgroundPreview(
+  appearance: ThemeAppearance,
+  selection: ThemeAppearanceSelection,
+  backgroundMode: ThemeBackgroundMode
+) {
+  const background = resolveThemeBackground(appearance, {
+    ...selection,
+    backgroundMode,
+  })
+  const palette = generatePalette({
+    appearance,
+    accent: selection.accent,
+    gray: selection.gray,
+    background,
+  })
+
+  return {
+    background,
+    panel: palette.gray[1],
+    control: palette.gray[3],
+  }
+}
+
+function SurfacePreview({
+  background,
+  panel,
+  control,
+  size = "sm",
+}: {
+  background: string
+  panel: string
+  control: string
+  size?: "sm" | "lg"
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      className={twMerge(
+        "relative inline-block shrink-0 overflow-hidden rounded-md border border-black/10",
+        size === "sm" ? "size-5" : "size-9"
+      )}
+      style={{ backgroundColor: background }}
+    >
+      <span
+        className="absolute inset-x-[18%] top-[18%] bottom-[12%] rounded-[3px] border border-black/5"
+        style={{ backgroundColor: panel }}
+      />
+      <span
+        className="absolute right-[28%] bottom-[25%] left-[28%] h-[18%] rounded-full"
+        style={{ backgroundColor: control }}
+      />
+    </span>
   )
 }
 

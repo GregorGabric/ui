@@ -15,11 +15,17 @@ import {
   type ThemeAppearance,
 } from "./palette"
 
-type ThemeMode = ThemeAppearance
+export type ThemeMode = ThemeAppearance
 type Shade = keyof (typeof colors)["slate"]
 type GrayMode = "auto" | "custom"
 
-export const THEME_MANIFEST_VERSION = 2
+export const THEME_MANIFEST_VERSION = 3
+export const THEME_BACKGROUND_MODES = [
+  "neutral",
+  "pure",
+  "accent",
+  "custom",
+] as const
 export const THEME_RADIUS_OPTIONS = [
   "0rem",
   "0.125rem",
@@ -33,11 +39,13 @@ export const THEME_RADIUS_OPTIONS = [
 ] as const
 
 export type ThemeRadius = (typeof THEME_RADIUS_OPTIONS)[number]
+export type ThemeBackgroundMode = (typeof THEME_BACKGROUND_MODES)[number]
 
 export type ThemeAppearanceSelection = {
   accent: string
   gray: string
-  background: string
+  backgroundMode: ThemeBackgroundMode
+  customBackground: string
 }
 
 export type ThemeSelection = {
@@ -56,12 +64,14 @@ export const DEFAULT_THEME_SELECTION: ThemeSelection = {
   light: {
     accent: "#2563eb",
     gray: "#737b8a",
-    background: "#ffffff",
+    backgroundMode: "neutral",
+    customBackground: "#ffffff",
   },
   dark: {
     accent: "#3b82f6",
     gray: "#737b88",
-    background: "#09090b",
+    backgroundMode: "neutral",
+    customBackground: "#09090b",
   },
   grayMode: "auto",
   radius: "0.5rem",
@@ -225,19 +235,15 @@ export const THEME_TOKEN_MAPPINGS = THEME_COLOR_TOKEN_NAMES.map((token) => {
   }
 })
 
-function createColorTokens(
-  selection: ThemeSelection,
-  primitives: Record<ThemeMode, GeneratedPalette>
-) {
+function createColorTokens(primitives: Record<ThemeMode, GeneratedPalette>) {
   return {
-    light: createColorMode("light", selection, primitives.light),
-    dark: createColorMode("dark", selection, primitives.dark),
+    light: createColorMode("light", primitives.light),
+    dark: createColorMode("dark", primitives.dark),
   }
 }
 
 function createColorMode(
   mode: ThemeMode,
-  selection: ThemeSelection,
   palette: GeneratedPalette
 ): ThemeColorTokens {
   const status = createStatusColors(mode, palette)
@@ -418,15 +424,57 @@ function createRadii(radius: ThemeRadius) {
   ) as Record<ThemeRadiusTokenName, number>
 }
 
+const PURE_BACKGROUNDS: Record<ThemeMode, string> = {
+  light: "#ffffff",
+  dark: "#09090b",
+}
+
+export function resolveThemeBackground(
+  mode: ThemeMode,
+  selection: ThemeAppearanceSelection
+) {
+  if (selection.backgroundMode === "custom") {
+    return selection.customBackground
+  }
+
+  const pureBackground = PURE_BACKGROUNDS[mode]
+  if (selection.backgroundMode === "pure") {
+    return pureBackground
+  }
+
+  const referencePalette = generatePalette({
+    appearance: mode,
+    accent: selection.accent,
+    gray: selection.gray,
+    background: pureBackground,
+  })
+
+  if (selection.backgroundMode === "accent") {
+    return referencePalette.accent[0]
+  }
+
+  return referencePalette.gray[0]
+}
+
 export function createThemeTokens(selection: ThemeSelection): ResolvedTheme {
   assertThemeSelection(selection)
   const primitives = {
-    light: generatePalette({ appearance: "light", ...selection.light }),
-    dark: generatePalette({ appearance: "dark", ...selection.dark }),
+    light: generatePalette({
+      appearance: "light",
+      accent: selection.light.accent,
+      gray: selection.light.gray,
+      background: resolveThemeBackground("light", selection.light),
+    }),
+    dark: generatePalette({
+      appearance: "dark",
+      accent: selection.dark.accent,
+      gray: selection.dark.gray,
+      background: resolveThemeBackground("dark", selection.dark),
+    }),
   }
 
   return {
-    colors: createColorTokens(selection, primitives),
+    colors: createColorTokens(primitives),
     primitives,
     radii: createRadii(selection.radius),
     selection,
@@ -727,8 +775,17 @@ function assertAppearanceSelection(
     throw new Error(`Theme ${name} gray must be a six-digit hex color.`)
   }
 
-  if (!isHexColor(appearance.background)) {
-    throw new Error(`Theme ${name} background must be a six-digit hex color.`)
+  if (!isHexColor(appearance.customBackground)) {
+    throw new Error(
+      `Theme ${name} custom background must be a six-digit hex color.`
+    )
+  }
+
+  if (
+    typeof appearance.backgroundMode !== "string" ||
+    !THEME_BACKGROUND_MODES.some((mode) => mode === appearance.backgroundMode)
+  ) {
+    throw new Error(`Theme ${name} background mode is not supported.`)
   }
 }
 
@@ -770,6 +827,13 @@ export function parseThemeManifestJson(source: string): ThemeManifest {
     }
   }
 
+  if (parsed.schemaVersion === 2) {
+    return {
+      schemaVersion: THEME_MANIFEST_VERSION,
+      selection: migrateVersionTwoSelection(parsed.selection),
+    }
+  }
+
   if (parsed.schemaVersion !== THEME_MANIFEST_VERSION) {
     throw new Error(
       `Theme file uses an unsupported schema version. Expected ${THEME_MANIFEST_VERSION}.`
@@ -778,6 +842,58 @@ export function parseThemeManifestJson(source: string): ThemeManifest {
 
   assertThemeSelection(parsed.selection)
   return { schemaVersion: THEME_MANIFEST_VERSION, selection: parsed.selection }
+}
+
+function migrateVersionTwoSelection(value: unknown): ThemeSelection {
+  if (!isRecord(value)) {
+    throw new Error("Version 2 theme selection must be an object.")
+  }
+
+  const light = migrateVersionTwoAppearance(value.light, "light")
+  const dark = migrateVersionTwoAppearance(value.dark, "dark")
+
+  if (value.grayMode !== "auto" && value.grayMode !== "custom") {
+    throw new Error('Theme gray mode must be "auto" or "custom".')
+  }
+
+  if (!isThemeRadius(value.radius)) {
+    throw new Error("Theme radius is not supported.")
+  }
+
+  return {
+    light,
+    dark,
+    grayMode: value.grayMode,
+    radius: value.radius,
+  }
+}
+
+function migrateVersionTwoAppearance(
+  value: unknown,
+  name: ThemeMode
+): ThemeAppearanceSelection {
+  if (!isRecord(value)) {
+    throw new Error(`Theme ${name} appearance must be an object.`)
+  }
+
+  if (!isHexColor(value.accent)) {
+    throw new Error(`Theme ${name} accent must be a six-digit hex color.`)
+  }
+
+  if (!isHexColor(value.gray)) {
+    throw new Error(`Theme ${name} gray must be a six-digit hex color.`)
+  }
+
+  if (!isHexColor(value.background)) {
+    throw new Error(`Theme ${name} background must be a six-digit hex color.`)
+  }
+
+  return {
+    accent: value.accent,
+    gray: value.gray,
+    backgroundMode: "custom",
+    customBackground: value.background,
+  }
 }
 
 function migrateLegacySelection(value: unknown): ThemeSelection {
@@ -814,12 +930,14 @@ function migrateLegacySelection(value: unknown): ThemeSelection {
     light: {
       accent: lightAccent,
       gray,
-      background: "#ffffff",
+      backgroundMode: "pure",
+      customBackground: "#ffffff",
     },
     dark: {
       accent: darkAccent,
       gray,
-      background: "#09090b",
+      backgroundMode: "pure",
+      customBackground: "#09090b",
     },
     grayMode: "custom",
     radius: value.radius,
