@@ -1,9 +1,9 @@
 import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
 
-import { neutralColors } from "../components/theme/colors"
-import colors from "../components/theme/colors.json"
 import {
+  createThemeArtifacts,
+  createThemeContrastChecks,
   createThemeTokens,
   DEFAULT_THEME_SELECTION,
   FIGMA_STYLE_COLOR_TOKEN_NAMES,
@@ -13,6 +13,8 @@ import {
   generateThemeManifestJson,
   parseThemeManifestJson,
   THEME_COLOR_TOKEN_NAMES,
+  THEME_MANIFEST_VERSION,
+  THEME_PRIMITIVE_STEPS,
   THEME_RADIUS_OPTIONS,
   THEME_TOKEN_MAPPINGS,
   type ThemeSelection,
@@ -26,7 +28,6 @@ function extractCssBlock(source: string, selector: string) {
   const closeBrace = source.indexOf("}", openBrace)
   assert.notEqual(openBrace, -1, `Missing opening brace for ${selector}`)
   assert.notEqual(closeBrace, -1, `Missing closing brace for ${selector}`)
-
   return source.slice(openBrace + 1, closeBrace)
 }
 
@@ -88,9 +89,44 @@ function assertSelection(selection: ThemeSelection) {
     )
   }
 
-  for (const token of FIGMA_STYLE_COLOR_TOKEN_NAMES) {
-    assertColorToken(figma.color.light[token], `color/light/${token}`)
-    assertColorToken(figma.color.dark[token], `color/dark/${token}`)
+  for (const mode of ["light", "dark"] as const) {
+    for (const step of THEME_PRIMITIVE_STEPS) {
+      assert.equal(
+        rootVariables[`accent-${step}`] !== undefined,
+        true,
+        `CSS must include accent step ${step}`
+      )
+      assertColorToken(
+        figma.primitive.color[mode].accent[String(step)],
+        `primitive/color/${mode}/accent/${step}`
+      )
+      assertColorToken(
+        figma.primitive.color[mode]["accent-alpha"][String(step)],
+        `primitive/color/${mode}/accent-alpha/${step}`
+      )
+      assertColorToken(
+        figma.primitive.color[mode].gray[String(step)],
+        `primitive/color/${mode}/gray/${step}`
+      )
+      assertColorToken(
+        figma.primitive.color[mode]["gray-alpha"][String(step)],
+        `primitive/color/${mode}/gray-alpha/${step}`
+      )
+    }
+
+    for (const token of FIGMA_STYLE_COLOR_TOKEN_NAMES) {
+      assertColorToken(figma.color[mode][token], `color/${mode}/${token}`)
+    }
+
+    const checks = createThemeContrastChecks(selection).filter((check) => {
+      return check.mode === mode
+    })
+    assert.equal(checks.length, 10)
+    assert.equal(
+      checks.every((check) => Number.isFinite(check.apca)),
+      true,
+      `${mode} APCA checks must be numeric`
+    )
   }
 
   assert.equal(figma.color.light.danger, undefined)
@@ -98,9 +134,16 @@ function assertSelection(selection: ThemeSelection) {
   assert.equal(rootVariables["radius-lg"], selection.radius)
   assert.equal(rootVariables.radius, "var(--radius-lg)")
   assert.equal(generateFigmaThemeJson(selection).includes("var(--"), false)
+  assert.match(css, /@supports \(color: color\(display-p3 1 1 1\)\)/)
 }
 
 assertSelection(DEFAULT_THEME_SELECTION)
+const defaultArtifacts = createThemeArtifacts(DEFAULT_THEME_SELECTION)
+assert.equal(defaultArtifacts.css, generateTheme(DEFAULT_THEME_SELECTION))
+assert.equal(
+  defaultArtifacts.figmaJson,
+  generateFigmaThemeJson(DEFAULT_THEME_SELECTION)
+)
 
 const globalCss = readFileSync(
   new URL("../styles/globals.css", import.meta.url),
@@ -124,21 +167,38 @@ assert.deepEqual(
   "The theme bridge must cover the semantic contract in styles/globals.css"
 )
 
-for (const color of Object.keys(colors)) {
-  assertSelection({
-    ...DEFAULT_THEME_SELECTION,
-    primary: color,
-    accent: color,
-  })
-}
-
-for (const gray of neutralColors) {
-  assertSelection({ ...DEFAULT_THEME_SELECTION, gray })
-}
-
 for (const radius of THEME_RADIUS_OPTIONS) {
   assertSelection({ ...DEFAULT_THEME_SELECTION, radius })
 }
+
+const colorSamples = [
+  "#000000",
+  "#ffffff",
+  "#ff006e",
+  "#7c3aed",
+  "#006adc",
+  "#00a2c7",
+  "#2e7d32",
+  "#ffba18",
+] as const
+for (const accent of colorSamples) {
+  assertSelection({
+    ...DEFAULT_THEME_SELECTION,
+    light: { ...DEFAULT_THEME_SELECTION.light, accent },
+    dark: { ...DEFAULT_THEME_SELECTION.dark, accent },
+  })
+}
+
+const defaultChecks = createThemeContrastChecks(DEFAULT_THEME_SELECTION)
+assert.equal(defaultChecks.length, 20)
+assert.equal(
+  defaultChecks.every((check) => check.passes),
+  true,
+  `Default theme must pass normal-text contrast: ${defaultChecks
+    .filter((check) => !check.passes)
+    .map((check) => `${check.mode}/${check.label} ${check.wcag}:1`)
+    .join(", ")}`
+)
 
 const figma = generateFigmaThemeTokens(DEFAULT_THEME_SELECTION)
 assert.deepEqual(Object.keys(figma.color.light), [
@@ -147,6 +207,8 @@ assert.deepEqual(Object.keys(figma.color.light), [
 assert.deepEqual(Object.keys(figma.color.dark), [
   ...FIGMA_STYLE_COLOR_TOKEN_NAMES,
 ])
+assert.equal(Object.keys(figma.primitive.color.light.accent).length, 12)
+assert.equal(Object.keys(figma.primitive.color.dark.gray).length, 12)
 assert.deepEqual(
   Object.fromEntries(
     Object.entries(figma.radius).map(([name, token]) => [
@@ -178,6 +240,7 @@ assert.equal(
 )
 
 const manifestJson = generateThemeManifestJson(DEFAULT_THEME_SELECTION)
+assert.equal(THEME_MANIFEST_VERSION, 2)
 assert.deepEqual(
   parseThemeManifestJson(manifestJson).selection,
   DEFAULT_THEME_SELECTION
@@ -187,16 +250,34 @@ assert.equal(
   manifestJson,
   "Manifest generation must be deterministic"
 )
+
+const migrated = parseThemeManifestJson(
+  JSON.stringify({
+    schemaVersion: 1,
+    selection: {
+      primary: "blue",
+      gray: "zinc",
+      accent: "violet",
+      radius: "0.75rem",
+    },
+  })
+)
+assert.equal(migrated.schemaVersion, 2)
+assert.equal(migrated.selection.light.accent, "#155dfc")
+assert.equal(migrated.selection.dark.accent, "#155dfc")
+assert.equal(migrated.selection.grayMode, "custom")
+assert.equal(migrated.selection.radius, "0.75rem")
+
 assert.throws(
-  () => parseThemeManifestJson('{"schemaVersion":2,"selection":{}}'),
+  () => parseThemeManifestJson('{"schemaVersion":3,"selection":{}}'),
   /unsupported schema version/
 )
 assert.throws(
   () =>
     parseThemeManifestJson(
-      '{"schemaVersion":1,"selection":{"primary":"made-up","gray":"zinc","accent":"blue","radius":"0.5rem"}}'
+      '{"schemaVersion":2,"selection":{"light":{"accent":"red"}}}'
     ),
-  /primary color is not supported/
+  /six-digit hex color/
 )
 assert.throws(
   () =>
@@ -207,5 +288,5 @@ assert.throws(
 )
 
 console.log(
-  `Theme bridge checks passed for ${Object.keys(colors).length} color families, ${neutralColors.length} neutrals, ${THEME_RADIUS_OPTIONS.length} radii, and ${THEME_COLOR_TOKEN_NAMES.length} semantic tokens.`
+  `Theme V2 checks passed for ${colorSamples.length} source colors, ${THEME_RADIUS_OPTIONS.length} radii, ${THEME_PRIMITIVE_STEPS.length} primitive steps per scale, ${THEME_COLOR_TOKEN_NAMES.length} semantic tokens, and ${defaultChecks.length} contrast pairs.`
 )

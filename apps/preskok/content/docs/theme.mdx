@@ -10,10 +10,16 @@ import { ThemeContainer } from "@/components/theme/theme-container"
 
 ## One theme, two systems
 
-The customizer resolves the complete Preskok semantic color contract for light
-and dark appearances. CSS and Figma exports are generated from those same
-resolved values, including component surfaces, navigation, charts, feedback
-colors, code surfaces, selection colors, and the complete radius scale.
+Choose exact brand, gray, and canvas colors for light and dark appearances. The
+customizer turns those source colors into Radix-style 12-step accent and gray
+scales, alpha variants, solid and translucent surfaces, and the complete Preskok
+semantic color contract. CSS and Figma exports are generated from the same
+resolved values.
+
+The contrast panel checks normal text pairs against WCAG 2.x at 4.5:1 and also
+reports APCA Lc values. A passing result applies to the pairs shown in the
+panel—not every possible combination of tokens, font sizes, or overlays in a
+product.
 
 Keep `preskok-theme.json` in the project repository. It is the small, versioned
 source file that can be loaded into this page again. Generated CSS and Figma JSON
@@ -22,8 +28,9 @@ are outputs of that project theme.
 ## Add the theme to code
 
 Choose **Get theme → Copy CSS** and replace the `:root` and `.dark` theme blocks
-in the project's global stylesheet. The generated CSS uses the same variable
-names as Preskok UI components.
+in the project's global stylesheet. The generated CSS includes the Preskok
+semantic variables, 12-step opaque and alpha primitives, radius scale, and
+Display P3 overrides with sRGB fallbacks.
 
 ## Add the theme to Figma
 
@@ -34,10 +41,11 @@ names as Preskok UI components.
 5. Apply that `Style` mode to the project page or frame. Continue using the
    existing `Mode` collection to switch between light and dark appearance.
 
-The imported paths match the library's existing variables, such as
-`color/light/primary`, `color/dark/primary`, and `radius/lg`. Do not import this
-file into the `Mode` collection: `Style` selects the project brand, while `Mode`
-selects the light or dark appearance.
+The semantic paths match the library's existing variables, such as
+`color/light/primary`, `color/dark/primary`, and `radius/lg`. Primitive paths,
+including `primitive/color/light/accent/1`, are included for designers who need
+the full scale. Do not import this file into the `Mode` collection: `Style`
+selects the project brand, while `Mode` selects the light or dark appearance.
 
 Figma imports these files using the
 [Design Tokens Community Group format](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables).

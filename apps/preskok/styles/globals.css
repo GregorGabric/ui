@@ -96,6 +96,18 @@
 
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
+  --color-panel: var(--panel);
+  --color-panel-foreground: var(--panel-foreground);
+  --color-panel-solid: var(--panel-solid);
+  --color-panel-solid-foreground: var(--panel-solid-foreground);
+  --color-panel-translucent: var(--panel-translucent);
+  --color-panel-translucent-foreground: var(
+    --panel-translucent-foreground
+  );
+  --color-accent-surface: var(--accent-surface);
+  --color-accent-indicator: var(--accent-indicator);
+  --color-accent-track: var(--accent-track);
+  --color-scrim: var(--scrim);
   --color-code: var(--code);
   --color-code-foreground: var(--code-foreground);
   --color-code-highlight: var(--code-highlight);
@@ -195,6 +207,16 @@
 
   --surface: oklch(0.98 0 0);
   --surface-foreground: var(--foreground);
+  --panel: var(--card);
+  --panel-foreground: var(--card-foreground);
+  --panel-solid: var(--card);
+  --panel-solid-foreground: var(--card-foreground);
+  --panel-translucent: oklch(1 0 0 / 80%);
+  --panel-translucent-foreground: var(--card-foreground);
+  --accent-surface: oklch(0.932 0.032 255.585 / 80%);
+  --accent-indicator: var(--primary);
+  --accent-track: oklch(0.809 0.105 251.813);
+  --scrim: oklch(0 0 0 / 50%);
   --code: var(--surface);
   --code-foreground: var(--surface-foreground);
   --code-highlight: oklch(0.96 0 0);
@@ -273,6 +295,16 @@
 
   --surface: oklch(0.2 0 0);
   --surface-foreground: oklch(0.708 0 0);
+  --panel: var(--card);
+  --panel-foreground: var(--card-foreground);
+  --panel-solid: var(--card);
+  --panel-solid-foreground: var(--card-foreground);
+  --panel-translucent: oklch(0 0 0 / 5%);
+  --panel-translucent-foreground: var(--card-foreground);
+  --accent-surface: oklch(0.269 0.007 34.298 / 50%);
+  --accent-indicator: var(--primary);
+  --accent-track: oklch(0.374 0.137 265.522);
+  --scrim: oklch(0 0 0 / 60%);
   --code: var(--surface);
   --code-foreground: var(--surface-foreground);
   --code-highlight: oklch(0.27 0 0);

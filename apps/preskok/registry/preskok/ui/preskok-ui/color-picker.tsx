@@ -16,6 +16,7 @@ import { ColorField } from "./color-field"
 import { ColorSlider } from "./color-slider"
 import { ColorSwatch } from "./color-swatch"
 import { Description } from "./field"
+import { Input } from "./input"
 import { Popover, PopoverContent, type PopoverContentProps } from "./popover"
 
 interface ColorPickerProps
@@ -78,7 +79,9 @@ const ColorPicker = ({
                   />
                   <div className="flex items-center gap-1.5">
                     {eyeDropper && <EyeDropper />}
-                    <ColorField className="h-9" aria-label="Hex" />
+                    <ColorField className="flex-1" aria-label="Hex">
+                      <Input placeholder="#000000" />
+                    </ColorField>
                   </div>
                 </>
               )}

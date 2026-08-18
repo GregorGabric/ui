@@ -42,10 +42,8 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/tabs"
 
 import {
+  createThemeArtifacts,
   DEFAULT_THEME_SELECTION,
-  generateFigmaThemeJson,
-  generateTheme,
-  generateThemeManifestJson,
   parseThemeManifestJson,
   type ThemeSelection,
 } from "./themes"
@@ -72,9 +70,8 @@ export function ThemeContainer() {
     DEFAULT_THEME_SELECTION
   )
   const [open, setOpen] = useState(false)
-  const css = generateTheme(selectedColors)
-  const figmaJson = generateFigmaThemeJson(selectedColors)
-  const manifestJson = generateThemeManifestJson(selectedColors)
+  const { theme, contrastChecks, css, figmaJson, manifestJson } =
+    createThemeArtifacts(selectedColors)
 
   function copyCss() {
     void navigator.clipboard.writeText(css)
@@ -138,7 +135,7 @@ export function ThemeContainer() {
         <DocsCards className="grid-cols-1 items-start gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
           <DocsCard
             title="Project theme"
-            description="One configuration generates matching code and Figma tokens."
+            description="Choose exact source colors; the full light and dark systems are generated for you."
           >
             <div className="not-prose mt-4 text-fd-foreground">
               <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
@@ -167,8 +164,8 @@ export function ThemeContainer() {
           </DocsCard>
 
           <DocsCard
-            title="Generated theme"
-            description="Every preview and export below comes from the same resolved tokens."
+            title="Generated system"
+            description="Radix-style scales, surfaces, semantic tokens, and contrast checks from one configuration."
           >
             <div className="mt-4 flex justify-end">
               <Menu>
@@ -201,7 +198,11 @@ export function ThemeContainer() {
                 </MenuContent>
               </Menu>
             </div>
-            <GeneratedTheme className="mt-4" />
+            <GeneratedTheme
+              theme={theme}
+              checks={contrastChecks}
+              className="mt-4"
+            />
           </DocsCard>
         </DocsCards>
 
@@ -220,7 +221,7 @@ export function ThemeContainer() {
         >
           <SheetHeader
             title="Generated project theme"
-            description="CSS, Figma mode, and the editable project manifest are generated together."
+            description="CSS primitives, semantic tokens, Figma variables, and the editable manifest are generated together."
           />
           <SheetBody className="border-y pb-4">
             <Tabs defaultSelectedKey="css" className="mt-2">
@@ -236,7 +237,9 @@ export function ThemeContainer() {
                 <p className="mb-3 text-sm text-muted-foreground">
                   In Figma, duplicate the <code>Default</code> mode in the
                   <code> Style</code> collection, rename it for the project,
-                  then use <strong>Import mode</strong> with this JSON file.
+                  then use <strong>Import mode</strong> with this JSON file. It
+                  includes both semantic variables and the 12-step primitive
+                  scales.
                 </p>
                 <GeneratedCode
                   title="preskok-style-mode.json"

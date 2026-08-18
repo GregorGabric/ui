@@ -1,20 +1,26 @@
-import { parse, rgb } from "culori"
+import Color from "colorjs.io"
+import { formatHex, parse, rgb, wcagContrast } from "culori"
 
 import {
   accentColors300,
   accentColors400,
   accentColors500,
-  adjustLightness,
   neutralColors,
 } from "./colors"
 import colors from "./colors.json"
+import {
+  deriveGraySource,
+  generatePalette,
+  type GeneratedPalette,
+  type ThemeAppearance,
+} from "./palette"
 
-type BlackWhite = "white" | "black"
+type ThemeMode = ThemeAppearance
 type Shade = keyof (typeof colors)["slate"]
-type ForegroundColor = Shade | BlackWhite
-type ThemeMode = "light" | "dark"
+type PanelBackground = "solid" | "translucent"
+type GrayMode = "auto" | "custom"
 
-export const THEME_MANIFEST_VERSION = 1
+export const THEME_MANIFEST_VERSION = 2
 export const THEME_RADIUS_OPTIONS = [
   "0rem",
   "0.125rem",
@@ -29,10 +35,17 @@ export const THEME_RADIUS_OPTIONS = [
 
 export type ThemeRadius = (typeof THEME_RADIUS_OPTIONS)[number]
 
-export type ThemeSelection = {
-  primary: string
-  gray: string
+export type ThemeAppearanceSelection = {
   accent: string
+  gray: string
+  background: string
+}
+
+export type ThemeSelection = {
+  light: ThemeAppearanceSelection
+  dark: ThemeAppearanceSelection
+  grayMode: GrayMode
+  panelBackground: PanelBackground
   radius: ThemeRadius
 }
 
@@ -42,9 +55,18 @@ export type ThemeManifest = {
 }
 
 export const DEFAULT_THEME_SELECTION: ThemeSelection = {
-  primary: "blue",
-  gray: "zinc",
-  accent: "zinc",
+  light: {
+    accent: "#2563eb",
+    gray: "#737b8a",
+    background: "#ffffff",
+  },
+  dark: {
+    accent: "#3b82f6",
+    gray: "#737b88",
+    background: "#09090b",
+  },
+  grayMode: "auto",
+  panelBackground: "translucent",
   radius: "0.5rem",
 }
 
@@ -93,6 +115,16 @@ export const THEME_COLOR_TOKEN_NAMES = [
   "chart-5",
   "surface",
   "surface-foreground",
+  "panel",
+  "panel-foreground",
+  "panel-solid",
+  "panel-solid-foreground",
+  "panel-translucent",
+  "panel-translucent-foreground",
+  "accent-surface",
+  "accent-indicator",
+  "accent-track",
+  "scrim",
   "code",
   "code-foreground",
   "code-highlight",
@@ -107,6 +139,10 @@ export const FIGMA_STYLE_COLOR_TOKEN_NAMES = THEME_COLOR_TOKEN_NAMES.filter(
   (token) => token !== "danger" && token !== "danger-foreground"
 )
 
+export const THEME_PRIMITIVE_STEPS = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+] as const
+
 const RADIUS_MULTIPLIERS = {
   xs: 0.5,
   sm: 0.75,
@@ -118,13 +154,31 @@ const RADIUS_MULTIPLIERS = {
   "4xl": 3,
 } as const
 
+const STATUS_COLORS = {
+  success: { light: "#2e7d32", dark: "#46a758" },
+  warning: { light: "#ffc53d", dark: "#f5d90a" },
+  destructive: { light: "#e5484d", dark: "#e5484d" },
+} as const
+
 export type ThemeRadiusTokenName = keyof typeof RADIUS_MULTIPLIERS
 export type ThemeColorTokens = Record<ThemeColorTokenName, string>
 
 export type ResolvedTheme = {
   colors: Record<ThemeMode, ThemeColorTokens>
+  primitives: Record<ThemeMode, GeneratedPalette>
   radii: Record<ThemeRadiusTokenName, number>
   selection: ThemeSelection
+}
+
+export type ThemeContrastCheck = {
+  mode: ThemeMode
+  label: string
+  foregroundToken: ThemeColorTokenName
+  backgroundToken: ThemeColorTokenName
+  wcag: number
+  apca: number
+  requiredWcag: number
+  passes: boolean
 }
 
 type DtcgColorValue = {
@@ -147,8 +201,20 @@ type DtcgDimensionToken = {
   }
 }
 
+type FigmaPrimitiveMode = {
+  accent: Record<string, DtcgColorToken>
+  "accent-alpha": Record<string, DtcgColorToken>
+  gray: Record<string, DtcgColorToken>
+  "gray-alpha": Record<string, DtcgColorToken>
+  canvas: DtcgColorToken
+  "accent-contrast": DtcgColorToken
+  "accent-surface": DtcgColorToken
+  "gray-surface": DtcgColorToken
+}
+
 export type FigmaThemeTokens = {
   color: Record<ThemeMode, Record<string, DtcgColorToken>>
+  primitive: { color: Record<ThemeMode, FigmaPrimitiveMode> }
   radius: Record<ThemeRadiusTokenName, DtcgDimensionToken>
 }
 
@@ -164,301 +230,190 @@ export const THEME_TOKEN_MAPPINGS = THEME_COLOR_TOKEN_NAMES.map((token) => {
   }
 })
 
-export const getColorValue = (colorKey: string | BlackWhite, shade?: Shade) => {
-  if (colorKey === "white") {
-    return "oklch(1 0 0)"
+function createColorTokens(
+  selection: ThemeSelection,
+  primitives: Record<ThemeMode, GeneratedPalette>
+) {
+  return {
+    light: createColorMode("light", selection, primitives.light),
+    dark: createColorMode("dark", selection, primitives.dark),
   }
-
-  if (colorKey === "black") {
-    return "oklch(0 0 0)"
-  }
-
-  if (!shade) {
-    throw new Error(`Shade is required for colorKey: ${colorKey}`)
-  }
-
-  const colorFamily = colors[colorKey as keyof typeof colors]
-  if (!colorFamily) {
-    throw new Error(`Unknown color family: ${colorKey}`)
-  }
-
-  return colorFamily[shade]
 }
 
-function getForegroundValue(colorKey: string, foreground: ForegroundColor) {
-  if (foreground === "white" || foreground === "black") {
-    return getColorValue(foreground)
+function createColorMode(
+  mode: ThemeMode,
+  selection: ThemeSelection,
+  palette: GeneratedPalette
+): ThemeColorTokens {
+  const status = createStatusColors(mode, palette)
+  const foreground = palette.gray[11]
+  const primaryForeground = chooseReadableForeground(palette.accent[8], [
+    palette.accentContrast,
+    foreground,
+    "#ffffff",
+    "#000000",
+  ])
+  const subtleAccentForeground = chooseReadableForeground(palette.accent[2], [
+    palette.accent[10],
+    palette.accent[11],
+    foreground,
+  ])
+  const mutedForeground = chooseReadableForeground(palette.gray[2], [
+    palette.gray[10],
+    palette.gray[11],
+    foreground,
+  ])
+  const panelSolid = palette.gray[1]
+  const panelTranslucent = palette.graySurface
+  let panel = panelTranslucent
+  if (selection.panelBackground === "solid") {
+    panel = panelSolid
   }
 
-  return getColorValue(colorKey, foreground)
-}
-
-function determineShade(
-  isNeutral: boolean,
-  isShade500: boolean,
-  isShade300: boolean,
-  isShade400: boolean,
-  isDarkMode = false
-): Shade {
-  if (isNeutral) {
-    return isDarkMode ? "50" : "950"
-  }
-
-  if (isShade500) {
-    return "500"
-  }
-
-  if (isShade300) {
-    return "300"
-  }
-
-  if (isShade400) {
-    return "400"
-  }
-
-  return "600"
-}
-
-function determineForeground(
-  isNeutral: boolean,
-  isShade400: boolean,
-  isDarkMode = false
-): ForegroundColor {
-  if (isNeutral) {
-    return isDarkMode ? "950" : "50"
-  }
-
-  return isShade400 ? "950" : "white"
-}
-
-function getPalette(selection: ThemeSelection) {
-  const { primary, accent } = selection
-  const isNeutralPrimary = neutralColors.includes(primary)
-  const isShade400Primary = accentColors400.includes(primary)
-  const isShade500Primary = accentColors500.includes(primary)
-  const isShade300Primary = accentColors300.includes(primary)
-  const isNeutralAccent = neutralColors.includes(accent)
-  const isShade400Accent = accentColors400.includes(accent)
-  const isShade500Accent = accentColors500.includes(accent)
-  const isShade300Accent = accentColors300.includes(accent)
-
-  const lightPrimary = determineShade(
-    isNeutralPrimary,
-    isShade500Primary,
-    isShade300Primary,
-    isShade400Primary
+  const panelForeground = chooseReadableForeground(
+    flattenColor(panel, palette.background),
+    [foreground, palette.gray[11], "#ffffff", "#000000"]
   )
-  const darkPrimary = determineShade(
-    isNeutralPrimary,
-    isShade500Primary,
-    isShade300Primary,
-    isShade400Primary,
-    true
+  const surface = palette.grayAlpha[2]
+  const surfaceForeground = chooseReadableForeground(
+    flattenColor(surface, palette.background),
+    [foreground, palette.gray[11], "#ffffff", "#000000"]
   )
-  const lightPrimaryForeground = determineForeground(
-    isNeutralPrimary,
-    isShade400Primary
-  )
-  const darkPrimaryForeground = determineForeground(
-    isNeutralPrimary,
-    isShade400Primary,
-    true
-  )
-
-  let lightAccent: Shade = "200"
-  let lightAccentForeground: ForegroundColor = "950"
-  let darkAccent: Shade = "800"
-  let darkAccentForeground: ForegroundColor = "50"
-
-  if (!isNeutralAccent) {
-    lightAccent = determineShade(
-      false,
-      isShade500Accent,
-      isShade300Accent,
-      isShade400Accent
-    )
-    lightAccentForeground = determineForeground(false, isShade400Accent)
-    darkAccent = determineShade(
-      false,
-      isShade500Accent,
-      isShade300Accent,
-      isShade400Accent,
-      true
-    )
-    darkAccentForeground = determineForeground(false, isShade400Accent, true)
-  }
+  const codeNumber = chooseReadableForeground(palette.gray[2], [
+    palette.gray[10],
+    palette.gray[11],
+  ])
+  const selectionForeground = chooseReadableForeground(palette.accent[8], [
+    primaryForeground,
+    "#ffffff",
+    "#000000",
+  ])
 
   return {
-    lightPrimary,
-    lightPrimaryForeground,
-    darkPrimary,
-    darkPrimaryForeground,
-    lightAccent,
-    lightAccentForeground,
-    darkAccent,
-    darkAccentForeground,
-    isNeutralPrimary,
+    background: palette.background,
+    foreground,
+    primary: palette.accent[8],
+    "primary-foreground": primaryForeground,
+    secondary: palette.gray[2],
+    "secondary-foreground": foreground,
+    accent: palette.accent[2],
+    "accent-foreground": subtleAccentForeground,
+    muted: palette.gray[2],
+    "muted-foreground": mutedForeground,
+    success: status.success.background,
+    "success-foreground": status.success.foreground,
+    warning: status.warning.background,
+    "warning-foreground": status.warning.foreground,
+    danger: status.destructive.background,
+    "danger-foreground": status.destructive.foreground,
+    destructive: status.destructive.background,
+    "destructive-foreground": status.destructive.foreground,
+    card: panel,
+    "card-foreground": panelForeground,
+    popover: panelSolid,
+    "popover-foreground": foreground,
+    overlay: panel,
+    "overlay-foreground": panelForeground,
+    border: palette.gray[5],
+    input: palette.gray[6],
+    ring: palette.accent[7],
+    navbar: panel,
+    "navbar-foreground": panelForeground,
+    sidebar: palette.gray[1],
+    "sidebar-foreground": foreground,
+    "sidebar-primary": palette.accent[3],
+    "sidebar-primary-foreground": subtleAccentForeground,
+    "sidebar-accent": palette.gray[3],
+    "sidebar-accent-foreground": foreground,
+    "sidebar-border": palette.gray[5],
+    "sidebar-ring": palette.accent[7],
+    "chart-1": palette.accent[8],
+    "chart-2": palette.accent[10],
+    "chart-3": palette.accent[6],
+    "chart-4": palette.accent[4],
+    "chart-5": palette.accent[2],
+    surface,
+    "surface-foreground": surfaceForeground,
+    panel,
+    "panel-foreground": panelForeground,
+    "panel-solid": panelSolid,
+    "panel-solid-foreground": foreground,
+    "panel-translucent": panelTranslucent,
+    "panel-translucent-foreground": panelForeground,
+    "accent-surface": palette.accentSurface,
+    "accent-indicator": palette.accent[8],
+    "accent-track": palette.accent[4],
+    scrim: "#00000080",
+    code: palette.gray[1],
+    "code-foreground": foreground,
+    "code-highlight": palette.gray[3],
+    "code-number": codeNumber,
+    selection: palette.accent[8],
+    "selection-foreground": selectionForeground,
   }
 }
 
-function createColorTokens(selection: ThemeSelection) {
-  const { primary, gray, accent } = selection
-  const palette = getPalette(selection)
-  const white = getColorValue("white")
-  const gray50 = getColorValue(gray, "50")
-  const gray100 = getColorValue(gray, "100")
-  const gray200 = getColorValue(gray, "200")
-  const gray300 = getColorValue(gray, "300")
-  const gray400 = getColorValue(gray, "400")
-  const gray500 = getColorValue(gray, "500")
-  const gray700 = getColorValue(gray, "700")
-  const gray800 = getColorValue(gray, "800")
-  const gray900 = getColorValue(gray, "900")
-  const gray950 = getColorValue(gray, "950")
-  const lightForeground = gray950
-  const darkForeground = gray50
-  const destructive =
-    primary === "red"
-      ? adjustLightness(getColorValue("red", "600"), -4)
-      : getColorValue("red", "600")
-  const warning = getColorValue("amber", primary === "amber" ? "200" : "400")
-  const destructiveForeground = getColorValue("red", "50")
-  const warningForeground = getColorValue("amber", "950")
-  const lightBorder = adjustLightness(gray300, 4)
-  const darkBorder = adjustLightness(gray700, -10)
-  const lightSecondary = gray200
-  const darkSecondary = adjustLightness(gray800, -3)
-  const lightSurface = gray50
-  const darkSurface = gray900
+function createStatusColors(mode: ThemeMode, palette: GeneratedPalette) {
+  return Object.fromEntries(
+    Object.entries(STATUS_COLORS).map(([name, values]) => {
+      const scale = generatePalette({
+        appearance: mode,
+        accent: values[mode],
+        gray: palette.gray[8],
+        background: palette.background,
+      })
+      return [
+        name,
+        {
+          background: scale.accent[8],
+          foreground: chooseReadableForeground(scale.accent[8], [
+            scale.accentContrast,
+            palette.gray[11],
+            "#ffffff",
+            "#000000",
+          ]),
+        },
+      ]
+    })
+  ) as Record<
+    keyof typeof STATUS_COLORS,
+    { background: string; foreground: string }
+  >
+}
 
-  const lightChartShades: Array<Shade> = palette.isNeutralPrimary
-    ? ["900", "700", "600", "500", "400"]
-    : ["600", "400", "300", "200", "100"]
-  const darkChartShades: Array<Shade> = palette.isNeutralPrimary
-    ? ["800", "700", "500", "400", "300"]
-    : ["700", "500", "400", "300", "200"]
-  const lightRingShade = palette.isNeutralPrimary ? "950" : "600"
-  const darkRingShade = palette.isNeutralPrimary ? "50" : "600"
+function chooseReadableForeground(background: string, candidates: string[]) {
+  let best = candidates[0]
+  let bestContrast = 0
 
-  const light = {
-    background: white,
-    foreground: lightForeground,
-    primary: getColorValue(primary, palette.lightPrimary),
-    "primary-foreground": getForegroundValue(
-      primary,
-      palette.lightPrimaryForeground
-    ),
-    secondary: lightSecondary,
-    "secondary-foreground": lightForeground,
-    accent: getColorValue(accent, palette.lightAccent),
-    "accent-foreground": getForegroundValue(
-      accent,
-      palette.lightAccentForeground
-    ),
-    muted: gray100,
-    "muted-foreground": gray500,
-    success: getColorValue("emerald", "600"),
-    "success-foreground": white,
-    warning,
-    "warning-foreground": warningForeground,
-    danger: destructive,
-    "danger-foreground": destructiveForeground,
-    destructive,
-    "destructive-foreground": destructiveForeground,
-    card: white,
-    "card-foreground": lightForeground,
-    popover: white,
-    "popover-foreground": lightForeground,
-    overlay: white,
-    "overlay-foreground": lightForeground,
-    border: lightBorder,
-    input: gray300,
-    ring: getColorValue(primary, lightRingShade),
-    navbar: adjustLightness(gray50, 1),
-    "navbar-foreground": lightForeground,
-    sidebar: gray100,
-    "sidebar-foreground": lightForeground,
-    "sidebar-primary": lightSecondary,
-    "sidebar-primary-foreground": lightForeground,
-    "sidebar-accent": lightSecondary,
-    "sidebar-accent-foreground": lightForeground,
-    "sidebar-border": lightBorder,
-    "sidebar-ring": adjustLightness(gray500, 10),
-    "chart-1": getColorValue(primary, lightChartShades[0]),
-    "chart-2": getColorValue(primary, lightChartShades[1]),
-    "chart-3": getColorValue(primary, lightChartShades[2]),
-    "chart-4": getColorValue(primary, lightChartShades[3]),
-    "chart-5": getColorValue(primary, lightChartShades[4]),
-    surface: lightSurface,
-    "surface-foreground": lightForeground,
-    code: lightSurface,
-    "code-foreground": lightForeground,
-    "code-highlight": gray100,
-    "code-number": gray500,
-    selection: gray950,
-    "selection-foreground": white,
-  } satisfies ThemeColorTokens
+  for (const candidate of candidates) {
+    const contrast = wcagContrast(background, candidate)
+    if (contrast >= 4.5) {
+      return candidate
+    }
 
-  const dark = {
-    background: adjustLightness(gray950, -5),
-    foreground: darkForeground,
-    primary: getColorValue(primary, palette.darkPrimary),
-    "primary-foreground": getForegroundValue(
-      primary,
-      palette.darkPrimaryForeground
-    ),
-    secondary: darkSecondary,
-    "secondary-foreground": darkForeground,
-    accent: getColorValue(accent, palette.darkAccent),
-    "accent-foreground": getForegroundValue(
-      accent,
-      palette.darkAccentForeground
-    ),
-    muted: gray900,
-    "muted-foreground": gray400,
-    success: getColorValue("emerald", "600"),
-    "success-foreground": white,
-    warning,
-    "warning-foreground": warningForeground,
-    danger: destructive,
-    "danger-foreground": destructiveForeground,
-    destructive,
-    "destructive-foreground": destructiveForeground,
-    card: adjustLightness(gray900, -3),
-    "card-foreground": darkForeground,
-    popover: gray900,
-    "popover-foreground": darkForeground,
-    overlay: adjustLightness(gray900, -3),
-    "overlay-foreground": darkForeground,
-    border: darkBorder,
-    input: adjustLightness(gray700, -5),
-    ring: getColorValue(primary, darkRingShade),
-    navbar: adjustLightness(gray900, -2),
-    "navbar-foreground": darkForeground,
-    sidebar: adjustLightness(gray900, -5),
-    "sidebar-foreground": darkForeground,
-    "sidebar-primary": darkSecondary,
-    "sidebar-primary-foreground": darkForeground,
-    "sidebar-accent": darkSecondary,
-    "sidebar-accent-foreground": darkForeground,
-    "sidebar-border": darkBorder,
-    "sidebar-ring": gray500,
-    "chart-1": getColorValue(primary, darkChartShades[0]),
-    "chart-2": getColorValue(primary, darkChartShades[1]),
-    "chart-3": getColorValue(primary, darkChartShades[2]),
-    "chart-4": getColorValue(primary, darkChartShades[3]),
-    "chart-5": getColorValue(primary, darkChartShades[4]),
-    surface: darkSurface,
-    "surface-foreground": gray400,
-    code: darkSurface,
-    "code-foreground": gray400,
-    "code-highlight": gray800,
-    "code-number": gray400,
-    selection: gray200,
-    "selection-foreground": gray800,
-  } satisfies ThemeColorTokens
+    if (contrast > bestContrast) {
+      best = candidate
+      bestContrast = contrast
+    }
+  }
 
-  return { light, dark }
+  return best
+}
+
+function flattenColor(value: string, canvas: string) {
+  const foreground = new Color(value).to("srgb")
+  const background = new Color(canvas).to("srgb")
+  const alpha = foreground.alpha ?? 1
+  if (alpha === 1) {
+    return value
+  }
+
+  const coordinates: [number, number, number] = [0, 1, 2].map((index) => {
+    return (
+      foreground.coords[index] * alpha + background.coords[index] * (1 - alpha)
+    )
+  }) as [number, number, number]
+  return new Color("srgb", coordinates).toString({ format: "hex" })
 }
 
 function radiusToPixels(radius: ThemeRadius) {
@@ -467,7 +422,6 @@ function radiusToPixels(radius: ThemeRadius) {
 
 function createRadii(radius: ThemeRadius) {
   const basePixels = radiusToPixels(radius)
-
   return Object.fromEntries(
     Object.entries(RADIUS_MULTIPLIERS).map(([name, multiplier]) => [
       name,
@@ -478,12 +432,65 @@ function createRadii(radius: ThemeRadius) {
 
 export function createThemeTokens(selection: ThemeSelection): ResolvedTheme {
   assertThemeSelection(selection)
+  const primitives = {
+    light: generatePalette({ appearance: "light", ...selection.light }),
+    dark: generatePalette({ appearance: "dark", ...selection.dark }),
+  }
 
   return {
-    colors: createColorTokens(selection),
+    colors: createColorTokens(selection, primitives),
+    primitives,
     radii: createRadii(selection.radius),
     selection,
   }
+}
+
+export function createThemeContrastChecks(
+  selection: ThemeSelection
+): ThemeContrastCheck[] {
+  return createThemeContrastChecksFromTheme(createThemeTokens(selection))
+}
+
+function createThemeContrastChecksFromTheme(
+  theme: ResolvedTheme
+): ThemeContrastCheck[] {
+  const pairs = [
+    ["Body", "foreground", "background"],
+    ["Primary action", "primary-foreground", "primary"],
+    ["Secondary", "secondary-foreground", "secondary"],
+    ["Accent", "accent-foreground", "accent"],
+    ["Muted text", "muted-foreground", "muted"],
+    ["Success", "success-foreground", "success"],
+    ["Warning", "warning-foreground", "warning"],
+    ["Destructive", "destructive-foreground", "destructive"],
+    ["Panel", "panel-foreground", "panel"],
+    ["Control surface", "surface-foreground", "surface"],
+  ] as const
+
+  return (["light", "dark"] as const).flatMap((mode) => {
+    return pairs.map(([label, foregroundToken, backgroundToken]) => {
+      const foreground = theme.colors[mode][foregroundToken]
+      const background = flattenColor(
+        theme.colors[mode][backgroundToken],
+        theme.colors[mode].background
+      )
+      const wcag = wcagContrast(background, foreground)
+      const apca = Math.abs(
+        new Color(foreground).contrastAPCA(new Color(background))
+      )
+
+      return {
+        mode,
+        label,
+        foregroundToken,
+        backgroundToken,
+        wcag: Number(wcag.toFixed(2)),
+        apca: Number(apca.toFixed(1)),
+        requiredWcag: 4.5,
+        passes: wcag >= 4.5,
+      }
+    })
+  })
 }
 
 function serializeCssVariables(values: Record<string, string>) {
@@ -506,14 +513,64 @@ function createCssRadii(radius: ThemeRadius) {
   }
 }
 
+function createPrimitiveCssVariables(
+  palette: GeneratedPalette,
+  wideGamut = false
+) {
+  const values: Record<string, string> = {}
+  const accent = wideGamut ? palette.accentWideGamut : palette.accent
+  const accentAlpha = wideGamut
+    ? palette.accentAlphaWideGamut
+    : palette.accentAlpha
+  const gray = wideGamut ? palette.grayWideGamut : palette.gray
+  const grayAlpha = wideGamut ? palette.grayAlphaWideGamut : palette.grayAlpha
+
+  THEME_PRIMITIVE_STEPS.forEach((step, index) => {
+    values[`accent-${step}`] = accent[index]
+    values[`accent-a${step}`] = accentAlpha[index]
+    values[`gray-${step}`] = gray[index]
+    values[`gray-a${step}`] = grayAlpha[index]
+  })
+
+  values["accent-contrast"] = palette.accentContrast
+  values["accent-surface-primitive"] = wideGamut
+    ? palette.accentSurfaceWideGamut
+    : palette.accentSurface
+  values["gray-surface"] = wideGamut
+    ? palette.graySurfaceWideGamut
+    : palette.graySurface
+  return values
+}
+
 export function generateTheme(selection: ThemeSelection) {
-  const theme = createThemeTokens(selection)
+  return generateThemeFromTokens(createThemeTokens(selection))
+}
+
+function generateThemeFromTokens(theme: ResolvedTheme) {
+  const { selection } = theme
   const light = {
+    ...createPrimitiveCssVariables(theme.primitives.light),
     ...theme.colors.light,
     ...createCssRadii(selection.radius),
   }
+  const dark = {
+    ...createPrimitiveCssVariables(theme.primitives.dark),
+    ...theme.colors.dark,
+  }
+  const lightWideGamut = createPrimitiveCssVariables(
+    theme.primitives.light,
+    true
+  )
+  const darkWideGamut = createPrimitiveCssVariables(theme.primitives.dark, true)
 
-  return `:root {\n${serializeCssVariables(light)}\n}\n\n.dark {\n${serializeCssVariables(theme.colors.dark)}\n}`
+  return `:root {\n${serializeCssVariables(light)}\n}\n\n.dark {\n${serializeCssVariables(dark)}\n}\n\n@supports (color: color(display-p3 1 1 1)) {\n  :root {\n${indentCssVariables(lightWideGamut, 4)}\n  }\n\n  .dark {\n${indentCssVariables(darkWideGamut, 4)}\n  }\n}`
+}
+
+function indentCssVariables(values: Record<string, string>, spaces: number) {
+  const indentation = " ".repeat(spaces)
+  return Object.entries(values)
+    .map(([name, value]) => `${indentation}--${name}: ${value};`)
+    .join("\n")
 }
 
 function clamp(value: number) {
@@ -546,7 +603,6 @@ function toDtcgColor(value: string): DtcgColorValue {
   const green = clamp(converted.g)
   const blue = clamp(converted.b)
   const alpha = clamp(converted.alpha ?? 1)
-
   return {
     colorSpace: "srgb",
     components: [round(red), round(green), round(blue)],
@@ -555,23 +611,53 @@ function toDtcgColor(value: string): DtcgColorValue {
   }
 }
 
+function createFigmaToken(value: string): DtcgColorToken {
+  return { $type: "color", $value: toDtcgColor(value) }
+}
+
 function createFigmaColorMode(tokens: ThemeColorTokens) {
   return Object.fromEntries(
     FIGMA_STYLE_COLOR_TOKEN_NAMES.map((name) => [
       name,
-      {
-        $type: "color",
-        $value: toDtcgColor(tokens[name]),
-      } satisfies DtcgColorToken,
+      createFigmaToken(tokens[name]),
     ])
   )
+}
+
+function createFigmaPrimitiveMode(
+  palette: GeneratedPalette
+): FigmaPrimitiveMode {
+  const createScale = (values: GeneratedPalette["accent"]) => {
+    return Object.fromEntries(
+      THEME_PRIMITIVE_STEPS.map((step, index) => [
+        String(step),
+        createFigmaToken(values[index]),
+      ])
+    )
+  }
+
+  return {
+    accent: createScale(palette.accent),
+    "accent-alpha": createScale(palette.accentAlpha),
+    gray: createScale(palette.gray),
+    "gray-alpha": createScale(palette.grayAlpha),
+    canvas: createFigmaToken(palette.background),
+    "accent-contrast": createFigmaToken(palette.accentContrast),
+    "accent-surface": createFigmaToken(palette.accentSurface),
+    "gray-surface": createFigmaToken(palette.graySurface),
+  }
 }
 
 export function generateFigmaThemeTokens(
   selection: ThemeSelection
 ): FigmaThemeTokens {
-  const theme = createThemeTokens(selection)
-  const radiusTokens = Object.fromEntries(
+  return generateFigmaThemeTokensFromTheme(createThemeTokens(selection))
+}
+
+function generateFigmaThemeTokensFromTheme(
+  theme: ResolvedTheme
+): FigmaThemeTokens {
+  const radius = Object.fromEntries(
     Object.entries(theme.radii).map(([name, value]) => [
       name,
       {
@@ -586,7 +672,13 @@ export function generateFigmaThemeTokens(
       light: createFigmaColorMode(theme.colors.light),
       dark: createFigmaColorMode(theme.colors.dark),
     },
-    radius: radiusTokens,
+    primitive: {
+      color: {
+        light: createFigmaPrimitiveMode(theme.primitives.light),
+        dark: createFigmaPrimitiveMode(theme.primitives.dark),
+      },
+    },
+    radius,
   }
 }
 
@@ -594,13 +686,22 @@ export function generateFigmaThemeJson(selection: ThemeSelection) {
   return `${JSON.stringify(generateFigmaThemeTokens(selection), null, 2)}\n`
 }
 
-export function createThemeManifest(selection: ThemeSelection): ThemeManifest {
-  assertThemeSelection(selection)
+export function createThemeArtifacts(selection: ThemeSelection) {
+  const theme = createThemeTokens(selection)
+  const figmaTokens = generateFigmaThemeTokensFromTheme(theme)
 
   return {
-    schemaVersion: THEME_MANIFEST_VERSION,
-    selection,
+    theme,
+    contrastChecks: createThemeContrastChecksFromTheme(theme),
+    css: generateThemeFromTokens(theme),
+    figmaJson: `${JSON.stringify(figmaTokens, null, 2)}\n`,
+    manifestJson: generateThemeManifestJson(selection),
   }
+}
+
+export function createThemeManifest(selection: ThemeSelection): ThemeManifest {
+  assertThemeSelection(selection)
+  return { schemaVersion: THEME_MANIFEST_VERSION, selection }
 }
 
 export function generateThemeManifestJson(selection: ThemeSelection) {
@@ -611,8 +712,8 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value)
 }
 
-function isKnownColor(value: unknown) {
-  return typeof value === "string" && Object.hasOwn(colors, value)
+function isHexColor(value: unknown): value is string {
+  return typeof value === "string" && /^#[\dA-Fa-f]{6}$/.test(value)
 }
 
 function isThemeRadius(value: unknown): value is ThemeRadius {
@@ -622,6 +723,27 @@ function isThemeRadius(value: unknown): value is ThemeRadius {
   )
 }
 
+function assertAppearanceSelection(
+  appearance: unknown,
+  name: ThemeMode
+): asserts appearance is ThemeAppearanceSelection {
+  if (!isRecord(appearance)) {
+    throw new Error(`Theme ${name} appearance must be an object.`)
+  }
+
+  if (!isHexColor(appearance.accent)) {
+    throw new Error(`Theme ${name} accent must be a six-digit hex color.`)
+  }
+
+  if (!isHexColor(appearance.gray)) {
+    throw new Error(`Theme ${name} gray must be a six-digit hex color.`)
+  }
+
+  if (!isHexColor(appearance.background)) {
+    throw new Error(`Theme ${name} background must be a six-digit hex color.`)
+  }
+}
+
 export function assertThemeSelection(
   selection: unknown
 ): asserts selection is ThemeSelection {
@@ -629,19 +751,18 @@ export function assertThemeSelection(
     throw new Error("Theme selection must be an object.")
   }
 
-  if (!isKnownColor(selection.primary)) {
-    throw new Error("Theme primary color is not supported.")
-  }
+  assertAppearanceSelection(selection.light, "light")
+  assertAppearanceSelection(selection.dark, "dark")
 
-  if (!isKnownColor(selection.accent)) {
-    throw new Error("Theme accent color is not supported.")
+  if (selection.grayMode !== "auto" && selection.grayMode !== "custom") {
+    throw new Error('Theme gray mode must be "auto" or "custom".')
   }
 
   if (
-    typeof selection.gray !== "string" ||
-    !neutralColors.includes(selection.gray)
+    selection.panelBackground !== "solid" &&
+    selection.panelBackground !== "translucent"
   ) {
-    throw new Error("Theme gray color must be a neutral family.")
+    throw new Error('Theme panel background must be "solid" or "translucent".')
   }
 
   if (!isThemeRadius(selection.radius)) {
@@ -651,7 +772,6 @@ export function assertThemeSelection(
 
 export function parseThemeManifestJson(source: string): ThemeManifest {
   let parsed: unknown
-
   try {
     parsed = JSON.parse(source)
   } catch {
@@ -662,6 +782,13 @@ export function parseThemeManifestJson(source: string): ThemeManifest {
     throw new Error("Theme file must contain an object.")
   }
 
+  if (parsed.schemaVersion === 1) {
+    return {
+      schemaVersion: THEME_MANIFEST_VERSION,
+      selection: migrateLegacySelection(parsed.selection),
+    }
+  }
+
   if (parsed.schemaVersion !== THEME_MANIFEST_VERSION) {
     throw new Error(
       `Theme file uses an unsupported schema version. Expected ${THEME_MANIFEST_VERSION}.`
@@ -669,9 +796,103 @@ export function parseThemeManifestJson(source: string): ThemeManifest {
   }
 
   assertThemeSelection(parsed.selection)
+  return { schemaVersion: THEME_MANIFEST_VERSION, selection: parsed.selection }
+}
+
+function migrateLegacySelection(value: unknown): ThemeSelection {
+  if (!isRecord(value)) {
+    throw new Error("Legacy theme selection must be an object.")
+  }
+
+  if (!isKnownLegacyColor(value.primary)) {
+    throw new Error("Legacy theme primary color is not supported.")
+  }
+
+  if (!isKnownLegacyColor(value.gray) || !neutralColors.includes(value.gray)) {
+    throw new Error("Legacy theme gray color must be a neutral family.")
+  }
+
+  if (!isKnownLegacyColor(value.accent)) {
+    throw new Error("Legacy theme accent color is not supported.")
+  }
+
+  if (!isThemeRadius(value.radius)) {
+    throw new Error("Legacy theme radius is not supported.")
+  }
+
+  const lightAccent = legacyColorToHex(
+    value.primary,
+    getLegacyPrimaryShade(value.primary, false)
+  )
+  const darkAccent = legacyColorToHex(
+    value.primary,
+    getLegacyPrimaryShade(value.primary, true)
+  )
+  const gray = legacyColorToHex(value.gray, "500")
+  return {
+    light: {
+      accent: lightAccent,
+      gray,
+      background: "#ffffff",
+    },
+    dark: {
+      accent: darkAccent,
+      gray,
+      background: "#09090b",
+    },
+    grayMode: "custom",
+    panelBackground: "translucent",
+    radius: value.radius,
+  }
+}
+
+function isKnownLegacyColor(value: unknown): value is keyof typeof colors {
+  return typeof value === "string" && Object.hasOwn(colors, value)
+}
+
+function getLegacyPrimaryShade(color: string, dark: boolean): Shade {
+  if (neutralColors.includes(color)) {
+    return dark ? "50" : "950"
+  }
+
+  if (accentColors500.includes(color)) {
+    return "500"
+  }
+
+  if (accentColors300.includes(color)) {
+    return "300"
+  }
+
+  if (accentColors400.includes(color)) {
+    return "400"
+  }
+
+  return "600"
+}
+
+function legacyColorToHex(color: keyof typeof colors, shade: Shade) {
+  const parsed = parse(colors[color][shade])
+  if (!parsed) {
+    throw new Error(`Could not migrate legacy color ${color}-${shade}.`)
+  }
+
+  return formatHex(parsed).toLowerCase()
+}
+
+export function updateAutomaticGray(
+  selection: ThemeSelection,
+  mode: ThemeMode,
+  accent: string
+) {
+  if (selection.grayMode !== "auto") {
+    return selection
+  }
 
   return {
-    schemaVersion: THEME_MANIFEST_VERSION,
-    selection: parsed.selection,
+    ...selection,
+    [mode]: {
+      ...selection[mode],
+      gray: deriveGraySource(accent),
+    },
   }
 }
