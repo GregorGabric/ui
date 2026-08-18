@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useState } from "react"
+import { Suspense, useRef, useState } from "react"
 import type { CSSProperties } from "react"
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock"
 import {
@@ -12,6 +12,7 @@ import {
   RotateCcwIcon,
   UploadIcon,
 } from "lucide-react"
+import { UNSAFE_PortalProvider } from "react-aria"
 import { toast } from "sonner"
 import { twMerge } from "tailwind-merge"
 
@@ -47,6 +48,8 @@ import {
   DEFAULT_THEME_SELECTION,
   parseThemeManifestJson,
   THEME_COLOR_TOKEN_NAMES,
+  THEME_PRIMITIVE_STEPS,
+  type ResolvedTheme,
   type ThemeSelection,
 } from "./themes"
 
@@ -54,6 +57,35 @@ type GeneratedFile = {
   filename: string
   content: string
   type: string
+}
+
+function createPreviewStyles(
+  theme: ResolvedTheme,
+  appearance: ThemeAppearance
+) {
+  const colors = theme.colors[appearance]
+  const primitives = theme.primitives[appearance]
+
+  return {
+    colorScheme: appearance,
+    ...Object.fromEntries(
+      THEME_COLOR_TOKEN_NAMES.flatMap((token) => [
+        [`--${token}`, colors[token]],
+        [`--color-${token}`, colors[token]],
+      ])
+    ),
+    ...Object.fromEntries(
+      THEME_PRIMITIVE_STEPS.flatMap((step, index) => [
+        [`--accent-${step}`, primitives.accent[index]],
+        [`--accent-a${step}`, primitives.accentAlpha[index]],
+        [`--gray-${step}`, primitives.gray[index]],
+        [`--gray-a${step}`, primitives.grayAlpha[index]],
+      ])
+    ),
+    "--accent-contrast": primitives.accentContrast,
+    "--accent-surface-primitive": primitives.accentSurface,
+    "--gray-surface": primitives.graySurface,
+  } as CSSProperties
 }
 
 function downloadFile({ filename, content, type }: GeneratedFile) {
@@ -73,17 +105,10 @@ export function ThemeContainer() {
   )
   const [appearance, setAppearance] = useState<ThemeAppearance>("light")
   const [open, setOpen] = useState(false)
+  const previewPortalRef = useRef<HTMLDivElement>(null)
   const { theme, contrastChecks, css, figmaJson, manifestJson } =
     createThemeArtifacts(selectedColors)
-  const previewStyles = {
-    colorScheme: appearance,
-    ...Object.fromEntries(
-      THEME_COLOR_TOKEN_NAMES.map((token) => [
-        `--color-${token}`,
-        theme.colors[appearance][token],
-      ])
-    ),
-  } as CSSProperties
+  const previewStyles = createPreviewStyles(theme, appearance)
 
   function copyCss() {
     void navigator.clipboard.writeText(css)
@@ -144,99 +169,109 @@ export function ThemeContainer() {
   return (
     <>
       <div className="space-y-8 pb-16">
-        <section
-          className={twMerge(
-            "not-prose relative isolate overflow-hidden rounded-3xl bg-background p-5 text-foreground shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06),0_2px_4px_oklch(0_0_0/0.04)] sm:p-8 dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]",
-            appearance === "dark" && "dark"
-          )}
-          style={previewStyles}
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[linear-gradient(to_bottom,var(--accent-4),transparent)] opacity-70"
-          />
-          <div className="relative grid gap-10">
-            <ThemeCustomizer
-              actions={
-                <Menu>
-                  <Button className="w-full">
-                    Get theme
-                    <ChevronDownIcon data-slot="icon" />
-                  </Button>
-
-                  <MenuContent placement="bottom right" className="min-w-56">
-                    <MenuItem onAction={copyCss}>
-                      <CopyIcon data-slot="icon" />
-                      Copy CSS
-                    </MenuItem>
-                    <MenuItem onAction={downloadCss}>
-                      <DownloadIcon data-slot="icon" />
-                      Download CSS
-                    </MenuItem>
-                    <MenuItem onAction={downloadFigmaTheme}>
-                      <FileJsonIcon data-slot="icon" />
-                      Download for Figma
-                    </MenuItem>
-                    <MenuItem onAction={downloadManifest}>
-                      <DownloadIcon data-slot="icon" />
-                      Save project theme
-                    </MenuItem>
-                    <MenuItem onAction={() => setOpen(true)}>
-                      <Code2Icon data-slot="icon" />
-                      Inspect generated files
-                    </MenuItem>
-                  </MenuContent>
-                </Menu>
-              }
-              {...{
-                appearance,
-                selectedColors,
-                setAppearance,
-                setSelectedColors,
-              }}
+        <UNSAFE_PortalProvider getContainer={() => previewPortalRef.current}>
+          <section
+            className={twMerge(
+              "not-prose relative isolate overflow-hidden rounded-3xl bg-background p-5 text-foreground shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06),0_2px_4px_oklch(0_0_0/0.04)] sm:p-8 dark:shadow-none dark:ring-1 dark:ring-white/10",
+              appearance
+            )}
+            style={previewStyles}
+          >
+            <div
+              aria-hidden="true"
+              className={twMerge(
+                "pointer-events-none absolute inset-x-0 top-0 h-80 bg-[linear-gradient(to_bottom,var(--accent-4),transparent)]",
+                appearance === "dark" ? "opacity-20" : "opacity-45"
+              )}
             />
+            <div className="relative grid gap-10">
+              <ThemeCustomizer
+                actions={
+                  <Menu>
+                    <Button className="w-full">
+                      Get theme
+                      <ChevronDownIcon data-slot="icon" />
+                    </Button>
 
-            <GeneratedTheme
-              appearance={appearance}
-              theme={theme}
-              checks={contrastChecks}
-            />
+                    <MenuContent placement="bottom right" className="min-w-56">
+                      <MenuItem onAction={copyCss}>
+                        <CopyIcon data-slot="icon" />
+                        Copy CSS
+                      </MenuItem>
+                      <MenuItem onAction={downloadCss}>
+                        <DownloadIcon data-slot="icon" />
+                        Download CSS
+                      </MenuItem>
+                      <MenuItem onAction={downloadFigmaTheme}>
+                        <FileJsonIcon data-slot="icon" />
+                        Download for Figma
+                      </MenuItem>
+                      <MenuItem onAction={downloadManifest}>
+                        <DownloadIcon data-slot="icon" />
+                        Save project theme
+                      </MenuItem>
+                      <MenuItem onAction={() => setOpen(true)}>
+                        <Code2Icon data-slot="icon" />
+                        Inspect generated files
+                      </MenuItem>
+                    </MenuContent>
+                  </Menu>
+                }
+                {...{
+                  appearance,
+                  selectedColors,
+                  setAppearance,
+                  setSelectedColors,
+                }}
+              />
 
-            <div className="flex flex-wrap gap-2 border-t border-foreground/10 pt-5">
-              <label
-                className={buttonStyles({ intent: "outline", size: "sm" })}
-              >
-                <UploadIcon data-slot="icon" />
-                Load project theme
-                <input
-                  className="sr-only"
-                  type="file"
-                  accept="application/json,.json"
-                  onChange={(event) => {
-                    void loadManifest(event.currentTarget.files)
-                    event.currentTarget.value = ""
-                  }}
-                />
-              </label>
-              <Button size="sm" intent="plain" onPress={resetTheme}>
-                <RotateCcwIcon data-slot="icon" />
-                Reset
-              </Button>
+              <GeneratedTheme
+                appearance={appearance}
+                theme={theme}
+                checks={contrastChecks}
+              />
+
+              <div className="flex flex-wrap gap-2 border-t border-foreground/10 pt-5">
+                <label
+                  className={buttonStyles({ intent: "outline", size: "sm" })}
+                >
+                  <UploadIcon data-slot="icon" />
+                  Load project theme
+                  <input
+                    className="sr-only"
+                    type="file"
+                    accept="application/json,.json"
+                    onChange={(event) => {
+                      void loadManifest(event.currentTarget.files)
+                      event.currentTarget.value = ""
+                    }}
+                  />
+                </label>
+                <Button size="sm" intent="plain" onPress={resetTheme}>
+                  <RotateCcwIcon data-slot="icon" />
+                  Reset
+                </Button>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
+          <div
+            className={twMerge(
+              "rounded-3xl bg-background p-3 text-foreground sm:p-4",
+              appearance
+            )}
+            style={previewStyles}
+          >
+            <Suspense fallback={null}>
+              <Blocks />
+            </Suspense>
+          </div>
+        </UNSAFE_PortalProvider>
         <div
-          className={twMerge(
-            "rounded-3xl bg-background p-3 text-foreground sm:p-4",
-            appearance === "dark" && "dark"
-          )}
-          style={previewStyles}
-        >
-          <Suspense fallback={null}>
-            <Blocks />
-          </Suspense>
-        </div>
+          ref={previewPortalRef}
+          className={appearance}
+          style={{ ...previewStyles, display: "contents" }}
+        />
         <style>{css}</style>
       </div>
 

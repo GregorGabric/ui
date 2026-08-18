@@ -367,7 +367,7 @@
   }
 }
 
-@variant dark (&:is(.dark *));
+@variant dark (&:is(.dark *):not(.light, .light *));
 @variant fixed (&:is(.layout-fixed *));
 
 @utility border-grid {

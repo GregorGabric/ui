@@ -92,6 +92,17 @@ function assertSelection(selection: ThemeSelection) {
   }
 
   for (const mode of ["light", "dark"] as const) {
+    assert.equal(
+      resolved.colors[mode].accent,
+      resolved.primitives[mode].gray[3],
+      `${mode} interaction accent must use neutral step 4`
+    )
+    assert.equal(
+      resolved.colors[mode].primary,
+      resolved.primitives[mode].accent[8],
+      `${mode} primary must preserve brand step 9`
+    )
+
     for (const step of THEME_PRIMITIVE_STEPS) {
       assert.equal(
         rootVariables[`accent-${step}`] !== undefined,

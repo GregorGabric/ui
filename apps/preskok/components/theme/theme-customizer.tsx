@@ -147,7 +147,7 @@ export function ThemeCustomizer({
       <div className="flex justify-center">
         <ToggleGroup
           aria-label="Theme appearance"
-          className="bg-background/70 shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] backdrop-blur-sm dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]"
+          className="bg-panel shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] dark:shadow-none"
           size="sm"
           selectedKeys={new Set([appearance])}
           onSelectionChange={(keys) => {
@@ -204,7 +204,7 @@ export function ThemeCustomizer({
             value={selectedColors.radius}
             onChange={setRadius}
           >
-            <SelectTrigger className="bg-background/80 capitalize shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] backdrop-blur-sm dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]" />
+            <SelectTrigger className="bg-panel capitalize shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] dark:shadow-none" />
             <SelectContent>
               {THEME_RADIUS_OPTIONS.map((radius) => (
                 <SelectItem
@@ -258,7 +258,7 @@ function BackgroundControl({
       <Label elementType="span">Page background</Label>
       <Popover>
         <Button
-          className="min-w-0 justify-start bg-background/80 shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] backdrop-blur-sm dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]"
+          className="min-w-0 justify-start bg-panel shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] dark:shadow-none"
           intent="outline"
         >
           <SurfacePreview {...preview} />
@@ -289,7 +289,7 @@ function BackgroundControl({
                     aria-pressed={isSelected}
                     className={twMerge(
                       "relative h-auto justify-start gap-3 rounded-xl p-3 text-left",
-                      isSelected && "border-primary/40 bg-accent"
+                      isSelected && "border-foreground/20 bg-secondary"
                     )}
                     intent="outline"
                     key={option.id}
@@ -399,7 +399,7 @@ function ThemeColorControl({
       </div>
       <ColorPicker
         aria-label={`${label} color`}
-        className="min-w-0 [&_button]:w-full [&_button]:justify-start [&_button]:bg-background/80 [&_button]:font-mono [&_button]:font-normal [&_button]:uppercase [&_button]:shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] [&_button]:backdrop-blur-sm dark:[&_button]:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]"
+        className="min-w-0 [&_button]:w-full [&_button]:justify-start [&_button]:bg-panel [&_button]:font-mono [&_button]:font-normal [&_button]:uppercase [&_button]:shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] dark:[&_button]:shadow-none"
         label={value.replace("#", "")}
         value={parseColor(value)}
         eyeDropper

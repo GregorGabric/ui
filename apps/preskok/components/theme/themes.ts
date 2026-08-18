@@ -254,10 +254,16 @@ function createColorMode(
     "#ffffff",
     "#000000",
   ])
-  const subtleAccentForeground = chooseReadableForeground(palette.accent[2], [
+  const subtleBrandForeground = chooseReadableForeground(palette.accent[2], [
     palette.accent[10],
     palette.accent[11],
     foreground,
+  ])
+  const accentForeground = chooseReadableForeground(palette.gray[3], [
+    foreground,
+    palette.gray[11],
+    "#ffffff",
+    "#000000",
   ])
   const mutedForeground = chooseReadableForeground(palette.gray[2], [
     palette.gray[10],
@@ -292,8 +298,8 @@ function createColorMode(
     "primary-foreground": primaryForeground,
     secondary: palette.gray[2],
     "secondary-foreground": foreground,
-    accent: palette.accent[2],
-    "accent-foreground": subtleAccentForeground,
+    accent: palette.gray[3],
+    "accent-foreground": accentForeground,
     muted: palette.gray[2],
     "muted-foreground": mutedForeground,
     success: status.success.background,
@@ -318,7 +324,7 @@ function createColorMode(
     sidebar: palette.gray[1],
     "sidebar-foreground": foreground,
     "sidebar-primary": palette.accent[3],
-    "sidebar-primary-foreground": subtleAccentForeground,
+    "sidebar-primary-foreground": subtleBrandForeground,
     "sidebar-accent": palette.gray[3],
     "sidebar-accent-foreground": foreground,
     "sidebar-border": palette.gray[5],
