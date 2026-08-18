@@ -15,6 +15,7 @@ import {
 
 import { neutralColors } from "./colors"
 import colors from "./colors.json"
+import { THEME_RADIUS_OPTIONS, type ThemeSelection } from "./themes"
 
 interface ColorSelectProps extends React.ComponentProps<typeof Select> {
   selectedKey: string
@@ -30,6 +31,7 @@ const ColorSelect = ({
   selectedKey,
   onSelectionChange,
   filterKeys,
+  label,
   ...props
 }: ColorSelectProps) => {
   const filteredKeys = filterKeys
@@ -37,7 +39,12 @@ const ColorSelect = ({
     : Object.keys(colors)
 
   return (
-    <Select {...props} value={selectedKey} onChange={onSelectionChange}>
+    <Select
+      {...props}
+      aria-label={label}
+      value={selectedKey}
+      onChange={onSelectionChange}
+    >
       <SelectTrigger className="capitalize" />
       <SelectContent>
         {filteredKeys.map((key) => (
@@ -75,16 +82,9 @@ const ColorSelect = ({
   )
 }
 
-type SelectedColors = {
-  primary: string
-  gray: string
-  accent: string
-  radius: string
-}
-
 type ThemeCustomizerProps = {
-  selectedColors: SelectedColors
-  setSelectedColors: React.Dispatch<React.SetStateAction<SelectedColors>>
+  selectedColors: ThemeSelection
+  setSelectedColors: React.Dispatch<React.SetStateAction<ThemeSelection>>
 }
 
 export function ThemeCustomizer({
@@ -93,12 +93,30 @@ export function ThemeCustomizer({
 }: ThemeCustomizerProps) {
   const handleSelectionChange =
     (type: keyof typeof selectedColors) => (key: Key | null) => {
-      if (type === "primary") {
-        if (key) {
-          setSelectedColors((prev) => ({ ...prev, accent: key.toString() }))
-        }
+      if (!key) {
+        return
       }
-      setSelectedColors((prev) => ({ ...prev, [type]: key?.toString() }))
+
+      const value = key.toString()
+
+      if (type === "radius") {
+        const radius = THEME_RADIUS_OPTIONS.find((option) => option === value)
+        if (radius) {
+          setSelectedColors((previous) => ({ ...previous, radius }))
+        }
+        return
+      }
+
+      if (type === "primary") {
+        setSelectedColors((previous) => ({
+          ...previous,
+          primary: value,
+          accent: value,
+        }))
+        return
+      }
+
+      setSelectedColors((previous) => ({ ...previous, [type]: value }))
     }
 
   const getFilteredColors = (excludedGray: string) => {
@@ -109,17 +127,6 @@ export function ThemeCustomizer({
 
   const filteredPrimaryColors = getFilteredColors(selectedColors.gray)
   const filteredAccentColors = getFilteredColors(selectedColors.gray)
-  const filteredRadius = [
-    "0rem",
-    "0.125rem",
-    "0.25rem",
-    "0.375rem",
-    "0.5rem",
-    "0.6rem",
-    "0.75rem",
-    "1rem",
-    "1.5rem",
-  ]
   return (
     <div className="grid max-w-xl gap-4">
       <div className="grid grid-cols-2 gap-x-3 gap-y-6">
@@ -149,12 +156,13 @@ export function ThemeCustomizer({
           filterKeys={filteredAccentColors}
         />
         <Select
+          aria-label="Corner radius"
           value={selectedColors.radius}
           onChange={handleSelectionChange("radius")}
         >
           <SelectTrigger className="capitalize" />
           <SelectContent>
-            {filteredRadius.map((radius) => (
+            {THEME_RADIUS_OPTIONS.map((radius) => (
               <SelectItem
                 className="tracking-tight tabular-nums"
                 textValue={radius}

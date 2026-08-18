@@ -10,14 +10,17 @@ import {
   ChevronDownIcon,
   Code2Icon,
   CopyIcon,
-  PanelRightIcon,
+  DownloadIcon,
+  FileJsonIcon,
+  RotateCcwIcon,
+  UploadIcon,
 } from "lucide-react"
 import { toast } from "sonner"
 
 import { Blocks } from "@/components/theme/blocks"
 import { GeneratedTheme } from "@/components/theme/generated-theme"
 import { ThemeCustomizer } from "@/components/theme/theme-customizer"
-import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Menu,
   MenuContent,
@@ -31,70 +34,169 @@ import {
   SheetFooter,
   SheetHeader,
 } from "@/registry/preskok/ui/preskok-ui/sheet"
+import {
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 
-import { generateTheme } from "./themes"
+import {
+  DEFAULT_THEME_SELECTION,
+  generateFigmaThemeJson,
+  generateTheme,
+  generateThemeManifestJson,
+  parseThemeManifestJson,
+  type ThemeSelection,
+} from "./themes"
+
+type GeneratedFile = {
+  filename: string
+  content: string
+  type: string
+}
+
+function downloadFile({ filename, content, type }: GeneratedFile) {
+  const url = URL.createObjectURL(new Blob([content], { type }))
+  const anchor = document.createElement("a")
+  anchor.href = url
+  anchor.download = filename
+  document.body.append(anchor)
+  anchor.click()
+  anchor.remove()
+  URL.revokeObjectURL(url)
+}
 
 export function ThemeContainer() {
-  const [selectedColors, setSelectedColors] = useState({
-    primary: "blue",
-    gray: "zinc",
-    accent: "zinc",
-    radius: "0.5rem",
-  })
-
-  const copy = () => {
-    void navigator.clipboard.writeText(generateTheme(selectedColors))
-    toast("Copied to clipboard.")
-  }
-
+  const [selectedColors, setSelectedColors] = useState<ThemeSelection>(
+    DEFAULT_THEME_SELECTION
+  )
   const [open, setOpen] = useState(false)
-  const handleOpen = () => {
-    setOpen(true)
+  const css = generateTheme(selectedColors)
+  const figmaJson = generateFigmaThemeJson(selectedColors)
+  const manifestJson = generateThemeManifestJson(selectedColors)
+
+  function copyCss() {
+    void navigator.clipboard.writeText(css)
+    toast.success("CSS copied to clipboard.")
   }
-  const handleClose = () => {
-    setOpen(false)
+
+  function downloadCss() {
+    downloadFile({
+      filename: "preskok-theme.css",
+      content: css,
+      type: "text/css",
+    })
+    toast.success("CSS theme downloaded.")
   }
+
+  function downloadFigmaTheme() {
+    downloadFile({
+      filename: "preskok-style-mode.json",
+      content: figmaJson,
+      type: "application/json",
+    })
+    toast.success("Figma mode downloaded.")
+  }
+
+  function downloadManifest() {
+    downloadFile({
+      filename: "preskok-theme.json",
+      content: manifestJson,
+      type: "application/json",
+    })
+    toast.success("Project theme saved.")
+  }
+
+  async function loadManifest(files: FileList | null) {
+    const file = files?.item(0)
+    if (!file) {
+      return
+    }
+
+    try {
+      const manifest = parseThemeManifestJson(await file.text())
+      setSelectedColors(manifest.selection)
+      toast.success("Project theme loaded.")
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "The theme could not be loaded."
+      toast.error(message)
+    }
+  }
+
+  function resetTheme() {
+    setSelectedColors(DEFAULT_THEME_SELECTION)
+    toast.success("Theme reset to the Preskok defaults.")
+  }
+
   return (
     <>
       <div className="space-y-6 pb-16">
         <DocsCards className="grid-cols-1 items-start gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
           <DocsCard
-            title="Theme customizer"
-            description="Adjust the core color families and radius token."
+            title="Project theme"
+            description="One configuration generates matching code and Figma tokens."
           >
             <div className="not-prose mt-4 text-fd-foreground">
               <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
-            </div>
-            <div className="mt-3 flex justify-end">
-              <Button className="flex w-full lg:hidden" onPress={handleOpen}>
-                <Code2Icon data-slot="icon" />
-                Get theme
-              </Button>
+              <div className="mt-5 flex flex-wrap gap-2 border-t pt-4">
+                <label
+                  className={buttonStyles({ intent: "outline", size: "sm" })}
+                >
+                  <UploadIcon data-slot="icon" />
+                  Load project theme
+                  <input
+                    className="sr-only"
+                    type="file"
+                    accept="application/json,.json"
+                    onChange={(event) => {
+                      void loadManifest(event.currentTarget.files)
+                      event.currentTarget.value = ""
+                    }}
+                  />
+                </label>
+                <Button size="sm" intent="plain" onPress={resetTheme}>
+                  <RotateCcwIcon data-slot="icon" />
+                  Reset
+                </Button>
+              </div>
             </div>
           </DocsCard>
 
           <DocsCard
             title="Generated theme"
-            description="Preview the CSS variables generated from the current selection."
+            description="Every preview and export below comes from the same resolved tokens."
           >
-            <div className="mt-4 hidden justify-end lg:flex">
+            <div className="mt-4 flex justify-end">
               <Menu>
                 <Button>
                   Get theme
                   <ChevronDownIcon data-slot="icon" />
                 </Button>
 
-                <MenuContent
-                  placement="bottom right"
-                  className="min-w-(--trigger-width)"
-                >
-                  <MenuItem onAction={copy}>
+                <MenuContent placement="bottom right" className="min-w-56">
+                  <MenuItem onAction={copyCss}>
                     <CopyIcon data-slot="icon" />
-                    Copy
+                    Copy CSS
                   </MenuItem>
-                  <MenuItem onAction={handleOpen}>
-                    <PanelRightIcon data-slot="icon" />
-                    Show theme
+                  <MenuItem onAction={downloadCss}>
+                    <DownloadIcon data-slot="icon" />
+                    Download CSS
+                  </MenuItem>
+                  <MenuItem onAction={downloadFigmaTheme}>
+                    <FileJsonIcon data-slot="icon" />
+                    Download for Figma
+                  </MenuItem>
+                  <MenuItem onAction={downloadManifest}>
+                    <DownloadIcon data-slot="icon" />
+                    Save project theme
+                  </MenuItem>
+                  <MenuItem onAction={() => setOpen(true)}>
+                    <Code2Icon data-slot="icon" />
+                    Inspect generated files
                   </MenuItem>
                 </MenuContent>
               </Menu>
@@ -106,45 +208,76 @@ export function ThemeContainer() {
         <Suspense fallback={null}>
           <Blocks />
         </Suspense>
-        <Suspense fallback={null}>
-          <style>{generateTheme(selectedColors)}</style>
-        </Suspense>
+        <style>{css}</style>
       </div>
 
       <Sheet>
         <SheetContent
           onOpenChange={setOpen}
           isOpen={open}
-          className="bg-fd-background sm:max-w-md"
+          className="bg-fd-background sm:max-w-2xl"
           side="right"
         >
           <SheetHeader
-            title="Theme"
-            description="Copy the theme below and paste it into your CSS file."
+            title="Generated project theme"
+            description="CSS, Figma mode, and the editable project manifest are generated together."
           />
           <SheetBody className="border-y pb-4">
-            <CodeBlock title="theme.css">
-              <Pre>
-                <code>{generateTheme(selectedColors)}</code>
-              </Pre>
-            </CodeBlock>
+            <Tabs defaultSelectedKey="css" className="mt-2">
+              <TabList aria-label="Generated theme files">
+                <Tab id="css">CSS</Tab>
+                <Tab id="figma">Figma</Tab>
+                <Tab id="manifest">Manifest</Tab>
+              </TabList>
+              <TabPanel id="css">
+                <GeneratedCode title="preskok-theme.css" value={css} />
+              </TabPanel>
+              <TabPanel id="figma">
+                <p className="mb-3 text-sm text-muted-foreground">
+                  In Figma, duplicate the <code>Default</code> mode in the
+                  <code> Style</code> collection, rename it for the project,
+                  then use <strong>Import mode</strong> with this JSON file.
+                </p>
+                <GeneratedCode
+                  title="preskok-style-mode.json"
+                  value={figmaJson}
+                />
+              </TabPanel>
+              <TabPanel id="manifest">
+                <p className="mb-3 text-sm text-muted-foreground">
+                  Commit this small file with a project to reopen the exact
+                  configuration later.
+                </p>
+                <GeneratedCode
+                  title="preskok-theme.json"
+                  value={manifestJson}
+                />
+              </TabPanel>
+            </Tabs>
           </SheetBody>
-          <SheetFooter className="gap-x-1">
-            <SheetClose onPress={handleClose} className="hidden sm:flex">
-              Close
-            </SheetClose>
-            <Button
-              onPress={() => {
-                copy()
-                handleClose()
-              }}
-            >
-              <CopyIcon />
-              Copy
+          <SheetFooter className="flex-wrap gap-2">
+            <SheetClose className="mr-auto hidden sm:flex">Close</SheetClose>
+            <Button intent="outline" onPress={downloadFigmaTheme}>
+              <FileJsonIcon data-slot="icon" />
+              Download for Figma
+            </Button>
+            <Button onPress={copyCss}>
+              <CopyIcon data-slot="icon" />
+              Copy CSS
             </Button>
           </SheetFooter>
         </SheetContent>
       </Sheet>
     </>
+  )
+}
+
+function GeneratedCode({ title, value }: { title: string; value: string }) {
+  return (
+    <CodeBlock title={title} className="mt-3">
+      <Pre>
+        <code>{value}</code>
+      </Pre>
+    </CodeBlock>
   )
 }
