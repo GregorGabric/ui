@@ -53,7 +53,7 @@ const dropdownItemStyles = tv({
     "min-w-0 [--mr-icon:--spacing(2.5)] sm:[--mr-icon:--spacing(2)]",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] px-3 py-2 supports-[grid-template-columns:subgrid]:grid-cols-subgrid sm:px-2.5 sm:py-1.5",
     "not-has-[[slot=description]]:items-center",
-    "group relative cursor-default rounded-[calc(var(--radius-xl)-(--spacing(1)))] text-base/6 text-foreground outline-0 select-none sm:text-sm/6",
+    "group relative cursor-default rounded-[var(--dropdown-item-radius,calc(var(--radius-xl)-(--spacing(1))))] text-base/6 text-foreground outline-0 select-none sm:text-sm/6",
     "**:data-[slot=avatar]:mr-(--mr-icon) **:data-[slot=avatar]:[--avatar-size:--spacing(6)] **:data-[slot=avatar]:*:mr-(--mr-icon) sm:**:data-[slot=avatar]:[--avatar-size:--spacing(5)]",
     "*:data-[slot=icon]:mr-(--mr-icon) **:data-[slot=icon]:h-5 **:data-[slot=icon]:w-5 **:data-[slot=icon]:shrink-0 has-[[slot=description]]:**:data-[slot=icon]:h-[1lh] sm:**:data-[slot=icon]:h-4 sm:**:data-[slot=icon]:w-4 [&_[data-slot='icon']:not([class*='text-'])]:text-muted-foreground",
     "[&>[slot=label]+[data-slot=icon]]:absolute [&>[slot=label]+[data-slot=icon]]:right-1",

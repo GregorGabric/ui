@@ -80,7 +80,7 @@ interface MenuContentProps<T>
 }
 
 const menuContentStyles = tv({
-  base: "grid max-h-[inherit] grid-cols-[auto_1fr] gap-y-1 overflow-x-hidden overflow-y-auto overscroll-contain p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-xl)-(--spacing(1))))] *:[[role='group']+[role=group]]:mt-3",
+  base: "grid max-h-[inherit] grid-cols-[auto_1fr] gap-y-1 overflow-x-hidden overflow-y-auto overscroll-contain p-1 outline-hidden [clip-path:inset(0_0_0_0_round_var(--menu-content-radius))] *:[[role='group']+[role=group]]:mt-3",
 })
 
 const MenuContent = <T extends object>({
@@ -89,11 +89,23 @@ const MenuContent = <T extends object>({
   popover,
   ...props
 }: MenuContentProps<T>) => {
+  const {
+    className: popoverClassName,
+    placement: popoverPlacement,
+    ...popoverProps
+  } = popover ?? {}
+
   return (
     <PopoverContent
-      className={cx("min-w-32", popover?.className)}
-      placement={placement}
-      {...popover}
+      className={cx(
+        "min-w-32",
+        "[--dropdown-item-radius:max(0px,min(calc(var(--radius-xl)-(--spacing(1))-1px),--spacing(5)))] sm:[--dropdown-item-radius:max(0px,min(calc(var(--radius-xl)-(--spacing(1))-1px),--spacing(4.5)))]",
+        "[--popover-radius:min(var(--radius-xl),calc(var(--dropdown-item-radius)+(--spacing(1))+1px))]",
+        "[--menu-content-radius:max(0px,calc(var(--popover-radius)-1px))]",
+        popoverClassName
+      )}
+      placement={popoverPlacement ?? placement}
+      {...popoverProps}
     >
       <MenuPrimitive
         data-slot="menu-content"
