@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import type React from "react"
 import { MoonIcon, SunIcon } from "lucide-react"
 import type { Key } from "react-aria-components/Select"
@@ -16,7 +15,7 @@ import {
   SelectLabel,
   SelectTrigger,
 } from "@/registry/preskok/ui/preskok-ui/select"
-import { Switch } from "@/registry/preskok/ui/preskok-ui/switch"
+import { Toggle } from "@/registry/preskok/ui/preskok-ui/toggle"
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -30,18 +29,23 @@ import {
 } from "./themes"
 
 type ThemeCustomizerProps = {
+  actions?: React.ReactNode
+  appearance: ThemeAppearance
   selectedColors: ThemeSelection
+  setAppearance: React.Dispatch<React.SetStateAction<ThemeAppearance>>
   setSelectedColors: React.Dispatch<React.SetStateAction<ThemeSelection>>
 }
 
 type EditableColor = keyof ThemeAppearanceSelection
-type Appearance = "light" | "dark"
+export type ThemeAppearance = "light" | "dark"
 
 export function ThemeCustomizer({
+  actions,
+  appearance,
   selectedColors,
+  setAppearance,
   setSelectedColors,
 }: ThemeCustomizerProps) {
-  const [appearance, setAppearance] = useState<Appearance>("light")
   const values = selectedColors[appearance]
 
   function updateAppearanceColor(type: EditableColor, value: string) {
@@ -52,6 +56,10 @@ export function ThemeCustomizer({
           ...previous[appearance],
           [type]: value,
         },
+      }
+
+      if (type === "gray") {
+        return { ...next, grayMode: "custom" as const }
       }
 
       if (type !== "accent" || previous.grayMode !== "auto") {
@@ -103,10 +111,11 @@ export function ThemeCustomizer({
   }
 
   return (
-    <div className="grid gap-5">
-      <section className="grid gap-4" aria-label="Theme colors">
+    <section className="grid gap-8" aria-label="Theme colors">
+      <div className="flex justify-center">
         <ToggleGroup
           aria-label="Theme appearance"
+          className="bg-background/70 shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] backdrop-blur-sm dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]"
           size="sm"
           selectedKeys={new Set([appearance])}
           onSelectionChange={(keys) => {
@@ -125,35 +134,35 @@ export function ThemeCustomizer({
             Dark
           </ToggleGroupItem>
         </ToggleGroup>
+      </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <ThemeColorControl
-            label="Brand"
-            value={values.accent}
-            onChange={(value) => updateAppearanceColor("accent", value)}
-          />
-          <ThemeColorControl
-            label="Background"
-            value={values.background}
-            onChange={(value) => updateAppearanceColor("background", value)}
-          />
-          {selectedColors.grayMode === "custom" && (
-            <ThemeColorControl
-              label="Neutral"
-              value={values.gray}
-              onChange={(value) => updateAppearanceColor("gray", value)}
-            />
-          )}
-        </div>
-      </section>
-
-      <div className="grid items-start gap-4 border-t pt-4 sm:grid-cols-2">
-        <Switch
-          isSelected={selectedColors.grayMode === "auto"}
-          onChange={setGrayMode}
-        >
-          <Label>Auto neutral</Label>
-        </Switch>
+      <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto]">
+        <ThemeColorControl
+          label="Brand"
+          value={values.accent}
+          onChange={(value) => updateAppearanceColor("accent", value)}
+        />
+        <ThemeColorControl
+          label="Neutral"
+          value={values.gray}
+          action={
+            <Toggle
+              aria-label="Generate neutral from brand"
+              className="-my-1"
+              size="xs"
+              isSelected={selectedColors.grayMode === "auto"}
+              onChange={setGrayMode}
+            >
+              Auto
+            </Toggle>
+          }
+          onChange={(value) => updateAppearanceColor("gray", value)}
+        />
+        <ThemeColorControl
+          label="Background"
+          value={values.background}
+          onChange={(value) => updateAppearanceColor("background", value)}
+        />
 
         <div className="grid gap-1.5">
           <Label elementType="span">Radius</Label>
@@ -162,7 +171,7 @@ export function ThemeCustomizer({
             value={selectedColors.radius}
             onChange={setRadius}
           >
-            <SelectTrigger className="capitalize" />
+            <SelectTrigger className="bg-background/80 capitalize shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] backdrop-blur-sm dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]" />
             <SelectContent>
               {THEME_RADIUS_OPTIONS.map((radius) => (
                 <SelectItem
@@ -182,31 +191,40 @@ export function ThemeCustomizer({
             </SelectContent>
           </Select>
         </div>
+
+        {actions && (
+          <div className="sm:col-span-2 lg:col-span-1">{actions}</div>
+        )}
       </div>
-    </div>
+    </section>
   )
 }
 
 function ThemeColorControl({
   label,
   value,
+  action,
   onChange,
 }: {
   label: string
   value: string
+  action?: React.ReactNode
   onChange: (value: string) => void
 }) {
   return (
-    <div className="flex min-w-0 items-center justify-between gap-2">
+    <div className="grid min-w-0 gap-1.5">
+      <div className="flex min-h-5 items-center justify-between gap-2">
+        <Label elementType="span">{label}</Label>
+        {action}
+      </div>
       <ColorPicker
         aria-label={`${label} color`}
-        className="min-w-0 [&_button]:justify-start"
-        label={label}
+        className="min-w-0 [&_button]:w-full [&_button]:justify-start [&_button]:bg-background/80 [&_button]:font-mono [&_button]:font-normal [&_button]:uppercase [&_button]:shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06)] [&_button]:backdrop-blur-sm dark:[&_button]:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]"
+        label={value.replace("#", "")}
         value={parseColor(value)}
         eyeDropper
         onChange={(color) => onChange(color.toString("hex"))}
       />
-      <code className="shrink-0 text-xs text-muted-foreground">{value}</code>
     </div>
   )
 }

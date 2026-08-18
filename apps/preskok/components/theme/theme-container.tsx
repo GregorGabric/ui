@@ -1,10 +1,7 @@
 "use client"
 
 import { Suspense, useState } from "react"
-import {
-  Card as DocsCard,
-  Cards as DocsCards,
-} from "fumadocs-ui/components/card"
+import type { CSSProperties } from "react"
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock"
 import {
   ChevronDownIcon,
@@ -16,10 +13,14 @@ import {
   UploadIcon,
 } from "lucide-react"
 import { toast } from "sonner"
+import { twMerge } from "tailwind-merge"
 
 import { Blocks } from "@/components/theme/blocks"
 import { GeneratedTheme } from "@/components/theme/generated-theme"
-import { ThemeCustomizer } from "@/components/theme/theme-customizer"
+import {
+  ThemeCustomizer,
+  type ThemeAppearance,
+} from "@/components/theme/theme-customizer"
 import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Menu,
@@ -45,6 +46,7 @@ import {
   createThemeArtifacts,
   DEFAULT_THEME_SELECTION,
   parseThemeManifestJson,
+  THEME_COLOR_TOKEN_NAMES,
   type ThemeSelection,
 } from "./themes"
 
@@ -69,9 +71,19 @@ export function ThemeContainer() {
   const [selectedColors, setSelectedColors] = useState<ThemeSelection>(
     DEFAULT_THEME_SELECTION
   )
+  const [appearance, setAppearance] = useState<ThemeAppearance>("light")
   const [open, setOpen] = useState(false)
   const { theme, contrastChecks, css, figmaJson, manifestJson } =
     createThemeArtifacts(selectedColors)
+  const previewStyles = {
+    colorScheme: appearance,
+    ...Object.fromEntries(
+      THEME_COLOR_TOKEN_NAMES.map((token) => [
+        `--color-${token}`,
+        theme.colors[appearance][token],
+      ])
+    ),
+  } as CSSProperties
 
   function copyCss() {
     void navigator.clipboard.writeText(css)
@@ -131,78 +143,100 @@ export function ThemeContainer() {
 
   return (
     <>
-      <div className="space-y-6 pb-16">
-        <DocsCards className="grid-cols-1 items-start gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-          <DocsCard title="Project theme">
-            <div className="not-prose mt-4 text-fd-foreground">
-              <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
-              <div className="mt-5 flex flex-wrap gap-2 border-t pt-4">
-                <label
-                  className={buttonStyles({ intent: "outline", size: "sm" })}
-                >
-                  <UploadIcon data-slot="icon" />
-                  Load project theme
-                  <input
-                    className="sr-only"
-                    type="file"
-                    accept="application/json,.json"
-                    onChange={(event) => {
-                      void loadManifest(event.currentTarget.files)
-                      event.currentTarget.value = ""
-                    }}
-                  />
-                </label>
-                <Button size="sm" intent="plain" onPress={resetTheme}>
-                  <RotateCcwIcon data-slot="icon" />
-                  Reset
-                </Button>
-              </div>
-            </div>
-          </DocsCard>
+      <div className="space-y-8 pb-16">
+        <section
+          className={twMerge(
+            "not-prose relative isolate overflow-hidden rounded-3xl bg-background p-5 text-foreground shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06),0_2px_4px_oklch(0_0_0/0.04)] sm:p-8 dark:shadow-[0_0_0_1px_oklch(1_0_0/0.08)]",
+            appearance === "dark" && "dark"
+          )}
+          style={previewStyles}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[linear-gradient(to_bottom,var(--accent-4),transparent)] opacity-70"
+          />
+          <div className="relative grid gap-10">
+            <ThemeCustomizer
+              actions={
+                <Menu>
+                  <Button className="w-full">
+                    Get theme
+                    <ChevronDownIcon data-slot="icon" />
+                  </Button>
 
-          <DocsCard title="Preview">
-            <div className="mt-4 flex justify-end">
-              <Menu>
-                <Button>
-                  Get theme
-                  <ChevronDownIcon data-slot="icon" />
-                </Button>
+                  <MenuContent placement="bottom right" className="min-w-56">
+                    <MenuItem onAction={copyCss}>
+                      <CopyIcon data-slot="icon" />
+                      Copy CSS
+                    </MenuItem>
+                    <MenuItem onAction={downloadCss}>
+                      <DownloadIcon data-slot="icon" />
+                      Download CSS
+                    </MenuItem>
+                    <MenuItem onAction={downloadFigmaTheme}>
+                      <FileJsonIcon data-slot="icon" />
+                      Download for Figma
+                    </MenuItem>
+                    <MenuItem onAction={downloadManifest}>
+                      <DownloadIcon data-slot="icon" />
+                      Save project theme
+                    </MenuItem>
+                    <MenuItem onAction={() => setOpen(true)}>
+                      <Code2Icon data-slot="icon" />
+                      Inspect generated files
+                    </MenuItem>
+                  </MenuContent>
+                </Menu>
+              }
+              {...{
+                appearance,
+                selectedColors,
+                setAppearance,
+                setSelectedColors,
+              }}
+            />
 
-                <MenuContent placement="bottom right" className="min-w-56">
-                  <MenuItem onAction={copyCss}>
-                    <CopyIcon data-slot="icon" />
-                    Copy CSS
-                  </MenuItem>
-                  <MenuItem onAction={downloadCss}>
-                    <DownloadIcon data-slot="icon" />
-                    Download CSS
-                  </MenuItem>
-                  <MenuItem onAction={downloadFigmaTheme}>
-                    <FileJsonIcon data-slot="icon" />
-                    Download for Figma
-                  </MenuItem>
-                  <MenuItem onAction={downloadManifest}>
-                    <DownloadIcon data-slot="icon" />
-                    Save project theme
-                  </MenuItem>
-                  <MenuItem onAction={() => setOpen(true)}>
-                    <Code2Icon data-slot="icon" />
-                    Inspect generated files
-                  </MenuItem>
-                </MenuContent>
-              </Menu>
-            </div>
             <GeneratedTheme
+              appearance={appearance}
               theme={theme}
               checks={contrastChecks}
-              className="mt-4"
             />
-          </DocsCard>
-        </DocsCards>
 
-        <Suspense fallback={null}>
-          <Blocks />
-        </Suspense>
+            <div className="flex flex-wrap gap-2 border-t border-foreground/10 pt-5">
+              <label
+                className={buttonStyles({ intent: "outline", size: "sm" })}
+              >
+                <UploadIcon data-slot="icon" />
+                Load project theme
+                <input
+                  className="sr-only"
+                  type="file"
+                  accept="application/json,.json"
+                  onChange={(event) => {
+                    void loadManifest(event.currentTarget.files)
+                    event.currentTarget.value = ""
+                  }}
+                />
+              </label>
+              <Button size="sm" intent="plain" onPress={resetTheme}>
+                <RotateCcwIcon data-slot="icon" />
+                Reset
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <div
+          className={twMerge(
+            "rounded-3xl bg-background p-3 text-foreground sm:p-4",
+            appearance === "dark" && "dark"
+          )}
+          style={previewStyles}
+        >
+          <Suspense fallback={null}>
+            <Blocks />
+          </Suspense>
+        </div>
         <style>{css}</style>
       </div>
 

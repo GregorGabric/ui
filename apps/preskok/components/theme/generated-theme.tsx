@@ -1,121 +1,85 @@
 import { CheckCircle2Icon, CircleAlertIcon } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
+import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import {
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+} from "@/registry/preskok/ui/preskok-ui/popover"
+
+import type { ThemeAppearance } from "./theme-customizer"
 import {
   THEME_PRIMITIVE_STEPS,
   type ThemeContrastCheck,
   type ResolvedTheme,
 } from "./themes"
 
+const USAGE_RANGES = [
+  { label: "Backgrounds", className: "col-span-2" },
+  { label: "Interactive components", className: "col-span-3" },
+  { label: "Borders and separators", className: "col-span-3" },
+  { label: "Solid colors", className: "col-span-2" },
+  { label: "Accessible text", className: "col-span-2" },
+] as const
+
 export function GeneratedTheme({
   theme,
   checks,
+  appearance,
   className,
 }: {
   theme: ResolvedTheme
   checks: ThemeContrastCheck[]
+  appearance: ThemeAppearance
   className?: string
 }) {
-  const passingChecks = checks.filter((check) => check.passes).length
-
   return (
-    <div
-      className={twMerge(
-        "bg-fd-background/70 max-h-[32rem] overflow-y-auto rounded-lg border",
-        className
-      )}
-    >
-      <div className="grid gap-4 p-4">
-        <div className="flex items-center justify-between gap-3">
-          <h3 className="text-sm font-medium">Generated scales</h3>
-          <span className="shrink-0 rounded-full border px-2 py-0.5 text-xs tabular-nums">
-            2 × 12 steps
-          </span>
-        </div>
+    <div className={twMerge("grid gap-5", className)}>
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-sm font-medium">Palette</h3>
+        <ContrastSummary checks={checks} />
+      </div>
 
-        <div className="grid gap-3 md:grid-cols-2">
-          <PalettePreview
-            label="Light"
-            background={theme.primitives.light.background}
-            foreground={theme.colors.light.foreground}
-            accent={theme.primitives.light.accent}
-            gray={theme.primitives.light.gray}
-            panel={theme.colors.light.panel}
-            surface={theme.colors.light.surface}
-          />
-          <PalettePreview
-            label="Dark"
-            background={theme.primitives.dark.background}
-            foreground={theme.colors.dark.foreground}
-            accent={theme.primitives.dark.accent}
-            gray={theme.primitives.dark.gray}
-            panel={theme.colors.dark.panel}
-            surface={theme.colors.dark.surface}
-          />
-        </div>
-
-        <div className="border-t pt-4">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-sm font-medium">Text contrast</h3>
+      <div className="grid gap-2">
+        <div className="hidden grid-cols-12 gap-1 sm:grid">
+          {USAGE_RANGES.map((range) => (
             <span
               className={twMerge(
-                "inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs",
-                passingChecks === checks.length
-                  ? "border-success/30 bg-success/10 text-success"
-                  : "border-warning/30 bg-warning/10 text-warning-foreground"
+                "border-b border-foreground/10 pb-2 text-center text-xs text-muted-foreground",
+                range.className
               )}
+              key={range.label}
             >
-              {passingChecks === checks.length ? (
-                <CheckCircle2Icon className="size-3.5" />
-              ) : (
-                <CircleAlertIcon className="size-3.5" />
-              )}
-              {passingChecks}/{checks.length} pass
+              {range.label}
             </span>
-          </div>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2">
-            {checks.map((check) => (
-              <ContrastRow key={`${check.mode}-${check.label}`} check={check} />
-            ))}
-          </div>
+          ))}
         </div>
-      </div>
-    </div>
-  )
-}
 
-function PalettePreview({
-  label,
-  background,
-  foreground,
-  accent,
-  gray,
-  panel,
-  surface,
-}: {
-  label: string
-  background: string
-  foreground: string
-  accent: readonly string[]
-  gray: readonly string[]
-  panel: string
-  surface: string
-}) {
-  return (
-    <div
-      className="grid gap-3 rounded-lg border p-3"
-      style={{ background, color: foreground }}
-    >
-      <div className="flex items-center justify-between gap-2 text-xs font-medium">
-        <span>{label}</span>
-        <span className="font-mono font-normal opacity-60">{background}</span>
-      </div>
-      <ScalePreview label="Accent" colors={accent} />
-      <ScalePreview label="Gray" colors={gray} />
-      <div className="grid grid-cols-3 gap-1.5 text-center text-[10px]">
-        <SurfacePreview label="Background" color={background} />
-        <SurfacePreview label="Panel" color={panel} />
-        <SurfacePreview label="Control" color={surface} />
+        <div className="hidden grid-cols-12 gap-1 sm:grid">
+          {THEME_PRIMITIVE_STEPS.map((step) => (
+            <span
+              className="text-center text-xs text-muted-foreground tabular-nums"
+              key={step}
+            >
+              {step}
+            </span>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-1">
+          <ScalePreview
+            label="Accent"
+            colors={theme.primitives[appearance].accent}
+          />
+          <ScalePreview
+            label="Neutral"
+            colors={theme.primitives[appearance].gray}
+          />
+        </div>
       </div>
     </div>
   )
@@ -129,13 +93,15 @@ function ScalePreview({
   colors: readonly string[]
 }) {
   return (
-    <div className="grid gap-1">
-      <span className="text-[10px] font-medium opacity-70">{label}</span>
-      <div className="grid grid-cols-12 overflow-hidden rounded-sm border border-black/10">
+    <div className="grid gap-2">
+      <span className="text-xs font-medium sm:sr-only">{label}</span>
+      <div className="grid grid-rows-12 gap-px overflow-hidden rounded-xl bg-foreground/10 p-px sm:grid-cols-12 sm:grid-rows-1">
         {colors.map((color, index) => (
           <span
+            aria-label={`${label} ${THEME_PRIMITIVE_STEPS[index]}: ${color}`}
+            className="min-h-8 sm:min-h-16"
             key={`${color}-${index}`}
-            className="aspect-square min-w-0"
+            role="img"
             title={`${label} ${THEME_PRIMITIVE_STEPS[index]} · ${color}`}
             style={{ backgroundColor: color }}
           />
@@ -145,20 +111,48 @@ function ScalePreview({
   )
 }
 
-function SurfacePreview({ label, color }: { label: string; color: string }) {
+function ContrastSummary({ checks }: { checks: ThemeContrastCheck[] }) {
+  const passingChecks = checks.filter((check) => check.passes).length
+  const allPass = passingChecks === checks.length
+
   return (
-    <span
-      className="rounded-md border border-black/10 px-1 py-2"
-      style={{ backgroundColor: color }}
-    >
-      {label}
-    </span>
+    <Popover>
+      <Button
+        className={twMerge(
+          "rounded-full",
+          allPass
+            ? "border-success/20 bg-success/10 text-success"
+            : "border-warning/20 bg-warning/10 text-warning-foreground"
+        )}
+        intent="outline"
+        size="xs"
+      >
+        {allPass ? <CheckCircle2Icon /> : <CircleAlertIcon />}
+        {passingChecks}/{checks.length} contrast pairs
+      </Button>
+      <PopoverContent className="max-w-md" placement="bottom end">
+        <PopoverHeader>
+          <PopoverTitle>Text contrast</PopoverTitle>
+          <PopoverDescription>
+            WCAG 2.x uses a 4.5:1 threshold. APCA is shown as additional
+            guidance.
+          </PopoverDescription>
+        </PopoverHeader>
+        <PopoverBody className="max-h-80 overflow-y-auto">
+          <div className="grid gap-2 sm:grid-cols-2">
+            {checks.map((check) => (
+              <ContrastRow key={`${check.mode}-${check.label}`} check={check} />
+            ))}
+          </div>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
   )
 }
 
 function ContrastRow({ check }: { check: ThemeContrastCheck }) {
   return (
-    <div className="flex items-center gap-2 rounded-md border px-2 py-1.5 text-xs">
+    <div className="flex items-center gap-2 rounded-md bg-surface px-2.5 py-2 text-xs text-surface-foreground">
       <span
         className={twMerge(
           "size-2 shrink-0 rounded-full",
