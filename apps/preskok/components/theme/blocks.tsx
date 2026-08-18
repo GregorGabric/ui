@@ -1,6 +1,11 @@
 "use client"
 
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
+import {
+  getLocalTimeZone,
+  parseDate,
+  type CalendarDate,
+} from "@internationalized/date"
 import {
   CheckCheckIcon,
   CheckCircle2Icon,
@@ -11,12 +16,21 @@ import {
   PlusIcon,
   RotateCcwIcon,
 } from "lucide-react"
+import type { Selection } from "react-aria-components/GridList"
 import { twMerge } from "tailwind-merge"
 
 import { Avatar } from "@/registry/preskok/ui/preskok-ui/avatar"
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Checkbox } from "@/registry/preskok/ui/preskok-ui/checkbox"
+import {
+  ChoiceBox,
+  ChoiceBoxItem,
+} from "@/registry/preskok/ui/preskok-ui/choice-box"
+import {
+  DatePicker,
+  DatePickerTrigger,
+} from "@/registry/preskok/ui/preskok-ui/date-picker"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
 import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 import {
@@ -41,6 +55,9 @@ import {
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 type TaskIntent = "danger" | "info" | "secondary" | "warning"
+type TaskPriority = "normal" | "urgent"
+
+const defaultTaskDueDate = parseDate("2026-08-28")
 
 interface ShowcaseTask {
   id: string
@@ -214,21 +231,38 @@ export function Blocks() {
     { label: "Cycle time", value: "3.4d", change: "0.6d faster" },
   ]
 
-  function addTask(formData: FormData) {
+  function addTask(
+    formData: FormData,
+    dueDate: CalendarDate | null,
+    priority: TaskPriority
+  ) {
     const title = String(formData.get("taskTitle") ?? "").trim()
 
     if (!title) {
       return
     }
 
+    const dueDateLabel = dueDate
+      ? dueDate.toDate(getLocalTimeZone()).toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "short",
+        })
+      : null
+    const priorityLabel = priority === "urgent" ? "Urgent" : "Planning"
+    const detail = dueDateLabel
+      ? `${priorityLabel} · Due ${dueDateLabel}`
+      : `${priorityLabel} · No due date`
+    const status = priority === "urgent" ? "High priority" : "Scheduled"
+    const intent: TaskIntent = priority === "urgent" ? "warning" : "secondary"
+
     dispatch({
       type: "add-task",
       task: {
         id: crypto.randomUUID(),
         title,
-        detail: "Planning · Added now",
-        status: "New",
-        intent: "secondary",
+        detail,
+        status,
+        intent,
         avatar: "/avatars/04.png",
         assignee: "Morgan Lee",
         isNew: true,
@@ -282,11 +316,38 @@ function ProjectHeader({
   onReset,
 }: {
   isAddTaskOpen: boolean
-  onAddTask: (formData: FormData) => void
+  onAddTask: (
+    formData: FormData,
+    dueDate: CalendarDate | null,
+    priority: TaskPriority
+  ) => void
   onAddTaskOpenChange: (isOpen: boolean) => void
   onMarkAllComplete: () => void
   onReset: () => void
 }) {
+  const [dueDate, setDueDate] = useState<CalendarDate | null>(
+    defaultTaskDueDate
+  )
+  const [priority, setPriority] = useState<TaskPriority>("normal")
+
+  function handlePriorityChange(selection: Selection) {
+    if (selection === "all") {
+      return
+    }
+
+    const nextPriority = [...selection][0]
+
+    if (nextPriority === "normal" || nextPriority === "urgent") {
+      setPriority(nextPriority)
+    }
+  }
+
+  function submitTask(formData: FormData) {
+    onAddTask(formData, dueDate, priority)
+    setDueDate(defaultTaskDueDate)
+    setPriority("normal")
+  }
+
   return (
     <header className="flex flex-col gap-4 border-b border-foreground/10 p-4 @2xl:flex-row @2xl:items-center @2xl:justify-between @2xl:p-5">
       <div className="min-w-0">
@@ -318,7 +379,10 @@ function ProjectHeader({
             <PlusIcon data-slot="icon" />
             Add task
           </Button>
-          <PopoverContent className="z-50 w-72" placement="bottom end">
+          <PopoverContent
+            className="z-50 w-[calc(100vw-1.5rem)] sm:w-80"
+            placement="bottom end"
+          >
             <PopoverHeader>
               <PopoverTitle>Add priority task</PopoverTitle>
               <PopoverDescription>
@@ -326,7 +390,7 @@ function ProjectHeader({
               </PopoverDescription>
             </PopoverHeader>
             <PopoverBody>
-              <form action={onAddTask} className="grid gap-4">
+              <form action={submitTask} className="grid gap-4">
                 <TextField name="taskTitle" isRequired>
                   <Label>Task name</Label>
                   <Input
@@ -337,6 +401,40 @@ function ProjectHeader({
                     placeholder="Prepare release notes"
                   />
                 </TextField>
+                <DatePicker value={dueDate} onChange={setDueDate} isRequired>
+                  <Label>Due date</Label>
+                  <DatePickerTrigger />
+                </DatePicker>
+                <div className="grid gap-1.5">
+                  <span
+                    id="new-task-priority-label"
+                    className="text-base/6 font-medium sm:text-sm/6"
+                  >
+                    Priority
+                  </span>
+                  <ChoiceBox
+                    aria-labelledby="new-task-priority-label"
+                    columns={2}
+                    gap={2}
+                    selectedKeys={[priority]}
+                    onSelectionChange={handlePriorityChange}
+                    disallowEmptySelection
+                    className="[--gutter:--spacing(3)]"
+                  >
+                    <ChoiceBoxItem
+                      id="normal"
+                      textValue="Normal"
+                      label="Normal"
+                      description="This sprint"
+                    />
+                    <ChoiceBoxItem
+                      id="urgent"
+                      textValue="Urgent"
+                      label="Urgent"
+                      description="Needs attention"
+                    />
+                  </ChoiceBox>
+                </div>
                 <div className="flex justify-end gap-2">
                   <Button
                     className="motion-safe:pressed:scale-96"

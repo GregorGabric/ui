@@ -269,7 +269,11 @@ export function ThemeContainer() {
         </UNSAFE_PortalProvider>
         <div
           ref={previewPortalRef}
-          className={appearance}
+          className={twMerge(
+            "not-prose",
+            appearance,
+            "[&_[data-slot=modal-overlay]]:z-[100001]"
+          )}
           style={{ ...previewStyles, display: "contents" }}
         />
         <style>{css}</style>
