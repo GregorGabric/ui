@@ -1,20 +1,24 @@
 "use client"
 
-import { useReducer, useState } from "react"
+import { useReducer, useState, type Key } from "react"
 import {
   getLocalTimeZone,
   parseDate,
   type CalendarDate,
 } from "@internationalized/date"
 import {
+  ActivityIcon,
   CheckCheckIcon,
   CheckCircle2Icon,
-  ChevronDownIcon,
-  ChevronUpIcon,
   CircleIcon,
+  FolderKanbanIcon,
+  LayoutDashboardIcon,
+  ListTodoIcon,
   MoreHorizontalIcon,
   PlusIcon,
+  RocketIcon,
   RotateCcwIcon,
+  UsersIcon,
 } from "lucide-react"
 import type { Selection } from "react-aria-components/GridList"
 import { twMerge } from "tailwind-merge"
@@ -52,17 +56,33 @@ import {
   ProgressBarTrack,
   ProgressBarValue,
 } from "@/registry/preskok/ui/preskok-ui/progress-bar"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@/registry/preskok/ui/preskok-ui/table"
+import {
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+} from "@/registry/preskok/ui/preskok-ui/tabs"
 import { TextField } from "@/registry/preskok/ui/preskok-ui/text-field"
 
 type TaskIntent = "danger" | "info" | "secondary" | "warning"
 type TaskPriority = "normal" | "urgent"
+type ProjectView = "activity" | "overview" | "tasks"
 
 const defaultTaskDueDate = parseDate("2026-08-28")
 
 interface ShowcaseTask {
   id: string
   title: string
-  detail: string
+  workstream: string
+  due: string
   status: string
   intent: TaskIntent
   avatar: string
@@ -73,14 +93,14 @@ interface ShowcaseTask {
 interface ShowcaseState {
   tasks: ShowcaseTask[]
   completedTaskIds: Set<string>
+  activeView: ProjectView
   isAddTaskOpen: boolean
-  showAllTasks: boolean
   statusMessage: string
 }
 
 type ShowcaseAction =
+  | { type: "set-view"; view: ProjectView }
   | { type: "set-add-task-open"; isOpen: boolean }
-  | { type: "toggle-show-all" }
   | { type: "toggle-task"; task: ShowcaseTask; isSelected: boolean }
   | { type: "add-task"; task: ShowcaseTask }
   | { type: "mark-all-complete" }
@@ -90,7 +110,8 @@ const initialTasks: ShowcaseTask[] = [
   {
     id: "onboarding-copy",
     title: "Finalize onboarding copy",
-    detail: "Growth · Due today",
+    workstream: "Growth",
+    due: "Today",
     status: "Review",
     intent: "warning",
     avatar: "/avatars/01.png",
@@ -99,7 +120,8 @@ const initialTasks: ShowcaseTask[] = [
   {
     id: "billing-webhooks",
     title: "Wire billing webhooks",
-    detail: "Platform · Due tomorrow",
+    workstream: "Platform",
+    due: "Tomorrow",
     status: "In progress",
     intent: "info",
     avatar: "/avatars/02.png",
@@ -108,13 +130,58 @@ const initialTasks: ShowcaseTask[] = [
   {
     id: "mobile-checkout",
     title: "QA mobile checkout",
-    detail: "Checkout · Due Friday",
+    workstream: "Checkout",
+    due: "Friday",
     status: "Blocked",
     intent: "danger",
     avatar: "/avatars/03.png",
     assignee: "Taylor Kim",
   },
+  {
+    id: "tax-rules",
+    title: "Confirm regional tax rules",
+    workstream: "Compliance",
+    due: "26 Aug",
+    status: "Approved",
+    intent: "secondary",
+    avatar: "/avatars/04.png",
+    assignee: "Morgan Lee",
+  },
+  {
+    id: "launch-comms",
+    title: "Schedule launch announcement",
+    workstream: "Growth",
+    due: "28 Aug",
+    status: "Scheduled",
+    intent: "info",
+    avatar: "/avatars/05.png",
+    assignee: "Jordan Bell",
+  },
 ]
+
+const recentActivity = [
+  {
+    id: "blocked-checkout",
+    avatar: "/avatars/03.png",
+    assignee: "Taylor Kim",
+    action: "flagged mobile checkout as blocked",
+    time: "12 min ago",
+  },
+  {
+    id: "approved-tax",
+    avatar: "/avatars/04.png",
+    assignee: "Morgan Lee",
+    action: "approved the regional tax rules",
+    time: "1 hr ago",
+  },
+  {
+    id: "uploaded-prototype",
+    avatar: "/avatars/01.png",
+    assignee: "Alex Johnson",
+    action: "shared the final checkout prototype",
+    time: "Yesterday",
+  },
+] as const
 
 const milestones = [
   {
@@ -141,8 +208,8 @@ function createInitialState(statusMessage = ""): ShowcaseState {
   return {
     tasks: initialTasks.map((task) => ({ ...task })),
     completedTaskIds: new Set(),
+    activeView: "overview",
     isAddTaskOpen: false,
-    showAllTasks: false,
     statusMessage,
   }
 }
@@ -152,10 +219,10 @@ function showcaseReducer(
   action: ShowcaseAction
 ): ShowcaseState {
   switch (action.type) {
+    case "set-view":
+      return { ...state, activeView: action.view }
     case "set-add-task-open":
       return { ...state, isAddTaskOpen: action.isOpen }
-    case "toggle-show-all":
-      return { ...state, showAllTasks: !state.showAllTasks }
     case "toggle-task": {
       const completedTaskIds = new Set(state.completedTaskIds)
 
@@ -172,7 +239,7 @@ function showcaseReducer(
       return { ...state, completedTaskIds, statusMessage }
     }
     case "add-task": {
-      const tasks = [action.task, ...state.tasks].slice(0, 3)
+      const tasks = [action.task, ...state.tasks].slice(0, 5)
       const taskIds = new Set(tasks.map((task) => task.id))
       const completedTaskIds = new Set(
         [...state.completedTaskIds].filter((id) => taskIds.has(id))
@@ -182,6 +249,7 @@ function showcaseReducer(
         ...state,
         tasks,
         completedTaskIds,
+        activeView: "tasks",
         isAddTaskOpen: false,
         statusMessage: `${action.task.title} added to priority work.`,
       }
@@ -220,15 +288,22 @@ export function Blocks() {
   const metrics = [
     {
       label: "Completion",
+      shortLabel: "Ready",
       value: `${completion}%`,
       change: completionChange,
     },
     {
       label: "Open tasks",
+      shortLabel: "Open",
       value: String(openTaskCount),
       change: openTasksChange,
     },
-    { label: "Cycle time", value: "3.4d", change: "0.6d faster" },
+    {
+      label: "Cycle time",
+      shortLabel: "Cycle",
+      value: "3.4d",
+      change: "0.6d faster",
+    },
   ]
 
   function addTask(
@@ -248,10 +323,8 @@ export function Blocks() {
           month: "short",
         })
       : null
-    const priorityLabel = priority === "urgent" ? "Urgent" : "Planning"
-    const detail = dueDateLabel
-      ? `${priorityLabel} · Due ${dueDateLabel}`
-      : `${priorityLabel} · No due date`
+    const workstream = priority === "urgent" ? "Urgent" : "Planning"
+    const due = dueDateLabel ?? "No date"
     const status = priority === "urgent" ? "High priority" : "Scheduled"
     const intent: TaskIntent = priority === "urgent" ? "warning" : "secondary"
 
@@ -260,7 +333,8 @@ export function Blocks() {
       task: {
         id: crypto.randomUUID(),
         title,
-        detail,
+        workstream,
+        due,
         status,
         intent,
         avatar: "/avatars/04.png",
@@ -268,6 +342,16 @@ export function Blocks() {
         isNew: true,
       },
     })
+  }
+
+  function changeView(key: Key) {
+    if (key === "overview" || key === "tasks" || key === "activity") {
+      dispatch({ type: "set-view", view: key })
+    }
+  }
+
+  function toggleTask(task: ShowcaseTask, isSelected: boolean) {
+    dispatch({ type: "toggle-task", task, isSelected })
   }
 
   return (
@@ -280,31 +364,165 @@ export function Blocks() {
           {state.statusMessage}
         </div>
 
-        <ProjectHeader
-          isAddTaskOpen={state.isAddTaskOpen}
-          onAddTask={addTask}
-          onAddTaskOpenChange={(isOpen) =>
-            dispatch({ type: "set-add-task-open", isOpen })
-          }
-          onMarkAllComplete={() => dispatch({ type: "mark-all-complete" })}
-          onReset={() => dispatch({ type: "reset" })}
-        />
-        <MetricsGrid metrics={metrics} />
+        <div className="grid min-w-0 @5xl:grid-cols-[11rem_minmax(0,1fr)]">
+          <WorkspaceSidebar />
 
-        <div className="grid @3xl:grid-cols-[3fr_2fr]">
-          <TaskList
-            tasks={state.tasks}
-            completedTaskIds={state.completedTaskIds}
-            showAllTasks={state.showAllTasks}
-            onToggleShowAll={() => dispatch({ type: "toggle-show-all" })}
-            onToggleTask={(task, isSelected) =>
-              dispatch({ type: "toggle-task", task, isSelected })
-            }
-          />
-          <ProjectProgress completion={completion} />
+          <div className="min-w-0">
+            <WorkspaceToolbar />
+            <ProjectHeader
+              isAddTaskOpen={state.isAddTaskOpen}
+              onAddTask={addTask}
+              onAddTaskOpenChange={(isOpen) =>
+                dispatch({ type: "set-add-task-open", isOpen })
+              }
+              onMarkAllComplete={() => dispatch({ type: "mark-all-complete" })}
+              onReset={() => dispatch({ type: "reset" })}
+            />
+
+            <Tabs
+              className="gap-0"
+              selectedKey={state.activeView}
+              onSelectionChange={changeView}
+            >
+              <TabList
+                aria-label="Project sections"
+                className="overflow-x-auto overflow-y-hidden border-b border-foreground/10 px-4 py-0 @2xl:px-5"
+              >
+                <Tab
+                  id="overview"
+                  className="max-sm:[--tab-gutter-x:--spacing(2)]"
+                >
+                  Overview
+                </Tab>
+                <Tab
+                  id="tasks"
+                  className="max-sm:[--tab-gutter-x:--spacing(2)]"
+                >
+                  Tasks
+                  <span className="ml-1.5 rounded-full bg-secondary px-1.5 text-xs/5 text-secondary-foreground tabular-nums">
+                    {openTaskCount}
+                  </span>
+                </Tab>
+                <Tab
+                  id="activity"
+                  className="max-sm:[--tab-gutter-x:--spacing(2)]"
+                >
+                  Activity
+                </Tab>
+              </TabList>
+
+              <TabPanel id="overview">
+                <MetricsGrid metrics={metrics} />
+                <div className="grid @3xl:grid-cols-[3fr_2fr]">
+                  <TaskList
+                    tasks={state.tasks.slice(0, 3)}
+                    completedTaskIds={state.completedTaskIds}
+                    onViewAll={() =>
+                      dispatch({ type: "set-view", view: "tasks" })
+                    }
+                    onToggleTask={toggleTask}
+                  />
+                  <ProjectProgress completion={completion} />
+                </div>
+              </TabPanel>
+
+              <TabPanel id="tasks">
+                <TaskTable
+                  tasks={state.tasks}
+                  completedTaskIds={state.completedTaskIds}
+                  onToggleTask={toggleTask}
+                />
+              </TabPanel>
+
+              <TabPanel id="activity">
+                <ActivityView />
+              </TabPanel>
+            </Tabs>
+          </div>
         </div>
       </div>
     </section>
+  )
+}
+
+function WorkspaceSidebar() {
+  return (
+    <aside className="hidden min-h-full flex-col border-r border-foreground/10 bg-panel p-3 @5xl:flex">
+      <div className="flex items-center gap-2 px-2 py-1.5">
+        <span className="grid size-7 place-items-center rounded-lg bg-primary text-xs font-semibold text-primary-foreground">
+          N
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-sm/5 font-semibold">Northstar</p>
+          <p className="truncate text-xs/4 text-muted-foreground">
+            Product team
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-1">
+        <span className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm/5 text-muted-foreground">
+          <LayoutDashboardIcon className="size-4" strokeWidth={1.5} />
+          Dashboard
+        </span>
+        <span className="flex items-center gap-2 rounded-lg bg-accent px-2 py-1.5 text-sm/5 font-medium text-foreground">
+          <FolderKanbanIcon className="size-4 text-primary" strokeWidth={2} />
+          Projects
+        </span>
+        <span className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm/5 text-muted-foreground">
+          <ListTodoIcon className="size-4" strokeWidth={1.5} />
+          My work
+        </span>
+        <span className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm/5 text-muted-foreground">
+          <UsersIcon className="size-4" strokeWidth={1.5} />
+          Team
+        </span>
+      </div>
+
+      <div className="mt-5 border-t border-foreground/10 pt-4">
+        <p className="px-2 text-xs/4 font-medium text-muted-foreground">
+          Current project
+        </p>
+        <div className="mt-2 rounded-xl border border-foreground/10 bg-background p-2.5">
+          <div className="flex items-center gap-2">
+            <span className="size-2 rounded-full bg-emerald-500" />
+            <p className="truncate text-sm/5 font-medium">Checkout launch</p>
+          </div>
+          <p className="mt-1 text-xs/4 text-muted-foreground">
+            Ships in 9 days
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-auto px-2 pt-6">
+        <p className="text-xs/4 text-muted-foreground">Release 2.8</p>
+        <p className="text-xs/4 font-medium">Production workspace</p>
+      </div>
+    </aside>
+  )
+}
+
+function WorkspaceToolbar() {
+  return (
+    <div className="flex min-h-12 items-center justify-between gap-3 border-b border-foreground/10 px-4 @2xl:px-5">
+      <div className="flex min-w-0 items-center gap-2">
+        <RocketIcon
+          className="size-4 shrink-0 text-muted-foreground"
+          strokeWidth={1.5}
+        />
+        <p className="truncate text-sm/5 text-muted-foreground">
+          Projects <span className="px-1 text-foreground/30">/</span>
+          <span className="font-medium text-foreground">Checkout launch</span>
+        </p>
+      </div>
+      <div className="flex shrink-0 items-center gap-2.5">
+        <span className="hidden items-center gap-1.5 text-xs/4 text-muted-foreground sm:flex">
+          <span className="size-1.5 rounded-full bg-emerald-500" />
+          Synced 2 min ago
+        </span>
+        <Avatar src="/avatars/04.png" alt="Morgan Lee" size="sm" />
+      </div>
+    </div>
   )
 }
 
@@ -358,7 +576,7 @@ function ProjectHeader({
           <Badge intent="success">On track</Badge>
         </div>
         <p className="max-w-[52ch] text-base text-pretty text-muted-foreground sm:text-sm/6">
-          Everything the team needs for the August release.
+          Commerce platform · Release 2.8 · Ships 28 August
         </p>
       </div>
 
@@ -371,7 +589,7 @@ function ProjectHeader({
 
         <Popover isOpen={isAddTaskOpen} onOpenChange={onAddTaskOpenChange}>
           <Button
-            className="motion-safe:pressed:scale-96"
+            className="whitespace-nowrap motion-safe:pressed:scale-96"
             type="button"
             intent="outline"
             size="sm"
@@ -487,7 +705,12 @@ function ProjectHeader({
 function MetricsGrid({
   metrics,
 }: {
-  metrics: { label: string; value: string; change: string }[]
+  metrics: {
+    label: string
+    shortLabel: string
+    value: string
+    change: string
+  }[]
 }) {
   return (
     <dl className="grid grid-cols-3 border-b border-foreground/10">
@@ -497,7 +720,8 @@ function MetricsGrid({
           key={metric.label}
         >
           <dt className="truncate text-base text-muted-foreground sm:text-sm/6">
-            {metric.label}
+            <span className="sm:hidden">{metric.shortLabel}</span>
+            <span className="max-sm:hidden">{metric.label}</span>
           </dt>
           <dd className="min-w-0 @lg:flex @lg:items-baseline @lg:justify-between @lg:gap-3">
             <p className="truncate text-xl font-semibold tracking-tight tabular-nums">
@@ -516,14 +740,12 @@ function MetricsGrid({
 function TaskList({
   tasks,
   completedTaskIds,
-  showAllTasks,
-  onToggleShowAll,
+  onViewAll,
   onToggleTask,
 }: {
   tasks: ShowcaseTask[]
   completedTaskIds: Set<string>
-  showAllTasks: boolean
-  onToggleShowAll: () => void
+  onViewAll: () => void
   onToggleTask: (task: ShowcaseTask, isSelected: boolean) => void
 }) {
   return (
@@ -533,16 +755,13 @@ function TaskList({
           Priority work
         </h4>
         <Button
-          className="@3xl:hidden motion-safe:pressed:scale-96"
+          className="motion-safe:pressed:scale-96"
           type="button"
           intent="plain"
           size="xs"
-          aria-controls="priority-task-list"
-          aria-expanded={showAllTasks}
-          onPress={onToggleShowAll}
+          onPress={onViewAll}
         >
-          {showAllTasks ? "Show less" : "View all"}
-          <ContextualChevron isExpanded={showAllTasks} />
+          View all
         </Button>
       </div>
 
@@ -552,35 +771,12 @@ function TaskList({
             key={task.id}
             task={task}
             isCompleted={completedTaskIds.has(task.id)}
-            hideOnMobile={index > 1 && !showAllTasks}
+            hideOnMobile={index > 1}
             onToggle={onToggleTask}
           />
         ))}
       </div>
     </section>
-  )
-}
-
-function ContextualChevron({ isExpanded }: { isExpanded: boolean }) {
-  return (
-    <span className="relative size-3.5" aria-hidden="true">
-      <ChevronUpIcon
-        className={twMerge(
-          "absolute inset-0 size-3.5 transition-opacity duration-150 motion-safe:transition-[opacity,filter,scale] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.2,0,0,1)]",
-          isExpanded
-            ? "opacity-100 motion-safe:scale-100 motion-safe:blur-0"
-            : "opacity-0 motion-safe:scale-[0.25] motion-safe:blur-[4px]"
-        )}
-      />
-      <ChevronDownIcon
-        className={twMerge(
-          "size-3.5 transition-opacity duration-150 motion-safe:transition-[opacity,filter,scale] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.2,0,0,1)]",
-          isExpanded
-            ? "opacity-0 motion-safe:scale-[0.25] motion-safe:blur-[4px]"
-            : "opacity-100 motion-safe:scale-100 motion-safe:blur-0"
-        )}
-      />
-    </span>
   )
 }
 
@@ -624,7 +820,7 @@ function TaskRow({
           {task.title}
         </p>
         <p className="truncate text-base text-muted-foreground sm:text-sm/6">
-          {task.detail}
+          {task.workstream} · Due {task.due}
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
@@ -636,6 +832,159 @@ function TaskRow({
         </Badge>
         <Avatar src={task.avatar} alt={task.assignee} size="sm" />
       </div>
+    </div>
+  )
+}
+
+function TaskTable({
+  tasks,
+  completedTaskIds,
+  onToggleTask,
+}: {
+  tasks: ShowcaseTask[]
+  completedTaskIds: Set<string>
+  onToggleTask: (task: ShowcaseTask, isSelected: boolean) => void
+}) {
+  return (
+    <section className="p-4 @2xl:p-5" aria-labelledby="all-tasks-title">
+      <div className="flex items-end justify-between gap-3">
+        <div>
+          <h4 id="all-tasks-title" className="font-semibold">
+            Release work
+          </h4>
+          <p className="text-sm/5 text-muted-foreground">
+            Priority items across the launch team
+          </p>
+        </div>
+        <Badge intent="secondary">{tasks.length} shown</Badge>
+      </div>
+
+      <div className="mt-4 overflow-hidden rounded-xl border border-foreground/10">
+        <Table
+          aria-label="Release work"
+          bleed
+          className="mx-0 [--gutter:0px] [&_table]:min-w-[660px]"
+        >
+          <TableHeader>
+            <TableColumn isRowHeader>Task</TableColumn>
+            <TableColumn>Owner</TableColumn>
+            <TableColumn>Status</TableColumn>
+            <TableColumn>Due</TableColumn>
+          </TableHeader>
+          <TableBody>
+            {tasks.map((task) => {
+              const isCompleted = completedTaskIds.has(task.id)
+
+              return (
+                <TableRow key={task.id} id={task.id}>
+                  <TableCell>
+                    <div className="flex min-w-64 items-center gap-3">
+                      <Checkbox
+                        aria-label={`${isCompleted ? "Reopen" : "Complete"} ${task.title}`}
+                        isSelected={isCompleted}
+                        name="completed-task-table"
+                        value={task.id}
+                        onChange={(isSelected) =>
+                          onToggleTask(task, isSelected)
+                        }
+                      />
+                      <div
+                        className={twMerge(
+                          "min-w-0",
+                          isCompleted && "opacity-60"
+                        )}
+                      >
+                        <p
+                          className={twMerge(
+                            "truncate font-medium text-foreground",
+                            isCompleted && "line-through decoration-current/50"
+                          )}
+                        >
+                          {task.title}
+                        </p>
+                        <p className="truncate text-xs/4 text-muted-foreground">
+                          {task.workstream}
+                        </p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Avatar src={task.avatar} alt={task.assignee} size="sm" />
+                      <span className="text-foreground">{task.assignee}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge intent={isCompleted ? "success" : task.intent}>
+                      {isCompleted ? "Done" : task.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <span className="tabular-nums">{task.due}</span>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </div>
+    </section>
+  )
+}
+
+function ActivityView() {
+  return (
+    <div className="grid @3xl:grid-cols-[3fr_2fr]">
+      <section
+        className="min-w-0 p-4 @2xl:p-5"
+        aria-labelledby="recent-activity-title"
+      >
+        <div className="flex items-center gap-2">
+          <ActivityIcon
+            className="size-4 text-muted-foreground"
+            strokeWidth={1.5}
+          />
+          <h4 id="recent-activity-title" className="font-semibold">
+            Recent activity
+          </h4>
+        </div>
+
+        <div className="mt-3 divide-y divide-foreground/10">
+          {recentActivity.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-start gap-3 py-3 first:pt-0"
+            >
+              <Avatar src={item.avatar} alt={item.assignee} size="sm" />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm/5">
+                  <span className="font-medium">{item.assignee}</span>{" "}
+                  <span className="text-muted-foreground">{item.action}</span>
+                </p>
+                <p className="text-xs/4 text-muted-foreground tabular-nums">
+                  {item.time}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <aside className="border-t border-foreground/10 bg-panel p-4 @2xl:p-5 @3xl:border-t-0 @3xl:border-l">
+        <p className="text-xs/4 font-medium text-muted-foreground">
+          Next checkpoint
+        </p>
+        <p className="mt-1 font-semibold">Go-live review</p>
+        <p className="text-sm/5 text-muted-foreground">
+          Thursday, 27 August · 10:30
+        </p>
+
+        <div className="mt-4 divide-y divide-foreground/10 border-t border-foreground/10 pt-4">
+          {milestones.map((milestone) => (
+            <Milestone key={milestone.label} {...milestone} />
+          ))}
+        </div>
+      </aside>
     </div>
   )
 }
@@ -655,6 +1004,18 @@ function ProjectProgress({ completion }: { completion: number }) {
         {milestones.map((milestone) => (
           <Milestone key={milestone.label} {...milestone} />
         ))}
+      </div>
+
+      <div className="mt-5 rounded-xl border border-foreground/10 bg-background p-3">
+        <div className="flex items-start gap-2.5">
+          <span className="mt-1 size-2 shrink-0 rounded-full bg-amber-500" />
+          <div className="min-w-0">
+            <p className="text-sm/5 font-medium">1 launch risk</p>
+            <p className="truncate text-xs/4 text-muted-foreground">
+              Mobile checkout QA needs an owner
+            </p>
+          </div>
+        </div>
       </div>
     </aside>
   )
