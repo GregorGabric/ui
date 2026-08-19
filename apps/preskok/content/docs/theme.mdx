@@ -7,34 +7,3 @@ full: true
 import { ThemeContainer } from "@/components/theme/theme-container"
 
 <ThemeContainer />
-
-## Use your theme
-
-Set the brand, page background treatment, and radius. **Neutral** derives the
-page from the neutral scale, **Pure** uses white or near-black, and **Brand
-tint** uses the quietest accent step. **Custom** keeps a direct color picker as
-an advanced option. The editor generates matching CSS and Figma variables.
-Save `preskok-theme.json` if you want to edit the theme later.
-
-## Add the theme to code
-
-Choose **Get theme → Copy CSS** and replace the `:root` and `.dark` theme blocks
-in the project&apos;s global stylesheet.
-
-## Add the theme to Figma
-
-1. Download `preskok-style-mode.json` with **Get theme → Download for Figma**.
-2. Open the local variables panel and select the `Style` collection.
-3. Duplicate the `Default` mode and rename it for the new project.
-4. Open the mode menu, choose **Import mode**, and select the downloaded file.
-5. Apply that `Style` mode to the project page or frame. Continue using the
-   existing `Mode` collection to switch between light and dark appearance.
-
-The semantic paths match the library&apos;s existing variables, such as
-`color/light/primary`, `color/dark/primary`, and `radius/lg`. Primitive paths,
-including `primitive/color/light/accent/1`, are included for designers who need
-the full scale. Do not import this file into the `Mode` collection: `Style`
-selects the project brand, while `Mode` selects the light or dark appearance.
-
-Figma imports these files using the
-[Design Tokens Community Group format](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables).

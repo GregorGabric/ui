@@ -110,9 +110,13 @@ export function ThemeContainer() {
     createThemeArtifacts(selectedColors)
   const previewStyles = createPreviewStyles(theme, appearance)
 
-  function copyCss() {
-    void navigator.clipboard.writeText(css)
-    toast.success("CSS copied to clipboard.")
+  async function copyCss() {
+    try {
+      await navigator.clipboard.writeText(css)
+      toast.success("CSS copied to clipboard.")
+    } catch {
+      toast.error("CSS could not be copied.")
+    }
   }
 
   function downloadCss() {
@@ -121,7 +125,6 @@ export function ThemeContainer() {
       content: css,
       type: "text/css",
     })
-    toast.success("CSS theme downloaded.")
   }
 
   function downloadFigmaTheme() {
@@ -130,7 +133,6 @@ export function ThemeContainer() {
       content: figmaJson,
       type: "application/json",
     })
-    toast.success("Figma mode downloaded.")
   }
 
   function downloadManifest() {
@@ -139,7 +141,6 @@ export function ThemeContainer() {
       content: manifestJson,
       type: "application/json",
     })
-    toast.success("Project theme saved.")
   }
 
   async function loadManifest(files: FileList | null) {
@@ -151,7 +152,6 @@ export function ThemeContainer() {
     try {
       const manifest = parseThemeManifestJson(await file.text())
       setSelectedColors(manifest.selection)
-      toast.success("Project theme loaded.")
     } catch (error) {
       const message =
         error instanceof Error
@@ -163,7 +163,6 @@ export function ThemeContainer() {
 
   function resetTheme() {
     setSelectedColors(DEFAULT_THEME_SELECTION)
-    toast.success("Theme reset to the Preskok defaults.")
   }
 
   return (

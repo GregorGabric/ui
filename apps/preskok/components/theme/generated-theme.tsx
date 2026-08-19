@@ -118,17 +118,21 @@ function ContrastSummary({ checks }: { checks: ThemeContrastCheck[] }) {
   return (
     <Popover>
       <Button
+        aria-label={`Review contrast results: ${passingChecks} of ${checks.length} pairs pass`}
         className={twMerge(
-          "rounded-full",
+          "-mr-2 gap-1.5 px-2 font-normal text-muted-foreground hover:text-foreground",
           allPass
-            ? "border-success/20 bg-success/10 text-success"
-            : "border-warning/20 bg-warning/10 text-warning-foreground"
+            ? "[--btn-icon:var(--color-success)]"
+            : "[--btn-icon:var(--color-warning)]"
         )}
-        intent="outline"
+        intent="plain"
         size="xs"
       >
         {allPass ? <CheckCircle2Icon /> : <CircleAlertIcon />}
-        {passingChecks}/{checks.length} contrast pairs
+        <span className="font-medium text-foreground tabular-nums">
+          {passingChecks}/{checks.length}
+        </span>
+        <span>contrast</span>
       </Button>
       <PopoverContent className="max-w-md" placement="bottom end">
         <PopoverHeader>
