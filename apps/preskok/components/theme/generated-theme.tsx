@@ -1,3 +1,4 @@
+import { Focusable } from "react-aria-components/Tooltip"
 import { twMerge } from "tailwind-merge"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
@@ -9,6 +10,10 @@ import {
   PopoverHeader,
   PopoverTitle,
 } from "@/registry/preskok/ui/preskok-ui/popover"
+import {
+  Tooltip,
+  TooltipContent,
+} from "@/registry/preskok/ui/preskok-ui/tooltip"
 
 import type { ThemeAppearance } from "./theme-customizer"
 import {
@@ -44,7 +49,7 @@ export function GeneratedTheme({
       </div>
 
       <div className="grid gap-2">
-        <div className="hidden grid-cols-12 gap-1 sm:grid">
+        <div className="hidden grid-cols-12 sm:grid">
           {USAGE_RANGES.map((range) => (
             <span
               className={twMerge(
@@ -58,10 +63,10 @@ export function GeneratedTheme({
           ))}
         </div>
 
-        <div className="hidden grid-cols-12 gap-1 sm:grid">
+        <div className="hidden grid-cols-12 sm:grid">
           {THEME_PRIMITIVE_STEPS.map((step) => (
             <span
-              className="text-center text-xs text-muted-foreground tabular-nums"
+              className="border-r border-foreground/10 py-1 text-center text-xs text-muted-foreground tabular-nums last:border-r-0"
               key={step}
             >
               {step}
@@ -94,17 +99,35 @@ function ScalePreview({
   return (
     <div className="grid gap-2">
       <span className="text-xs font-medium sm:sr-only">{label}</span>
-      <div className="grid grid-rows-12 gap-px overflow-hidden rounded-xl bg-foreground/10 p-px sm:grid-cols-12 sm:grid-rows-1">
-        {colors.map((color, index) => (
-          <span
-            aria-label={`${label} ${THEME_PRIMITIVE_STEPS[index]}: ${color}`}
-            className="min-h-8 sm:min-h-16"
-            key={`${color}-${index}`}
-            role="img"
-            title={`${label} ${THEME_PRIMITIVE_STEPS[index]} · ${color}`}
-            style={{ backgroundColor: color }}
-          />
-        ))}
+      <div className="grid grid-rows-12 overflow-hidden rounded-xl border border-foreground/10 sm:grid-cols-12 sm:grid-rows-1">
+        {THEME_PRIMITIVE_STEPS.map((step, index) => {
+          const color = colors[index]
+
+          return (
+            <Tooltip closeDelay={0} delay={150} key={`${label}-${step}`}>
+              <Focusable>
+                <span
+                  aria-label={`${label} ${step}`}
+                  className="min-h-8 border-b border-foreground/10 last:border-b-0 focus-visible:z-10 focus-visible:outline-2 focus-visible:-outline-offset-3 focus-visible:outline-[CanvasText] sm:min-h-16 sm:border-r sm:border-b-0 sm:last:border-r-0 forced-colors:focus-visible:outline-[Highlight]"
+                  role="img"
+                  style={{ backgroundColor: color }}
+                />
+              </Focusable>
+              <TooltipContent
+                arrow={false}
+                className="flex items-center gap-1.5 px-2 py-1 text-xs"
+                inverse
+                offset={6}
+                placement="top"
+              >
+                <span aria-hidden="true">
+                  {label} {step}
+                </span>
+                <span className="font-mono uppercase">{color}</span>
+              </TooltipContent>
+            </Tooltip>
+          )
+        })}
       </div>
     </div>
   )
