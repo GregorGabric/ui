@@ -290,7 +290,7 @@ function BackgroundControl({
                     className={twMerge(
                       "relative h-auto justify-start gap-3 rounded-xl p-3 text-left hover:border-foreground/25 hover:bg-transparent",
                       isSelected &&
-                        "border-2 border-foreground/25 bg-secondary hover:bg-secondary"
+                        "border-foreground/25 bg-secondary shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-foreground)_25%,transparent)] hover:bg-secondary"
                     )}
                     intent="outline"
                     key={option.id}
