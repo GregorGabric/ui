@@ -297,9 +297,18 @@ function BackgroundControl({
                   >
                     <SurfacePreview {...optionPreview} size="lg" />
                     <span className="flex-1">{option.label}</span>
-                    {isSelected && (
-                      <CheckIcon className="absolute top-2 right-2 size-3.5" />
-                    )}
+                    <span
+                      aria-hidden="true"
+                      className="ml-auto grid size-4 shrink-0 place-items-center"
+                    >
+                      <CheckIcon
+                        className={twMerge(
+                          "size-4",
+                          isSelected ? "opacity-100" : "opacity-0"
+                        )}
+                        strokeWidth={2}
+                      />
+                    </span>
                   </Button>
                 )
               })}
