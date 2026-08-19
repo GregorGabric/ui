@@ -49,7 +49,7 @@ export function GeneratedTheme({
       </div>
 
       <div className="grid gap-2">
-        <div className="hidden grid-cols-12 sm:grid">
+        <div className="mx-px hidden grid-cols-12 sm:grid">
           {USAGE_RANGES.map((range) => (
             <span
               className={twMerge(
@@ -63,7 +63,7 @@ export function GeneratedTheme({
           ))}
         </div>
 
-        <div className="hidden grid-cols-12 sm:grid">
+        <div className="mx-px hidden grid-cols-12 sm:grid">
           {THEME_PRIMITIVE_STEPS.map((step) => (
             <span
               className="border-r border-foreground/10 py-1 text-center text-xs text-muted-foreground tabular-nums last:border-r-0"
