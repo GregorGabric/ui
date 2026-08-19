@@ -1,10 +1,7 @@
 "use client"
 
-import { Suspense, useState } from "react"
-import {
-  Card as DocsCard,
-  Cards as DocsCards,
-} from "fumadocs-ui/components/card"
+import { Suspense, useRef, useState } from "react"
+import type { CSSProperties } from "react"
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock"
 import {
   ChevronDownIcon,
@@ -15,11 +12,16 @@ import {
   RotateCcwIcon,
   UploadIcon,
 } from "lucide-react"
+import { UNSAFE_PortalProvider } from "react-aria"
 import { toast } from "sonner"
+import { twMerge } from "tailwind-merge"
 
 import { Blocks } from "@/components/theme/blocks"
 import { GeneratedTheme } from "@/components/theme/generated-theme"
-import { ThemeCustomizer } from "@/components/theme/theme-customizer"
+import {
+  ThemeCustomizer,
+  type ThemeAppearance,
+} from "@/components/theme/theme-customizer"
 import { Button, buttonStyles } from "@/registry/preskok/ui/preskok-ui/button"
 import {
   Menu,
@@ -42,11 +44,12 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/tabs"
 
 import {
+  createThemeArtifacts,
   DEFAULT_THEME_SELECTION,
-  generateFigmaThemeJson,
-  generateTheme,
-  generateThemeManifestJson,
   parseThemeManifestJson,
+  THEME_COLOR_TOKEN_NAMES,
+  THEME_PRIMITIVE_STEPS,
+  type ResolvedTheme,
   type ThemeSelection,
 } from "./themes"
 
@@ -54,6 +57,35 @@ type GeneratedFile = {
   filename: string
   content: string
   type: string
+}
+
+function createPreviewStyles(
+  theme: ResolvedTheme,
+  appearance: ThemeAppearance
+) {
+  const colors = theme.colors[appearance]
+  const primitives = theme.primitives[appearance]
+
+  return {
+    colorScheme: appearance,
+    ...Object.fromEntries(
+      THEME_COLOR_TOKEN_NAMES.flatMap((token) => [
+        [`--${token}`, colors[token]],
+        [`--color-${token}`, colors[token]],
+      ])
+    ),
+    ...Object.fromEntries(
+      THEME_PRIMITIVE_STEPS.flatMap((step, index) => [
+        [`--accent-${step}`, primitives.accent[index]],
+        [`--accent-a${step}`, primitives.accentAlpha[index]],
+        [`--gray-${step}`, primitives.gray[index]],
+        [`--gray-a${step}`, primitives.grayAlpha[index]],
+      ])
+    ),
+    "--accent-contrast": primitives.accentContrast,
+    "--accent-surface-primitive": primitives.accentSurface,
+    "--gray-surface": primitives.graySurface,
+  } as CSSProperties
 }
 
 function downloadFile({ filename, content, type }: GeneratedFile) {
@@ -71,14 +103,20 @@ export function ThemeContainer() {
   const [selectedColors, setSelectedColors] = useState<ThemeSelection>(
     DEFAULT_THEME_SELECTION
   )
+  const [appearance, setAppearance] = useState<ThemeAppearance>("light")
   const [open, setOpen] = useState(false)
-  const css = generateTheme(selectedColors)
-  const figmaJson = generateFigmaThemeJson(selectedColors)
-  const manifestJson = generateThemeManifestJson(selectedColors)
+  const previewPortalRef = useRef<HTMLDivElement>(null)
+  const { theme, contrastChecks, css, figmaJson, manifestJson } =
+    createThemeArtifacts(selectedColors)
+  const previewStyles = createPreviewStyles(theme, appearance)
 
-  function copyCss() {
-    void navigator.clipboard.writeText(css)
-    toast.success("CSS copied to clipboard.")
+  async function copyCss() {
+    try {
+      await navigator.clipboard.writeText(css)
+      toast.success("CSS copied to clipboard.")
+    } catch {
+      toast.error("CSS could not be copied.")
+    }
   }
 
   function downloadCss() {
@@ -87,7 +125,6 @@ export function ThemeContainer() {
       content: css,
       type: "text/css",
     })
-    toast.success("CSS theme downloaded.")
   }
 
   function downloadFigmaTheme() {
@@ -96,7 +133,6 @@ export function ThemeContainer() {
       content: figmaJson,
       type: "application/json",
     })
-    toast.success("Figma mode downloaded.")
   }
 
   function downloadManifest() {
@@ -105,7 +141,6 @@ export function ThemeContainer() {
       content: manifestJson,
       type: "application/json",
     })
-    toast.success("Project theme saved.")
   }
 
   async function loadManifest(files: FileList | null) {
@@ -117,7 +152,6 @@ export function ThemeContainer() {
     try {
       const manifest = parseThemeManifestJson(await file.text())
       setSelectedColors(manifest.selection)
-      toast.success("Project theme loaded.")
     } catch (error) {
       const message =
         error instanceof Error
@@ -129,20 +163,74 @@ export function ThemeContainer() {
 
   function resetTheme() {
     setSelectedColors(DEFAULT_THEME_SELECTION)
-    toast.success("Theme reset to the Preskok defaults.")
   }
 
   return (
     <>
-      <div className="space-y-6 pb-16">
-        <DocsCards className="grid-cols-1 items-start gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-          <DocsCard
-            title="Project theme"
-            description="One configuration generates matching code and Figma tokens."
+      <div className="space-y-8 pb-16">
+        <UNSAFE_PortalProvider getContainer={() => previewPortalRef.current}>
+          <section
+            className={twMerge(
+              "not-prose relative isolate overflow-hidden rounded-3xl bg-background p-5 text-foreground shadow-[0_0_0_1px_oklch(0_0_0/0.06),0_1px_2px_-1px_oklch(0_0_0/0.06),0_2px_4px_oklch(0_0_0/0.04)] sm:p-8 dark:shadow-none dark:ring-1 dark:ring-white/10",
+              appearance
+            )}
+            style={previewStyles}
           >
-            <div className="not-prose mt-4 text-fd-foreground">
-              <ThemeCustomizer {...{ selectedColors, setSelectedColors }} />
-              <div className="mt-5 flex flex-wrap gap-2 border-t pt-4">
+            <div
+              aria-hidden="true"
+              className={twMerge(
+                "pointer-events-none absolute inset-x-0 top-0 h-80 bg-[linear-gradient(to_bottom,var(--accent-4),transparent)]",
+                appearance === "dark" ? "opacity-20" : "opacity-45"
+              )}
+            />
+            <div className="relative grid gap-10">
+              <ThemeCustomizer
+                actions={
+                  <Menu>
+                    <Button className="w-full">
+                      Get theme
+                      <ChevronDownIcon data-slot="icon" />
+                    </Button>
+
+                    <MenuContent placement="bottom right" className="min-w-56">
+                      <MenuItem onAction={copyCss}>
+                        <CopyIcon data-slot="icon" />
+                        Copy CSS
+                      </MenuItem>
+                      <MenuItem onAction={downloadCss}>
+                        <DownloadIcon data-slot="icon" />
+                        Download CSS
+                      </MenuItem>
+                      <MenuItem onAction={downloadFigmaTheme}>
+                        <FileJsonIcon data-slot="icon" />
+                        Download for Figma
+                      </MenuItem>
+                      <MenuItem onAction={downloadManifest}>
+                        <DownloadIcon data-slot="icon" />
+                        Save project theme
+                      </MenuItem>
+                      <MenuItem onAction={() => setOpen(true)}>
+                        <Code2Icon data-slot="icon" />
+                        Inspect generated files
+                      </MenuItem>
+                    </MenuContent>
+                  </Menu>
+                }
+                {...{
+                  appearance,
+                  selectedColors,
+                  setAppearance,
+                  setSelectedColors,
+                }}
+              />
+
+              <GeneratedTheme
+                appearance={appearance}
+                theme={theme}
+                checks={contrastChecks}
+              />
+
+              <div className="flex flex-wrap gap-2 border-t border-foreground/10 pt-5">
                 <label
                   className={buttonStyles({ intent: "outline", size: "sm" })}
                 >
@@ -164,50 +252,29 @@ export function ThemeContainer() {
                 </Button>
               </div>
             </div>
-          </DocsCard>
+          </section>
 
-          <DocsCard
-            title="Generated theme"
-            description="Every preview and export below comes from the same resolved tokens."
+          <div
+            className={twMerge(
+              "rounded-3xl bg-background p-3 text-foreground sm:p-4",
+              appearance
+            )}
+            style={previewStyles}
           >
-            <div className="mt-4 flex justify-end">
-              <Menu>
-                <Button>
-                  Get theme
-                  <ChevronDownIcon data-slot="icon" />
-                </Button>
-
-                <MenuContent placement="bottom right" className="min-w-56">
-                  <MenuItem onAction={copyCss}>
-                    <CopyIcon data-slot="icon" />
-                    Copy CSS
-                  </MenuItem>
-                  <MenuItem onAction={downloadCss}>
-                    <DownloadIcon data-slot="icon" />
-                    Download CSS
-                  </MenuItem>
-                  <MenuItem onAction={downloadFigmaTheme}>
-                    <FileJsonIcon data-slot="icon" />
-                    Download for Figma
-                  </MenuItem>
-                  <MenuItem onAction={downloadManifest}>
-                    <DownloadIcon data-slot="icon" />
-                    Save project theme
-                  </MenuItem>
-                  <MenuItem onAction={() => setOpen(true)}>
-                    <Code2Icon data-slot="icon" />
-                    Inspect generated files
-                  </MenuItem>
-                </MenuContent>
-              </Menu>
-            </div>
-            <GeneratedTheme className="mt-4" />
-          </DocsCard>
-        </DocsCards>
-
-        <Suspense fallback={null}>
-          <Blocks />
-        </Suspense>
+            <Suspense fallback={null}>
+              <Blocks />
+            </Suspense>
+          </div>
+        </UNSAFE_PortalProvider>
+        <div
+          ref={previewPortalRef}
+          className={twMerge(
+            "not-prose",
+            appearance,
+            "[&_[data-slot=modal-overlay]]:z-[100001]"
+          )}
+          style={{ ...previewStyles, display: "contents" }}
+        />
         <style>{css}</style>
       </div>
 
@@ -220,7 +287,7 @@ export function ThemeContainer() {
         >
           <SheetHeader
             title="Generated project theme"
-            description="CSS, Figma mode, and the editable project manifest are generated together."
+            description="Use the same theme in code and Figma."
           />
           <SheetBody className="border-y pb-4">
             <Tabs defaultSelectedKey="css" className="mt-2">
@@ -234,9 +301,8 @@ export function ThemeContainer() {
               </TabPanel>
               <TabPanel id="figma">
                 <p className="mb-3 text-sm text-muted-foreground">
-                  In Figma, duplicate the <code>Default</code> mode in the
-                  <code> Style</code> collection, rename it for the project,
-                  then use <strong>Import mode</strong> with this JSON file.
+                  Import this file as a new mode in Figma&apos;s
+                  <code> Style</code> collection.
                 </p>
                 <GeneratedCode
                   title="preskok-style-mode.json"
@@ -245,8 +311,7 @@ export function ThemeContainer() {
               </TabPanel>
               <TabPanel id="manifest">
                 <p className="mb-3 text-sm text-muted-foreground">
-                  Commit this small file with a project to reopen the exact
-                  configuration later.
+                  Save this file to edit the same theme later.
                 </p>
                 <GeneratedCode
                   title="preskok-theme.json"

@@ -97,8 +97,8 @@ async function DocsPageContent(props: DocsPageProps) {
     hints: "search",
   })}`
 
-  return (
-    <DocsPage full={isFullPage} toc={doc.toc}>
+  const content = (
+    <>
       <DocsTitle className="text-3xl font-semibold tracking-tight text-balance">
         {doc.title}
       </DocsTitle>
@@ -130,6 +130,19 @@ async function DocsPageContent(props: DocsPageProps) {
           })}
         />
       </DocsBody>
-    </DocsPage>
+    </>
   )
+
+  if (isFullPage) {
+    return (
+      <div
+        data-fd-full="true"
+        className="flex min-w-0 flex-col gap-2 p-6 pb-16 [grid-area:main] md:pt-16 md:pb-8 layout:[--fd-main-width:1200px]"
+      >
+        {content}
+      </div>
+    )
+  }
+
+  return <DocsPage toc={doc.toc}>{content}</DocsPage>
 }

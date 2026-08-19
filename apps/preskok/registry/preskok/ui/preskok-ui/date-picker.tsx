@@ -67,7 +67,7 @@ export function DatePickerOverlay({
 
   return isMobile ? (
     <ModalContent aria-label="Date picker" closeButton={false}>
-      <div className="flex justify-center p-6">
+      <div className="flex justify-center py-6 sm:p-6">
         {range ? (
           <RangeCalendar
             pageBehavior={pageBehavior}
