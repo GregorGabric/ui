@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { CheckIcon, ChevronDownIcon, MoonIcon, SunIcon } from "lucide-react"
+import { ChevronDownIcon, MoonIcon, SunIcon } from "lucide-react"
 import type { Key } from "react-aria-components/Select"
 import { parseColor } from "react-stately/Color"
 import { twMerge } from "tailwind-merge"
@@ -288,8 +288,9 @@ function BackgroundControl({
                   <Button
                     aria-pressed={isSelected}
                     className={twMerge(
-                      "relative h-auto justify-start gap-3 rounded-xl p-3 text-left",
-                      isSelected && "border-foreground/20 bg-secondary"
+                      "relative h-auto justify-start gap-3 rounded-xl p-3 text-left hover:border-foreground/25 hover:bg-transparent",
+                      isSelected &&
+                        "border-2 border-foreground/25 bg-secondary hover:bg-secondary"
                     )}
                     intent="outline"
                     key={option.id}
@@ -297,18 +298,6 @@ function BackgroundControl({
                   >
                     <SurfacePreview {...optionPreview} size="lg" />
                     <span className="flex-1">{option.label}</span>
-                    <span
-                      aria-hidden="true"
-                      className="ml-auto grid size-4 shrink-0 place-items-center"
-                    >
-                      <CheckIcon
-                        className={twMerge(
-                          "size-4",
-                          isSelected ? "opacity-100" : "opacity-0"
-                        )}
-                        strokeWidth={2}
-                      />
-                    </span>
                   </Button>
                 )
               })}

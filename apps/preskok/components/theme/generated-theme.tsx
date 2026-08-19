@@ -1,4 +1,3 @@
-import { CheckCircle2Icon, CircleAlertIcon } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
@@ -113,26 +112,19 @@ function ScalePreview({
 
 function ContrastSummary({ checks }: { checks: ThemeContrastCheck[] }) {
   const passingChecks = checks.filter((check) => check.passes).length
-  const allPass = passingChecks === checks.length
 
   return (
     <Popover>
       <Button
-        aria-label={`Review contrast results: ${passingChecks} of ${checks.length} pairs pass`}
-        className={twMerge(
-          "-mr-2 gap-1.5 px-2 font-normal text-muted-foreground hover:text-foreground",
-          allPass
-            ? "[--btn-icon:var(--color-success)]"
-            : "[--btn-icon:var(--color-warning)]"
-        )}
+        className="-mr-2 gap-1.5 px-2 font-normal text-muted-foreground hover:text-foreground"
         intent="plain"
         size="xs"
       >
-        {allPass ? <CheckCircle2Icon /> : <CircleAlertIcon />}
+        <span>Contrast</span>
         <span className="font-medium text-foreground tabular-nums">
           {passingChecks}/{checks.length}
         </span>
-        <span>contrast</span>
+        <span className="sr-only">pairs pass</span>
       </Button>
       <PopoverContent className="max-w-md" placement="bottom end">
         <PopoverHeader>
