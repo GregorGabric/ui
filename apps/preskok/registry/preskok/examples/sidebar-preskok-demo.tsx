@@ -4,8 +4,8 @@ import {
   SidebarProvider,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
 
-import AppSidebar from "./sidebar/app-sidebar"
-import AppSidebarNav from "./sidebar/app-sidebar-nav"
+import AppSidebar from "./app-sidebar"
+import AppSidebarNav from "./app-sidebar-nav"
 
 export default function SidebarPreskokDemo() {
   return (

@@ -58,6 +58,7 @@ const Avatar = ({
         </svg>
       )}
       {src && (
+        // eslint-disable-next-line @next/next/no-img-element -- Keep registry output framework-agnostic.
         <img
           className="size-full object-cover object-center"
           src={src}

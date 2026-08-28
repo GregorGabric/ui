@@ -269,7 +269,7 @@
   },
   "type": "registry:base",
   "config": {
-    "style": "preskok",
+    "style": "aria-nova",
     "tailwind": {
       "baseColor": "neutral",
       "cssVariables": true

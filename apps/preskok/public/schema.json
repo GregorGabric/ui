@@ -4,7 +4,7 @@
   "properties": {
     "style": {
       "type": "string",
-      "enum": ["preskok"]
+      "enum": ["aria-nova"]
     },
     "tailwind": {
       "type": "object",

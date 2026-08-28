@@ -17,7 +17,7 @@ export const registry = {
       extends: "none",
       type: "registry:base",
       config: {
-        style: "preskok",
+        style: "aria-nova",
         iconLibrary: "lucide",
         tailwind: {
           baseColor: "neutral",

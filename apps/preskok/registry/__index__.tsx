@@ -2190,17 +2190,17 @@ import * as React from "react"
     name: "sidebar-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["sidebar","button","disclosure","link","separator","sheet","tooltip"],
+    registryDependencies: ["avatar","breadcrumbs","heading","menu","preskok-icon","sidebar"],
     files: [{
       path: "registry/preskok/examples/sidebar-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     },{
-      path: "registry/preskok/examples/sidebar/app-sidebar.tsx",
+      path: "registry/preskok/examples/app-sidebar.tsx",
       type: "registry:component",
       target: ""
     },{
-      path: "registry/preskok/examples/sidebar/app-sidebar-nav.tsx",
+      path: "registry/preskok/examples/app-sidebar-nav.tsx",
       type: "registry:component",
       target: ""
     }],

@@ -98,7 +98,7 @@
       },
       "type": "registry:base",
       "config": {
-        "style": "preskok",
+        "style": "aria-nova",
         "tailwind": {
           "baseColor": "neutral",
           "cssVariables": true
@@ -2576,13 +2576,12 @@
     {
       "name": "sidebar-preskok-demo",
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/sidebar.json",
-        "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/disclosure.json",
-        "https://ui-three-mu.vercel.app/r/link.json",
-        "https://ui-three-mu.vercel.app/r/separator.json",
-        "https://ui-three-mu.vercel.app/r/sheet.json",
-        "https://ui-three-mu.vercel.app/r/tooltip.json"
+        "https://ui-three-mu.vercel.app/r/avatar.json",
+        "https://ui-three-mu.vercel.app/r/breadcrumbs.json",
+        "https://ui-three-mu.vercel.app/r/heading.json",
+        "https://ui-three-mu.vercel.app/r/menu.json",
+        "https://ui-three-mu.vercel.app/r/preskok-icon.json",
+        "https://ui-three-mu.vercel.app/r/sidebar.json"
       ],
       "files": [
         {
@@ -2590,11 +2589,11 @@
           "type": "registry:example"
         },
         {
-          "path": "registry/preskok/examples/sidebar/app-sidebar.tsx",
+          "path": "registry/preskok/examples/app-sidebar.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/preskok/examples/sidebar/app-sidebar-nav.tsx",
+          "path": "registry/preskok/examples/app-sidebar-nav.tsx",
           "type": "registry:component"
         }
       ],
