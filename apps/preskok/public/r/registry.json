@@ -156,8 +156,8 @@
           "--navbar-foreground": "oklch(0.147 0.004 49.25)",
           "--sidebar": "oklch(0.97 0.001 106.424)",
           "--sidebar-foreground": "oklch(0.147 0.004 49.25)",
-          "--sidebar-primary": "oklch(0.92 0.004 56)",
-          "--sidebar-primary-foreground": "oklch(0.147 0.004 49.25)",
+          "--sidebar-primary": "oklch(0.546 0.245 262.881)",
+          "--sidebar-primary-foreground": "oklch(1 0 0)",
           "--sidebar-accent": "oklch(0.92 0.004 56)",
           "--sidebar-accent-foreground": "oklch(0.147 0.004 49.25)",
           "--sidebar-border": "oklch(0.911 0.005 56.366)",
@@ -221,8 +221,8 @@
           "--navbar-foreground": "oklch(0.985 0.001 106.423)",
           "--sidebar": "oklch(0.166 0.006 56.043)",
           "--sidebar-foreground": "oklch(0.985 0.001 106.423)",
-          "--sidebar-primary": "oklch(0.238 0.007 56)",
-          "--sidebar-primary-foreground": "oklch(0.985 0.001 106.423)",
+          "--sidebar-primary": "oklch(0.546 0.245 262.881)",
+          "--sidebar-primary-foreground": "oklch(1 0 0)",
           "--sidebar-accent": "oklch(0.238 0.007 56)",
           "--sidebar-accent-foreground": "oklch(0.985 0.001 106.423)",
           "--sidebar-border": "oklch(0.274 0.01 67.558)",
@@ -1596,19 +1596,20 @@
     },
     {
       "name": "sidebar",
-      "description": "A comprehensive sidebar component with collapsible sections",
+      "description": "A composable, themeable, and customizable React Aria sidebar",
       "dependencies": [
+        "class-variance-authority",
         "lucide-react",
-        "react-aria-components",
-        "tailwind-merge"
+        "react-aria-components"
       ],
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/button.json",
-        "https://ui-three-mu.vercel.app/r/link.json",
+        "https://ui-three-mu.vercel.app/r/input.json",
+        "https://ui-three-mu.vercel.app/r/separator.json",
         "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/skeleton.json",
         "https://ui-three-mu.vercel.app/r/tooltip.json",
-        "https://ui-three-mu.vercel.app/r/use-media-query.json",
-        "https://ui-three-mu.vercel.app/r/primitive.json"
+        "https://ui-three-mu.vercel.app/r/use-mobile.json"
       ],
       "files": [
         {
@@ -4584,16 +4585,6 @@
       "type": "registry:example"
     },
     {
-      "name": "sidebar-demo",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-demo.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
       "name": "sidebar-header",
       "files": [
         {
@@ -4608,106 +4599,6 @@
       "files": [
         {
           "path": "registry/preskok/internal/sidebar-footer.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-group",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-group.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-group-collapsible",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-group-collapsible.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-group-action",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-group-action.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-menu",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-menu.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-menu-action",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-menu-action.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-menu-sub",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-menu-sub.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-menu-collapsible",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-menu-collapsible.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-menu-badge",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-menu-badge.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-rsc",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-rsc.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "type": "registry:internal"
-    },
-    {
-      "name": "sidebar-controlled",
-      "files": [
-        {
-          "path": "registry/preskok/internal/sidebar-controlled.tsx",
           "type": "registry:component"
         }
       ],

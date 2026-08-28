@@ -1300,9 +1300,9 @@ import * as React from "react"
   },
   "sidebar": {
     name: "sidebar",
-    description: "A comprehensive sidebar component with collapsible sections",
+    description: "A composable, themeable, and customizable React Aria sidebar",
     type: "registry:ui",
-    registryDependencies: ["button","link","sheet","tooltip","use-media-query","primitive"],
+    registryDependencies: ["button","input","separator","sheet","skeleton","tooltip","use-mobile"],
     files: [{
       path: "registry/preskok/ui/preskok-ui/sidebar.tsx",
       type: "registry:ui",
@@ -4736,24 +4736,6 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "sidebar-demo": {
-    name: "sidebar-demo",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-demo.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "sidebar-header": {
     name: "sidebar-header",
     description: "",
@@ -4784,186 +4766,6 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/internal/sidebar-footer.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-group": {
-    name: "sidebar-group",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-group.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-group.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-group-collapsible": {
-    name: "sidebar-group-collapsible",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-group-collapsible.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-group-collapsible.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-group-action": {
-    name: "sidebar-group-action",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-group-action.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-group-action.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-menu": {
-    name: "sidebar-menu",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-menu.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-menu.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-menu-action": {
-    name: "sidebar-menu-action",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-menu-action.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-menu-action.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-menu-sub": {
-    name: "sidebar-menu-sub",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-menu-sub.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-menu-sub.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-menu-collapsible": {
-    name: "sidebar-menu-collapsible",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-menu-collapsible.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-menu-collapsible.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-menu-badge": {
-    name: "sidebar-menu-badge",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-menu-badge.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-menu-badge.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-rsc": {
-    name: "sidebar-rsc",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-rsc.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-rsc.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "sidebar-controlled": {
-    name: "sidebar-controlled",
-    description: "",
-    type: "registry:internal",
-    registryDependencies: undefined,
-    files: [{
-      path: "registry/preskok/internal/sidebar-controlled.tsx",
-      type: "registry:component",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/internal/sidebar-controlled.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
