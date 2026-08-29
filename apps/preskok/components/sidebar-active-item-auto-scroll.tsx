@@ -1,16 +1,13 @@
 "use client"
 
 import { useLayoutEffect } from "react"
-import { usePathname } from "next/navigation"
 
 export function SidebarActiveItemAutoScroll() {
-  const pathname = usePathname()
-
   useLayoutEffect(() => {
     const sidebar = document.getElementById("nd-sidebar")
     const links = sidebar?.querySelectorAll<HTMLAnchorElement>("a[href]")
     const activeLink = Array.from(links ?? []).find(
-      (link) => new URL(link.href).pathname === pathname
+      (link) => new URL(link.href).pathname === window.location.pathname
     )
     const viewport = activeLink?.closest<HTMLElement>(
       "[data-radix-scroll-area-viewport]"
@@ -34,7 +31,7 @@ export function SidebarActiveItemAutoScroll() {
           (viewportRect.height - activeLinkRect.height) / 2,
       })
     }
-  }, [pathname])
+  }, [])
 
   return null
 }
