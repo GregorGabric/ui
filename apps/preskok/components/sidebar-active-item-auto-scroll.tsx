@@ -1,21 +1,15 @@
-"use client"
-
-import { useLayoutEffect } from "react"
-
-export function SidebarActiveItemAutoScroll() {
-  useLayoutEffect(() => {
+const scrollActiveSidebarItem = String.raw`
+  (() => {
     const sidebar = document.getElementById("nd-sidebar")
-    const links = sidebar?.querySelectorAll<HTMLAnchorElement>("a[href]")
+    const links = sidebar?.querySelectorAll("a[href]")
     const activeLink = Array.from(links ?? []).find(
       (link) => new URL(link.href).pathname === window.location.pathname
     )
-    const viewport = activeLink?.closest<HTMLElement>(
+    const viewport = activeLink?.closest(
       "[data-radix-scroll-area-viewport]"
     )
 
-    if (!activeLink || !viewport) {
-      return
-    }
+    if (!activeLink || !viewport) return
 
     const activeLinkRect = activeLink.getBoundingClientRect()
     const viewportRect = viewport.getBoundingClientRect()
@@ -31,7 +25,9 @@ export function SidebarActiveItemAutoScroll() {
           (viewportRect.height - activeLinkRect.height) / 2,
       })
     }
-  }, [])
+  })()
+`
 
-  return null
+export function SidebarActiveItemAutoScroll() {
+  return <script>{scrollActiveSidebarItem}</script>
 }
