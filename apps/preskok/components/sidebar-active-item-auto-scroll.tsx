@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
 import { usePathname } from "next/navigation"
 
 export function SidebarActiveItemAutoScroll() {
   const pathname = usePathname()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const sidebar = document.getElementById("nd-sidebar")
     const links = sidebar?.querySelectorAll<HTMLAnchorElement>("a[href]")
     const activeLink = Array.from(links ?? []).find(
