@@ -1,13 +1,13 @@
 "use client"
 
 import { createContext, use, useContext } from "react"
+import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type { GroupProps } from "react-aria-components/Group"
 import { Group } from "react-aria-components/Group"
 import type { SeparatorProps } from "react-aria-components/Separator"
 import type { ToolbarProps as ToolbarPrimitiveProps } from "react-aria-components/Toolbar"
 import { Toolbar as ToolbarPrimitive } from "react-aria-components/Toolbar"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

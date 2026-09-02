@@ -1,12 +1,12 @@
 "use client"
 
 import { type ComponentProps } from "react"
+import { twMerge } from "cn"
 import { Cell, Pie, PieChart as PieChartPrimitive } from "recharts"
 import type {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent"
-import { twMerge } from "tailwind-merge"
 
 import {
   Chart,

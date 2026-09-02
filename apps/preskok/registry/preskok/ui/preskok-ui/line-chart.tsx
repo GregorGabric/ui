@@ -1,12 +1,12 @@
 "use client"
 
 import React from "react"
+import { twMerge } from "cn"
 import { Line, LineChart as LineChartPrimitive, type LineProps } from "recharts"
 import type {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent"
-import { twMerge } from "tailwind-merge"
 
 import {
   CartesianGrid,

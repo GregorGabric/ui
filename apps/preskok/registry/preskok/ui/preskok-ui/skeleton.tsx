@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 
 interface SkeletonProps extends React.ComponentProps<"div"> {
   soft?: boolean

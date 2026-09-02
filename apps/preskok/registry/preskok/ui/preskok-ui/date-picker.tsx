@@ -1,6 +1,7 @@
 "use client"
 
 import type { DateDuration } from "@internationalized/date"
+import { twJoin } from "cn"
 import { CalendarDaysIcon } from "lucide-react"
 import type {
   DatePickerProps as DatePickerPrimitiveProps,
@@ -8,7 +9,6 @@ import type {
   PopoverProps,
 } from "react-aria-components/DatePicker"
 import { DatePicker as DatePickerPrimitive } from "react-aria-components/DatePicker"
-import { twJoin } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cx } from "@/registry/preskok/lib/primitive"

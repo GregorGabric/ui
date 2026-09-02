@@ -1,7 +1,7 @@
 "use client"
 
+import { twMerge } from "cn"
 import { Keyboard as KeyboardPrimitive } from "react-aria-components/Keyboard"
-import { twMerge } from "tailwind-merge"
 
 type KeyboardProps = React.ComponentProps<typeof KeyboardPrimitive>
 

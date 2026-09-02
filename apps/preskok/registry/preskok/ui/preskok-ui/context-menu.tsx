@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, use, useRef, useState } from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 
 import {
   MenuContent,

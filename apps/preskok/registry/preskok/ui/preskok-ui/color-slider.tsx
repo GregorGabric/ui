@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin, twMerge } from "cn"
 import {
   ColorSlider as ColorSliderPrimitive,
   SliderOutput,
@@ -7,7 +8,6 @@ import {
   type ColorSliderProps as ColorSliderPrimitiveProps,
 } from "react-aria-components/ColorSlider"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { ColorThumb } from "./color-thumb"
 import { Label } from "./field"

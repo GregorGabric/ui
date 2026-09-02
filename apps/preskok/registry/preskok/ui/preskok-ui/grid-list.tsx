@@ -1,5 +1,6 @@
 "use client"
 
+import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   GridListItemProps,
@@ -14,7 +15,6 @@ import {
   GridListSection as GridListSectionPrimitive,
   Text,
 } from "react-aria-components/GridList"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

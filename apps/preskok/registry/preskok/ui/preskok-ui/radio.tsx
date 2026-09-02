@@ -1,5 +1,6 @@
 "use client"
 
+import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   RadioGroupProps,
@@ -9,7 +10,6 @@ import {
   RadioGroup as RadioGroupPrimitive,
   Radio as RadioPrimitive,
 } from "react-aria-components/RadioGroup"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

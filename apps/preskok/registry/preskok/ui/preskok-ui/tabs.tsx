@@ -1,5 +1,6 @@
 "use client"
 
+import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import { useSlottedContext } from "react-aria-components/slots"
 import type {
@@ -16,7 +17,6 @@ import {
   TabsContext,
   Tabs as TabsPrimitive,
 } from "react-aria-components/Tabs"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

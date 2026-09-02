@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin } from "cn"
 import type {
   DateFieldProps,
   DateInputProps,
@@ -10,7 +11,6 @@ import {
   DateInput as DateInputPrimitive,
   DateSegment,
 } from "react-aria-components/DateField"
-import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

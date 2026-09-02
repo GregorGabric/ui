@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin } from "cn"
 import type {
   DialogProps,
   DialogTriggerProps,
@@ -10,7 +11,6 @@ import {
   ModalOverlay,
   Modal as ModalPrimitive,
 } from "react-aria-components/Modal"
-import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, use } from "react"
+import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   GridListItemProps,
@@ -8,7 +9,6 @@ import type {
   TextProps,
 } from "react-aria-components/GridList"
 import { GridList, GridListItem, Text } from "react-aria-components/GridList"
-import { twMerge } from "tailwind-merge"
 import type { VariantProps } from "tailwind-variants"
 import { tv } from "tailwind-variants"
 

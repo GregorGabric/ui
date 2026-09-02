@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 
 interface HeadingProps extends React.ComponentProps<
   "h1" | "h2" | "h3" | "h4" | "h5" | "h6"

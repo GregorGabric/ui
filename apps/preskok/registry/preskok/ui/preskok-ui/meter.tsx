@@ -1,12 +1,12 @@
 "use client"
 
 import { createContext, use } from "react"
+import { twMerge } from "cn"
 import {
   Meter as PrimitiveMeter,
   type MeterProps as PrimitiveMeterProps,
   type MeterRenderProps as PrimitiveMeterRenderProps,
 } from "react-aria-components/Meter"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

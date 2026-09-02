@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, use, type ReactElement } from "react"
+import { twJoin, twMerge } from "cn"
 import { ChevronDownIcon } from "lucide-react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
@@ -24,7 +25,6 @@ import {
   Table as TablePrimitive,
   useTableOptions,
 } from "react-aria-components/Table"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -15,11 +15,11 @@ import {
   type ChartProps as TanStackChartProps,
   type ChartTooltipBodyRenderContext,
 } from "@tanstack/charts/react/tooltip"
+import { twMerge } from "cn"
 import {
   ToggleButton,
   ToggleButtonGroup,
 } from "react-aria-components/ToggleButtonGroup"
-import { twMerge } from "tailwind-merge"
 
 import {
   getExperimentalChartColors,

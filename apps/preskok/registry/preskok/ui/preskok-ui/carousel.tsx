@@ -7,11 +7,11 @@ import {
   useEffect,
   useSyncExternalStore,
 } from "react"
+import { twMerge } from "cn"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

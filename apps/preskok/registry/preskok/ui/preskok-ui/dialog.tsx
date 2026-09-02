@@ -1,12 +1,12 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { twMerge } from "cn"
 import { XIcon } from "lucide-react"
 import { Button as PrimitiveButton } from "react-aria-components/Button"
 import { Dialog as PrimitiveDialog } from "react-aria-components/Dialog"
 import { Heading, type HeadingProps } from "react-aria-components/Heading"
 import { type TextProps } from "react-aria-components/Text"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

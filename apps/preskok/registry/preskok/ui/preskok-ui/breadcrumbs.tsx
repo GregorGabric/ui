@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, use } from "react"
+import { twMerge } from "cn"
 import { ChevronRightIcon } from "lucide-react"
 import type {
   BreadcrumbProps,
@@ -12,7 +13,6 @@ import {
   Breadcrumb,
   Breadcrumbs as BreadcrumbsPrimitive,
 } from "react-aria-components/Breadcrumbs"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -1,12 +1,12 @@
 "use client"
 
 import { createContext, use } from "react"
+import { twMerge } from "cn"
 import type {
   ProgressBarProps,
   ProgressBarRenderProps,
 } from "react-aria-components/ProgressBar"
 import { ProgressBar as ProgressBarPrimitive } from "react-aria-components/ProgressBar"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -1,5 +1,6 @@
 "use client"
 
+import { twMerge } from "cn"
 import { XCircleIcon } from "lucide-react"
 import type {
   TagGroupProps,
@@ -12,7 +13,6 @@ import {
   TagGroup as PrimitiveTagGroup,
   TagList as PrimitiveTagList,
 } from "react-aria-components/TagGroup"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

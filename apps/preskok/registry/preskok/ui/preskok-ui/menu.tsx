@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin, twMerge } from "cn"
 import { CheckIcon, ChevronRightIcon } from "lucide-react"
 import type { ButtonProps } from "react-aria-components/Button"
 import { Button } from "react-aria-components/Button"
@@ -19,7 +20,6 @@ import {
   MenuTrigger as MenuTriggerPrimitive,
   SubmenuTrigger as SubmenuTriggerPrimitive,
 } from "react-aria-components/Menu"
-import { twJoin, twMerge } from "tailwind-merge"
 import { tv, type VariantProps } from "tailwind-variants"
 
 import { cx } from "@/registry/preskok/lib/primitive"

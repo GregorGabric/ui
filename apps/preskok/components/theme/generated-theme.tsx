@@ -1,5 +1,5 @@
 import type React from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 
 export function GeneratedTheme({
   className,

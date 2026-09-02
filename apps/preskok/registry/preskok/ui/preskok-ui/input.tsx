@@ -1,11 +1,11 @@
 "use client"
 
+import { twMerge } from "cn"
 import { Group, type GroupProps } from "react-aria-components/Group"
 import {
   Input as InputPrimitive,
   type InputProps as PrimitiveInputProps,
 } from "react-aria-components/Input"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 import {

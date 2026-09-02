@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin, twMerge } from "cn"
 import { CheckIcon } from "lucide-react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
@@ -16,7 +17,6 @@ import {
 } from "react-aria-components/ListBox"
 import type { SeparatorProps } from "react-aria-components/Separator"
 import { Separator } from "react-aria-components/Separator"
-import { twJoin, twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
 import { Keyboard } from "./keyboard"

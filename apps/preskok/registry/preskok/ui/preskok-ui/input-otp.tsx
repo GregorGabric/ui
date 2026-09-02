@@ -1,9 +1,9 @@
 "use client"
 
 import React, { use } from "react"
+import { twMerge } from "cn"
 import { OTPInput, OTPInputContext } from "input-otp"
 import { DotIcon } from "lucide-react"
-import { twMerge } from "tailwind-merge"
 
 type InputOTOPProps = React.ComponentProps<typeof OTPInput>
 const InputOTP = ({

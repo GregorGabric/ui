@@ -1,7 +1,7 @@
 "use client"
 
 import { useLayoutEffect, useRef } from "react"
-import { twJoin, twMerge } from "tailwind-merge"
+import { twJoin, twMerge } from "cn"
 
 type ScrollAreaOrientation = "vertical" | "horizontal" | "both"
 

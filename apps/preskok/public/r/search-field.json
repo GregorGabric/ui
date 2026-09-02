@@ -5,7 +5,7 @@
   "dependencies": [
     "lucide-react",
     "react-aria-components",
-    "tailwind-merge"
+    "cn@^0.2.4"
   ],
   "registryDependencies": [
     "https://ui-three-mu.vercel.app/r/field.json",
@@ -15,7 +15,7 @@
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/search-field.tsx",
-      "content": "\"use client\"\n\nimport { SearchIcon, XIcon } from \"lucide-react\"\nimport type {\n  InputProps,\n  SearchFieldProps,\n} from \"react-aria-components/SearchField\"\nimport {\n  Button,\n  SearchField as SearchFieldPrimitive,\n} from \"react-aria-components/SearchField\"\nimport { twJoin } from \"tailwind-merge\"\n\nimport { cx } from \"@/lib/primitive\"\nimport { fieldStyles } from \"@/components/ui/preskok-ui/field\"\n\nimport { InputGroup, InputGroupAddon, InputGroupInput } from \"./input\"\n\nexport function SearchField({ className, ...props }: SearchFieldProps) {\n  return (\n    <SearchFieldPrimitive\n      {...props}\n      aria-label={props[\"aria-label\"] ?? \"Search\"}\n      className={cx(\n        fieldStyles({ className: \"group/search-field\" }),\n        className\n      )}\n    />\n  )\n}\n\nexport function SearchInput(props: InputProps) {\n  return (\n    <InputGroup>\n      <InputGroupAddon>\n        <SearchIcon />\n      </InputGroupAddon>\n      <InputGroupInput {...props} />\n      <InputGroupAddon align=\"inline-end\">\n        <Button\n          className={twJoin(\n            \"touch-target pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center rounded-[calc(var(--radius-lg)-3px)] group-empty/search-field:invisible\",\n            \"size-6 p-0\"\n          )}\n        >\n          <XIcon className=\"size-4\" />\n        </Button>\n      </InputGroupAddon>\n    </InputGroup>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { twJoin } from \"cn\"\nimport { SearchIcon, XIcon } from \"lucide-react\"\nimport type {\n  InputProps,\n  SearchFieldProps,\n} from \"react-aria-components/SearchField\"\nimport {\n  Button,\n  SearchField as SearchFieldPrimitive,\n} from \"react-aria-components/SearchField\"\n\nimport { cx } from \"@/lib/primitive\"\nimport { fieldStyles } from \"@/components/ui/preskok-ui/field\"\n\nimport { InputGroup, InputGroupAddon, InputGroupInput } from \"./input\"\n\nexport function SearchField({ className, ...props }: SearchFieldProps) {\n  return (\n    <SearchFieldPrimitive\n      {...props}\n      aria-label={props[\"aria-label\"] ?? \"Search\"}\n      className={cx(\n        fieldStyles({ className: \"group/search-field\" }),\n        className\n      )}\n    />\n  )\n}\n\nexport function SearchInput(props: InputProps) {\n  return (\n    <InputGroup>\n      <InputGroupAddon>\n        <SearchIcon />\n      </InputGroupAddon>\n      <InputGroupInput {...props} />\n      <InputGroupAddon align=\"inline-end\">\n        <Button\n          className={twJoin(\n            \"touch-target pressed:text-foreground text-muted-foreground hover:text-foreground grid place-content-center rounded-[calc(var(--radius-lg)-3px)] group-empty/search-field:invisible\",\n            \"size-6 p-0\"\n          )}\n        >\n          <XIcon className=\"size-4\" />\n        </Button>\n      </InputGroupAddon>\n    </InputGroup>\n  )\n}\n",
       "type": "registry:ui"
     }
   ],

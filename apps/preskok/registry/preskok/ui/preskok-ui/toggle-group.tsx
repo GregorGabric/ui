@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, use } from "react"
+import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import {
   ToggleButton,
@@ -8,7 +9,6 @@ import {
   type ToggleButtonGroupProps,
   type ToggleButtonProps,
 } from "react-aria-components/ToggleButtonGroup"
-import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
 import { cx } from "@/registry/preskok/lib/primitive"

@@ -3,12 +3,12 @@
   "name": "text",
   "description": "A simple typography component for consistent text styling",
   "dependencies": [
-    "tailwind-merge"
+    "cn@^0.2.4"
   ],
   "files": [
     {
       "path": "registry/preskok/ui/preskok-ui/text.tsx",
-      "content": "\"use client\"\n\nimport { twMerge } from \"tailwind-merge\"\n\nconst Text = ({ className, ...props }: React.ComponentProps<\"p\">) => {\n  return (\n    <p\n      data-slot=\"text\"\n      {...props}\n      className={twMerge(\n        \"text-muted-foreground text-base/6 sm:text-sm/6\",\n        className\n      )}\n    />\n  )\n}\n\nexport { Text }\n",
+      "content": "\"use client\"\n\nimport { twMerge } from \"cn\"\n\nconst Text = ({ className, ...props }: React.ComponentProps<\"p\">) => {\n  return (\n    <p\n      data-slot=\"text\"\n      {...props}\n      className={twMerge(\n        \"text-muted-foreground text-base/6 sm:text-sm/6\",\n        className\n      )}\n    />\n  )\n}\n\nexport { Text }\n",
       "type": "registry:ui"
     }
   ],

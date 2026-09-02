@@ -1,6 +1,7 @@
 "use client"
 
 import React, { use } from "react"
+import { twJoin, twMerge } from "cn"
 import { AnimatePresence, motion } from "motion/react"
 import { OverlayTriggerStateContext } from "react-aria-components/Dialog"
 import type {
@@ -19,7 +20,6 @@ import {
 } from "react-aria-components/Modal"
 import type { TextProps } from "react-aria-components/Text"
 import { Text } from "react-aria-components/Text"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { Button, type ButtonProps } from "./button"
 

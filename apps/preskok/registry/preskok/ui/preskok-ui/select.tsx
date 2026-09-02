@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin } from "cn"
 import { ChevronsUpDownIcon } from "lucide-react"
 import type {
   ListBoxProps,
@@ -12,7 +13,6 @@ import {
   Select as SelectPrimitive,
   SelectValue,
 } from "react-aria-components/Select"
-import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 
