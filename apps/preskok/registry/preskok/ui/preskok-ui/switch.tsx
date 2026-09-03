@@ -1,10 +1,10 @@
 "use client"
 
+import { twJoin, twMerge } from "cn"
 import {
   Switch as SwitchPrimitive,
   type SwitchProps,
 } from "react-aria-components/Switch"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

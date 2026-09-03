@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin, twMerge } from "cn"
 import { CheckIcon } from "lucide-react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
@@ -11,7 +12,6 @@ import {
   ListBoxItem as ListBoxItemPrimitive,
   ListBox as ListBoxPrimitive,
 } from "react-aria-components/ListBox"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

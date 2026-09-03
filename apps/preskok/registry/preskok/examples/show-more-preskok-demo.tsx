@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { twMerge } from "cn"
 import { ChevronDownIcon } from "lucide-react"
-import { twMerge } from "tailwind-merge"
 
 import { ShowMore } from "@/registry/preskok/ui/preskok-ui/show-more"
 

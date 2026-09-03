@@ -1,6 +1,7 @@
 "use client"
 
 import { use } from "react"
+import { twMerge } from "cn"
 import {
   Slider as PrimitiveSlider,
   SliderOutput as PrimitiveSliderOutput,
@@ -9,7 +10,6 @@ import {
   SliderStateContext,
   type SliderProps,
 } from "react-aria-components/Slider"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

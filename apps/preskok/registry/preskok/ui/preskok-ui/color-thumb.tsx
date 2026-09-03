@@ -1,11 +1,11 @@
 "use client"
 
+import { twMerge } from "cn"
 import {
   ColorThumb as ColorThumbPrimitive,
   type ColorThumbProps,
 } from "react-aria-components/ColorThumb"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
-import { twMerge } from "tailwind-merge"
 
 const ColorThumb = ({ className, ...props }: ColorThumbProps) => {
   return (

@@ -6,6 +6,7 @@ import {
   today,
   type CalendarDate,
 } from "@internationalized/date"
+import { twMerge } from "cn"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import type {
   CalendarProps as CalendarPrimitiveProps,
@@ -29,7 +30,6 @@ import {
   type RangeCalendarState,
 } from "react-aria-components/RangeCalendar"
 import { useDateFormatter } from "react-aria/useDateFormatter"
-import { twMerge } from "tailwind-merge"
 
 import { Button } from "./button"
 import {

@@ -1,10 +1,10 @@
 "use client"
 
+import { twMerge } from "cn"
 import {
   Separator as Divider,
   type SeparatorProps,
 } from "react-aria-components/Separator"
-import { twMerge } from "tailwind-merge"
 
 const Separator = ({
   orientation = "horizontal",

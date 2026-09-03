@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   constrained?: boolean

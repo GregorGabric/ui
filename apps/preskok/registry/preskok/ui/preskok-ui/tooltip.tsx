@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin } from "cn"
 import { Button } from "react-aria-components/Button"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type { TooltipProps as TooltipPrimitiveProps } from "react-aria-components/Tooltip"
@@ -8,7 +9,6 @@ import {
   Tooltip as TooltipPrimitive,
   TooltipTrigger as TooltipTriggerPrimitive,
 } from "react-aria-components/Tooltip"
-import { twJoin } from "tailwind-merge"
 import type { VariantProps } from "tailwind-variants"
 import { tv } from "tailwind-variants"
 

@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
+import { twMerge } from "cn"
 import type { Key } from "react-aria-components/Select"
-import { twMerge } from "tailwind-merge"
 
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import {

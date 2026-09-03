@@ -4,6 +4,7 @@
   "description": "A composable, themeable, and customizable React Aria sidebar",
   "dependencies": [
     "class-variance-authority",
+    "cn@^0.2.4",
     "lucide-react",
     "react-aria-components"
   ],

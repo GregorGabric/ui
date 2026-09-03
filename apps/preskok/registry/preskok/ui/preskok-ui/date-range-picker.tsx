@@ -1,6 +1,7 @@
 "use client"
 
 import type { DateDuration } from "@internationalized/date"
+import { twJoin } from "cn"
 import { CalendarRangeIcon } from "lucide-react"
 import {
   DateRangePicker as DateRangePickerPrimitive,
@@ -8,7 +9,6 @@ import {
   type DateValue,
   type PopoverProps,
 } from "react-aria-components/DateRangePicker"
-import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"

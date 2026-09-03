@@ -9,6 +9,7 @@ import {
   useState,
   type ReactElement,
 } from "react"
+import { twJoin, twMerge } from "cn"
 import {
   ToggleButton,
   ToggleButtonGroup,
@@ -38,7 +39,6 @@ import type {
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent"
 import type { ContentType as TooltipContentType } from "recharts/types/component/Tooltip"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -8,11 +8,11 @@ import {
   useMemo,
   useState,
 } from "react"
+import { twJoin, twMerge } from "cn"
 import { MenuIcon } from "lucide-react"
 import { LayoutGroup, motion } from "motion/react"
 import type { LinkProps } from "react-aria-components/Link"
 import { Link } from "react-aria-components/Link"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cx } from "@/registry/preskok/lib/primitive"

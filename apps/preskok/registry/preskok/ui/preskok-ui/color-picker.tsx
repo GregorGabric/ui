@@ -1,6 +1,7 @@
 "use client"
 
 import React, { use } from "react"
+import { twJoin, twMerge } from "cn"
 import { PipetteIcon } from "lucide-react"
 import {
   ColorPicker as ColorPickerPrimitive,
@@ -8,7 +9,6 @@ import {
   type ColorPickerProps as ColorPickerPrimitiveProps,
 } from "react-aria-components/ColorPicker"
 import { parseColor } from "react-stately/Color"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { Button } from "./button"
 import { ColorArea } from "./color-area"

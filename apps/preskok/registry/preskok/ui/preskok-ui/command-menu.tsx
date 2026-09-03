@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, use, useEffect } from "react"
+import { twJoin, twMerge } from "cn"
 import { SearchIcon } from "lucide-react"
 import type { AutocompleteProps } from "react-aria-components/Autocomplete"
 import { Autocomplete, useFilter } from "react-aria-components/Autocomplete"
@@ -26,7 +27,6 @@ import {
 } from "react-aria-components/Modal"
 import type { SearchFieldProps } from "react-aria-components/SearchField"
 import { Input, SearchField } from "react-aria-components/SearchField"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

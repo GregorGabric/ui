@@ -1,7 +1,7 @@
 "use client"
 
+import { twJoin } from "cn"
 import { TextArea, type TextAreaProps } from "react-aria-components/TextArea"
-import { twJoin } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -11,8 +11,8 @@ import {
   useReducer,
   useRef,
 } from "react"
+import { twMerge } from "cn"
 import { ImageOffIcon } from "lucide-react"
-import { twMerge } from "tailwind-merge"
 
 import { Skeleton } from "./skeleton"
 import { Text } from "./text"

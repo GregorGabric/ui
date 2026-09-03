@@ -1,6 +1,6 @@
 "use client"
 
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 import { tv, type VariantProps } from "tailwind-variants"
 
 const buttonGroupStyles = tv({

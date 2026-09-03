@@ -1,11 +1,11 @@
 "use client"
 
+import { twMerge } from "cn"
 import type { FieldErrorProps } from "react-aria-components/FieldError"
 import { FieldError as FieldErrorPrimitive } from "react-aria-components/FieldError"
 import type { LabelProps } from "react-aria-components/Label"
 import { Label as LabelPrimitive } from "react-aria-components/Label"
 import { Text, type TextProps } from "react-aria-components/Text"
-import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
 import { cx } from "@/registry/preskok/lib/primitive"

@@ -1,12 +1,12 @@
 "use client"
 
 import React, { startTransition, type ComponentProps } from "react"
+import { twMerge } from "cn"
 import { Bar, BarChart as BarChartPrimitive } from "recharts"
 import type {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent"
-import { twMerge } from "tailwind-merge"
 
 import {
   CartesianGrid,

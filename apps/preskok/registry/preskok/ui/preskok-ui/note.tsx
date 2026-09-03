@@ -1,8 +1,8 @@
 "use client"
 
 import type { ElementType, HTMLAttributes } from "react"
+import { twMerge } from "cn"
 import { CircleAlertIcon, CircleCheckIcon, InfoIcon } from "lucide-react"
-import { twMerge } from "tailwind-merge"
 
 interface NoteProps extends HTMLAttributes<HTMLDivElement> {
   intent?: "default" | "info" | "warning" | "danger" | "success"

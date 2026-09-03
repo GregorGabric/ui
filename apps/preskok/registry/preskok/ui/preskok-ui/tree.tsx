@@ -1,5 +1,6 @@
 "use client"
 
+import { twJoin, twMerge } from "cn"
 import { ChevronRightIcon } from "lucide-react"
 import type {
   TreeItemContentProps,
@@ -13,7 +14,6 @@ import {
   TreeItem as TreeItemPrimitive,
   Tree as TreePrimitive,
 } from "react-aria-components/Tree"
-import { twJoin, twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "cn"
 
 const DescriptionList = ({
   className,

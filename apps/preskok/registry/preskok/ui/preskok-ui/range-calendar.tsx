@@ -2,6 +2,7 @@
 
 import { useState, type UIEvent } from "react"
 import { getLocalTimeZone, today } from "@internationalized/date"
+import { twMerge } from "cn"
 import type {
   DateValue,
   RangeCalendarProps,
@@ -12,7 +13,6 @@ import {
   CalendarGridBody,
   RangeCalendar as RangeCalendarPrimitive,
 } from "react-aria-components/RangeCalendar"
-import { twMerge } from "tailwind-merge"
 
 import { cx } from "@/registry/preskok/lib/primitive"
 

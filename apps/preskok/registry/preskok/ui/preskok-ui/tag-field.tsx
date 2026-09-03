@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import { twMerge } from "cn"
 import type { Key, Selection } from "react-aria-components/TagGroup"
 import type { TextFieldProps } from "react-aria-components/TextField"
-import { twMerge } from "tailwind-merge"
 
 import { FieldError } from "@/registry/preskok/ui/preskok-ui/field"
 import {
