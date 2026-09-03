@@ -1,6 +1,6 @@
 ---
 title: Sidebar
-description: A comprehensive sidebar component with collapsible sections.
+description: A composable, themeable, and customizable React Aria sidebar.
 ---
 
 import { CodeTabs } from "@/components/code-tabs"
@@ -9,7 +9,7 @@ import { ComponentSource } from "@/components/component-source"
 
 <ComponentPreview
   name="sidebar-preskok-demo"
-  description="Sidebar with collapsible sections, tooltip and sheet."
+  description="A responsive sidebar that collapses off-canvas or to icons."
 />
 
 ## Installation
@@ -50,17 +50,47 @@ Copy and paste the following code into your project.
 
 </CodeTabs>
 
+## Complete example
+
+Install the responsive example above when you want a ready-to-run sidebar layout instead of starting from the primitives.
+
+```bash
+npx shadcn@latest add @preskok/sidebar-preskok-demo
+```
+
 ## Usage
 
 ```tsx
-import { Sidebar } from "@/components/ui/preskok-ui/sidebar"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/preskok-ui/sidebar"
 
 export function SidebarDemo() {
-  return <Sidebar />
+  return (
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Application</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton href="#">Dashboard</SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+    </SidebarProvider>
+  )
 }
 ```
-
-## Icon handling
-
-- Recommended: add `data-slot="icon"` to sidebar icons for explicit styling.
-- Lucide icons (`.lucide`) are also styled automatically as a fallback.

@@ -1110,15 +1110,20 @@ export const preskokUi: Registry["items"] = [
   {
     name: "sidebar",
     type: "registry:ui",
-    description: "A comprehensive sidebar component with collapsible sections",
-    dependencies: ["lucide-react", "react-aria-components", "tailwind-merge"],
+    description: "A composable, themeable, and customizable React Aria sidebar",
+    dependencies: [
+      "class-variance-authority",
+      "lucide-react",
+      "react-aria-components",
+    ],
     registryDependencies: [
       "button",
-      "link",
+      "input",
+      "separator",
       "sheet",
+      "skeleton",
       "tooltip",
-      "use-media-query",
-      "primitive",
+      "use-mobile",
     ],
     files: [
       {

@@ -4,14 +4,14 @@ import {
   SidebarProvider,
 } from "@/registry/preskok/ui/preskok-ui/sidebar"
 
-import AppSidebar from "./sidebar/app-sidebar"
-import AppSidebarNav from "./sidebar/app-sidebar-nav"
+import AppSidebar from "./app-sidebar"
+import AppSidebarNav from "./app-sidebar-nav"
 
 export default function SidebarPreskokDemo() {
   return (
-    <SidebarProvider className="overflow-auto">
-      <AppSidebar collapsible="dock" />
-      <SidebarInset className="bg-muted/30">
+    <SidebarProvider className="relative h-[28rem] min-h-0 overflow-hidden rounded-lg border bg-background">
+      <AppSidebar collapsible="icon" className="absolute h-full" />
+      <SidebarInset>
         <AppSidebarNav />
         <section className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">

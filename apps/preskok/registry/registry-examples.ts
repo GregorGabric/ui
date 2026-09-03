@@ -38,13 +38,12 @@ export const examples: Registry["items"] = [
     name: "sidebar-preskok-demo",
     type: "registry:example",
     registryDependencies: [
+      "avatar",
+      "breadcrumbs",
+      "heading",
+      "menu",
+      "preskok-icon",
       "sidebar",
-      "button",
-      "disclosure",
-      "link",
-      "separator",
-      "sheet",
-      "tooltip",
     ],
     files: [
       {
@@ -52,11 +51,11 @@ export const examples: Registry["items"] = [
         type: "registry:example",
       },
       {
-        path: "examples/sidebar/app-sidebar.tsx",
+        path: "examples/app-sidebar.tsx",
         type: "registry:component",
       },
       {
-        path: "examples/sidebar/app-sidebar-nav.tsx",
+        path: "examples/app-sidebar-nav.tsx",
         type: "registry:component",
       },
     ],

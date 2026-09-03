@@ -2,12 +2,12 @@ import { useAtom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
 
 type Config = {
-  style: "preskok"
+  style: "aria-nova"
   packageManager: "npm" | "yarn" | "pnpm" | "bun"
 }
 
 const configAtom = atomWithStorage<Config>("config", {
-  style: "preskok",
+  style: "aria-nova",
   packageManager: "pnpm",
 })
 
