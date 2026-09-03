@@ -4,16 +4,23 @@ import {
   createContext,
   startTransition,
   use,
+  useRef,
   useState,
   type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
 } from "react"
-import type { ChartValue, DomChartDefinition } from "@tanstack/charts"
+import type {
+  ChartPoint,
+  ChartRenderer,
+  ChartValue,
+  DomChartDefinition,
+} from "@tanstack/charts"
+import { motion } from "@tanstack/charts/motion"
 import {
-  Chart as ChartPrimitive,
-  type ChartProps as TanStackChartProps,
+  RendererChart,
   type ChartTooltipBodyRenderContext,
+  type RendererChartProps as TanStackChartProps,
 } from "@tanstack/charts/react/tooltip"
 import { twMerge } from "cn"
 import {
@@ -62,6 +69,19 @@ function useExperimentalChartFrame() {
   return context
 }
 
+const experimentalChartMotion = motion({
+  initial: "always",
+  transition: { type: "spring", stiffness: 170, damping: 18, mass: 1 },
+})
+
+function getExperimentalChartMotion<
+  TDatum,
+  TXValue extends ChartValue,
+  TYValue extends ChartValue,
+>() {
+  return experimentalChartMotion as ChartRenderer<TDatum, TXValue, TYValue>
+}
+
 type ExperimentalChartProps<
   TDatum,
   TXValue extends ChartValue = ChartValue,
@@ -75,7 +95,30 @@ type ExperimentalChartProps<
   | "renderTooltipBody"
   | "style"
 > & {
+  defaultTooltipCategory?: ChartValue
   size?: ExperimentalChartSizeProps
+}
+
+function findExperimentalTooltipPoint<
+  TDatum,
+  TXValue extends ChartValue,
+  TYValue extends ChartValue,
+>(
+  points: readonly ChartPoint<TDatum, TXValue, TYValue>[],
+  category: ChartValue
+) {
+  return points.find((point) => {
+    if (point.xValue === category) {
+      return true
+    }
+
+    const datum = point.datum
+    if (!datum || typeof datum !== "object") {
+      return false
+    }
+
+    return Reflect.get(datum, "category") === category
+  })
 }
 
 function ExperimentalChart<
@@ -85,44 +128,60 @@ function ExperimentalChart<
 >({
   ariaLabel,
   className,
+  defaultTooltipCategory,
   definition,
   onSelect,
   renderTooltipBody,
   size,
   style,
 }: ExperimentalChartProps<TDatum, TXValue, TYValue>) {
-  const [ready, setReady] = useState(false)
+  const seededTooltipCategory = useRef<ChartValue | undefined>(undefined)
   let height = size?.height
   if (height === undefined && size?.aspectRatio === undefined) {
     height = 288
   }
 
   return (
-    <ChartPrimitive
+    <RendererChart
       ariaLabel={ariaLabel}
       aspectRatio={size?.aspectRatio}
       className={twMerge(
         "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
-        ready ? "opacity-100" : "opacity-0",
         className
       )}
       definition={definition}
       height={height}
       initialWidth={size?.initialWidth ?? 720}
-      onRender={(context) => {
-        if (ready) {
+      onRender={({ interaction, scene }) => {
+        if (defaultTooltipCategory === undefined) {
+          seededTooltipCategory.current = undefined
           return
         }
 
-        const measuredWidth = context.container.getBoundingClientRect().width
-        const widthMatches = Math.abs(context.scene.width - measuredWidth) < 1
-        if (measuredWidth > 0 && widthMatches) {
-          setReady(true)
+        if (seededTooltipCategory.current === defaultTooltipCategory) {
+          return
         }
+
+        const point = findExperimentalTooltipPoint(
+          scene.points,
+          defaultTooltipCategory
+        )
+        if (!point) {
+          return
+        }
+
+        seededTooltipCategory.current = defaultTooltipCategory
+        interaction.setControlledFocus(point, {
+          source: "programmatic",
+        })
       }}
       onSelect={onSelect}
+      renderer={getExperimentalChartMotion<TDatum, TXValue, TYValue>()}
       renderTooltipBody={renderTooltipBody}
-      style={style}
+      style={{
+        ...experimentalChartTooltipStyle,
+        ...style,
+      }}
     />
   )
 }
@@ -289,7 +348,7 @@ function ExperimentalChartTooltipContent<
   return (
     <div
       className={twMerge(
-        "grid min-w-36 items-start text-xs text-current",
+        "grid min-w-36 items-start rounded-lg bg-overlay/70 p-3 py-2 text-xs text-overlay-foreground ring ring-current/10 backdrop-blur-lg",
         className
       )}
     >
@@ -302,29 +361,42 @@ function ExperimentalChartTooltipContent<
             return null
           }
 
+          const Icon = config[series]?.icon
           let indicatorStyle = { backgroundColor: point.color }
           if (indicator === "dashed") {
             indicatorStyle = { backgroundColor: "transparent" }
           }
 
+          let indicatorContent: ReactNode = null
+          if (Icon) {
+            indicatorContent = (
+              <Icon
+                className="size-3 shrink-0 text-muted-foreground"
+                data-slot="icon"
+              />
+            )
+          } else if (!hideIndicator) {
+            indicatorContent = (
+              <span
+                aria-hidden
+                className={twMerge(
+                  "shrink-0 border-current",
+                  indicator === "dot" && "size-2.5 rounded-full",
+                  indicator === "line" && "h-4 w-1 rounded-full",
+                  indicator === "dashed" &&
+                    "h-4 w-0 border-l-2 border-dashed bg-transparent"
+                )}
+                style={{
+                  ...indicatorStyle,
+                  borderColor: point.color,
+                }}
+              />
+            )
+          }
+
           return (
             <div className="flex items-center gap-2.5" key={point.key}>
-              {!hideIndicator ? (
-                <span
-                  aria-hidden
-                  className={twMerge(
-                    "shrink-0 border-current",
-                    indicator === "dot" && "size-2.5 rounded-full",
-                    indicator === "line" && "h-4 w-1 rounded-full",
-                    indicator === "dashed" &&
-                      "h-4 w-0 border-l-2 border-dashed bg-transparent"
-                  )}
-                  style={{
-                    ...indicatorStyle,
-                    borderColor: point.color,
-                  }}
-                />
-              ) : null}
+              {indicatorContent}
               <span className="flex-1 text-muted-foreground">
                 {getExperimentalLabel(config, series)}
               </span>

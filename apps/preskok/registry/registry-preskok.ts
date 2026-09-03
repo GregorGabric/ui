@@ -1274,7 +1274,7 @@ export const preskokUi: Registry["items"] = [
     type: "registry:ui",
     description: "Experimental TanStack chart foundations and utilities",
     dependencies: [
-      "@tanstack/charts@0.12.0",
+      "@tanstack/charts@0.16.0",
       "d3-shape@3.2.0",
       "react-aria-components",
       "cn@^0.2.4",

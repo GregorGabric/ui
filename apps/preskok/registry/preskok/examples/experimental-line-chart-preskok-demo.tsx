@@ -1,44 +1,59 @@
 "use client"
 
+import { TrendingUp } from "lucide-react"
+
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { ExperimentalLineChart } from "@/registry/preskok/ui/preskok-ui/experimental-line-chart"
 
-const data = [
-  { month: "M1", sales: 44, leads: 24 },
-  { month: "M2", sales: 51, leads: 28 },
-  { month: "M3", sales: 48, leads: 26 },
-  { month: "M4", sales: 63, leads: 34 },
-  { month: "M5", sales: 58, leads: 31 },
-  { month: "M6", sales: 72, leads: 39 },
-  { month: "M7", sales: 69, leads: 36 },
-  { month: "M8", sales: 76, leads: 42 },
-  { month: "M9", sales: 71, leads: 38 },
-  { month: "M10", sales: 84, leads: 45 },
-  { month: "M11", sales: 79, leads: 43 },
-  { month: "M12", sales: 91, leads: 49 },
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
 ]
 
 export default function ExperimentalLineChartPreskokDemo() {
   return (
-    <Card className="w-3xl max-w-full">
+    <Card className="w-full max-w-xl">
       <CardHeader>
-        <CardTitle>Dealership performance</CardTitle>
-        <CardDescription>Sales vs Leads per month</CardDescription>
+        <CardTitle>Line Chart</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ExperimentalLineChart
-          data={data}
+          ariaLabel="Line Chart"
+          data={chartData}
           dataKey="month"
-          lineType="monotone"
-          config={{ sales: { label: "Sales" }, leads: { label: "Leads" } }}
+          size={{ height: 250 }}
+          xAxis={{
+            tickFormatter: (value) => String(value).slice(0, 3),
+          }}
+          lineType="natural"
+          yAxis={false}
+          legend={false}
+          config={{
+            desktop: { label: "Desktop", color: "var(--chart-1)" },
+          }}
         />
       </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 leading-none font-medium">
+          Trending up by 5.2% this month
+          <TrendingUp aria-hidden className="size-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Showing total visitors for the last 6 months
+        </div>
+      </CardFooter>
     </Card>
   )
 }

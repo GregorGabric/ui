@@ -1,0 +1,71 @@
+---
+title: Experimental Bar Chart
+description: Bar chart variants built on TanStack Charts, ported from the shadcn catalog.
+status: new
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+Stacked bars only round the outer end. Corners stay square where series meet.
+
+<ComponentPreview
+  name="experimental-bar-chart-preskok-demo"
+  description="A single-series bar chart."
+/>
+
+## Installation
+
+```bash
+npx shadcn@latest add @preskok/experimental-bar-chart
+```
+
+## Usage
+
+```tsx
+import { ExperimentalBarChart } from "@/components/ui/preskok-ui/experimental-bar-chart"
+
+;<ExperimentalBarChart
+  config={{
+    desktop: { label: "Desktop", color: "var(--chart-1)" },
+    mobile: { label: "Mobile", color: "var(--chart-2)" },
+  }}
+  data={data}
+  dataKey="month"
+/>
+```
+
+## Multiple
+
+<ComponentPreview name="experimental-bar-chart-multiple-preskok-demo" />
+
+## Horizontal
+
+<ComponentPreview name="experimental-bar-chart-horizontal-preskok-demo" />
+
+## Stacked + Legend
+
+<ComponentPreview name="experimental-bar-chart-stacked-preskok-demo" />
+
+## Interactive
+
+<ComponentPreview name="experimental-bar-chart-interactive-preskok-demo" />
+
+## Mixed
+
+<ComponentPreview name="experimental-bar-chart-mixed-preskok-demo" />
+
+## Negative
+
+<ComponentPreview name="experimental-bar-chart-negative-preskok-demo" />
+
+## Active
+
+<ComponentPreview name="experimental-bar-chart-active-preskok-demo" />
+
+## Label
+
+<ComponentPreview name="experimental-bar-chart-label-preskok-demo" />
+
+## Custom Label
+
+<ComponentPreview name="experimental-bar-chart-label-custom-preskok-demo" />

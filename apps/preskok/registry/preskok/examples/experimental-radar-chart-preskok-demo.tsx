@@ -12,44 +12,44 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { ExperimentalRadarChart } from "@/registry/preskok/ui/preskok-ui/experimental-radar-chart"
 
-const readinessData = [
-  { metric: "Reliability", current: 88, previous: 75 },
-  { metric: "Security", current: 82, previous: 78 },
-  { metric: "Performance", current: 74, previous: 68 },
-  { metric: "Accessibility", current: 91, previous: 80 },
-  { metric: "Coverage", current: 69, previous: 64 },
-  { metric: "Observability", current: 84, previous: 72 },
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 273 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
 ]
 
 export default function ExperimentalRadarChartPreskokDemo() {
   return (
-    <Card className="w-xl max-w-full">
+    <Card className="w-full max-w-md">
       <CardHeader className="items-center pb-0 text-center">
-        <CardTitle>Release readiness</CardTitle>
-        <CardDescription>Current release compared with v2.8</CardDescription>
+        <CardTitle>Radar Chart</CardTitle>
+        <CardDescription>
+          Showing total visitors for the last 6 months
+        </CardDescription>
       </CardHeader>
-      <CardContent className="pb-0">
+      <CardContent>
         <ExperimentalRadarChart
-          size={{ height: 330 }}
-          className="mx-auto max-w-lg"
-          data={readinessData}
-          dataKey="metric"
-          tooltipProps={{ hideLabel: false }}
-          valueAxis={{ domain: [0, 100] }}
-          valueFormatter={(value) => `${value}%`}
+          ariaLabel="Radar Chart"
+          className="mx-auto"
+          data={chartData}
+          dataKey="month"
+          size={{ height: 250 }}
+          legend={false}
           config={{
-            current: { label: "Current", color: "var(--chart-1)" },
-            previous: { label: "Previous", color: "var(--chart-2)" },
+            desktop: { label: "Desktop", color: "var(--chart-1)" },
           }}
         />
       </CardContent>
       <CardFooter className="flex-col items-center gap-2 text-sm">
         <div className="flex items-center gap-2 leading-none font-medium">
-          Readiness improved across all six dimensions
+          Trending up by 5.2% this month
           <TrendingUp aria-hidden className="size-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Values are normalized to a shared 0–100 scale
+          January - June 2024
         </div>
       </CardFooter>
     </Card>

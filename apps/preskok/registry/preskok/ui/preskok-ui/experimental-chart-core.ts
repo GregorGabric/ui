@@ -45,7 +45,7 @@ type ExperimentalChartConfig = Record<
   string,
   {
     color?: ExperimentalChartColor
-    icon?: ComponentType<{ "data-slot"?: string }>
+    icon?: ComponentType<{ className?: string; "data-slot"?: string }>
     label?: ReactNode
   }
 >
@@ -65,9 +65,11 @@ type ExperimentalChartNumericAxisProps = ExperimentalChartAxisProps<number> & {
 
 type ExperimentalChartTooltipProps = Pick<
   ChartTooltipOptions,
-  "anchor" | "offset" | "placement"
+  "anchor" | "offset" | "placement" | "sticky"
 > & {
   className?: string
+  /** Zero-based data index to show before the user interacts with the chart. */
+  defaultIndex?: number
   hideIndicator?: boolean
   hideLabel?: boolean
   indicator?: "line" | "dot" | "dashed"
@@ -260,7 +262,7 @@ function getExperimentalSeriesChartOptions(
         domain: seriesNames,
         range: seriesNames.map((series) => chartColors[series] ?? ""),
       },
-      svgAnimation: true,
+      svgAnimation: false,
       theme: getExperimentalChartTheme(
         seriesNames.map((series) => chartColors[series] ?? "")
       ),
@@ -421,7 +423,7 @@ function getExperimentalChartCurve(
       return d3Curve(curveStepAfter)
     case "stepBefore":
       return d3Curve(curveStepBefore)
-    default:
+    case "linear":
       return d3Curve(curveLinear)
   }
 }
@@ -529,9 +531,23 @@ function getExperimentalTooltipOptions(
       anchor: tooltipProps?.anchor,
       offset: tooltipProps?.offset,
       placement: tooltipProps?.placement,
+      sticky: tooltipProps?.sticky ?? false,
       use: tooltipExtension,
     },
   } as const
+}
+
+function getExperimentalDefaultTooltipCategory(
+  data: ExperimentalChartDatum[],
+  dataKey: string,
+  defaultIndex?: number
+) {
+  if (defaultIndex === undefined) {
+    return undefined
+  }
+
+  const category = data.at(defaultIndex)?.[dataKey]
+  return isChartValue(category) ? category : undefined
 }
 
 function getExperimentalEdgeValues(
@@ -577,6 +593,7 @@ export {
   getExperimentalChartCurve,
   getExperimentalChartTheme,
   getExperimentalEdgeValues,
+  getExperimentalDefaultTooltipCategory,
   getExperimentalLabel,
   getExperimentalNumericAxis,
   getExperimentalNumericScale,

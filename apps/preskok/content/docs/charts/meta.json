@@ -7,8 +7,13 @@
     "line-chart",
     "pie-chart",
     "experimental-charts",
-    "experimental-radial-chart",
+    "experimental-area-chart",
+    "experimental-bar-chart",
+    "experimental-line-chart",
+    "experimental-pie-chart",
     "experimental-radar-chart",
+    "experimental-radial-chart",
+    "experimental-chart-tooltip",
     "bar-list",
     "tracker"
   ]

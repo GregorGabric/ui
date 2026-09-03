@@ -7,8 +7,12 @@ status: new
 import { ComponentPreview } from "@/components/component-preview"
 
 The existing chart components remain stable and continue to use Recharts. These
-separately named components use the pre-release TanStack Charts package so you
-can evaluate the new implementation without migrating production code.
+separately named components use TanStack Charts so you can evaluate the new
+implementation without migrating production code.
+
+The examples follow the [shadcn catalog](https://tanstack.com/charts/catalog/collections/shadcn)
+and use Preskok design tokens (`var(--chart-1)` through `var(--chart-5)`,
+`Card`, and semantic foreground/muted colors).
 
 <ComponentPreview
   name="experimental-charts-toggle-preskok-demo"
@@ -23,45 +27,15 @@ Install only the experimental chart variant you want to evaluate:
 npx shadcn@latest add @preskok/experimental-area-chart
 ```
 
-## Area chart
+Browse the catalog by type:
 
-<ComponentPreview name="experimental-area-chart-preskok-demo" />
-
-```tsx
-import { ExperimentalAreaChart } from "@/components/ui/preskok-ui/experimental-area-chart"
-
-;<ExperimentalAreaChart
-  config={config}
-  data={data}
-  dataKey="month"
-  fillType="gradient"
-  lineType="monotone"
-/>
-```
-
-## Bar chart
-
-<ComponentPreview name="experimental-bar-chart-preskok-demo" />
-
-```bash
-npx shadcn@latest add @preskok/experimental-bar-chart
-```
-
-## Line chart
-
-<ComponentPreview name="experimental-line-chart-preskok-demo" />
-
-```bash
-npx shadcn@latest add @preskok/experimental-line-chart
-```
-
-## Pie chart
-
-<ComponentPreview name="experimental-pie-chart-preskok-demo" />
-
-```bash
-npx shadcn@latest add @preskok/experimental-pie-chart
-```
+- [Area](/docs/charts/experimental-area-chart)
+- [Bar](/docs/charts/experimental-bar-chart)
+- [Line](/docs/charts/experimental-line-chart)
+- [Pie](/docs/charts/experimental-pie-chart)
+- [Radar](/docs/charts/experimental-radar-chart)
+- [Radial](/docs/charts/experimental-radial-chart)
+- [Tooltip](/docs/charts/experimental-chart-tooltip)
 
 ## Stability
 

@@ -29,6 +29,8 @@ type PieSourceDatum = ExperimentalNamedSeriesDatum
 type PieSliceDatum = ReturnType<typeof pie<PieSourceDatum>>[number]
 
 type ExperimentalPieChartProps = ExperimentalBaseChartProps & {
+  activeSeries?: string
+  activeShape?: "expanded" | "expanded-ring"
   centerLabel?: string
   centerValue?: string
   nameKey?: string
@@ -38,6 +40,11 @@ type ExperimentalPieChartProps = ExperimentalBaseChartProps & {
   > & {
     paddingAngle?: number
   }
+  rings?: readonly {
+    dataKey: string
+    innerRadius?: number
+    outerRadius: number
+  }[]
   variant?: "pie" | "donut"
 }
 
@@ -50,6 +57,8 @@ function calculateTotal(rows: PieSourceDatum[]) {
 
 function ExperimentalPieChartPlot({
   ariaLabel = "Pie chart",
+  activeSeries,
+  activeShape,
   centerLabel,
   centerValue,
   colors,
@@ -58,6 +67,7 @@ function ExperimentalPieChartPlot({
   dataKey,
   nameKey = "name",
   pieProps,
+  rings,
   size,
   tooltip,
   tooltipProps,
@@ -79,53 +89,132 @@ function ExperimentalPieChartPlot({
   })
   const { paddingAngle = 0, ...arcProps } = pieProps ?? {}
   const slices = pie(rows, {
-    endAngle: Math.PI * 2,
+    endAngle: (-Math.PI * 3) / 2,
     gapAngle: (paddingAngle * Math.PI) / 180,
-    startAngle: 0,
+    startAngle: Math.PI / 2,
     value: "value",
   })
-  const selectedRow = rows.find((row) => row.series === selectedSeries)
+  const focusedSeries = activeSeries ?? selectedSeries
+  const selectedRow = rows.find((row) => row.series === focusedSeries)
   const displayedValue = selectedRow
     ? valueFormatter(selectedRow.value)
     : (centerValue ?? valueFormatter(calculateTotal(rows)))
   const displayedLabel = selectedRow
     ? getExperimentalTextLabel(config, selectedRow.series)
     : centerLabel
-  const marks = [
-    radialArc(slices, {
-      color: "series",
-      fill: (row) => row.color,
-      innerRadius:
-        variant === "donut" ? ({ radius }) => radius * 0.58 : undefined,
-      key: "series",
-      ...arcProps,
-    }),
-  ]
+  const showCenterLabel = centerLabel !== undefined && variant === "donut"
+  const arcMark = radialArc(slices, {
+    color: "series",
+    fill: (row) => row.color,
+    innerRadius:
+      variant === "donut" ? ({ radius }) => radius * 0.58 : undefined,
+    key: "series",
+    ...arcProps,
+  })
+  let arcMarks = [arcMark]
 
-  if (centerLabel !== undefined && variant === "donut") {
-    marks.push(
-      radialText(slices.slice(0, 1), {
-        angle: 0,
-        dy: -5,
-        fill: "var(--foreground)",
-        fontSize: 20,
-        fontWeight: 600,
+  if (rings && rings.length > 0) {
+    arcMarks = rings.map((ring, ringIndex) => {
+      const ringRows = toExperimentalNamedSeriesData({
+        colors,
+        config,
+        data,
+        nameKey,
+        selectedOpacity: 26,
+        selectedSeries,
+        valueKey: ring.dataKey,
+      })
+      const ringSlices = pie(ringRows, {
+        endAngle: (-Math.PI * 3) / 2,
+        gapAngle: (paddingAngle * Math.PI) / 180,
+        startAngle: Math.PI / 2,
+        value: "value",
+      })
+
+      return radialArc(ringSlices, {
+        color: "series",
+        fill: (row) => row.color,
+        id: `preskok-pie-ring-${ringIndex}`,
+        innerRadius: ring.innerRadius,
         key: "series",
-        radius: 0,
-        text: () => displayedValue,
-      }),
-      radialText(slices.slice(0, 1), {
-        angle: 0,
-        dy: 14,
-        fill: "var(--muted-foreground)",
-        fontSize: 10,
-        fontWeight: 500,
+        outerRadius: ring.outerRadius,
+        ...arcProps,
+      })
+    })
+  } else if (activeShape && focusedSeries) {
+    const activeSlices = slices.filter(
+      (slice) => slice.series === focusedSeries
+    )
+    arcMarks.push(
+      radialArc(activeSlices, {
+        color: "series",
+        fill: (row) => row.color,
+        id: "preskok-pie-active",
+        innerRadius:
+          variant === "donut" ? ({ radius }) => radius * 0.58 : undefined,
         key: "series",
-        radius: 0,
-        text: () => displayedLabel ?? "",
+        outerRadius: ({ radius }) => radius + 10,
+        stroke: "var(--background)",
+        strokeWidth: 5,
       })
     )
+
+    if (activeShape === "expanded-ring") {
+      arcMarks.push(
+        radialArc(activeSlices, {
+          color: "series",
+          fill: (row) => row.color,
+          id: "preskok-pie-active-ring",
+          innerRadius: ({ radius }) => radius + 12,
+          key: "series",
+          outerRadius: ({ radius }) => radius + 25,
+          stroke: "var(--background)",
+          strokeWidth: 3,
+        })
+      )
+    }
   }
+  const polarChart = showCenterLabel
+    ? polar({
+        inset: 10,
+        marks: [
+          ...arcMarks,
+          radialText(slices.slice(0, 1), {
+            angle: 0,
+            dy: -5,
+            fill: "var(--foreground)",
+            fontSize: 20,
+            fontWeight: 600,
+            key: "series",
+            radius: 0,
+            text: () => displayedValue,
+          }),
+          radialText(slices.slice(0, 1), {
+            angle: 0,
+            dy: 14,
+            fill: "var(--muted-foreground)",
+            fontSize: 10,
+            fontWeight: 500,
+            key: "series",
+            radius: 0,
+            text: () => displayedLabel ?? "",
+          }),
+        ],
+        radiusRatio: 0.84,
+        scales: {
+          angle: { scale: scaleLinear().domain([0, Math.PI * 2]) },
+          radius: { scale: scaleLinear().domain([0, 1]) },
+        },
+      })
+    : polar({
+        inset: 10,
+        marks: arcMarks,
+        radiusRatio: 0.84,
+        scales: {
+          angle: null,
+          radius: null,
+        },
+      })
 
   const baseDefinition = defineChart({
     color: {
@@ -133,16 +222,12 @@ function ExperimentalPieChartPlot({
       range: rows.map((row) => row.color),
     },
     focusRing: false,
-    marks: [
-      polar({
-        angle: { scale: scaleLinear().domain([0, Math.PI * 2]) },
-        inset: 10,
-        marks,
-        radius: { scale: scaleLinear().domain([0, 1]) },
-        radiusRatio: 0.84,
-      }),
-    ],
-    svgAnimation: true,
+    marks: [polarChart],
+    scales: {
+      x: null,
+      y: null,
+    },
+    svgAnimation: false,
     theme: getExperimentalChartTheme(rows.map((row) => row.color)),
   })
   const { definition, renderTooltipBody } = getExperimentalChartTooltip({
@@ -170,6 +255,8 @@ function ExperimentalPieChartPlot({
 
 function ExperimentalPieChart({
   ariaLabel,
+  activeSeries,
+  activeShape,
   centerLabel,
   centerValue,
   className,
@@ -180,6 +267,7 @@ function ExperimentalPieChart({
   legend,
   nameKey,
   pieProps,
+  rings,
   size,
   tooltip,
   tooltipProps,
@@ -197,6 +285,8 @@ function ExperimentalPieChart({
     >
       <ExperimentalPieChartPlot
         ariaLabel={ariaLabel}
+        activeSeries={activeSeries}
+        activeShape={activeShape}
         centerLabel={centerLabel}
         centerValue={centerValue}
         colors={colors}
@@ -205,6 +295,7 @@ function ExperimentalPieChart({
         dataKey={dataKey}
         nameKey={nameKey}
         pieProps={pieProps}
+        rings={rings}
         size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}

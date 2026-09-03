@@ -1,0 +1,69 @@
+---
+title: Experimental Line Chart
+description: Line chart variants built on TanStack Charts, ported from the shadcn catalog.
+status: new
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+<ComponentPreview
+  name="experimental-line-chart-preskok-demo"
+  description="A single-series line chart."
+/>
+
+## Installation
+
+```bash
+npx shadcn@latest add @preskok/experimental-line-chart
+```
+
+## Usage
+
+```tsx
+import { ExperimentalLineChart } from "@/components/ui/preskok-ui/experimental-line-chart"
+
+;<ExperimentalLineChart
+  config={{
+    desktop: { label: "Desktop", color: "var(--chart-1)" },
+  }}
+  data={data}
+  dataKey="month"
+  lineType="natural"
+/>
+```
+
+## Multiple
+
+<ComponentPreview name="experimental-line-chart-multiple-preskok-demo" />
+
+## Dots
+
+<ComponentPreview name="experimental-line-chart-dots-preskok-demo" />
+
+## Dots Colors
+
+<ComponentPreview name="experimental-line-chart-dots-colors-preskok-demo" />
+
+## Custom Dots
+
+<ComponentPreview name="experimental-line-chart-dots-custom-preskok-demo" />
+
+## Interactive
+
+<ComponentPreview name="experimental-line-chart-interactive-preskok-demo" />
+
+## Linear
+
+<ComponentPreview name="experimental-line-chart-linear-preskok-demo" />
+
+## Step
+
+<ComponentPreview name="experimental-line-chart-step-preskok-demo" />
+
+## Label
+
+<ComponentPreview name="experimental-line-chart-label-preskok-demo" />
+
+## Custom Label
+
+<ComponentPreview name="experimental-line-chart-label-custom-preskok-demo" />

@@ -1,56 +1,62 @@
 "use client"
 
+import { TrendingUp } from "lucide-react"
+
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { ExperimentalAreaChart } from "@/registry/preskok/ui/preskok-ui/experimental-area-chart"
 
-type SalesPoint = {
-  day: string
-  suv: number
-  sedan: number
-  truck: number
-}
-
-const salesData: Array<SalesPoint> = [
-  { day: "Day 1", suv: 42, sedan: 31, truck: 18 },
-  { day: "Day 2", suv: 55, sedan: 39, truck: 24 },
-  { day: "Day 3", suv: 48, sedan: 34, truck: 21 },
-  { day: "Day 4", suv: 68, sedan: 46, truck: 32 },
-  { day: "Day 5", suv: 61, sedan: 41, truck: 28 },
-  { day: "Day 6", suv: 74, sedan: 52, truck: 36 },
-  { day: "Day 7", suv: 70, sedan: 49, truck: 33 },
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
 ]
 
 export default function ExperimentalAreaChartPreskokDemo() {
   return (
-    <Card className="w-3xl max-w-full">
+    <Card className="w-full max-w-xl">
       <CardHeader>
-        <CardTitle>Qualified pipeline last 7d</CardTitle>
+        <CardTitle>Area Chart</CardTitle>
         <CardDescription>
-          Daily opportunity value grouped by segment.
+          Showing total visitors for the last 6 months
         </CardDescription>
       </CardHeader>
       <CardContent>
         <ExperimentalAreaChart
-          data={salesData}
-          dataKey="day"
+          ariaLabel="Area Chart"
+          data={chartData}
+          dataKey="month"
+          size={{ height: 250 }}
+          xAxis={{
+            tickFormatter: (value) => String(value).slice(0, 3),
+          }}
           fillType="gradient"
-          lineType="monotone"
-          type="stacked"
-          valueFormatter={(value) => `$${value}k`}
-          tooltipProps={{ indicator: "line" }}
+          lineType="natural"
+          yAxis={false}
+          legend={false}
           config={{
-            suv: { label: "Enterprise", color: "var(--chart-1)" },
-            sedan: { label: "Mid-market", color: "var(--chart-2)" },
-            truck: { label: "Startup", color: "var(--chart-3)" },
+            desktop: { label: "Desktop", color: "var(--chart-1)" },
           }}
         />
       </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 leading-none font-medium">
+          Trending up by 5.2% this month
+          <TrendingUp aria-hidden className="size-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          January - June 2024
+        </div>
+      </CardFooter>
     </Card>
   )
 }

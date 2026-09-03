@@ -1,0 +1,73 @@
+---
+title: Experimental Pie Chart
+description: Pie and donut variants built on TanStack Charts, ported from the shadcn catalog.
+status: new
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+<ComponentPreview
+  name="experimental-pie-chart-preskok-demo"
+  description="A simple pie chart."
+/>
+
+## Installation
+
+```bash
+npx shadcn@latest add @preskok/experimental-pie-chart
+```
+
+## Usage
+
+```tsx
+import { ExperimentalPieChart } from "@/components/ui/preskok-ui/experimental-pie-chart"
+
+;<ExperimentalPieChart
+  config={{
+    chrome: { label: "Chrome", color: "var(--chart-1)" },
+  }}
+  data={data}
+  dataKey="visitors"
+  nameKey="browser"
+/>
+```
+
+## Donut
+
+<ComponentPreview name="experimental-pie-chart-donut-preskok-demo" />
+
+## Donut with Text
+
+<ComponentPreview name="experimental-pie-chart-donut-text-preskok-demo" />
+
+## Donut Active
+
+<ComponentPreview name="experimental-pie-chart-donut-active-preskok-demo" />
+
+## Interactive
+
+<ComponentPreview name="experimental-pie-chart-interactive-preskok-demo" />
+
+## Legend
+
+<ComponentPreview name="experimental-pie-chart-legend-preskok-demo" />
+
+## Separator None
+
+<ComponentPreview name="experimental-pie-chart-separator-none-preskok-demo" />
+
+## Label
+
+<ComponentPreview name="experimental-pie-chart-label-preskok-demo" />
+
+## Custom Label
+
+<ComponentPreview name="experimental-pie-chart-label-custom-preskok-demo" />
+
+## Label List
+
+<ComponentPreview name="experimental-pie-chart-label-list-preskok-demo" />
+
+## Stacked
+
+<ComponentPreview name="experimental-pie-chart-stacked-preskok-demo" />

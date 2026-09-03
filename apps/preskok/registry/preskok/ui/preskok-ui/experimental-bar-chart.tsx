@@ -13,8 +13,10 @@ import {
   type BarYOptions,
 } from "@tanstack/charts/bar"
 import { group } from "@tanstack/charts/group"
+import { decorative } from "@tanstack/charts/mark/decorative"
 import { scaleBand } from "@tanstack/charts/scales/band"
 import { stack } from "@tanstack/charts/stack"
+import { text } from "@tanstack/charts/text"
 
 import {
   ExperimentalChart,
@@ -22,6 +24,7 @@ import {
   experimentalDefaultValueFormatter,
   getExperimentalCategoryAxis,
   getExperimentalChartTooltip,
+  getExperimentalDefaultTooltipCategory,
   getExperimentalNumericAxis,
   getExperimentalNumericScale,
   getExperimentalSelectedSeriesColor,
@@ -39,7 +42,15 @@ import {
 
 type BarOptions = Pick<
   BarXOptions<ExperimentalSeriesDatum> & BarYOptions<ExperimentalSeriesDatum>,
-  "fillOpacity" | "inset" | "maxThickness" | "radius"
+  | "fill"
+  | "fillOpacity"
+  | "inset"
+  | "maxThickness"
+  | "radius"
+  | "stroke"
+  | "strokeDasharray"
+  | "strokeOpacity"
+  | "strokeWidth"
 >
 
 type ExperimentalBarChartProps = ExperimentalBaseChartProps & {
@@ -51,6 +62,7 @@ type ExperimentalBarChartProps = ExperimentalBaseChartProps & {
   categoryAxis?: ExperimentalChartAxisProps | false
   grid?: "hidden" | "visible"
   layout?: "horizontal" | "vertical"
+  label?: "category" | "value" | "both"
   type?: ExperimentalChartType
   valueAxis?: ExperimentalChartNumericAxisProps | false
 }
@@ -90,6 +102,7 @@ function ExperimentalBarChartPlot({
   dataKey,
   grid = "visible",
   layout = "horizontal",
+  label,
   size,
   tooltip,
   tooltipProps,
@@ -167,6 +180,84 @@ function ExperimentalBarChartPlot({
     ...tooltipProps,
   }
 
+  const labeledRows = rows.filter((row) => row.value !== null)
+
+  function createVerticalLabelMarks() {
+    const marks = []
+    if (label === "category" || label === "both") {
+      marks.push(
+        decorative(
+          text(labeledRows, {
+            dy: (row) => (Number(row.value) < 0 ? 14 : -10),
+            fill: (row) => chartColors[row.series] ?? "var(--foreground)",
+            fontSize: 12,
+            id: "preskok-bar-category-labels",
+            key: (row) => `${row.series}-${row.index}`,
+            text: (row) => String(row.category),
+            x: "category",
+            y: "value",
+          })
+        )
+      )
+    }
+    if (label === "value" || label === "both") {
+      marks.push(
+        decorative(
+          text(labeledRows, {
+            dy: (row) => (Number(row.value) < 0 ? 14 : -12),
+            fill: "var(--foreground)",
+            fontSize: 12,
+            id: "preskok-bar-value-labels",
+            key: (row) => `${row.series}-${row.index}`,
+            text: (row) => valueFormatter(Number(row.value)),
+            x: "category",
+            y: "value",
+          })
+        )
+      )
+    }
+    return marks
+  }
+
+  function createHorizontalLabelMarks() {
+    const marks = []
+    if (label === "category" || label === "both") {
+      marks.push(
+        decorative(
+          text(labeledRows, {
+            anchor: "start",
+            dx: 8,
+            fill: "var(--background)",
+            fontSize: 12,
+            id: "preskok-bar-category-labels",
+            key: (row) => `${row.series}-${row.index}`,
+            text: (row) => String(row.category),
+            x: () => 0,
+            y: "category",
+          })
+        )
+      )
+    }
+    if (label === "value" || label === "both") {
+      marks.push(
+        decorative(
+          text(labeledRows, {
+            anchor: "start",
+            dx: 8,
+            fill: "var(--foreground)",
+            fontSize: 12,
+            id: "preskok-bar-value-labels",
+            key: (row) => `${row.series}-${row.index}`,
+            text: (row) => valueFormatter(Number(row.value)),
+            x: "value",
+            y: "category",
+          })
+        )
+      )
+    }
+    return marks
+  }
+
   function createVerticalDefinition() {
     const baseDefinition = defineChart({
       ...options,
@@ -177,16 +268,19 @@ function ExperimentalBarChartPlot({
           x: "category",
           y: "value",
         }),
+        ...createVerticalLabelMarks(),
       ],
-      x: {
-        axis: categoryAxisDefinition,
-        scale: () => scaleBand().padding(0.12),
-      },
-      y: {
-        axis: valueAxisDefinition,
-        grid: grid === "visible",
-        nice: true,
-        scale: getExperimentalNumericScale(valueAxis),
+      scales: {
+        x: {
+          axis: categoryAxisDefinition,
+          scale: () => scaleBand().padding(0.12),
+        },
+        y: {
+          axis: valueAxisDefinition,
+          grid: grid === "visible",
+          nice: true,
+          scale: getExperimentalNumericScale(valueAxis),
+        },
       },
     })
 
@@ -203,16 +297,19 @@ function ExperimentalBarChartPlot({
           x: "value",
           y: "category",
         }),
+        ...createHorizontalLabelMarks(),
       ],
-      x: {
-        axis: valueAxisDefinition,
-        grid: grid === "visible",
-        nice: true,
-        scale: getExperimentalNumericScale(valueAxis),
-      },
-      y: {
-        axis: categoryAxisDefinition,
-        scale: () => scaleBand().padding(0.12),
+      scales: {
+        x: {
+          axis: valueAxisDefinition,
+          grid: grid === "visible",
+          nice: true,
+          scale: getExperimentalNumericScale(valueAxis),
+        },
+        y: {
+          axis: categoryAxisDefinition,
+          scale: () => scaleBand().padding(0.12),
+        },
       },
     })
 
@@ -243,6 +340,11 @@ function ExperimentalBarChartPlot({
     <ExperimentalChart
       ariaLabel={ariaLabel}
       className={`w-full ${roundedBarClass} [&_g:has(>rect[data-ts-key^=bar-]:hover)>rect[data-ts-key^=bar-]:not(:hover)]:opacity-60 [&_rect[data-ts-key^=bar-]]:cursor-pointer [&_rect[data-ts-key^=bar-]]:transition-[filter,opacity] [&_rect[data-ts-key^=bar-]]:duration-150 [&_rect[data-ts-key^=bar-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_rect[data-ts-key^=bar-]]:transition-none [&_rect[data-ts-key^=bar-]:hover]:brightness-110`}
+      defaultTooltipCategory={getExperimentalDefaultTooltipCategory(
+        data,
+        dataKey,
+        tooltipProps?.defaultIndex
+      )}
       definition={definition}
       onSelect={(point) => {
         selectSeries(point?.datum.series ?? null)
@@ -273,6 +375,7 @@ function ExperimentalBarChart({
   dataKey,
   grid,
   layout,
+  label,
   legend,
   tooltip,
   tooltipProps,
@@ -313,6 +416,7 @@ function ExperimentalBarChart({
         dataKey={dataKey}
         grid={grid}
         layout={layout}
+        label={label}
         size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
