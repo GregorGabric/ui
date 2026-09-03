@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-radial-chart-text-preskok-demo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-radial-chart-text-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { TrendingUp } from \"lucide-react\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalRadialChart } from \"@/components/ui/preskok-ui/experimental-radial-chart\"\n\nconst chartData = [{ browser: \"safari\", visitors: 200 }]\n\nexport default function ExperimentalRadialChartTextPreskokDemo() {\n  return (\n    <Card className=\"w-full max-w-md\">\n      <CardHeader className=\"items-center pb-0 text-center\">\n        <CardTitle>Radial Chart - Text</CardTitle>\n        <CardDescription>January - June 2024</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <ExperimentalRadialChart\n          ariaLabel=\"Radial Chart - Text\"\n          className=\"mx-auto\"\n          data={chartData}\n          dataKey=\"visitors\"\n          endAngle={(-Math.PI * 8) / 9}\n          maxValue={200}\n          nameKey=\"browser\"\n          size={{ height: 250 }}\n          startAngle={Math.PI / 2}\n          centerLabel=\"Visitors\"\n          centerValue=\"200\"\n          tooltipProps={{ hideLabel: true }}\n          legend={false}\n          config={{\n            safari: { label: \"Safari\", color: \"var(--chart-2)\" },\n          }}\n        />\n      </CardContent>\n      <CardFooter className=\"flex-col items-center gap-2 text-sm\">\n        <div className=\"flex items-center gap-2 leading-none font-medium\">\n          Trending up by 5.2% this month\n          <TrendingUp aria-hidden className=\"size-4\" />\n        </div>\n        <div className=\"leading-none text-muted-foreground\">\n          Showing total visitors for the last 6 months\n        </div>\n      </CardFooter>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

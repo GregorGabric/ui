@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-radar-chart-lines-only-preskok-demo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-radar-chart-lines-only-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { TrendingUp } from \"lucide-react\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalRadarChart } from \"@/components/ui/preskok-ui/experimental-radar-chart\"\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 273, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n]\n\nexport default function ExperimentalRadarChartLinesOnlyPreskokDemo() {\n  return (\n    <Card className=\"w-full max-w-md\">\n      <CardHeader className=\"items-center pb-0 text-center\">\n        <CardTitle>Radar Chart - Lines Only</CardTitle>\n        <CardDescription>\n          Showing total visitors for the last 6 months\n        </CardDescription>\n      </CardHeader>\n      <CardContent>\n        <ExperimentalRadarChart\n          ariaLabel=\"Radar Chart - Lines Only\"\n          className=\"mx-auto\"\n          data={chartData}\n          dataKey=\"month\"\n          size={{ height: 250 }}\n          dots={false}\n          radarAreaProps={{ fillOpacity: 0 }}\n          legend={false}\n          config={{\n            desktop: { label: \"Desktop\", color: \"var(--chart-1)\" },\n            mobile: { label: \"Mobile\", color: \"var(--chart-2)\" },\n          }}\n        />\n      </CardContent>\n      <CardFooter className=\"flex-col items-center gap-2 text-sm\">\n        <div className=\"flex items-center gap-2 leading-none font-medium\">\n          Trending up by 5.2% this month\n          <TrendingUp aria-hidden className=\"size-4\" />\n        </div>\n        <div className=\"leading-none text-muted-foreground\">\n          January - June 2024\n        </div>\n      </CardFooter>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

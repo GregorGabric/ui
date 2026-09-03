@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-line-chart-label-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-line-chart-label-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { TrendingUp } from \"lucide-react\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalLineChart } from \"@/components/ui/preskok-ui/experimental-line-chart\"\n\nconst chartData = [\n  { month: \"January\", desktop: 186 },\n  { month: \"February\", desktop: 305 },\n  { month: \"March\", desktop: 237 },\n  { month: \"April\", desktop: 73 },\n  { month: \"May\", desktop: 209 },\n  { month: \"June\", desktop: 214 },\n]\n\nexport default function ExperimentalLineChartLabelPreskokDemo() {\n  return (\n    <Card className=\"w-full max-w-xl\">\n      <CardHeader>\n        <CardTitle>Line Chart - Label</CardTitle>\n        <CardDescription>January - June 2024</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <ExperimentalLineChart\n          ariaLabel=\"Line Chart - Label\"\n          data={chartData}\n          dataKey=\"month\"\n          size={{ height: 250 }}\n          xAxis={{\n            tickFormatter: (value) => String(value).slice(0, 3),\n          }}\n          lineType=\"natural\"\n          label=\"value\"\n          yAxis={false}\n          legend={false}\n          config={{\n            desktop: { label: \"Desktop\", color: \"var(--chart-1)\" },\n          }}\n        />\n      </CardContent>\n      <CardFooter className=\"flex-col items-start gap-2 text-sm\">\n        <div className=\"flex gap-2 leading-none font-medium\">\n          Trending up by 5.2% this month\n          <TrendingUp aria-hidden className=\"size-4\" />\n        </div>\n        <div className=\"leading-none text-muted-foreground\">\n          Showing total visitors for the last 6 months\n        </div>\n      </CardFooter>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

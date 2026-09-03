@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "experimental-chart-tooltip-icons-preskok-demo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+    "https://ui-three-mu.vercel.app/r/card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/experimental-chart-tooltip-icons-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { Droplets, Footprints, TrendingUp } from \"lucide-react\"\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/preskok-ui/card\"\nimport { ExperimentalBarChart } from \"@/components/ui/preskok-ui/experimental-bar-chart\"\n\nconst chartData = [\n  { date: \"2024-07-15\", running: 450, swimming: 300 },\n  { date: \"2024-07-16\", running: 380, swimming: 420 },\n  { date: \"2024-07-17\", running: 520, swimming: 120 },\n  { date: \"2024-07-18\", running: 140, swimming: 550 },\n  { date: \"2024-07-19\", running: 600, swimming: 350 },\n  { date: \"2024-07-20\", running: 480, swimming: 400 },\n]\n\nexport default function ExperimentalChartTooltipIconsPreskokDemo() {\n  return (\n    <Card className=\"w-full max-w-xl\">\n      <CardHeader>\n        <CardTitle>Tooltip - Icons</CardTitle>\n        <CardDescription>Tooltip with icons.</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <ExperimentalBarChart\n          ariaLabel=\"Tooltip - Icons\"\n          data={chartData}\n          dataKey=\"date\"\n          type=\"stacked\"\n          size={{ height: 250 }}\n          categoryAxis={{\n            tickFormatter: (value) =>\n              new Date(String(value)).toLocaleDateString(\"en-US\", {\n                weekday: \"short\",\n              }),\n          }}\n          valueAxis={false}\n          legend={false}\n          tooltipProps={{ defaultIndex: 1, hideLabel: false }}\n          config={{\n            running: {\n              label: \"Running\",\n              color: \"var(--chart-1)\",\n              icon: Footprints,\n            },\n            swimming: {\n              label: \"Swimming\",\n              color: \"var(--chart-2)\",\n              icon: Droplets,\n            },\n          }}\n        />\n      </CardContent>\n      <CardFooter className=\"flex-col items-start gap-2 text-sm\">\n        <div className=\"flex gap-2 leading-none font-medium\">\n          Trending up by 5.2% this month\n          <TrendingUp aria-hidden className=\"size-4\" />\n        </div>\n        <div className=\"leading-none text-muted-foreground\">\n          Tooltip appearance for stacked activity totals.\n        </div>\n      </CardFooter>\n    </Card>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}
