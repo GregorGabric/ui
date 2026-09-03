@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start --port 4001",
     "preview": "pnpm build && pnpm start",
+    "theme:check": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/check-theme-bridge.mts",
     "typecheck": "tsc --noEmit",
     "registry:build": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/build-registry.mts && oxfmt \"registry/**/*.{ts,tsx,json,mdx}\"",
     "postinstall": "fumadocs-mdx"
