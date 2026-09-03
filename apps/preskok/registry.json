@@ -1836,7 +1836,7 @@
       "name": "experimental-chart",
       "description": "Experimental TanStack chart foundations and utilities",
       "dependencies": [
-        "@tanstack/charts@0.12.0",
+        "@tanstack/charts@0.16.0",
         "d3-shape@3.2.0",
         "react-aria-components",
         "cn@^0.2.4"
@@ -3296,13 +3296,88 @@
       "type": "registry:example"
     },
     {
-      "name": "experimental-chart-preskok-demo",
+      "name": "experimental-area-chart-axes-preskok-demo",
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json"
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
       ],
       "files": [
         {
-          "path": "registry/preskok/examples/experimental-chart-preskok-demo.tsx",
+          "path": "registry/preskok/examples/experimental-area-chart-axes-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-gradient-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-gradient-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-icons-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-icons-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-interactive-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json",
+        "https://ui-three-mu.vercel.app/r/select.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-interactive-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-legend-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-legend-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-linear-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-linear-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -3323,6 +3398,161 @@
       "type": "registry:example"
     },
     {
+      "name": "experimental-area-chart-stacked-expanded-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-stacked-expanded-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-stacked-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-stacked-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-area-chart-step-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-area-chart-step-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-active-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-active-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-horizontal-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-horizontal-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-interactive-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json",
+        "https://ui-three-mu.vercel.app/r/toggle-group.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-interactive-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-label-custom-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-label-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-label-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-label-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-mixed-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-mixed-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-multiple-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-multiple-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-negative-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-negative-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "experimental-bar-chart-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
@@ -3331,6 +3561,292 @@
       "files": [
         {
           "path": "registry/preskok/examples/experimental-bar-chart-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-bar-chart-stacked-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-bar-chart-stacked-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-advanced-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json",
+        "https://ui-three-mu.vercel.app/r/experimental-chart.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-advanced-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-formatter-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-formatter-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-icons-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-icons-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-indicator-line-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-indicator-line-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-indicator-none-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-indicator-none-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-label-custom-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-label-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-label-formatter-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-label-formatter-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-label-none-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-label-none-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-chart-tooltip-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-bar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-chart-tooltip-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-charts-toggle-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/area-chart.json",
+        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json",
+        "https://ui-three-mu.vercel.app/r/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-charts-toggle-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-dots-colors-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-dots-colors-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-dots-custom-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-dots-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-dots-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-dots-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-interactive-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json",
+        "https://ui-three-mu.vercel.app/r/select.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-interactive-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-label-custom-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-label-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-label-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-label-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-linear-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-linear-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-line-chart-multiple-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-multiple-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -3351,6 +3867,133 @@
       "type": "registry:example"
     },
     {
+      "name": "experimental-line-chart-step-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-line-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-line-chart-step-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-donut-active-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-donut-active-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-donut-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-donut-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-donut-text-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-donut-text-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-interactive-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json",
+        "https://ui-three-mu.vercel.app/r/select.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-interactive-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-label-custom-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-label-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-label-list-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-label-list-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-label-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-label-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-legend-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-legend-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "experimental-pie-chart-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
@@ -3365,17 +4008,232 @@
       "type": "registry:example"
     },
     {
-      "name": "experimental-radial-chart-preskok-demo",
-      "dependencies": [
-        "lucide-react"
-      ],
+      "name": "experimental-pie-chart-separator-none-preskok-demo",
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
         "https://ui-three-mu.vercel.app/r/card.json"
       ],
       "files": [
         {
-          "path": "registry/preskok/examples/experimental-radial-chart-preskok-demo.tsx",
+          "path": "registry/preskok/examples/experimental-pie-chart-separator-none-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-pie-chart-stacked-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-pie-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-pie-chart-stacked-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-dots-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-dots-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-grid-circle-filled-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-grid-circle-filled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-grid-circle-no-lines-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-grid-circle-no-lines-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-grid-circle-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-grid-circle-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-grid-custom-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-grid-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-grid-filled-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-grid-filled-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-grid-none-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-grid-none-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-icons-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-icons-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-label-custom-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-label-custom-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-legend-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-legend-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-lines-only-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-lines-only-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radar-chart-multiple-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radar-chart-multiple-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],
@@ -3399,16 +4257,119 @@
       "type": "registry:example"
     },
     {
-      "name": "experimental-charts-toggle-preskok-demo",
+      "name": "experimental-radar-chart-radius-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/area-chart.json",
-        "https://ui-three-mu.vercel.app/r/experimental-area-chart.json",
-        "https://ui-three-mu.vercel.app/r/card.json",
-        "https://ui-three-mu.vercel.app/r/tabs.json"
+        "https://ui-three-mu.vercel.app/r/experimental-radar-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
       ],
       "files": [
         {
-          "path": "registry/preskok/examples/experimental-charts-toggle-preskok-demo.tsx",
+          "path": "registry/preskok/examples/experimental-radar-chart-radius-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radial-chart-grid-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radial-chart-grid-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radial-chart-label-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radial-chart-label-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radial-chart-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radial-chart-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radial-chart-shape-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radial-chart-shape-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radial-chart-stacked-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radial-chart-stacked-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "experimental-radial-chart-text-preskok-demo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/experimental-radial-chart.json",
+        "https://ui-three-mu.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/experimental-radial-chart-text-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],

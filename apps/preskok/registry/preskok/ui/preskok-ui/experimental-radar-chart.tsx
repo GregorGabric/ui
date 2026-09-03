@@ -239,17 +239,21 @@ function ExperimentalRadarChartPlot({
     guides: false,
     marks: [
       polar({
-        angle: { scale: scaleBand },
         guides,
         marks,
-        radius: {
-          scale: radiusScale,
-        },
         radiusRatio,
+        scales: {
+          angle: { scale: scaleBand },
+          radius: {
+            scale: radiusScale,
+          },
+        },
       }),
     ],
-    x: null,
-    y: null,
+    scales: {
+      x: null,
+      y: null,
+    },
   })
   const { definition, renderTooltipBody } = getExperimentalChartTooltip({
     config,

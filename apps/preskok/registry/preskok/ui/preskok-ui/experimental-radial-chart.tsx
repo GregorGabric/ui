@@ -25,6 +25,7 @@ type ExperimentalRadialChartProps = ExperimentalBaseChartProps & {
   centerLabel?: string
   centerValue?: string
   endAngle?: number
+  layout?: "rings" | "stacked"
   maxValue?: number
   nameKey?: string
   radiusRatio?: number
@@ -59,6 +60,7 @@ function ExperimentalRadialChartPlot({
   data,
   dataKey,
   endAngle = Math.PI * 2,
+  layout = "rings",
   maxValue,
   nameKey = "name",
   radiusRatio = 0.84,
@@ -82,13 +84,14 @@ function ExperimentalRadialChartPlot({
     selectedSeries,
     valueKey: dataKey,
   })
+  const totalValue = rows.reduce((sum, row) => sum + row.value, 0)
   const resolvedMaximum = getExperimentalPositiveMaximum(
-    rows.map((row) => row.value),
+    layout === "stacked" ? [totalValue] : rows.map((row) => row.value),
     maxValue
   )
 
   const marks = []
-  if (track === "visible") {
+  if (track === "visible" && layout === "rings") {
     marks.push(
       radialBarAngle(rows, {
         angle: () => resolvedMaximum,
@@ -100,18 +103,43 @@ function ExperimentalRadialChartPlot({
       })
     )
   }
-  marks.push(
-    radialBarAngle(rows, {
-      angle: (row) => clampValue(row.value, resolvedMaximum),
-      color: "series",
-      cornerRadius: "full",
-      fill: (row) => row.color,
-      id: "preskok-radial-value",
-      key: "series",
-      radius: "category",
-      z: "series",
+  if (layout === "stacked") {
+    let offset = 0
+    const stackedRows = rows.map((row) => {
+      const start = offset
+      offset += row.value
+      return { ...row, end: offset, ring: "visitors", start }
     })
-  )
+    marks.push(
+      radialBarAngle(stackedRows, {
+        angle: "end",
+        angle1: "start",
+        angle2: "end",
+        color: "series",
+        cornerRadius: 5,
+        fill: (row) => row.color,
+        id: "preskok-radial-value",
+        key: "series",
+        radius: "ring",
+        stroke: "transparent",
+        strokeWidth: 2,
+        z: "series",
+      })
+    )
+  } else {
+    marks.push(
+      radialBarAngle(rows, {
+        angle: (row) => clampValue(row.value, resolvedMaximum),
+        color: "series",
+        cornerRadius: "full",
+        fill: (row) => row.color,
+        id: "preskok-radial-value",
+        key: "series",
+        radius: "category",
+        z: "series",
+      })
+    )
+  }
 
   const baseDefinition = defineChart({
     color: {
@@ -122,23 +150,30 @@ function ExperimentalRadialChartPlot({
     guides: false,
     marks: [
       polar({
-        angle: {
-          scale: scaleLinear().domain([0, resolvedMaximum]),
-        },
         endAngle,
         marks,
-        radius: {
-          range: [({ radius }) => radius * 0.34, ({ radius }) => radius],
-          scale: () => scaleBand().padding(0.18),
-        },
         radiusRatio,
+        scales: {
+          angle: {
+            scale: scaleLinear().domain([0, resolvedMaximum]),
+          },
+          radius: {
+            range:
+              layout === "stacked"
+                ? [({ radius }) => radius * 0.64, ({ radius }) => radius * 0.88]
+                : [({ radius }) => radius * 0.34, ({ radius }) => radius],
+            scale: () => scaleBand().padding(0.18),
+          },
+        },
         startAngle,
       }),
     ],
-    svgAnimation: true,
+    scales: {
+      x: null,
+      y: null,
+    },
+    svgAnimation: false,
     theme: getExperimentalChartTheme(rows.map((row) => row.color)),
-    x: null,
-    y: null,
   })
   const { definition, renderTooltipBody } = getExperimentalChartTooltip({
     config,
@@ -150,7 +185,8 @@ function ExperimentalRadialChartPlot({
   const selectedRow = rows.find((row) => row.series === selectedSeries)
   const displayedValue = selectedRow
     ? valueFormatter(selectedRow.value)
-    : (centerValue ?? valueFormatter(getAverageValue(rows)))
+    : (centerValue ??
+      valueFormatter(layout === "stacked" ? totalValue : getAverageValue(rows)))
   const displayedLabel = selectedRow
     ? getExperimentalTextLabel(config, selectedRow.series)
     : centerLabel
@@ -193,6 +229,7 @@ function ExperimentalRadialChart({
   dataKey,
   endAngle,
   legend,
+  layout,
   maxValue,
   nameKey,
   radiusRatio,
@@ -226,6 +263,7 @@ function ExperimentalRadialChart({
         data={data}
         dataKey={dataKey}
         endAngle={endAngle}
+        layout={layout}
         maxValue={maxValue}
         nameKey={nameKey}
         radiusRatio={radiusRatio}

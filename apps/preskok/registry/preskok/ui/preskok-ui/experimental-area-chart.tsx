@@ -178,18 +178,20 @@ function ExperimentalAreaChartPlot({
       }),
       mark,
     ],
-    x: {
-      axis: getExperimentalCategoryAxis({ data, dataKey, props: xAxis }),
-      scale: () => scalePoint().padding(0.25),
-    },
-    y: {
-      axis: getExperimentalNumericAxis({
-        props: yAxis,
-        valueFormatter: tooltipValueFormatter,
-      }),
-      grid: grid === "visible",
-      nice: true,
-      scale: getExperimentalNumericScale(yAxis),
+    scales: {
+      x: {
+        axis: getExperimentalCategoryAxis({ data, dataKey, props: xAxis }),
+        scale: () => scalePoint().padding(0.25),
+      },
+      y: {
+        axis: getExperimentalNumericAxis({
+          props: yAxis,
+          valueFormatter: tooltipValueFormatter,
+        }),
+        grid: grid === "visible",
+        nice: true,
+        scale: getExperimentalNumericScale(yAxis),
+      },
     },
   })
   const { definition, renderTooltipBody } = getExperimentalChartTooltip({

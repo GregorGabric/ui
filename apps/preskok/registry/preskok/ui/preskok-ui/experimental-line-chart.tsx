@@ -2,12 +2,16 @@
 
 import { defineChart } from "@tanstack/charts"
 import { crosshair } from "@tanstack/charts/crosshair"
+import { dot } from "@tanstack/charts/dot"
 import { lineY, type LineYOptions } from "@tanstack/charts/line"
+import { decorative } from "@tanstack/charts/mark/decorative"
 import { scalePoint } from "@tanstack/charts/scales/point"
+import { text } from "@tanstack/charts/text"
 
 import {
   ExperimentalChart,
   ExperimentalChartFrame,
+  EXPERIMENTAL_CHART_COLORS,
   experimentalDefaultValueFormatter,
   getExperimentalCategoryAxis,
   getExperimentalChartTooltip,
@@ -31,6 +35,8 @@ type ExperimentalLineChartProps = ExperimentalCartesianChartProps & {
     "points" | "strokeDasharray" | "strokeWidth"
   >
   lineType?: ExperimentalChartCurveType
+  label?: "category" | "value"
+  pointStyle?: "colors" | "custom"
   type?: "default" | "percent"
 }
 
@@ -71,6 +77,8 @@ function ExperimentalLineChartPlot({
   grid = "visible",
   lineProps,
   lineType = "linear",
+  label,
+  pointStyle,
   size,
   tooltip,
   tooltipProps,
@@ -93,7 +101,7 @@ function ExperimentalLineChartPlot({
     getExperimentalSeriesChartOptions(config, colors)
   const tooltipValueFormatter =
     type === "percent" ? experimentalValueToPercent : valueFormatter
-  const marks = seriesNames.map((series) =>
+  const lineMarks = seriesNames.map((series) =>
     lineY(
       rows.filter((row) => row.series === series),
       {
@@ -101,16 +109,86 @@ function ExperimentalLineChartPlot({
         curve: getExperimentalChartCurve(lineType),
         id: `line-${series}`,
         key: (row) => `${row.series}-${row.index}`,
-        points: false,
         stroke: chartColors[series],
         strokeOpacity: selectedSeries && selectedSeries !== series ? 0.12 : 1,
         strokeWidth: 2.25,
         x: "category",
         y: "value",
         ...lineProps,
+        points: pointStyle ? false : (lineProps?.points ?? false),
       }
     )
   )
+  const palette = colors ?? EXPERIMENTAL_CHART_COLORS
+  const visibleRows = rows.filter((row) => row.value !== null)
+  const detailMarks = []
+
+  if (pointStyle === "colors") {
+    detailMarks.push(
+      ...visibleRows.map((row) =>
+        decorative(
+          dot([row], {
+            fill: palette[row.index % palette.length] ?? palette[0],
+            id: `preskok-line-point-${row.index}`,
+            key: (datum) => `${datum.series}-${datum.index}`,
+            r: 5,
+            x: "category",
+            y: "value",
+          })
+        )
+      )
+    )
+  } else if (pointStyle === "custom") {
+    detailMarks.push(
+      decorative(
+        text(visibleRows, {
+          fill: (row) => chartColors[row.series] ?? "var(--chart-1)",
+          fontSize: 24,
+          id: "preskok-line-point-stems",
+          key: (row) => `${row.series}-${row.index}`,
+          text: () => "│",
+          x: "category",
+          y: "value",
+        })
+      ),
+      ...visibleRows.map((row) =>
+        decorative(
+          dot([row], {
+            fill: "var(--background)",
+            id: `preskok-line-point-${row.index}`,
+            key: (datum) => `${datum.series}-${datum.index}`,
+            r: 5,
+            stroke: chartColors[row.series] ?? "var(--chart-1)",
+            strokeWidth: 2,
+            x: "category",
+            y: "value",
+          })
+        )
+      )
+    )
+  }
+
+  if (label) {
+    detailMarks.push(
+      decorative(
+        text(visibleRows, {
+          dy: -12,
+          fill: "var(--foreground)",
+          fontSize: 12,
+          id: "preskok-line-labels",
+          key: (row) => `${row.series}-${row.index}`,
+          text: (row) =>
+            label === "category"
+              ? String(row.category).replace(/^./, (letter) =>
+                  letter.toUpperCase()
+                )
+              : valueFormatter(Number(row.value)),
+          x: "category",
+          y: "value",
+        })
+      )
+    )
+  }
   const baseDefinition = defineChart({
     ...options,
     focus: "group-x",
@@ -130,20 +208,23 @@ function ExperimentalLineChartPlot({
         },
         y: false,
       }),
-      ...marks,
+      ...lineMarks,
+      ...detailMarks,
     ],
-    x: {
-      axis: getExperimentalCategoryAxis({ data, dataKey, props: xAxis }),
-      scale: () => scalePoint().padding(0.25),
-    },
-    y: {
-      axis: getExperimentalNumericAxis({
-        props: yAxis,
-        valueFormatter: tooltipValueFormatter,
-      }),
-      grid: grid === "visible",
-      nice: true,
-      scale: getExperimentalNumericScale(yAxis),
+    scales: {
+      x: {
+        axis: getExperimentalCategoryAxis({ data, dataKey, props: xAxis }),
+        scale: () => scalePoint().padding(0.25),
+      },
+      y: {
+        axis: getExperimentalNumericAxis({
+          props: yAxis,
+          valueFormatter: tooltipValueFormatter,
+        }),
+        grid: grid === "visible",
+        nice: true,
+        scale: getExperimentalNumericScale(yAxis),
+      },
     },
   })
   const { definition, renderTooltipBody } = getExperimentalChartTooltip({
@@ -177,6 +258,8 @@ function ExperimentalLineChart({
   legend,
   lineProps,
   lineType,
+  label,
+  pointStyle,
   size,
   tooltip,
   tooltipProps,
@@ -204,6 +287,8 @@ function ExperimentalLineChart({
         grid={grid}
         lineProps={lineProps}
         lineType={lineType}
+        label={label}
+        pointStyle={pointStyle}
         size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}

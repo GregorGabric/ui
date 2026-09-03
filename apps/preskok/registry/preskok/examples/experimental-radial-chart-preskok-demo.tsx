@@ -12,43 +12,46 @@ import {
 } from "@/registry/preskok/ui/preskok-ui/card"
 import { ExperimentalRadialChart } from "@/registry/preskok/ui/preskok-ui/experimental-radial-chart"
 
-const attainmentData = [
-  { name: "Onboarding", value: 86 },
-  { name: "Activation", value: 74 },
-  { name: "Retention", value: 92 },
+const chartData = [
+  { browser: "chrome", visitors: 275 },
+  { browser: "safari", visitors: 200 },
+  { browser: "firefox", visitors: 187 },
+  { browser: "edge", visitors: 173 },
+  { browser: "other", visitors: 90 },
 ]
 
 export default function ExperimentalRadialChartPreskokDemo() {
   return (
-    <Card className="w-lg max-w-full">
+    <Card className="w-full max-w-md">
       <CardHeader className="items-center pb-0 text-center">
-        <CardTitle>Customer journey health</CardTitle>
-        <CardDescription>Quarterly target attainment</CardDescription>
+        <CardTitle>Radial Chart</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
-      <CardContent className="pb-0">
+      <CardContent>
         <ExperimentalRadialChart
-          centerLabel="Average"
-          className="mx-auto max-w-sm"
-          data={attainmentData}
-          dataKey="value"
-          maxValue={100}
-          nameKey="name"
+          ariaLabel="Radial Chart"
+          className="mx-auto"
+          data={chartData}
+          dataKey="visitors"
+          nameKey="browser"
+          size={{ height: 250 }}
           tooltipProps={{ hideLabel: true }}
-          valueFormatter={(value) => `${Math.round(value)}%`}
           config={{
-            Onboarding: { label: "Onboarding", color: "var(--chart-1)" },
-            Activation: { label: "Activation", color: "var(--chart-2)" },
-            Retention: { label: "Retention", color: "var(--chart-3)" },
+            chrome: { label: "Chrome", color: "var(--chart-1)" },
+            safari: { label: "Safari", color: "var(--chart-2)" },
+            firefox: { label: "Firefox", color: "var(--chart-3)" },
+            edge: { label: "Edge", color: "var(--chart-4)" },
+            other: { label: "Other", color: "var(--chart-5)" },
           }}
         />
       </CardContent>
       <CardFooter className="flex-col items-center gap-2 text-sm">
         <div className="flex items-center gap-2 leading-none font-medium">
-          Retention is 7% above target
+          Trending up by 5.2% this month
           <TrendingUp aria-hidden className="size-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Select a ring or legend item to inspect a stage
+          Showing total visitors for the last 6 months
         </div>
       </CardFooter>
     </Card>

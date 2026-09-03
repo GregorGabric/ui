@@ -1,0 +1,70 @@
+---
+title: Experimental Area Chart
+description: Area chart variants built on TanStack Charts, ported from the shadcn catalog.
+status: new
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+<ComponentPreview
+  name="experimental-area-chart-preskok-demo"
+  description="A gradient area chart for a single series."
+/>
+
+## Installation
+
+```bash
+npx shadcn@latest add @preskok/experimental-area-chart
+```
+
+## Usage
+
+```tsx
+import { ExperimentalAreaChart } from "@/components/ui/preskok-ui/experimental-area-chart"
+
+;<ExperimentalAreaChart
+  config={{
+    desktop: { label: "Desktop", color: "var(--chart-1)" },
+  }}
+  data={data}
+  dataKey="month"
+  fillType="gradient"
+  lineType="natural"
+/>
+```
+
+## Axes
+
+<ComponentPreview name="experimental-area-chart-axes-preskok-demo" />
+
+## Gradient
+
+<ComponentPreview name="experimental-area-chart-gradient-preskok-demo" />
+
+## Icons
+
+<ComponentPreview name="experimental-area-chart-icons-preskok-demo" />
+
+## Interactive
+
+<ComponentPreview name="experimental-area-chart-interactive-preskok-demo" />
+
+## Legend
+
+<ComponentPreview name="experimental-area-chart-legend-preskok-demo" />
+
+## Linear
+
+<ComponentPreview name="experimental-area-chart-linear-preskok-demo" />
+
+## Stacked
+
+<ComponentPreview name="experimental-area-chart-stacked-preskok-demo" />
+
+## Stacked Expanded
+
+<ComponentPreview name="experimental-area-chart-stacked-expanded-preskok-demo" />
+
+## Step
+
+<ComponentPreview name="experimental-area-chart-step-preskok-demo" />
