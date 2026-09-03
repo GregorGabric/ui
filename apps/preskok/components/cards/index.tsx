@@ -14,23 +14,23 @@ import { CardsTeamMembers } from "@/components/cards/team-members"
 
 export function CardsDemo() {
   return (
-    <div className="md:grids-col-2 grid **:data-[slot=card]:shadow-none md:gap-4 lg:grid-cols-6">
-      <div className="grid gap-4 lg:col-span-4 xl:col-span-6">
+    <div className="md:grids-col-2 grid grid-cols-1 **:data-[slot=card]:shadow-none md:gap-4 lg:grid-cols-6">
+      <div className="grid min-w-0 grid-cols-1 gap-4 lg:col-span-4 xl:col-span-6">
         <CardsStats />
-        <div className="grid gap-1 sm:grid-cols-[auto_1fr] md:hidden">
+        <div className="grid min-w-0 grid-cols-1 gap-1 sm:grid-cols-[auto_1fr] md:hidden">
           <CardsCalendar />
 
           <div className="pt-3 sm:col-span-2 xl:pt-4">
             <CardsExerciseMinutes />
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-          <div className="flex flex-col gap-4">
+        <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <div className="flex min-w-0 flex-col gap-4">
             <CardsForms />
             <CardsTeamMembers />
             <CardsCookieSettings />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-4">
             <CardsCreateAccount />
             <CardsChat />
             <div className="hidden xl:block">
@@ -39,7 +39,7 @@ export function CardsDemo() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 lg:col-span-6">
+      <div className="flex min-w-0 flex-col gap-4 lg:col-span-6">
         <div className="hidden gap-1 sm:grid-cols-[auto_1fr] md:grid">
           <CardsCalendar />
 

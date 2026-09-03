@@ -43,7 +43,7 @@ const people = [
 ]
 export function CardsShare() {
   return (
-    <Card>
+    <Card className="min-w-0">
       <CardHeader>
         <CardTitle>Share shipment manifest</CardTitle>
         <CardDescription>
@@ -51,17 +51,21 @@ export function CardsShare() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
           <Label htmlFor="link" className="sr-only">
             Link
           </Label>
           <TextField
             id="link"
             value="https://portal.preskok.si/shipments/PK-2025-001234"
-            className="h-8 flex-1"
+            className="h-8 min-w-0 flex-1"
             isReadOnly
           />
-          <Button size="sm" intent="outline" className="shadow-none">
+          <Button
+            size="sm"
+            intent="outline"
+            className="self-end shadow-none sm:self-auto"
+          >
             Copy Link
           </Button>
         </div>
@@ -72,25 +76,25 @@ export function CardsShare() {
             {people.map((person) => (
               <div
                 key={person.email}
-                className="flex items-center justify-between gap-4"
+                className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-center gap-4">
                   <Avatar
                     src={person.avatar}
                     alt={person.name}
                     initials={person.name.charAt(0)}
                   />
-                  <div>
-                    <p className="text-sm leading-none font-medium">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm leading-none font-medium">
                       {person.name}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="truncate text-sm text-muted-foreground">
                       {person.email}
                     </p>
                   </div>
                 </div>
                 <Select selectedKey="edit" aria-label="Edit">
-                  <SelectTrigger className="ml-auto pr-2" />
+                  <SelectTrigger className="self-end pr-2 sm:ml-auto sm:self-auto" />
                   <SelectContent>
                     <SelectItem id="edit">Can edit</SelectItem>
                     <SelectItem id="view">Can view</SelectItem>

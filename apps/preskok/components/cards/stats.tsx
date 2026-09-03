@@ -49,7 +49,7 @@ const data = [
 
 export function CardsStats() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+    <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
       <Card>
         <CardHeader>
           <CardDescription>Freight Revenue</CardDescription>

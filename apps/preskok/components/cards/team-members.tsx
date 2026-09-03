@@ -71,24 +71,29 @@ export function CardsTeamMembers() {
         {teamMembers.map((member) => (
           <div
             key={member.name}
-            className="flex items-center justify-between gap-4"
+            className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-4">
               <Avatar
                 className="border"
                 src={member.avatar}
                 alt={member.name}
                 initials={member.name.charAt(0)}
               />
-              <div className="flex flex-col gap-0.5">
-                <p className="text-sm leading-none font-medium">
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <p className="truncate text-sm leading-none font-medium">
                   {member.name}
                 </p>
-                <p className="text-xs text-muted-foreground">{member.email}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {member.email}
+                </p>
               </div>
             </div>
             <Menu>
-              <Button intent="plain" className="ml-auto shadow-none">
+              <Button
+                intent="plain"
+                className="self-end shadow-none sm:ml-auto sm:self-auto"
+              >
                 {member.role} <ChevronDown />
               </Button>
 
