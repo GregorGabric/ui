@@ -59,7 +59,7 @@ const roles = [
 
 export function CardsTeamMembers() {
   return (
-    <Card>
+    <Card className="not-prose">
       <CardHeader>
         <CardTitle>Operations Team</CardTitle>
         <CardDescription>
@@ -67,32 +67,32 @@ export function CardsTeamMembers() {
           vehicle sales.
         </CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-6">
+      <CardContent className="@container/team grid divide-y">
         {teamMembers.map((member) => (
           <div
             key={member.name}
-            className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+            className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-3 py-4 first:pt-0 last:pb-0 @min-[270px]/team:grid-cols-[auto_minmax(0,1fr)_auto] @min-[270px]/team:py-3"
           >
-            <div className="flex min-w-0 items-center gap-4">
+            <div className="contents">
               <Avatar
-                className="border"
+                className="shrink-0 border"
                 src={member.avatar}
                 alt={member.name}
                 initials={member.name.charAt(0)}
               />
               <div className="flex min-w-0 flex-col gap-0.5">
-                <p className="truncate text-sm leading-none font-medium">
+                <p className="m-0 text-base/5 font-medium break-words sm:text-sm sm:leading-none">
                   {member.name}
                 </p>
-                <p className="truncate text-xs text-muted-foreground">
+                <p className="m-0 truncate text-base/6 text-muted-foreground sm:text-xs">
                   {member.email}
                 </p>
               </div>
             </div>
             <Menu>
               <Button
-                intent="plain"
-                className="self-end shadow-none sm:ml-auto sm:self-auto"
+                intent="outline"
+                className="col-start-2 min-h-12 w-full justify-between shadow-none @min-[270px]/team:col-start-3 @min-[270px]/team:row-start-1 @min-[270px]/team:w-auto @min-[270px]/team:justify-center pointer-fine:min-h-10"
               >
                 {member.role} <ChevronDown />
               </Button>
