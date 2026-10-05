@@ -146,9 +146,6 @@ function Chart<
           ? defineChart(definition, {
               tooltip: {
                 anchor: tooltipProps?.anchor,
-                // Show and move the tooltip immediately instead of easing it
-                // with the chart's motion renderer.
-                motion: false,
                 offset: tooltipProps?.offset,
                 placement: tooltipProps?.placement,
                 // A click already selects a series, so it should not also pin.
