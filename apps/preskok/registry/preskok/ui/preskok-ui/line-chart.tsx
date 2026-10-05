@@ -15,6 +15,7 @@ import {
   getChartOptions,
   GROUP_X_TOOLTIP,
   getCrosshair,
+  getFocusDots,
   revealEntranceMotion,
   toSeriesData,
   useSeriesSelection,
@@ -98,6 +99,7 @@ function LineChart({
   const definition = defineChart({
     ...getChartOptions(chartColors),
     focus: "group-x",
+    focusRing: false,
     marks: [
       getCrosshair(),
       ...Object.keys(config).map((series) =>
@@ -117,6 +119,10 @@ function LineChart({
             ...lineProps,
           }
         )
+      ),
+      ...getFocusDots(
+        rows.filter((row) => !selectedSeries || row.series === selectedSeries),
+        (row) => row.value
       ),
     ],
     margin: scales.margin,

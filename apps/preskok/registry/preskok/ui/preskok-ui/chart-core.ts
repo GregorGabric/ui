@@ -12,6 +12,8 @@ import type {
 } from "@tanstack/charts"
 import { crosshair } from "@tanstack/charts/crosshair"
 import { d3Curve } from "@tanstack/charts/d3/shape"
+import { dot } from "@tanstack/charts/dot"
+import { whenFocused } from "@tanstack/charts/focus/mark"
 import type { ChartProps as TanStackChartProps } from "@tanstack/charts/react/tooltip"
 import { scaleLinear } from "@tanstack/charts/scales/linear"
 import {
@@ -282,13 +284,6 @@ function getCrosshair() {
   return crosshair({
     // Glide quickly between points, in step with the tooltip.
     motion: { transition: HOVER_TRANSITION },
-    marker: {
-      fill: "var(--background)",
-      radius: 4,
-      stroke: "var(--foreground)",
-      strokeOpacity: 0.7,
-      strokeWidth: 2,
-    },
     x: {
       stroke: "var(--muted-foreground)",
       strokeDasharray: "3 4",
@@ -296,6 +291,40 @@ function getCrosshair() {
     },
     y: false,
   })
+}
+
+/**
+ * Series-colored dots with a soft halo on every series at the hovered x
+ * value. Pair with `focusRing: false`, since these replace the single ring.
+ */
+function getFocusDots<TDatum extends SeriesDatum>(
+  rows: readonly TDatum[],
+  y: (row: TDatum) => number | null
+) {
+  const shared = {
+    color: (row: TDatum) => row.series,
+    key: (row: TDatum) => `${row.series}-${row.index}`,
+    motion: { transition: HOVER_TRANSITION },
+    x: (row: TDatum) => row.category,
+    y,
+  }
+
+  return [
+    whenFocused(
+      dot(rows, { ...shared, fillOpacity: 0.2, id: "focus-halo", r: 10 }),
+      { match: "x" }
+    ),
+    whenFocused(
+      dot(rows, {
+        ...shared,
+        id: "focus-dot",
+        r: 5,
+        stroke: "var(--background)",
+        strokeWidth: 2,
+      }),
+      { match: "x" }
+    ),
+  ]
 }
 
 function toSeriesData({
@@ -532,6 +561,7 @@ export {
   getChartCurve,
   getChartOptions,
   getCrosshair,
+  getFocusDots,
   getFocusStates,
   getLabel,
   getNamedSeriesColors,

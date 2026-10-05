@@ -18,6 +18,7 @@ import {
   getChartOptions,
   GROUP_X_TOOLTIP,
   getCrosshair,
+  getFocusDots,
   getFocusStates,
   revealEntranceMotion,
   toSeriesData,
@@ -111,9 +112,11 @@ function AreaChart({
     ...areaOptions,
   }
 
+  const tops = toStackedTops(rows, type)
   const definition = defineChart({
     ...getChartOptions(chartColors),
     focus: "group-x",
+    focusRing: false,
     gradients:
       fillType === "gradient"
         ? seriesNames.map((series) => {
@@ -141,12 +144,16 @@ function AreaChart({
             y: "value",
           }),
       // The area has no outline; this traces only its top edge.
-      lineY(toStackedTops(rows, type), {
+      lineY(tops, {
         ...sharedOptions,
         stroke,
         strokeWidth,
         y: "top",
       }),
+      ...getFocusDots(
+        tops.filter((row) => !isDimmed(row.series)),
+        (row) => row.top
+      ),
     ],
     // The area's bottom edge is its fill, not a stroke, so it can sit flush.
     margin: scales.margin && { ...scales.margin, bottom: 0 },
