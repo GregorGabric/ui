@@ -14,6 +14,7 @@ import {
   getChartCurve,
   getChartOptions,
   getCrosshair,
+  revealEntranceMotion,
   toSeriesData,
   useSeriesSelection,
   type CartesianChartProps,
@@ -106,6 +107,7 @@ function LineChart({
             curve: getChartCurve(lineType),
             id: `line-${series}`,
             key: (row) => `${row.series}-${row.index}`,
+            motion: revealEntranceMotion,
             stroke: chartColors[series],
             strokeOpacity:
               selectedSeries && selectedSeries !== series ? 0.12 : 1,
@@ -133,6 +135,7 @@ function LineChart({
         className="w-full"
         config={config}
         definition={definition}
+        entrance="reveal"
         size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}

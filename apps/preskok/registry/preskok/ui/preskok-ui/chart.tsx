@@ -92,6 +92,12 @@ type ChartProps<
   /** Height used when `size` sets neither `height` nor `aspectRatio`. */
   defaultHeight?: number
   definition: StaticChartDefinition<TDatum, TXValue, TYValue, "dom">
+  /**
+   * How marks appear on mount: `grow` from their baseline, or `reveal` left to
+   * right. Marks that reveal should opt out of `grow` with
+   * `motion: revealEntranceMotion`.
+   */
+  entrance?: "grow" | "reveal"
   onSelect?: (point: ChartPoint<TDatum, TXValue, TYValue> | null) => void
   size?: ChartSizeProps
   tooltip?: ChartTooltipRenderer<TDatum, TXValue, TYValue> | false
@@ -109,6 +115,7 @@ function Chart<
   config,
   defaultHeight = 288,
   definition,
+  entrance = "grow",
   onSelect,
   size,
   style,
@@ -160,6 +167,9 @@ function Chart<
           measuredWidth > 0 &&
           Math.abs(context.scene.width - measuredWidth) < 1
         ) {
+          if (entrance === "reveal") {
+            revealMarks(context.container)
+          }
           setReady(true)
         }
       }}
@@ -186,6 +196,24 @@ function Chart<
       style={style}
     />
   )
+}
+
+/** Wipes the marks layer in from the left, leaving axes and grid in place. */
+function revealMarks(container: HTMLElement) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return
+  }
+
+  // The negative insets keep strokes at the plot edges from being clipped.
+  container
+    .querySelector(".ts-chart__marks")
+    ?.animate(
+      [
+        { clipPath: "inset(-8% 100% -8% -8%)" },
+        { clipPath: "inset(-8% -8% -8% -8%)" },
+      ],
+      { duration: 900, easing: "cubic-bezier(0.25, 0.1, 0.25, 1)" }
+    )
 }
 
 /** Keeps one tooltip row per series when several marks share a datum. */

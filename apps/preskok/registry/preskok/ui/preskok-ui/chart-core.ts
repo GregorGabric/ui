@@ -4,6 +4,7 @@ import type {
   ChartCurve,
   ChartFocusMatch,
   ChartMarkState,
+  ChartMotionContext,
   ChartPoint,
   ChartTooltipOptions,
   ChartValue,
@@ -235,6 +236,14 @@ function getChartOptions(colorsBySeries: Record<string, string>) {
       palette: range,
     },
   }
+}
+
+/**
+ * Skips the renderer's grow-from-baseline entrance for a mark, so `Chart` can
+ * reveal it left to right instead (`entrance="reveal"`). Updates still morph.
+ */
+function revealEntranceMotion(context: ChartMotionContext) {
+  return context.phase === "enter" ? false : undefined
 }
 
 /** Fades every mark that does not match the current focus. */
@@ -499,6 +508,7 @@ export {
   getPositiveMaximum,
   getSelectedSeriesColor,
   getTextLabel,
+  revealEntranceMotion,
   toNamedSeriesData,
   toSeriesData,
 }

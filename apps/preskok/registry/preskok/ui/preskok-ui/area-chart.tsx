@@ -18,6 +18,7 @@ import {
   getChartOptions,
   getCrosshair,
   getFocusStates,
+  revealEntranceMotion,
   toSeriesData,
   useSeriesSelection,
   type CartesianChartProps,
@@ -97,6 +98,7 @@ function AreaChart({
     color: "series",
     curve: getChartCurve(lineType),
     key: (row: SeriesDatum) => `${row.series}-${row.index}`,
+    motion: revealEntranceMotion,
     states: getFocusStates<SeriesDatum>("series"),
     x: "category",
     z: "series",
@@ -162,6 +164,7 @@ function AreaChart({
         className="w-full"
         config={config}
         definition={definition}
+        entrance="reveal"
         size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
