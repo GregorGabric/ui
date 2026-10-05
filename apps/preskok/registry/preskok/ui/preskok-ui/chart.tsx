@@ -29,7 +29,6 @@ import {
 import {
   defaultValueFormatter,
   getChartColors,
-  HOVER_TRANSITION,
   getLabel,
   getTextLabel,
   type ChartColorPalette,
@@ -147,8 +146,9 @@ function Chart<
           ? defineChart(definition, {
               tooltip: {
                 anchor: tooltipProps?.anchor,
-                // A quick fade and glide instead of the slower entrance timing.
-                motion: HOVER_TRANSITION,
+                // Show and move the tooltip immediately instead of easing it
+                // with the chart's motion renderer.
+                motion: false,
                 offset: tooltipProps?.offset,
                 placement: tooltipProps?.placement,
                 // A click already selects a series, so it should not also pin.

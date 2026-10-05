@@ -5,7 +5,6 @@ import type {
   ChartFocusMatch,
   ChartMarkState,
   ChartMotionContext,
-  ChartMotionTransition,
   ChartPoint,
   ChartTooltipOptions,
   ChartValue,
@@ -193,13 +192,6 @@ function focusNearestSeries(ignoreMarkId?: string) {
   return strategy
 }
 
-/** Short ease-out for everything that reacts to hover: tooltip, crosshair, focus fade. */
-const HOVER_TRANSITION = {
-  duration: 120,
-  easing: "ease-out",
-  type: "tween",
-} as const satisfies ChartMotionTransition
-
 /**
  * Tooltip position for charts focused by x group: pinned to the hovered x
  * value at the top of the plot, so it moves only between categories instead
@@ -301,15 +293,15 @@ function getFocusStates<TDatum>(
     {
       when: (context) => !context.matches(match),
       style: { opacity },
-      transition: HOVER_TRANSITION,
+      transition: { type: "tween", duration: 150 },
     },
   ]
 }
 
 function getCrosshair() {
   return crosshair({
-    // Glide quickly between points, in step with the tooltip.
-    motion: { transition: HOVER_TRANSITION },
+    // Follow the pointer immediately, in step with the tooltip.
+    motion: false,
     marker: {
       fill: "var(--background)",
       radius: 4,
@@ -551,7 +543,6 @@ export type {
 export {
   CHART_COLORS,
   GROUP_X_TOOLTIP,
-  HOVER_TRANSITION,
   dimColor,
   defaultValueFormatter,
   valueToPercent,
