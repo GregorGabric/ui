@@ -5,6 +5,7 @@ import type {
   ChartFocusMatch,
   ChartMarkState,
   ChartMotionContext,
+  ChartMotionTransition,
   ChartPoint,
   ChartTooltipOptions,
   ChartValue,
@@ -164,6 +165,13 @@ const CURVES = {
   stepBefore: curveStepBefore,
 } satisfies Record<string, CurveFactory>
 
+/** Short ease-out for everything that reacts to hover: tooltip, crosshair, focus fade. */
+const HOVER_TRANSITION = {
+  duration: 120,
+  easing: "ease-out",
+  type: "tween",
+} as const satisfies ChartMotionTransition
+
 /**
  * Tooltip position for charts focused by x group: pinned to the hovered x
  * value at the top of the plot, so it moves only between categories instead
@@ -265,15 +273,15 @@ function getFocusStates<TDatum>(
     {
       when: (context) => !context.matches(match),
       style: { opacity },
-      transition: { type: "tween", duration: 150 },
+      transition: HOVER_TRANSITION,
     },
   ]
 }
 
 function getCrosshair() {
   return crosshair({
-    // Follow the pointer immediately, in step with the tooltip.
-    motion: false,
+    // Glide quickly between points, in step with the tooltip.
+    motion: { transition: HOVER_TRANSITION },
     marker: {
       fill: "var(--background)",
       radius: 4,
@@ -515,6 +523,7 @@ export type {
 export {
   CHART_COLORS,
   GROUP_X_TOOLTIP,
+  HOVER_TRANSITION,
   dimColor,
   defaultValueFormatter,
   valueToPercent,
