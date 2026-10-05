@@ -434,7 +434,7 @@ function getEdgeValues(data: ChartDatum[], dataKey: string) {
   return isChartValue(first) && isChartValue(last) ? [first, last] : undefined
 }
 
-/** Scale entries for a category axis paired with a numeric value axis. */
+/** Scales and margin for a category axis paired with a numeric value axis. */
 function getCartesianScales({
   categoryAxis,
   categoryScale,
@@ -465,9 +465,17 @@ function getCartesianScales({
     value: {
       axis: getAxis({ format: valueFormatter, props: valueAxis }),
       grid: grid === "visible" ? { strokeDasharray: "3 3" } : false,
-      nice: true,
+      // Without tick labels, rounding the domain only adds empty space.
+      nice: valueAxis !== false,
       scale: domain ? () => scaleLinear().domain(domain) : scaleLinear,
     },
+    // With both axes hidden the chart is a sparkline: automatic margins would
+    // still reserve guide space, so keep only room for strokes at the top and
+    // bottom and let the plot run edge to edge.
+    margin:
+      categoryAxis === false && valueAxis === false
+        ? { bottom: 3, left: 0, right: 0, top: 3 }
+        : undefined,
   } as const
 }
 

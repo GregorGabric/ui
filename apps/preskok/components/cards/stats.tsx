@@ -56,7 +56,7 @@ export function CardsStats() {
           <CardTitle className="text-3xl">$15,231.89</CardTitle>
           <CardDescription>+20.1% from last month</CardDescription>
         </CardHeader>
-        <CardContent className="pb-0">
+        <CardContent className="mt-auto">
           <LineChart
             config={{
               revenue: { label: "Freight Revenue", color: "var(--chart-1)" },
@@ -65,7 +65,7 @@ export function CardsStats() {
             dataKey="name"
             grid="hidden"
             legend={false}
-            size={{ height: 80 }}
+            size={{ height: 124 }}
             tooltip={false}
             xAxis={false}
             yAxis={false}

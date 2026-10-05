@@ -147,6 +147,8 @@ function AreaChart({
         y: "top",
       }),
     ],
+    // The area's bottom edge is its fill, not a stroke, so it can sit flush.
+    margin: scales.margin && { ...scales.margin, bottom: 0 },
     scales: { x: scales.category, y: scales.value },
   })
 

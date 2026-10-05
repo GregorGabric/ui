@@ -86,7 +86,7 @@ function LineChart({
   const formatValue = type === "percent" ? valueToPercent : valueFormatter
   const scales = getCartesianScales({
     categoryAxis: xAxis,
-    categoryScale: () => scalePoint().padding(0.25),
+    categoryScale: scalePoint,
     data,
     dataKey,
     grid,
@@ -118,6 +118,7 @@ function LineChart({
         )
       ),
     ],
+    margin: scales.margin,
     scales: { x: scales.category, y: scales.value },
   })
 

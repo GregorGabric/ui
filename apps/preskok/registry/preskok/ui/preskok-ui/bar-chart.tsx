@@ -123,12 +123,14 @@ function BarChart({
           ...getChartOptions(chartColors),
           focus: "group-x",
           marks: [barY(rows, { ...barOptions, x: "category", y: "value" })],
+          margin: scales.margin,
           scales: { x: scales.category, y: scales.value },
         })
       : defineChart({
           ...getChartOptions(chartColors),
           focus: "group-y",
           marks: [barX(rows, { ...barOptions, x: "value", y: "category" })],
+          margin: scales.margin,
           scales: { x: scales.value, y: scales.category },
         })
 
