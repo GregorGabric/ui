@@ -164,6 +164,16 @@ const CURVES = {
   stepBefore: curveStepBefore,
 } satisfies Record<string, CurveFactory>
 
+/**
+ * Tooltip position for charts focused by x group: pinned to the hovered x
+ * value at the top of the plot, so it moves only between categories instead
+ * of jumping between series as the pointer moves vertically.
+ */
+const GROUP_X_TOOLTIP = {
+  anchor: { x: "value", y: "plot-top" },
+  placement: ["bottom-right", "bottom-left"],
+} as const satisfies ChartTooltipProps
+
 function valueToPercent(value: number) {
   return `${(value * 100).toFixed(0)}%`
 }
@@ -262,6 +272,8 @@ function getFocusStates<TDatum>(
 
 function getCrosshair() {
   return crosshair({
+    // Follow the pointer immediately, in step with the tooltip.
+    motion: false,
     marker: {
       fill: "var(--background)",
       radius: 4,
@@ -502,6 +514,7 @@ export type {
 
 export {
   CHART_COLORS,
+  GROUP_X_TOOLTIP,
   dimColor,
   defaultValueFormatter,
   valueToPercent,

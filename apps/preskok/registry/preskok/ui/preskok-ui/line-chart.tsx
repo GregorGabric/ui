@@ -13,6 +13,7 @@ import {
   getChartColors,
   getChartCurve,
   getChartOptions,
+  GROUP_X_TOOLTIP,
   getCrosshair,
   revealEntranceMotion,
   toSeriesData,
@@ -139,7 +140,7 @@ function LineChart({
         entrance="reveal"
         size={size}
         tooltip={tooltip}
-        tooltipProps={tooltipProps}
+        tooltipProps={{ ...GROUP_X_TOOLTIP, ...tooltipProps }}
         valueFormatter={formatValue}
       />
     </ChartFrame>
