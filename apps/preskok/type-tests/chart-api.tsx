@@ -1,10 +1,10 @@
-import { ExperimentalAreaChart } from "@/registry/preskok/ui/preskok-ui/experimental-area-chart"
-import { ExperimentalBarChart } from "@/registry/preskok/ui/preskok-ui/experimental-bar-chart"
-import { ExperimentalChartLegend } from "@/registry/preskok/ui/preskok-ui/experimental-chart"
-import { ExperimentalLineChart } from "@/registry/preskok/ui/preskok-ui/experimental-line-chart"
-import { ExperimentalPieChart } from "@/registry/preskok/ui/preskok-ui/experimental-pie-chart"
-import { ExperimentalRadarChart } from "@/registry/preskok/ui/preskok-ui/experimental-radar-chart"
-import { ExperimentalRadialChart } from "@/registry/preskok/ui/preskok-ui/experimental-radial-chart"
+import { AreaChart } from "@/registry/preskok/ui/preskok-ui/area-chart"
+import { BarChart } from "@/registry/preskok/ui/preskok-ui/bar-chart"
+import { ChartLegend } from "@/registry/preskok/ui/preskok-ui/chart"
+import { LineChart } from "@/registry/preskok/ui/preskok-ui/line-chart"
+import { PieChart } from "@/registry/preskok/ui/preskok-ui/pie-chart"
+import { RadarChart } from "@/registry/preskok/ui/preskok-ui/radar-chart"
+import { RadialChart } from "@/registry/preskok/ui/preskok-ui/radial-chart"
 
 const data = [
   { month: "Jan", revenue: 42, sales: 28 },
@@ -15,18 +15,18 @@ const config = {
   sales: { label: "Sales", color: "var(--chart-2)" },
 } as const
 const cartesianProps = { config, data, dataKey: "month" }
-const Area = ExperimentalAreaChart
-const Line = ExperimentalLineChart
-const Radar = ExperimentalRadarChart
-const Radial = ExperimentalRadialChart
+const Area = AreaChart
+const Line = LineChart
+const Radar = RadarChart
+const Radial = RadialChart
 
 const composableLineChart = (
-  <ExperimentalLineChart
+  <LineChart
     {...cartesianProps}
     aria-describedby="chart-summary"
     size={{ initialWidth: 640 }}
     grid="hidden"
-    legend={<ExperimentalChartLegend align="left" />}
+    legend={<ChartLegend align="left" />}
     style={{ minHeight: 240 }}
     xAxis={{ tickStrategy: "edges" }}
     yAxis={{ domain: [0, 100], tickFormatter: String }}
@@ -34,7 +34,7 @@ const composableLineChart = (
 )
 
 const configuredAreaChart = (
-  <ExperimentalAreaChart
+  <AreaChart
     {...cartesianProps}
     legend={false}
     tooltip={false}
@@ -44,7 +44,7 @@ const configuredAreaChart = (
 )
 
 const orientedBarChart = (
-  <ExperimentalBarChart
+  <BarChart
     {...cartesianProps}
     categoryAxis={{ tickFormatter: String }}
     grid="visible"
@@ -69,18 +69,14 @@ const polarProps = {
 
 const composedPolarCharts = (
   <>
-    <ExperimentalPieChart
+    <PieChart
       {...polarProps}
       centerLabel="Total"
       centerValue="100"
       variant="donut"
     />
-    <ExperimentalRadialChart
-      {...polarProps}
-      centerLabel="Average"
-      track="hidden"
-    />
-    <ExperimentalRadarChart
+    <RadialChart {...polarProps} centerLabel="Average" track="hidden" />
+    <RadarChart
       {...cartesianProps}
       categoryAxis={{ tickFormatter: String }}
       dots={{ r: 4 }}
@@ -92,7 +88,7 @@ const composedPolarCharts = (
 
 const removedIntervalType = (
   // @ts-expect-error intervalType was never implemented and is no longer exposed.
-  <ExperimentalLineChart {...cartesianProps} intervalType="preserveStart" />
+  <LineChart {...cartesianProps} intervalType="preserveStart" />
 )
 
 const removedChartProps = (
@@ -102,21 +98,21 @@ const removedChartProps = (
 
 const removedLegendProps = (
   // @ts-expect-error compose legend options through the legend element.
-  <ExperimentalLineChart {...cartesianProps} legendProps={{ align: "left" }} />
+  <LineChart {...cartesianProps} legendProps={{ align: "left" }} />
 )
 
 const removedEmptyColorPalette = (
   // @ts-expect-error a custom palette must contain at least one defined chart color.
-  <ExperimentalLineChart {...cartesianProps} colors={[]} />
+  <LineChart {...cartesianProps} colors={[]} />
 )
 
 const removedRawPaletteColor = (
   // @ts-expect-error palette overrides can only reorder defined chart colors.
-  <ExperimentalLineChart {...cartesianProps} colors={["#2563eb"]} />
+  <LineChart {...cartesianProps} colors={["#2563eb"]} />
 )
 
 const removedRawSeriesColor = (
-  <ExperimentalLineChart
+  <LineChart
     {...cartesianProps}
     config={{
       // @ts-expect-error series colors must reference the shared chart palette.
@@ -126,7 +122,7 @@ const removedRawSeriesColor = (
 )
 
 const removedSeriesTheme = (
-  <ExperimentalLineChart
+  <LineChart
     {...cartesianProps}
     config={{
       // @ts-expect-error light and dark series colors come from globals.css.

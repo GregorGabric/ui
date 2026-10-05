@@ -6,10 +6,10 @@
     "bar-chart",
     "line-chart",
     "pie-chart",
-    "experimental-charts",
-    "experimental-radial-chart",
-    "experimental-radar-chart",
+    "radial-chart",
+    "radar-chart",
     "bar-list",
-    "tracker"
+    "tracker",
+    "recharts"
   ]
 }

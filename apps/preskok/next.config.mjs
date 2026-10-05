@@ -8,6 +8,20 @@ const nextConfig = {
   reactCompiler: true,
   devIndicators: false,
   allowedDevOrigins: ["127.0.0.1"],
+  async redirects() {
+    return [
+      {
+        source: "/charts/experimental-charts",
+        destination: "/charts/chart",
+        permanent: true,
+      },
+      {
+        source: "/charts/experimental-:chart(radar|radial)-chart",
+        destination: "/charts/:chart-chart",
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
       {

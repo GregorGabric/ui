@@ -1,0 +1,75 @@
+---
+title: Recharts Charts
+description: The earlier Recharts chart components, kept for existing installs.
+status: deprecated
+---
+
+import { ComponentPreview } from "@/components/component-preview"
+
+These components are deprecated. They still work and stay in the registry for
+existing installs, but new code should use the [TanStack charts](/charts/chart).
+The props map closely; see [Migrating from Recharts](/charts/chart#migrating-from-recharts).
+
+<ComponentPreview
+  name="chart-migration-preskok-demo"
+  description="The same data and configuration rendered by the TanStack chart and the deprecated Recharts chart."
+/>
+
+## What changed
+
+The unprefixed registry names now install the TanStack versions:
+
+| Before                              | Now                                                  |
+| ----------------------------------- | ---------------------------------------------------- |
+| `@preskok/chart` (Recharts helpers) | `@preskok/recharts-chart`                            |
+| `@preskok/area-chart` → `AreaChart` | `@preskok/recharts-area-chart` → `RechartsAreaChart` |
+| `@preskok/bar-chart` → `BarChart`   | `@preskok/recharts-bar-chart` → `RechartsBarChart`   |
+| `@preskok/line-chart` → `LineChart` | `@preskok/recharts-line-chart` → `RechartsLineChart` |
+| `@preskok/pie-chart` → `PieChart`   | `@preskok/recharts-pie-chart` → `RechartsPieChart`   |
+| `@preskok/experimental-*-chart`     | `@preskok/*-chart`                                   |
+
+Code already copied into your project is unaffected. Re-adding an unprefixed
+name brings in the TanStack version.
+
+## Area chart
+
+<ComponentPreview name="recharts-area-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/recharts-area-chart
+```
+
+## Bar chart
+
+<ComponentPreview name="recharts-bar-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/recharts-bar-chart
+```
+
+## Line chart
+
+<ComponentPreview name="recharts-line-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/recharts-line-chart
+```
+
+## Pie chart
+
+<ComponentPreview name="recharts-pie-chart-preskok-demo" />
+
+```bash
+npx shadcn@latest add @preskok/recharts-pie-chart
+```
+
+## Chart helpers
+
+<ComponentPreview
+  name="recharts-chart-preskok-demo"
+  description="Composing Recharts primitives with the Recharts chart helpers."
+/>
+
+```bash
+npx shadcn@latest add @preskok/recharts-chart
+```

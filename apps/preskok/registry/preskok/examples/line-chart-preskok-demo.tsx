@@ -26,16 +26,16 @@ const data = [
 
 export default function LineChartPreskokDemo() {
   return (
-    <Card>
+    <Card className="w-3xl max-w-full">
       <CardHeader>
         <CardTitle>Dealership performance</CardTitle>
         <CardDescription>Sales vs Leads per month</CardDescription>
       </CardHeader>
       <CardContent>
         <LineChart
-          className="aspect-video h-56 min-h-[224px] sm:h-72 sm:min-h-[288px]"
           data={data}
           dataKey="month"
+          lineType="monotone"
           config={{ sales: { label: "Sales" }, leads: { label: "Leads" } }}
         />
       </CardContent>

@@ -51,11 +51,11 @@ const data = [
 const chartConfig = {
   today: {
     label: "Today",
-    color: "var(--primary)",
+    color: "var(--chart-1)",
   },
   average: {
     label: "Average",
-    color: "var(--primary)",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig
 
@@ -73,10 +73,9 @@ export function CardsExerciseMinutes() {
           data={data}
           dataKey="day"
           config={chartConfig}
-          className="w-full"
-          xAxisProps={{
+          xAxis={{
+            tickFormatter: (value) => String(value).slice(0, 3),
             tickMargin: 8,
-            tickFormatter: (value: string) => value.slice(0, 3),
           }}
         />
       </CardContent>

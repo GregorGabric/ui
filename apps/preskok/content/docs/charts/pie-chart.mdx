@@ -1,61 +1,49 @@
 ---
 title: Pie Chart
-description: A pie/donut chart component with customizable labels.
+description: Pie and donut chart with a center label that follows the selected slice.
 ---
 
-import { CodeTabs } from "@/components/code-tabs"
 import { ComponentPreview } from "@/components/component-preview"
-import { ComponentSource } from "@/components/component-source"
 
-<ComponentPreview
-  name="pie-chart-preskok-demo"
-  description="Pie and donut charts built on chart primitives."
-/>
+<ComponentPreview name="pie-chart-preskok-demo" />
 
 ## Installation
-
-<CodeTabs>
-
-<TabsList>
-  <TabsTrigger id="cli">CLI</TabsTrigger>
-  <TabsTrigger id="manual">Manual</TabsTrigger>
-</TabsList>
-<TabsContent id="cli">
 
 ```bash
 npx shadcn@latest add @preskok/pie-chart
 ```
-
-</TabsContent>
-
-<TabsContent id="manual">
-
-<Steps>
-
-<Step>
-
-Copy and paste the following code into your project.
-
-<ComponentSource
-  name="pie-chart"
-  title="registry/preskok/ui/preskok-ui/pie-chart.tsx"
-/>
-
-</Step>
-<Step>Update the import paths to match your project setup.</Step>
-
-</Steps>
-
-</TabsContent>
-
-</CodeTabs>
 
 ## Usage
 
 ```tsx
 import { PieChart } from "@/components/ui/preskok-ui/pie-chart"
 
+const data = [
+  { name: "Product", amount: 420 },
+  { name: "Sales", amount: 310 },
+  { name: "Support", amount: 180 },
+]
+
 export function PieChartDemo() {
-  return <PieChart data={[]} />
+  return (
+    <PieChart
+      centerLabel="Total requests"
+      config={{
+        Product: { label: "Product", color: "var(--chart-1)" },
+        Sales: { label: "Sales", color: "var(--chart-2)" },
+        Support: { label: "Support", color: "var(--chart-3)" },
+      }}
+      data={data}
+      dataKey="amount"
+      nameKey="name"
+      variant="donut"
+    />
+  )
 }
 ```
+
+## Features
+
+- **Pie or donut** through `variant`
+- **Center label** on donuts that shows the total, or the selected slice's value
+- **Slice selection** from a click or the legend

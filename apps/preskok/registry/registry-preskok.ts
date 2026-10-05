@@ -1207,12 +1207,22 @@ export const preskokUi: Registry["items"] = [
   {
     name: "chart",
     type: "registry:ui",
-    description: "Core chart components and utilities for data visualization",
-    dependencies: ["react-aria-components", "recharts", "cn@^0.2.4"],
-    registryDependencies: ["primitive"],
+    description:
+      "Chart foundations, legend, tooltip, and utilities built on TanStack Charts",
+    dependencies: [
+      "@tanstack/charts@1.0.0",
+      "d3-shape@3.2.0",
+      "react-aria-components",
+      "cn@^0.2.4",
+    ],
+    devDependencies: ["@types/d3-shape@3.1.8"],
     files: [
       {
         path: "ui/preskok-ui/chart.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/preskok-ui/chart-core.ts",
         type: "registry:ui",
       },
     ],
@@ -1220,8 +1230,7 @@ export const preskokUi: Registry["items"] = [
   {
     name: "area-chart",
     type: "registry:ui",
-    description: "An area chart component with gradient fills and animations",
-    dependencies: ["recharts", "cn@^0.2.4"],
+    description: "An area chart with gradient fills, stacking, and animation",
     registryDependencies: ["chart"],
     files: [
       {
@@ -1233,8 +1242,7 @@ export const preskokUi: Registry["items"] = [
   {
     name: "bar-chart",
     type: "registry:ui",
-    description: "A bar chart component with stacking and percentage options",
-    dependencies: ["recharts", "cn@^0.2.4"],
+    description: "A bar chart with stacking and percentage options",
     registryDependencies: ["chart"],
     files: [
       {
@@ -1246,8 +1254,7 @@ export const preskokUi: Registry["items"] = [
   {
     name: "line-chart",
     type: "registry:ui",
-    description: "A line chart component with multiple line support",
-    dependencies: ["recharts", "cn@^0.2.4"],
+    description: "A line chart with multiple series",
     registryDependencies: ["chart"],
     files: [
       {
@@ -1259,8 +1266,7 @@ export const preskokUi: Registry["items"] = [
   {
     name: "pie-chart",
     type: "registry:ui",
-    description: "A pie/donut chart component with customizable labels",
-    dependencies: ["recharts", "cn@^0.2.4"],
+    description: "A pie and donut chart with a selectable center label",
     registryDependencies: ["chart"],
     files: [
       {
@@ -1270,95 +1276,92 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
-    name: "experimental-chart",
+    name: "radial-chart",
     type: "registry:ui",
-    description: "Experimental TanStack chart foundations and utilities",
-    dependencies: [
-      "@tanstack/charts@1.0.0",
-      "d3-shape@3.2.0",
-      "react-aria-components",
-      "cn@^0.2.4",
-    ],
-    devDependencies: ["@types/d3-shape@3.1.8"],
+    description: "A concentric radial bar chart",
+    registryDependencies: ["chart"],
     files: [
       {
-        path: "ui/preskok-ui/experimental-chart.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/preskok-ui/experimental-chart-core.ts",
+        path: "ui/preskok-ui/radial-chart.tsx",
         type: "registry:ui",
       },
     ],
   },
   {
-    name: "experimental-area-chart",
+    name: "radar-chart",
     type: "registry:ui",
-    description: "An experimental TanStack-powered area chart",
-    registryDependencies: ["experimental-chart"],
+    description: "A radar chart for single and comparative profiles",
+    registryDependencies: ["chart"],
     files: [
       {
-        path: "ui/preskok-ui/experimental-area-chart.tsx",
+        path: "ui/preskok-ui/radar-chart.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+
+  // Deprecated Recharts charts, kept for existing installs.
+  {
+    name: "recharts-chart",
+    type: "registry:ui",
+    description: "Deprecated: Recharts chart helpers. Use chart instead.",
+    dependencies: ["react-aria-components", "recharts", "cn@^0.2.4"],
+    registryDependencies: ["primitive"],
+    files: [
+      {
+        path: "ui/preskok-ui/recharts-chart.tsx",
         type: "registry:ui",
       },
     ],
   },
   {
-    name: "experimental-bar-chart",
+    name: "recharts-area-chart",
     type: "registry:ui",
-    description: "An experimental TanStack-powered bar chart",
-    registryDependencies: ["experimental-chart"],
+    description: "Deprecated: Recharts area chart. Use area-chart instead.",
+    dependencies: ["recharts", "cn@^0.2.4"],
+    registryDependencies: ["recharts-chart"],
     files: [
       {
-        path: "ui/preskok-ui/experimental-bar-chart.tsx",
+        path: "ui/preskok-ui/recharts-area-chart.tsx",
         type: "registry:ui",
       },
     ],
   },
   {
-    name: "experimental-line-chart",
+    name: "recharts-bar-chart",
     type: "registry:ui",
-    description: "An experimental TanStack-powered line chart",
-    registryDependencies: ["experimental-chart"],
+    description: "Deprecated: Recharts bar chart. Use bar-chart instead.",
+    dependencies: ["recharts", "cn@^0.2.4"],
+    registryDependencies: ["recharts-chart"],
     files: [
       {
-        path: "ui/preskok-ui/experimental-line-chart.tsx",
+        path: "ui/preskok-ui/recharts-bar-chart.tsx",
         type: "registry:ui",
       },
     ],
   },
   {
-    name: "experimental-pie-chart",
+    name: "recharts-line-chart",
     type: "registry:ui",
-    description: "An experimental TanStack-powered pie and donut chart",
-    registryDependencies: ["experimental-chart"],
+    description: "Deprecated: Recharts line chart. Use line-chart instead.",
+    dependencies: ["recharts", "cn@^0.2.4"],
+    registryDependencies: ["recharts-chart"],
     files: [
       {
-        path: "ui/preskok-ui/experimental-pie-chart.tsx",
+        path: "ui/preskok-ui/recharts-line-chart.tsx",
         type: "registry:ui",
       },
     ],
   },
   {
-    name: "experimental-radial-chart",
+    name: "recharts-pie-chart",
     type: "registry:ui",
-    description: "An experimental TanStack-powered concentric radial chart",
-    registryDependencies: ["experimental-chart"],
+    description: "Deprecated: Recharts pie chart. Use pie-chart instead.",
+    dependencies: ["recharts", "cn@^0.2.4"],
+    registryDependencies: ["recharts-chart"],
     files: [
       {
-        path: "ui/preskok-ui/experimental-radial-chart.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-  {
-    name: "experimental-radar-chart",
-    type: "registry:ui",
-    description: "An experimental TanStack-powered radar chart",
-    registryDependencies: ["experimental-chart"],
-    files: [
-      {
-        path: "ui/preskok-ui/experimental-radar-chart.tsx",
+        path: "ui/preskok-ui/recharts-pie-chart.tsx",
         type: "registry:ui",
       },
     ],

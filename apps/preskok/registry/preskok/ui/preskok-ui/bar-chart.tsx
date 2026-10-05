@@ -1,194 +1,165 @@
 "use client"
 
-import React, { startTransition, type ComponentProps } from "react"
-import { twMerge } from "cn"
-import { Bar, BarChart as BarChartPrimitive } from "recharts"
-import type {
-  NameType,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent"
+import { defineChart } from "@tanstack/charts"
+import {
+  barX,
+  barY,
+  type BarXOptions,
+  type BarYOptions,
+} from "@tanstack/charts/bar"
+import { group } from "@tanstack/charts/group"
+import { scaleBand } from "@tanstack/charts/scales/band"
+import { stack } from "@tanstack/charts/stack"
 
 import {
-  CartesianGrid,
   Chart,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-  constructCategoryColors,
-  DEFAULT_COLORS,
-  getColorValue,
+  ChartFrame,
+  defaultValueFormatter,
   valueToPercent,
-  XAxis,
-  YAxis,
+  getCartesianScales,
+  getChartColors,
+  getChartOptions,
+  getFocusStates,
+  getSelectedSeriesColor,
+  toSeriesData,
+  useSeriesSelection,
   type BaseChartProps,
+  type ChartAxisProps,
+  type ChartNumericAxisProps,
+  type ChartType,
+  type SeriesDatum,
 } from "./chart"
 
-interface BarChartProps<
-  TValue extends ValueType,
-  TName extends NameType,
-> extends BaseChartProps<TValue, TName> {
-  barCategoryGap?: number
-  barRadius?: number
-  barGap?: number
-  barSize?: number
-  barProps?: Partial<React.ComponentProps<typeof Bar>>
+type BarOptions = Pick<
+  BarXOptions<SeriesDatum> & BarYOptions<SeriesDatum>,
+  "fillOpacity" | "inset" | "maxThickness" | "radius"
+>
 
-  chartProps?: Omit<
-    ComponentProps<typeof BarChartPrimitive>,
-    "data" | "stackOffset"
-  >
+type BarChartProps = BaseChartProps & {
+  barCategoryGap?: number
+  barGap?: number
+  barProps?: BarOptions
+  barRadius?: number
+  barSize?: number
+  categoryAxis?: ChartAxisProps | false
+  grid?: "hidden" | "visible"
+  layout?: "horizontal" | "vertical"
+  type?: ChartType
+  valueAxis?: ChartNumericAxisProps | false
 }
 
-const defaultValueFormatter = (value: number) => value.toString()
+function getBarLayout(type: ChartType, barGap: number) {
+  if (type === "stacked") {
+    return stack()
+  }
+  if (type === "percent") {
+    return stack({ offset: "normalize" })
+  }
+  return group({ padding: Math.min(barGap / 20, 0.8) })
+}
 
-const BarChart = <TValue extends ValueType, TName extends NameType>({
-  data = [],
-  dataKey,
-  colors = DEFAULT_COLORS,
-  type = "default",
-  className,
-  config,
-  children,
-  layout = "horizontal",
-
-  // Components
-  tooltip = true,
-  tooltipProps,
-
-  legend = true,
-  legendProps,
-
-  intervalType = "equidistantPreserveStart",
-
+function BarChart({
+  ariaLabel = "Bar chart",
   barCategoryGap = 5,
-  barGap,
-  barSize,
-  barRadius,
+  barGap = 4,
   barProps,
-
+  barRadius,
+  barSize = 48,
+  categoryAxis,
+  colors,
+  config,
+  data,
+  dataKey,
+  grid = "visible",
+  layout = "horizontal",
+  legend,
+  size,
+  tooltip,
+  tooltipProps,
+  type = "default",
+  valueAxis,
   valueFormatter = defaultValueFormatter,
+  ...frameProps
+}: BarChartProps) {
+  const [selectedSeries, selectSeries] = useSeriesSelection()
+  const rows = toSeriesData({ config, data, dataKey })
+  const chartColors = getChartColors(config, colors)
+  const singleSeries = Object.keys(config).length < 2
+  const formatValue = type === "percent" ? valueToPercent : valueFormatter
+  const scales = getCartesianScales({
+    categoryAxis,
+    categoryScale: () => scaleBand().padding(0.12),
+    data,
+    dataKey,
+    grid,
+    valueAxis,
+    valueFormatter: formatValue,
+  })
 
-  // XAxis
-  displayEdgeLabelsOnly = false,
-  xAxisProps,
-  hideXAxis = false,
+  // Stacks round only their exposed end; grouped bars round each bar end.
+  const defaultRadius = type === "default" && singleSeries ? 8 : 4
+  const barOptions = {
+    color: "series",
+    fill: (row: SeriesDatum) =>
+      getSelectedSeriesColor({
+        color: chartColors[row.series] ?? "var(--chart-1)",
+        opacity: 12,
+        selectedSeries,
+        series: row.series,
+      }),
+    inset: barCategoryGap / 2,
+    key: (row: SeriesDatum) => `${row.series}-${row.index}`,
+    layout: getBarLayout(type, barGap),
+    maxThickness: barSize,
+    radius: { end: barRadius ?? defaultRadius },
+    states: getFocusStates<SeriesDatum>("primary"),
+    z: "series",
+    ...barProps,
+  } as const
 
-  // YAxis
-  yAxisProps,
-  hideYAxis = false,
+  const definition =
+    layout === "horizontal"
+      ? defineChart({
+          ...getChartOptions(chartColors),
+          focus: "group-x",
+          marks: [barY(rows, { ...barOptions, x: "category", y: "value" })],
+          scales: { x: scales.category, y: scales.value },
+        })
+      : defineChart({
+          ...getChartOptions(chartColors),
+          focus: "group-y",
+          marks: [barX(rows, { ...barOptions, x: "value", y: "category" })],
+          scales: { x: scales.value, y: scales.category },
+        })
 
-  hideGridLines = false,
-  chartProps,
-  ...props
-}: BarChartProps<TValue, TName>) => {
-  const categoryColors = constructCategoryColors(Object.keys(config), colors)
-
-  const stacked = type === "stacked" || type === "percent"
   return (
-    <Chart
-      className={twMerge("w-full", className)}
+    <ChartFrame
+      {...frameProps}
+      colors={colors}
       config={config}
-      data={data}
-      dataKey={dataKey}
-      layout={layout}
-      {...props}
+      legend={type === "default" && singleSeries ? (legend ?? false) : legend}
+      onSelectedSeriesChange={selectSeries}
+      selectedSeries={selectedSeries}
     >
-      {({ onLegendSelect, selectedLegend }) => (
-        <BarChartPrimitive
-          onClick={() => {
-            onLegendSelect(null)
-          }}
-          data={data}
-          margin={{
-            bottom: 0,
-            left: 5,
-            right: 0,
-            top: 5,
-          }}
-          layout={layout === "radial" ? "horizontal" : layout}
-          barGap={barGap}
-          barSize={barSize}
-          barCategoryGap={barCategoryGap}
-          stackOffset={
-            type === "percent" ? "expand" : stacked ? "sign" : undefined
-          }
-          {...chartProps}
-        >
-          {!hideGridLines && <CartesianGrid strokeDasharray="4 4" />}
-          <XAxis
-            hide={hideXAxis}
-            className="**:[text]:fill-muted-foreground"
-            displayEdgeLabelsOnly={displayEdgeLabelsOnly}
-            intervalType={intervalType}
-            {...xAxisProps}
-          />
-          <YAxis
-            hide={hideYAxis}
-            className="**:[text]:fill-muted-foreground"
-            tickFormatter={type === "percent" ? valueToPercent : valueFormatter}
-            {...yAxisProps}
-          />
-
-          {legend && (
-            <ChartLegend
-              content={
-                typeof legend === "boolean" ? <ChartLegendContent /> : legend
-              }
-              {...legendProps}
-            />
-          )}
-
-          {tooltip && (
-            <ChartTooltip
-              content={
-                typeof tooltip === "boolean" ? (
-                  <ChartTooltipContent accessibilityLayer />
-                ) : (
-                  tooltip
-                )
-              }
-              {...tooltipProps}
-            />
-          )}
-
-          {!children
-            ? Object.entries(config).map(([category, values]) => {
-                return (
-                  <Bar
-                    key={category}
-                    name={category}
-                    dataKey={category}
-                    stroke={getColorValue(
-                      values.color || categoryColors.get(category)
-                    )}
-                    strokeWidth={1}
-                    stackId={stacked ? "stack" : undefined}
-                    onClick={(_item, _number, event) => {
-                      event.stopPropagation()
-
-                      startTransition(() => {
-                        onLegendSelect(category)
-                      })
-                    }}
-                    radius={barRadius ?? (stacked ? undefined : 4)}
-                    strokeOpacity={
-                      selectedLegend && selectedLegend !== category ? 0.2 : 0
-                    }
-                    fillOpacity={
-                      selectedLegend && selectedLegend !== category ? 0.1 : 1
-                    }
-                    fill={getColorValue(
-                      values.color || categoryColors.get(category)
-                    )}
-                    {...barProps}
-                  />
-                )
-              })
-            : children}
-        </BarChartPrimitive>
-      )}
-    </Chart>
+      <Chart
+        ariaLabel={ariaLabel}
+        className="w-full"
+        config={config}
+        definition={definition}
+        onSelect={(point) => {
+          selectSeries(point?.datum.series ?? null)
+        }}
+        size={size}
+        tooltip={tooltip}
+        tooltipProps={{
+          anchor: "pointer",
+          offset: 24,
+          placement: "auto",
+          ...tooltipProps,
+        }}
+        valueFormatter={formatValue}
+      />
+    </ChartFrame>
   )
 }
 

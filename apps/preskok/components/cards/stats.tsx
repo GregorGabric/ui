@@ -59,17 +59,16 @@ export function CardsStats() {
         <CardContent className="pb-0">
           <LineChart
             config={{
-              revenue: { label: "Freight Revenue", color: "var(--primary)" },
+              revenue: { label: "Freight Revenue", color: "var(--chart-1)" },
             }}
             data={data.map((d, i) => ({ name: i, revenue: d.revenue }))}
             dataKey="name"
-            className="h-[80px] w-full"
+            grid="hidden"
             legend={false}
+            size={{ height: 80 }}
             tooltip={false}
-            hideGridLines
-            hideYAxis
-            xAxisProps={{ hide: true }}
-            yAxisProps={{ hide: true }}
+            xAxis={false}
+            yAxis={false}
           />
         </CardContent>
       </Card>
@@ -94,7 +93,7 @@ export function CardsStats() {
             config={{
               subscription: {
                 label: "Completed Trips",
-                color: "var(--primary)",
+                color: "var(--chart-1)",
               },
             }}
             data={data.map((d, i) => ({
@@ -102,13 +101,12 @@ export function CardsStats() {
               subscription: d.subscription,
             }))}
             dataKey="name"
-            className="size-full"
+            grid="hidden"
             legend={false}
+            size={{ height: 124 }}
             tooltip={false}
-            hideGridLines
-            hideYAxis
-            xAxisProps={{ hide: true }}
-            yAxisProps={{ hide: true }}
+            xAxis={false}
+            yAxis={false}
           />
         </CardContent>
       </Card>
