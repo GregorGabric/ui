@@ -353,9 +353,6 @@ function ChartTooltipContent<
     labelFormatter,
     labelSeparator = true,
   } = tooltipProps ?? {}
-  // Area points report their gradient fill as their color, so read series
-  // colors from the chart config instead of the hovered point.
-  const seriesColors = getChartColors(config, use(ChartFrameContext)?.colors)
   const firstPoint = points[0]
 
   if (!firstPoint) {
@@ -388,7 +385,6 @@ function ChartTooltipContent<
           if (value === null) {
             return null
           }
-          const color = seriesColors[series] ?? point.color
 
           return (
             <div className="flex items-center gap-2.5" key={point.key}>
@@ -404,8 +400,8 @@ function ChartTooltipContent<
                   )}
                   style={{
                     backgroundColor:
-                      indicator === "dashed" ? "transparent" : color,
-                    borderColor: color,
+                      indicator === "dashed" ? "transparent" : point.color,
+                    borderColor: point.color,
                   }}
                 />
               )}
