@@ -98,6 +98,8 @@ type ChartTooltipContentProps<
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 > = {
+  /** Series of the hovered point; only its row shows the indicator. */
+  activeSeries?: string
   config: ChartConfig
   points: readonly ChartPoint<TDatum, TXValue, TYValue>[]
   tooltipProps?: ChartTooltipProps

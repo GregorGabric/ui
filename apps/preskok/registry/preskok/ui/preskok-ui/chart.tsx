@@ -177,8 +177,9 @@ function Chart<
       renderer={chartRenderer}
       renderTooltipBody={
         hasTooltip
-          ? ({ points }) => {
+          ? ({ points, primaryPoint }) => {
               const contentProps = {
+                activeSeries: primaryPoint?.datum.series,
                 config,
                 points: uniqueSeriesPoints(points),
                 tooltipProps,
@@ -337,6 +338,7 @@ function ChartTooltipContent<
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 >({
+  activeSeries,
   config,
   points,
   tooltipProps,
@@ -382,6 +384,12 @@ function ChartTooltipContent<
           if (value === null) {
             return null
           }
+          // Rows other than the hovered series keep the indicator's space
+          // so labels stay aligned.
+          const indicatorColor =
+            activeSeries === undefined || activeSeries === series
+              ? point.color
+              : "transparent"
 
           return (
             <div className="flex items-center gap-2.5" key={point.key}>
@@ -397,8 +405,8 @@ function ChartTooltipContent<
                   )}
                   style={{
                     backgroundColor:
-                      indicator === "dashed" ? "transparent" : point.color,
-                    borderColor: point.color,
+                      indicator === "dashed" ? "transparent" : indicatorColor,
+                    borderColor: indicatorColor,
                   }}
                 />
               )}
