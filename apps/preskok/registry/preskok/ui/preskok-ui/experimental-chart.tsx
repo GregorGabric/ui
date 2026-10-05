@@ -5,16 +5,20 @@ import {
   startTransition,
   use,
   useState,
-  type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
 } from "react"
-import type { ChartValue, DomChartDefinition } from "@tanstack/charts"
+import {
+  defineChart,
+  type ChartPoint,
+  type ChartValue,
+  type StaticChartDefinition,
+} from "@tanstack/charts"
 import {
   Chart as ChartPrimitive,
   type ChartProps as TanStackChartProps,
-  type ChartTooltipBodyRenderContext,
 } from "@tanstack/charts/react/tooltip"
+import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 import { twMerge } from "cn"
 import {
   ToggleButton,
@@ -22,10 +26,10 @@ import {
 } from "react-aria-components/ToggleButtonGroup"
 
 import {
+  experimentalDefaultValueFormatter,
   getExperimentalChartColors,
   getExperimentalLabel,
   getExperimentalTextLabel,
-  getExperimentalTooltipOptions,
   type ExperimentalChartColorPalette,
   type ExperimentalChartConfig,
   type ExperimentalChartLegendProps,
@@ -37,16 +41,10 @@ import {
 } from "./experimental-chart-core"
 
 type ExperimentalChartFrameContextValue = {
-  actions: {
-    selectSeries: (series: string | null) => void
-  }
-  meta: {
-    colors?: ExperimentalChartColorPalette
-    config: ExperimentalChartConfig
-  }
-  state: {
-    selectedSeries: string | null
-  }
+  colors?: ExperimentalChartColorPalette
+  config: ExperimentalChartConfig
+  selectedSeries: string | null
+  selectSeries: (series: string | null) => void
 }
 
 const ExperimentalChartFrameContext =
@@ -62,39 +60,63 @@ function useExperimentalChartFrame() {
   return context
 }
 
+/** Series highlighted from the legend or by selecting a mark. */
+function useExperimentalSeriesSelection() {
+  const [selectedSeries, setSelectedSeries] = useState<string | null>(null)
+
+  const selectSeries = (series: string | null) => {
+    startTransition(() => {
+      setSelectedSeries(series)
+    })
+  }
+
+  return [selectedSeries, selectSeries] as const
+}
+
 type ExperimentalChartProps<
-  TDatum,
+  TDatum extends ExperimentalTooltipDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 > = Pick<
   TanStackChartProps<TDatum, TXValue, TYValue>,
-  | "ariaLabel"
-  | "className"
-  | "definition"
-  | "onSelect"
-  | "renderTooltipBody"
-  | "style"
+  "className" | "style"
 > & {
+  ariaLabel: string
+  config: ExperimentalChartConfig
+  /** Height used when `size` sets neither `height` nor `aspectRatio`. */
+  defaultHeight?: number
+  definition: StaticChartDefinition<TDatum, TXValue, TYValue, "dom">
+  onSelect?: (point: ChartPoint<TDatum, TXValue, TYValue> | null) => void
   size?: ExperimentalChartSizeProps
+  tooltip?: ExperimentalChartTooltipRenderer<TDatum, TXValue, TYValue> | false
+  tooltipProps?: ExperimentalChartTooltipProps
+  valueFormatter?: (value: number) => string
 }
 
 function ExperimentalChart<
-  TDatum,
+  TDatum extends ExperimentalTooltipDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 >({
   ariaLabel,
   className,
+  config,
+  defaultHeight = 288,
   definition,
   onSelect,
-  renderTooltipBody,
   size,
   style,
+  tooltip,
+  tooltipProps,
+  valueFormatter = experimentalDefaultValueFormatter,
 }: ExperimentalChartProps<TDatum, TXValue, TYValue>) {
+  // Hide the first paint until the chart matches its container width, so the
+  // server-rendered `initialWidth` layout never flashes.
   const [ready, setReady] = useState(false)
+  const hasTooltip = tooltip !== false
   let height = size?.height
   if (height === undefined && size?.aspectRatio === undefined) {
-    height = 288
+    height = defaultHeight
   }
 
   return (
@@ -106,7 +128,20 @@ function ExperimentalChart<
         ready ? "opacity-100" : "opacity-0",
         className
       )}
-      definition={definition}
+      definition={
+        hasTooltip
+          ? defineChart(definition, {
+              tooltip: {
+                anchor: tooltipProps?.anchor,
+                offset: tooltipProps?.offset,
+                placement: tooltipProps?.placement,
+                // A click already selects a series, so it should not also pin.
+                sticky: onSelect === undefined,
+                use: tooltipExtension,
+              },
+            })
+          : definition
+      }
       height={height}
       initialWidth={size?.initialWidth ?? 720}
       onRender={(context) => {
@@ -115,16 +150,49 @@ function ExperimentalChart<
         }
 
         const measuredWidth = context.container.getBoundingClientRect().width
-        const widthMatches = Math.abs(context.scene.width - measuredWidth) < 1
-        if (measuredWidth > 0 && widthMatches) {
+        if (
+          measuredWidth > 0 &&
+          Math.abs(context.scene.width - measuredWidth) < 1
+        ) {
           setReady(true)
         }
       }}
       onSelect={onSelect}
-      renderTooltipBody={renderTooltipBody}
+      renderTooltipBody={
+        hasTooltip
+          ? ({ points }) => {
+              const contentProps = {
+                config,
+                points: uniqueSeriesPoints(points),
+                tooltipProps,
+                valueFormatter,
+              }
+
+              return tooltip ? (
+                tooltip(contentProps)
+              ) : (
+                <ExperimentalChartTooltipContent {...contentProps} />
+              )
+            }
+          : undefined
+      }
       style={style}
     />
   )
+}
+
+/** Keeps one tooltip row per series when several marks share a datum. */
+function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
+  points: readonly TPoint[]
+) {
+  const seen = new Set<string>()
+  return points.filter((point) => {
+    if (seen.has(point.datum.series)) {
+      return false
+    }
+    seen.add(point.datum.series)
+    return true
+  })
 }
 
 type ExperimentalChartFrameProps = Omit<
@@ -135,6 +203,8 @@ type ExperimentalChartFrameProps = Omit<
   colors?: ExperimentalChartColorPalette
   config: ExperimentalChartConfig
   legend?: ReactNode | false
+  onSelectedSeriesChange: (series: string | null) => void
+  selectedSeries: string | null
 }
 
 function ExperimentalChartFrame({
@@ -142,53 +212,40 @@ function ExperimentalChartFrame({
   className,
   colors,
   config,
-  legend,
+  legend = <ExperimentalChartLegend />,
+  onSelectedSeriesChange,
+  selectedSeries,
   ...props
 }: ExperimentalChartFrameProps) {
-  const [selectedSeries, setSelectedSeries] = useState<string | null>(null)
-
-  const selectSeries = (series: string | null) => {
-    startTransition(() => {
-      setSelectedSeries(series)
-    })
-  }
-
-  let legendContent = legend
-  if (legend === undefined) {
-    legendContent = <ExperimentalChartLegend />
-  }
-
-  const context = {
-    actions: { selectSeries },
-    meta: { colors, config },
-    state: { selectedSeries },
-  }
-
   return (
-    <ExperimentalChartFrameContext value={context}>
+    <ExperimentalChartFrameContext
+      value={{
+        colors,
+        config,
+        selectedSeries,
+        selectSeries: onSelectedSeriesChange,
+      }}
+    >
       <div
         {...props}
         className={twMerge("z-20 flex w-full min-w-0 flex-col", className)}
       >
         {children}
-        {legendContent}
+        {legend}
       </div>
     </ExperimentalChartFrameContext>
   )
 }
 
-function ExperimentalChartLegendContent({
+function ExperimentalChartLegend({
   align = "center",
   className,
   hideIcon = false,
   verticalAlign = "bottom",
   ...props
 }: ExperimentalChartLegendProps) {
-  const {
-    actions: { selectSeries },
-    meta: { colors, config },
-    state: { selectedSeries },
-  } = useExperimentalChartFrame()
+  const { colors, config, selectedSeries, selectSeries } =
+    useExperimentalChartFrame()
   const chartColors = getExperimentalChartColors(config, colors)
   let justifyClass = "justify-center"
   if (align === "left") {
@@ -207,8 +264,7 @@ function ExperimentalChartLegendContent({
         className
       )}
       onSelectionChange={(keys) => {
-        const key = [...keys][0]?.toString() ?? null
-        selectSeries(key)
+        selectSeries([...keys][0]?.toString() ?? null)
       }}
       selectedKeys={selectedSeries ? [selectedSeries] : []}
       selectionMode="single"
@@ -245,10 +301,6 @@ function ExperimentalChartLegendContent({
   )
 }
 
-function ExperimentalChartLegend(props: ExperimentalChartLegendProps) {
-  return <ExperimentalChartLegendContent {...props} />
-}
-
 function ExperimentalChartTooltipContent<
   TDatum extends ExperimentalTooltipDatum,
   TXValue extends ChartValue = ChartValue,
@@ -274,17 +326,6 @@ function ExperimentalChartTooltipContent<
   }
 
   const rawLabel = String(firstPoint.datum.category)
-  const label = labelFormatter ? labelFormatter(rawLabel) : rawLabel
-  const labelContent = hideLabel ? null : (
-    <span className="font-semibold text-foreground">{label}</span>
-  )
-  const separator =
-    hideLabel || !labelSeparator ? null : (
-      <span
-        aria-hidden
-        className="mt-2 mb-2.5 block h-px w-full bg-border/70"
-      />
-    )
 
   return (
     <div
@@ -293,8 +334,17 @@ function ExperimentalChartTooltipContent<
         className
       )}
     >
-      {labelContent}
-      {separator}
+      {hideLabel ? null : (
+        <span className="font-semibold text-foreground">
+          {labelFormatter ? labelFormatter(rawLabel) : rawLabel}
+        </span>
+      )}
+      {hideLabel || !labelSeparator ? null : (
+        <span
+          aria-hidden
+          className="mt-2 mb-2.5 block h-px w-full bg-border/70"
+        />
+      )}
       <div className="grid gap-2.5">
         {points.map((point) => {
           const { series, value } = point.datum
@@ -302,14 +352,9 @@ function ExperimentalChartTooltipContent<
             return null
           }
 
-          let indicatorStyle = { backgroundColor: point.color }
-          if (indicator === "dashed") {
-            indicatorStyle = { backgroundColor: "transparent" }
-          }
-
           return (
             <div className="flex items-center gap-2.5" key={point.key}>
-              {!hideIndicator ? (
+              {hideIndicator ? null : (
                 <span
                   aria-hidden
                   className={twMerge(
@@ -320,11 +365,12 @@ function ExperimentalChartTooltipContent<
                       "h-4 w-0 border-l-2 border-dashed bg-transparent"
                   )}
                   style={{
-                    ...indicatorStyle,
+                    backgroundColor:
+                      indicator === "dashed" ? "transparent" : point.color,
                     borderColor: point.color,
                   }}
                 />
-              ) : null}
+              )}
               <span className="flex-1 text-muted-foreground">
                 {getExperimentalLabel(config, series)}
               </span>
@@ -339,78 +385,23 @@ function ExperimentalChartTooltipContent<
   )
 }
 
-function createExperimentalTooltipRenderer<
-  TDatum extends ExperimentalTooltipDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->({
-  config,
-  tooltip,
-  tooltipProps,
-  valueFormatter,
+/** Value and caption centered over a donut or radial chart. */
+function ExperimentalChartCenterLabel({
+  label,
+  value,
 }: {
-  config: ExperimentalChartConfig
-  tooltip?: ExperimentalChartTooltipRenderer<TDatum, TXValue, TYValue> | false
-  tooltipProps?: ExperimentalChartTooltipProps
-  valueFormatter: (value: number) => string
+  label?: ReactNode
+  value: ReactNode
 }) {
-  return (context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>) => {
-    const contentProps = {
-      config,
-      points: context.points,
-      tooltipProps,
-      valueFormatter,
-    }
-
-    if (typeof tooltip === "function") {
-      return tooltip(contentProps)
-    }
-
-    return <ExperimentalChartTooltipContent {...contentProps} />
-  }
+  return (
+    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+      <span className="text-xl font-semibold tracking-tight text-foreground tabular-nums">
+        {value}
+      </span>
+      <span className="max-w-24 text-xs text-muted-foreground">{label}</span>
+    </div>
+  )
 }
-
-function getExperimentalChartTooltip<
-  TDatum extends ExperimentalTooltipDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->({
-  config,
-  definition,
-  tooltip,
-  tooltipProps,
-  valueFormatter,
-}: {
-  config: ExperimentalChartConfig
-  definition: DomChartDefinition<TDatum, TXValue, TYValue>
-  tooltip?: ExperimentalChartTooltipRenderer<TDatum, TXValue, TYValue> | false
-  tooltipProps?: ExperimentalChartTooltipProps
-  valueFormatter: (value: number) => string
-}) {
-  if (tooltip === false) {
-    return { definition, renderTooltipBody: undefined }
-  }
-
-  return {
-    definition: {
-      ...definition,
-      ...getExperimentalTooltipOptions(tooltipProps),
-    },
-    renderTooltipBody: createExperimentalTooltipRenderer({
-      config,
-      tooltip,
-      tooltipProps,
-      valueFormatter,
-    }),
-  }
-}
-
-const experimentalChartTooltipStyle = {
-  "--ts-chart-tooltip-background": "transparent",
-  "--ts-chart-tooltip-border": "0",
-  "--ts-chart-tooltip-padding": "0",
-  "--ts-chart-tooltip-shadow": "none",
-} as CSSProperties
 
 export type {
   ExperimentalChartFrameContextValue,
@@ -420,14 +411,12 @@ export type {
 
 export {
   ExperimentalChart,
+  ExperimentalChartCenterLabel,
   ExperimentalChartFrame,
   ExperimentalChartLegend,
-  ExperimentalChartLegendContent,
   ExperimentalChartTooltipContent,
-  experimentalChartTooltipStyle,
-  createExperimentalTooltipRenderer,
-  getExperimentalChartTooltip,
   useExperimentalChartFrame,
+  useExperimentalSeriesSelection,
 }
 
 export * from "./experimental-chart-core"

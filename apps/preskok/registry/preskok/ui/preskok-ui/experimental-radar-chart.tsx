@@ -19,17 +19,15 @@ import {
   ExperimentalChart,
   ExperimentalChartFrame,
   experimentalDefaultValueFormatter,
-  getExperimentalChartSize,
-  getExperimentalChartTooltip,
+  getExperimentalChartColors,
+  getExperimentalChartOptions,
   getExperimentalPositiveMaximum,
   getExperimentalSelectedSeriesColor,
-  getExperimentalSeriesChartOptions,
   toExperimentalSeriesData,
-  useExperimentalChartFrame,
+  useExperimentalSeriesSelection,
   type ExperimentalBaseChartProps,
   type ExperimentalChartAxisProps,
   type ExperimentalChartNumericAxisProps,
-  type ExperimentalChartPlotProps,
   type ExperimentalSeriesDatum,
 } from "./experimental-chart"
 
@@ -68,23 +66,7 @@ type ExperimentalRadarChartProps = ExperimentalBaseChartProps & {
   valueAxis?: RadarValueAxisProps | false
 }
 
-type ExperimentalRadarChartPlotProps =
-  ExperimentalChartPlotProps<ExperimentalRadarChartProps>
-
-function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
-  points: readonly TPoint[]
-) {
-  const series = new Set<string>()
-  return points.filter((point) => {
-    if (series.has(point.datum.series)) {
-      return false
-    }
-    series.add(point.datum.series)
-    return true
-  })
-}
-
-function ExperimentalRadarChartPlot({
+function ExperimentalRadarChart({
   ariaLabel = "Radar chart",
   categoryAxis,
   colors,
@@ -93,6 +75,7 @@ function ExperimentalRadarChartPlot({
   dataKey,
   dots,
   grid,
+  legend,
   radarAreaProps,
   radiusRatio = 0.72,
   size,
@@ -100,241 +83,142 @@ function ExperimentalRadarChartPlot({
   tooltipProps,
   valueAxis,
   valueFormatter = experimentalDefaultValueFormatter,
-}: ExperimentalRadarChartPlotProps) {
-  const {
-    actions: { selectSeries },
-    state: { selectedSeries },
-  } = useExperimentalChartFrame()
+  ...frameProps
+}: ExperimentalRadarChartProps) {
+  const [selectedSeries, selectSeries] = useExperimentalSeriesSelection()
   const rows = toExperimentalSeriesData({ config, data, dataKey })
-  const { chartColors, options } = getExperimentalSeriesChartOptions(
-    config,
-    colors
-  )
-  const resolvedMaximum = getExperimentalPositiveMaximum(
-    rows.map((row) => row.value ?? 0)
-  )
-  let radiusScale = scaleLinear().domain([0, resolvedMaximum]).nice(4)
-  if (valueAxis && valueAxis.domain) {
-    radiusScale = scaleLinear().domain(valueAxis.domain)
-  }
-
-  const colorForSeries = (series: string) => {
-    const color = chartColors[series] ?? "var(--chart-1)"
-    return getExperimentalSelectedSeriesColor({
-      color,
+  const chartColors = getExperimentalChartColors(config, colors)
+  const seriesColor = (row: ExperimentalSeriesDatum) =>
+    getExperimentalSelectedSeriesColor({
+      color: chartColors[row.series] ?? "var(--chart-1)",
       opacity: 16,
       selectedSeries,
-      series,
+      series: row.series,
     })
-  }
-  const guides = []
-  const gridProps = grid === false ? undefined : grid
+
+  const valueAxisProps = valueAxis === false ? undefined : valueAxis
+  const categoryAxisProps = categoryAxis === false ? undefined : categoryAxis
+  const radiusScale = valueAxisProps?.domain
+    ? scaleLinear().domain(valueAxisProps.domain)
+    : scaleLinear()
+        .domain([
+          0,
+          getExperimentalPositiveMaximum(rows.map((row) => row.value ?? 0)),
+        ])
+        .nice(4)
+
   const showGrid = grid !== false
+  const gridProps = grid === false ? undefined : grid
   const showValueLabels =
     valueAxis !== false && gridProps?.valueLabels === "visible"
+  const guideStroke = {
+    stroke: "var(--muted-foreground)",
+    strokeOpacity: showGrid ? 0.16 : 0,
+  }
+  const guides = []
   if (showGrid || showValueLabels) {
     guides.push(
       radialGrid({
-        format: (value) => {
-          if (valueAxis && valueAxis.tickFormatter) {
-            return valueAxis.tickFormatter(Number(value))
-          }
-          return valueFormatter(Number(value))
-        },
+        ...guideStroke,
+        format: (value) =>
+          (valueAxisProps?.tickFormatter ?? valueFormatter)(Number(value)),
         labelFill: "var(--muted-foreground)",
         labelFontSize: 10,
         labels: showValueLabels,
         shape: gridProps?.shape ?? "polygon",
-        stroke: "var(--muted-foreground)",
-        strokeOpacity: showGrid ? 0.16 : 0,
         ticks: gridProps?.ticks ?? 4,
-        values: valueAxis === false ? undefined : valueAxis?.ticks,
+        values: valueAxisProps?.ticks,
       })
     )
   }
-  if (categoryAxis !== false || showGrid) {
+  if (showGrid || categoryAxis !== false) {
     guides.push(
       angleGrid({
-        format: (value) => {
-          if (categoryAxis && categoryAxis.tickFormatter) {
-            return categoryAxis.tickFormatter(value)
-          }
-          return String(value)
-        },
-        labelAnchor: ({ x }) => {
-          if (x < -1) {
-            return "end"
-          }
-          if (x > 1) {
-            return "start"
-          }
-          return "middle"
-        },
-        labelDx: ({ x }) => {
-          if (x < -1) {
-            return -4
-          }
-          if (x > 1) {
-            return 4
-          }
-          return 0
-        },
-        labelDy: ({ y }) => {
-          if (y < -1) {
-            return -3
-          }
-          if (y > 1) {
-            return 3
-          }
-          return 0
-        },
+        ...guideStroke,
+        format: categoryAxisProps?.tickFormatter ?? String,
         labelFill: "var(--muted-foreground)",
         labelFontSize: 11,
         labelOffset: 10,
         labels: categoryAxis !== false,
-        stroke: "var(--muted-foreground)",
-        strokeOpacity: showGrid ? 0.16 : 0,
-        values: categoryAxis === false ? undefined : categoryAxis?.ticks,
+        values: categoryAxisProps?.ticks,
       })
     )
   }
 
-  const marks = [
-    radialArea(rows, {
-      angle: "category",
-      color: "series",
-      curve: curveLinearClosed,
-      fill: (row) => colorForSeries(row.series),
-      fillOpacity: 0.16,
-      id: "preskok-radar-area",
-      key: (row) => `${row.series}-${row.index}`,
-      radius: "value",
-      stroke: (row) => colorForSeries(row.series),
-      strokeWidth: 2,
-      z: "series",
-      ...radarAreaProps,
-    }),
-  ]
-  if (dots !== false) {
-    marks.push(
-      radialDot(rows, {
-        angle: "category",
-        color: "series",
-        fill: (row) => colorForSeries(row.series),
-        id: "preskok-radar-dot",
-        key: (row) => `${row.series}-${row.index}`,
-        r: 3.5,
-        radius: "value",
-        stroke: "var(--background)",
-        strokeWidth: 2,
-        z: "series",
-        ...dots,
-      })
-    )
-  }
+  const area = radialArea(rows, {
+    angle: "category",
+    color: "series",
+    curve: curveLinearClosed,
+    fill: seriesColor,
+    fillOpacity: 0.16,
+    key: (row) => `${row.series}-${row.index}`,
+    radius: "value",
+    stroke: seriesColor,
+    strokeWidth: 2,
+    z: "series",
+    ...radarAreaProps,
+  })
 
-  const baseDefinition = defineChart({
-    ...options,
+  const definition = defineChart({
+    ...getExperimentalChartOptions(chartColors),
     focus: focusGroupAngle,
-    guides: false,
     marks: [
       polar({
-        angle: { scale: scaleBand },
         guides,
-        marks,
-        radius: {
-          scale: radiusScale,
-        },
+        marks:
+          dots === false
+            ? [area]
+            : [
+                area,
+                radialDot(rows, {
+                  angle: "category",
+                  color: "series",
+                  fill: seriesColor,
+                  key: (row) => `${row.series}-${row.index}`,
+                  r: 3.5,
+                  radius: "value",
+                  stroke: "var(--background)",
+                  strokeWidth: 2,
+                  z: "series",
+                  ...dots,
+                }),
+              ],
         radiusRatio,
+        scales: {
+          angle: { scale: scaleBand },
+          radius: { scale: radiusScale },
+        },
       }),
     ],
-    x: null,
-    y: null,
+    scales: { x: null, y: null },
   })
-  const { definition, renderTooltipBody } = getExperimentalChartTooltip({
-    config,
-    definition: baseDefinition,
-    tooltip,
-    tooltipProps: {
-      anchor: "pointer",
-      offset: 20,
-      placement: "auto",
-      ...tooltipProps,
-    },
-    valueFormatter,
-  })
-  const chartSize = getExperimentalChartSize(size, 320)
-
-  return (
-    <ExperimentalChart
-      ariaLabel={ariaLabel}
-      className="w-full [&_path[data-ts-key*=preskok-radar-area]]:cursor-pointer [&_path[data-ts-key*=preskok-radar-area]]:transition-[filter,opacity] [&_path[data-ts-key*=preskok-radar-area]]:duration-150 [&_path[data-ts-key*=preskok-radar-area]]:ease-out motion-reduce:[&_path[data-ts-key*=preskok-radar-area]]:transition-none [&_path[data-ts-key*=preskok-radar-area]:hover]:brightness-110"
-      definition={definition}
-      onSelect={(point) => {
-        selectSeries(point?.datum.series ?? null)
-      }}
-      renderTooltipBody={
-        renderTooltipBody
-          ? (context) =>
-              renderTooltipBody({
-                ...context,
-                points: uniqueSeriesPoints(context.points),
-              })
-          : undefined
-      }
-      size={chartSize}
-    />
-  )
-}
-
-function ExperimentalRadarChart({
-  ariaLabel,
-  categoryAxis,
-  className,
-  colors,
-  config,
-  data,
-  dataKey,
-  dots,
-  grid,
-  legend,
-  radarAreaProps,
-  radiusRatio,
-  size,
-  tooltip,
-  tooltipProps,
-  valueAxis,
-  valueFormatter,
-  ...frameProps
-}: ExperimentalRadarChartProps) {
-  let resolvedLegend = legend
-  if (legend === undefined && Object.keys(config).length < 2) {
-    resolvedLegend = false
-  }
 
   return (
     <ExperimentalChartFrame
       {...frameProps}
-      className={className}
       colors={colors}
       config={config}
-      legend={resolvedLegend}
+      legend={Object.keys(config).length < 2 ? (legend ?? false) : legend}
+      onSelectedSeriesChange={selectSeries}
+      selectedSeries={selectedSeries}
     >
-      <ExperimentalRadarChartPlot
+      <ExperimentalChart
         ariaLabel={ariaLabel}
-        categoryAxis={categoryAxis}
-        colors={colors}
+        className="w-full"
         config={config}
-        data={data}
-        dataKey={dataKey}
-        dots={dots}
-        grid={grid}
-        radarAreaProps={radarAreaProps}
-        radiusRatio={radiusRatio}
+        defaultHeight={320}
+        definition={definition}
+        onSelect={(point) => {
+          selectSeries(point?.datum.series ?? null)
+        }}
         size={size}
         tooltip={tooltip}
-        tooltipProps={tooltipProps}
-        valueAxis={valueAxis}
+        tooltipProps={{
+          anchor: "pointer",
+          offset: 20,
+          placement: "auto",
+          ...tooltipProps,
+        }}
         valueFormatter={valueFormatter}
       />
     </ExperimentalChartFrame>

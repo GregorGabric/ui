@@ -7,8 +7,8 @@ status: new
 import { ComponentPreview } from "@/components/component-preview"
 
 The existing chart components remain stable and continue to use Recharts. These
-separately named components use the pre-release TanStack Charts package so you
-can evaluate the new implementation without migrating production code.
+separately named components use TanStack Charts v1 so you can evaluate the new
+implementation without migrating production code.
 
 <ComponentPreview
   name="experimental-charts-toggle-preskok-demo"
@@ -65,6 +65,6 @@ npx shadcn@latest add @preskok/experimental-pie-chart
 
 ## Stability
 
-TanStack Charts is still pre-release. Treat these components as opt-in and
-expect their API to change. The unprefixed `AreaChart`, `BarChart`, `LineChart`,
+TanStack Charts is stable as of v1, but these wrapper components are still
+experimental. Treat them as opt-in and expect their API to change. The unprefixed `AreaChart`, `BarChart`, `LineChart`,
 and `PieChart` APIs are not changed by installing or testing them.

@@ -1,11 +1,6 @@
 "use client"
 
-import type { CSSProperties } from "react"
-import {
-  defineChart,
-  type GroupLayout,
-  type StackLayout,
-} from "@tanstack/charts"
+import { defineChart } from "@tanstack/charts"
 import {
   barX,
   barY,
@@ -20,19 +15,17 @@ import {
   ExperimentalChart,
   ExperimentalChartFrame,
   experimentalDefaultValueFormatter,
-  getExperimentalCategoryAxis,
-  getExperimentalChartTooltip,
-  getExperimentalNumericAxis,
-  getExperimentalNumericScale,
-  getExperimentalSelectedSeriesColor,
-  getExperimentalSeriesChartOptions,
-  toExperimentalSeriesData,
-  useExperimentalChartFrame,
   experimentalValueToPercent,
+  getExperimentalCartesianScales,
+  getExperimentalChartColors,
+  getExperimentalChartOptions,
+  getExperimentalFocusStates,
+  getExperimentalSelectedSeriesColor,
+  toExperimentalSeriesData,
+  useExperimentalSeriesSelection,
   type ExperimentalBaseChartProps,
   type ExperimentalChartAxisProps,
   type ExperimentalChartNumericAxisProps,
-  type ExperimentalChartPlotProps,
   type ExperimentalChartType,
   type ExperimentalSeriesDatum,
 } from "./experimental-chart"
@@ -55,34 +48,23 @@ type ExperimentalBarChartProps = ExperimentalBaseChartProps & {
   valueAxis?: ExperimentalChartNumericAxisProps | false
 }
 
-type ExperimentalBarChartPlotProps =
-  ExperimentalChartPlotProps<ExperimentalBarChartProps>
-
-function getBarDirection(value: number | null) {
-  return value !== null && value < 0 ? "negative" : "positive"
-}
-
-function getTerminalSeries(rows: ExperimentalSeriesDatum[]) {
-  const terminalSeries = new Map<string, string>()
-
-  for (const row of rows) {
-    if (row.value === null || row.value === 0) {
-      continue
-    }
-
-    terminalSeries.set(`${row.index}-${getBarDirection(row.value)}`, row.series)
+function getBarLayout(type: ExperimentalChartType, barGap: number) {
+  if (type === "stacked") {
+    return stack()
   }
-
-  return terminalSeries
+  if (type === "percent") {
+    return stack({ offset: "normalize" })
+  }
+  return group({ padding: Math.min(barGap / 20, 0.8) })
 }
 
-function ExperimentalBarChartPlot({
+function ExperimentalBarChart({
   ariaLabel = "Bar chart",
   barCategoryGap = 5,
   barGap = 4,
   barProps,
   barRadius,
-  barSize,
+  barSize = 48,
   categoryAxis,
   colors,
   config,
@@ -90,41 +72,35 @@ function ExperimentalBarChartPlot({
   dataKey,
   grid = "visible",
   layout = "horizontal",
+  legend,
   size,
   tooltip,
   tooltipProps,
   type = "default",
   valueAxis,
   valueFormatter = experimentalDefaultValueFormatter,
-}: ExperimentalBarChartPlotProps) {
-  const {
-    actions: { selectSeries },
-    state: { selectedSeries },
-  } = useExperimentalChartFrame()
+  ...frameProps
+}: ExperimentalBarChartProps) {
+  const [selectedSeries, selectSeries] = useExperimentalSeriesSelection()
   const rows = toExperimentalSeriesData({ config, data, dataKey })
-  const { chartColors, options, seriesNames } =
-    getExperimentalSeriesChartOptions(config, colors)
-  const tooltipValueFormatter =
+  const chartColors = getExperimentalChartColors(config, colors)
+  const singleSeries = Object.keys(config).length < 2
+  const formatValue =
     type === "percent" ? experimentalValueToPercent : valueFormatter
-  const vertical = layout === "horizontal"
-  const stacked = type === "stacked" || type === "percent"
-  let resolvedBarRadius = barRadius
-  if (resolvedBarRadius === undefined) {
-    resolvedBarRadius = type === "default" && seriesNames.length === 1 ? 8 : 4
-  }
-
-  const terminalSeries = getTerminalSeries(rows)
-  let barLayout: GroupLayout | StackLayout = group({
-    padding: Math.min(barGap / 20, 0.8),
+  const scales = getExperimentalCartesianScales({
+    categoryAxis,
+    categoryScale: () => scaleBand().padding(0.12),
+    data,
+    dataKey,
+    grid,
+    valueAxis,
+    valueFormatter: formatValue,
   })
-  if (type === "stacked") {
-    barLayout = stack()
-  } else if (type === "percent") {
-    barLayout = stack({ offset: "normalize" })
-  }
 
-  const sharedOptions = {
-    color: "series" as const,
+  // Stacks round only their exposed end; grouped bars round each bar end.
+  const defaultRadius = type === "default" && singleSeries ? 8 : 4
+  const barOptions = {
+    color: "series",
     fill: (row: ExperimentalSeriesDatum) =>
       getExperimentalSelectedSeriesColor({
         color: chartColors[row.series] ?? "var(--chart-1)",
@@ -133,192 +109,56 @@ function ExperimentalBarChartPlot({
         series: row.series,
       }),
     inset: barCategoryGap / 2,
-    key: (row: ExperimentalSeriesDatum) => {
-      const direction = getBarDirection(row.value)
-      let position = "outer"
-      if (
-        stacked &&
-        terminalSeries.get(`${row.index}-${direction}`) !== row.series
-      ) {
-        position = "inner"
-      }
-
-      return `${direction}-${position}-${row.series}-${row.index}`
-    },
-    layout: barLayout,
-    maxThickness: barSize ?? 48,
-    radius: 0,
-    z: "series" as const,
+    key: (row: ExperimentalSeriesDatum) => `${row.series}-${row.index}`,
+    layout: getBarLayout(type, barGap),
+    maxThickness: barSize,
+    radius: { end: barRadius ?? defaultRadius },
+    states: getExperimentalFocusStates<ExperimentalSeriesDatum>("primary"),
+    z: "series",
     ...barProps,
-  }
-  const categoryAxisDefinition = getExperimentalCategoryAxis({
-    data,
-    dataKey,
-    props: categoryAxis,
-  })
-  const valueAxisDefinition = getExperimentalNumericAxis({
-    props: valueAxis,
-    valueFormatter: tooltipValueFormatter,
-  })
-  const resolvedTooltipProps = {
-    anchor: "pointer" as const,
-    offset: 24,
-    placement: "auto" as const,
-    ...tooltipProps,
-  }
+  } as const
 
-  function createVerticalDefinition() {
-    const baseDefinition = defineChart({
-      ...options,
-      focus: "group-x",
-      marks: [
-        barY(rows, {
-          ...sharedOptions,
-          x: "category",
-          y: "value",
-        }),
-      ],
-      x: {
-        axis: categoryAxisDefinition,
-        scale: () => scaleBand().padding(0.12),
-      },
-      y: {
-        axis: valueAxisDefinition,
-        grid: grid === "visible",
-        nice: true,
-        scale: getExperimentalNumericScale(valueAxis),
-      },
-    })
-
-    return baseDefinition
-  }
-
-  function createHorizontalDefinition() {
-    const baseDefinition = defineChart({
-      ...options,
-      focus: "group-y",
-      marks: [
-        barX(rows, {
-          ...sharedOptions,
-          x: "value",
-          y: "category",
-        }),
-      ],
-      x: {
-        axis: valueAxisDefinition,
-        grid: grid === "visible",
-        nice: true,
-        scale: getExperimentalNumericScale(valueAxis),
-      },
-      y: {
-        axis: categoryAxisDefinition,
-        scale: () => scaleBand().padding(0.12),
-      },
-    })
-
-    return baseDefinition
-  }
-
-  const baseDefinition = vertical
-    ? createVerticalDefinition()
-    : createHorizontalDefinition()
-  const { definition, renderTooltipBody } = getExperimentalChartTooltip({
-    config,
-    definition: baseDefinition,
-    tooltip,
-    tooltipProps: resolvedTooltipProps,
-    valueFormatter: tooltipValueFormatter,
-  })
-  let roundedBarClass =
-    "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_var(--bar-radius)_0_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_0_0_var(--bar-radius)_var(--bar-radius))]"
-  if (!vertical) {
-    roundedBarClass =
-      "[&_rect[data-ts-key*=positive-outer-]]:[clip-path:inset(0_round_0_var(--bar-radius)_var(--bar-radius)_0)] [&_rect[data-ts-key*=negative-outer-]]:[clip-path:inset(0_round_var(--bar-radius)_0_0_var(--bar-radius))]"
-  }
-  if (barProps?.radius !== undefined) {
-    roundedBarClass = ""
-  }
-
-  return (
-    <ExperimentalChart
-      ariaLabel={ariaLabel}
-      className={`w-full ${roundedBarClass} [&_g:has(>rect[data-ts-key^=bar-]:hover)>rect[data-ts-key^=bar-]:not(:hover)]:opacity-60 [&_rect[data-ts-key^=bar-]]:cursor-pointer [&_rect[data-ts-key^=bar-]]:transition-[filter,opacity] [&_rect[data-ts-key^=bar-]]:duration-150 [&_rect[data-ts-key^=bar-]]:ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:[&_rect[data-ts-key^=bar-]]:transition-none [&_rect[data-ts-key^=bar-]:hover]:brightness-110`}
-      definition={definition}
-      onSelect={(point) => {
-        selectSeries(point?.datum.series ?? null)
-      }}
-      renderTooltipBody={renderTooltipBody}
-      size={size}
-      style={
-        {
-          "--bar-radius": `${resolvedBarRadius}px`,
-        } as CSSProperties
-      }
-    />
-  )
-}
-
-function ExperimentalBarChart({
-  ariaLabel,
-  barCategoryGap,
-  barGap,
-  barProps,
-  barRadius,
-  barSize,
-  categoryAxis,
-  className,
-  colors,
-  config,
-  data,
-  dataKey,
-  grid,
-  layout,
-  legend,
-  tooltip,
-  tooltipProps,
-  type = "default",
-  size,
-  valueAxis,
-  valueFormatter,
-  ...frameProps
-}: ExperimentalBarChartProps) {
-  let resolvedLegend = legend
-  if (
-    legend === undefined &&
-    type === "default" &&
-    Object.keys(config).length < 2
-  ) {
-    resolvedLegend = false
-  }
+  const definition =
+    layout === "horizontal"
+      ? defineChart({
+          ...getExperimentalChartOptions(chartColors),
+          focus: "group-x",
+          marks: [barY(rows, { ...barOptions, x: "category", y: "value" })],
+          scales: { x: scales.category, y: scales.value },
+        })
+      : defineChart({
+          ...getExperimentalChartOptions(chartColors),
+          focus: "group-y",
+          marks: [barX(rows, { ...barOptions, x: "value", y: "category" })],
+          scales: { x: scales.value, y: scales.category },
+        })
 
   return (
     <ExperimentalChartFrame
       {...frameProps}
-      className={className}
       colors={colors}
       config={config}
-      legend={resolvedLegend}
+      legend={type === "default" && singleSeries ? (legend ?? false) : legend}
+      onSelectedSeriesChange={selectSeries}
+      selectedSeries={selectedSeries}
     >
-      <ExperimentalBarChartPlot
+      <ExperimentalChart
         ariaLabel={ariaLabel}
-        barCategoryGap={barCategoryGap}
-        barGap={barGap}
-        barProps={barProps}
-        barRadius={barRadius}
-        barSize={barSize}
-        categoryAxis={categoryAxis}
-        colors={colors}
+        className="w-full"
         config={config}
-        data={data}
-        dataKey={dataKey}
-        grid={grid}
-        layout={layout}
+        definition={definition}
+        onSelect={(point) => {
+          selectSeries(point?.datum.series ?? null)
+        }}
         size={size}
         tooltip={tooltip}
-        tooltipProps={tooltipProps}
-        type={type}
-        valueAxis={valueAxis}
-        valueFormatter={valueFormatter}
+        tooltipProps={{
+          anchor: "pointer",
+          offset: 24,
+          placement: "auto",
+          ...tooltipProps,
+        }}
+        valueFormatter={formatValue}
       />
     </ExperimentalChartFrame>
   )

@@ -1,7 +1,6 @@
 "use client"
 
 import { defineChart } from "@tanstack/charts"
-import { crosshair } from "@tanstack/charts/crosshair"
 import { lineY, type LineYOptions } from "@tanstack/charts/line"
 import { scalePoint } from "@tanstack/charts/scales/point"
 
@@ -9,18 +8,16 @@ import {
   ExperimentalChart,
   ExperimentalChartFrame,
   experimentalDefaultValueFormatter,
-  getExperimentalCategoryAxis,
-  getExperimentalChartTooltip,
-  getExperimentalChartCurve,
-  getExperimentalNumericAxis,
-  getExperimentalNumericScale,
-  getExperimentalSeriesChartOptions,
-  toExperimentalSeriesData,
-  useExperimentalChartFrame,
   experimentalValueToPercent,
+  getExperimentalCartesianScales,
+  getExperimentalChartColors,
+  getExperimentalChartCurve,
+  getExperimentalChartOptions,
+  getExperimentalCrosshair,
+  toExperimentalSeriesData,
+  useExperimentalSeriesSelection,
   type ExperimentalCartesianChartProps,
   type ExperimentalChartCurveType,
-  type ExperimentalChartPlotProps,
   type ExperimentalSeriesDatum,
 } from "./experimental-chart"
 
@@ -34,22 +31,17 @@ type ExperimentalLineChartProps = ExperimentalCartesianChartProps & {
   type?: "default" | "percent"
 }
 
-type ExperimentalLineChartPlotProps =
-  ExperimentalChartPlotProps<ExperimentalLineChartProps>
-
 function normalizePercent(rows: ExperimentalSeriesDatum[]) {
   const totals = new Map<ExperimentalSeriesDatum["category"], number>()
 
-  rows.forEach((row) => {
-    if (row.value === null) {
-      return
+  for (const row of rows) {
+    if (row.value !== null) {
+      totals.set(
+        row.category,
+        (totals.get(row.category) ?? 0) + Math.abs(row.value)
+      )
     }
-
-    totals.set(
-      row.category,
-      (totals.get(row.category) ?? 0) + Math.abs(row.value)
-    )
-  })
+  }
 
   return rows.map((row) => {
     if (row.value === null) {
@@ -61,7 +53,7 @@ function normalizePercent(rows: ExperimentalSeriesDatum[]) {
   })
 }
 
-function ExperimentalLineChartPlot({
+function ExperimentalLineChart({
   ariaLabel = "Line chart",
   colors,
   config,
@@ -69,6 +61,7 @@ function ExperimentalLineChartPlot({
   data,
   dataKey,
   grid = "visible",
+  legend,
   lineProps,
   lineType = "linear",
   size,
@@ -78,10 +71,9 @@ function ExperimentalLineChartPlot({
   valueFormatter = experimentalDefaultValueFormatter,
   xAxis,
   yAxis,
-}: ExperimentalLineChartPlotProps) {
-  const {
-    state: { selectedSeries },
-  } = useExperimentalChartFrame()
+  ...frameProps
+}: ExperimentalLineChartProps) {
+  const [selectedSeries, selectSeries] = useExperimentalSeriesSelection()
   const sourceRows = toExperimentalSeriesData({
     config,
     connectNulls,
@@ -89,128 +81,63 @@ function ExperimentalLineChartPlot({
     dataKey,
   })
   const rows = type === "percent" ? normalizePercent(sourceRows) : sourceRows
-  const { chartColors, options, seriesNames } =
-    getExperimentalSeriesChartOptions(config, colors)
-  const tooltipValueFormatter =
+  const chartColors = getExperimentalChartColors(config, colors)
+  const formatValue =
     type === "percent" ? experimentalValueToPercent : valueFormatter
-  const marks = seriesNames.map((series) =>
-    lineY(
-      rows.filter((row) => row.series === series),
-      {
-        color: "series",
-        curve: getExperimentalChartCurve(lineType),
-        id: `line-${series}`,
-        key: (row) => `${row.series}-${row.index}`,
-        points: false,
-        stroke: chartColors[series],
-        strokeOpacity: selectedSeries && selectedSeries !== series ? 0.12 : 1,
-        strokeWidth: 2.25,
-        x: "category",
-        y: "value",
-        ...lineProps,
-      }
-    )
-  )
-  const baseDefinition = defineChart({
-    ...options,
+  const scales = getExperimentalCartesianScales({
+    categoryAxis: xAxis,
+    categoryScale: () => scalePoint().padding(0.25),
+    data,
+    dataKey,
+    grid,
+    valueAxis: yAxis,
+    valueFormatter: formatValue,
+  })
+
+  const definition = defineChart({
+    ...getExperimentalChartOptions(chartColors),
     focus: "group-x",
     marks: [
-      crosshair({
-        marker: {
-          fill: "var(--background)",
-          radius: 4,
-          stroke: "var(--foreground)",
-          strokeOpacity: 0.7,
-          strokeWidth: 2,
-        },
-        x: {
-          stroke: "var(--muted-foreground)",
-          strokeDasharray: "3 4",
-          strokeOpacity: 0.3,
-        },
-        y: false,
-      }),
-      ...marks,
+      getExperimentalCrosshair(),
+      ...Object.keys(config).map((series) =>
+        lineY(
+          rows.filter((row) => row.series === series),
+          {
+            color: "series",
+            curve: getExperimentalChartCurve(lineType),
+            id: `line-${series}`,
+            key: (row) => `${row.series}-${row.index}`,
+            stroke: chartColors[series],
+            strokeOpacity:
+              selectedSeries && selectedSeries !== series ? 0.12 : 1,
+            x: "category",
+            y: "value",
+            ...lineProps,
+          }
+        )
+      ),
     ],
-    x: {
-      axis: getExperimentalCategoryAxis({ data, dataKey, props: xAxis }),
-      scale: () => scalePoint().padding(0.25),
-    },
-    y: {
-      axis: getExperimentalNumericAxis({
-        props: yAxis,
-        valueFormatter: tooltipValueFormatter,
-      }),
-      grid: grid === "visible",
-      nice: true,
-      scale: getExperimentalNumericScale(yAxis),
-    },
-  })
-  const { definition, renderTooltipBody } = getExperimentalChartTooltip({
-    config,
-    definition: baseDefinition,
-    tooltip,
-    tooltipProps,
-    valueFormatter: tooltipValueFormatter,
+    scales: { x: scales.category, y: scales.value },
   })
 
-  return (
-    <ExperimentalChart
-      ariaLabel={ariaLabel}
-      className="w-full"
-      definition={definition}
-      renderTooltipBody={renderTooltipBody}
-      size={size}
-    />
-  )
-}
-
-function ExperimentalLineChart({
-  ariaLabel,
-  className,
-  colors,
-  config,
-  connectNulls,
-  data,
-  dataKey,
-  grid,
-  legend,
-  lineProps,
-  lineType,
-  size,
-  tooltip,
-  tooltipProps,
-  type,
-  valueFormatter,
-  xAxis,
-  yAxis,
-  ...frameProps
-}: ExperimentalLineChartProps) {
   return (
     <ExperimentalChartFrame
       {...frameProps}
-      className={className}
       colors={colors}
       config={config}
       legend={legend}
+      onSelectedSeriesChange={selectSeries}
+      selectedSeries={selectedSeries}
     >
-      <ExperimentalLineChartPlot
+      <ExperimentalChart
         ariaLabel={ariaLabel}
-        colors={colors}
+        className="w-full"
         config={config}
-        connectNulls={connectNulls}
-        data={data}
-        dataKey={dataKey}
-        grid={grid}
-        lineProps={lineProps}
-        lineType={lineType}
+        definition={definition}
         size={size}
         tooltip={tooltip}
         tooltipProps={tooltipProps}
-        type={type}
-        valueFormatter={valueFormatter}
-        xAxis={xAxis}
-        yAxis={yAxis}
+        valueFormatter={formatValue}
       />
     </ExperimentalChartFrame>
   )
