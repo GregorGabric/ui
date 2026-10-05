@@ -17,7 +17,6 @@ import {
   getChartCurve,
   focusNearestSeries,
   getChartOptions,
-  GROUP_X_TOOLTIP,
   getCrosshair,
   getFocusStates,
   revealEntranceMotion,
@@ -174,7 +173,7 @@ function AreaChart({
         entrance="reveal"
         size={size}
         tooltip={tooltip}
-        tooltipProps={{ ...GROUP_X_TOOLTIP, ...tooltipProps }}
+        tooltipProps={tooltipProps}
         valueFormatter={formatValue}
       />
     </ChartFrame>

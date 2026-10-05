@@ -14,7 +14,6 @@ import {
   getChartCurve,
   focusNearestSeries,
   getChartOptions,
-  GROUP_X_TOOLTIP,
   getCrosshair,
   revealEntranceMotion,
   toSeriesData,
@@ -141,7 +140,7 @@ function LineChart({
         entrance="reveal"
         size={size}
         tooltip={tooltip}
-        tooltipProps={{ ...GROUP_X_TOOLTIP, ...tooltipProps }}
+        tooltipProps={tooltipProps}
         valueFormatter={formatValue}
       />
     </ChartFrame>
