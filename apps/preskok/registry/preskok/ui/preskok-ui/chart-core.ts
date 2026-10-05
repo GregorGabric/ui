@@ -12,6 +12,7 @@ import type {
 } from "@tanstack/charts"
 import { crosshair } from "@tanstack/charts/crosshair"
 import { d3Curve } from "@tanstack/charts/d3/shape"
+import { focusGroupX } from "@tanstack/charts/focus"
 import type { ChartProps as TanStackChartProps } from "@tanstack/charts/react/tooltip"
 import { scaleLinear } from "@tanstack/charts/scales/linear"
 import {
@@ -164,6 +165,33 @@ const CURVES = {
   stepAfter: curveStepAfter,
   stepBefore: curveStepBefore,
 } satisfies Record<string, CurveFactory>
+
+/**
+ * Group-x focus where the series closest to the pointer becomes the primary
+ * point, so the crosshair marker lands on the line you point at.
+ *
+ * The built-in `"group-x"` preset first picks the painted mark that contains
+ * the pointer, and a filled area contains everything below its line, so a
+ * line could only win with the pointer exactly on its stroke. TanStack skips
+ * that step for any strategy other than its own object. Area points also sit
+ * mid-fill rather than on the edge, so `ignoreMarkId` drops them and focus
+ * uses the line points along each top edge.
+ */
+function focusNearestSeries(ignoreMarkId?: string) {
+  const keep = <TPoint extends { markId: string }>(
+    points: readonly TPoint[]
+  ) =>
+    ignoreMarkId
+      ? points.filter((point) => point.markId !== ignoreMarkId)
+      : points
+
+  const strategy: typeof focusGroupX = {
+    group: (points, context) => focusGroupX.group(keep(points), context),
+    navigation: (points) => focusGroupX.navigation(keep(points)),
+    resolve: (points, context) => focusGroupX.resolve(keep(points), context),
+  }
+  return strategy
+}
 
 /** Short ease-out for everything that reacts to hover: tooltip, crosshair, focus fade. */
 const HOVER_TRANSITION = {
@@ -532,6 +560,7 @@ export {
   getChartCurve,
   getChartOptions,
   getCrosshair,
+  focusNearestSeries,
   getFocusStates,
   getLabel,
   getNamedSeriesColors,

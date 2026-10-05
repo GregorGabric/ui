@@ -12,6 +12,7 @@ import {
   getCartesianScales,
   getChartColors,
   getChartCurve,
+  focusNearestSeries,
   getChartOptions,
   GROUP_X_TOOLTIP,
   getCrosshair,
@@ -97,7 +98,7 @@ function LineChart({
 
   const definition = defineChart({
     ...getChartOptions(chartColors),
-    focus: "group-x",
+    focus: focusNearestSeries(),
     marks: [
       getCrosshair(),
       ...Object.keys(config).map((series) =>

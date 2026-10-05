@@ -15,6 +15,7 @@ import {
   getCartesianScales,
   getChartColors,
   getChartCurve,
+  focusNearestSeries,
   getChartOptions,
   GROUP_X_TOOLTIP,
   getCrosshair,
@@ -37,6 +38,8 @@ type AreaChartProps = CartesianChartProps & {
   lineType?: ChartCurveType
   type?: ChartType
 }
+
+const AREA_MARK_ID = "area-fill"
 
 function AreaChart({
   areaProps,
@@ -106,6 +109,7 @@ function AreaChart({
   } as const
   const areaFill = {
     ...sharedOptions,
+    id: AREA_MARK_ID,
     fill,
     fillOpacity: fillType === "solid" ? 0.28 : 1,
     ...areaOptions,
@@ -113,7 +117,7 @@ function AreaChart({
 
   const definition = defineChart({
     ...getChartOptions(chartColors),
-    focus: "group-x",
+    focus: focusNearestSeries(AREA_MARK_ID),
     gradients:
       fillType === "gradient"
         ? seriesNames.map((series) => {
