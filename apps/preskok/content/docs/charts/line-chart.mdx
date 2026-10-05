@@ -1,16 +1,11 @@
 ---
 title: Line Chart
-description: Show trends over time with a configurable line chart built on the shared chart primitives.
+description: Line chart for comparing trends across several series.
 ---
 
-import { CodeTabs } from "@/components/code-tabs"
 import { ComponentPreview } from "@/components/component-preview"
-import { ComponentSource } from "@/components/component-source"
 
-<ComponentPreview
-  name="line-chart-preskok-demo"
-  description="Sales and profit over months."
-/>
+<ComponentPreview name="line-chart-preskok-demo" />
 
 ## Installation
 
@@ -23,13 +18,23 @@ npx shadcn@latest add @preskok/line-chart
 ```tsx
 import { LineChart } from "@/components/ui/preskok-ui/line-chart"
 
-export function Example() {
-  return (
-    <LineChart
-      dataKey="month"
-      data={[]}
-      config={{ value: { label: "Value" } }}
-    />
-  )
+const data = [
+  { month: "January", sales: 186, profit: 80 },
+  { month: "February", sales: 305, profit: 200 },
+]
+
+const config = {
+  sales: { label: "Sales", color: "var(--chart-1)" },
+  profit: { label: "Profit", color: "var(--chart-2)" },
+} as const
+
+export function LineChartDemo() {
+  return <LineChart config={config} data={data} dataKey="month" />
 }
 ```
+
+## Features
+
+- **Several series** with a shared crosshair and grouped tooltip
+- **Curves** through `lineType`
+- **Compact sparklines** with `grid="hidden"`, `xAxis={false}`, and `yAxis={false}`

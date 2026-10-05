@@ -1,16 +1,19 @@
 ---
-title: Chart (helpers)
-description: Core chart context, tooltip, legend, and axes used by Preskok chart components.
+title: Chart
+description: Chart foundations built on TanStack Charts, shared by every Preskok chart component.
 ---
 
-import { CodeTabs } from "@/components/code-tabs"
 import { ComponentPreview } from "@/components/component-preview"
-import { ComponentSource } from "@/components/component-source"
 
 <ComponentPreview
   name="chart-preskok-demo"
-  description="Using the core Chart helpers directly with Recharts primitives."
+  description="An area chart rendered with the shared chart foundations."
 />
+
+Every Preskok chart is built on [TanStack Charts](https://tanstack.com/charts) v1.
+The `chart` registry item holds what they share: the chart frame, the interactive
+legend, the tooltip, the `--chart-*` palette, and the mount animation. Install a
+chart component and `chart` comes with it.
 
 ## Installation
 
@@ -20,64 +23,65 @@ npx shadcn@latest add @preskok/chart
 
 ## Usage
 
-```tsx
-import { Area, AreaChart as AreaChartPrimitive } from "recharts"
+Each chart takes the same config-driven data shape. Keys in `config` name the
+series in each row, and colors come from the `--chart-1` to `--chart-5` tokens in
+`globals.css`, so charts follow light and dark themes.
 
-import {
-  CartesianGrid,
-  Chart,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-  XAxis,
-  YAxis,
-} from "@/components/ui/preskok-ui/chart"
+```tsx
+import { AreaChart } from "@/components/ui/preskok-ui/area-chart"
+import { ChartLegend } from "@/components/ui/preskok-ui/chart"
 
 const data = [
-  { day: "Mon", Desktop: 120, Mobile: 80 },
-  { day: "Tue", Desktop: 200, Mobile: 130 },
+  { month: "Jan", revenue: 42, sales: 28 },
+  { month: "Feb", revenue: 64, sales: 39 },
 ]
 
 const config = {
-  Desktop: { label: "Desktop", color: "#2563eb" },
-  Mobile: { label: "Mobile", color: "#60a5fa" },
-}
+  revenue: { label: "Revenue", color: "var(--chart-1)" },
+  sales: { label: "Sales", color: "var(--chart-2)" },
+} as const
 
-export function ChartDemo() {
+export function RevenueChart() {
   return (
-    <Chart data={data} dataKey="day" config={config}>
-      {() => (
-        <AreaChartPrimitive data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis />
-          <YAxis />
-          <ChartLegend content={<ChartLegendContent />} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Area
-            type="monotone"
-            dataKey="Desktop"
-            stroke="#2563eb"
-            fill="#2563eb"
-            fillOpacity={0.3}
-          />
-          <Area
-            type="monotone"
-            dataKey="Mobile"
-            stroke="#60a5fa"
-            fill="#60a5fa"
-            fillOpacity={0.3}
-          />
-        </AreaChartPrimitive>
-      )}
-    </Chart>
+    <AreaChart
+      config={config}
+      data={data}
+      dataKey="month"
+      legend={<ChartLegend align="left" />}
+      size={{ height: 256 }}
+      valueFormatter={(value) => `$${value}k`}
+    />
   )
 }
 ```
 
+## Components
+
+- [Area chart](/charts/area-chart)
+- [Bar chart](/charts/bar-chart)
+- [Line chart](/charts/line-chart)
+- [Pie chart](/charts/pie-chart)
+- [Radial chart](/charts/radial-chart)
+- [Radar chart](/charts/radar-chart)
+
 ## Features
 
-- **Context** for shared chart props and selection state
-- **Legend** with selection filtering
-- **Tooltip** with configurable content
-- **Axes** helpers with sensible defaults
+- **Mount animation**: area and line charts reveal left to right, bars and slices grow in, and both respect reduced motion
+- **Interactive legend** that highlights one series from a click or the keyboard
+- **Shared tooltip** with dot, line, or dashed indicators
+- **Theme-aware palette** from the `--chart-*` tokens
+- **One sizing API** through `size` (`height`, `aspectRatio`, `initialWidth`)
+
+## Migrating from Recharts
+
+The earlier Recharts components are [deprecated](/charts/recharts). The props are
+close but not identical:
+
+| Recharts                  | TanStack                             |
+| ------------------------- | ------------------------------------ |
+| `className="h-64"`        | `size={{ height: 256 }}`             |
+| `hideGridLines`           | `grid="hidden"`                      |
+| `hideXAxis`, `xAxisProps` | `xAxis={false}`, `xAxis={{ ... }}`   |
+| `hideYAxis`, `yAxisProps` | `yAxis={false}`, `yAxis={{ ... }}`   |
+| `legendProps`             | `legend={<ChartLegend ... />}`       |
+| Any color string          | `var(--chart-1)` to `var(--chart-5)` |

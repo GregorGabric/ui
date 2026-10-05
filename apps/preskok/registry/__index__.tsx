@@ -1444,11 +1444,15 @@ import * as React from "react"
   },
   "chart": {
     name: "chart",
-    description: "Core chart components and utilities for data visualization",
+    description: "Chart foundations, legend, tooltip, and utilities built on TanStack Charts",
     type: "registry:ui",
-    registryDependencies: ["primitive"],
+    registryDependencies: undefined,
     files: [{
       path: "registry/preskok/ui/preskok-ui/chart.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/preskok/ui/preskok-ui/chart-core.ts",
       type: "registry:ui",
       target: ""
     }],
@@ -1462,7 +1466,7 @@ import * as React from "react"
   },
   "area-chart": {
     name: "area-chart",
-    description: "An area chart component with gradient fills and animations",
+    description: "An area chart with gradient fills, stacking, and animation",
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
@@ -1480,7 +1484,7 @@ import * as React from "react"
   },
   "bar-chart": {
     name: "bar-chart",
-    description: "A bar chart component with stacking and percentage options",
+    description: "A bar chart with stacking and percentage options",
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
@@ -1498,7 +1502,7 @@ import * as React from "react"
   },
   "line-chart": {
     name: "line-chart",
-    description: "A line chart component with multiple line support",
+    description: "A line chart with multiple series",
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
@@ -1516,7 +1520,7 @@ import * as React from "react"
   },
   "pie-chart": {
     name: "pie-chart",
-    description: "A pie/donut chart component with customizable labels",
+    description: "A pie and donut chart with a selectable center label",
     type: "registry:ui",
     registryDependencies: ["chart"],
     files: [{
@@ -1532,130 +1536,126 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "experimental-chart": {
-    name: "experimental-chart",
-    description: "Experimental TanStack chart foundations and utilities",
+  "radial-chart": {
+    name: "radial-chart",
+    description: "A concentric radial bar chart",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["chart"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-chart.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/preskok/ui/preskok-ui/experimental-chart-core.ts",
+      path: "registry/preskok/ui/preskok-ui/radial-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/radial-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-area-chart": {
-    name: "experimental-area-chart",
-    description: "An experimental TanStack-powered area chart",
+  "radar-chart": {
+    name: "radar-chart",
+    description: "A radar chart for single and comparative profiles",
     type: "registry:ui",
-    registryDependencies: ["experimental-chart"],
+    registryDependencies: ["chart"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-area-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/radar-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-area-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/radar-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-bar-chart": {
-    name: "experimental-bar-chart",
-    description: "An experimental TanStack-powered bar chart",
+  "recharts-chart": {
+    name: "recharts-chart",
+    description: "Deprecated: Recharts chart helpers. Use chart instead.",
     type: "registry:ui",
-    registryDependencies: ["experimental-chart"],
+    registryDependencies: ["primitive"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-bar-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/recharts-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-bar-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/recharts-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-line-chart": {
-    name: "experimental-line-chart",
-    description: "An experimental TanStack-powered line chart",
+  "recharts-area-chart": {
+    name: "recharts-area-chart",
+    description: "Deprecated: Recharts area chart. Use area-chart instead.",
     type: "registry:ui",
-    registryDependencies: ["experimental-chart"],
+    registryDependencies: ["recharts-chart"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-line-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/recharts-area-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-line-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/recharts-area-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-pie-chart": {
-    name: "experimental-pie-chart",
-    description: "An experimental TanStack-powered pie and donut chart",
+  "recharts-bar-chart": {
+    name: "recharts-bar-chart",
+    description: "Deprecated: Recharts bar chart. Use bar-chart instead.",
     type: "registry:ui",
-    registryDependencies: ["experimental-chart"],
+    registryDependencies: ["recharts-chart"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-pie-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/recharts-bar-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-pie-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/recharts-bar-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-radial-chart": {
-    name: "experimental-radial-chart",
-    description: "An experimental TanStack-powered concentric radial chart",
+  "recharts-line-chart": {
+    name: "recharts-line-chart",
+    description: "Deprecated: Recharts line chart. Use line-chart instead.",
     type: "registry:ui",
-    registryDependencies: ["experimental-chart"],
+    registryDependencies: ["recharts-chart"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-radial-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/recharts-line-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-radial-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/recharts-line-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-radar-chart": {
-    name: "experimental-radar-chart",
-    description: "An experimental TanStack-powered radar chart",
+  "recharts-pie-chart": {
+    name: "recharts-pie-chart",
+    description: "Deprecated: Recharts pie chart. Use pie-chart instead.",
     type: "registry:ui",
-    registryDependencies: ["experimental-chart"],
+    registryDependencies: ["recharts-chart"],
     files: [{
-      path: "registry/preskok/ui/preskok-ui/experimental-radar-chart.tsx",
+      path: "registry/preskok/ui/preskok-ui/recharts-pie-chart.tsx",
       type: "registry:ui",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/ui/preskok-ui/experimental-radar-chart.tsx")
+      const mod = await import("@/registry/preskok/ui/preskok-ui/recharts-pie-chart.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2266,18 +2266,18 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "pie-chart-preskok-demo": {
-    name: "pie-chart-preskok-demo",
+  "recharts-pie-chart-preskok-demo": {
+    name: "recharts-pie-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["pie-chart","chart"],
+    registryDependencies: ["recharts-pie-chart","recharts-chart"],
     files: [{
-      path: "registry/preskok/examples/pie-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/recharts-pie-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/pie-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/recharts-pie-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2666,18 +2666,18 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "line-chart-preskok-demo": {
-    name: "line-chart-preskok-demo",
+  "recharts-line-chart-preskok-demo": {
+    name: "recharts-line-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["line-chart","chart","card"],
+    registryDependencies: ["recharts-line-chart","recharts-chart","card"],
     files: [{
-      path: "registry/preskok/examples/line-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/recharts-line-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/line-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/recharts-line-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -2990,18 +2990,18 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "area-chart-preskok-demo": {
-    name: "area-chart-preskok-demo",
+  "recharts-area-chart-preskok-demo": {
+    name: "recharts-area-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["area-chart"],
+    registryDependencies: ["recharts-area-chart"],
     files: [{
-      path: "registry/preskok/examples/area-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/recharts-area-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/area-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/recharts-area-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3062,18 +3062,18 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "bar-chart-preskok-demo": {
-    name: "bar-chart-preskok-demo",
+  "recharts-bar-chart-preskok-demo": {
+    name: "recharts-bar-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["bar-chart"],
+    registryDependencies: ["recharts-bar-chart"],
     files: [{
-      path: "registry/preskok/examples/bar-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/recharts-bar-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/bar-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/recharts-bar-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -3098,11 +3098,29 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
+  "recharts-chart-preskok-demo": {
+    name: "recharts-chart-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["recharts-chart"],
+    files: [{
+      path: "registry/preskok/examples/recharts-chart-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/recharts-chart-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "chart-preskok-demo": {
     name: "chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["chart"],
+    registryDependencies: ["area-chart"],
     files: [{
       path: "registry/preskok/examples/chart-preskok-demo.tsx",
       type: "registry:example",
@@ -3116,144 +3134,126 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "experimental-chart-preskok-demo": {
-    name: "experimental-chart-preskok-demo",
+  "area-chart-preskok-demo": {
+    name: "area-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-area-chart"],
+    registryDependencies: ["area-chart","card"],
     files: [{
-      path: "registry/preskok/examples/experimental-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/area-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/area-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-area-chart-preskok-demo": {
-    name: "experimental-area-chart-preskok-demo",
+  "bar-chart-preskok-demo": {
+    name: "bar-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-area-chart","card"],
+    registryDependencies: ["bar-chart","card"],
     files: [{
-      path: "registry/preskok/examples/experimental-area-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/bar-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-area-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/bar-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-bar-chart-preskok-demo": {
-    name: "experimental-bar-chart-preskok-demo",
+  "line-chart-preskok-demo": {
+    name: "line-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-bar-chart","card"],
+    registryDependencies: ["line-chart","card"],
     files: [{
-      path: "registry/preskok/examples/experimental-bar-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/line-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-bar-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/line-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-line-chart-preskok-demo": {
-    name: "experimental-line-chart-preskok-demo",
+  "pie-chart-preskok-demo": {
+    name: "pie-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-line-chart","card"],
+    registryDependencies: ["pie-chart","card"],
     files: [{
-      path: "registry/preskok/examples/experimental-line-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/pie-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-line-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/pie-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-pie-chart-preskok-demo": {
-    name: "experimental-pie-chart-preskok-demo",
+  "radial-chart-preskok-demo": {
+    name: "radial-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-pie-chart","card"],
+    registryDependencies: ["radial-chart","card"],
     files: [{
-      path: "registry/preskok/examples/experimental-pie-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/radial-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-pie-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/radial-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-radial-chart-preskok-demo": {
-    name: "experimental-radial-chart-preskok-demo",
+  "radar-chart-preskok-demo": {
+    name: "radar-chart-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-radial-chart","card"],
+    registryDependencies: ["radar-chart","card"],
     files: [{
-      path: "registry/preskok/examples/experimental-radial-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/radar-chart-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-radial-chart-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/radar-chart-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
     meta: undefined,
   },
-  "experimental-radar-chart-preskok-demo": {
-    name: "experimental-radar-chart-preskok-demo",
+  "chart-migration-preskok-demo": {
+    name: "chart-migration-preskok-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["experimental-radar-chart","card"],
+    registryDependencies: ["area-chart","recharts-area-chart","card","tabs"],
     files: [{
-      path: "registry/preskok/examples/experimental-radar-chart-preskok-demo.tsx",
+      path: "registry/preskok/examples/chart-migration-preskok-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-radar-chart-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
-  "experimental-charts-toggle-preskok-demo": {
-    name: "experimental-charts-toggle-preskok-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["area-chart","experimental-area-chart","card","tabs"],
-    files: [{
-      path: "registry/preskok/examples/experimental-charts-toggle-preskok-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/experimental-charts-toggle-preskok-demo.tsx")
+      const mod = await import("@/registry/preskok/examples/chart-migration-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
