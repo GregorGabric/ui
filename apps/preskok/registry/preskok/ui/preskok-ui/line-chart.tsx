@@ -98,6 +98,8 @@ function LineChart({
   const definition = defineChart({
     ...getChartOptions(chartColors),
     focus: focusNearestSeries(),
+    // Snap to the nearest category anywhere in the plot, not only near a point.
+    maxFocusDistance: Number.POSITIVE_INFINITY,
     marks: [
       getCrosshair(),
       ...Object.keys(config).map((series) =>

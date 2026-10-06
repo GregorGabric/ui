@@ -12,6 +12,7 @@ import { scaleBand } from "@tanstack/charts/scales/band"
 import { stack } from "@tanstack/charts/stack"
 
 import {
+  CHART_HIT_MARK_ID,
   Chart,
   ChartFrame,
   defaultValueFormatter,
@@ -19,12 +20,12 @@ import {
   getCartesianScales,
   getChartColors,
   getChartOptions,
-  getFocusStates,
   getSelectedSeriesColor,
   toSeriesData,
   useSeriesSelection,
   type BaseChartProps,
   type ChartAxisProps,
+  type ChartDatum,
   type ChartNumericAxisProps,
   type ChartType,
   type SeriesDatum,
@@ -44,8 +45,36 @@ type BarChartProps = BaseChartProps & {
   categoryAxis?: ChartAxisProps | false
   grid?: "hidden" | "visible"
   layout?: "horizontal" | "vertical"
+  /** Called with the source row of a clicked bar. */
+  onBarClick?: (datum: ChartDatum) => void
   type?: ChartType
   valueAxis?: ChartNumericAxisProps | false
+}
+
+/** Top of the value axis the hit bars reach: the fixed domain end, or the tallest bar or stack. */
+function getHitTop({
+  domain,
+  rows,
+  stacked,
+}: {
+  domain?: readonly [number, number]
+  rows: SeriesDatum[]
+  stacked: boolean
+}) {
+  if (domain) {
+    return domain[1]
+  }
+  const totals = new Map<SeriesDatum["category"], number>()
+  for (const row of rows) {
+    const value = Math.max(row.value ?? 0, 0)
+    totals.set(
+      row.category,
+      stacked
+        ? (totals.get(row.category) ?? 0) + value
+        : Math.max(totals.get(row.category) ?? 0, value)
+    )
+  }
+  return Math.max(0, ...totals.values())
 }
 
 function getBarLayout(type: ChartType, barGap: number) {
@@ -73,6 +102,7 @@ function BarChart({
   grid = "visible",
   layout = "horizontal",
   legend,
+  onBarClick,
   size,
   tooltip,
   tooltipProps,
@@ -109,12 +139,50 @@ function BarChart({
       }),
     inset: barCategoryGap / 2,
     key: (row: SeriesDatum) => `${row.series}-${row.index}`,
-    layout: getBarLayout(type, barGap),
+    // Grouping pads each category for side-by-side series; a single series uses the full band.
+    layout:
+      type === "default" && singleSeries
+        ? group({ padding: 0 })
+        : getBarLayout(type, barGap),
     maxThickness: barSize,
     radius: { end: barRadius ?? defaultRadius },
-    states: getFocusStates<SeriesDatum>("primary"),
     z: "series",
     ...barProps,
+  } as const
+
+  // One transparent full-height bar per category behind the real bars: it highlights the hovered category
+  // and makes the whole column a hover and click target, so short bars are as easy to hit as tall ones.
+  // Its datum keeps the real value, so the tooltip still reports it.
+  const firstSeries = Object.keys(config)[0]
+  const hitRows = rows.filter((row) => row.series === firstSeries)
+  const hitTop =
+    type === "percent"
+      ? 1
+      : getHitTop({
+          domain: valueAxis ? valueAxis.domain : undefined,
+          rows,
+          stacked: type === "stacked",
+        })
+  const hitBarOptions = {
+    color: "series",
+    fill: "color-mix(in srgb, var(--muted-foreground) 10%, transparent)",
+    fillOpacity: 0,
+    id: CHART_HIT_MARK_ID,
+    key: (row: SeriesDatum) => `hit-${row.index}`,
+    layout: group({ padding: 0 }),
+    radius: 6,
+    states: [
+      {
+        when: ({ matches }: { matches: (match: "x" | "y") => boolean }) =>
+          matches(layout === "horizontal" ? "x" : "y"),
+        style: { fillOpacity: 1 },
+        // Instant, so the highlight keeps up with the tooltip while the pointer is moving; a fade restarted on
+        // every column and only finished once the pointer stopped.
+        transition: { type: "tween", duration: 0 },
+      },
+    ],
+    // Never animated by the motion renderer, including on mount and data changes.
+    motion: false,
   } as const
 
   const definition =
@@ -122,14 +190,24 @@ function BarChart({
       ? defineChart({
           ...getChartOptions(chartColors),
           focus: "group-x",
-          marks: [barY(rows, { ...barOptions, x: "category", y: "value" })],
+          maxFocusDistance: Number.POSITIVE_INFINITY,
+          focusRing: false,
+          marks: [
+            barY(hitRows, { ...hitBarOptions, x: "category", y: () => hitTop }),
+            barY(rows, { ...barOptions, x: "category", y: "value" }),
+          ],
           margin: scales.margin,
           scales: { x: scales.category, y: scales.value },
         })
       : defineChart({
           ...getChartOptions(chartColors),
           focus: "group-y",
-          marks: [barX(rows, { ...barOptions, x: "value", y: "category" })],
+          maxFocusDistance: Number.POSITIVE_INFINITY,
+          focusRing: false,
+          marks: [
+            barX(hitRows, { ...hitBarOptions, x: () => hitTop, y: "category" }),
+            barX(rows, { ...barOptions, x: "value", y: "category" }),
+          ],
           margin: scales.margin,
           scales: { x: scales.value, y: scales.category },
         })
@@ -145,11 +223,24 @@ function BarChart({
     >
       <Chart
         ariaLabel={ariaLabel}
-        className="w-full"
+        className={
+          onBarClick
+            ? "w-full [&_.ts-chart\\_\\_marks]:cursor-pointer"
+            : "w-full"
+        }
         config={config}
         definition={definition}
         onSelect={(point) => {
-          selectSeries(point?.datum.series ?? null)
+          // A clickable chart navigates; series selection belongs to the legend there.
+          if (onBarClick) {
+            if (point) {
+              onBarClick(point.datum.source)
+            }
+            return
+          }
+          if (point?.markId !== CHART_HIT_MARK_ID) {
+            selectSeries(point?.datum.series ?? null)
+          }
         }}
         size={size}
         tooltip={tooltip}

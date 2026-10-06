@@ -4,6 +4,7 @@ import {
   createContext,
   startTransition,
   use,
+  useEffect,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -19,6 +20,7 @@ import {
   RendererChart as ChartPrimitive,
   type ChartProps as TanStackChartProps,
 } from "@tanstack/charts/react/tooltip"
+import { svgChartRenderer } from "@tanstack/charts/svg/renderer"
 import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 import { twMerge } from "cn"
 import {
@@ -27,6 +29,7 @@ import {
 } from "react-aria-components/ToggleButtonGroup"
 
 import {
+  CHART_HIT_MARK_ID,
   defaultValueFormatter,
   getChartColors,
   getLabel,
@@ -41,12 +44,17 @@ import {
   type TooltipDatum,
 } from "./chart-core"
 
-// Marks grow from their baseline on mount and morph between data updates. The
-// entrance also replays over server-rendered SVG, which is hidden until the
-// chart has measured its container.
-const chartRenderer = motion({
+const ENTRANCE_DURATION = 900
+
+// Marks grow from their baseline on mount. The entrance also replays over
+// server-rendered SVG, which is hidden until the chart has measured its container.
+const entranceRenderer = motion({
   initial: "always",
-  transition: { type: "tween", duration: 900, easing: "ease-out" },
+  transition: {
+    type: "tween",
+    duration: ENTRANCE_DURATION,
+    easing: "ease-out",
+  },
 })
 
 type ChartFrameContextValue = {
@@ -126,6 +134,20 @@ function Chart<
   // Hide the first paint until the chart matches its container width, so the
   // server-rendered `initialWidth` layout never flashes.
   const [ready, setReady] = useState(false)
+  // After the entrance, paint with the plain SVG renderer. The motion renderer turns every hover state change
+  // into a scene animation that the next pointer move cancels before its first frame, so hover highlights
+  // only appeared once the pointer stopped.
+  const [entered, setEntered] = useState(false)
+  useEffect(() => {
+    if (!ready) {
+      return
+    }
+    const timeout = window.setTimeout(
+      () => setEntered(true),
+      ENTRANCE_DURATION + 100
+    )
+    return () => window.clearTimeout(timeout)
+  }, [ready])
   const hasTooltip = tooltip !== false
   let height = size?.height
   if (height === undefined && size?.aspectRatio === undefined) {
@@ -148,6 +170,8 @@ function Chart<
                 anchor: tooltipProps?.anchor,
                 offset: tooltipProps?.offset,
                 placement: tooltipProps?.placement,
+                // Follow the pointer immediately; the renderer's tween made the tooltip trail and wobble between points.
+                motion: false,
                 // A click already selects a series, so it should not also pin.
                 sticky: onSelect === undefined,
                 use: tooltipExtension,
@@ -174,7 +198,7 @@ function Chart<
         }
       }}
       onSelect={onSelect}
-      renderer={chartRenderer}
+      renderer={entered ? svgChartRenderer : entranceRenderer}
       renderTooltipBody={
         hasTooltip
           ? ({ points, primaryPoint }) => {
@@ -218,11 +242,17 @@ function revealMarks(container: HTMLElement) {
 }
 
 /** Keeps one tooltip row per series when several marks share a datum. */
-function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
-  points: readonly TPoint[]
-) {
+function uniqueSeriesPoints<
+  TPoint extends { datum: { series: string }; markId: string },
+>(points: readonly TPoint[]) {
   const seen = new Set<string>()
-  return points.filter((point) => {
+  // Hit-target marks share the datum but not the series color, so the visible mark's point wins.
+  const ordered = [...points].sort(
+    (a, b) =>
+      Number(a.markId === CHART_HIT_MARK_ID) -
+      Number(b.markId === CHART_HIT_MARK_ID)
+  )
+  return ordered.filter((point) => {
     if (seen.has(point.datum.series)) {
       return false
     }
@@ -338,16 +368,18 @@ function ChartTooltipContent<
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 >({
-  activeSeries,
   config,
   points,
   tooltipProps,
   valueFormatter,
 }: ChartTooltipContentProps<TDatum, TXValue, TYValue>) {
+  const seriesColors = getChartColors(config)
+  const seriesOrder = Object.keys(config)
   const {
     className,
     hideIndicator = false,
     hideLabel = false,
+    hint,
     indicator = "dot",
     labelFormatter,
     labelSeparator = true,
@@ -359,6 +391,7 @@ function ChartTooltipContent<
   }
 
   const rawLabel = String(firstPoint.datum.category)
+  const hintContent = hint?.(rawLabel)
 
   return (
     <div
@@ -379,47 +412,55 @@ function ChartTooltipContent<
         />
       )}
       <div className="grid gap-2.5">
-        {points.map((point) => {
-          const { series, value } = point.datum
-          if (value === null) {
-            return null
-          }
-          // Rows other than the hovered series keep the indicator's space
-          // so labels stay aligned.
-          const indicatorColor =
-            activeSeries === undefined || activeSeries === series
-              ? point.color
-              : "transparent"
-
-          return (
-            <div className="flex items-center gap-2.5" key={point.key}>
-              {hideIndicator ? null : (
-                <span
-                  aria-hidden
-                  className={twMerge(
-                    "shrink-0 border-current",
-                    indicator === "dot" && "size-2.5 rounded-full",
-                    indicator === "line" && "h-4 w-1 rounded-full",
-                    indicator === "dashed" &&
-                      "h-4 w-0 border-l-2 border-dashed bg-transparent"
-                  )}
-                  style={{
-                    backgroundColor:
-                      indicator === "dashed" ? "transparent" : indicatorColor,
-                    borderColor: indicatorColor,
-                  }}
-                />
-              )}
-              <span className="flex-1 text-muted-foreground">
-                {getLabel(config, series)}
-              </span>
-              <span className="font-mono font-medium text-foreground tabular-nums">
-                {valueFormatter(value)}
-              </span>
-            </div>
+        {[...points]
+          // Same order as the legend.
+          .sort(
+            (a, b) =>
+              seriesOrder.indexOf(a.datum.series) -
+              seriesOrder.indexOf(b.datum.series)
           )
-        })}
+          .map((point) => {
+            const { series, value } = point.datum
+            if (value === null) {
+              return null
+            }
+            // Every row shows its series color, matching the legend, whichever mark the pointer is over.
+            const indicatorColor = seriesColors[series] ?? point.color
+
+            return (
+              <div className="flex items-center gap-2.5" key={point.key}>
+                {hideIndicator ? null : (
+                  <span
+                    aria-hidden
+                    className={twMerge(
+                      "shrink-0 border-current",
+                      indicator === "dot" && "size-2.5 rounded-full",
+                      indicator === "line" && "h-4 w-1 rounded-full",
+                      indicator === "dashed" &&
+                        "h-4 w-0 border-l-2 border-dashed bg-transparent"
+                    )}
+                    style={{
+                      backgroundColor:
+                        indicator === "dashed" ? "transparent" : indicatorColor,
+                      borderColor: indicatorColor,
+                    }}
+                  />
+                )}
+                <span className="flex-1 text-muted-foreground">
+                  {getLabel(config, series)}
+                </span>
+                <span className="font-mono font-medium text-foreground tabular-nums">
+                  {valueFormatter(value)}
+                </span>
+              </div>
+            )
+          })}
       </div>
+      {hintContent ? (
+        <span className="mt-2.5 flex items-center gap-1 border-t border-border/70 pt-2 text-muted-foreground">
+          {hintContent}
+        </span>
+      ) : null}
     </div>
   )
 }

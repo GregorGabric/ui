@@ -44,6 +44,8 @@ type ChartConfig = Record<
 
 type ChartAxisProps<TValue extends ChartValue = ChartValue> = {
   label?: string
+  /** Tick label rotation in degrees; negative values tilt labels up to the left. */
+  labelRotation?: number
   minTickGap?: number
   tickFormatter?: (value: TValue) => string
   tickMargin?: number
@@ -65,6 +67,8 @@ type ChartTooltipProps = Pick<
   indicator?: "line" | "dot" | "dashed"
   labelFormatter?: (label: ReactNode) => ReactNode
   labelSeparator?: boolean
+  /** Muted line under the values, e.g. what clicking the hovered category does. Nothing renders when it returns null. */
+  hint?: (category: string) => ReactNode
 }
 
 type ChartLegendProps = Omit<
@@ -98,7 +102,7 @@ type ChartTooltipContentProps<
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 > = {
-  /** Series of the hovered point; only its row shows the indicator. */
+  /** Series of the hovered point. */
   activeSeries?: string
   config: ChartConfig
   points: readonly ChartPoint<TDatum, TXValue, TYValue>[]
@@ -146,6 +150,9 @@ type NamedSeriesDatum = Omit<TooltipDatum, "value"> & {
   source: ChartDatum
   value: number
 }
+
+/** Mark id for invisible hover and click targets, such as the full-height bars behind a bar chart. */
+const CHART_HIT_MARK_ID = "chart-hit-target"
 
 const CHART_COLORS = [
   "var(--chart-1)",
@@ -292,6 +299,8 @@ function getFocusStates<TDatum>(
 
 function getCrosshair() {
   return crosshair({
+    // Snap with the tooltip instead of gliding behind the pointer.
+    motion: false,
     marker: {
       fill: "var(--background)",
       radius: 4,
@@ -440,6 +449,8 @@ function getAxis<TValue extends ChartValue>({
     label: props?.label,
     line: false,
     tickLabels: {
+      anchor: props?.labelRotation ? "end" : undefined,
+      rotate: props?.labelRotation,
       fontSize: 11,
       fontWeight: 450,
       opacity: 0.78,
@@ -497,7 +508,8 @@ function getCartesianScales({
       grid: grid === "visible" ? { strokeDasharray: "3 3" } : false,
       // Without tick labels, rounding the domain only adds empty space.
       nice: valueAxis !== false,
-      scale: domain ? () => scaleLinear().domain(domain) : scaleLinear,
+      // A factory infers its domain from the data; only a configured instance keeps `domain`.
+      scale: domain ? scaleLinear().domain(domain) : scaleLinear,
     },
     // With both axes hidden the chart is a sparkline: automatic margins would
     // still reserve guide space, so keep only room for strokes at the top and
@@ -532,6 +544,7 @@ export type {
 
 export {
   CHART_COLORS,
+  CHART_HIT_MARK_ID,
   dimColor,
   defaultValueFormatter,
   valueToPercent,
