@@ -187,10 +187,6 @@ function Chart<
       renderTooltipBody={
         hasTooltip
           ? ({ points, primaryPoint }) => {
-              if (points.length === 0) {
-                return null
-              }
-
               const contentProps = {
                 activeSeries: primaryPoint?.datum.series,
                 config,
@@ -199,23 +195,14 @@ function Chart<
                 valueFormatter,
               }
 
-              const content = tooltip ? (
-                tooltip(contentProps)
-              ) : (
-                <ChartTooltipContent {...contentProps} />
-              )
-
-              if (
-                content === null ||
-                content === undefined ||
-                content === false
-              ) {
-                return null
-              }
-
+              // `empty:hidden` drops the panel when the content renders nothing.
               return (
-                <div className="rounded-lg border-[0.5px] border-[color-mix(in_oklab,var(--overlay-foreground)_16%,transparent)] bg-[color-mix(in_oklab,var(--overlay)_70%,transparent)] px-3 py-2 text-overlay-foreground shadow-[0_6px_24px_rgb(0_0_0/0.14)] backdrop-blur-lg">
-                  {content}
+                <div className="rounded-lg border-[0.5px] border-[color-mix(in_oklab,var(--overlay-foreground)_16%,transparent)] bg-[color-mix(in_oklab,var(--overlay)_70%,transparent)] px-3 py-2 text-overlay-foreground shadow-[0_6px_24px_rgb(0_0_0/0.14)] backdrop-blur-lg empty:hidden">
+                  {tooltip ? (
+                    tooltip(contentProps)
+                  ) : (
+                    <ChartTooltipContent {...contentProps} />
+                  )}
                 </div>
               )
             }
@@ -390,6 +377,11 @@ function ChartTooltipContent<
 
   const rawLabel = String(firstPoint.datum.category)
   const hintContent = hint?.(rawLabel)
+  // Same order as the legend.
+  const sortedPoints = points.toSorted(
+    (a, b) =>
+      seriesOrder.indexOf(a.datum.series) - seriesOrder.indexOf(b.datum.series)
+  )
 
   return (
     <div
@@ -410,49 +402,42 @@ function ChartTooltipContent<
         />
       )}
       <div className="grid gap-2.5">
-        {[...points]
-          // Same order as the legend.
-          .sort(
-            (a, b) =>
-              seriesOrder.indexOf(a.datum.series) -
-              seriesOrder.indexOf(b.datum.series)
-          )
-          .map((point) => {
-            const { series, value } = point.datum
-            if (value === null) {
-              return null
-            }
-            // Every row shows its series color, matching the legend, whichever mark the pointer is over.
-            const indicatorColor = seriesColors[series] ?? point.color
+        {sortedPoints.map((point) => {
+          const { series, value } = point.datum
+          if (value === null) {
+            return null
+          }
+          // Every row shows its series color, matching the legend, whichever mark the pointer is over.
+          const indicatorColor = seriesColors[series] ?? point.color
 
-            return (
-              <div className="flex items-center gap-2.5" key={point.key}>
-                {hideIndicator ? null : (
-                  <span
-                    aria-hidden
-                    className={twMerge(
-                      "shrink-0 border-current",
-                      indicator === "dot" && "size-2.5 rounded-full",
-                      indicator === "line" && "h-4 w-1 rounded-full",
-                      indicator === "dashed" &&
-                        "h-4 w-0 border-l-2 border-dashed bg-transparent"
-                    )}
-                    style={{
-                      backgroundColor:
-                        indicator === "dashed" ? "transparent" : indicatorColor,
-                      borderColor: indicatorColor,
-                    }}
-                  />
-                )}
-                <span className="flex-1 text-muted-foreground">
-                  {getLabel(config, series)}
-                </span>
-                <span className="font-mono font-medium text-foreground tabular-nums">
-                  {valueFormatter(value)}
-                </span>
-              </div>
-            )
-          })}
+          return (
+            <div className="flex items-center gap-2.5" key={point.key}>
+              {hideIndicator ? null : (
+                <span
+                  aria-hidden
+                  className={twMerge(
+                    "shrink-0 border-current",
+                    indicator === "dot" && "size-2.5 rounded-full",
+                    indicator === "line" && "h-4 w-1 rounded-full",
+                    indicator === "dashed" &&
+                      "h-4 w-0 border-l-2 border-dashed bg-transparent"
+                  )}
+                  style={{
+                    backgroundColor:
+                      indicator === "dashed" ? "transparent" : indicatorColor,
+                    borderColor: indicatorColor,
+                  }}
+                />
+              )}
+              <span className="flex-1 text-muted-foreground">
+                {getLabel(config, series)}
+              </span>
+              <span className="font-mono font-medium text-foreground tabular-nums">
+                {valueFormatter(value)}
+              </span>
+            </div>
+          )
+        })}
       </div>
       {hintContent ? (
         <span className="mt-2.5 flex items-center gap-1 border-t border-border/70 pt-2 text-muted-foreground">

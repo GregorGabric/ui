@@ -11,6 +11,7 @@ import { crosshair } from "@tanstack/charts/crosshair"
 import { group } from "@tanstack/charts/group"
 import { scaleBand } from "@tanstack/charts/scales/band"
 import { stack } from "@tanstack/charts/stack"
+import { twMerge } from "cn"
 
 import {
   Chart,
@@ -51,7 +52,11 @@ type BarChartProps = BaseChartProps & {
   valueAxis?: ChartNumericAxisProps | false
 }
 
-function getBarLayout(type: ChartType, barGap: number) {
+function getBarLayout(type: ChartType, barGap: number, singleGroup: boolean) {
+  // A single series uses the full band instead of padding for side-by-side bars.
+  if (singleGroup) {
+    return group({ padding: 0 })
+  }
   if (type === "stacked") {
     return stack()
   }
@@ -88,7 +93,7 @@ function BarChart({
   const [selectedSeries, selectSeries] = useSeriesSelection()
   const rows = toSeriesData({ config, data, dataKey })
   const chartColors = getChartColors(config, colors)
-  const singleSeries = Object.keys(config).length < 2
+  const singleGroup = type === "default" && Object.keys(config).length < 2
   const formatValue = type === "percent" ? valueToPercent : valueFormatter
   const scales = getCartesianScales({
     categoryAxis,
@@ -101,7 +106,7 @@ function BarChart({
   })
 
   // Stacks round only their exposed end; grouped bars round each bar end.
-  const defaultRadius = type === "default" && singleSeries ? 8 : 4
+  const defaultRadius = singleGroup ? 8 : 4
   const barOptions = {
     color: "series",
     fill: (row: SeriesDatum) =>
@@ -113,11 +118,7 @@ function BarChart({
       }),
     inset: barCategoryGap / 2,
     key: (row: SeriesDatum) => `${row.series}-${row.index}`,
-    // Grouping pads each category for side-by-side series; a single series uses the full band.
-    layout:
-      type === "default" && singleSeries
-        ? group({ padding: 0 })
-        : getBarLayout(type, barGap),
+    layout: getBarLayout(type, barGap, singleGroup),
     maxThickness: barSize,
     radius: { end: barRadius ?? defaultRadius },
     z: "series",
@@ -135,30 +136,32 @@ function BarChart({
     y: layout === "vertical" ? categoryGuide : false,
   })
 
+  const chartOptions = {
+    ...getChartOptions(chartColors),
+    // Focus the whole category anywhere in the plot; the band replaces the focus ring.
+    focusRing: false,
+    margin: scales.margin,
+    maxFocusDistance: Number.POSITIVE_INFINITY,
+  }
+
   const definition =
     layout === "horizontal"
       ? defineChart({
-          ...getChartOptions(chartColors),
+          ...chartOptions,
           focus: "group-x",
-          maxFocusDistance: Number.POSITIVE_INFINITY,
-          focusRing: false,
           marks: [
             categoryHighlight,
             barY(rows, { ...barOptions, x: "category", y: "value" }),
           ],
-          margin: scales.margin,
           scales: { x: scales.category, y: scales.value },
         })
       : defineChart({
-          ...getChartOptions(chartColors),
+          ...chartOptions,
           focus: "group-y",
-          maxFocusDistance: Number.POSITIVE_INFINITY,
-          focusRing: false,
           marks: [
             categoryHighlight,
             barX(rows, { ...barOptions, x: "value", y: "category" }),
           ],
-          margin: scales.margin,
           scales: { x: scales.value, y: scales.category },
         })
 
@@ -167,28 +170,30 @@ function BarChart({
       {...frameProps}
       colors={colors}
       config={config}
-      legend={type === "default" && singleSeries ? (legend ?? false) : legend}
+      legend={singleGroup ? (legend ?? false) : legend}
       onSelectedSeriesChange={selectSeries}
       selectedSeries={selectedSeries}
     >
       <Chart
         ariaLabel={ariaLabel}
-        className={
-          onBarClick ? "w-full [&_svg.ts-chart]:cursor-pointer" : "w-full"
-        }
+        className={twMerge(
+          "w-full",
+          onBarClick && "[&_svg.ts-chart]:cursor-pointer"
+        )}
         config={config}
         definition={definition}
-        onSelect={(point) => {
+        onSelect={
           // A clickable chart navigates; series selection belongs to the legend there.
-          if (onBarClick) {
-            if (point) {
-              onBarClick(point.datum.source)
-            }
-            return
-          }
-
-          selectSeries(point?.datum.series ?? null)
-        }}
+          onBarClick
+            ? (point) => {
+                if (point) {
+                  onBarClick(point.datum.source)
+                }
+              }
+            : (point) => {
+                selectSeries(point?.datum.series ?? null)
+              }
+        }
         size={size}
         tooltip={tooltip}
         tooltipProps={{
