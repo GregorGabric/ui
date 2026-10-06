@@ -41,12 +41,17 @@ import {
   type TooltipDatum,
 } from "./chart-core"
 
-// Marks grow from their baseline on mount and morph between data updates. The
-// entrance also replays over server-rendered SVG, which is hidden until the
-// chart has measured its container.
-const chartRenderer = motion({
+const ENTRANCE_DURATION = 900
+
+// Marks grow from their baseline on mount. The entrance also replays over
+// server-rendered SVG, which is hidden until the chart has measured its container.
+const entranceRenderer = motion({
   initial: "always",
-  transition: { type: "tween", duration: 900, easing: "ease-out" },
+  transition: {
+    type: "tween",
+    duration: ENTRANCE_DURATION,
+    easing: "ease-out",
+  },
 })
 
 type ChartFrameContextValue = {
@@ -138,6 +143,8 @@ function Chart<
       aspectRatio={size?.aspectRatio}
       className={twMerge(
         "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
+        // TanStack creates the positioning shell before React fills it. Paint the panel only with the React content below.
+        "[--ts-chart-tooltip-background:transparent] [--ts-chart-tooltip-border:0] [--ts-chart-tooltip-padding:0] [--ts-chart-tooltip-shadow:none]",
         ready ? "opacity-100" : "opacity-0",
         className
       )}
@@ -148,6 +155,8 @@ function Chart<
                 anchor: tooltipProps?.anchor,
                 offset: tooltipProps?.offset,
                 placement: tooltipProps?.placement,
+                // Follow the pointer immediately; the renderer's tween made the tooltip trail and wobble between points.
+                motion: false,
                 // A click already selects a series, so it should not also pin.
                 sticky: onSelect === undefined,
                 use: tooltipExtension,
@@ -174,7 +183,7 @@ function Chart<
         }
       }}
       onSelect={onSelect}
-      renderer={chartRenderer}
+      renderer={entranceRenderer}
       renderTooltipBody={
         hasTooltip
           ? ({ points, primaryPoint }) => {
@@ -186,10 +195,15 @@ function Chart<
                 valueFormatter,
               }
 
-              return tooltip ? (
-                tooltip(contentProps)
-              ) : (
-                <ChartTooltipContent {...contentProps} />
+              // `empty:hidden` drops the panel when the content renders nothing.
+              return (
+                <div className="rounded-lg border-[0.5px] border-[color-mix(in_oklab,var(--overlay-foreground)_16%,transparent)] bg-[color-mix(in_oklab,var(--overlay)_70%,transparent)] px-3 py-2 text-overlay-foreground shadow-[0_6px_24px_rgb(0_0_0/0.14)] backdrop-blur-lg empty:hidden">
+                  {tooltip ? (
+                    tooltip(contentProps)
+                  ) : (
+                    <ChartTooltipContent {...contentProps} />
+                  )}
+                </div>
               )
             }
           : undefined
@@ -222,6 +236,7 @@ function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
   points: readonly TPoint[]
 ) {
   const seen = new Set<string>()
+
   return points.filter((point) => {
     if (seen.has(point.datum.series)) {
       return false
@@ -338,16 +353,18 @@ function ChartTooltipContent<
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
 >({
-  activeSeries,
   config,
   points,
   tooltipProps,
   valueFormatter,
 }: ChartTooltipContentProps<TDatum, TXValue, TYValue>) {
+  const seriesColors = getChartColors(config)
+  const seriesOrder = Object.keys(config)
   const {
     className,
     hideIndicator = false,
     hideLabel = false,
+    hint,
     indicator = "dot",
     labelFormatter,
     labelSeparator = true,
@@ -359,6 +376,12 @@ function ChartTooltipContent<
   }
 
   const rawLabel = String(firstPoint.datum.category)
+  const hintContent = hint?.(rawLabel)
+  // Same order as the legend.
+  const sortedPoints = points.toSorted(
+    (a, b) =>
+      seriesOrder.indexOf(a.datum.series) - seriesOrder.indexOf(b.datum.series)
+  )
 
   return (
     <div
@@ -379,17 +402,13 @@ function ChartTooltipContent<
         />
       )}
       <div className="grid gap-2.5">
-        {points.map((point) => {
+        {sortedPoints.map((point) => {
           const { series, value } = point.datum
           if (value === null) {
             return null
           }
-          // Rows other than the hovered series keep the indicator's space
-          // so labels stay aligned.
-          const indicatorColor =
-            activeSeries === undefined || activeSeries === series
-              ? point.color
-              : "transparent"
+          // Every row shows its series color, matching the legend, whichever mark the pointer is over.
+          const indicatorColor = seriesColors[series] ?? point.color
 
           return (
             <div className="flex items-center gap-2.5" key={point.key}>
@@ -420,6 +439,11 @@ function ChartTooltipContent<
           )
         })}
       </div>
+      {hintContent ? (
+        <span className="mt-2.5 flex items-center gap-1 border-t border-border/70 pt-2 text-muted-foreground">
+          {hintContent}
+        </span>
+      ) : null}
     </div>
   )
 }

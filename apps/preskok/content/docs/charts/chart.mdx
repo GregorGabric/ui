@@ -77,11 +77,13 @@ export function RevenueChart() {
 The earlier Recharts components are [deprecated](/charts/recharts). The props are
 close but not identical:
 
-| Recharts                  | TanStack                             |
-| ------------------------- | ------------------------------------ |
-| `className="h-64"`        | `size={{ height: 256 }}`             |
-| `hideGridLines`           | `grid="hidden"`                      |
-| `hideXAxis`, `xAxisProps` | `xAxis={false}`, `xAxis={{ ... }}`   |
-| `hideYAxis`, `yAxisProps` | `yAxis={false}`, `yAxis={{ ... }}`   |
-| `legendProps`             | `legend={<ChartLegend ... />}`       |
-| Any color string          | `var(--chart-1)` to `var(--chart-5)` |
+| Recharts                       | TanStack                                                     |
+| ------------------------------ | ------------------------------------------------------------ |
+| `className="h-64"`             | `size={{ height: 256 }}`                                     |
+| `hideGridLines`                | `grid="hidden"`                                              |
+| `hideXAxis`, `xAxisProps`      | `xAxis={false}`, `xAxis={{ ... }}`                           |
+| `hideYAxis`, `yAxisProps`      | `yAxis={false}`, `yAxis={{ ... }}`                           |
+| `legendProps`                  | `legend={<ChartLegend ... />}`                               |
+| Any color string               | `var(--chart-1)` to `var(--chart-5)`                         |
+| `barProps={{ onClick }}`       | `onBarClick={(row) => ...}`                                  |
+| `xAxisProps={{ interval: 0 }}` | `categoryAxis={{ tickStrategy: "all", labelRotation: -35 }}` |
