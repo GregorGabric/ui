@@ -160,6 +160,10 @@ function Chart<
       aspectRatio={size?.aspectRatio}
       className={twMerge(
         "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
+        // Frosted tooltip: translucent overlay over a blur, with a hairline border.
+        "[--ts-chart-tooltip-background:color-mix(in_oklab,var(--overlay)_70%,transparent)] [--ts-chart-tooltip-color:var(--overlay-foreground)]",
+        "[--ts-chart-tooltip-border:0.5px_solid_color-mix(in_oklab,var(--overlay-foreground)_16%,transparent)]",
+        "[--ts-chart-tooltip-border-radius:0.5rem] [--ts-chart-tooltip-padding:0.5rem_0.75rem] [&_.ts-chart-tooltip]:backdrop-blur-lg",
         ready ? "opacity-100" : "opacity-0",
         className
       )}
