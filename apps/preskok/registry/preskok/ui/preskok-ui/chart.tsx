@@ -4,7 +4,6 @@ import {
   createContext,
   startTransition,
   use,
-  useEffect,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -20,7 +19,6 @@ import {
   RendererChart as ChartPrimitive,
   type ChartProps as TanStackChartProps,
 } from "@tanstack/charts/react/tooltip"
-import { svgChartRenderer } from "@tanstack/charts/svg/renderer"
 import { tooltip as tooltipExtension } from "@tanstack/charts/tooltip"
 import { twMerge } from "cn"
 import {
@@ -29,7 +27,6 @@ import {
 } from "react-aria-components/ToggleButtonGroup"
 
 import {
-  CHART_HIT_MARK_ID,
   defaultValueFormatter,
   getChartColors,
   getLabel,
@@ -134,20 +131,6 @@ function Chart<
   // Hide the first paint until the chart matches its container width, so the
   // server-rendered `initialWidth` layout never flashes.
   const [ready, setReady] = useState(false)
-  // After the entrance, paint with the plain SVG renderer. The motion renderer turns every hover state change
-  // into a scene animation that the next pointer move cancels before its first frame, so hover highlights
-  // only appeared once the pointer stopped.
-  const [entered, setEntered] = useState(false)
-  useEffect(() => {
-    if (!ready) {
-      return
-    }
-    const timeout = window.setTimeout(
-      () => setEntered(true),
-      ENTRANCE_DURATION + 100
-    )
-    return () => window.clearTimeout(timeout)
-  }, [ready])
   const hasTooltip = tooltip !== false
   let height = size?.height
   if (height === undefined && size?.aspectRatio === undefined) {
@@ -160,10 +143,8 @@ function Chart<
       aspectRatio={size?.aspectRatio}
       className={twMerge(
         "min-w-0 text-xs text-muted-foreground [&_svg.ts-chart]:outline-none",
-        // Frosted tooltip: translucent overlay over a blur, with a hairline border.
-        "[--ts-chart-tooltip-background:color-mix(in_oklab,var(--overlay)_70%,transparent)] [--ts-chart-tooltip-color:var(--overlay-foreground)]",
-        "[--ts-chart-tooltip-border:0.5px_solid_color-mix(in_oklab,var(--overlay-foreground)_16%,transparent)]",
-        "[--ts-chart-tooltip-border-radius:0.5rem] [--ts-chart-tooltip-padding:0.5rem_0.75rem] [&_.ts-chart-tooltip]:backdrop-blur-lg",
+        // TanStack creates the positioning shell before React fills it. Paint the panel only with the React content below.
+        "[--ts-chart-tooltip-background:transparent] [--ts-chart-tooltip-border:0] [--ts-chart-tooltip-padding:0] [--ts-chart-tooltip-shadow:none]",
         ready ? "opacity-100" : "opacity-0",
         className
       )}
@@ -202,10 +183,14 @@ function Chart<
         }
       }}
       onSelect={onSelect}
-      renderer={entered ? svgChartRenderer : entranceRenderer}
+      renderer={entranceRenderer}
       renderTooltipBody={
         hasTooltip
           ? ({ points, primaryPoint }) => {
+              if (points.length === 0) {
+                return null
+              }
+
               const contentProps = {
                 activeSeries: primaryPoint?.datum.series,
                 config,
@@ -214,10 +199,24 @@ function Chart<
                 valueFormatter,
               }
 
-              return tooltip ? (
+              const content = tooltip ? (
                 tooltip(contentProps)
               ) : (
                 <ChartTooltipContent {...contentProps} />
+              )
+
+              if (
+                content === null ||
+                content === undefined ||
+                content === false
+              ) {
+                return null
+              }
+
+              return (
+                <div className="rounded-lg border-[0.5px] border-[color-mix(in_oklab,var(--overlay-foreground)_16%,transparent)] bg-[color-mix(in_oklab,var(--overlay)_70%,transparent)] px-3 py-2 text-overlay-foreground shadow-[0_6px_24px_rgb(0_0_0/0.14)] backdrop-blur-lg">
+                  {content}
+                </div>
               )
             }
           : undefined
@@ -246,17 +245,12 @@ function revealMarks(container: HTMLElement) {
 }
 
 /** Keeps one tooltip row per series when several marks share a datum. */
-function uniqueSeriesPoints<
-  TPoint extends { datum: { series: string }; markId: string },
->(points: readonly TPoint[]) {
+function uniqueSeriesPoints<TPoint extends { datum: { series: string } }>(
+  points: readonly TPoint[]
+) {
   const seen = new Set<string>()
-  // Hit-target marks share the datum but not the series color, so the visible mark's point wins.
-  const ordered = [...points].sort(
-    (a, b) =>
-      Number(a.markId === CHART_HIT_MARK_ID) -
-      Number(b.markId === CHART_HIT_MARK_ID)
-  )
-  return ordered.filter((point) => {
+
+  return points.filter((point) => {
     if (seen.has(point.datum.series)) {
       return false
     }

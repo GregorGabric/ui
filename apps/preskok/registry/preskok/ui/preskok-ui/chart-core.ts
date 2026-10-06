@@ -151,9 +151,6 @@ type NamedSeriesDatum = Omit<TooltipDatum, "value"> & {
   value: number
 }
 
-/** Mark id for invisible hover and click targets, such as the full-height bars behind a bar chart. */
-const CHART_HIT_MARK_ID = "chart-hit-target"
-
 const CHART_COLORS = [
   "var(--chart-1)",
   "var(--chart-2)",
@@ -544,7 +541,6 @@ export type {
 
 export {
   CHART_COLORS,
-  CHART_HIT_MARK_ID,
   dimColor,
   defaultValueFormatter,
   valueToPercent,
