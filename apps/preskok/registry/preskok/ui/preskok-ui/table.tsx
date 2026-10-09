@@ -1,12 +1,18 @@
 "use client"
 
-import { createContext, use, type ReactElement } from "react"
+import {
+  createContext,
+  use,
+  type ComponentProps,
+  type ReactElement,
+} from "react"
 import { twJoin, twMerge } from "cn"
 import {
   ChevronDownIcon,
   ChevronsUpDownIcon,
   ChevronUpIcon,
 } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   CellProps,
@@ -33,7 +39,9 @@ import {
 
 import { cx } from "@/registry/preskok/lib/primitive"
 
+import { Button as ActionButton, type ButtonProps } from "./button"
 import { Checkbox } from "./checkbox"
+import { Tooltip, TooltipContent } from "./tooltip"
 
 interface TableProps extends Omit<TablePrimitiveProps, "className"> {
   allowResize?: boolean
@@ -314,6 +322,9 @@ interface TableColumnProps extends ColumnProps {
 /** Default width of an actions column: room for two icon buttons and the cell padding. */
 const ACTIONS_COLUMN_WIDTH = 96
 
+/** Width per `TableAction` button when sizing an actions column: a 32px button plus the gap. */
+const TABLE_ACTION_WIDTH = 36
+
 /**
  * Pinned actions cells: an opaque background (matching the header band or the card) so scrolled content passes
  * underneath, and an inset divider on the leading edge instead of a border that would scroll away.
@@ -377,7 +388,8 @@ const TableColumn = ({
               className={twJoin(
                 "min-w-0",
                 resizable && "truncate",
-                direction && "text-foreground"
+                direction && "text-foreground",
+                isActions && "sr-only"
               )}
             >
               {typeof props.children === "function"
@@ -646,5 +658,43 @@ const TableCell = ({
   )
 }
 
-export { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow }
-export type { TableColumnProps, TableProps, TableRowProps }
+/** Row of icon actions inside a `TableCell isActions`. */
+const TableActions = ({ className, ...props }: ComponentProps<"div">) => (
+  <div
+    data-slot="table-actions"
+    className={twMerge("flex items-center justify-end gap-1", className)}
+    {...props}
+  />
+)
+
+interface TableActionProps extends Omit<
+  ButtonProps,
+  "children" | "aria-label" | "intent" | "size"
+> {
+  /** Action name, used as the accessible name and the tooltip. */
+  label: string
+  icon: LucideIcon
+}
+
+/** Compact icon button for a row action, with its label as tooltip and accessible name. */
+const TableAction = ({ label, icon: Icon, ...props }: TableActionProps) => (
+  <Tooltip>
+    <ActionButton intent="plain" size="sq-sm" aria-label={label} {...props}>
+      <Icon data-slot="icon" />
+    </ActionButton>
+    <TooltipContent>{label}</TooltipContent>
+  </Tooltip>
+)
+
+export {
+  TABLE_ACTION_WIDTH,
+  Table,
+  TableAction,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+}
+export type { TableActionProps, TableColumnProps, TableProps, TableRowProps }
