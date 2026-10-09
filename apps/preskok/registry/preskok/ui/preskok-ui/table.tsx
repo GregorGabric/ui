@@ -106,7 +106,14 @@ const cellPadding = (bleed: boolean | undefined) =>
 
 /** Synthetic drag and selection columns hug their 16px control instead of taking a share of the free width. */
 const syntheticCellClassName =
-  "w-px pr-0 align-middle *:data-[slot=control]:flex *:data-[slot=control]:items-center"
+  "pr-0 align-middle *:data-[slot=control]:flex *:data-[slot=control]:items-center"
+
+/**
+ * Class names for a synthetic header or body cell. Only auto-layout tables need `w-px` to hug the control: a
+ * resizable table gives the column a fixed width, and `w-px` would override it and hide the checkbox.
+ */
+const getSyntheticCellClassName = (allowResize: boolean | undefined) =>
+  twJoin(!allowResize && "w-px", syntheticCellClassName)
 
 const TABBABLE_SELECTOR = "input, select, textarea, button, a[href], [tabindex]"
 
@@ -142,13 +149,29 @@ const moveTabFocusWithinBody = (event: React.KeyboardEvent<HTMLDivElement>) => {
       ) &&
       element.getClientRects().length > 0
   )
+  const target = event.target as Node
   const currentIndex = tabbables.findIndex(
-    (element) =>
-      element === event.target || element.contains(event.target as Node)
+    (element) => element === target || element.contains(target)
   )
+  // Focus on a row or cell (after a click, or when the grid restores focus) is not one of the controls: continue from
+  // its position in the document instead, so Tab reaches the controls of that row rather than leaving the table.
   const next =
     currentIndex === -1
-      ? undefined
+      ? event.shiftKey
+        ? tabbables.findLast(
+            (element) =>
+              !!(
+                target.compareDocumentPosition(element) &
+                Node.DOCUMENT_POSITION_PRECEDING
+              ) && !element.contains(target)
+          )
+        : tabbables.find(
+            (element) =>
+              !!(
+                target.compareDocumentPosition(element) &
+                Node.DOCUMENT_POSITION_FOLLOWING
+              )
+          )
       : tabbables[currentIndex + (event.shiftKey ? -1 : 1)]
 
   if (!next) {
@@ -364,7 +387,7 @@ const TableHeader = <T extends object>({
   className,
   ...props
 }: TableHeaderProps<T>) => {
-  const { bleed } = useTableContext()
+  const { allowResize, bleed } = useTableContext()
   const { selectionBehavior, selectionMode, allowsDragging } = useTableOptions()
   const syntheticColumns = getSyntheticColumns(
     allowsDragging,
@@ -384,7 +407,10 @@ const TableHeader = <T extends object>({
         width={SYNTHETIC_COLUMN_WIDTH}
         minWidth={SYNTHETIC_COLUMN_WIDTH}
         maxWidth={SYNTHETIC_COLUMN_WIDTH}
-        className={twMerge(cellPadding(bleed), syntheticCellClassName)}
+        className={twMerge(
+          cellPadding(bleed),
+          getSyntheticCellClassName(allowResize)
+        )}
       >
         {column.kind === "selection" && selectionMode === "multiple" && (
           <Checkbox slot="selection" />
@@ -434,7 +460,7 @@ const TableRow = <T extends object>({
   ...props
 }: TableRowProps<T>) => {
   const { selectionBehavior, allowsDragging } = useTableOptions()
-  const { striped } = useTableContext()
+  const { allowResize, striped } = useTableContext()
   const syntheticColumns = getSyntheticColumns(
     allowsDragging,
     selectionBehavior
@@ -449,7 +475,10 @@ const TableRow = <T extends object>({
       return (
         <TableCell
           key={column.id}
-          className={twJoin(syntheticCellClassName, "cursor-grab")}
+          className={twJoin(
+            getSyntheticCellClassName(allowResize),
+            "cursor-grab"
+          )}
         >
           <Button
             slot="drag"
@@ -482,7 +511,10 @@ const TableRow = <T extends object>({
     }
 
     return (
-      <TableCell key={column.id} className={syntheticCellClassName}>
+      <TableCell
+        key={column.id}
+        className={getSyntheticCellClassName(allowResize)}
+      >
         <Checkbox slot="selection" />
       </TableCell>
     )
