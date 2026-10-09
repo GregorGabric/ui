@@ -297,7 +297,7 @@ const TableColumn = ({
       className={cx(
         [
           "text-muted-foreground text-left font-medium",
-          "allows-sorting:cursor-pointer allows-sorting:hover:text-foreground relative outline-hidden data-dragging:cursor-grabbing",
+          "allows-sorting:cursor-pointer allows-sorting:hover:text-foreground has-data-sort-direction:bg-primary/5 has-data-sort-direction:font-semibold has-data-sort-direction:text-foreground relative outline-hidden data-dragging:cursor-grabbing",
           "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-inset",
           cellPadding(bleed),
           grid && "border-border border-l first:border-l-0",
@@ -316,7 +316,13 @@ const TableColumn = ({
               isResizable && "pr-2"
             )}
           >
-            <span className={twJoin("min-w-0", isResizable && "truncate")}>
+            <span
+              className={twJoin(
+                "min-w-0",
+                isResizable && "truncate",
+                direction && "text-foreground"
+              )}
+            >
               {typeof props.children === "function"
                 ? props.children(values)
                 : props.children}
@@ -325,8 +331,8 @@ const TableColumn = ({
               <span
                 data-sort-direction={direction ?? undefined}
                 className={twJoin(
-                  "flex-none transition-colors *:data-[slot=icon]:size-3.5",
-                  direction ? "text-foreground" : "text-muted-foreground/50",
+                  "flex-none transition-colors *:data-[slot=icon]:size-3.5 data-sort-direction:*:data-[slot=icon]:size-4 data-sort-direction:*:data-[slot=icon]:stroke-[2.5]",
+                  direction ? "text-primary" : "text-muted-foreground/50",
                   values.isHovered && !direction && "text-muted-foreground"
                 )}
               >
