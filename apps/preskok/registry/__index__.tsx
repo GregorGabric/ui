@@ -630,7 +630,7 @@ import * as React from "react"
   },
   "drawer": {
     name: "drawer",
-    description: "A drawer component that slides in from different sides",
+    description: "A swipeable drawer built on the React Aria Sheet, with snap points and stacking",
     type: "registry:ui",
     registryDependencies: ["button"],
     files: [{
@@ -3776,6 +3776,42 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/drawer-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "drawer-side-demo": {
+    name: "drawer-side-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["drawer","button"],
+    files: [{
+      path: "registry/preskok/examples/drawer-side-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/drawer-side-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "drawer-snap-points-demo": {
+    name: "drawer-snap-points-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["drawer","button"],
+    files: [{
+      path: "registry/preskok/examples/drawer-snap-points-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/drawer-snap-points-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

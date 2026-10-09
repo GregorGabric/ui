@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drawer-side-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/drawer.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/drawer-side-demo.tsx",
+      "content": "\"use client\"\n\nimport { buttonStyles } from \"@/components/ui/preskok-ui/button\"\nimport { Drawer } from \"@/components/ui/preskok-ui/drawer\"\n\nconst links = [\"Inventory\", \"Auctions\", \"Offers\", \"Settings\"]\n\nexport default function DrawerSideDemo() {\n  return (\n    <Drawer>\n      <Drawer.Trigger className={buttonStyles({ intent: \"outline\" })}>\n        Open menu\n      </Drawer.Trigger>\n      <Drawer.Content side=\"left\" aria-label=\"Navigation\">\n        <Drawer.Header>\n          <Drawer.Title>Cario</Drawer.Title>\n        </Drawer.Header>\n        <Drawer.Body className=\"gap-1\">\n          {links.map((link) => (\n            <Drawer.Close key={link} intent=\"plain\" className=\"justify-start\">\n              {link}\n            </Drawer.Close>\n          ))}\n        </Drawer.Body>\n      </Drawer.Content>\n    </Drawer>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

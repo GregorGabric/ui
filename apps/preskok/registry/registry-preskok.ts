@@ -459,9 +459,23 @@ export const preskokUi: Registry["items"] = [
   {
     name: "drawer",
     type: "registry:ui",
-    description: "A drawer component that slides in from different sides",
-    dependencies: ["motion", "react-aria-components", "cn@^0.2.4"],
+    description:
+      "A swipeable drawer built on the React Aria Sheet, with snap points and stacking",
+    dependencies: [
+      "react-aria-components@^1.22.0",
+      "cn@^0.2.4",
+      "tailwind-variants",
+    ],
     registryDependencies: ["button"],
+    css: {
+      "@keyframes drawer-backdrop": {
+        from: { opacity: "0" },
+        to: { opacity: "1" },
+      },
+      "@keyframes drawer-scale-back": {
+        to: { transform: "translateZ(-120px)" },
+      },
+    },
     files: [
       {
         path: "ui/preskok-ui/drawer.tsx",

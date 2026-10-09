@@ -1,6 +1,6 @@
 ---
 title: Drawer
-description: Slide-over panel with touch drag interactions and composition.
+description: A swipeable panel that slides in from the edge of the viewport, built on the React Aria Sheet.
 ---
 
 import { CodeTabs } from "@/components/code-tabs"
@@ -9,7 +9,7 @@ import { ComponentSource } from "@/components/component-source"
 
 <ComponentPreview
   name="drawer-preskok-demo"
-  description="A right-side drawer with header, body and footer."
+  description="A bottom drawer with header, body and footer."
 />
 
 ## Installation
@@ -17,6 +17,8 @@ import { ComponentSource } from "@/components/component-source"
 ```bash
 npx shadcn@latest add @preskok/drawer
 ```
+
+The drawer uses the [React Aria Sheet](https://react-aria.adobe.com/Sheet), which needs `react-aria-components` 1.22.0 or later. The CLI also adds the `drawer-backdrop` and `drawer-scale-back` keyframes that keep the backdrop and stacked drawers in sync with the swipe gesture.
 
 ## Usage
 
@@ -41,6 +43,35 @@ export function Example() {
   )
 }
 ```
+
+## Side
+
+`side` sets the edge the drawer is anchored to. It can be swiped back toward that edge to dismiss it. Use `left` or `right` for navigation, `bottom` for a mobile sheet.
+
+<ComponentPreview
+  name="drawer-side-demo"
+  description="A navigation drawer from the left."
+/>
+
+## Snap points
+
+`snapPoints` makes the drawer stop partially open. Each value is the visible amount, in pixels or a CSS length. The drawer opens at the first snap point and can be dragged to full height. Its content scrolls only once it is fully expanded.
+
+<ComponentPreview
+  name="drawer-snap-points-demo"
+  description="A bottom drawer that opens partway."
+/>
+
+## Props
+
+`Drawer.Content` accepts the React Aria `SheetOverlay` props (`isOpen`, `onOpenChange`, `swipeDirection`, `snapPoints`, `preventDismissal`), plus:
+
+| Prop        | Type                                     | Default    |
+| ----------- | ---------------------------------------- | ---------- |
+| `side`      | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` |
+| `isFloat`   | `boolean`                                | `false`    |
+| `isBlurred` | `boolean`                                | `true`     |
+| `notch`     | `boolean`                                | `true`     |
 
 ## Components
 

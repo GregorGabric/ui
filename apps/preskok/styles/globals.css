@@ -118,6 +118,22 @@
   }
 }
 
+/* Swipe-synced keyframes for the Drawer (react-aria-components Sheet). */
+@keyframes drawer-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawer-scale-back {
+  to {
+    transform: translateZ(-120px);
+  }
+}
+
 :root {
   --fd-layout-width: 100vw;
 

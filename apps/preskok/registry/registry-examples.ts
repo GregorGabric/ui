@@ -1100,6 +1100,28 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "drawer-side-demo",
+    type: "registry:example",
+    registryDependencies: ["drawer", "button"],
+    files: [
+      {
+        path: "examples/drawer-side-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "drawer-snap-points-demo",
+    type: "registry:example",
+    registryDependencies: ["drawer", "button"],
+    files: [
+      {
+        path: "examples/drawer-snap-points-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "drop-zone-preskok-demo",
     type: "registry:example",
     registryDependencies: ["drop-zone"],
