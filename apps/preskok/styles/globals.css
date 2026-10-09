@@ -118,8 +118,8 @@
   }
 }
 
-/* Swipe-synced keyframes for the Drawer (react-aria-components Sheet). */
-@keyframes drawer-backdrop {
+/* Swipe-synced keyframes for the Sheet (react-aria-components Sheet). */
+@keyframes sheet-backdrop {
   from {
     opacity: 0;
   }
@@ -128,9 +128,10 @@
   }
 }
 
-@keyframes drawer-scale-back {
+@keyframes sheet-scale-back {
   to {
-    transform: translateZ(-120px);
+    transform: translate(var(--sheet-stack-x, 0px), var(--sheet-stack-y, 0px))
+      scale(0.95);
   }
 }
 

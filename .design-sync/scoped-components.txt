@@ -32,7 +32,6 @@ DateRangePicker
 DescriptionList
 Dialog
 DisclosureGroup
-Drawer
 DropZone
 ExperimentalAreaChart
 ExperimentalBarChart

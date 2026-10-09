@@ -1089,39 +1089,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "drawer-preskok-demo",
-    type: "registry:example",
-    registryDependencies: ["drawer", "button"],
-    files: [
-      {
-        path: "examples/drawer-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "drawer-side-demo",
-    type: "registry:example",
-    registryDependencies: ["drawer", "button"],
-    files: [
-      {
-        path: "examples/drawer-side-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
-    name: "drawer-snap-points-demo",
-    type: "registry:example",
-    registryDependencies: ["drawer", "button"],
-    files: [
-      {
-        path: "examples/drawer-snap-points-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "drop-zone-preskok-demo",
     type: "registry:example",
     registryDependencies: ["drop-zone"],
@@ -1392,6 +1359,28 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/tooltip-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-side-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button"],
+    files: [
+      {
+        path: "examples/sheet-side-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-snap-points-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button"],
+    files: [
+      {
+        path: "examples/sheet-snap-points-demo.tsx",
         type: "registry:example",
       },
     ],

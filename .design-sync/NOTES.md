@@ -82,7 +82,7 @@ If a new warn appears on a re-sync, it is genuinely new: investigate rather than
 
 These 14 scoped components render via `position:fixed`/portal-style overlays or content wider than a standard grid cell, and were flagged `[GRID_OVERFLOW]` by the render check. Fixed via `cfg.overrides` in `config.json`:
 
-- **`single` + `primaryStory`** (fixed/portal content, no grid layout can present them): `CommandMenu` (Open), `Drawer` (BottomDrawer), `Menu` (Open), `Modal` (DeleteConfirmation), `MultiSelect` (Selected), `Popover` (DeploymentSummary), `Sheet` (QuickSettings), `Sidebar` (Default), `Tooltip` (Default).
+- **`single` + `primaryStory`** (fixed/portal content, no grid layout can present them): `CommandMenu` (Open), `Menu` (Open), `Modal` (DeleteConfirmation), `MultiSelect` (Selected), `Popover` (DeploymentSummary), `Sheet` (QuickSettings), `Sidebar` (Default), `Tooltip` (Default).
 - **`column`** (renders wider than a grid cell, keep full width): `Breadcrumbs`, `InputOTP`, `Navbar`, `RangeCalendar`, `Skeleton`.
 
 ## Findings from preview authoring (fold into future re-syncs)

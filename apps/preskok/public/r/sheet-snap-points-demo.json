@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-snap-points-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/sheet.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/sheet-snap-points-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  Sheet,\n  SheetBody,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n} from \"@/components/ui/preskok-ui/sheet\"\n\nconst specs = [\n  [\"Mileage\", \"42,180 km\"],\n  [\"Fuel\", \"Diesel\"],\n  [\"Gearbox\", \"Automatic\"],\n  [\"Power\", \"140 kW\"],\n  [\"First registration\", \"03/2022\"],\n  [\"Location\", \"Ljubljana\"],\n]\n\nexport default function SheetSnapPointsDemo() {\n  return (\n    <Sheet>\n      <Button intent=\"outline\">View vehicle</Button>\n      <SheetContent side=\"bottom\" isFloat={false} snapPoints={[240]}>\n        <SheetHeader>\n          <SheetTitle>Škoda Octavia Combi</SheetTitle>\n          <SheetDescription>\n            Drag up for the full spec sheet, or swipe down to dismiss.\n          </SheetDescription>\n        </SheetHeader>\n        <SheetBody>\n          <dl className=\"divide-y text-sm\">\n            {specs.map(([term, value]) => (\n              <div key={term} className=\"flex justify-between py-3\">\n                <dt className=\"text-muted-foreground\">{term}</dt>\n                <dd className=\"font-medium tabular-nums\">{value}</dd>\n              </div>\n            ))}\n          </dl>\n        </SheetBody>\n        <SheetFooter>\n          <SheetClose intent=\"primary\" className=\"w-full\">\n            Place a bid\n          </SheetClose>\n        </SheetFooter>\n      </SheetContent>\n    </Sheet>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

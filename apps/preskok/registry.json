@@ -857,45 +857,10 @@
       "type": "registry:ui"
     },
     {
-      "name": "drawer",
-      "description": "A swipeable drawer built on the React Aria Sheet, with snap points and stacking",
+      "name": "sheet",
+      "description": "A swipeable sheet built on the React Aria Sheet, with snap points and stacking",
       "dependencies": [
         "react-aria-components@^1.22.0",
-        "cn@^0.2.4",
-        "tailwind-variants"
-      ],
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/ui/preskok-ui/drawer.tsx",
-          "type": "registry:ui"
-        }
-      ],
-      "css": {
-        "@keyframes drawer-backdrop": {
-          "from": {
-            "opacity": "0"
-          },
-          "to": {
-            "opacity": "1"
-          }
-        },
-        "@keyframes drawer-scale-back": {
-          "to": {
-            "transform": "translateZ(-120px)"
-          }
-        }
-      },
-      "type": "registry:ui"
-    },
-    {
-      "name": "sheet",
-      "description": "A sheet component that slides in from different sides with blur effects",
-      "dependencies": [
-        "react-aria-components",
-        "cn@^0.2.4",
         "tailwind-variants"
       ],
       "registryDependencies": [
@@ -907,6 +872,21 @@
           "type": "registry:ui"
         }
       ],
+      "css": {
+        "@keyframes sheet-backdrop": {
+          "from": {
+            "opacity": "0"
+          },
+          "to": {
+            "opacity": "1"
+          }
+        },
+        "@keyframes sheet-scale-back": {
+          "to": {
+            "transform": "translate(var(--sheet-stack-x, 0px), var(--sheet-stack-y, 0px)) scale(0.95)"
+          }
+        }
+      },
       "type": "registry:ui"
     },
     {
@@ -3863,48 +3843,6 @@
       "type": "registry:example"
     },
     {
-      "name": "drawer-preskok-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/drawer.json",
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/drawer-preskok-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "drawer-side-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/drawer.json",
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/drawer-side-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
-      "name": "drawer-snap-points-demo",
-      "registryDependencies": [
-        "https://ui-three-mu.vercel.app/r/drawer.json",
-        "https://ui-three-mu.vercel.app/r/button.json"
-      ],
-      "files": [
-        {
-          "path": "registry/preskok/examples/drawer-snap-points-demo.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "type": "registry:example"
-    },
-    {
       "name": "drop-zone-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/drop-zone.json"
@@ -4235,6 +4173,34 @@
       "files": [
         {
           "path": "registry/preskok/examples/tooltip-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-side-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-side-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-snap-points-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-snap-points-demo.tsx",
           "type": "registry:example"
         }
       ],
