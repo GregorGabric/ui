@@ -10,6 +10,7 @@ import type {
   ColumnResizerProps,
   TableHeaderProps as HeaderProps,
   RowProps,
+  SortDirection,
   TableBodyProps,
   TableProps as TablePrimitiveProps,
 } from "react-aria-components/Table"
@@ -45,6 +46,9 @@ const TableContext = createContext<TableProps>({
 
 const DRAG_COLUMN_ID = "preskok-table-drag"
 const SELECTION_COLUMN_ID = "preskok-table-selection"
+
+/** Width of the drag and selection columns: the gutter, a 16px control and the trailing padding. */
+const SYNTHETIC_COLUMN_WIDTH = 44
 
 type SyntheticColumn =
   | { id: typeof DRAG_COLUMN_ID; kind: "drag" }
@@ -87,6 +91,69 @@ const isSyntheticColumn = <T extends object>(
 
 const useTableContext = () => use(TableContext)
 
+/** Padding shared by header and body cells, so the first and last columns line up with the surrounding gutter. */
+const cellPadding = (bleed: boolean | undefined) =>
+  twJoin(
+    "px-2 py-(--gutter-y) first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
+    !bleed && "sm:first:pl-2 sm:last:pr-3"
+  )
+
+/** Synthetic drag and selection columns hug their 16px control instead of taking a share of the free width. */
+const syntheticCellClassName =
+  "w-px pr-0 align-middle *:data-[slot=control]:flex *:data-[slot=control]:items-center"
+
+const TABBABLE_SELECTOR = "input, select, textarea, button, a[href], [tabindex]"
+
+/**
+ * With `keyboardNavigationBehavior="tab"`, Tab moves through the controls of the table body in document order, as in
+ * a form. React Aria's grid would otherwise move focus out of the table once a cell has no further tabbable element.
+ * After the last control, the grid's own handling moves focus out of the table.
+ */
+const moveTabFocusWithinBody = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const body =
+    event.target instanceof Element
+      ? event.target.closest("[data-slot=table-body]")
+      : null
+
+  if (
+    event.key !== "Tab" ||
+    event.altKey ||
+    event.ctrlKey ||
+    event.metaKey ||
+    !body ||
+    !event.currentTarget.contains(body)
+  ) {
+    return
+  }
+
+  const tabbables = Array.from(
+    body.querySelectorAll<HTMLElement>(TABBABLE_SELECTOR)
+  ).filter(
+    (element) =>
+      element.tabIndex >= 0 &&
+      !element.matches(
+        ":disabled, [role=row], [role=gridcell], [role=rowheader]"
+      ) &&
+      element.getClientRects().length > 0
+  )
+  const currentIndex = tabbables.findIndex(
+    (element) =>
+      element === event.target || element.contains(event.target as Node)
+  )
+  const next =
+    currentIndex === -1
+      ? undefined
+      : tabbables[currentIndex + (event.shiftKey ? -1 : 1)]
+
+  if (!next) {
+    return
+  }
+
+  event.preventDefault()
+  event.stopPropagation()
+  next.focus()
+}
+
 const Root = (props: TableProps) => {
   return (
     <TablePrimitive
@@ -105,12 +172,38 @@ const Table = ({
   ref,
   ...props
 }: TableProps) => {
+  const onKeyDownCapture =
+    props.keyboardNavigationBehavior === "tab"
+      ? moveTabFocusWithinBody
+      : undefined
+
+  // A resizable table measures its container to lay out `fr` widths, so the container must be the
+  // width-constrained scroll box. Inside the `inline-block` wrapper its width follows its content and
+  // every measurement widens the table again.
+  if (allowResize) {
+    return (
+      <TableContext value={{ allowResize, bleed: true, grid, striped }}>
+        <div className="flow-root w-full" onKeyDownCapture={onKeyDownCapture}>
+          <ResizableTableContainer
+            data-slot="table-resizable-container"
+            className={twMerge(
+              "relative -mx-(--gutter) overflow-auto [--gutter-y:--spacing(2)]",
+              className
+            )}
+          >
+            <Root ref={ref} {...props} />
+          </ResizableTableContainer>
+        </div>
+      </TableContext>
+    )
+  }
+
   return (
     <TableContext value={{ allowResize, bleed, grid, striped }}>
-      <div className="flow-root">
+      <div className="flow-root" onKeyDownCapture={onKeyDownCapture}>
         <div
           className={twMerge(
-            "relative -mx-(--gutter) overflow-x-auto whitespace-nowrap [--gutter-y:--spacing(2)] has-data-[slot=table-resizable-container]:overflow-auto",
+            "relative -mx-(--gutter) overflow-x-auto whitespace-nowrap [--gutter-y:--spacing(2)]",
             className
           )}
         >
@@ -120,13 +213,7 @@ const Table = ({
               !bleed && "sm:px-(--gutter)"
             )}
           >
-            {allowResize ? (
-              <ResizableTableContainer data-slot="table-resizable-container">
-                <Root ref={ref} {...props} />
-              </ResizableTableContainer>
-            ) : (
-              <Root {...props} ref={ref} />
-            )}
+            <Root ref={ref} {...props} />
           </div>
         </div>
       </div>
@@ -134,17 +221,38 @@ const Table = ({
   )
 }
 
-const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => (
-  <ColumnResizerPrimitive
-    {...props}
-    className={cx(
-      "&[data-resizable-direction=left]:cursor-e-resize &[data-resizable-direction=right]:cursor-w-resize [&[data-resizing]>div]:bg-primary absolute top-0 right-0 bottom-0 grid w-px touch-none place-content-center px-1 data-[resizable-direction=both]:cursor-ew-resize",
-      className
-    )}
-  >
-    <div className="h-full w-px bg-border py-(--gutter-y)" />
-  </ColumnResizerPrimitive>
-)
+/**
+ * Resize handle on a column's trailing edge. The hit area straddles the boundary and its line sits on the
+ * column separator, so resizing never draws a second line next to it. The line shows while the header is
+ * hovered (for `grid` tables the border already is the separator) and turns primary while dragging.
+ */
+const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => {
+  const { grid } = useTableContext()
+
+  return (
+    <ColumnResizerPrimitive
+      {...props}
+      className={cx(
+        [
+          "group/resizer absolute inset-y-0 right-0 z-10 flex w-3 translate-x-1/2 touch-none justify-center overflow-hidden outline-hidden",
+          "cursor-col-resize data-[resizable-direction=left]:cursor-e-resize data-[resizable-direction=right]:cursor-w-resize",
+          "in-[[data-slot=table-column]:last-child]:translate-x-0 in-[[data-slot=table-column]:last-child]:justify-end",
+        ],
+        className
+      )}
+    >
+      <div
+        className={twJoin(
+          "h-full w-px transition-colors",
+          grid
+            ? "bg-transparent"
+            : "bg-transparent group-hover/header:bg-border",
+          "group-hover/resizer:bg-primary group-focus-visible/resizer:bg-primary group-data-resizing/resizer:bg-primary"
+        )}
+      />
+    </ColumnResizerPrimitive>
+  )
+}
 
 const TableBody = <T extends object>(props: TableBodyProps<T>) => (
   <TableBodyPrimitive data-slot="table-body" {...props} />
@@ -152,10 +260,16 @@ const TableBody = <T extends object>(props: TableBodyProps<T>) => (
 
 interface TableColumnProps extends ColumnProps {
   isResizable?: boolean
+  /**
+   * Sort direction to show when sorting is controlled outside the table, e.g. a server-side multi-column sort
+   * where several columns are sorted at once. Defaults to the table's `sortDescriptor`.
+   */
+  sortDirection?: SortDirection | null
 }
 
 const TableColumn = ({
   isResizable = false,
+  sortDirection,
   className,
   ...props
 }: TableColumnProps) => {
@@ -168,42 +282,51 @@ const TableColumn = ({
         [
           "text-muted-foreground text-left font-medium",
           "allows-sorting:cursor-default relative outline-hidden data-dragging:cursor-grabbing",
-          "px-2 py-(--gutter-y)",
-          "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          !bleed && "sm:first:pl-2 sm:last:pr-3",
-          grid && "border-l first:border-l-0",
-          isResizable && "truncate overflow-hidden",
+          "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-inset",
+          cellPadding(bleed),
+          grid && "border-border border-l first:border-l-0",
         ],
         className
       )}
     >
-      {(values) => (
-        <div
-          className={twJoin([
-            "inline-flex items-center gap-2 **:data-[slot=icon]:shrink-0",
-          ])}
-        >
-          {typeof props.children === "function"
-            ? props.children(values)
-            : props.children}
-          {values.allowsSorting && (
-            <span
-              className={twJoin(
-                "bg-secondary text-foreground grid size-[1.15rem] flex-none shrink-0 place-content-center rounded *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:transition-transform *:data-[slot=icon]:duration-200",
-                values.isHovered ? "bg-secondary-foreground/10" : ""
-              )}
-            >
-              <ChevronDownIcon
-                data-slot="icon"
-                className={
-                  values.sortDirection === "ascending" ? "rotate-180" : ""
-                }
-              />
+      {(values) => {
+        const direction =
+          sortDirection === undefined ? values.sortDirection : sortDirection
+
+        return (
+          <div
+            className={twJoin(
+              "flex min-w-0 items-center gap-2 **:data-[slot=icon]:shrink-0",
+              isResizable && "pr-2"
+            )}
+          >
+            <span className={twJoin("min-w-0", isResizable && "truncate")}>
+              {typeof props.children === "function"
+                ? props.children(values)
+                : props.children}
             </span>
-          )}
-          {isResizable && <ColumnResizer />}
-        </div>
-      )}
+            {values.allowsSorting && (
+              <span
+                data-sort-direction={direction ?? undefined}
+                className={twJoin(
+                  "grid size-[1.15rem] flex-none shrink-0 place-content-center rounded *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:transition-transform *:data-[slot=icon]:duration-200",
+                  direction
+                    ? "bg-secondary text-foreground"
+                    : "text-muted-foreground/50",
+                  values.isHovered &&
+                    "bg-secondary-foreground/10 text-foreground"
+                )}
+              >
+                <ChevronDownIcon
+                  data-slot="icon"
+                  className={direction === "ascending" ? "rotate-180" : ""}
+                />
+              </span>
+            )}
+            {isResizable && <ColumnResizer />}
+          </div>
+        )
+      }}
     </Column>
   )
 }
@@ -231,39 +354,19 @@ const TableHeader = <T extends object>({
       : undefined
 
   const renderSyntheticColumn = (column: SyntheticColumn) => {
-    if (column.kind === "drag") {
-      return (
-        <Column
-          key={column.id}
-          id={column.id}
-          data-slot="table-column"
-          width={32}
-          minWidth={32}
-          style={{ width: 32 }}
-          className={twMerge(
-            "px-2 py-(--gutter-y)",
-            "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-            !bleed && "sm:first:pl-2 sm:last:pr-3"
-          )}
-        />
-      )
-    }
-
     return (
       <Column
         key={column.id}
         id={column.id}
-        width={32}
-        minWidth={32}
-        style={{ width: 32 }}
         data-slot="table-column"
-        className={twMerge(
-          "px-2 py-(--gutter-y)",
-          "first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          !bleed && "sm:first:pl-2 sm:last:pr-3"
-        )}
+        width={SYNTHETIC_COLUMN_WIDTH}
+        minWidth={SYNTHETIC_COLUMN_WIDTH}
+        maxWidth={SYNTHETIC_COLUMN_WIDTH}
+        className={twMerge(cellPadding(bleed), syntheticCellClassName)}
       >
-        {selectionMode === "multiple" && <Checkbox slot="selection" />}
+        {column.kind === "selection" && selectionMode === "multiple" && (
+          <Checkbox slot="selection" />
+        )}
       </Column>
     )
   }
@@ -286,7 +389,7 @@ const TableHeader = <T extends object>({
   return (
     <TableHeaderPrimitive
       data-slot="table-header"
-      className={cx("border-b", className)}
+      className={cx("group/header border-border border-b", className)}
       ref={ref}
       {...props}
       columns={dynamicColumns}
@@ -322,10 +425,13 @@ const TableRow = <T extends object>({
   const renderSyntheticCell = (column: SyntheticColumn) => {
     if (column.kind === "drag") {
       return (
-        <TableCell key={column.id} className="cursor-grab">
+        <TableCell
+          key={column.id}
+          className={twJoin(syntheticCellClassName, "cursor-grab")}
+        >
           <Button
             slot="drag"
-            className="grid place-content-center rounded-xs px-[calc(var(--gutter)/2)] outline-hidden focus-visible:ring focus-visible:ring-ring"
+            className="grid place-content-center rounded-xs outline-hidden focus-visible:ring focus-visible:ring-ring"
           >
             <svg
               aria-hidden
@@ -354,7 +460,7 @@ const TableRow = <T extends object>({
     }
 
     return (
-      <TableCell key={column.id}>
+      <TableCell key={column.id} className={syntheticCellClassName}>
         <Checkbox slot="selection" />
       </TableCell>
     )
@@ -404,7 +510,7 @@ const TableRow = <T extends object>({
             isSelected &&
               "text-foreground bg-(--table-selected-background) hover:bg-(--table-selected-background)/50",
             striped && "even:bg-muted",
-            !striped && "border-b last:border-b-0",
+            !striped && "border-border border-b last:border-b-0",
             (props.href || props.onAction || selectionMode === "multiple") &&
               "hover:text-foreground hover:bg-(--table-selected-background)",
             (props.href || props.onAction || selectionMode === "multiple") &&
@@ -432,9 +538,9 @@ const TableCell = ({ className, ref, ...props }: TableCellProps) => {
       {...props}
       className={cx(
         twJoin(
-          "group group-has-data-focus-visible-within:text-foreground px-2 py-(--gutter-y) align-middle outline-hidden first:pl-(--gutter,--spacing(2)) last:pr-(--gutter,--spacing(2))",
-          grid && "border-l first:border-l-0",
-          !bleed && "sm:first:pl-2 sm:last:pr-3",
+          "group group-has-data-focus-visible-within:text-foreground align-middle outline-hidden",
+          cellPadding(bleed),
+          grid && "border-border border-l first:border-l-0",
           allowResize && "truncate overflow-hidden"
         ),
         className

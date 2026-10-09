@@ -14,22 +14,27 @@ type ProjectStatus = "On track" | "Review" | "At risk" | "Queued"
 
 export function TableDemoResizable() {
   return (
-    <div className="w-full max-w-3xl overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
+    <div className="w-3xl max-w-full overflow-hidden rounded-xl border bg-background p-4 shadow-sm">
       <Table allowResize aria-label="Project delivery">
         <TableHeader>
-          <TableColumn width={52} minWidth={44}>
+          <TableColumn defaultWidth={52} minWidth={44}>
             ID
           </TableColumn>
-          <TableColumn isRowHeader isResizable width={240} minWidth={180}>
+          <TableColumn
+            isRowHeader
+            isResizable
+            defaultWidth="2fr"
+            minWidth={180}
+          >
             Workstream
           </TableColumn>
-          <TableColumn isResizable width={160} minWidth={132}>
+          <TableColumn isResizable defaultWidth="1fr" minWidth={132}>
             Owner
           </TableColumn>
-          <TableColumn width={116} minWidth={104}>
+          <TableColumn isResizable defaultWidth={116} minWidth={104}>
             Budget
           </TableColumn>
-          <TableColumn isResizable width={140} minWidth={120}>
+          <TableColumn defaultWidth={140} minWidth={120}>
             Status
           </TableColumn>
         </TableHeader>
