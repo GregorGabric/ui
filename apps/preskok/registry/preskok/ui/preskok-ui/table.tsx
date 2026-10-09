@@ -300,23 +300,52 @@ const TableBody = <T extends object>(props: TableBodyProps<T>) => (
 interface TableColumnProps extends ColumnProps {
   isResizable?: boolean
   /**
+   * Row actions column: fixed width, never resizable or sortable, right-aligned and pinned to the table's trailing
+   * edge so the actions stay reachable when the table scrolls horizontally. Pair it with `TableCell isActions`.
+   */
+  isActions?: boolean
+  /**
    * Sort direction to show when sorting is controlled outside the table, e.g. a server-side multi-column sort
    * where several columns are sorted at once. Defaults to the table's `sortDescriptor`.
    */
   sortDirection?: SortDirection | null
 }
 
+/** Default width of an actions column: room for two icon buttons and the cell padding. */
+const ACTIONS_COLUMN_WIDTH = 96
+
+/**
+ * Pinned actions cells: an opaque background (matching the header band or the card) so scrolled content passes
+ * underneath, and an inset divider on the leading edge instead of a border that would scroll away.
+ */
+const actionsCellClassName =
+  "sticky right-0 z-1 text-right shadow-[inset_1px_0_0_var(--color-border)] *:justify-end"
+
 const TableColumn = ({
   isResizable = false,
+  isActions = false,
   sortDirection,
   className,
   ...props
 }: TableColumnProps) => {
   const { bleed, grid } = useTableContext()
+  const requestedWidth = props.width ?? props.defaultWidth
+  const actionsWidth =
+    typeof requestedWidth === "number" ? requestedWidth : ACTIONS_COLUMN_WIDTH
+  const resizable = isResizable && !isActions
+
   return (
     <Column
       data-slot="table-column"
+      data-actions={isActions || undefined}
       {...props}
+      {...(isActions && {
+        allowsSorting: false,
+        width: actionsWidth,
+        minWidth: actionsWidth,
+        maxWidth: actionsWidth,
+        defaultWidth: undefined,
+      })}
       className={cx(
         [
           "text-muted-foreground text-left font-medium",
@@ -324,6 +353,11 @@ const TableColumn = ({
           "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-inset",
           cellPadding(bleed),
           grid && "border-border border-l first:border-l-0",
+          isActions && [
+            actionsCellClassName,
+            "bg-[color-mix(in_oklab,var(--color-muted)_50%,var(--color-card))]",
+            grid && "border-l-0",
+          ],
         ],
         className
       )}
@@ -336,13 +370,13 @@ const TableColumn = ({
           <div
             className={twJoin(
               "flex min-w-0 items-center gap-2 **:data-[slot=icon]:shrink-0",
-              isResizable && "pr-2"
+              resizable && "pr-2"
             )}
           >
             <span
               className={twJoin(
                 "min-w-0",
-                isResizable && "truncate",
+                resizable && "truncate",
                 direction && "text-foreground"
               )}
             >
@@ -368,7 +402,7 @@ const TableColumn = ({
                 {!direction && <ChevronsUpDownIcon data-slot="icon" />}
               </span>
             )}
-            {isResizable && <ColumnResizer />}
+            {resizable && <ColumnResizer />}
           </div>
         )
       }}
@@ -582,20 +616,29 @@ const TableRow = <T extends object>({
 
 interface TableCellProps extends CellProps {
   ref?: React.Ref<HTMLTableCellElement>
+  /** Cell of a `TableColumn isActions` column: pinned to the trailing edge with its controls right-aligned. */
+  isActions?: boolean
 }
-const TableCell = ({ className, ref, ...props }: TableCellProps) => {
+const TableCell = ({
+  className,
+  ref,
+  isActions = false,
+  ...props
+}: TableCellProps) => {
   const { allowResize, bleed, grid } = useTableContext()
   return (
     <Cell
       ref={ref}
       data-slot="table-cell"
+      data-actions={isActions || undefined}
       {...props}
       className={cx(
         twJoin(
           "group group-has-data-focus-visible-within:text-foreground align-middle outline-hidden",
           cellPadding(bleed),
           grid && "border-border border-l first:border-l-0",
-          allowResize && "truncate overflow-hidden"
+          allowResize && !isActions && "truncate overflow-hidden",
+          isActions && [actionsCellClassName, "bg-card", grid && "border-l-0"]
         ),
         className
       )}

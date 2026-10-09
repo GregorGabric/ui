@@ -10,7 +10,7 @@ const Card = ({
     <div
       data-slot="card"
       className={twMerge(
-        "group/card text-foreground **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--gutter) rounded-lg border py-(--gutter) shadow-xs [--gutter:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
+        "group/card text-foreground **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--gutter) rounded-lg border py-(--gutter) shadow-xs [--gutter:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t",
         className
       )}
       {...props}
