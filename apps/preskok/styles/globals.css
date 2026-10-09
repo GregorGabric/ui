@@ -118,6 +118,23 @@
   }
 }
 
+/* Swipe-synced keyframes for the Sheet (react-aria-components Sheet). */
+@keyframes sheet-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-scale-back {
+  to {
+    transform: translate(var(--sheet-stack-x, 0px), var(--sheet-stack-y, 0px))
+      scale(0.95);
+  }
+}
+
 :root {
   --fd-layout-width: 100vw;
 

@@ -1,21 +1,22 @@
 "use client"
 
-import { twJoin } from "cn"
+import type React from "react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
-  DialogProps,
-  DialogTriggerProps,
-  ModalOverlayProps,
-} from "react-aria-components/Modal"
+  SheetContentProps as SheetContentPrimitiveProps,
+  SheetOverlayProps,
+  SheetTriggerProps,
+} from "react-aria-components/Sheet"
 import {
-  DialogTrigger as DialogTriggerPrimitive,
-  Modal,
-  ModalOverlay,
-} from "react-aria-components/Modal"
+  SheetBackdrop,
+  SheetContent as SheetContentPrimitive,
+  SheetOverlay,
+  Sheet as SheetPrimitive,
+  SheetTrigger as SheetTriggerPrimitive,
+} from "react-aria-components/Sheet"
 import { tv } from "tailwind-variants"
 
 import {
-  Dialog,
   DialogBody,
   DialogClose,
   DialogCloseIcon,
@@ -26,126 +27,174 @@ import {
   DialogTrigger,
 } from "./dialog"
 
-type Sides = "top" | "bottom" | "left" | "right"
-const generateCompoundVariants = (sides: Array<Sides>) => {
-  return sides.map((side) => ({
-    side,
-    isFloat: true,
-    className:
-      side === "top"
-        ? "top-2 inset-x-2 rounded-lg ring-1 border-b-0"
-        : side === "bottom"
-          ? "bottom-2 inset-x-2 rounded-lg ring-1 border-t-0"
-          : side === "left"
-            ? "left-2 inset-y-2 rounded-lg ring-1 border-r-0"
-            : "right-2 inset-y-2 rounded-lg ring-1 border-l-0",
-  }))
-}
+type Sides = "top" | "bottom" | "left" | "right" | "start" | "end"
 
-const sheetContentStyles = tv({
-  base: [
-    "fixed z-50 grid gap-4 border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg dark:border-border",
-    "transform-gpu transition ease-in-out will-change-transform",
-  ],
+const Sheet = (props: SheetTriggerProps) => <SheetTriggerPrimitive {...props} />
+
+// Only the bottom-most sheet in a stack dims the page behind it.
+const backdropStyles = tv({
+  base: "data-[stack-index='0']:bg-black/15",
   variants: {
-    isEntering: {
-      true: "animate-in duration-500 fade-in",
-    },
-    isExiting: {
-      true: "animate-out duration-300 fade-in",
-    },
-    side: {
-      top: "inset-x-0 top-0 rounded-b-2xl border-b entering:slide-in-from-top exiting:slide-out-to-top",
-      bottom:
-        "inset-x-0 bottom-0 rounded-t-2xl border-t entering:slide-in-from-bottom exiting:slide-out-to-bottom",
-      left: "inset-y-0 left-0 h-auto w-3/4 overflow-y-auto border-r sm:max-w-80 entering:slide-in-from-left exiting:slide-out-to-left-80",
-      right:
-        "inset-y-0 right-0 h-auto w-3/4 overflow-y-auto border-l sm:max-w-80 entering:slide-in-from-right exiting:slide-out-to-right-80",
-    },
-    isFloat: {
-      false: "border-foreground/20 dark:border-border",
-      true: "ring-foreground/5 dark:ring-border",
+    isBlurred: {
+      true: "data-[stack-index='0']:backdrop-blur-[1px]",
     },
   },
-  compoundVariants: generateCompoundVariants([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ]),
 })
 
-type SheetProps = DialogTriggerProps
-const Sheet = (props: SheetProps) => {
-  return <DialogTriggerPrimitive {...props} />
-}
+// `position` is the resolved edge: React Aria maps start/end to left/right for the locale.
+// The stack offsets nudge a parent sheet toward its edge while it scales back behind a child.
+const sheetStyles = tv({
+  base: "relative z-[1] box-content flex flex-col overflow-clip border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg outline-hidden will-change-transform dark:border-border forced-colors:bg-[Canvas]",
+  variants: {
+    position: {
+      top: "w-full max-w-[800px] origin-bottom border-b [--sheet-stack-y:8px]",
+      bottom: "w-full max-w-[800px] origin-top border-t [--sheet-stack-y:-8px]",
+      left: "h-full w-3/4 origin-right border-r [--sheet-stack-x:8px] sm:max-w-80",
+      right:
+        "h-full w-3/4 origin-left border-l [--sheet-stack-x:-8px] sm:max-w-80",
+      center: "w-[calc(100%-2rem)] max-w-lg rounded-2xl border",
+    },
+    isFloat: {
+      true: "rounded-lg border-0 ring-1 ring-foreground/5 dark:ring-border",
+      false: "",
+    },
+  },
+  compoundVariants: [
+    { position: "top", isFloat: false, className: "rounded-b-2xl" },
+    { position: "bottom", isFloat: false, className: "rounded-t-2xl" },
+    { position: "top", isFloat: true, className: "mt-2 w-[calc(100%-1rem)]" },
+    {
+      position: "bottom",
+      isFloat: true,
+      className: "mb-2 w-[calc(100%-1rem)]",
+    },
+    {
+      position: "left",
+      isFloat: true,
+      className: "my-2 ml-2 h-[calc(100%-1rem)]",
+    },
+    {
+      position: "right",
+      isFloat: true,
+      className: "my-2 mr-2 h-[calc(100%-1rem)]",
+    },
+  ],
+})
+
+// Until the sheet is fully expanded, a swipe on the body moves the sheet instead of scrolling it.
+const contentStyles = tv({
+  base: [
+    "peer/dialog group/dialog relative box-border flex min-h-0 w-full flex-auto flex-col overflow-hidden pb-(--sheet-scroll-padding-y) outline-hidden [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]",
+    "**:data-[slot=dialog-body]:overflow-hidden group-data-expanded/sheet:**:data-[slot=dialog-body]:overflow-auto",
+  ],
+})
+
+const notchStyles = tv({
+  base: "pointer-events-none absolute left-1/2 z-10 h-1 w-10 -translate-x-1/2 rounded-full bg-foreground/20",
+  variants: {
+    position: {
+      top: "bottom-2",
+      bottom: "top-2",
+    },
+  },
+})
 
 interface SheetContentProps
   extends
-    Omit<ModalOverlayProps, "children">,
-    Pick<DialogProps, "aria-label" | "role" | "aria-labelledby" | "children"> {
-  closeButton?: boolean
-  isBlurred?: boolean
-  isFloat?: boolean
+    Omit<SheetOverlayProps, "children" | "className" | "style" | "position">,
+    Pick<
+      SheetContentPrimitiveProps,
+      "aria-label" | "aria-labelledby" | "role" | "children"
+    > {
+  className?: string
+  style?: React.CSSProperties
+  /** The edge the sheet slides in from. `start` and `end` follow the locale direction. */
   side?: Sides
-  overlay?: Omit<ModalOverlayProps, "children">
+  /** Inset the sheet from the viewport edge with rounded corners. */
+  isFloat?: boolean
+  isBlurred?: boolean
+  closeButton?: boolean
+  /** Show a drag handle on top and bottom sheets that can be swiped away. */
+  notch?: boolean
+  overlay?: Omit<SheetOverlayProps, "children" | "position">
 }
 
 const SheetContent = ({
-  className,
-  isBlurred = false,
-  isDismissable: isDismissableInternal,
   side = "right",
-  role = "dialog",
-  closeButton = true,
   isFloat = true,
+  isBlurred = false,
+  closeButton = true,
+  notch = true,
+  role = "dialog",
+  preventDismissal = role === "alertdialog",
   overlay,
+  className,
+  style,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
   ...props
 }: SheetContentProps) => {
-  const isDismissable = isDismissableInternal ?? role !== "alertdialog"
+  const { snapPoints } = props
+
   return (
-    <ModalOverlay
+    <SheetOverlay
       {...overlay}
-      isDismissable={isDismissable}
+      {...props}
+      position={side}
+      preventDismissal={preventDismissal}
       className={composeRenderProps(
         overlay?.className,
-        (className, { isExiting, isEntering }) =>
-          twJoin(
-            "fixed inset-0 z-50 h-(--visual-viewport-height,100vh) w-screen overflow-hidden bg-black/15",
-            isEntering && "fade-in animate-in duration-500",
-            isExiting && "fade-out animate-out duration-300",
-            isBlurred && "backdrop-blur-[1px] backdrop-filter",
-            className
-          )
+        (overlayClassName) => `group/sheet z-50 ${overlayClassName ?? ""}`
       )}
-      {...props}
     >
-      <Modal
-        className={composeRenderProps(className, (className, renderProps) =>
-          sheetContentStyles({
-            ...renderProps,
-            side,
-            isFloat,
-            className,
-          })
-        )}
+      {/* With snap points, the backdrop stays hidden until the sheet passes the last one. */}
+      <SheetBackdrop
+        className={backdropStyles({ isBlurred })}
+        swipeAnimation="sheet-backdrop"
+        swipeAnimationRange={
+          snapPoints ? { start: snapPoints.length - 1 } : undefined
+        }
+      />
+      {/* A floating sheet is inset from the edge, so it must not appear to continue past it. */}
+      <SheetPrimitive
+        overscrollPadding={!isFloat}
+        stackAnimation="sheet-scale-back"
+        className={({ position }) =>
+          sheetStyles({ position, isFloat, className })
+        }
+        style={style}
       >
-        <Dialog aria-label={props["aria-label"]} role={role}>
-          {(values) => (
-            <>
-              {typeof children === "function" ? children(values) : children}
-              {closeButton && (
-                <DialogCloseIcon
-                  className="top-2.5 right-2.5"
-                  isDismissable={isDismissable}
-                />
+        {({ position }) => (
+          <>
+            {notch &&
+              !preventDismissal &&
+              (position === "top" || position === "bottom") && (
+                <div aria-hidden className={notchStyles({ position })} />
               )}
-            </>
-          )}
-        </Dialog>
-      </Modal>
-    </ModalOverlay>
+            <SheetContentPrimitive
+              data-slot="dialog"
+              role={role}
+              aria-label={ariaLabel}
+              aria-labelledby={ariaLabelledby}
+              className={contentStyles()}
+            >
+              {composeRenderProps(children, (resolvedChildren) => (
+                <>
+                  {resolvedChildren}
+                  {closeButton && (
+                    <DialogCloseIcon
+                      className="top-2.5 right-2.5"
+                      isDismissable={!preventDismissal}
+                    />
+                  )}
+                </>
+              ))}
+            </SheetContentPrimitive>
+          </>
+        )}
+      </SheetPrimitive>
+    </SheetOverlay>
   )
 }
 
@@ -168,4 +217,4 @@ export {
   SheetTitle,
   SheetTrigger,
 }
-export type { SheetContentProps, SheetProps, Sides }
+export type { SheetContentProps, Sides }

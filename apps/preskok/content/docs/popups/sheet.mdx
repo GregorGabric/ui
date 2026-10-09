@@ -1,6 +1,6 @@
 ---
 title: Sheet
-description: A sheet component that slides in from different sides with blur effects.
+description: A swipeable panel that slides in from the edge of the viewport, built on the React Aria Sheet.
 ---
 
 import { CodeTabs } from "@/components/code-tabs"
@@ -9,7 +9,7 @@ import { ComponentSource } from "@/components/component-source"
 
 <ComponentPreview
   name="sheet-demo"
-  description="Sheet sliding in with overlay."
+  description="A floating sheet from the right."
 />
 
 ## Installation
@@ -68,3 +68,35 @@ export function SheetDemo() {
   )
 }
 ```
+
+The sheet is built on the [React Aria Sheet](https://react-aria.adobe.com/Sheet), which needs `react-aria-components` 1.22.0 or later. The CLI also adds the `sheet-backdrop` and `sheet-scale-back` keyframes that keep the backdrop and stacked sheets in sync with the swipe gesture.
+
+## Side
+
+`side` sets the edge the sheet is anchored to. It can be swiped back toward that edge to dismiss it. `start` and `end` follow the reading direction, so use them for navigation. Use `bottom` for a mobile sheet.
+
+<ComponentPreview
+  name="sheet-side-demo"
+  description="A navigation sheet from the start edge."
+/>
+
+## Snap points
+
+`snapPoints` makes the sheet stop partially open. Each value is the visible amount, in pixels or a CSS length. The sheet opens at the first snap point and can be dragged to full height. Its body scrolls only once it is fully expanded.
+
+<ComponentPreview
+  name="sheet-snap-points-demo"
+  description="A bottom sheet that opens partway."
+/>
+
+## Props
+
+`SheetContent` accepts the React Aria `SheetOverlay` props (`isOpen`, `onOpenChange`, `swipeDirection`, `snapPoints`, `preventDismissal`), plus:
+
+| Prop          | Type                                                         | Default   |
+| ------------- | ------------------------------------------------------------ | --------- |
+| `side`        | `"top" \| "bottom" \| "left" \| "right" \| "start" \| "end"` | `"right"` |
+| `isFloat`     | `boolean`                                                    | `true`    |
+| `isBlurred`   | `boolean`                                                    | `false`   |
+| `closeButton` | `boolean`                                                    | `true`    |
+| `notch`       | `boolean`                                                    | `true`    |
