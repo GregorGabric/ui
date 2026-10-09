@@ -2,7 +2,11 @@
 
 import { createContext, use, type ReactElement } from "react"
 import { twJoin, twMerge } from "cn"
-import { ChevronDownIcon } from "lucide-react"
+import {
+  ChevronDownIcon,
+  ChevronsUpDownIcon,
+  ChevronUpIcon,
+} from "lucide-react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   CellProps,
@@ -35,6 +39,8 @@ interface TableProps extends Omit<TablePrimitiveProps, "className"> {
   allowResize?: boolean
   className?: string
   bleed?: boolean
+  /** Draws a rounded border around the table instead of letting it bleed to the edges of its container. */
+  bordered?: boolean
   grid?: boolean
   striped?: boolean
   ref?: React.Ref<HTMLTableElement>
@@ -163,10 +169,14 @@ const Root = (props: TableProps) => {
   )
 }
 
+/** Rounded frame for `bordered` tables; the gutter variable keeps cell padding aligned inside the frame. */
+const borderedFrameClassName = "rounded-lg border [--gutter:--spacing(3)]"
+
 const Table = ({
   allowResize,
   className,
   bleed = false,
+  bordered = false,
   grid = false,
   striped = false,
   ref,
@@ -186,8 +196,10 @@ const Table = ({
         <div className="flow-root w-full" onKeyDownCapture={onKeyDownCapture}>
           <ResizableTableContainer
             data-slot="table-resizable-container"
+            data-bordered={bordered || undefined}
             className={twMerge(
-              "relative -mx-(--gutter) overflow-auto [--gutter-y:--spacing(2)]",
+              "relative overflow-auto [--gutter-y:--spacing(2)]",
+              bordered ? borderedFrameClassName : "-mx-(--gutter)",
               className
             )}
           >
@@ -199,18 +211,22 @@ const Table = ({
   }
 
   return (
-    <TableContext value={{ allowResize, bleed, grid, striped }}>
+    <TableContext
+      value={{ allowResize, bleed: bleed || bordered, grid, striped }}
+    >
       <div className="flow-root" onKeyDownCapture={onKeyDownCapture}>
         <div
+          data-bordered={bordered || undefined}
           className={twMerge(
-            "relative -mx-(--gutter) overflow-x-auto whitespace-nowrap [--gutter-y:--spacing(2)]",
+            "relative overflow-x-auto whitespace-nowrap [--gutter-y:--spacing(2)]",
+            bordered ? borderedFrameClassName : "-mx-(--gutter)",
             className
           )}
         >
           <div
             className={twJoin(
               "inline-block min-w-full align-middle",
-              !bleed && "sm:px-(--gutter)"
+              !bleed && !bordered && "sm:px-(--gutter)"
             )}
           >
             <Root ref={ref} {...props} />
@@ -281,7 +297,7 @@ const TableColumn = ({
       className={cx(
         [
           "text-muted-foreground text-left font-medium",
-          "allows-sorting:cursor-default relative outline-hidden data-dragging:cursor-grabbing",
+          "allows-sorting:cursor-pointer allows-sorting:hover:text-foreground relative outline-hidden data-dragging:cursor-grabbing",
           "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-inset",
           cellPadding(bleed),
           grid && "border-border border-l first:border-l-0",
@@ -309,18 +325,18 @@ const TableColumn = ({
               <span
                 data-sort-direction={direction ?? undefined}
                 className={twJoin(
-                  "grid size-[1.15rem] flex-none shrink-0 place-content-center rounded *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:transition-transform *:data-[slot=icon]:duration-200",
-                  direction
-                    ? "bg-secondary text-foreground"
-                    : "text-muted-foreground/50",
-                  values.isHovered &&
-                    "bg-secondary-foreground/10 text-foreground"
+                  "flex-none transition-colors *:data-[slot=icon]:size-3.5",
+                  direction ? "text-foreground" : "text-muted-foreground/50",
+                  values.isHovered && !direction && "text-muted-foreground"
                 )}
               >
-                <ChevronDownIcon
-                  data-slot="icon"
-                  className={direction === "ascending" ? "rotate-180" : ""}
-                />
+                {direction === "ascending" && (
+                  <ChevronUpIcon data-slot="icon" />
+                )}
+                {direction === "descending" && (
+                  <ChevronDownIcon data-slot="icon" />
+                )}
+                {!direction && <ChevronsUpDownIcon data-slot="icon" />}
               </span>
             )}
             {isResizable && <ColumnResizer />}
