@@ -97,6 +97,12 @@ const buttonStyles = tv({
       className:
         "rounded-md *:data-[slot=icon]:size-3.5 [&_svg.lucide]:size-3.5",
     },
+    {
+      // Square (icon-only) buttons have no room for the spinner next to the icon: it replaces the icon instead.
+      size: ["sq-xs", "sq-sm", "sq-md", "sq-lg"],
+      isPending: true,
+      className: "*:data-[slot=icon]:hidden [&>svg.lucide]:hidden",
+    },
   ],
 })
 
