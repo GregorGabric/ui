@@ -59,7 +59,7 @@ export function Radio({ className, children, ...props }: RadioProps) {
                       "*:[[slot=description]]:col-start-2 *:[[slot=description]]:row-start-2",
                       "has-[[slot=description]]:**:data-[slot=label]:font-medium",
                     ]
-                  : "flex items-center"
+                  : "flex items-center justify-(--table-cell-justify,flex-start)"
               )}
             >
               <span

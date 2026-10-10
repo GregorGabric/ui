@@ -335,8 +335,8 @@ type TableAlign = "start" | "center" | "end"
 const cellAlignClassName: Record<TableAlign, string> = {
   start: "",
   center:
-    "text-center [&>[data-slot=control]]:flex [&>[data-slot=control]]:justify-center",
-  end: "text-right [&>[data-slot=control]]:flex [&>[data-slot=control]]:justify-end",
+    "text-center [--table-cell-justify:center] [&>[data-slot=control]]:flex [&>[data-slot=control]]:justify-center",
+  end: "text-right [--table-cell-justify:flex-end] [&>[data-slot=control]]:flex [&>[data-slot=control]]:justify-end",
 }
 
 interface TableColumnProps extends ColumnProps {
