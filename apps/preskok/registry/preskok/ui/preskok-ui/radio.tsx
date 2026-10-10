@@ -40,15 +40,26 @@ export function Radio({ className, children, ...props }: RadioProps) {
         (children, { isSelected, isFocusVisible, isInvalid }) => {
           const isStringChild = typeof children === "string"
           const content = isStringChild ? <Label>{children}</Label> : children
+          // Without a label (e.g. in a table cell) the radio is just its indicator: no label column, no nudge to the
+          // label's first line, so it centers in its container.
+          const hasContent =
+            content !== undefined &&
+            content !== null &&
+            content !== false &&
+            content !== ""
 
           return (
             <div
               className={twMerge(
-                "grid grid-cols-[1.125rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1rem_1fr]",
-                "*:data-[slot=indicator]:col-start-1 *:data-[slot=indicator]:row-start-1 *:data-[slot=indicator]:mt-0.75 sm:*:data-[slot=indicator]:mt-1",
-                "*:data-[slot=label]:col-start-2 *:data-[slot=label]:row-start-1",
-                "*:[[slot=description]]:col-start-2 *:[[slot=description]]:row-start-2",
-                "has-[[slot=description]]:**:data-[slot=label]:font-medium"
+                hasContent
+                  ? [
+                      "grid grid-cols-[1.125rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1rem_1fr]",
+                      "*:data-[slot=indicator]:col-start-1 *:data-[slot=indicator]:row-start-1 *:data-[slot=indicator]:mt-0.75 sm:*:data-[slot=indicator]:mt-1",
+                      "*:data-[slot=label]:col-start-2 *:data-[slot=label]:row-start-1",
+                      "*:[[slot=description]]:col-start-2 *:[[slot=description]]:row-start-2",
+                      "has-[[slot=description]]:**:data-[slot=label]:font-medium",
+                    ]
+                  : "flex items-center"
               )}
             >
               <span
