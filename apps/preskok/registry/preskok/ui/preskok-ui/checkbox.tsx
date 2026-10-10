@@ -33,7 +33,8 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
   return (
     <CheckboxPrimitive
       data-slot="control"
-      className={cx("group block disabled:opacity-50", className)}
+      // mb-0: the legacy global `label { margin-bottom }` would push the checkbox off its line.
+      className={cx("group mb-0 block disabled:opacity-50", className)}
       {...props}
     >
       {composeRenderProps(

@@ -7,11 +7,7 @@ import {
   type ReactElement,
 } from "react"
 import { twJoin, twMerge } from "cn"
-import {
-  ChevronDownIcon,
-  ChevronsUpDownIcon,
-  ChevronUpIcon,
-} from "lucide-react"
+import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
@@ -41,6 +37,7 @@ import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Button as ActionButton, type ButtonProps } from "./button"
 import { Checkbox } from "./checkbox"
+import { Loader } from "./loader"
 import { Tooltip, TooltipContent } from "./tooltip"
 
 interface TableProps extends Omit<TablePrimitiveProps, "className"> {
@@ -192,9 +189,10 @@ const moveTabFocusWithinBody = (event: React.KeyboardEvent<HTMLDivElement>) => {
 }
 
 const Root = (props: TableProps) => {
+  // The row tint variables are opaque, so the pinned actions cell can follow the row's hover and selected state.
   return (
     <TablePrimitive
-      className="w-full min-w-full caption-bottom text-sm/6 outline-hidden [--table-selected-background:var(--color-secondary)]/50"
+      className="w-full min-w-full caption-bottom text-sm/6 outline-hidden [--table-row-hover:color-mix(in_oklab,var(--color-muted)_45%,var(--color-card))] [--table-row-selected:color-mix(in_oklab,var(--color-primary)_7%,var(--color-card))]"
       {...props}
     />
   )
@@ -229,7 +227,7 @@ const Table = ({
             data-slot="table-resizable-container"
             data-bordered={bordered || undefined}
             className={twMerge(
-              "relative overflow-auto [--gutter-y:--spacing(2)]",
+              "@container/table relative overflow-auto [--gutter-y:--spacing(2)]",
               bordered ? borderedFrameClassName : "-mx-(--gutter)",
               className
             )}
@@ -301,9 +299,45 @@ const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => {
   )
 }
 
-const TableBody = <T extends object>(props: TableBodyProps<T>) => (
-  <TableBodyPrimitive data-slot="table-body" {...props} />
-)
+/**
+ * Table body. In a resizable table the empty state spans every column, so a wide, horizontally scrolling table would
+ * center it outside the visible area: it is kept to the scroll box's visible width and pinned while scrolling.
+ */
+const TableBody = <T extends object>({
+  renderEmptyState,
+  ...props
+}: TableBodyProps<T>) => {
+  const { allowResize } = useTableContext()
+  const emptyState =
+    allowResize && renderEmptyState
+      ? (renderProps: Parameters<typeof renderEmptyState>[0]) => (
+          <div
+            data-slot="table-empty-state"
+            className="sticky left-(--gutter,--spacing(2)) w-[calc(100cqw_-_2_*_var(--gutter,0.5rem))]"
+          >
+            {renderEmptyState(renderProps)}
+          </div>
+        )
+      : renderEmptyState
+
+  return (
+    <TableBodyPrimitive
+      data-slot="table-body"
+      renderEmptyState={emptyState}
+      {...props}
+    />
+  )
+}
+
+/** Horizontal alignment of a column's header and cells: `center` for checkbox/toggle/status columns, `end` for numbers. */
+type TableAlign = "start" | "center" | "end"
+
+const cellAlignClassName: Record<TableAlign, string> = {
+  start: "",
+  center:
+    "text-center [&>[data-slot=control]]:flex [&>[data-slot=control]]:justify-center",
+  end: "text-right [&>[data-slot=control]]:flex [&>[data-slot=control]]:justify-end",
+}
 
 interface TableColumnProps extends ColumnProps {
   isResizable?: boolean
@@ -317,6 +351,8 @@ interface TableColumnProps extends ColumnProps {
    * where several columns are sorted at once. Defaults to the table's `sortDescriptor`.
    */
   sortDirection?: SortDirection | null
+  /** Horizontal alignment of the header label; pass the same `align` to the column's `TableCell`s. */
+  align?: TableAlign
 }
 
 /** Default width of an actions column: room for two icon buttons and the cell padding. */
@@ -336,6 +372,7 @@ const TableColumn = ({
   isResizable = false,
   isActions = false,
   sortDirection,
+  align = "start",
   className,
   ...props
 }: TableColumnProps) => {
@@ -359,7 +396,8 @@ const TableColumn = ({
       })}
       className={cx(
         [
-          "text-muted-foreground text-left font-medium",
+          // Explicit case, wrapping and alignment: legacy page and modal styles for `th` must not leak into the header.
+          "text-muted-foreground text-left align-middle font-medium whitespace-nowrap normal-case",
           "allows-sorting:cursor-pointer allows-sorting:hover:text-foreground has-data-sort-direction:bg-primary/5 has-data-sort-direction:font-semibold has-data-sort-direction:text-foreground relative outline-hidden data-dragging:cursor-grabbing",
           "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-inset",
           cellPadding(bleed),
@@ -380,14 +418,15 @@ const TableColumn = ({
         return (
           <div
             className={twJoin(
-              "flex min-w-0 items-center gap-2 **:data-[slot=icon]:shrink-0",
+              "flex min-w-0 items-center gap-1.5 **:data-[slot=icon]:shrink-0",
+              align === "center" && "justify-center",
+              align === "end" && "justify-end",
               resizable && "pr-2"
             )}
           >
             <span
               className={twJoin(
-                "min-w-0",
-                resizable && "truncate",
+                "min-w-0 truncate",
                 direction && "text-foreground",
                 isActions && "sr-only"
               )}
@@ -400,18 +439,16 @@ const TableColumn = ({
               <span
                 data-sort-direction={direction ?? undefined}
                 className={twJoin(
-                  "flex-none transition-colors *:data-[slot=icon]:size-3.5 data-sort-direction:*:data-[slot=icon]:size-4 data-sort-direction:*:data-[slot=icon]:stroke-[2.5]",
+                  "flex flex-none items-center transition-colors *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:stroke-[2.5] data-sort-direction:*:data-[slot=icon]:size-4",
                   direction ? "text-primary" : "text-muted-foreground/50",
                   values.isHovered && !direction && "text-muted-foreground"
                 )}
               >
-                {direction === "ascending" && (
-                  <ChevronUpIcon data-slot="icon" />
-                )}
+                {direction === "ascending" && <ArrowUpIcon data-slot="icon" />}
                 {direction === "descending" && (
-                  <ChevronDownIcon data-slot="icon" />
+                  <ArrowDownIcon data-slot="icon" />
                 )}
-                {!direction && <ChevronsUpDownIcon data-slot="icon" />}
+                {!direction && <ArrowUpDownIcon data-slot="icon" />}
               </span>
             )}
             {resizable && <ColumnResizer />}
@@ -602,20 +639,22 @@ const TableRow = <T extends object>({
           }
         ) =>
           twMerge(
-            "group text-muted-foreground relative cursor-default outline outline-transparent",
+            // Named group: a bare `group` would also trigger `group-hover` styles of content such as badges.
+            "group/row text-muted-foreground hover:bg-(--table-row-hover) relative cursor-default outline outline-transparent",
             isFocusVisible &&
-              "bg-primary/5 outline-primary ring-ring/20 hover:bg-primary/10 ring-3",
+              "bg-(--table-row-hover) outline-primary ring-ring/20 ring-3",
             isDragging &&
-              "bg-primary/10 text-foreground outline-primary cursor-grabbing",
+              "bg-(--table-row-hover) text-foreground outline-primary cursor-grabbing",
             isSelected &&
-              "text-foreground bg-(--table-selected-background) hover:bg-(--table-selected-background)/50",
+              "text-foreground bg-(--table-row-selected) hover:bg-(--table-row-selected)",
             striped && "even:bg-muted",
             !striped && "border-border border-b last:border-b-0",
             (props.href || props.onAction || selectionMode === "multiple") &&
-              "hover:text-foreground hover:bg-(--table-selected-background)",
+              "hover:text-foreground",
             (props.href || props.onAction || selectionMode === "multiple") &&
               isFocusVisibleWithin &&
-              "selected:bg-(--table-selected-background)/50 text-foreground bg-(--table-selected-background)/50",
+              !isSelected &&
+              "text-foreground bg-(--table-row-hover)",
             isDisabled && "opacity-50",
             className
           )
@@ -630,11 +669,14 @@ interface TableCellProps extends CellProps {
   ref?: React.Ref<HTMLTableCellElement>
   /** Cell of a `TableColumn isActions` column: pinned to the trailing edge with its controls right-aligned. */
   isActions?: boolean
+  /** Horizontal alignment of the cell content; match the column's `align`. */
+  align?: TableAlign
 }
 const TableCell = ({
   className,
   ref,
   isActions = false,
+  align = "start",
   ...props
 }: TableCellProps) => {
   const { allowResize, bleed, grid } = useTableContext()
@@ -646,11 +688,16 @@ const TableCell = ({
       {...props}
       className={cx(
         twJoin(
-          "group group-has-data-focus-visible-within:text-foreground align-middle outline-hidden",
+          "group-has-data-focus-visible-within/row:text-foreground align-middle outline-hidden",
+          cellAlignClassName[align],
           cellPadding(bleed),
           grid && "border-border border-l first:border-l-0",
           allowResize && !isActions && "truncate overflow-hidden",
-          isActions && [actionsCellClassName, "bg-card", grid && "border-l-0"]
+          isActions && [
+            actionsCellClassName,
+            "bg-card group-hover/row:bg-(--table-row-hover) group-data-selected/row:bg-(--table-row-selected)",
+            grid && "border-l-0",
+          ]
         ),
         className
       )}
@@ -669,18 +716,28 @@ const TableActions = ({ className, ...props }: ComponentProps<"div">) => (
 
 interface TableActionProps extends Omit<
   ButtonProps,
-  "children" | "aria-label" | "intent" | "size"
+  "children" | "aria-label" | "size"
 > {
   /** Action name, used as the accessible name and the tooltip. */
   label: string
   icon: LucideIcon
 }
 
-/** Compact icon button for a row action, with its label as tooltip and accessible name. */
-const TableAction = ({ label, icon: Icon, ...props }: TableActionProps) => (
+/**
+ * Compact icon button for a row action, with its label as tooltip and accessible name. While pending, the spinner
+ * replaces the icon so the button keeps its size. `intent` defaults to `plain`; use `danger` for destructive actions.
+ */
+const TableAction = ({
+  label,
+  icon: Icon,
+  intent = "plain",
+  ...props
+}: TableActionProps) => (
   <Tooltip>
-    <ActionButton intent="plain" size="sq-sm" aria-label={label} {...props}>
-      <Icon data-slot="icon" />
+    <ActionButton intent={intent} size="sq-sm" aria-label={label} {...props}>
+      {({ isPending }) =>
+        isPending ? <Loader variant="spin" /> : <Icon data-slot="icon" />
+      }
     </ActionButton>
     <TooltipContent>{label}</TooltipContent>
   </Tooltip>
@@ -697,4 +754,10 @@ export {
   TableHeader,
   TableRow,
 }
-export type { TableActionProps, TableColumnProps, TableProps, TableRowProps }
+export type {
+  TableActionProps,
+  TableAlign,
+  TableColumnProps,
+  TableProps,
+  TableRowProps,
+}
