@@ -439,7 +439,7 @@ const TableColumn = ({
               <span
                 data-sort-direction={direction ?? undefined}
                 className={twJoin(
-                  "flex flex-none items-center transition-colors *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:stroke-[2.5] data-sort-direction:*:data-[slot=icon]:size-4",
+                  "flex flex-none items-center transition-colors *:data-[slot=icon]:size-3.5 *:data-[slot=icon]:stroke-[2.5]",
                   direction ? "text-primary" : "text-muted-foreground/50",
                   values.isHovered && !direction && "text-muted-foreground"
                 )}
