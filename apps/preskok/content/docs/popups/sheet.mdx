@@ -149,6 +149,10 @@ Set `preventDismissal` to block swiping, Escape and outside clicks. The user the
   description="A binding bid confirmation that must be answered."
 />
 
+## Transition
+
+React Aria opens and closes the sheet with a native smooth scroll, and the browser decides how long that takes. `transition="snappy"` (the default) uses a spring instead. It starts the spring where the sheet first appears, so the motion you see lands in about 250ms rather than 500ms. `smooth` is a softer spring, and `native` keeps the browser's scroll. Swiping, snap points and stacking are unchanged. With reduced motion, the sheet opens instantly either way.
+
 ## Animation
 
 `swipeAnimation` takes the name of a CSS `@keyframes` rule that is scrubbed by the swipe gesture. `from` is the dismissed state and `to` is fully open. `swipeAnimationRange` limits the animation to a range of snap point indices. Define the keyframes in your stylesheet. You can also render them with a React `<style href precedence>`, which React hoists and dedupes.
@@ -171,6 +175,7 @@ Set `preventDismissal` to block swiping, Escape and outside clicks. The user the
 | `notch`               | `boolean`                                                                | `true`                          |
 | `role`                | `"dialog" \| "alertdialog"`                                              | `"dialog"`                      |
 | `preventDismissal`    | `boolean`                                                                | `true` for `role="alertdialog"` |
+| `transition`          | `"snappy" \| "smooth" \| "native"`                                       | `"snappy"`                      |
 | `swipeAnimation`      | `string`                                                                 | –                               |
 | `swipeAnimationRange` | `{ start?: number, end?: number }`                                       | –                               |
 | `overlay`             | `SheetOverlayProps`                                                      | –                               |
