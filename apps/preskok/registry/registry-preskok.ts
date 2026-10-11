@@ -457,25 +457,24 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
-    name: "drawer",
-    type: "registry:ui",
-    description: "A drawer component that slides in from different sides",
-    dependencies: ["motion", "react-aria-components", "cn@^0.2.4"],
-    registryDependencies: ["button"],
-    files: [
-      {
-        path: "ui/preskok-ui/drawer.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-  {
     name: "sheet",
     type: "registry:ui",
     description:
-      "A sheet component that slides in from different sides with blur effects",
-    dependencies: ["react-aria-components", "cn@^0.2.4", "tailwind-variants"],
+      "A swipeable sheet built on the React Aria Sheet, with snap points and stacking",
+    dependencies: ["react-aria-components@^1.22.0", "tailwind-variants"],
     registryDependencies: ["dialog"],
+    css: {
+      "@keyframes sheet-backdrop": {
+        from: { opacity: "0" },
+        to: { opacity: "1" },
+      },
+      "@keyframes sheet-scale-back": {
+        to: {
+          transform:
+            "translate(var(--sheet-stack-x, 0px), var(--sheet-stack-y, 0px)) scale(0.95)",
+        },
+      },
+    },
     files: [
       {
         path: "ui/preskok-ui/sheet.tsx",
