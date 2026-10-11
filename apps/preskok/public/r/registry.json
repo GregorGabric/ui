@@ -4207,6 +4207,110 @@
       "type": "registry:example"
     },
     {
+      "name": "sheet-position-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/switch.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-position-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-controlled-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/badge.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-controlled-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-stacking-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/radio.json",
+        "https://ui-three-mu.vercel.app/r/text-field.json",
+        "https://ui-three-mu.vercel.app/r/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-stacking-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-prevent-dismissal-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-prevent-dismissal-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-animation-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-animation-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-scrollable-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-scrollable-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "sheet-cart-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/sheet.json",
+        "https://ui-three-mu.vercel.app/r/button.json",
+        "https://ui-three-mu.vercel.app/r/separator.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/sheet-cart-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "sheet-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/sheet.json",

@@ -4232,6 +4232,132 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
+  "sheet-position-demo": {
+    name: "sheet-position-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button","switch"],
+    files: [{
+      path: "registry/preskok/examples/sheet-position-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-position-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet-controlled-demo": {
+    name: "sheet-controlled-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button","badge"],
+    files: [{
+      path: "registry/preskok/examples/sheet-controlled-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-controlled-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet-stacking-demo": {
+    name: "sheet-stacking-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button","radio","text-field","textarea"],
+    files: [{
+      path: "registry/preskok/examples/sheet-stacking-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-stacking-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet-prevent-dismissal-demo": {
+    name: "sheet-prevent-dismissal-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button"],
+    files: [{
+      path: "registry/preskok/examples/sheet-prevent-dismissal-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-prevent-dismissal-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet-animation-demo": {
+    name: "sheet-animation-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button"],
+    files: [{
+      path: "registry/preskok/examples/sheet-animation-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-animation-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet-scrollable-demo": {
+    name: "sheet-scrollable-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button"],
+    files: [{
+      path: "registry/preskok/examples/sheet-scrollable-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-scrollable-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "sheet-cart-demo": {
+    name: "sheet-cart-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["sheet","button","separator"],
+    files: [{
+      path: "registry/preskok/examples/sheet-cart-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/sheet-cart-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "sheet-demo": {
     name: "sheet-demo",
     description: "",

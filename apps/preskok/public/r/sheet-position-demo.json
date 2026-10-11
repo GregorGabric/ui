@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-position-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/sheet.json",
+    "https://ui-three-mu.vercel.app/r/button.json",
+    "https://ui-three-mu.vercel.app/r/switch.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/sheet-position-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  Sheet,\n  SheetBody,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n} from \"@/components/ui/preskok-ui/sheet\"\nimport type { Sides } from \"@/components/ui/preskok-ui/sheet\"\nimport { Switch, SwitchLabel } from \"@/components/ui/preskok-ui/switch\"\n\nconst sides: Sides[] = [\"top\", \"right\", \"bottom\", \"left\", \"center\"]\n\nexport default function SheetPositionDemo() {\n  const [isFloat, setIsFloat] = useState(true)\n\n  return (\n    <div className=\"flex flex-col items-center gap-6\">\n      <div className=\"flex flex-wrap justify-center gap-2\">\n        {sides.map((side) => (\n          <Sheet key={side}>\n            <Button intent=\"outline\" className=\"capitalize\">\n              {side}\n            </Button>\n            <SheetContent side={side} isFloat={isFloat}>\n              <SheetHeader>\n                <SheetTitle className=\"first-letter:uppercase\">{side} sheet</SheetTitle>\n                <SheetDescription>\n                  {side === \"center\"\n                    ? \"Swipe up or down to dismiss.\"\n                    : `Swipe toward the ${side} edge to dismiss.`}\n                </SheetDescription>\n              </SheetHeader>\n              <SheetBody>\n                <p className=\"text-sm text-muted-foreground\">\n                  Use the edge that matches where the content lives on the page.\n                  A bottom sheet suits phones, and a right sheet suits details\n                  next to a table.\n                </p>\n              </SheetBody>\n              <SheetFooter>\n                <SheetClose intent=\"outline\">Close</SheetClose>\n              </SheetFooter>\n            </SheetContent>\n          </Sheet>\n        ))}\n      </div>\n      <Switch isSelected={isFloat} onChange={setIsFloat}>\n        <SwitchLabel>Float</SwitchLabel>\n      </Switch>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -5,6 +5,7 @@ import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   SheetContentProps as SheetContentPrimitiveProps,
   SheetOverlayProps,
+  SheetProps,
   SheetTriggerProps,
 } from "react-aria-components/Sheet"
 import {
@@ -27,7 +28,7 @@ import {
   DialogTrigger,
 } from "./dialog"
 
-type Sides = "top" | "bottom" | "left" | "right" | "start" | "end"
+type Sides = "top" | "bottom" | "left" | "right" | "start" | "end" | "center"
 
 const Sheet = (props: SheetTriggerProps) => <SheetTriggerPrimitive {...props} />
 
@@ -81,12 +82,16 @@ const sheetStyles = tv({
   ],
 })
 
-// Until the sheet is fully expanded, a swipe on the body moves the sheet instead of scrolling it.
+// At a partial snap point, a swipe on the body moves the sheet instead of scrolling it.
+// Sheets without snap points skip this: React Aria marks a sheet expanded only when it is
+// 100% in view, and the scrollbar gutter it reserves can clip a right sheet by a few pixels.
 const contentStyles = tv({
-  base: [
-    "peer/dialog group/dialog relative box-border flex min-h-0 w-full flex-auto flex-col overflow-hidden pb-(--sheet-scroll-padding-y) outline-hidden [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]",
-    "**:data-[slot=dialog-body]:overflow-hidden group-data-expanded/sheet:**:data-[slot=dialog-body]:overflow-auto",
-  ],
+  base: "peer/dialog group/dialog relative box-border flex min-h-0 w-full flex-auto flex-col overflow-hidden pb-(--sheet-scroll-padding-y) outline-hidden [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]",
+  variants: {
+    hasSnapPoints: {
+      true: "**:data-[slot=dialog-body]:overflow-hidden group-data-expanded/sheet:**:data-[slot=dialog-body]:overflow-auto",
+    },
+  },
 })
 
 const notchStyles = tv({
@@ -105,10 +110,11 @@ interface SheetContentProps
     Pick<
       SheetContentPrimitiveProps,
       "aria-label" | "aria-labelledby" | "role" | "children"
-    > {
+    >,
+    Pick<SheetProps, "swipeAnimation" | "swipeAnimationRange"> {
   className?: string
   style?: React.CSSProperties
-  /** The edge the sheet slides in from. `start` and `end` follow the locale direction. */
+  /** The edge the sheet slides in from. `start` and `end` follow the locale direction; `center` swipes vertically. */
   side?: Sides
   /** Inset the sheet from the viewport edge with rounded corners. */
   isFloat?: boolean
@@ -128,6 +134,8 @@ const SheetContent = ({
   role = "dialog",
   preventDismissal = role === "alertdialog",
   overlay,
+  swipeAnimation,
+  swipeAnimationRange,
   className,
   style,
   children,
@@ -160,6 +168,8 @@ const SheetContent = ({
       <SheetPrimitive
         overscrollPadding={!isFloat}
         stackAnimation="sheet-scale-back"
+        swipeAnimation={swipeAnimation}
+        swipeAnimationRange={swipeAnimationRange}
         className={({ position }) =>
           sheetStyles({ position, isFloat, className })
         }
@@ -177,7 +187,7 @@ const SheetContent = ({
               role={role}
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledby}
-              className={contentStyles()}
+              className={contentStyles({ hasSnapPoints: Boolean(snapPoints) })}
             >
               {composeRenderProps(children, (resolvedChildren) => (
                 <>
