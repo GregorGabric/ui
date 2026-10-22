@@ -19,7 +19,7 @@ export function Switch({ children, className, ...props }: SwitchProps) {
         [
           "[--switch-background-ring:var(--color-blue-700)]/90 [--switch-background:var(--color-blue-600)] dark:[--switch-background-ring:transparent]",
           "[--switch-ring:var(--color-blue-700)]/90 [--switch-shadow:var(--color-blue-900)]/20 [--switch:white]",
-          "group relative grid cursor-default grid-cols-[1fr_auto] gap-x-6 gap-y-1 disabled:opacity-50 *:data-[slot=indicator]:col-start-2 *:data-[slot=indicator]:self-start *:data-[slot=label]:col-start-1 *:data-[slot=label]:row-start-1 has-[[slot=description]]:**:data-[slot=label]:font-medium sm:*:data-[slot=indicator]:mt-0.5 *:[[slot=description]]:col-start-1 *:[[slot=description]]:row-start-2",
+          "group group/interactive relative grid cursor-default grid-cols-[1fr_auto] gap-x-6 gap-y-1 disabled:opacity-50 *:data-[slot=indicator]:col-start-2 *:data-[slot=indicator]:self-start *:data-[slot=label]:col-start-1 *:data-[slot=label]:row-start-1 has-[[slot=description]]:**:data-[slot=label]:font-medium sm:*:data-[slot=indicator]:mt-0.5 *:[[slot=description]]:col-start-1 *:[[slot=description]]:row-start-2",
         ],
         className
       )}

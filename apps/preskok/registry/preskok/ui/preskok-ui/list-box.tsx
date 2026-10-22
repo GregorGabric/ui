@@ -49,7 +49,7 @@ const ListBoxItem = <T extends object>({
         dropdownItemStyles({
           ...renderProps,
           className: twJoin(
-            "group not-has-[[slot=description]]:items-start",
+            "group group/interactive not-has-[[slot=description]]:items-start",
             // "has-data-[slot=drag-icon]:*:data-[slot=check-icon]:absolute has-data-[slot=drag-icon]:*:data-[slot=check-icon]:right-0",
             "has-data-[slot=drag-icon]:*:[[slot=label]]:col-start-3",
             "has-data-[slot=drag-icon]:*:data-[slot=icon]:col-start-2",
