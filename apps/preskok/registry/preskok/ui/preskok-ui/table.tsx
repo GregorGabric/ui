@@ -406,7 +406,7 @@ const TableRow = <T extends object>({
             striped && "even:bg-muted",
             !striped && "border-b last:border-b-0",
             (props.href || props.onAction || selectionMode === "multiple") &&
-              "hover:text-foreground hover:bg-(--table-selected-background)",
+              "group/interactive hover:text-foreground hover:bg-(--table-selected-background)",
             (props.href || props.onAction || selectionMode === "multiple") &&
               isFocusVisibleWithin &&
               "selected:bg-(--table-selected-background)/50 text-foreground bg-(--table-selected-background)/50",

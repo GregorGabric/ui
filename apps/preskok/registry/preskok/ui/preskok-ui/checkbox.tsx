@@ -33,7 +33,10 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
   return (
     <CheckboxPrimitive
       data-slot="control"
-      className={cx("group block disabled:opacity-50", className)}
+      className={cx(
+        "group group/interactive block disabled:opacity-50",
+        className
+      )}
       {...props}
     >
       {composeRenderProps(
