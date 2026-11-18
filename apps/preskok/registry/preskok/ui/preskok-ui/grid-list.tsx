@@ -1,5 +1,6 @@
 "use client"
 
+import { createContext, use } from "react"
 import { twMerge } from "cn"
 import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
@@ -20,28 +21,72 @@ import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Checkbox } from "./checkbox"
 
+type GridListVariant = "card" | "bordered" | "plain"
+
+const GridListVariantContext = createContext<GridListVariant>("card")
+
+/** Spacing and frame of the list itself; items read the variant from context. */
+const listVariantStyles: Record<GridListVariant, string> = {
+  card: "gap-y-1 has-data-[slot=grid-list-section]:gap-y-6",
+  bordered:
+    "inset-ring-border divide-border divide-y overflow-hidden rounded-lg inset-ring",
+  plain: "gap-y-0.5 has-data-[slot=grid-list-section]:gap-y-4",
+}
+
+const sectionVariantStyles: Record<GridListVariant, string> = {
+  card: "space-y-1",
+  bordered: "divide-border divide-y",
+  plain: "space-y-0.5",
+}
+
+const headerVariantStyles: Record<GridListVariant, string> = {
+  card: "mb-2",
+  bordered: "bg-muted/50 text-muted-foreground px-3 py-2",
+  plain: "text-muted-foreground mb-1 px-2",
+}
+
+const itemVariantStyles: Record<GridListVariant, string> = {
+  card: "inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
+  bordered: "px-3 py-2.5",
+  plain: "rounded-md px-2 py-2",
+}
+
+interface GridListRootProps<T extends object> extends GridListProps<T> {
+  /**
+   * `card` separates rows into framed tiles, `bordered` draws one frame with
+   * dividers, `plain` drops the frame for menu-like rows.
+   */
+  variant?: GridListVariant
+}
+
 const GridList = <T extends object>({
+  variant = "card",
   className,
   ...props
-}: GridListProps<T>) => (
-  <GridListPrimitive
-    data-slot="grid-list"
-    className={cx(
-      "*:data-drop-target:border-primary relative flex flex-col gap-y-1 has-data-[slot=grid-list-section]:gap-y-6 *:data-drop-target:border sm:text-sm/6",
-      className
-    )}
-    {...props}
-  />
+}: GridListRootProps<T>) => (
+  <GridListVariantContext value={variant}>
+    <GridListPrimitive
+      data-slot="grid-list"
+      data-variant={variant}
+      className={cx(
+        ["relative flex flex-col sm:text-sm/6", listVariantStyles[variant]],
+        className
+      )}
+      {...props}
+    />
+  </GridListVariantContext>
 )
 
 const GridListSection = <T extends object>({
   className,
   ...props
 }: React.ComponentProps<typeof GridListSectionPrimitive<T>>) => {
+  const variant = use(GridListVariantContext)
+
   return (
     <GridListSectionPrimitive
       data-slot="grid-list-section"
-      className={twMerge("space-y-1", className)}
+      className={twMerge(sectionVariantStyles[variant], className)}
       {...props}
     />
   )
@@ -51,34 +96,68 @@ const GridListHeader = ({
   className,
   ...props
 }: React.ComponentProps<typeof GridListHeaderPrimitive>) => {
+  const variant = use(GridListVariantContext)
+
   return (
     <GridListHeaderPrimitive
       data-slot="grid-list-header"
-      className={twMerge("mb-2 text-sm/6 font-semibold", className)}
+      className={twMerge(
+        "text-sm/6 font-semibold",
+        headerVariantStyles[variant],
+        className
+      )}
       {...props}
     />
   )
 }
 
 const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
+  const variant = use(GridListVariantContext)
   const textValue = typeof children === "string" ? children : undefined
+
   return (
     <GridListItemPrimitive
       textValue={textValue}
       {...props}
       className={composeRenderProps(
         className,
-        (className, { isHovered, isFocusVisible, isSelected }) =>
+        (
+          className,
+          {
+            isHovered,
+            isPressed,
+            isFocusVisible,
+            isSelected,
+            isDisabled,
+            isDropTarget,
+            allowsDragging,
+            selectionMode,
+          }
+        ) =>
           twMerge(
-            "group inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
+            "group",
+            itemVariantStyles[variant],
             "relative min-w-0 outline-hidden [--mr-icon:--spacing(2)]",
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",
-            "dragging:cursor-grab dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
+            "dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
             "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
             isHovered && "bg-accent/50",
-            isSelected && "bg-accent",
-            isFocusVisible && "inset-ring-ring",
+            isPressed && "bg-accent/70",
+            isSelected &&
+              "bg-accent text-accent-foreground forced-colors:inset-ring-2 forced-colors:inset-ring-[Highlight]",
+            // A 2px ring stays visible on top of the selected background and the card border.
+            isFocusVisible && "inset-ring-ring inset-ring-2",
+            // An inset ring, unlike a border, marks the drop target without shifting the row.
+            isDropTarget && "inset-ring-primary inset-ring-2",
+            isDisabled && "opacity-50 forced-colors:text-[GrayText]",
             "href" in props && "cursor-pointer",
+            // Rows that only reorder can be grabbed anywhere; rows that also select or act keep the
+            // default cursor so a click doesn't read as "move", and only the handle shows the grab hand.
+            allowsDragging &&
+              selectionMode === "none" &&
+              !("href" in props) &&
+              !props.onAction &&
+              "cursor-grab",
             className
           )
       )}
@@ -86,40 +165,47 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
       {(values) => (
         <>
           {values.allowsDragging && (
-            <Button slot="drag">
-              <svg
-                data-slot="drag-icon"
-                className="size-4 text-muted-foreground"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
+            // React Aria sets `pointer-events: none` on the drag button because the whole row starts a
+            // mouse drag, so the grab cursor and hover colour live on this wrapper instead.
+            <span className="group/drag -m-1 flex cursor-grab p-1">
+              <Button
+                slot="drag"
+                className="rounded-sm text-muted-foreground outline-hidden group-hover/drag:text-foreground focus-visible:text-foreground"
               >
-                <path
-                  d="M11 5.5C11 6.32843 10.3284 7 9.5 7C8.67157 7 8 6.32843 8 5.5C8 4.67157 8.67157 4 9.5 4C10.3284 4 11 4.67157 11 5.5Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M16 5.5C16 6.32843 15.3284 7 14.5 7C13.6716 7 13 6.32843 13 5.5C13 4.67157 13.6716 4 14.5 4C15.3284 4 16 4.67157 16 5.5Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M11 18.5C11 19.3284 10.3284 20 9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17C10.3284 17 11 17.6716 11 18.5Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M16 18.5C16 19.3284 15.3284 20 14.5 20C13.6716 20 13 19.3284 13 18.5C13 17.6716 13.6716 17 14.5 17C15.3284 17 16 17.6716 16 18.5Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M11 12C11 12.8284 10.3284 13.5 9.5 13.5C8.67157 13.5 8 12.8284 8 12C8 11.1716 8.67157 10.5 9.5 10.5C10.3284 10.5 11 11.1716 11 12Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M16 12C16 12.8284 15.3284 13.5 14.5 13.5C13.6716 13.5 13 12.8284 13 12C13 11.1716 13.6716 10.5 14.5 10.5C15.3284 10.5 16 11.1716 16 12Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </Button>
+                <svg
+                  data-slot="drag-icon"
+                  className="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M11 5.5C11 6.32843 10.3284 7 9.5 7C8.67157 7 8 6.32843 8 5.5C8 4.67157 8.67157 4 9.5 4C10.3284 4 11 4.67157 11 5.5Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M16 5.5C16 6.32843 15.3284 7 14.5 7C13.6716 7 13 6.32843 13 5.5C13 4.67157 13.6716 4 14.5 4C15.3284 4 16 4.67157 16 5.5Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M11 18.5C11 19.3284 10.3284 20 9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17C10.3284 17 11 17.6716 11 18.5Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M16 18.5C16 19.3284 15.3284 20 14.5 20C13.6716 20 13 19.3284 13 18.5C13 17.6716 13.6716 17 14.5 17C15.3284 17 16 17.6716 16 18.5Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M11 12C11 12.8284 10.3284 13.5 9.5 13.5C8.67157 13.5 8 12.8284 8 12C8 11.1716 8.67157 10.5 9.5 10.5C10.3284 10.5 11 11.1716 11 12Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M16 12C16 12.8284 15.3284 13.5 14.5 13.5C13.6716 13.5 13 12.8284 13 12C13 11.1716 13.6716 10.5 14.5 10.5C15.3284 10.5 16 11.1716 16 12Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </Button>
+            </span>
           )}
 
           {values.selectionMode === "multiple" &&
@@ -138,7 +224,14 @@ const GridListEmptyState = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => (
-  <div ref={ref} className={twMerge("p-6", className)} {...props} />
+  <div
+    ref={ref}
+    className={twMerge(
+      "text-muted-foreground p-6 text-center text-sm",
+      className
+    )}
+    {...props}
+  />
 )
 
 const GridListSpacer = ({
@@ -165,7 +258,7 @@ const GridListStart = ({
     <div
       ref={ref}
       className={twMerge(
-        "relative flex items-center gap-x-2.5 sm:gap-x-3",
+        "relative flex min-w-0 items-center gap-x-2.5 sm:gap-x-3",
         className
       )}
       {...props}
@@ -180,7 +273,7 @@ interface GridListTextProps extends TextProps {
 const GridListLabel = ({ className, ref, ...props }: GridListTextProps) => (
   <Text
     ref={ref}
-    className={twMerge("block font-medium", className)}
+    className={twMerge("block min-w-0 font-medium", className)}
     {...props}
   />
 )
@@ -212,4 +305,9 @@ export {
   GridListSpacer,
   GridListStart,
 }
-export type { GridListItemProps, GridListProps }
+
+export type {
+  GridListItemProps,
+  GridListRootProps as GridListProps,
+  GridListVariant,
+}
