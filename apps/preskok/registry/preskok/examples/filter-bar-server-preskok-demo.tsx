@@ -29,7 +29,7 @@ const fields: Array<FilterField> = [
   { id: "price", label: "Price", variant: "number", icon: EuroIcon, unit: "€" },
 ]
 
-/** `?status=isAnyOf.available,reserved&price=between.10000,25000`: one way to put filters in a URL. */
+/** `?status=isAnyOf.available%2Creserved&price=between.10000%2C25000`: one way to put filters in a URL. */
 function toSearchParams(filters: Array<Filter>) {
   const params = new URLSearchParams()
 
@@ -78,7 +78,7 @@ export default function FilterBarServerDemo() {
         <FilterBarClear />
       </FilterBar>
       <div className="rounded-lg border bg-muted/40 p-3 font-mono text-xs/5 break-all text-muted-foreground">
-        GET /api/vehicles{query ? `?${decodeURIComponent(query)}` : ""}
+        GET /api/vehicles{query ? `?${query}` : ""}
       </div>
     </div>
   )

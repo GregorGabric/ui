@@ -432,6 +432,15 @@ function toDayString(value: FilterCellValue) {
   return value.slice(0, 10)
 }
 
+/** `true`, a non-zero number, or "true" / "yes" / "1"; "false", "0" and "no" are false. */
+function toBoolean(value: FilterCellValue) {
+  if (typeof value === "string") {
+    return ["true", "yes", "1"].includes(value.trim().toLocaleLowerCase())
+  }
+
+  return Boolean(value)
+}
+
 function toNumber(value: FilterCellValue) {
   if (typeof value === "number") return value
 
@@ -554,8 +563,6 @@ function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
 
   if (isEmptyCellValue(cellValue)) return operator === "isNoneOf"
 
-  if (typeof value === "boolean") return Boolean(cellValue) === value
-
   if (operator === "isAnyOf" || operator === "isNoneOf") {
     const cells = (Array.isArray(cellValue) ? cellValue : [cellValue]).map(
       String
@@ -576,6 +583,8 @@ function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
       ? cellValue.every(matchesItem)
       : cellValue.some(matchesItem)
   }
+
+  if (typeof value === "boolean") return toBoolean(cellValue) === value
 
   if (isDateFilter(filter, cellValue)) {
     return compareDay(toDayString(cellValue), operator, value)
@@ -1233,7 +1242,7 @@ function FilterChipField({ className }: { className?: string }) {
   return (
     <span
       className={twMerge(
-        "flex max-w-40 shrink-0 items-center gap-1.5 ps-2.5 pe-2 text-muted-foreground",
+        "flex max-w-40 min-w-0 shrink-[2] items-center gap-1.5 ps-2.5 pe-2 text-muted-foreground",
         className
       )}
     >
@@ -1303,11 +1312,11 @@ function FilterOperatorMenu({
     return (
       <span
         className={twMerge(
-          "flex shrink-0 items-center border-s border-input px-2 text-muted-foreground",
+          "flex min-w-0 shrink items-center border-s border-input px-2 text-muted-foreground",
           className
         )}
       >
-        {label}
+        <span className="truncate">{label}</span>
       </span>
     )
   }
@@ -1318,11 +1327,11 @@ function FilterOperatorMenu({
         aria-label={`${messages.operatorLabel(field.label)}: ${label}`}
         className={twMerge(
           chipSegmentClassName,
-          "text-muted-foreground",
+          "min-w-0 shrink text-muted-foreground",
           className
         )}
       >
-        {label}
+        <span className="truncate">{label}</span>
       </ButtonPrimitive>
       <MenuContent
         placement="bottom start"
@@ -1394,7 +1403,7 @@ function useValueLabel(filter: Filter, field: FilterField) {
   }
 
   const formatNumber = (value: number | null) =>
-    value === null
+    value === null || !Number.isFinite(value)
       ? "…"
       : `${new Intl.NumberFormat(locale, field.numberFormat).format(value)}${field.unit ? ` ${field.unit}` : ""}`
 
@@ -1596,8 +1605,14 @@ function parseNumberInput(raw: string) {
   return Number.isFinite(number) ? number : null
 }
 
+/** Plain digits: `String(0.0000001)` is "1e-7", which the input would not read back. */
 const formatNumberInput = (value: number | null) =>
-  value === null || !Number.isFinite(value) ? "" : String(value)
+  value === null || !Number.isFinite(value)
+    ? ""
+    : value.toLocaleString("en-US", {
+        useGrouping: false,
+        maximumFractionDigits: 20,
+      })
 
 interface NumberInputProps {
   value: number | null
@@ -1620,7 +1635,11 @@ function NumberInput({ value, onChange, ...props }: NumberInputProps) {
   // A NaN or Infinity passed in reads as no value, or the comparison would never settle.
   const target = value !== null && Number.isFinite(value) ? value : null
 
-  if (parseNumberInput(raw) !== target) setRaw(formatNumberInput(target))
+  // Set once per disagreement: comparing the text too means a value the input cannot read back
+  // never re-renders forever.
+  const formatted = formatNumberInput(target)
+
+  if (parseNumberInput(raw) !== target && raw !== formatted) setRaw(formatted)
 
   return (
     <Input
@@ -1871,7 +1890,8 @@ interface FilterBarClearProps {
 }
 
 function FilterBarClear({ className, children }: FilterBarClearProps) {
-  const { filters, setFilters, setDraftId, messages } = useFilterBar()
+  const { filters, setFilters, setDraftId, messages, restoreFocus } =
+    useFilterBar()
 
   if (!filters.length) return null
 
@@ -1885,6 +1905,8 @@ function FilterBarClear({ className, children }: FilterBarClearProps) {
       onPress={() => {
         setDraftId(null)
         setFilters([])
+        // Clear disappears with the filters; "Filter" takes the focus.
+        restoreFocus()
       }}
     >
       {children ?? messages.clear}
