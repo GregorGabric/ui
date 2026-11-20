@@ -250,7 +250,7 @@ export default function FilterBarDemo() {
   )
 
   return (
-    <div className="w-full max-w-4xl space-y-4">
+    <div className="w-4xl max-w-full space-y-4">
       <FilterBar fields={fields} value={filters} onChange={setFilters}>
         <SearchField
           aria-label="Search vehicles"

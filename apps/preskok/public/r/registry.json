@@ -2605,6 +2605,71 @@
       "type": "registry:example"
     },
     {
+      "name": "filter-bar-basic-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/filter-bar.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/filter-bar-basic-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "filter-bar-custom-chips-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/filter-bar.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/filter-bar-custom-chips-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "filter-bar-overflow-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/filter-bar.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/filter-bar-overflow-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "filter-bar-messages-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/filter-bar.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/filter-bar-messages-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "filter-bar-server-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/filter-bar.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/filter-bar-server-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "token-field-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/token-field.json"

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-bar-messages-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/filter-bar.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/filter-bar-messages-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { CalendarDaysIcon, CarFrontIcon, EuroIcon } from \"lucide-react\"\nimport { I18nProvider } from \"react-aria-components/I18nProvider\"\n\nimport {\n  FilterBar,\n  FilterBarAdd,\n  FilterBarChips,\n  FilterBarClear,\n  type FilterBarMessagesInput,\n  type FilterField,\n} from \"@/components/ui/preskok-ui/filter-bar\"\n\nconst fields: Array<FilterField> = [\n  {\n    id: \"make\",\n    label: \"Znamka\",\n    variant: \"select\",\n    icon: CarFrontIcon,\n    options: [\"Audi\", \"BMW\", \"Škoda\", \"Volkswagen\"].map((make) => ({\n      value: make,\n      label: make,\n    })),\n  },\n  { id: \"price\", label: \"Cena\", variant: \"number\", icon: EuroIcon, unit: \"€\" },\n  {\n    id: \"listed\",\n    label: \"Objavljeno\",\n    variant: \"date\",\n    icon: CalendarDaysIcon,\n  },\n]\n\nconst messages: FilterBarMessagesInput = {\n  filter: \"Filter\",\n  addFilter: \"Dodaj filter\",\n  clear: \"Počisti\",\n  searchFields: \"Filtriraj po…\",\n  noFields: \"Ni polj\",\n  noResults: \"Ni zadetkov\",\n  backToFields: \"Nazaj na polja\",\n  customRange: \"Obdobje po meri…\",\n  min: \"Od\",\n  max: \"Do\",\n  and: \"in\",\n  inPreset: \"v\",\n  moreFilters: (count) => `+${count} več`,\n  removeFilter: (field) => `Odstrani filter ${field}`,\n  operators: {\n    isAnyOf: \"je katerikoli od\",\n    isNoneOf: \"ni nobeden od\",\n    is: \"je\",\n    isNot: \"ni\",\n    between: \"je med\",\n    lt: \"je manj kot\",\n    lte: \"je največ\",\n    gt: \"je več kot\",\n    gte: \"je vsaj\",\n    isEmpty: \"je prazno\",\n    isNotEmpty: \"ni prazno\",\n  },\n  datePresets: {\n    today: \"Danes\",\n    \"7d\": \"Zadnjih 7 dni\",\n    \"30d\": \"Zadnjih 30 dni\",\n    \"90d\": \"Zadnjih 90 dni\",\n    year: \"Letos\",\n  },\n  placeholders: { select: \"Izberi…\", number: \"Vnesi…\", date: \"Izberi datume…\" },\n}\n\n/** Slovenian strings; numbers and dates follow the `sl-SI` locale from React Aria. */\nexport default function FilterBarMessagesDemo() {\n  return (\n    <I18nProvider locale=\"sl-SI\">\n      <div className=\"w-2xl max-w-full\">\n        <FilterBar\n          fields={fields}\n          messages={messages}\n          defaultValue={[\n            {\n              id: \"price\",\n              field: \"price\",\n              operator: \"between\",\n              value: [12_500, 30_000],\n            },\n            {\n              id: \"listed\",\n              field: \"listed\",\n              operator: \"between\",\n              value: { start: \"2026-09-01\", end: \"2026-11-15\" },\n            },\n          ]}\n        >\n          <FilterBarChips />\n          <FilterBarAdd shortcut={false} />\n          <FilterBarClear />\n        </FilterBar>\n      </div>\n    </I18nProvider>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

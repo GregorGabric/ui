@@ -13,6 +13,54 @@ import { ComponentSource } from "@/components/component-source"
   description="A vehicle list filtered by make, price, status and listing date."
 />
 
+## Basic
+
+Uncontrolled: the bar keeps its own filters. A field with `multiple: false` picks one value and
+closes.
+
+<ComponentPreview
+  name="filter-bar-basic-preskok-demo"
+  description="An issue list filtered by status, title and assignee."
+/>
+
+## Custom chips
+
+Build chips from their parts: here Status and Priority drop the operator and read as tags, and
+the field shows only as its icon.
+
+<ComponentPreview
+  name="filter-bar-custom-chips-preskok-demo"
+  description="Rounded tag-style chips without operators."
+/>
+
+## Overflow
+
+`max` keeps the row short; the other chips open from "+N more" and stay editable there.
+
+<ComponentPreview
+  name="filter-bar-overflow-preskok-demo"
+  description="Five filters, two shown in the row."
+/>
+
+## Translations
+
+Pass `messages` for the strings and an `I18nProvider` locale for numbers and dates.
+
+<ComponentPreview
+  name="filter-bar-messages-preskok-demo"
+  description="The bar in Slovenian."
+/>
+
+## Server filtering
+
+Send only the filters that narrow something. While a filter is being added it has no value yet,
+and `isFilterActive` leaves it out.
+
+<ComponentPreview
+  name="filter-bar-server-preskok-demo"
+  description="The active filters as a request URL."
+/>
+
 ## Installation
 
 <CodeTabs>

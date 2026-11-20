@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-bar-overflow-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/filter-bar.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/filter-bar-overflow-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  CalendarDaysIcon,\n  CarFrontIcon,\n  CircleDotIcon,\n  EuroIcon,\n  GaugeIcon,\n  GlobeIcon,\n} from \"lucide-react\"\n\nimport {\n  FilterBar,\n  FilterBarAdd,\n  FilterBarChips,\n  FilterBarClear,\n  type Filter,\n  type FilterField,\n} from \"@/components/ui/preskok-ui/filter-bar\"\n\nconst fields: Array<FilterField> = [\n  {\n    id: \"make\",\n    label: \"Make\",\n    variant: \"select\",\n    icon: CarFrontIcon,\n    options: [\"Audi\", \"BMW\", \"Škoda\", \"Tesla\", \"Volkswagen\"].map((make) => ({\n      value: make,\n      label: make,\n    })),\n  },\n  {\n    id: \"status\",\n    label: \"Status\",\n    variant: \"select\",\n    icon: CircleDotIcon,\n    options: [\n      { value: \"available\", label: \"Available\" },\n      { value: \"reserved\", label: \"Reserved\" },\n      { value: \"sold\", label: \"Sold\" },\n    ],\n  },\n  { id: \"price\", label: \"Price\", variant: \"number\", icon: EuroIcon, unit: \"€\" },\n  {\n    id: \"mileage\",\n    label: \"Mileage\",\n    variant: \"number\",\n    icon: GaugeIcon,\n    unit: \"km\",\n  },\n  {\n    id: \"country\",\n    label: \"Country\",\n    variant: \"select\",\n    icon: GlobeIcon,\n    options: [\n      { value: \"si\", label: \"Slovenia\" },\n      { value: \"hr\", label: \"Croatia\" },\n      { value: \"at\", label: \"Austria\" },\n    ],\n  },\n  { id: \"listed\", label: \"Listed\", variant: \"date\", icon: CalendarDaysIcon },\n]\n\nconst filters: Array<Filter> = [\n  {\n    id: \"make\",\n    field: \"make\",\n    operator: \"isAnyOf\",\n    value: [\"Tesla\", \"Volkswagen\"],\n  },\n  { id: \"status\", field: \"status\", operator: \"isAnyOf\", value: [\"available\"] },\n  { id: \"price\", field: \"price\", operator: \"between\", value: [15_000, 40_000] },\n  { id: \"mileage\", field: \"mileage\", operator: \"lte\", value: 60_000 },\n  { id: \"country\", field: \"country\", operator: \"isAnyOf\", value: [\"si\", \"hr\"] },\n]\n\n/** `max` keeps the row to two chips; the rest open from \"+3 more\" and stay editable there. */\nexport default function FilterBarOverflowDemo() {\n  return (\n    <div className=\"w-2xl max-w-full\">\n      <FilterBar fields={fields} defaultValue={filters}>\n        <FilterBarChips max={2} />\n        <FilterBarAdd shortcut={false} />\n        <FilterBarClear />\n      </FilterBar>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

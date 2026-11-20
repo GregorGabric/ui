@@ -2204,6 +2204,96 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
+  "filter-bar-basic-preskok-demo": {
+    name: "filter-bar-basic-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [{
+      path: "registry/preskok/examples/filter-bar-basic-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/filter-bar-basic-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "filter-bar-custom-chips-preskok-demo": {
+    name: "filter-bar-custom-chips-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [{
+      path: "registry/preskok/examples/filter-bar-custom-chips-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/filter-bar-custom-chips-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "filter-bar-overflow-preskok-demo": {
+    name: "filter-bar-overflow-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [{
+      path: "registry/preskok/examples/filter-bar-overflow-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/filter-bar-overflow-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "filter-bar-messages-preskok-demo": {
+    name: "filter-bar-messages-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [{
+      path: "registry/preskok/examples/filter-bar-messages-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/filter-bar-messages-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "filter-bar-server-preskok-demo": {
+    name: "filter-bar-server-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [{
+      path: "registry/preskok/examples/filter-bar-server-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/filter-bar-server-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "token-field-preskok-demo": {
     name: "token-field-preskok-demo",
     description: "",

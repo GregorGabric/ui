@@ -35,6 +35,61 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "filter-bar-basic-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-basic-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-custom-chips-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-custom-chips-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-overflow-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-overflow-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-messages-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-messages-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-server-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-server-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "token-field-preskok-demo",
     type: "registry:example",
     registryDependencies: ["token-field"],
