@@ -131,34 +131,131 @@ interface FilterField {
   numberFormat?: Intl.NumberFormatOptions
 }
 
-const operatorLabels: Record<FilterOperator, string> = {
-  contains: "contains",
-  notContains: "does not contain",
-  is: "is",
-  isNot: "is not",
-  isAnyOf: "is any of",
-  isNoneOf: "is none of",
-  lt: "is less than",
-  lte: "is at most",
-  gt: "is greater than",
-  gte: "is at least",
-  between: "is between",
-  before: "is before",
-  after: "is after",
-  isEmpty: "is empty",
-  isNotEmpty: "is not empty",
+type FilterDatePresetId = "today" | "7d" | "30d" | "90d" | "year"
+
+/** Every string the bar shows. Pass `messages` to `FilterBar` to translate any of them. */
+interface FilterBarMessages {
+  filter: string
+  addFilter: string
+  clear: string
+  searchFields: string
+  fields: string
+  noFields: string
+  noResults: string
+  backToFields: string
+  customRange: string
+  yes: string
+  no: string
+  min: string
+  max: string
+  value: string
+  and: string
+  notSet: string
+  /** "in" before a date preset: "Listed in Last 30 days". */
+  inPreset: string
+  moreFilters: (count: number) => string
+  chipLabel: (field: string) => string
+  removeFilter: (field: string) => string
+  operatorLabel: (field: string) => string
+  valueLabel: (field: string) => string
+  searchOptions: (field: string) => string
+  operators: Record<FilterOperator, string>
+  datePresets: Record<FilterDatePresetId, string>
+  placeholders: Record<FilterVariant, string>
+}
+
+type FilterBarMessagesInput = Partial<
+  Omit<FilterBarMessages, "operators" | "datePresets" | "placeholders">
+> & {
+  operators?: Partial<FilterBarMessages["operators"]>
+  datePresets?: Partial<FilterBarMessages["datePresets"]>
+  placeholders?: Partial<FilterBarMessages["placeholders"]>
+}
+
+const defaultFilterBarMessages: FilterBarMessages = {
+  filter: "Filter",
+  addFilter: "Add filter",
+  clear: "Clear",
+  searchFields: "Filter by…",
+  fields: "Fields",
+  noFields: "No fields found",
+  noResults: "No results found",
+  backToFields: "Back to fields",
+  customRange: "Custom range…",
+  yes: "Yes",
+  no: "No",
+  min: "Min",
+  max: "Max",
+  value: "Value",
+  and: "and",
+  notSet: "not set",
+  inPreset: "in",
+  moreFilters: (count) => `+${count} more`,
+  chipLabel: (field) => `${field} filter`,
+  removeFilter: (field) => `Remove ${field} filter`,
+  operatorLabel: (field) => `${field} operator`,
+  valueLabel: (field) => `${field} value`,
+  searchOptions: (field) => `Search ${field.toLocaleLowerCase()}…`,
+  operators: {
+    contains: "contains",
+    notContains: "does not contain",
+    is: "is",
+    isNot: "is not",
+    isAnyOf: "is any of",
+    isNoneOf: "is none of",
+    lt: "is less than",
+    lte: "is at most",
+    gt: "is greater than",
+    gte: "is at least",
+    between: "is between",
+    before: "is before",
+    after: "is after",
+    isEmpty: "is empty",
+    isNotEmpty: "is not empty",
+  },
+  datePresets: {
+    today: "Today",
+    "7d": "Last 7 days",
+    "30d": "Last 30 days",
+    "90d": "Last 90 days",
+    year: "This year",
+  },
+  placeholders: {
+    text: "Enter text…",
+    number: "Enter value…",
+    select: "Select…",
+    boolean: "Select…",
+    date: "Pick dates…",
+  },
+}
+
+function mergeMessages(input: FilterBarMessagesInput = {}): FilterBarMessages {
+  return {
+    ...defaultFilterBarMessages,
+    ...input,
+    operators: { ...defaultFilterBarMessages.operators, ...input.operators },
+    datePresets: {
+      ...defaultFilterBarMessages.datePresets,
+      ...input.datePresets,
+    },
+    placeholders: {
+      ...defaultFilterBarMessages.placeholders,
+      ...input.placeholders,
+    },
+  }
 }
 
 const operatorsByVariant: Record<FilterVariant, Array<FilterOperator>> = {
   text: ["contains", "notContains", "is", "isNot", "isEmpty", "isNotEmpty"],
+  // A range first: an exact price or mileage rarely matches anything.
   number: [
+    "between",
     "is",
     "isNot",
     "lt",
     "lte",
     "gt",
     "gte",
-    "between",
     "isEmpty",
     "isNotEmpty",
   ],
@@ -405,35 +502,29 @@ function matchesFilter(cellValue: unknown, filter: Filter): boolean {
  * -----------------------------------------------------------------------------------------------*/
 
 interface FilterDatePreset {
-  id: string
-  label: string
+  id: FilterDatePresetId
   getRange: (now: CalendarDate) => { start: CalendarDate; end: CalendarDate }
 }
 
 const filterDatePresets: Array<FilterDatePreset> = [
   {
     id: "today",
-    label: "Today",
     getRange: (now) => ({ start: now, end: now }),
   },
   {
     id: "7d",
-    label: "Last 7 days",
     getRange: (now) => ({ start: now.subtract({ days: 6 }), end: now }),
   },
   {
     id: "30d",
-    label: "Last 30 days",
     getRange: (now) => ({ start: now.subtract({ days: 29 }), end: now }),
   },
   {
     id: "90d",
-    label: "Last 90 days",
     getRange: (now) => ({ start: now.subtract({ days: 89 }), end: now }),
   },
   {
     id: "year",
-    label: "This year",
     getRange: (now) => ({ start: now.set({ month: 1, day: 1 }), end: now }),
   },
 ]
@@ -466,6 +557,10 @@ interface FilterBarContextValue {
   fields: Array<FilterField>
   filters: Array<Filter>
   setFilters: (filters: Array<Filter>) => void
+  messages: FilterBarMessages
+  /** The filter being added from "+ Filter": already in `filters`, shown as a dimmed chip. */
+  draftId: string | null
+  setDraftId: (id: string | null) => void
   /** "+ Filter", so removing a chip can hand focus back to it. */
   addButtonRef: React.RefObject<HTMLButtonElement | null>
 }
@@ -503,7 +598,13 @@ interface FilterBarProps {
   fields: Array<FilterField>
   value?: Array<Filter>
   defaultValue?: Array<Filter>
+  /**
+   * Called on every change, including while a filter is being added (it may have no value yet).
+   * Use `isFilterActive` to skip filters that narrow nothing.
+   */
   onChange?: (filters: Array<Filter>) => void
+  /** Translations; anything left out falls back to English. */
+  messages?: FilterBarMessagesInput
   className?: string
   children?: ReactNode
 }
@@ -520,10 +621,12 @@ function FilterBar({
   value,
   defaultValue = noFilters,
   onChange,
+  messages,
   className,
   children,
 }: FilterBarProps) {
   const [uncontrolledFilters, setUncontrolledFilters] = useState(defaultValue)
+  const [draftId, setDraftId] = useState<string | null>(null)
   const addButtonRef = useRef<HTMLButtonElement>(null)
   const filters = value ?? uncontrolledFilters
 
@@ -533,7 +636,17 @@ function FilterBar({
   }
 
   return (
-    <FilterBarContext value={{ fields, filters, setFilters, addButtonRef }}>
+    <FilterBarContext
+      value={{
+        fields,
+        filters,
+        setFilters,
+        messages: mergeMessages(messages),
+        draftId,
+        setDraftId,
+        addButtonRef,
+      }}
+    >
       <div
         data-slot="filter-bar"
         className={twMerge("flex flex-wrap items-center gap-2", className)}
@@ -551,6 +664,8 @@ function FilterBar({
 interface FilterChipContextValue {
   filter: Filter
   field: FilterField
+  /** Being added from "+ Filter": shown dimmed and not interactive until it is added. */
+  isDraft: boolean
   update: (next: Partial<Filter>) => void
   remove: () => void
 }
@@ -567,9 +682,53 @@ function useFilterChip() {
   return context
 }
 
+type FilterChipRender = (chip: {
+  filter: Filter
+  field: FilterField
+}) => ReactNode
+
+const renderDefaultChip: FilterChipRender = () => <FilterChip />
+
+/** Gives one chip (and its parts) its filter, and the update / remove for it. */
+function FilterChipScope({
+  filter,
+  render,
+}: {
+  filter: Filter
+  render: FilterChipRender
+}) {
+  const { fields, filters, setFilters, draftId, addButtonRef } = useFilterBar()
+  const field = fields.find((candidate) => candidate.id === filter.field)
+  if (!field) return null
+
+  const update = (next: Partial<Filter>) =>
+    setFilters(
+      filters.map((item) =>
+        item.id === filter.id ? { ...item, ...next } : item
+      )
+    )
+  const remove = () => {
+    setFilters(filters.filter((item) => item.id !== filter.id))
+    addButtonRef.current?.focus()
+  }
+
+  return (
+    <FilterChipContext
+      value={{ filter, field, isDraft: draftId === filter.id, update, remove }}
+    >
+      {render({ filter, field })}
+    </FilterChipContext>
+  )
+}
+
 interface FilterBarChipsProps {
+  /**
+   * Chips shown in the row; the rest collapse into a "+N more" chip that lists them. The chip
+   * being added always shows.
+   */
+  max?: number
   /** Renders each chip. Defaults to `<FilterChip />` with its standard parts. */
-  children?: (chip: { filter: Filter; field: FilterField }) => ReactNode
+  children?: FilterChipRender
 }
 
 /**
@@ -577,70 +736,95 @@ interface FilterBarChipsProps {
  * Clear flow right after the last chip.
  */
 function FilterBarChips({
-  children = () => <FilterChip />,
+  max = Number.POSITIVE_INFINITY,
+  children = renderDefaultChip,
 }: FilterBarChipsProps) {
-  const { fields, filters, setFilters, addButtonRef } = useFilterBar()
+  const { filters, draftId, messages } = useFilterBar()
+  const shown = filters.filter(
+    (filter, index) => index < max || filter.id === draftId
+  )
+  const hidden = filters.filter((filter) => !shown.includes(filter))
 
-  return filters.map((filter) => {
-    const field = fields.find((candidate) => candidate.id === filter.field)
-    if (!field) return null
-
-    const update = (next: Partial<Filter>) =>
-      setFilters(
-        filters.map((item) =>
-          item.id === filter.id ? { ...item, ...next } : item
-        )
-      )
-    const remove = () => {
-      setFilters(filters.filter((item) => item.id !== filter.id))
-      addButtonRef.current?.focus()
-    }
-
-    return (
-      <FilterChipContext
-        key={filter.id}
-        value={{ filter, field, update, remove }}
-      >
-        {children({ filter, field })}
-      </FilterChipContext>
-    )
-  })
+  return (
+    <>
+      {shown.map((filter) => (
+        <FilterChipScope key={filter.id} filter={filter} render={children} />
+      ))}
+      {hidden.length ? (
+        <DialogTrigger>
+          <ButtonPrimitive
+            data-slot="filter-bar-more"
+            className="inline-flex h-11 cursor-pointer items-center rounded-lg border border-input bg-background px-3 text-base/6 text-muted-foreground outline-hidden transition-colors hover:bg-accent hover:text-foreground focus-visible:border-ring/70 focus-visible:ring-3 focus-visible:ring-ring/20 sm:h-9 sm:text-sm/6 pressed:bg-accent"
+          >
+            {messages.moreFilters(hidden.length)}
+          </ButtonPrimitive>
+          <PopoverContent placement="bottom start" className="max-w-none p-0">
+            <Dialog
+              aria-label={messages.moreFilters(hidden.length)}
+              className="flex max-h-96 flex-col items-start gap-2 overflow-y-auto p-2 outline-hidden"
+            >
+              {hidden.map((filter) => (
+                <FilterChipScope
+                  key={filter.id}
+                  filter={filter}
+                  render={children}
+                />
+              ))}
+            </Dialog>
+          </PopoverContent>
+        </DialogTrigger>
+      ) : null}
+    </>
+  )
 }
 
 /* -------------------------------------------------------------------------------------------------
  * "+ Filter" menu
  * -----------------------------------------------------------------------------------------------*/
 
-const booleanOptions = (field: FilterField): Array<FilterOption> =>
-  field.options ?? [
-    { value: "true", label: "Yes" },
-    { value: "false", label: "No" },
-  ]
+function getBooleanOptions(
+  field: FilterField,
+  messages: FilterBarMessages
+): Array<FilterOption> {
+  return (
+    field.options ?? [
+      { value: "true", label: messages.yes },
+      { value: "false", label: messages.no },
+    ]
+  )
+}
 
-/**
- * "+ Filter": pick a field, then its value in the same popover (Linear-style). The filter is added
- * once it has a value, so the bar never shows an empty chip. Yes / No and date presets are picked
- * straight from submenus.
- */
 interface FilterBarAddProps {
   /** Key that opens the menu from anywhere on the page. `false` turns it off. */
   shortcut?: string | false
   className?: string
 }
 
+/**
+ * "+ Filter": pick a field, then its operator and value in the same popover (Linear-style). The
+ * filter shows as a dimmed chip and applies while you pick, and is dropped if you leave without a
+ * value. Yes / No and date presets are picked straight from submenus.
+ */
 function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
-  const { fields, filters, setFilters, addButtonRef } = useFilterBar()
+  const {
+    fields,
+    filters,
+    setFilters,
+    messages,
+    draftId,
+    setDraftId,
+    addButtonRef,
+  } = useFilterBar()
   const [isMenuOpen, setMenuOpen] = useState(false)
   const { contains } = useFilter({ sensitivity: "base" })
-  /** The filter being set up in the value step; `null` while picking a field. */
-  const [draft, setDraft] = useState<Filter | null>(null)
 
-  const shownFields = new Set(filters.map((filter) => filter.field))
-  const addableFields = fields.filter((field) => !shownFields.has(field.id))
-  const groups = Map.groupBy(addableFields, (field) => field.group ?? "")
+  const draft = filters.find((filter) => filter.id === draftId)
   const draftField = draft
     ? fields.find((field) => field.id === draft.field)
     : undefined
+  const shownFields = new Set(filters.map((filter) => filter.field))
+  const addableFields = fields.filter((field) => !shownFields.has(field.id))
+  const groups = Map.groupBy(addableFields, (field) => field.group ?? "")
 
   // A page-wide shortcut subscribes to `window`, which is what Effects are for; React Aria's
   // `useKeyboard` only sees events on the element it is spread onto.
@@ -661,18 +845,30 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
 
   if (!addableFields.length && !isMenuOpen) return null
 
-  const add = (filter: Filter) => {
-    setFilters([...filters, filter])
-    setDraft(null)
+  const updateDraft = (next: Partial<Filter>) =>
+    setFilters(
+      filters.map((item) => (item.id === draftId ? { ...item, ...next } : item))
+    )
+
+  const withoutDraft = () => filters.filter((item) => item.id !== draftId)
+
+  /** Adds a finished filter and closes the menu. */
+  const addAndClose = (filter: Filter) => {
+    setFilters([...withoutDraft(), filter])
+    setDraftId(null)
     setMenuOpen(false)
   }
 
+  /** Starts the value step: the filter goes in right away, dimmed, and applies as values are picked. */
+  const startDraft = (filter: Filter) => {
+    setFilters([...filters, filter])
+    setDraftId(filter.id)
+  }
+
   const onOpenChange = (isOpen: boolean) => {
-    // Dismissing the value step keeps what was picked so far (e.g. several makes, then Escape).
-    if (!isOpen && draft && isFilterActive(draft)) {
-      setFilters([...filters, draft])
-    }
-    if (!isOpen) setDraft(null)
+    // Leaving the value step keeps what was picked so far, and drops a filter left without a value.
+    if (!isOpen && draft && !isFilterActive(draft)) setFilters(withoutDraft())
+    if (!isOpen) setDraftId(null)
     setMenuOpen(isOpen)
   }
 
@@ -693,10 +889,10 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
             placement="end top"
             className="min-w-28"
             onAction={(key) =>
-              add(createFilter(field, "is", key === `${field.id}:true`))
+              addAndClose(createFilter(field, "is", key === `${field.id}:true`))
             }
           >
-            {booleanOptions(field).map((option) => (
+            {getBooleanOptions(field, messages).map((option) => (
               <MenuItem key={option.value} id={`${field.id}:${option.value}`}>
                 <MenuLabel>{option.label}</MenuLabel>
               </MenuItem>
@@ -719,20 +915,22 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
                 (candidate) => `${field.id}:${candidate.id}` === key
               )
               if (preset) {
-                add(createFilter(field, "between", getPresetRange(preset)))
+                addAndClose(
+                  createFilter(field, "between", getPresetRange(preset))
+                )
               } else {
-                setDraft(createFilter(field, "between"))
+                startDraft(createFilter(field, "between"))
               }
             }}
           >
             {[
               ...filterDatePresets.map((preset) => (
                 <MenuItem key={preset.id} id={`${field.id}:${preset.id}`}>
-                  <MenuLabel>{preset.label}</MenuLabel>
+                  <MenuLabel>{messages.datePresets[preset.id]}</MenuLabel>
                 </MenuItem>
               )),
               <MenuItem key="custom" id={`${field.id}:custom`}>
-                <MenuLabel>Custom range…</MenuLabel>
+                <MenuLabel>{messages.customRange}</MenuLabel>
               </MenuItem>,
             ]}
           </MenuContent>
@@ -752,7 +950,7 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
         data-slot="filter-bar-add"
       >
         <ListFilterIcon data-slot="icon" aria-hidden />
-        {filters.length ? "Add filter" : "Filter"}
+        {filters.length ? messages.addFilter : messages.filter}
         {shortcut ? (
           <Keyboard className="ms-0.5 h-5 items-center rounded border border-foreground/15 px-1 text-[0.7rem]/none text-muted-foreground lg:inline-flex">
             {shortcut.toUpperCase()}
@@ -761,55 +959,80 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
       </Button>
       <PopoverContent
         placement="bottom start"
-        className="max-w-none min-w-0 overflow-hidden p-0"
+        className="max-w-[calc(100vw-1.5rem)] min-w-0 overflow-hidden p-0"
       >
-        <Dialog aria-label="Add filter" className="outline-hidden">
+        <Dialog aria-label={messages.addFilter} className="outline-hidden">
           {draft && draftField ? (
             <div>
               <div className="flex items-center gap-1 border-b border-foreground/10 p-1">
                 <ButtonPrimitive
-                  aria-label="Back to fields"
-                  onPress={() => setDraft(null)}
+                  aria-label={messages.backToFields}
+                  onPress={() => {
+                    setFilters(withoutDraft())
+                    setDraftId(null)
+                  }}
                   className="flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground outline-hidden hover:bg-accent hover:text-foreground focus-visible:bg-accent"
                 >
                   <ChevronLeftIcon className="size-4" aria-hidden />
                 </ButtonPrimitive>
-                <span className="text-sm font-medium">{draftField.label}</span>
-                <span className="text-sm text-muted-foreground">
-                  {getOperatorLabel(draft)}
+                <span className="ps-1 text-sm font-medium">
+                  {draftField.label}
                 </span>
+                <FilterOperatorMenu
+                  filter={draft}
+                  field={draftField}
+                  onChange={updateDraft}
+                  className="h-7 rounded-md border-0 px-1.5 text-sm"
+                />
               </div>
-              <FilterValueEditor
-                filter={draft}
-                field={draftField}
-                onChange={(value) => setDraft({ ...draft, value })}
-                onCommit={(value) => add({ ...draft, value })}
-                onDone={() => onOpenChange(false)}
-              />
+              {isValuelessOperator(draft.operator) ? (
+                <div className="flex justify-end p-2">
+                  <Button
+                    size="sm"
+                    autoFocus
+                    onPress={() => {
+                      setDraftId(null)
+                      setMenuOpen(false)
+                    }}
+                  >
+                    {messages.addFilter}
+                  </Button>
+                </div>
+              ) : (
+                <FilterValueEditor
+                  filter={draft}
+                  field={draftField}
+                  onChange={(value) => updateDraft({ value })}
+                  onCommit={(value) => addAndClose({ ...draft, value })}
+                  onDone={() => onOpenChange(false)}
+                />
+              )}
             </div>
           ) : (
             <Autocomplete filter={contains}>
               <SearchField
                 autoFocus
-                aria-label="Filter by"
-                className="w-64 border-b border-foreground/10 p-1"
+                aria-label={messages.searchFields}
+                className="w-64 max-w-full border-b border-foreground/10 p-1"
               >
-                <SearchInput placeholder="Filter by…" />
+                <SearchInput placeholder={messages.searchFields} />
               </SearchField>
               <MenuPrimitive
-                aria-label="Fields"
+                aria-label={messages.fields}
                 // Picking a field moves to its value step; the popover stays open.
                 shouldCloseOnSelect={false}
-                className={menuContentStyles({ className: "max-h-80 w-64" })}
+                className={menuContentStyles({
+                  className: "max-h-80 w-64 max-w-full",
+                })}
                 onAction={(key) => {
                   const field = addableFields.find(
                     (candidate) => candidate.id === key
                   )
-                  if (field) setDraft(createFilter(field))
+                  if (field) startDraft(createFilter(field))
                 }}
                 renderEmptyState={() => (
                   <div className="px-3 py-2 text-sm text-muted-foreground">
-                    No fields found
+                    {messages.noFields}
                   </div>
                 )}
               >
@@ -846,7 +1069,8 @@ interface FilterChipProps {
 
 /** A filter as a chip. Render it inside `FilterBarChips`; its parts read the filter from there. */
 function FilterChip({ className, children }: FilterChipProps) {
-  const { field, remove } = useFilterChip()
+  const { field, isDraft, remove } = useFilterChip()
+  const { messages } = useFilterBar()
 
   // Backspace or Delete on a chip's button removes the chip, like a token in a text field.
   const onKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
@@ -860,13 +1084,17 @@ function FilterChip({ className, children }: FilterChipProps) {
   return (
     <div
       role="group"
-      aria-label={`${field.label} filter`}
+      aria-label={messages.chipLabel(field.label)}
       data-slot="filter-chip"
+      data-draft={isDraft || undefined}
+      // The chip being added is edited in the "+ Filter" popover, not here.
+      inert={isDraft}
       onKeyDown={onKeyDown}
       className={twMerge(
         "inline-flex h-11 max-w-full min-w-0 items-stretch overflow-hidden rounded-lg border border-input bg-background text-base/6 sm:h-9 sm:text-sm/6",
         "has-focus-visible:border-ring/70 has-focus-visible:ring-3 has-focus-visible:ring-ring/20",
         "animate-in fade-in-0 zoom-in-95 duration-150",
+        "data-draft:border-dashed data-draft:opacity-60",
         className
       )}
     >
@@ -903,10 +1131,11 @@ function FilterChipField({ className }: { className?: string }) {
 
 function FilterChipRemove({ className }: { className?: string }) {
   const { field, remove } = useFilterChip()
+  const { messages } = useFilterBar()
 
   return (
     <ButtonPrimitive
-      aria-label={`Remove ${field.label} filter`}
+      aria-label={messages.removeFilter(field.label)}
       onPress={remove}
       className={twMerge(
         chipSegmentClassName,
@@ -920,21 +1149,37 @@ function FilterChipRemove({ className }: { className?: string }) {
 }
 
 /** "is any of" reads wrong with one value: say "is" / "is not" then. */
-function getOperatorLabel(filter: Filter) {
+function getOperatorLabel(filter: Filter, messages: FilterBarMessages) {
   const count = Array.isArray(filter.value) ? filter.value.length : 0
-  if (count === 1 && filter.operator === "isAnyOf") return "is"
-  if (count === 1 && filter.operator === "isNoneOf") return "is not"
-  if (filter.operator === "between" && isDateRange(filter.value)) {
-    return findPreset(filter.value) ? "in" : operatorLabels.between
+  if (count === 1 && filter.operator === "isAnyOf") return messages.operators.is
+  if (count === 1 && filter.operator === "isNoneOf") {
+    return messages.operators.isNot
   }
-  return operatorLabels[filter.operator]
+  if (filter.operator === "between" && isDateRange(filter.value)) {
+    return findPreset(filter.value)
+      ? messages.inPreset
+      : messages.operators.between
+  }
+  return messages.operators[filter.operator]
 }
 
-/** The operator: a menu when the field has several, plain text when it has one. */
-function FilterChipOperator({ className }: { className?: string }) {
-  const { filter, field, update } = useFilterChip()
+interface FilterOperatorMenuProps {
+  filter: Filter
+  field: FilterField
+  onChange: (next: Partial<Filter>) => void
+  className?: string
+}
+
+/** The operator as a menu (plain text when the field has one). Used by the chip and the add step. */
+function FilterOperatorMenu({
+  filter,
+  field,
+  onChange,
+  className,
+}: FilterOperatorMenuProps) {
+  const { messages } = useFilterBar()
   const operators = getFilterOperators(field)
-  const label = getOperatorLabel(filter)
+  const label = getOperatorLabel(filter, messages)
 
   if (operators.length < 2) {
     return (
@@ -952,7 +1197,7 @@ function FilterChipOperator({ className }: { className?: string }) {
   return (
     <Menu>
       <ButtonPrimitive
-        aria-label={`${field.label} operator: ${label}`}
+        aria-label={`${messages.operatorLabel(field.label)}: ${label}`}
         className={twMerge(
           chipSegmentClassName,
           "text-muted-foreground",
@@ -968,7 +1213,7 @@ function FilterChipOperator({ className }: { className?: string }) {
         onAction={(key) => {
           const operator = operators.find((candidate) => candidate === key)
           if (operator) {
-            update({
+            onChange({
               operator,
               value: getInitialValue(field, operator, filter.value),
             })
@@ -978,11 +1223,25 @@ function FilterChipOperator({ className }: { className?: string }) {
       >
         {operators.map((operator) => (
           <MenuItem key={operator} id={operator}>
-            <MenuLabel>{operatorLabels[operator]}</MenuLabel>
+            <MenuLabel>{messages.operators[operator]}</MenuLabel>
           </MenuItem>
         ))}
       </MenuContent>
     </Menu>
+  )
+}
+
+/** The operator: a menu when the field has several, plain text when it has one. */
+function FilterChipOperator({ className }: { className?: string }) {
+  const { filter, field, update } = useFilterChip()
+
+  return (
+    <FilterOperatorMenu
+      filter={filter}
+      field={field}
+      onChange={update}
+      className={className}
+    />
   )
 }
 
@@ -998,6 +1257,7 @@ function summarize(labels: Array<string>) {
 
 function useValueLabel(filter: Filter, field: FilterField) {
   const { locale } = useLocale()
+  const { messages } = useFilterBar()
   const formatDay = (value: string, withYear = true) => {
     const day = parseDay(value)
     if (!day) return ""
@@ -1032,7 +1292,7 @@ function useValueLabel(filter: Filter, field: FilterField) {
     }
     case "boolean":
       return (
-        booleanOptions(field).find(
+        getBooleanOptions(field, messages).find(
           (option) => option.value === String(value === true)
         )?.label ?? ""
       )
@@ -1047,7 +1307,7 @@ function useValueLabel(filter: Filter, field: FilterField) {
         return formatDay(typeof value === "string" ? value : "")
       }
       const preset = findPreset(value)
-      if (preset) return preset.label
+      if (preset) return messages.datePresets[preset.id]
       if (!value.end) return `${formatDay(value.start)} – …`
       if (!value.start) return `… – ${formatDay(value.end)}`
       const sameYear = value.start.slice(0, 4) === value.end.slice(0, 4)
@@ -1059,14 +1319,6 @@ function useValueLabel(filter: Filter, field: FilterField) {
   }
 }
 
-const valuePlaceholders: Record<FilterVariant, string> = {
-  text: "Enter text…",
-  number: "Enter value…",
-  select: "Select…",
-  boolean: "Select…",
-  date: "Pick dates…",
-}
-
 /** Number inputs without the browser's spin buttons: the chip is too small for them. */
 const numberInputClassName =
   "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
@@ -1074,6 +1326,7 @@ const numberInputClassName =
 /** The value: opens the field's editor. Hidden for operators without a value (`is empty`). */
 function FilterChipValue({ className }: { className?: string }) {
   const { filter, field, update, remove } = useFilterChip()
+  const { messages } = useFilterBar()
   const [isOpen, setOpen] = useState(false)
   const label = useValueLabel(filter, field)
 
@@ -1089,7 +1342,7 @@ function FilterChipValue({ className }: { className?: string }) {
       }}
     >
       <ButtonPrimitive
-        aria-label={`${field.label} value: ${label ?? "not set"}`}
+        aria-label={`${messages.valueLabel(field.label)}: ${label ?? messages.notSet}`}
         className={twMerge(
           chipSegmentClassName,
           "min-w-10 shrink font-medium text-foreground",
@@ -1112,16 +1365,16 @@ function FilterChipValue({ className }: { className?: string }) {
             <bdi>{label}</bdi>
           ) : null}
           {label === null
-            ? (field.placeholder ?? valuePlaceholders[field.variant])
+            ? (field.placeholder ?? messages.placeholders[field.variant])
             : null}
         </span>
       </ButtonPrimitive>
       <PopoverContent
         placement="bottom start"
-        className="max-w-none min-w-0 overflow-hidden p-0"
+        className="max-w-[calc(100vw-1.5rem)] min-w-0 overflow-hidden p-0"
       >
         <Dialog
-          aria-label={`${field.label} ${operatorLabels[filter.operator]}`}
+          aria-label={`${field.label} ${messages.operators[filter.operator]}`}
           className="outline-hidden"
         >
           {({ close }) => (
@@ -1175,7 +1428,7 @@ function TextEditor({
 }: FilterValueEditorProps) {
   return (
     <form
-      className="w-64 p-2"
+      className="w-64 max-w-full p-2"
       onSubmit={(event) => {
         event.preventDefault()
         onDone()
@@ -1201,6 +1454,7 @@ function NumberEditor({
   onChange,
   onDone,
 }: FilterValueEditorProps) {
+  const { messages } = useFilterBar()
   const isRange = filter.operator === "between"
   const [min, max] = isNumberRange(filter.value)
     ? filter.value
@@ -1211,7 +1465,9 @@ function NumberEditor({
 
   return (
     <form
-      className="flex w-72 items-center gap-2 p-2"
+      // `key` resets the inputs when the operator switches between one value and a range.
+      key={isRange ? "range" : "single"}
+      className="flex w-72 max-w-full items-center gap-2 p-2"
       onSubmit={(event) => {
         event.preventDefault()
         onDone()
@@ -1222,8 +1478,10 @@ function NumberEditor({
         type="number"
         inputMode="decimal"
         className={numberInputClassName}
-        aria-label={isRange ? `${field.label} from` : field.label}
-        placeholder={isRange ? "Min" : (field.placeholder ?? "Value")}
+        aria-label={isRange ? `${field.label} ${messages.min}` : field.label}
+        placeholder={
+          isRange ? messages.min : (field.placeholder ?? messages.value)
+        }
         defaultValue={min ?? ""}
         onChange={(event) => {
           const next = parseNumberInput(event.target.value)
@@ -1232,13 +1490,15 @@ function NumberEditor({
       />
       {isRange ? (
         <>
-          <span className="shrink-0 text-sm text-muted-foreground">and</span>
+          <span className="shrink-0 text-sm text-muted-foreground">
+            {messages.and}
+          </span>
           <Input
             type="number"
             inputMode="decimal"
             className={numberInputClassName}
-            aria-label={`${field.label} to`}
-            placeholder="Max"
+            aria-label={`${field.label} ${messages.max}`}
+            placeholder={messages.max}
             defaultValue={max ?? ""}
             onChange={(event) =>
               onChange([min, parseNumberInput(event.target.value)])
@@ -1251,6 +1511,9 @@ function NumberEditor({
   )
 }
 
+/** Lists longer than this get a search field and show the picked options first. */
+const longListThreshold = 7
+
 function SelectEditor({
   filter,
   field,
@@ -1258,14 +1521,25 @@ function SelectEditor({
   onCommit,
 }: FilterValueEditorProps) {
   const { contains } = useFilter({ sensitivity: "base" })
+  const { messages } = useFilterBar()
   const options = field.options ?? []
+  const isLong = options.length > longListThreshold
   const isMultiple = field.multiple ?? true
   const selected = getSelectedValues(filter)
+  // What was picked when the editor opened goes first; it stays put while you pick more.
+  const [pinned] = useState(selected)
+  const items = isLong
+    ? [
+        ...options.filter((option) => pinned.includes(option.value)),
+        ...options.filter((option) => !pinned.includes(option.value)),
+      ]
+    : options
+
   const listBox = (
     <ListBox
       aria-label={field.label}
-      items={options}
-      autoFocus={options.length <= 7}
+      items={items}
+      autoFocus={!isLong}
       selectionMode={isMultiple ? "multiple" : "single"}
       // Escape closes the popover; it must not clear the picks on the way out.
       escapeKeyBehavior="none"
@@ -1280,7 +1554,7 @@ function SelectEditor({
       }}
       renderEmptyState={() => (
         <div className="px-3 py-2 text-sm text-muted-foreground">
-          No results found
+          {messages.noResults}
         </div>
       )}
       className="max-h-72 min-w-0 rounded-none border-0 bg-transparent"
@@ -1297,20 +1571,17 @@ function SelectEditor({
     </ListBox>
   )
 
-  // Short lists need no search.
-  if (options.length <= 7) return <div className="w-56">{listBox}</div>
+  if (!isLong) return <div className="w-56 max-w-full">{listBox}</div>
 
   return (
-    <div className="w-64">
+    <div className="w-64 max-w-full">
       <Autocomplete filter={contains}>
         <SearchField
           autoFocus
-          aria-label={`Search ${field.label}`}
+          aria-label={messages.searchOptions(field.label)}
           className="border-b border-foreground/10 p-1"
         >
-          <SearchInput
-            placeholder={`Search ${field.label.toLocaleLowerCase()}…`}
-          />
+          <SearchInput placeholder={messages.searchOptions(field.label)} />
         </SearchField>
         {listBox}
       </Autocomplete>
@@ -1319,11 +1590,13 @@ function SelectEditor({
 }
 
 function BooleanEditor({ filter, field, onCommit }: FilterValueEditorProps) {
+  const { messages } = useFilterBar()
+
   return (
     <ListBox
       aria-label={field.label}
       autoFocus
-      items={booleanOptions(field)}
+      items={getBooleanOptions(field, messages)}
       selectionMode="single"
       disallowEmptySelection
       selectedKeys={[String(filter.value === true)]}
@@ -1343,6 +1616,8 @@ function BooleanEditor({ filter, field, onCommit }: FilterValueEditorProps) {
 }
 
 function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
+  const { messages } = useFilterBar()
+
   if (filter.operator !== "between") {
     const day = parseDay(typeof filter.value === "string" ? filter.value : "")
     return (
@@ -1364,8 +1639,9 @@ function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
   const activePreset = findPreset(range)
 
   return (
-    <div className="flex">
-      <div className="flex w-36 shrink-0 flex-col gap-0.5 border-e border-foreground/10 p-1.5">
+    // Presets beside the calendar from `sm`; above it on phones, where the two do not fit side by side.
+    <div className="flex flex-col sm:flex-row">
+      <div className="flex flex-wrap gap-1 border-b border-foreground/10 p-1.5 sm:w-36 sm:shrink-0 sm:flex-col sm:flex-nowrap sm:gap-0.5 sm:border-e sm:border-b-0">
         {filterDatePresets.map((preset) => (
           <ButtonPrimitive
             key={preset.id}
@@ -1376,7 +1652,7 @@ function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
                 "bg-primary/10 font-medium text-primary hover:bg-primary/15"
             )}
           >
-            {preset.label}
+            {messages.datePresets[preset.id]}
           </ButtonPrimitive>
         ))}
       </div>
@@ -1402,11 +1678,8 @@ interface FilterBarClearProps {
   children?: ReactNode
 }
 
-function FilterBarClear({
-  className,
-  children = "Clear",
-}: FilterBarClearProps) {
-  const { filters, setFilters } = useFilterBar()
+function FilterBarClear({ className, children }: FilterBarClearProps) {
+  const { filters, setFilters, setDraftId, messages } = useFilterBar()
 
   if (!filters.length) return null
 
@@ -1417,15 +1690,19 @@ function FilterBarClear({
         "ms-auto h-11 text-muted-foreground sm:h-9",
         className
       )}
-      onPress={() => setFilters([])}
+      onPress={() => {
+        setDraftId(null)
+        setFilters([])
+      }}
     >
-      {children}
+      {children ?? messages.clear}
     </Button>
   )
 }
 
 export {
   createFilter,
+  defaultFilterBarMessages,
   FilterBar,
   FilterBarAdd,
   FilterBarChips,
@@ -1439,14 +1716,16 @@ export {
   getFilterOperators,
   isFilterActive,
   matchesFilter,
-  operatorLabels,
 }
 export type {
   Filter,
   FilterBarAddProps,
   FilterBarChipsProps,
+  FilterBarMessages,
+  FilterBarMessagesInput,
   FilterBarProps,
   FilterChipProps,
+  FilterDatePresetId,
   FilterDateRange,
   FilterField,
   FilterOperator,

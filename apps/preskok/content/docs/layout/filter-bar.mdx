@@ -97,11 +97,11 @@ export function Vehicles() {
 `FilterBar` holds the state and lays out its children in a wrapping row, so a search field or a
 sort button can sit next to the chips. Its parts can go in any order:
 
-| Part             | Renders                                                                       |
-| ---------------- | ----------------------------------------------------------------------------- |
-| `FilterBarChips` | One chip per filter, flowing in the bar's row                                 |
-| `FilterBarAdd`   | "+ Filter" with its <kbd>F</kbd> shortcut (`shortcut` changes or disables it) |
-| `FilterBarClear` | Removes every filter; hidden when there are none                              |
+| Part             | Renders                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| `FilterBarChips` | One chip per filter, flowing in the bar's row; `max` collapses the rest into "+N more" |
+| `FilterBarAdd`   | "+ Filter" with its <kbd>F</kbd> shortcut (`shortcut` changes or disables it)          |
+| `FilterBarClear` | Removes every filter; hidden when there are none                                       |
 
 ## Composing chips
 
@@ -129,13 +129,13 @@ The parts read their filter from `FilterBarChips`, so they only need a `classNam
 Each field's `variant` decides its operators and value editor. The first operator is the default;
 pass `operators` to restrict or reorder them.
 
-| Variant   | Operators                                                                                      | Value editor                                |
-| --------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `text`    | contains, does not contain, is, is not, is empty, is not empty                                 | Text input                                  |
-| `number`  | is, is not, is less than, is at most, is greater than, is at least, is between, is (not) empty | Number input, two for `between`             |
-| `select`  | is any of, is none of, is empty, is not empty                                                  | List with search above 7 options            |
-| `boolean` | (none: the chip reads "Electric · Yes")                                                        | Yes / No, picked straight from the menu     |
-| `date`    | is between, is, is before, is after, is empty, is not empty                                    | Presets and a range calendar, or a calendar |
+| Variant   | Operators                                                                                      | Value editor                                                 |
+| --------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `text`    | contains, does not contain, is, is not, is empty, is not empty                                 | Text input                                                   |
+| `number`  | is between, is, is not, is less than, is at most, is greater than, is at least, is (not) empty | Number input, two for `between`                              |
+| `select`  | is any of, is none of, is empty, is not empty                                                  | List; above 7 options, a search and the picked options first |
+| `boolean` | (none: the chip reads "Electric · Yes")                                                        | Yes / No, picked straight from the menu                      |
+| `date`    | is between, is, is before, is after, is empty, is not empty                                    | Presets and a range calendar, or a calendar                  |
 
 Filter values are plain data, so they serialize to a URL or a request body as they are:
 
@@ -144,11 +144,36 @@ Filter values are plain data, so they serialize to a URL or a request body as th
 { id: "listed", field: "listed", operator: "between", value: { start: "2026-10-22", end: "2026-11-20" } }
 ```
 
-"+ Filter" asks for the field, then its value in the same popover, and adds the filter once it has
-a value (yes / no and date presets are picked from a submenu in one step). A chip whose value is
-cleared is removed when its editor closes, and `isFilterActive` tells whether a filter narrows
-anything. Filter on the server by sending the active filters, or on the client with
+Number fields can set `numberFormat` (e.g. `{ useGrouping: false }` for years) and `unit`.
+
+"+ Filter" asks for the field, then its operator and value in the same popover. The filter goes
+into the list straight away as a dimmed chip and applies while values are picked, so `onChange`
+fires with filters that have no value yet; it is dropped if the popover closes without one. Yes /
+no and date presets are picked from a submenu in one step. `isFilterActive` tells whether a filter
+narrows anything: filter on the server by sending the active filters, or on the client with
 `matchesFilter(cellValue, filter)`.
+
+## Translations
+
+Every string comes from `messages`; anything left out falls back to English
+(`defaultFilterBarMessages`).
+
+```tsx
+<FilterBar
+  fields={fields}
+  messages={{
+    addFilter: "Dodaj filter",
+    clear: "Počisti",
+    moreFilters: (count) => `+${count} več`,
+    operators: { isAnyOf: "je katerikoli od", between: "je med" },
+    datePresets: { "30d": "Zadnjih 30 dni" },
+  }}
+>
+  …
+</FilterBar>
+```
+
+Dates and numbers follow the locale from React Aria's `I18nProvider`.
 
 ## Keyboard
 
