@@ -20,6 +20,7 @@ import {
   FilterBarClear,
   matchesFilter,
   type Filter,
+  type FilterCellValue,
   type FilterField,
 } from "@/registry/preskok/ui/preskok-ui/filter-bar"
 import {
@@ -138,6 +139,30 @@ const vehicles: Array<Vehicle> = [
   },
 ]
 
+/** A vehicle's value for a filter field, for `matchesFilter`. */
+function cellOf(vehicle: Vehicle, field: string): FilterCellValue {
+  switch (field) {
+    case "make":
+      return vehicle.make
+    case "model":
+      return vehicle.model
+    case "year":
+      return vehicle.year
+    case "electric":
+      return vehicle.electric
+    case "price":
+      return vehicle.price
+    case "mileage":
+      return vehicle.mileage
+    case "status":
+      return vehicle.status
+    case "listed":
+      return vehicle.listed
+    default:
+      return undefined
+  }
+}
+
 const makes = [...new Set(vehicles.map((vehicle) => vehicle.make))].toSorted()
 
 const fields: Array<FilterField> = [
@@ -230,6 +255,7 @@ const euro = new Intl.NumberFormat("en", {
 
 export default function FilterBarDemo() {
   const [query, setQuery] = useState("")
+
   const [filters, setFilters] = useState<Array<Filter>>([
     {
       id: "status",
@@ -245,7 +271,7 @@ export default function FilterBarDemo() {
         .toLocaleLowerCase()
         .includes(query.toLocaleLowerCase()) &&
       filters.every((filter) =>
-        matchesFilter(Reflect.get(vehicle, filter.field), filter)
+        matchesFilter(cellOf(vehicle, filter.field), filter)
       )
   )
 

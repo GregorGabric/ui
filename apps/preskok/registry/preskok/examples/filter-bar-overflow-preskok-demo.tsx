@@ -75,7 +75,7 @@ const filters: Array<Filter> = [
   { id: "country", field: "country", operator: "isAnyOf", value: ["si", "hr"] },
 ]
 
-/** `max` keeps the row to two chips; the rest open from "+3 more" and stay editable there. */
+/** `max` keeps the row to two chips; "+3 more" shows the rest in the row, and "Show less" hides them again. */
 export default function FilterBarOverflowDemo() {
   return (
     <div className="w-2xl max-w-full">

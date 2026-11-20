@@ -35,7 +35,8 @@ the field shows only as its icon.
 
 ## Overflow
 
-`max` keeps the row short; the other chips open from "+N more" and stay editable there.
+`max` keeps the row short: "+N more" shows the other chips in the row, and "Show less" hides
+them again.
 
 <ComponentPreview
   name="filter-bar-overflow-preskok-demo"
@@ -145,11 +146,11 @@ export function Vehicles() {
 `FilterBar` holds the state and lays out its children in a wrapping row, so a search field or a
 sort button can sit next to the chips. Its parts can go in any order:
 
-| Part             | Renders                                                                                |
-| ---------------- | -------------------------------------------------------------------------------------- |
-| `FilterBarChips` | One chip per filter, flowing in the bar's row; `max` collapses the rest into "+N more" |
-| `FilterBarAdd`   | "+ Filter" with its <kbd>F</kbd> shortcut (`shortcut` changes or disables it)          |
-| `FilterBarClear` | Removes every filter; hidden when there are none                                       |
+| Part             | Renders                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `FilterBarChips` | One chip per filter, flowing in the bar's row; `max` hides the rest behind "+N more" |
+| `FilterBarAdd`   | "+ Filter" with its <kbd>F</kbd> shortcut (`shortcut` changes or disables it)        |
+| `FilterBarClear` | Removes every filter; hidden when there are none                                     |
 
 ## Composing chips
 

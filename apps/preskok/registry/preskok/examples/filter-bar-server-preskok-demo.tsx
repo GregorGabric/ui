@@ -32,15 +32,18 @@ const fields: Array<FilterField> = [
 /** `?status=isAnyOf.available,reserved&price=between.10000,25000`: one way to put filters in a URL. */
 function toSearchParams(filters: Array<Filter>) {
   const params = new URLSearchParams()
+
   for (const filter of filters) {
     const value = Array.isArray(filter.value)
       ? filter.value.map((item) => item ?? "").join(",")
       : String(filter.value ?? "")
+
     params.set(
       filter.field,
       value ? `${filter.operator}.${value}` : filter.operator
     )
   }
+
   return params.toString()
 }
 
@@ -63,6 +66,7 @@ export default function FilterBarServerDemo() {
       value: [10_000, 25_000],
     },
   ])
+
   const active = filters.filter(isFilterActive)
   const query = toSearchParams(active)
 
