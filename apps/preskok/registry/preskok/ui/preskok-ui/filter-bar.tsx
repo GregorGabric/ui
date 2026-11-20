@@ -37,7 +37,6 @@ import {
   MenuItem,
   MenuLabel,
   MenuSection,
-  MenuSubMenu,
 } from "./menu"
 import { PopoverContent } from "./popover"
 import { RangeCalendar } from "./range-calendar"
@@ -113,6 +112,11 @@ interface Filter {
   field: string
   operator: FilterOperator
   value: FilterValue
+  /**
+   * The field's variant. The bar sets it, so `matchesFilter` compares as that type (a text value
+   * that looks like a date stays text). Without it, `matchesFilter` infers the type from the value.
+   */
+  variant?: FilterVariant
 }
 
 interface FilterOption {
@@ -153,7 +157,6 @@ interface FilterBarMessages {
   noFields: string
   noResults: string
   backToFields: string
-  customRange: string
   yes: string
   no: string
   min: string
@@ -192,7 +195,6 @@ const defaultFilterBarMessages: FilterBarMessages = {
   noFields: "No fields found",
   noResults: "No results found",
   backToFields: "Back to fields",
-  customRange: "Custom range…",
   yes: "Yes",
   no: "No",
   min: "Min",
@@ -315,7 +317,8 @@ function getInitialValue(
         ? previous
         : []
     case "boolean":
-      return typeof previous === "boolean" ? previous : true
+      // No value until Yes or No is picked, so picking Yes is a change the editor reports.
+      return typeof previous === "boolean" ? previous : null
     case "date":
       if (operator === "between") {
         if (isDateRange(previous)) return previous
@@ -341,6 +344,7 @@ function createFilter(
     field: field.id,
     operator,
     value: value ?? getInitialValue(field, operator),
+    variant: field.variant,
   }
 }
 
@@ -480,6 +484,43 @@ function compareDay(day: string, operator: FilterOperator, value: FilterValue) {
  * Whether a cell value passes a filter. Inactive filters (no value yet) pass everything.
  * `rows.filter((row) => filters.every((filter) => matchesFilter(row[filter.field], filter)))`
  */
+const dateOperators = new Set<FilterOperator>([
+  "is",
+  "isNot",
+  "before",
+  "after",
+  "between",
+])
+
+/** Compares as days: a date field, or (without a variant) a date-shaped value with a date operator. */
+function isDateFilter(filter: Filter, cellValue: FilterCellValue) {
+  if (filter.variant) return filter.variant === "date"
+
+  if (!dateOperators.has(filter.operator)) return false
+
+  const { value } = filter
+
+  const isDayAgainstIso =
+    typeof value === "string" &&
+    dayPattern.test(value) &&
+    typeof cellValue === "string" &&
+    isoDayPrefix.test(cellValue)
+
+  return (
+    cellValue instanceof Date ||
+    filter.operator === "before" ||
+    filter.operator === "after" ||
+    isDateRange(value) ||
+    isDayAgainstIso
+  )
+}
+
+function isNumberFilter(filter: Filter) {
+  if (filter.variant) return filter.variant === "number"
+
+  return typeof filter.value === "number" || isNumberRange(filter.value)
+}
+
 const dayPattern = /^\d{4}-\d{2}-\d{2}$/
 
 const isoDayPrefix = /^\d{4}-\d{2}-\d{2}(?:T|$)/
@@ -518,25 +559,11 @@ function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
       : cellValue.some(matchesItem)
   }
 
-  // A day value ("2026-11-20") against a day or timestamp cell compares days, like before / after.
-  const isDayComparison =
-    (operator === "is" || operator === "isNot") &&
-    typeof value === "string" &&
-    dayPattern.test(value) &&
-    typeof cellValue === "string" &&
-    isoDayPrefix.test(cellValue)
-
-  if (
-    cellValue instanceof Date ||
-    operator === "before" ||
-    operator === "after" ||
-    isDateRange(value) ||
-    isDayComparison
-  ) {
+  if (isDateFilter(filter, cellValue)) {
     return compareDay(toDayString(cellValue), operator, value)
   }
 
-  if (typeof value === "number" || Array.isArray(value)) {
+  if (isNumberFilter(filter)) {
     const cell = toNumber(cellValue)
 
     return Number.isNaN(cell) ? false : compareNumber(cell, operator, value)
@@ -897,7 +924,7 @@ interface FilterBarAddProps {
 /**
  * "+ Filter": pick a field, then its operator and value in the same popover (Linear-style). The
  * filter shows as a dimmed chip and applies while you pick, and is dropped if you leave without a
- * value. Yes / No and date presets are picked straight from submenus.
+ * value.
  */
 function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
   const {
@@ -984,76 +1011,12 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
   const renderField = (field: FilterField) => {
     const Icon = field.icon
 
-    const item = (
+    return (
       <MenuItem key={field.id} id={field.id} textValue={field.label}>
         {Icon ? <Icon data-slot="icon" aria-hidden /> : null}
         <MenuLabel>{field.label}</MenuLabel>
       </MenuItem>
     )
-
-    if (field.variant === "boolean") {
-      return (
-        <MenuSubMenu key={field.id}>
-          {item}
-          <MenuContent
-            placement="end top"
-            className="min-w-28"
-            onAction={(key) =>
-              addAndClose(createFilter(field, "is", key === `${field.id}:true`))
-            }
-          >
-            {getBooleanOptions(field, messages).map((option) => (
-              <MenuItem key={option.value} id={`${field.id}:${option.value}`}>
-                <MenuLabel>{option.label}</MenuLabel>
-              </MenuItem>
-            ))}
-          </MenuContent>
-        </MenuSubMenu>
-      )
-    }
-
-    // Presets and "Custom range…" add a range; a field limited to other operators skips them.
-    if (
-      field.variant === "date" &&
-      getFilterOperators(field).includes("between")
-    ) {
-      return (
-        <MenuSubMenu key={field.id}>
-          {item}
-          <MenuContent
-            placement="end top"
-            className="min-w-40"
-            shouldCloseOnSelect={false}
-            onAction={(key) => {
-              const preset = filterDatePresets.find(
-                (candidate) => `${field.id}:${candidate.id}` === key
-              )
-
-              if (preset) {
-                addAndClose(
-                  createFilter(field, "between", getPresetRange(preset))
-                )
-              } else {
-                startDraft(createFilter(field, "between"))
-              }
-            }}
-          >
-            {[
-              ...filterDatePresets.map((preset) => (
-                <MenuItem key={preset.id} id={`${field.id}:${preset.id}`}>
-                  <MenuLabel>{messages.datePresets[preset.id]}</MenuLabel>
-                </MenuItem>
-              )),
-              <MenuItem key="custom" id={`${field.id}:custom`}>
-                <MenuLabel>{messages.customRange}</MenuLabel>
-              </MenuItem>,
-            ]}
-          </MenuContent>
-        </MenuSubMenu>
-      )
-    }
-
-    return item
   }
 
   return (
@@ -1464,10 +1427,6 @@ function useValueLabel(filter: Filter, field: FilterField) {
   }
 }
 
-/** Number inputs without the browser's spin buttons: the chip is too small for them. */
-const numberInputClassName =
-  "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-
 /** The value: opens the field's editor. Hidden for operators without a value (`is empty`). */
 function FilterChipValue({ className }: { className?: string }) {
   const { filter, field, update, remove } = useFilterChip()
@@ -1594,8 +1553,13 @@ function TextEditor({
   )
 }
 
-const parseNumberInput = (raw: string) =>
-  raw.trim() === "" || Number.isNaN(Number(raw)) ? null : Number(raw)
+/** "12.5", "12,5" (decimal comma), "-3"; anything else is no value. */
+function parseNumberInput(raw: string) {
+  const normalized = raw.trim().replace(",", ".")
+  const number = Number(normalized)
+
+  return normalized === "" || Number.isNaN(number) ? null : number
+}
 
 const formatNumberInput = (value: number | null) =>
   value === null ? "" : String(value)
@@ -1617,14 +1581,15 @@ function NumberInput({ value, onChange, ...props }: NumberInputProps) {
 
   // The parent decides: when what is typed does not parse to its value (it clamped, reset or
   // rejected the change), show the parent's value. Partial input that parses the same is kept.
-  if (!Object.is(parseNumberInput(raw), value)) setRaw(formatNumberInput(value))
+  // `!==`, not Object.is: -0 and 0 are the same number here.
+  if (parseNumberInput(raw) !== value) setRaw(formatNumberInput(value))
 
   return (
     <Input
       {...props}
-      type="number"
+      // Text, not type="number": a number input reports "" for "1." until the next digit, and
+      // "-0" round-trips as "0", so the typed text and the value would disagree.
       inputMode="decimal"
-      className={numberInputClassName}
       value={raw}
       onChange={(event) => {
         setRaw(event.target.value)
@@ -1783,7 +1748,9 @@ function BooleanEditor({ filter, field, onCommit }: FilterValueEditorProps) {
       items={getBooleanOptions(field, messages)}
       selectionMode="single"
       disallowEmptySelection
-      selectedKeys={[String(filter.value === true)]}
+      selectedKeys={
+        typeof filter.value === "boolean" ? [String(filter.value)] : []
+      }
       onSelectionChange={(keys) => {
         if (keys === "all") return
         onCommit([...keys][0] === "true")

@@ -183,7 +183,7 @@ pass `operators` to restrict or reorder them.
 | `text`    | contains, does not contain, is, is not, is empty, is not empty                                 | Text input                                                   |
 | `number`  | is between, is, is not, is less than, is at most, is greater than, is at least, is (not) empty | Number input, two for `between`                              |
 | `select`  | is any of, is none of, is empty, is not empty                                                  | List; above 7 options, a search and the picked options first |
-| `boolean` | (none: the chip reads "Electric · Yes")                                                        | Yes / No, picked straight from the menu                      |
+| `boolean` | (none: the chip reads "Electric · Yes")                                                        | Yes / No list                                                |
 | `date`    | is between, is, is before, is after, is empty, is not empty                                    | Presets and a range calendar, or a calendar                  |
 
 Filter values are plain data, so they serialize to a URL or a request body as they are:
@@ -197,10 +197,10 @@ Number fields can set `numberFormat` (e.g. `{ useGrouping: false }` for years) a
 
 "+ Filter" asks for the field, then its operator and value in the same popover. The filter goes
 into the list straight away as a dimmed chip and applies while values are picked, so `onChange`
-fires with filters that have no value yet; it is dropped if the popover closes without one. Yes /
-no and date presets are picked from a submenu in one step. `isFilterActive` tells whether a filter
-narrows anything: filter on the server by sending the active filters, or on the client with
-`matchesFilter(cellValue, filter)`.
+fires with filters that have no value yet; it is dropped if the popover closes without one.
+`isFilterActive` tells whether a filter narrows anything: filter on the server by sending the
+active filters, or on the client with `matchesFilter(cellValue, filter)`. Filters the bar creates
+carry the field's `variant`, so `matchesFilter` compares a date-shaped text value as text.
 
 ## Translations
 

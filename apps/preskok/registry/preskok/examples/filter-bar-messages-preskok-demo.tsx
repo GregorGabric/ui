@@ -40,7 +40,6 @@ const messages: FilterBarMessagesInput = {
   noFields: "Ni polj",
   noResults: "Ni zadetkov",
   backToFields: "Nazaj na polja",
-  customRange: "Obdobje po meri…",
   min: "Od",
   max: "Do",
   and: "in",
