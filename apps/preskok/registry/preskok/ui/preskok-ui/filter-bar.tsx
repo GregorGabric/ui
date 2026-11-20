@@ -508,8 +508,19 @@ function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
     return operator === "isAnyOf" ? hasAny : !hasAny
   }
 
+  // A list cell (tags, several prices) matches when any item does; "is not" / "does not contain"
+  // need every item to pass.
+  if (Array.isArray(cellValue)) {
+    const matchesItem = (item: string | number) => matchesFilter(item, filter)
+
+    return operator === "isNot" || operator === "notContains"
+      ? cellValue.every(matchesItem)
+      : cellValue.some(matchesItem)
+  }
+
   // A day value ("2026-11-20") against a day or timestamp cell compares days, like before / after.
   const isDayComparison =
+    (operator === "is" || operator === "isNot") &&
     typeof value === "string" &&
     dayPattern.test(value) &&
     typeof cellValue === "string" &&
@@ -915,8 +926,11 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
 
   // A page-wide shortcut subscribes to `window`, which is what Effects are for; React Aria's
   // `useKeyboard` only sees events on the element it is spread onto.
+  const canAdd = addableFields.length > 0
+
   useEffect(() => {
-    if (!shortcut) return
+    // Nothing to add once every field is in use, so the shortcut has nothing to open.
+    if (!shortcut || !canAdd) return
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (!isShortcutEvent(event, shortcut)) return
@@ -929,9 +943,9 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
     window.addEventListener("keydown", onKeyDown)
 
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [shortcut, addButtonRef])
+  }, [shortcut, canAdd, addButtonRef])
 
-  if (!addableFields.length && !isMenuOpen) return null
+  if (!canAdd && !isMenuOpen) return null
 
   const updateDraft = (next: Partial<Filter>) =>
     setFilters(
@@ -1060,7 +1074,7 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
       </Button>
       <PopoverContent
         placement="bottom start"
-        className="max-w-[calc(100vw-1.5rem)] min-w-0 overflow-hidden p-0"
+        className="max-w-[calc(100vw-1.5rem)] min-w-0 overflow-x-hidden overflow-y-auto p-0"
       >
         <Dialog aria-label={messages.addFilter} className="outline-hidden">
           {draft && draftField ? (
@@ -1094,6 +1108,7 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
                     onPress={() => {
                       setDraftId(null)
                       setMenuOpen(false)
+                      restoreFocus()
                     }}
                   >
                     {messages.addFilter}
@@ -1110,45 +1125,49 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
               )}
             </div>
           ) : (
-            <Autocomplete filter={contains}>
-              <SearchField
-                autoFocus
-                aria-label={messages.searchFields}
-                className="w-64 max-w-full border-b border-foreground/10 p-1"
-              >
-                <SearchInput placeholder={messages.searchFields} />
-              </SearchField>
-              <MenuPrimitive
-                aria-label={messages.fields}
-                // Picking a field moves to its value step; the popover stays open.
-                shouldCloseOnSelect={false}
-                className={menuContentStyles({
-                  className: "max-h-80 w-64 max-w-full",
-                })}
-                onAction={(key) => {
-                  const field = addableFields.find(
-                    (candidate) => candidate.id === key
-                  )
+            // While the popover closes after a pick, this list shows again during the exit; inert
+            // keeps the release of that same click from starting another filter.
+            <div inert={!isMenuOpen}>
+              <Autocomplete filter={contains}>
+                <SearchField
+                  autoFocus
+                  aria-label={messages.searchFields}
+                  className="w-64 max-w-full border-b border-foreground/10 p-1"
+                >
+                  <SearchInput placeholder={messages.searchFields} />
+                </SearchField>
+                <MenuPrimitive
+                  aria-label={messages.fields}
+                  // Picking a field moves to its value step; the popover stays open.
+                  shouldCloseOnSelect={false}
+                  className={menuContentStyles({
+                    className: "max-h-80 w-64 max-w-full",
+                  })}
+                  onAction={(key) => {
+                    const field = addableFields.find(
+                      (candidate) => candidate.id === key
+                    )
 
-                  if (field) startDraft(createFilter(field))
-                }}
-                renderEmptyState={() => (
-                  <div className="px-3 py-2 text-sm text-muted-foreground">
-                    {messages.noFields}
-                  </div>
-                )}
-              >
-                {[...groups].map(([group, groupFields]) =>
-                  group ? (
-                    <MenuSection key={group} id={group} label={group}>
-                      {groupFields.map(renderField)}
-                    </MenuSection>
-                  ) : (
-                    groupFields.map(renderField)
-                  )
-                )}
-              </MenuPrimitive>
-            </Autocomplete>
+                    if (field) startDraft(createFilter(field))
+                  }}
+                  renderEmptyState={() => (
+                    <div className="px-3 py-2 text-sm text-muted-foreground">
+                      {messages.noFields}
+                    </div>
+                  )}
+                >
+                  {[...groups].map(([group, groupFields]) =>
+                    group ? (
+                      <MenuSection key={group} id={group} label={group}>
+                        {groupFields.map(renderField)}
+                      </MenuSection>
+                    ) : (
+                      groupFields.map(renderField)
+                    )
+                  )}
+                </MenuPrimitive>
+              </Autocomplete>
+            </div>
           )}
         </Dialog>
       </PopoverContent>
@@ -1498,7 +1517,7 @@ function FilterChipValue({ className }: { className?: string }) {
       </ButtonPrimitive>
       <PopoverContent
         placement="bottom start"
-        className="max-w-[calc(100vw-1.5rem)] min-w-0 overflow-hidden p-0"
+        className="max-w-[calc(100vw-1.5rem)] min-w-0 overflow-x-hidden overflow-y-auto p-0"
       >
         <Dialog
           aria-label={`${field.label} ${messages.operators[filter.operator]}`}
@@ -1590,19 +1609,15 @@ interface NumberInputProps {
 }
 
 /**
- * Keeps what is typed ("1.", "-") while it does not parse yet, and takes the parent's value when it
- * changes to something else (a parent that clamps the number, or resets it).
+ * Keeps partial typing ("1.") that parses to the parent's value, and shows the parent's value
+ * whenever the two disagree (a parent that clamps, resets or rejects the number).
  */
 function NumberInput({ value, onChange, ...props }: NumberInputProps) {
   const [raw, setRaw] = useState(() => formatNumberInput(value))
-  const [previous, setPrevious] = useState(value)
 
-  if (!Object.is(previous, value)) {
-    setPrevious(value)
-
-    if (!Object.is(parseNumberInput(raw), value))
-      setRaw(formatNumberInput(value))
-  }
+  // The parent decides: when what is typed does not parse to its value (it clamped, reset or
+  // rejected the change), show the parent's value. Partial input that parses the same is kept.
+  if (!Object.is(parseNumberInput(raw), value)) setRaw(formatNumberInput(value))
 
   return (
     <Input
@@ -1717,7 +1732,8 @@ function SelectEditor({
             : [...keys].map(String)
 
         if (isMultiple) onChange(next)
-        else onCommit(next)
+        // Clicking the selected option of a single select deselects it; keep it instead.
+        else onCommit(next.length ? next : selected)
       }}
       renderEmptyState={() => (
         <div className="px-3 py-2 text-sm text-muted-foreground">
