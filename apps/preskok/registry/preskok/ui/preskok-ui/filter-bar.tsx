@@ -929,7 +929,7 @@ function FilterOperatorSegment({
 
   if (operators.length < 2) {
     return (
-      <span className="flex shrink-0 items-center pe-2 text-muted-foreground">
+      <span className="flex shrink-0 items-center border-s border-input px-2 text-muted-foreground">
         {label}
       </span>
     )
