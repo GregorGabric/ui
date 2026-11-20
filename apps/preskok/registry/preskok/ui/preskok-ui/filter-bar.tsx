@@ -75,26 +75,26 @@ type FilterOperator =
   | "isEmpty"
   | "isNotEmpty"
 
-/** A day range as ISO dates (`2026-11-20`). */
+/** A day range as ISO dates (`2026-11-20`); an empty end is open. */
 interface FilterDateRange {
   start: string
   end: string
 }
 
 /**
- * A filter's value, by variant and operator:
- * text `string`, number `number | null` (`between`: `[min, max]`), select `Array<string>`,
- * boolean `boolean`, date ISO `string` (`between`: `{ start, end }`). Operators without a value
- * (`isEmpty`, `isNotEmpty`) keep `null`.
+ * A filter's value, tagged by kind so every consumer branches on `type` instead of guessing:
+ * text, a number or a `range` (number `between`), the picked `options` of a select, a yes / no
+ * `boolean`, a `day` or `days` (date `between`), and `none` for `isEmpty` / `isNotEmpty`.
  */
 type FilterValue =
-  | string
-  | number
-  | boolean
-  | Array<string>
-  | [number | null, number | null]
-  | FilterDateRange
-  | null
+  | { type: "text"; text: string }
+  | { type: "number"; number: number | null }
+  | { type: "range"; min: number | null; max: number | null }
+  | { type: "options"; values: Array<string> }
+  | { type: "boolean"; value: boolean | null }
+  | { type: "day"; day: string }
+  | ({ type: "days" } & FilterDateRange)
+  | { type: "none" }
 
 /** A row's value for a field, as `matchesFilter` reads it. Lists are for `select` fields (tags). */
 type FilterCellValue =
@@ -277,53 +277,68 @@ function isValuelessOperator(operator: FilterOperator) {
   return valuelessOperators.has(operator)
 }
 
+const noValue: FilterValue = { type: "none" }
+
+/** A number value, or the end of a range that fits the operator. */
+function toSingleNumber(operator: FilterOperator, previous: FilterValue) {
+  if (previous.type === "number") return previous.number
+
+  if (previous.type !== "range") return null
+
+  // "is at most" / "is less than" take the range's max; the rest its min, else whichever is set.
+  if (operator === "lt" || operator === "lte")
+    return previous.max ?? previous.min
+
+  return previous.min ?? previous.max
+}
+
 /** The empty value an operator starts with, keeping what still fits when the operator changes. */
 function getInitialValue(
   field: FilterField,
   operator: FilterOperator,
-  previous: FilterValue = null
+  previous: FilterValue = noValue
 ): FilterValue {
-  if (isValuelessOperator(operator)) return null
+  if (isValuelessOperator(operator)) return noValue
 
   switch (field.variant) {
     case "text":
-      return typeof previous === "string" ? previous : ""
+      return previous.type === "text" ? previous : { type: "text", text: "" }
     case "number":
-      if (operator === "between") {
-        if (isNumberRange(previous)) return previous
-
-        return [typeof previous === "number" ? previous : null, null]
+      if (operator !== "between") {
+        return { type: "number", number: toSingleNumber(operator, previous) }
       }
 
-      if (typeof previous === "number") return previous
+      if (previous.type === "range") return previous
 
-      if (!isNumberRange(previous)) return null
-
-      // "is at most" / "is less than" take the range's max; the rest its min, else whichever is set.
-      if (operator === "lt" || operator === "lte")
-        return previous[1] ?? previous[0]
-
-      return previous[0] ?? previous[1]
+      return {
+        type: "range",
+        min: previous.type === "number" ? previous.number : null,
+        max: null,
+      }
     case "select":
-      return Array.isArray(previous) &&
-        previous.every((item) => typeof item === "string")
+      return previous.type === "options"
         ? previous
-        : []
+        : { type: "options", values: [] }
     case "boolean":
       // No value until Yes or No is picked, so picking Yes is a change the editor reports.
-      return typeof previous === "boolean" ? previous : null
+      return previous.type === "boolean"
+        ? previous
+        : { type: "boolean", value: null }
     case "date":
       if (operator === "between") {
-        if (isDateRange(previous)) return previous
+        if (previous.type === "days") return previous
 
-        return typeof previous === "string"
-          ? { start: previous, end: previous }
-          : { start: "", end: "" }
+        const day = previous.type === "day" ? previous.day : ""
+
+        return { type: "days", start: day, end: day }
       }
 
-      if (typeof previous === "string") return previous
+      if (previous.type === "day") return previous
 
-      return isDateRange(previous) ? previous.start : ""
+      return {
+        type: "day",
+        day: previous.type === "days" ? previous.start : "",
+      }
   }
 }
 
@@ -339,115 +354,82 @@ function createFilter(
   }
 }
 
-function isDateRange(value: FilterValue): value is FilterDateRange {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "start" in value &&
-    "end" in value
-  )
-}
-
-function isStringList(value: FilterValue): value is Array<string> {
-  return Array.isArray(value) && value.every((item) => typeof item === "string")
-}
-
-function isNumberRange(
-  value: FilterValue
-): value is [number | null, number | null] {
-  return (
-    Array.isArray(value) &&
-    value.length === 2 &&
-    value.every((item) => item === null || typeof item === "number")
-  )
-}
-
-/** The selected option values of a `select` filter. */
-function getSelectedValues(filter: Filter) {
-  return isStringList(filter.value) ? filter.value : []
+/** A number bound that narrows something: NaN or Infinity (from a URL or a request) does not. */
+function isBound(bound: number | null): bound is number {
+  return bound !== null && Number.isFinite(bound)
 }
 
 /** True when a filter narrows anything: it has a value, or its operator needs none. */
 function isFilterActive(filter: Filter) {
-  if (isValuelessOperator(filter.operator)) return true
-
   const { value } = filter
 
-  if (value === null || value === "") return false
-
-  if (isDateRange(value)) return Boolean(value.start || value.end)
-
-  // NaN or Infinity (from a URL or a request) is no bound: it would hide every row.
-  const isSet = (item: string | number | null) =>
-    typeof item === "number"
-      ? Number.isFinite(item)
-      : item !== null && item !== ""
-
-  if (Array.isArray(value)) return value.some(isSet)
-
-  if (typeof value === "number") return isSet(value)
-
-  return true
+  switch (value.type) {
+    case "none":
+      return true
+    case "text":
+      return value.text !== ""
+    case "number":
+      return isBound(value.number)
+    case "range":
+      return isBound(value.min) || isBound(value.max)
+    case "options":
+      return value.values.length > 0
+    case "boolean":
+      return value.value !== null
+    case "day":
+      return value.day !== ""
+    case "days":
+      return Boolean(value.start || value.end)
+  }
 }
 
 /* -------------------------------------------------------------------------------------------------
  * Matching (client-side filtering)
  * -----------------------------------------------------------------------------------------------*/
 
-function isEmptyCellValue(value: FilterCellValue) {
-  if (value === null || value === undefined) return true
+// Cells come from the consumer's rows. They are read with String(), Number() and `instanceof`,
+// which convert any cell without guessing at its representation.
 
-  if (typeof value === "string") return value.trim() === ""
+function isEmptyCellValue(cell: FilterCellValue) {
+  if (cell === null || cell === undefined) return true
 
-  if (Array.isArray(value)) return value.length === 0
+  if (Array.isArray(cell)) return cell.length === 0
 
-  return false
+  if (cell instanceof Date) return Number.isNaN(cell.getTime())
+
+  return String(cell).trim() === ""
 }
 
-function toDayString(value: FilterCellValue) {
-  if (value instanceof Date) {
-    const month = String(value.getMonth() + 1).padStart(2, "0")
-    const day = String(value.getDate()).padStart(2, "0")
+function toDayString(cell: FilterCellValue): string {
+  if (cell instanceof Date) {
+    const month = String(cell.getMonth() + 1).padStart(2, "0")
+    const day = String(cell.getDate()).padStart(2, "0")
 
-    return `${value.getFullYear()}-${month}-${day}`
+    return `${cell.getFullYear()}-${month}-${day}`
   }
 
-  if (typeof value !== "string") return ""
+  const text = String(cell)
 
   // A timestamp names an instant: read its day in local time, like a Date cell. A plain
   // "2026-11-20" is already a day.
-  const instant = value.includes("T") ? new Date(value) : null
+  if (text.includes("T")) {
+    const instant = new Date(text)
 
-  if (instant && !Number.isNaN(instant.getTime())) return toDayString(instant)
-
-  return value.slice(0, 10)
-}
-
-function toNumber(value: FilterCellValue) {
-  if (typeof value === "number") return value
-
-  if (typeof value === "string" && value.trim() !== "") return Number(value)
-
-  return Number.NaN
-}
-
-function compareNumber(
-  cell: number,
-  operator: FilterOperator,
-  value: FilterValue
-) {
-  if (operator === "between" && isNumberRange(value)) {
-    const [min, max] = value
-
-    // A missing or non-finite end leaves that side open.
-    const isBound = (bound: number | null): bound is number =>
-      bound !== null && Number.isFinite(bound)
-
-    return (!isBound(min) || cell >= min) && (!isBound(max) || cell <= max)
+    if (!Number.isNaN(instant.getTime())) return toDayString(instant)
   }
 
-  if (typeof value !== "number") return true
+  return text.slice(0, 10)
+}
 
+function toNumber(cell: FilterCellValue) {
+  if (cell instanceof Date || Array.isArray(cell)) return Number.NaN
+
+  const text = String(cell).trim()
+
+  return text === "" ? Number.NaN : Number(text)
+}
+
+function compareNumber(cell: number, operator: FilterOperator, value: number) {
   switch (operator) {
     case "is":
       return cell === value
@@ -466,15 +448,7 @@ function compareNumber(
   }
 }
 
-function compareDay(day: string, operator: FilterOperator, value: FilterValue) {
-  if (operator === "between" && isDateRange(value)) {
-    return (
-      (!value.start || day >= value.start) && (!value.end || day <= value.end)
-    )
-  }
-
-  if (typeof value !== "string" || !value) return true
-
+function compareDay(day: string, operator: FilterOperator, value: string) {
   switch (operator) {
     case "is":
       return day === value
@@ -489,38 +463,29 @@ function compareDay(day: string, operator: FilterOperator, value: FilterValue) {
   }
 }
 
-function compareText(
-  cell: string,
-  operator: FilterOperator,
-  value: FilterValue
-) {
+function compareText(cell: string, operator: FilterOperator, query: string) {
   const text = cell.toLocaleLowerCase()
-  const query = (typeof value === "string" ? value : "").toLocaleLowerCase()
+  const search = query.toLocaleLowerCase()
 
   switch (operator) {
     case "contains":
-      return text.includes(query)
+      return text.includes(search)
     case "notContains":
-      return !text.includes(query)
+      return !text.includes(search)
     case "is":
-      return text === query
+      return text === search
     case "isNot":
-      return text !== query
+      return text !== search
     default:
       return true
   }
 }
 
 /**
- * Whether a row's value passes a filter, compared as its field's variant. Inactive filters (no
- * value yet) pass everything.
- * `rows.filter((row) => filters.every((filter) => matchesFilter(row[filter.field], filter, fieldsById[filter.field])))`
+ * Whether a row's value passes a filter. Inactive filters (no value yet) pass everything.
+ * `rows.filter((row) => filters.every((filter) => matchesFilter(row[filter.field], filter)))`
  */
-function matchesFilter(
-  cellValue: FilterCellValue,
-  filter: Filter,
-  field: FilterField
-): boolean {
+function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
   if (!isFilterActive(filter)) return true
 
   const { operator, value } = filter
@@ -529,30 +494,52 @@ function matchesFilter(
 
   if (operator === "isNotEmpty") return !isEmptyCellValue(cellValue)
 
-  if (field.variant === "select") {
+  if (value.type === "options") {
     // A list cell (tags) matches when any of its values is picked.
     const cells = Array.isArray(cellValue) ? cellValue : [cellValue]
-    const selected = isStringList(value) ? value : []
-    const hasAny = cells.some((cell) => selected.includes(String(cell)))
+    const hasAny = cells.some((cell) => value.values.includes(String(cell)))
 
     return operator === "isNoneOf" ? !hasAny : hasAny
   }
 
   if (isEmptyCellValue(cellValue)) return false
 
-  switch (field.variant) {
+  switch (value.type) {
     case "boolean":
-      return cellValue === value
-    case "date":
-      return compareDay(toDayString(cellValue), operator, value)
+      return cellValue === value.value
+    case "text":
+      return compareText(String(cellValue), operator, value.text)
     case "number": {
       const cell = toNumber(cellValue)
 
-      return !Number.isNaN(cell) && compareNumber(cell, operator, value)
+      return (
+        isBound(value.number) && compareNumber(cell, operator, value.number)
+      )
     }
 
-    case "text":
-      return compareText(String(cellValue), operator, value)
+    case "range": {
+      const cell = toNumber(cellValue)
+
+      // A missing or non-finite end leaves that side open.
+      return (
+        !Number.isNaN(cell) &&
+        (!isBound(value.min) || cell >= value.min) &&
+        (!isBound(value.max) || cell <= value.max)
+      )
+    }
+
+    case "day":
+      return compareDay(toDayString(cellValue), operator, value.day)
+    case "days": {
+      const day = toDayString(cellValue)
+
+      return (
+        (!value.start || day >= value.start) && (!value.end || day <= value.end)
+      )
+    }
+
+    case "none":
+      return true
   }
 }
 
@@ -588,10 +575,16 @@ const filterDatePresets: Array<FilterDatePreset> = [
   },
 ]
 
-function getPresetRange(preset: FilterDatePreset): FilterDateRange {
+function getPresetRange(
+  preset: FilterDatePreset
+): Extract<FilterValue, { type: "days" }> {
   const range = preset.getRange(today(getLocalTimeZone()))
 
-  return { start: range.start.toString(), end: range.end.toString() }
+  return {
+    type: "days",
+    start: range.start.toString(),
+    end: range.end.toString(),
+  }
 }
 
 function findPreset(range: FilterDateRange) {
@@ -1164,7 +1157,8 @@ function FilterChipRemove({ className }: { className?: string }) {
 
 /** "is any of" reads wrong with one value: say "is" / "is not" then. */
 function getOperatorLabel(filter: Filter, messages: FilterBarStrings) {
-  const count = Array.isArray(filter.value) ? filter.value.length : 0
+  const { value } = filter
+  const count = value.type === "options" ? value.values.length : 0
 
   if (count === 1 && filter.operator === "isAnyOf") return messages.operators.is
 
@@ -1172,11 +1166,7 @@ function getOperatorLabel(filter: Filter, messages: FilterBarStrings) {
     return messages.operators.isNot
   }
 
-  if (filter.operator === "between" && isDateRange(filter.value)) {
-    return findPreset(filter.value)
-      ? messages.inPreset
-      : messages.operators.between
-  }
+  if (value.type === "days" && findPreset(value)) return messages.inPreset
 
   return messages.operators[filter.operator]
 }
@@ -1306,17 +1296,16 @@ function useValueLabel(filter: Filter, field: FilterField) {
 
   if (!isFilterActive(filter)) return null
 
-  switch (field.variant) {
-    case "select": {
-      const selected = getSelectedValues(filter)
+  switch (value.type) {
+    case "options": {
       const options = field.options ?? []
 
       // Options order, not click order, so the chip reads the same however the values were picked.
       const known = options
-        .filter((option) => selected.includes(option.value))
+        .filter((option) => value.values.includes(option.value))
         .map((option) => option.label)
 
-      const unknown = selected.filter(
+      const unknown = value.values.filter(
         (item) => !options.some((option) => option.value === item)
       )
 
@@ -1326,22 +1315,16 @@ function useValueLabel(filter: Filter, field: FilterField) {
     case "boolean":
       return (
         getBooleanOptions(field, messages).find(
-          (option) => option.value === String(value === true)
+          (option) => option.value === String(value.value)
         )?.label ?? ""
       )
+    case "range":
+      return `${formatNumber(value.min)} – ${formatNumber(value.max)}`
     case "number":
-      if (Array.isArray(value)) {
-        const [min, max] = isNumberRange(value) ? value : [null, null]
-
-        return `${formatNumber(min)} – ${formatNumber(max)}`
-      }
-
-      return formatNumber(typeof value === "number" ? value : null)
-    case "date": {
-      if (!isDateRange(value)) {
-        return formatDay(typeof value === "string" ? value : "")
-      }
-
+      return formatNumber(value.number)
+    case "day":
+      return formatDay(value.day)
+    case "days": {
       const preset = findPreset(value)
 
       if (preset) return messages.datePresets[preset.id]
@@ -1349,6 +1332,7 @@ function useValueLabel(filter: Filter, field: FilterField) {
       if (!value.end) return `${formatDay(value.start)} – …`
 
       if (!value.start) return `… – ${formatDay(value.end)}`
+
       const sameYear = value.start.slice(0, 4) === value.end.slice(0, 4)
 
       return `${formatDay(value.start, !sameYear)} – ${formatDay(value.end)}`
@@ -1356,7 +1340,9 @@ function useValueLabel(filter: Filter, field: FilterField) {
 
     case "text":
       // Quoted when rendered; see FilterChipValue.
-      return typeof value === "string" ? value : ""
+      return value.text
+    case "none":
+      return null
   }
 }
 
@@ -1479,14 +1465,15 @@ function TextEditor({
         autoFocus
         aria-label={field.label}
         placeholder={field.placeholder ?? messages.placeholders.text}
-        value={typeof filter.value === "string" ? filter.value : ""}
-        onChange={(event) => onChange(event.target.value)}
+        value={filter.value.type === "text" ? filter.value.text : ""}
+        onChange={(event) =>
+          onChange({ type: "text", text: event.target.value })
+        }
       />
     </form>
   )
 }
 
-/** "12.5", "12,5" (decimal comma), "-3"; anything else is no value. */
 /** What is typed, in the locale's digits and separators ("12,5" in sl-SI); "1e3" or "0x10" is no value. */
 function parseNumberInput(raw: string, locale: string) {
   const parser = new NumberParser(locale)
@@ -1558,9 +1545,10 @@ function NumberEditor({
   const { messages } = useFilterBar()
   const isRange = filter.operator === "between"
 
-  const [min, max] = isNumberRange(filter.value)
-    ? filter.value
-    : [typeof filter.value === "number" ? filter.value : null, null]
+  const { value } = filter
+  const min = value.type === "range" ? value.min : null
+  const max = value.type === "range" ? value.max : null
+  const single = value.type === "number" ? value.number : null
 
   const unit = field.unit ? (
     <span className="shrink-0 text-sm text-muted-foreground">{field.unit}</span>
@@ -1587,8 +1575,14 @@ function NumberEditor({
             ? messages.min
             : (field.placeholder ?? messages.placeholders.number)
         }
-        value={min}
-        onChange={(next) => onChange(isRange ? [next, max] : next)}
+        value={isRange ? min : single}
+        onChange={(next) =>
+          onChange(
+            isRange
+              ? { type: "range", min: next, max }
+              : { type: "number", number: next }
+          )
+        }
       />
       {isRange ? (
         <>
@@ -1599,7 +1593,7 @@ function NumberEditor({
             aria-label={`${field.label} ${messages.max}`}
             placeholder={messages.max}
             value={max}
-            onChange={(next) => onChange([min, next])}
+            onChange={(next) => onChange({ type: "range", min, max: next })}
           />
         </>
       ) : null}
@@ -1622,7 +1616,7 @@ function SelectEditor({
   const options = field.options ?? []
   const isLong = options.length > longListThreshold
   const isMultiple = field.multiple ?? true
-  const selected = getSelectedValues(filter)
+  const selected = filter.value.type === "options" ? filter.value.values : []
   // What was picked when the editor opened goes first; it stays put while you pick more.
   const [pinned] = useState(selected)
 
@@ -1648,9 +1642,10 @@ function SelectEditor({
             ? options.map((option) => option.value)
             : [...keys].map(String)
 
-        if (isMultiple) onChange(next)
+        if (isMultiple) onChange({ type: "options", values: next })
         // Clicking the selected option of a single select deselects it; keep it instead.
-        else onCommit(next.length ? next : selected)
+        else
+          onCommit({ type: "options", values: next.length ? next : selected })
       }}
       renderEmptyState={() => (
         <div className="px-3 py-2 text-sm text-muted-foreground">
@@ -1701,11 +1696,13 @@ function BooleanEditor({ filter, field, onCommit }: FilterValueEditorProps) {
       selectionMode="single"
       disallowEmptySelection
       selectedKeys={
-        typeof filter.value === "boolean" ? [String(filter.value)] : []
+        filter.value.type === "boolean" && filter.value.value !== null
+          ? [String(filter.value.value)]
+          : []
       }
       onSelectionChange={(keys) => {
         if (keys === "all") return
-        onCommit([...keys][0] === "true")
+        onCommit({ type: "boolean", value: [...keys][0] === "true" })
       }}
       className="w-36 min-w-0 rounded-none border-0 bg-transparent"
     >
@@ -1722,7 +1719,7 @@ function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
   const { messages } = useFilterBar()
 
   if (filter.operator !== "between") {
-    const day = parseDay(typeof filter.value === "string" ? filter.value : "")
+    const day = parseDay(filter.value.type === "day" ? filter.value.day : "")
 
     return (
       // The calendar's 44px day cells are 308px wide; on a 320px screen they get 36px.
@@ -1730,15 +1727,14 @@ function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
         <Calendar
           aria-label={field.label}
           value={day}
-          onChange={(next) => onCommit(next.toString())}
+          onChange={(next) => onCommit({ type: "day", day: next.toString() })}
         />
       </div>
     )
   }
 
-  const range = isDateRange(filter.value)
-    ? filter.value
-    : { start: "", end: "" }
+  const range =
+    filter.value.type === "days" ? filter.value : { start: "", end: "" }
 
   const start = parseDay(range.start)
   const end = parseDay(range.end)
@@ -1767,7 +1763,11 @@ function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
           aria-label={field.label}
           value={start && end ? { start, end } : null}
           onChange={(next) =>
-            onCommit({ start: next.start.toString(), end: next.end.toString() })
+            onCommit({
+              type: "days",
+              start: next.start.toString(),
+              end: next.end.toString(),
+            })
           }
         />
       </div>
@@ -1831,7 +1831,6 @@ export type {
   FilterBarProps,
   FilterCellValue,
   FilterChipProps,
-  FilterDateRange,
   FilterField,
   FilterOperator,
   FilterOption,

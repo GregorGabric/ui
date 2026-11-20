@@ -80,12 +80,12 @@ export default function FilterBarMessagesDemo() {
             {
               field: "price",
               operator: "between",
-              value: [12_500, 30_000],
+              value: { type: "range", min: 12_500, max: 30_000 },
             },
             {
               field: "listed",
               operator: "between",
-              value: { start: "2026-09-01", end: "2026-11-15" },
+              value: { type: "days", start: "2026-09-01", end: "2026-11-15" },
             },
           ]}
         >

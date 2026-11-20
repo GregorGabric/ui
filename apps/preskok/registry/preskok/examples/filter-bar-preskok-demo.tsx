@@ -242,8 +242,6 @@ const columns = [
   { id: "listed", name: "Listed" },
 ]
 
-const fieldsById = new Map(fields.map((field) => [field.id, field]))
-
 const listedDate = new Intl.DateTimeFormat("en", {
   day: "numeric",
   month: "short",
@@ -270,7 +268,7 @@ export default function FilterBarDemo() {
     {
       field: "status",
       operator: "isAnyOf",
-      value: ["available", "reserved"],
+      value: { type: "options", values: ["available", "reserved"] },
     },
   ])
 
@@ -279,13 +277,9 @@ export default function FilterBarDemo() {
       `${vehicle.make} ${vehicle.model}`
         .toLocaleLowerCase()
         .includes(query.toLocaleLowerCase()) &&
-      filters.every((filter) => {
-        const field = fieldsById.get(filter.field)
-
-        return (
-          !field || matchesFilter(cellOf(vehicle, filter.field), filter, field)
-        )
-      })
+      filters.every((filter) =>
+        matchesFilter(cellOf(vehicle, filter.field), filter)
+      )
   )
 
   return (

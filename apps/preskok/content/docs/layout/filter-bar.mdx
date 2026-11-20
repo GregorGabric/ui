@@ -87,12 +87,12 @@ const vehicles = [
 export function Vehicles() {
   const [filters, setFilters] = useState<Array<Filter>>([])
   const rows = vehicles.filter((vehicle) =>
-    filters.every((filter) => {
-      const field = fields.find((candidate) => candidate.id === filter.field)
-      const cell = filter.field === "price" ? vehicle.price : vehicle.status
-
-      return !field || matchesFilter(cell, filter, field)
-    })
+    filters.every((filter) =>
+      matchesFilter(
+        filter.field === "price" ? vehicle.price : vehicle.status,
+        filter
+      )
+    )
   )
 
   return (
@@ -113,8 +113,9 @@ export function Vehicles() {
 ```
 
 `FilterBar` holds the filters and lays its children out in a wrapping row, so a search field or a
-sort button can sit beside the chips. A filter is plain data, `{ field, operator, value }`, so it
-goes into a URL or a request body as it is. "+ Filter" adds the filter as soon as a field is
+sort button can sit beside the chips. A filter is plain data, `{ field, operator, value }` with a
+tagged `value` such as `{ type: "range", min: 10000, max: 25000 }`, so it goes into a URL or a
+request body as it is. "+ Filter" adds the filter as soon as a field is
 picked and drops it if the popover closes without a value, so use `isFilterActive` to skip
 filters that narrow nothing yet.
 
@@ -123,13 +124,15 @@ filters that narrow nothing yet.
 A field's `variant` sets its operators and value editor. The first operator is the default; pass
 `operators` to restrict or reorder them.
 
-| Variant   | Operators                                                                   | Value                               |
-| --------- | --------------------------------------------------------------------------- | ----------------------------------- |
-| `text`    | `contains`, `notContains`, `is`, `isNot`, `isEmpty`, `isNotEmpty`           | `string`                            |
-| `number`  | `between`, `is`, `isNot`, `lt`, `lte`, `gt`, `gte`, `isEmpty`, `isNotEmpty` | `number`, or `[min, max]`           |
-| `select`  | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                              | `string[]` of option values         |
-| `boolean` | `is`                                                                        | `boolean`                           |
-| `date`    | `between`, `is`, `before`, `after`, `isEmpty`, `isNotEmpty`                 | `"2026-11-20"`, or `{ start, end }` |
+| Variant   | Operators                                                                   | Value `type`                       |
+| --------- | --------------------------------------------------------------------------- | ---------------------------------- |
+| `text`    | `contains`, `notContains`, `is`, `isNot`, `isEmpty`, `isNotEmpty`           | `text` (`text`)                    |
+| `number`  | `between`, `is`, `isNot`, `lt`, `lte`, `gt`, `gte`, `isEmpty`, `isNotEmpty` | `range` (`min`, `max`) or `number` |
+| `select`  | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                              | `options` (`values`)               |
+| `boolean` | `is`                                                                        | `boolean` (`value`)                |
+| `date`    | `between`, `is`, `before`, `after`, `isEmpty`, `isNotEmpty`                 | `days` (`start`, `end`) or `day`   |
+
+`isEmpty` and `isNotEmpty` carry `{ type: "none" }`.
 
 ## Examples
 

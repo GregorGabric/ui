@@ -47,7 +47,7 @@ export default function FilterBarBasicDemo() {
           {
             field: "status",
             operator: "isAnyOf",
-            value: ["open"],
+            value: { type: "options", values: ["open"] },
           },
         ]}
       >

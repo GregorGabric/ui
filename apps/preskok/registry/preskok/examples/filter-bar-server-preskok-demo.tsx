@@ -11,6 +11,7 @@ import {
   isFilterActive,
   type Filter,
   type FilterField,
+  type FilterValue,
 } from "@/registry/preskok/ui/preskok-ui/filter-bar"
 
 const fields: Array<FilterField> = [
@@ -30,13 +31,33 @@ const fields: Array<FilterField> = [
 ]
 
 /** `?status=isAnyOf.available%2Creserved&price=between.10000%2C25000`: one way to put filters in a URL. */
+/** One string per value kind: "available,reserved", "10000,25000", "2026-11-01,2026-11-30". */
+function serialize(value: FilterValue) {
+  switch (value.type) {
+    case "text":
+      return value.text
+    case "number":
+      return String(value.number ?? "")
+    case "range":
+      return `${value.min ?? ""},${value.max ?? ""}`
+    case "options":
+      return value.values.join(",")
+    case "boolean":
+      return String(value.value ?? "")
+    case "day":
+      return value.day
+    case "days":
+      return `${value.start},${value.end}`
+    case "none":
+      return ""
+  }
+}
+
 function toSearchParams(filters: Array<Filter>) {
   const params = new URLSearchParams()
 
   for (const filter of filters) {
-    const value = Array.isArray(filter.value)
-      ? filter.value.map((item) => item ?? "").join(",")
-      : String(filter.value ?? "")
+    const value = serialize(filter.value)
 
     params.set(
       filter.field,
@@ -56,12 +77,12 @@ export default function FilterBarServerDemo() {
     {
       field: "status",
       operator: "isAnyOf",
-      value: ["available", "reserved"],
+      value: { type: "options", values: ["available", "reserved"] },
     },
     {
       field: "price",
       operator: "between",
-      value: [10_000, 25_000],
+      value: { type: "range", min: 10_000, max: 25_000 },
     },
   ])
 

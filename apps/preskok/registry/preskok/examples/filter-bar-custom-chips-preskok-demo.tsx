@@ -64,17 +64,17 @@ export default function FilterBarCustomChipsDemo() {
           {
             field: "status",
             operator: "isAnyOf",
-            value: ["open", "in-progress"],
+            value: { type: "options", values: ["open", "in-progress"] },
           },
           {
             field: "priority",
             operator: "isAnyOf",
-            value: ["urgent"],
+            value: { type: "options", values: ["urgent"] },
           },
           {
             field: "assignee",
             operator: "contains",
-            value: "ana",
+            value: { type: "text", text: "ana" },
           },
         ]}
       >
