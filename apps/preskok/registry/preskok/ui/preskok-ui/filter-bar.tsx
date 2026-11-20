@@ -161,7 +161,6 @@ interface FilterBarMessages {
   no: string
   min: string
   max: string
-  value: string
   and: string
   notSet: string
   /** "in" before a date preset: "Listed in Last 30 days". */
@@ -199,7 +198,6 @@ const defaultFilterBarMessages: FilterBarMessages = {
   no: "No",
   min: "Min",
   max: "Max",
-  value: "Value",
   and: "and",
   notSet: "not set",
   inPreset: "in",
@@ -308,9 +306,13 @@ function getInitialValue(
 
       if (typeof previous === "number") return previous
 
-      return Array.isArray(previous) && typeof previous[0] === "number"
-        ? previous[0]
-        : null
+      if (!isNumberRange(previous)) return null
+
+      // "is at most" / "is less than" take the range's max; the rest its min, else whichever is set.
+      if (operator === "lt" || operator === "lte")
+        return previous[1] ?? previous[0]
+
+      return previous[0] ?? previous[1]
     case "select":
       return Array.isArray(previous) &&
         previous.every((item) => typeof item === "string")
@@ -433,12 +435,15 @@ function toDayString(value: FilterCellValue) {
 }
 
 /** `true`, a non-zero number, or "true" / "yes" / "1"; "false", "0" and "no" are false. */
+/** `true` / "true" / "yes" / "1" / non-zero, `false` / "false" / "no" / "0" / 0; other text is neither. */
 function toBoolean(value: FilterCellValue) {
-  if (typeof value === "string") {
-    return ["true", "yes", "1"].includes(value.trim().toLocaleLowerCase())
-  }
+  if (typeof value !== "string") return Boolean(value)
 
-  return Boolean(value)
+  const text = value.trim().toLocaleLowerCase()
+
+  if (["true", "yes", "1"].includes(text)) return true
+
+  return ["false", "no", "0"].includes(text) ? false : null
 }
 
 function toNumber(value: FilterCellValue) {
@@ -578,10 +583,14 @@ function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
   // need every item to pass.
   if (Array.isArray(cellValue)) {
     const matchesItem = (item: string | number) => matchesFilter(item, filter)
+    // Blank entries (an empty tag from an import) say nothing about the row.
+    const items = cellValue.filter((item) => !isEmptyCellValue(item))
+
+    if (!items.length) return false
 
     return operator === "isNot" || operator === "notContains"
-      ? cellValue.every(matchesItem)
-      : cellValue.some(matchesItem)
+      ? items.every(matchesItem)
+      : items.some(matchesItem)
   }
 
   if (typeof value === "boolean") return toBoolean(cellValue) === value
@@ -1405,7 +1414,11 @@ function useValueLabel(filter: Filter, field: FilterField) {
   const formatNumber = (value: number | null) =>
     value === null || !Number.isFinite(value)
       ? "…"
-      : `${new Intl.NumberFormat(locale, field.numberFormat).format(value)}${field.unit ? ` ${field.unit}` : ""}`
+      : `${new Intl.NumberFormat(locale, {
+          // Intl stops at 3 decimals; a threshold of 0.0000001 would read "0".
+          maximumFractionDigits: 20,
+          ...field.numberFormat,
+        }).format(value)}${field.unit ? ` ${field.unit}` : ""}`
 
   const { value } = filter
 
@@ -1596,7 +1609,16 @@ const decimalPattern = /^-?(?:\d+\.?\d*|\.\d+)$/
 
 /** "12.5", "12,5" (decimal comma), "-3", "1." while typing; anything else ("1e3", "0x10") is no value. */
 function parseNumberInput(raw: string) {
-  const normalized = raw.trim().replace(",", ".")
+  const normalized = raw
+    .trim()
+    // Arabic-Indic (٠–٩) and Persian (۰–۹) digits, the Arabic decimal separator (٫) and a decimal comma.
+    .replace(/[\u0660-\u0669]/g, (digit) =>
+      String(digit.charCodeAt(0) - 0x0660)
+    )
+    .replace(/[\u06f0-\u06f9]/g, (digit) =>
+      String(digit.charCodeAt(0) - 0x06f0)
+    )
+    .replace(/[\u066b,]/, ".")
 
   if (!decimalPattern.test(normalized)) return null
 
@@ -1690,7 +1712,9 @@ function NumberEditor({
         autoFocus
         aria-label={isRange ? `${field.label} ${messages.min}` : field.label}
         placeholder={
-          isRange ? messages.min : (field.placeholder ?? messages.value)
+          isRange
+            ? messages.min
+            : (field.placeholder ?? messages.placeholders.number)
         }
         value={min}
         onChange={(next) => onChange(isRange ? [next, max] : next)}
