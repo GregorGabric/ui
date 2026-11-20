@@ -1,6 +1,6 @@
 ---
 title: Sheet
-description: A sheet component that slides in from different sides with blur effects.
+description: A swipeable panel that slides in from the edge of the viewport, built on the React Aria Sheet.
 ---
 
 import { CodeTabs } from "@/components/code-tabs"
@@ -9,7 +9,7 @@ import { ComponentSource } from "@/components/component-source"
 
 <ComponentPreview
   name="sheet-demo"
-  description="Sheet sliding in with overlay."
+  description="A floating sheet from the right."
 />
 
 ## Installation
@@ -68,3 +68,114 @@ export function SheetDemo() {
   )
 }
 ```
+
+The sheet is built on the [React Aria Sheet](https://react-aria.adobe.com/Sheet), which needs `react-aria-components` 1.22.0 or later. The CLI also adds the `sheet-backdrop` and `sheet-scale-back` keyframes that keep the backdrop and stacked sheets in sync with the swipe gesture.
+
+React Aria positions the overlay itself. It uses `position: absolute` sized to the page instead of `position: fixed`, because iOS Safari clips fixed elements to the inner viewport. Don't add `fixed` or `inset-0` through `overlay.className`. If you do, the backdrop stops short of the status bar and address bar.
+
+## Side
+
+`side` sets the edge the sheet is anchored to. It can be swiped back toward that edge to dismiss it. `start` and `end` follow the reading direction, so use them for navigation. Use `bottom` for a mobile sheet. `center` opens a card in the middle of the screen that can be swiped up or down.
+
+<ComponentPreview
+  name="sheet-position-demo"
+  description="A sheet on every edge, floating or flush."
+/>
+
+### Navigation
+
+A flush sheet on the `start` edge works as a mobile navigation menu. It mirrors to the right in right-to-left locales.
+
+<ComponentPreview
+  name="sheet-side-demo"
+  description="A navigation sheet from the start edge."
+/>
+
+## Float
+
+`isFloat` insets the sheet from the viewport edge and rounds every corner. It's on by default. Set `isFloat={false}` to attach the sheet to the edge. A flush sheet also gets overscroll padding, so pulling past the open position doesn't reveal a gap.
+
+## Controlled
+
+Pass `isOpen` and `onOpenChange` to `SheetContent` to open it from your own state. Without a `Sheet` trigger, one sheet can show whichever row was pressed. Keep the selected item in state after closing, so the content stays in place while the sheet animates out.
+
+<ComponentPreview
+  name="sheet-controlled-demo"
+  description="A details sheet opened from a list."
+/>
+
+## Snap points
+
+`snapPoints` makes the sheet stop partially open. Each value is the visible amount, as pixels or a CSS length. Percentages are relative to the sheet's size. The sheet opens at the first snap point and can be dragged to full height. Its body scrolls only once it is fully expanded.
+
+<ComponentPreview
+  name="sheet-snap-points-demo"
+  description="A bottom sheet that opens partway."
+/>
+
+## Scrolling content
+
+`SheetHeader` and `SheetFooter` stay in place while `SheetBody` scrolls. Put long lists and forms in the body, and keep the main action in the footer.
+
+<ComponentPreview
+  name="sheet-scrollable-demo"
+  description="A long service history with a fixed header and footer."
+/>
+
+## Interactive content
+
+A sheet can hold stateful UI. Totals, quantities and validation update while it's open. This order sheet sits at the bottom, the reach-friendly spot on a phone.
+
+<ComponentPreview
+  name="sheet-cart-demo"
+  description="A parts order with quantity controls and a running total."
+/>
+
+## Stacking
+
+Put a `Sheet` inside `SheetContent` to drill into a flow. The parent scales back behind the child, and swiping the child away returns to the parent. Only the bottom-most sheet dims the page.
+
+<ComponentPreview
+  name="sheet-stacking-demo"
+  description="Three nested sheets: lot, contact seller, pickup details."
+/>
+
+## Prevent dismissal
+
+Set `preventDismissal` to block swiping, Escape and outside clicks. The user then has to pick an action in the sheet. `role="alertdialog"` turns it on by default and hides the close button and drag handle. Use it for binding decisions, such as confirming a bid.
+
+<ComponentPreview
+  name="sheet-prevent-dismissal-demo"
+  description="A binding bid confirmation that must be answered."
+/>
+
+## Transition
+
+React Aria opens and closes the sheet with a native smooth scroll, and the browser decides how long that takes. `transition="snappy"` (the default) uses a spring instead. It starts the spring where the sheet first appears, so the motion you see lands in about 250ms rather than 500ms. `smooth` is a softer spring, and `native` keeps the browser's scroll. Swiping, snap points and stacking are unchanged. With reduced motion, the sheet opens instantly either way.
+
+## Animation
+
+`swipeAnimation` takes the name of a CSS `@keyframes` rule that is scrubbed by the swipe gesture. `from` is the dismissed state and `to` is fully open. `swipeAnimationRange` limits the animation to a range of snap point indices. Define the keyframes in your stylesheet. You can also render them with a React `<style href precedence>`, which React hoists and dedupes.
+
+<ComponentPreview
+  name="sheet-animation-demo"
+  description="A sheet that skews and shrinks as it is swiped away."
+/>
+
+## Props
+
+`SheetContent` accepts the React Aria `SheetOverlay` props (`isOpen`, `onOpenChange`, `swipeDirection`, `snapPoints`, `preventDismissal`, `shouldCloseOnInteractOutside`), plus:
+
+| Prop                  | Type                                                                     | Default                         |
+| --------------------- | ------------------------------------------------------------------------ | ------------------------------- |
+| `side`                | `"top" \| "bottom" \| "left" \| "right" \| "start" \| "end" \| "center"` | `"right"`                       |
+| `isFloat`             | `boolean`                                                                | `true`                          |
+| `isBlurred`           | `boolean`                                                                | `false`                         |
+| `closeButton`         | `boolean`                                                                | `true`                          |
+| `notch`               | `boolean`                                                                | `true`                          |
+| `role`                | `"dialog" \| "alertdialog"`                                              | `"dialog"`                      |
+| `preventDismissal`    | `boolean`                                                                | `true` for `role="alertdialog"` |
+| `transition`          | `"snappy" \| "smooth" \| "native"`                                       | `"snappy"`                      |
+| `swipeAnimation`      | `string`                                                                 | –                               |
+| `swipeAnimationRange` | `{ start?: number, end?: number }`                                       | –                               |
+| `overlay`             | `SheetOverlayProps`                                                      | –                               |

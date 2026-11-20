@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-scrollable-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/sheet.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/sheet-scrollable-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  Sheet,\n  SheetBody,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n} from \"@/components/ui/preskok-ui/sheet\"\n\nconst services = [\n  [\"14 Aug 2026\", \"98,420 km\", \"Annual service, cabin filter\"],\n  [\"2 Mar 2026\", \"91,050 km\", \"Winter tyres fitted\"],\n  [\"19 Sep 2025\", \"84,700 km\", \"Brake pads and discs, front axle\"],\n  [\"7 Jun 2025\", \"80,110 km\", \"Annual service, oil and filter\"],\n  [\"28 Nov 2024\", \"73,900 km\", \"Battery replaced\"],\n  [\"11 Jun 2024\", \"68,300 km\", \"Timing belt and water pump\"],\n  [\"3 Jan 2024\", \"62,840 km\", \"Wiper blades, washer pump\"],\n  [\"22 Jun 2023\", \"57,200 km\", \"Annual service, air filter\"],\n  [\"9 Dec 2022\", \"50,060 km\", \"Rear shock absorbers\"],\n  [\"16 Jun 2022\", \"44,500 km\", \"Annual service, brake fluid\"],\n  [\"4 Feb 2022\", \"38,900 km\", \"Software update, recall 23V-114\"],\n  [\"30 Jun 2021\", \"31,250 km\", \"Annual service, oil and filter\"],\n  [\"12 Jan 2021\", \"24,800 km\", \"Windscreen replaced\"],\n  [\"18 Jun 2020\", \"16,400 km\", \"First service\"],\n]\n\nexport default function SheetScrollableDemo() {\n  return (\n    <Sheet>\n      <Button intent=\"outline\">Service history</Button>\n      <SheetContent>\n        <SheetHeader>\n          <SheetTitle>Service history</SheetTitle>\n          <SheetDescription>\n            Škoda Superb 2.0 TDI · {services.length} records\n          </SheetDescription>\n        </SheetHeader>\n        <SheetBody>\n          <ol className=\"divide-y text-sm\">\n            {services.map(([date, mileage, work]) => (\n              <li key={date} className=\"grid gap-0.5 py-3\">\n                <span className=\"font-medium\">{work}</span>\n                <span className=\"text-muted-foreground tabular-nums\">\n                  {date} · {mileage}\n                </span>\n              </li>\n            ))}\n          </ol>\n        </SheetBody>\n        <SheetFooter>\n          <SheetClose>Close</SheetClose>\n          <SheetClose intent=\"primary\">Download PDF</SheetClose>\n        </SheetFooter>\n      </SheetContent>\n    </Sheet>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

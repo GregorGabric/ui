@@ -3,7 +3,6 @@
   "pages": [
     "dialog",
     "modal",
-    "drawer",
     "popover",
     "preview-trigger",
     "sheet",

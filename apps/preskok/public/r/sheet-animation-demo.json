@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-animation-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/sheet.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/sheet-animation-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  Sheet,\n  SheetBody,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n} from \"@/components/ui/preskok-ui/sheet\"\n\n// `from` is the dismissed state and `to` is fully open; the swipe scrubs between them.\nconst keyframes = `\n@keyframes sheet-tilt {\n  from {\n    transform-origin: top right;\n    transform: skew(10deg) scale(0.8);\n  }\n  to {\n    transform: skew(0deg) scale(1);\n  }\n}\n`\n\nexport default function SheetAnimationDemo() {\n  return (\n    <Sheet>\n      {/* React hoists and dedupes the style by `href`, however many sheets render it. */}\n      <style href=\"sheet-tilt\" precedence=\"default\">\n        {keyframes}\n      </style>\n      <Button intent=\"outline\">Open garage</Button>\n      <SheetContent swipeAnimation=\"sheet-tilt\">\n        <SheetHeader>\n          <SheetTitle>My garage</SheetTitle>\n          <SheetDescription>\n            Swipe the sheet slowly to watch it tilt away.\n          </SheetDescription>\n        </SheetHeader>\n        <SheetBody className=\"gap-2 text-sm\">\n          <p>Peugeot 308 SW · Next service in 2,400 km</p>\n          <p>Toyota Yaris Hybrid · Tyres due in November</p>\n        </SheetBody>\n        <SheetFooter>\n          <SheetClose>Close</SheetClose>\n        </SheetFooter>\n      </SheetContent>\n    </Sheet>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}
