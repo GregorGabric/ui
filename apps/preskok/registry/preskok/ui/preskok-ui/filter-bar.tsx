@@ -132,7 +132,7 @@ interface FilterField {
   icon?: FilterIcon
   /** Section title in the "+ Filter" menu. Fields keep the order they are passed in. */
   group?: string
-  /** Values for `select` (and the labels shown for `boolean`, defaulting to Yes / No). */
+  /** Values for `select`. For `boolean`, the first option labels Yes and the second No. */
   options?: Array<FilterOption>
   /** `select` only: allow picking several values (default `true`). */
   multiple?: boolean
@@ -386,9 +386,15 @@ function isFilterActive(filter: Filter) {
 
   if (isDateRange(value)) return Boolean(value.start || value.end)
 
-  if (Array.isArray(value)) {
-    return value.some((item) => item !== null && item !== "")
-  }
+  // NaN or Infinity (from a URL or a request) is no bound: it would hide every row.
+  const isSet = (item: string | number | null) =>
+    typeof item === "number"
+      ? Number.isFinite(item)
+      : item !== null && item !== ""
+
+  if (Array.isArray(value)) return value.some(isSet)
+
+  if (typeof value === "number") return isSet(value)
 
   return true
 }
@@ -415,7 +421,15 @@ function toDayString(value: FilterCellValue) {
     return `${value.getFullYear()}-${month}-${day}`
   }
 
-  return typeof value === "string" ? value.slice(0, 10) : ""
+  if (typeof value !== "string") return ""
+
+  // A timestamp names an instant: read its day in local time, like a Date cell. A plain
+  // "2026-11-20" is already a day.
+  const instant = value.includes("T") ? new Date(value) : null
+
+  if (instant && !Number.isNaN(instant.getTime())) return toDayString(instant)
+
+  return value.slice(0, 10)
 }
 
 function toNumber(value: FilterCellValue) {
@@ -434,7 +448,11 @@ function compareNumber(
   if (operator === "between" && isNumberRange(value)) {
     const [min, max] = isNumberRange(value) ? value : [null, null]
 
-    return (min === null || cell >= min) && (max === null || cell <= max)
+    // A missing or non-finite end leaves that side open.
+    const isBound = (bound: number | null): bound is number =>
+      bound !== null && Number.isFinite(bound)
+
+    return (!isBound(min) || cell >= min) && (!isBound(max) || cell <= max)
   }
 
   if (typeof value !== "number") return true
@@ -829,7 +847,10 @@ function FilterChipScope({
   const update = (next: Partial<Filter>) =>
     setFilters(
       filters.map((item) =>
-        item.id === filter.id ? { ...item, ...next } : item
+        // A filter passed in without `variant` gets the field's on its first edit.
+        item.id === filter.id
+          ? { ...item, ...next, variant: field.variant }
+          : item
       )
     )
 
@@ -903,16 +924,17 @@ function FilterBarChips({
  * "+ Filter" menu
  * -----------------------------------------------------------------------------------------------*/
 
+/** Yes / No. A boolean field's `options` relabel them by position: the first is Yes, the second No. */
 function getBooleanOptions(
   field: FilterField,
   messages: FilterBarMessages
 ): Array<FilterOption> {
-  return (
-    field.options ?? [
-      { value: "true", label: messages.yes },
-      { value: "false", label: messages.no },
-    ]
-  )
+  const [yes, no] = field.options ?? []
+
+  return [
+    { value: "true", label: yes?.label ?? messages.yes, icon: yes?.icon },
+    { value: "false", label: no?.label ?? messages.no, icon: no?.icon },
+  ]
 }
 
 interface FilterBarAddProps {
@@ -1160,7 +1182,14 @@ function FilterChip({ className, children }: FilterChipProps) {
   const onKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Backspace" && event.key !== "Delete") return
 
-    if (!(event.target instanceof HTMLButtonElement)) return
+    // Keys from a value editor reach here through the React tree (its popover is portalled);
+    // only the chip's own buttons count.
+    if (
+      !(event.target instanceof HTMLButtonElement) ||
+      !event.currentTarget.contains(event.target)
+    ) {
+      return
+    }
 
     event.preventDefault()
     remove()
@@ -1554,15 +1583,21 @@ function TextEditor({
 }
 
 /** "12.5", "12,5" (decimal comma), "-3"; anything else is no value. */
+const decimalPattern = /^-?(?:\d+\.?\d*|\.\d+)$/
+
+/** "12.5", "12,5" (decimal comma), "-3", "1." while typing; anything else ("1e3", "0x10") is no value. */
 function parseNumberInput(raw: string) {
   const normalized = raw.trim().replace(",", ".")
+
+  if (!decimalPattern.test(normalized)) return null
+
   const number = Number(normalized)
 
-  return normalized === "" || Number.isNaN(number) ? null : number
+  return Number.isFinite(number) ? number : null
 }
 
 const formatNumberInput = (value: number | null) =>
-  value === null ? "" : String(value)
+  value === null || !Number.isFinite(value) ? "" : String(value)
 
 interface NumberInputProps {
   value: number | null
@@ -1582,7 +1617,10 @@ function NumberInput({ value, onChange, ...props }: NumberInputProps) {
   // The parent decides: when what is typed does not parse to its value (it clamped, reset or
   // rejected the change), show the parent's value. Partial input that parses the same is kept.
   // `!==`, not Object.is: -0 and 0 are the same number here.
-  if (parseNumberInput(raw) !== value) setRaw(formatNumberInput(value))
+  // A NaN or Infinity passed in reads as no value, or the comparison would never settle.
+  const target = value !== null && Number.isFinite(value) ? value : null
+
+  if (parseNumberInput(raw) !== target) setRaw(formatNumberInput(target))
 
   return (
     <Input
@@ -1773,7 +1811,8 @@ function DateEditor({ filter, field, onCommit }: FilterValueEditorProps) {
     const day = parseDay(typeof filter.value === "string" ? filter.value : "")
 
     return (
-      <div className="p-3">
+      // The calendar's 44px day cells are 308px wide; on a 320px screen they get 36px.
+      <div className="p-3 max-sm:p-2 max-sm:[&_[role=gridcell]>*]:size-9">
         <Calendar
           aria-label={field.label}
           value={day}
