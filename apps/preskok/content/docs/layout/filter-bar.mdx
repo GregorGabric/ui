@@ -1,0 +1,131 @@
+---
+title: Filter Bar
+description: Filter a list with chips that read like a sentence, added from a searchable menu.
+status: new
+---
+
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
+<ComponentPreview
+  name="filter-bar-preskok-demo"
+  description="A vehicle list filtered by make, price, status and listing date."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx shadcn@latest add @preskok/filter-bar
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>
+
+Copy and paste the following code into your project.
+
+<ComponentSource
+  name="filter-bar"
+  title="registry/preskok/ui/preskok-ui/filter-bar.tsx"
+/>
+
+</Step>
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  FilterBar,
+  FilterBarClear,
+  FilterBarItems,
+  matchesFilter,
+  type Filter,
+  type FilterField,
+} from "@/components/ui/preskok-ui/filter-bar"
+
+const fields: Array<FilterField> = [
+  {
+    id: "status",
+    label: "Status",
+    variant: "select",
+    options: [
+      { value: "available", label: "Available" },
+      { value: "sold", label: "Sold" },
+    ],
+  },
+  { id: "price", label: "Price", variant: "number", unit: "€" },
+  { id: "listed", label: "Listed", variant: "date" },
+]
+
+export function Vehicles() {
+  const [filters, setFilters] = useState<Array<Filter>>([])
+  const rows = vehicles.filter((vehicle) =>
+    filters.every((filter) => matchesFilter(vehicle[filter.field], filter))
+  )
+
+  return (
+    <FilterBar fields={fields} value={filters} onChange={setFilters}>
+      <FilterBarItems />
+      <FilterBarClear />
+    </FilterBar>
+  )
+}
+```
+
+`FilterBar` holds the state and lays out its children in a wrapping row, so a search field or a
+sort button can sit next to the chips. `FilterBarItems` renders the chips and the "+ Filter" menu;
+`FilterBarClear` removes every filter and hides itself when there are none.
+
+## Fields and operators
+
+Each field's `variant` decides its operators and value editor. The first operator is the default;
+pass `operators` to restrict or reorder them.
+
+| Variant   | Operators                                                                                      | Value editor                                |
+| --------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `text`    | contains, does not contain, is, is not, is empty, is not empty                                 | Text input                                  |
+| `number`  | is, is not, is less than, is at most, is greater than, is at least, is between, is (not) empty | Number input, two for `between`             |
+| `select`  | is any of, is none of, is empty, is not empty                                                  | List with search above 7 options            |
+| `boolean` | is                                                                                             | Yes / No, picked straight from the menu     |
+| `date`    | is between, is, is before, is after, is empty, is not empty                                    | Presets and a range calendar, or a calendar |
+
+Filter values are plain data, so they serialize to a URL or a request body as they are:
+
+```ts
+{ id: "price", field: "price", operator: "between", value: [10000, 25000] }
+{ id: "listed", field: "listed", operator: "between", value: { start: "2026-10-22", end: "2026-11-20" } }
+```
+
+"+ Filter" asks for the field, then its value in the same popover, and adds the filter once it has
+a value (yes / no and date presets are picked from a submenu in one step). A chip whose value is
+cleared is removed when its editor closes, and `isFilterActive` tells whether a filter narrows
+anything. Filter on the server by sending the active filters, or on the client with
+`matchesFilter(cellValue, filter)`.
+
+## Keyboard
+
+| Key                  | Action                                                                        |
+| -------------------- | ----------------------------------------------------------------------------- |
+| <kbd>F</kbd>         | Opens "+ Filter" when no field is focused (`shortcut` changes or disables it) |
+| <kbd>Backspace</kbd> | Removes the chip whose button has focus                                       |
+| <kbd>Enter</kbd>     | Applies a text or number value and closes the editor                          |

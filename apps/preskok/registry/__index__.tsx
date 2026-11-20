@@ -1154,6 +1154,24 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
+  "filter-bar": {
+    name: "filter-bar",
+    description: "A toolbar of filter chips with operators, a searchable add menu and client-side matching",
+    type: "registry:ui",
+    registryDependencies: ["button","calendar","input","keyboard","list-box","menu","popover","range-calendar","search-field"],
+    files: [{
+      path: "registry/preskok/ui/preskok-ui/filter-bar.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/ui/preskok-ui/filter-bar.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "token-field": {
     name: "token-field",
     description: "A text field that supports editable inline tokens",
@@ -2162,6 +2180,24 @@ import * as React from "react"
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/preskok/examples/tag-field-preskok-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "filter-bar-preskok-demo": {
+    name: "filter-bar-preskok-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["badge","filter-bar","search-field","table"],
+    files: [{
+      path: "registry/preskok/examples/filter-bar-preskok-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/preskok/examples/filter-bar-preskok-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
