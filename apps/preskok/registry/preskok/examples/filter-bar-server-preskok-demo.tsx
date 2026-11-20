@@ -54,13 +54,11 @@ function toSearchParams(filters: Array<Filter>) {
 export default function FilterBarServerDemo() {
   const [filters, setFilters] = useState<Array<Filter>>([
     {
-      id: "status",
       field: "status",
       operator: "isAnyOf",
       value: ["available", "reserved"],
     },
     {
-      id: "price",
       field: "price",
       operator: "between",
       value: [10_000, 25_000],
@@ -74,7 +72,7 @@ export default function FilterBarServerDemo() {
     <div className="w-2xl max-w-full space-y-4">
       <FilterBar fields={fields} value={filters} onChange={setFilters}>
         <FilterBarChips />
-        <FilterBarAdd shortcut={false} />
+        <FilterBarAdd />
         <FilterBarClear />
       </FilterBar>
       <div className="rounded-lg border bg-muted/40 p-3 font-mono text-xs/5 break-all text-muted-foreground">

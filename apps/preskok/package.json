@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@internationalized/date": "^3.12.3",
+    "@internationalized/number": "^3.6.7",
     "@tabler/icons-react": "^3.44.0",
     "@tailwindcss/postcss": "^4.3.1",
     "@tanstack/charts": "1.0.0",

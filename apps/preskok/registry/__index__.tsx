@@ -2240,24 +2240,6 @@ import * as React from "react"
     categories: undefined,
     meta: undefined,
   },
-  "filter-bar-overflow-preskok-demo": {
-    name: "filter-bar-overflow-preskok-demo",
-    description: "",
-    type: "registry:example",
-    registryDependencies: ["filter-bar"],
-    files: [{
-      path: "registry/preskok/examples/filter-bar-overflow-preskok-demo.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(async () => {
-      const mod = await import("@/registry/preskok/examples/filter-bar-overflow-preskok-demo.tsx")
-      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
-      return { default: mod.default || mod[exportName] }
-    }),
-    categories: undefined,
-    meta: undefined,
-  },
   "filter-bar-messages-preskok-demo": {
     name: "filter-bar-messages-preskok-demo",
     description: "",

@@ -57,17 +57,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "filter-bar-overflow-preskok-demo",
-    type: "registry:example",
-    registryDependencies: ["filter-bar"],
-    files: [
-      {
-        path: "examples/filter-bar-overflow-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "filter-bar-messages-preskok-demo",
     type: "registry:example",
     registryDependencies: ["filter-bar"],

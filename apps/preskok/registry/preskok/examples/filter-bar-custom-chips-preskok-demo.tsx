@@ -25,6 +25,8 @@ const fields: Array<FilterField> = [
     id: "status",
     label: "Status",
     variant: "select",
+    // The chip hides its operator, so allow only one: a hidden "is none of" would mislead.
+    operators: ["isAnyOf"],
     icon: CircleDotIcon,
     options: [
       { value: "open", label: "Open" },
@@ -36,6 +38,8 @@ const fields: Array<FilterField> = [
     id: "priority",
     label: "Priority",
     variant: "select",
+    // The chip hides its operator, so allow only one: a hidden "is none of" would mislead.
+    operators: ["isAnyOf"],
     icon: FlagIcon,
     options: [
       { value: "urgent", label: "Urgent" },
@@ -58,19 +62,16 @@ export default function FilterBarCustomChipsDemo() {
         fields={fields}
         defaultValue={[
           {
-            id: "status",
             field: "status",
             operator: "isAnyOf",
             value: ["open", "in-progress"],
           },
           {
-            id: "priority",
             field: "priority",
             operator: "isAnyOf",
             value: ["urgent"],
           },
           {
-            id: "assignee",
             field: "assignee",
             operator: "contains",
             value: "ana",
@@ -87,7 +88,7 @@ export default function FilterBarCustomChipsDemo() {
             </FilterChip>
           )}
         </FilterBarChips>
-        <FilterBarAdd shortcut={false} />
+        <FilterBarAdd />
         <FilterBarClear />
       </FilterBar>
     </div>

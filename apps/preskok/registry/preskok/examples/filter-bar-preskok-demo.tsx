@@ -239,7 +239,17 @@ const columns = [
   { id: "price", name: "Price" },
   { id: "mileage", name: "Mileage" },
   { id: "status", name: "Status" },
+  { id: "listed", name: "Listed" },
 ]
+
+const fieldsById = new Map(fields.map((field) => [field.id, field]))
+
+const listedDate = new Intl.DateTimeFormat("en", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+})
 
 const statusIntent = {
   available: "success",
@@ -258,7 +268,6 @@ export default function FilterBarDemo() {
 
   const [filters, setFilters] = useState<Array<Filter>>([
     {
-      id: "status",
       field: "status",
       operator: "isAnyOf",
       value: ["available", "reserved"],
@@ -270,9 +279,13 @@ export default function FilterBarDemo() {
       `${vehicle.make} ${vehicle.model}`
         .toLocaleLowerCase()
         .includes(query.toLocaleLowerCase()) &&
-      filters.every((filter) =>
-        matchesFilter(cellOf(vehicle, filter.field), filter)
-      )
+      filters.every((filter) => {
+        const field = fieldsById.get(filter.field)
+
+        return (
+          !field || matchesFilter(cellOf(vehicle, filter.field), filter, field)
+        )
+      })
   )
 
   return (
@@ -287,7 +300,7 @@ export default function FilterBarDemo() {
           <SearchInput placeholder="Search" />
         </SearchField>
         <FilterBarChips />
-        <FilterBarAdd />
+        <FilterBarAdd shortcut="f" />
         <FilterBarClear />
       </FilterBar>
 
@@ -346,6 +359,8 @@ function renderCell(vehicle: Vehicle, columnId: string) {
           {vehicle.status}
         </Badge>
       )
+    case "listed":
+      return listedDate.format(new Date(vehicle.listed))
     default:
       return null
   }

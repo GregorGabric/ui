@@ -973,6 +973,7 @@ export const preskokUi: Registry["items"] = [
       "A toolbar of filter chips with operators, a searchable add menu and client-side matching",
     dependencies: [
       "@internationalized/date",
+      "@internationalized/number",
       "lucide-react",
       "react-aria-components@^1.20.0",
       "cn@^0.2.4",

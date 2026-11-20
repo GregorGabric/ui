@@ -8,7 +8,7 @@ import {
   FilterBarAdd,
   FilterBarChips,
   FilterBarClear,
-  type FilterBarMessagesInput,
+  type FilterBarMessages,
   type FilterField,
 } from "@/registry/preskok/ui/preskok-ui/filter-bar"
 
@@ -32,7 +32,7 @@ const fields: Array<FilterField> = [
   },
 ]
 
-const messages: FilterBarMessagesInput = {
+const messages: FilterBarMessages = {
   filter: "Filter",
   addFilter: "Dodaj filter",
   clear: "Počisti",
@@ -44,7 +44,6 @@ const messages: FilterBarMessagesInput = {
   max: "Do",
   and: "in",
   inPreset: "v",
-  moreFilters: (count) => `+${count} več`,
   removeFilter: (field) => `Odstrani filter ${field}`,
   operators: {
     isAnyOf: "je katerikoli od",
@@ -79,13 +78,11 @@ export default function FilterBarMessagesDemo() {
           messages={messages}
           defaultValue={[
             {
-              id: "price",
               field: "price",
               operator: "between",
               value: [12_500, 30_000],
             },
             {
-              id: "listed",
               field: "listed",
               operator: "between",
               value: { start: "2026-09-01", end: "2026-11-15" },
@@ -93,7 +90,7 @@ export default function FilterBarMessagesDemo() {
           ]}
         >
           <FilterBarChips />
-          <FilterBarAdd shortcut={false} />
+          <FilterBarAdd />
           <FilterBarClear />
         </FilterBar>
       </div>

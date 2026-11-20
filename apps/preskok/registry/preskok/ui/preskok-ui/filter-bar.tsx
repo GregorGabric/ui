@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
   type ComponentType,
-  type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react"
 import {
@@ -16,6 +15,7 @@ import {
   today,
   type CalendarDate,
 } from "@internationalized/date"
+import { NumberFormatter, NumberParser } from "@internationalized/number"
 import { twMerge } from "cn"
 import { ChevronLeftIcon, ListFilterIcon, XIcon } from "lucide-react"
 import { Autocomplete, useFilter } from "react-aria-components/Autocomplete"
@@ -96,7 +96,7 @@ type FilterValue =
   | FilterDateRange
   | null
 
-/** A row's value for a field, as `matchesFilter` reads it: a list matches when any item does. */
+/** A row's value for a field, as `matchesFilter` reads it. Lists are for `select` fields (tags). */
 type FilterCellValue =
   | string
   | number
@@ -106,17 +106,11 @@ type FilterCellValue =
   | undefined
   | ReadonlyArray<string | number>
 
+/** A field can be filtered once, so `field` also identifies the filter. */
 interface Filter {
-  /** Unique per filter. Fields can be filtered once, so the field id is used. */
-  id: string
   field: string
   operator: FilterOperator
   value: FilterValue
-  /**
-   * The field's variant. The bar sets it, so `matchesFilter` compares as that type (a text value
-   * that looks like a date stays text). Without it, `matchesFilter` infers the type from the value.
-   */
-  variant?: FilterVariant
 }
 
 interface FilterOption {
@@ -137,7 +131,7 @@ interface FilterField {
   /** `select` only: allow picking several values (default `true`). */
   multiple?: boolean
   /** Restrict or reorder the operators; the first one is the default. */
-  operators?: Array<FilterOperator>
+  operators?: [FilterOperator, ...Array<FilterOperator>]
   placeholder?: string
   /** Shown after number values, e.g. `km` or `€`. */
   unit?: string
@@ -147,8 +141,8 @@ interface FilterField {
 
 type FilterDatePresetId = "today" | "7d" | "30d" | "90d" | "year"
 
-/** Every string the bar shows. Pass `messages` to `FilterBar` to translate any of them. */
-interface FilterBarMessages {
+/** Every string the bar shows, resolved. */
+interface FilterBarStrings {
   filter: string
   addFilter: string
   clear: string
@@ -165,8 +159,6 @@ interface FilterBarMessages {
   notSet: string
   /** "in" before a date preset: "Listed in Last 30 days". */
   inPreset: string
-  moreFilters: (count: number) => string
-  showLess: string
   chipLabel: (field: string) => string
   removeFilter: (field: string) => string
   operatorLabel: (field: string) => string
@@ -177,15 +169,16 @@ interface FilterBarMessages {
   placeholders: Record<FilterVariant, string>
 }
 
-type FilterBarMessagesInput = Partial<
-  Omit<FilterBarMessages, "operators" | "datePresets" | "placeholders">
+/** Translations for `FilterBar`: any string left out stays English. */
+type FilterBarMessages = Partial<
+  Omit<FilterBarStrings, "operators" | "datePresets" | "placeholders">
 > & {
-  operators?: Partial<FilterBarMessages["operators"]>
-  datePresets?: Partial<FilterBarMessages["datePresets"]>
-  placeholders?: Partial<FilterBarMessages["placeholders"]>
+  operators?: Partial<FilterBarStrings["operators"]>
+  datePresets?: Partial<FilterBarStrings["datePresets"]>
+  placeholders?: Partial<FilterBarStrings["placeholders"]>
 }
 
-const defaultFilterBarMessages: FilterBarMessages = {
+const defaultMessages: FilterBarStrings = {
   filter: "Filter",
   addFilter: "Add filter",
   clear: "Clear",
@@ -201,8 +194,6 @@ const defaultFilterBarMessages: FilterBarMessages = {
   and: "and",
   notSet: "not set",
   inPreset: "in",
-  moreFilters: (count) => `+${count} more`,
-  showLess: "Show less",
   chipLabel: (field) => `${field} filter`,
   removeFilter: (field) => `Remove ${field} filter`,
   operatorLabel: (field) => `${field} operator`,
@@ -241,17 +232,17 @@ const defaultFilterBarMessages: FilterBarMessages = {
   },
 }
 
-function mergeMessages(input: FilterBarMessagesInput = {}): FilterBarMessages {
+function mergeMessages(input: FilterBarMessages = {}): FilterBarStrings {
   return {
-    ...defaultFilterBarMessages,
+    ...defaultMessages,
     ...input,
-    operators: { ...defaultFilterBarMessages.operators, ...input.operators },
+    operators: { ...defaultMessages.operators, ...input.operators },
     datePresets: {
-      ...defaultFilterBarMessages.datePresets,
+      ...defaultMessages.datePresets,
       ...input.datePresets,
     },
     placeholders: {
-      ...defaultFilterBarMessages.placeholders,
+      ...defaultMessages.placeholders,
       ...input.placeholders,
     },
   }
@@ -342,11 +333,9 @@ function createFilter(
   value?: FilterValue
 ): Filter {
   return {
-    id: field.id,
     field: field.id,
     operator,
     value: value ?? getInitialValue(field, operator),
-    variant: field.variant,
   }
 }
 
@@ -434,18 +423,6 @@ function toDayString(value: FilterCellValue) {
   return value.slice(0, 10)
 }
 
-/** `true`, a non-zero number, or "true" / "yes" / "1"; "false", "0" and "no" are false. */
-/** `true` / "true" / "yes" / "1" / non-zero, `false` / "false" / "no" / "0" / 0; other text is neither. */
-function toBoolean(value: FilterCellValue) {
-  if (typeof value !== "string") return Boolean(value)
-
-  const text = value.trim().toLocaleLowerCase()
-
-  if (["true", "yes", "1"].includes(text)) return true
-
-  return ["false", "no", "0"].includes(text) ? false : null
-}
-
 function toNumber(value: FilterCellValue) {
   if (typeof value === "number") return value
 
@@ -460,7 +437,7 @@ function compareNumber(
   value: FilterValue
 ) {
   if (operator === "between" && isNumberRange(value)) {
-    const [min, max] = isNumberRange(value) ? value : [null, null]
+    const [min, max] = value
 
     // A missing or non-finite end leaves that side open.
     const isBound = (bound: number | null): bound is number =>
@@ -512,52 +489,38 @@ function compareDay(day: string, operator: FilterOperator, value: FilterValue) {
   }
 }
 
+function compareText(
+  cell: string,
+  operator: FilterOperator,
+  value: FilterValue
+) {
+  const text = cell.toLocaleLowerCase()
+  const query = (typeof value === "string" ? value : "").toLocaleLowerCase()
+
+  switch (operator) {
+    case "contains":
+      return text.includes(query)
+    case "notContains":
+      return !text.includes(query)
+    case "is":
+      return text === query
+    case "isNot":
+      return text !== query
+    default:
+      return true
+  }
+}
+
 /**
- * Whether a cell value passes a filter. Inactive filters (no value yet) pass everything.
- * `rows.filter((row) => filters.every((filter) => matchesFilter(row[filter.field], filter)))`
+ * Whether a row's value passes a filter, compared as its field's variant. Inactive filters (no
+ * value yet) pass everything.
+ * `rows.filter((row) => filters.every((filter) => matchesFilter(row[filter.field], filter, fieldsById[filter.field])))`
  */
-const dateOperators = new Set<FilterOperator>([
-  "is",
-  "isNot",
-  "before",
-  "after",
-  "between",
-])
-
-/** Compares as days: a date field, or (without a variant) a date-shaped value with a date operator. */
-function isDateFilter(filter: Filter, cellValue: FilterCellValue) {
-  if (filter.variant) return filter.variant === "date"
-
-  if (!dateOperators.has(filter.operator)) return false
-
-  const { value } = filter
-
-  const isDayAgainstIso =
-    typeof value === "string" &&
-    dayPattern.test(value) &&
-    typeof cellValue === "string" &&
-    isoDayPrefix.test(cellValue)
-
-  return (
-    cellValue instanceof Date ||
-    filter.operator === "before" ||
-    filter.operator === "after" ||
-    isDateRange(value) ||
-    isDayAgainstIso
-  )
-}
-
-function isNumberFilter(filter: Filter) {
-  if (filter.variant) return filter.variant === "number"
-
-  return typeof filter.value === "number" || isNumberRange(filter.value)
-}
-
-const dayPattern = /^\d{4}-\d{2}-\d{2}$/
-
-const isoDayPrefix = /^\d{4}-\d{2}-\d{2}(?:T|$)/
-
-function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
+function matchesFilter(
+  cellValue: FilterCellValue,
+  filter: Filter,
+  field: FilterField
+): boolean {
   if (!isFilterActive(filter)) return true
 
   const { operator, value } = filter
@@ -566,59 +529,30 @@ function matchesFilter(cellValue: FilterCellValue, filter: Filter): boolean {
 
   if (operator === "isNotEmpty") return !isEmptyCellValue(cellValue)
 
-  if (isEmptyCellValue(cellValue)) return operator === "isNoneOf"
-
-  if (operator === "isAnyOf" || operator === "isNoneOf") {
-    const cells = (Array.isArray(cellValue) ? cellValue : [cellValue]).map(
-      String
-    )
-
+  if (field.variant === "select") {
+    // A list cell (tags) matches when any of its values is picked.
+    const cells = Array.isArray(cellValue) ? cellValue : [cellValue]
     const selected = isStringList(value) ? value : []
-    const hasAny = cells.some((cell) => selected.includes(cell))
+    const hasAny = cells.some((cell) => selected.includes(String(cell)))
 
-    return operator === "isAnyOf" ? hasAny : !hasAny
+    return operator === "isNoneOf" ? !hasAny : hasAny
   }
 
-  // A list cell (tags, several prices) matches when any item does; "is not" / "does not contain"
-  // need every item to pass.
-  if (Array.isArray(cellValue)) {
-    const matchesItem = (item: string | number) => matchesFilter(item, filter)
-    // Blank entries (an empty tag from an import) say nothing about the row.
-    const items = cellValue.filter((item) => !isEmptyCellValue(item))
+  if (isEmptyCellValue(cellValue)) return false
 
-    if (!items.length) return false
+  switch (field.variant) {
+    case "boolean":
+      return cellValue === value
+    case "date":
+      return compareDay(toDayString(cellValue), operator, value)
+    case "number": {
+      const cell = toNumber(cellValue)
 
-    return operator === "isNot" || operator === "notContains"
-      ? items.every(matchesItem)
-      : items.some(matchesItem)
-  }
+      return !Number.isNaN(cell) && compareNumber(cell, operator, value)
+    }
 
-  if (typeof value === "boolean") return toBoolean(cellValue) === value
-
-  if (isDateFilter(filter, cellValue)) {
-    return compareDay(toDayString(cellValue), operator, value)
-  }
-
-  if (isNumberFilter(filter)) {
-    const cell = toNumber(cellValue)
-
-    return Number.isNaN(cell) ? false : compareNumber(cell, operator, value)
-  }
-
-  const cell = String(cellValue).toLocaleLowerCase()
-  const query = (typeof value === "string" ? value : "").toLocaleLowerCase()
-
-  switch (operator) {
-    case "contains":
-      return cell.includes(query)
-    case "notContains":
-      return !cell.includes(query)
-    case "is":
-      return cell === query
-    case "isNot":
-      return cell !== query
-    default:
-      return true
+    case "text":
+      return compareText(String(cellValue), operator, value)
   }
 }
 
@@ -684,10 +618,10 @@ interface FilterBarContextValue {
   fields: Array<FilterField>
   filters: Array<Filter>
   setFilters: (filters: Array<Filter>) => void
-  messages: FilterBarMessages
-  /** The filter being added from "+ Filter": already in `filters`, shown as a dimmed chip. */
-  draftId: string | null
-  setDraftId: (id: string | null) => void
+  messages: FilterBarStrings
+  /** The field being added from "+ Filter": its filter is already in `filters`, shown dimmed. */
+  draftField: string | null
+  setDraftField: (field: string | null) => void
   /** "+ Filter", so removing a chip can hand focus back to it. */
   addButtonRef: React.RefObject<HTMLButtonElement | null>
   /**
@@ -741,7 +675,7 @@ interface FilterBarProps {
    */
   onChange?: (filters: Array<Filter>) => void
   /** Translations; anything left out falls back to English. */
-  messages?: FilterBarMessagesInput
+  messages?: FilterBarMessages
   className?: string
   children?: ReactNode
 }
@@ -763,7 +697,7 @@ function FilterBar({
   children,
 }: FilterBarProps) {
   const [uncontrolledFilters, setUncontrolledFilters] = useState(defaultValue)
-  const [draftId, setDraftId] = useState<string | null>(null)
+  const [draftField, setDraftField] = useState<string | null>(null)
   const addButtonRef = useRef<HTMLButtonElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
   const filters = value ?? uncontrolledFilters
@@ -798,8 +732,8 @@ function FilterBar({
         filters,
         setFilters,
         messages: mergeMessages(messages),
-        draftId,
-        setDraftId,
+        draftField,
+        setDraftField,
         addButtonRef,
         restoreFocus,
       }}
@@ -857,7 +791,9 @@ function FilterChipScope({
   filter: Filter
   render: FilterChipRender
 }) {
-  const { fields, filters, setFilters, draftId, restoreFocus } = useFilterBar()
+  const { fields, filters, setFilters, draftField, restoreFocus } =
+    useFilterBar()
+
   const field = fields.find((candidate) => candidate.id === filter.field)
 
   if (!field) return null
@@ -865,21 +801,24 @@ function FilterChipScope({
   const update = (next: Partial<Filter>) =>
     setFilters(
       filters.map((item) =>
-        // A filter passed in without `variant` gets the field's on its first edit.
-        item.id === filter.id
-          ? { ...item, ...next, variant: field.variant }
-          : item
+        item.field === filter.field ? { ...item, ...next } : item
       )
     )
 
   const remove = () => {
-    setFilters(filters.filter((item) => item.id !== filter.id))
+    setFilters(filters.filter((item) => item.field !== filter.field))
     restoreFocus()
   }
 
   return (
     <FilterChipContext
-      value={{ filter, field, isDraft: draftId === filter.id, update, remove }}
+      value={{
+        filter,
+        field,
+        isDraft: draftField === filter.field,
+        update,
+        remove,
+      }}
     >
       {render({ filter, field })}
     </FilterChipContext>
@@ -887,55 +826,20 @@ function FilterChipScope({
 }
 
 interface FilterBarChipsProps {
-  /**
-   * Chips shown in the row; the rest wait behind a "+N more" button that shows them inline. The
-   * chip being added always shows.
-   */
-  max?: number
   /** Renders each chip. Defaults to `<FilterChip />` with its standard parts. */
   children?: FilterChipRender
 }
 
-const moreButtonClassName =
-  "inline-flex h-11 cursor-pointer items-center rounded-lg border border-input bg-background px-3 text-base/6 text-muted-foreground outline-hidden transition-colors hover:bg-accent hover:text-foreground focus-visible:border-ring/70 focus-visible:ring-3 focus-visible:ring-ring/20 sm:h-9 sm:text-sm/6 pressed:bg-accent"
-
 /**
- * One chip per filter. The chips join the bar's own row (no wrapper box), so "+ Filter" and
- * Clear flow right after the last chip.
+ * One chip per filter. The chips join the bar's own row (no wrapper box) and wrap, so "+ Filter"
+ * and Clear flow right after the last chip.
  */
-function FilterBarChips({
-  max = Number.POSITIVE_INFINITY,
-  children = renderDefaultChip,
-}: FilterBarChipsProps) {
-  const { filters, draftId, messages } = useFilterBar()
-  const [isExpanded, setExpanded] = useState(false)
+function FilterBarChips({ children = renderDefaultChip }: FilterBarChipsProps) {
+  const { filters } = useFilterBar()
 
-  const collapsed = filters.filter(
-    (filter, index) => index < max || filter.id === draftId
-  )
-
-  const hiddenCount = filters.length - collapsed.length
-  const shown = isExpanded ? filters : collapsed
-
-  return (
-    <>
-      {shown.map((filter) => (
-        <FilterChipScope key={filter.id} filter={filter} render={children} />
-      ))}
-      {/* Inline rather than in a popover: each chip's own editor is a popover, and popovers
-          nested in popovers lose focus. One toggle in one place keeps keyboard focus on it. */}
-      {hiddenCount > 0 ? (
-        <ButtonPrimitive
-          data-slot="filter-bar-more"
-          aria-expanded={isExpanded}
-          onPress={() => setExpanded(!isExpanded)}
-          className={moreButtonClassName}
-        >
-          {isExpanded ? messages.showLess : messages.moreFilters(hiddenCount)}
-        </ButtonPrimitive>
-      ) : null}
-    </>
-  )
+  return filters.map((filter) => (
+    <FilterChipScope key={filter.field} filter={filter} render={children} />
+  ))
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -945,7 +849,7 @@ function FilterBarChips({
 /** Yes / No. A boolean field's `options` relabel them by position: the first is Yes, the second No. */
 function getBooleanOptions(
   field: FilterField,
-  messages: FilterBarMessages
+  messages: FilterBarStrings
 ): Array<FilterOption> {
   const [yes, no] = field.options ?? []
 
@@ -956,8 +860,8 @@ function getBooleanOptions(
 }
 
 interface FilterBarAddProps {
-  /** Key that opens the menu from anywhere on the page. `false` turns it off. */
-  shortcut?: string | false
+  /** A key that opens the menu from anywhere on the page, e.g. `"f"`. Off by default. */
+  shortcut?: string
   className?: string
 }
 
@@ -966,14 +870,14 @@ interface FilterBarAddProps {
  * filter shows as a dimmed chip and applies while you pick, and is dropped if you leave without a
  * value.
  */
-function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
+function FilterBarAdd({ shortcut, className }: FilterBarAddProps) {
   const {
     fields,
     filters,
     setFilters,
     messages,
-    draftId,
-    setDraftId,
+    draftField: draftFieldId,
+    setDraftField,
     addButtonRef,
     restoreFocus,
   } = useFilterBar()
@@ -981,7 +885,7 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const { contains } = useFilter({ sensitivity: "base" })
 
-  const draft = filters.find((filter) => filter.id === draftId)
+  const draft = filters.find((filter) => filter.field === draftFieldId)
 
   const draftField = draft
     ? fields.find((field) => field.id === draft.field)
@@ -1016,36 +920,37 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
 
   const updateDraft = (next: Partial<Filter>) =>
     setFilters(
-      filters.map((item) => (item.id === draftId ? { ...item, ...next } : item))
+      filters.map((item) =>
+        item.field === draftFieldId ? { ...item, ...next } : item
+      )
     )
-
-  const withoutDraft = () => filters.filter((item) => item.id !== draftId)
-
-  /** Adds a finished filter and closes the menu. */
-  const addAndClose = (filter: Filter) => {
-    setFilters([...withoutDraft(), filter])
-    setDraftId(null)
-    setMenuOpen(false)
-    restoreFocus()
-  }
 
   /** Starts the value step: the filter goes in right away, dimmed, and applies as values are picked. */
   const startDraft = (filter: Filter) => {
     setFilters([...filters, filter])
-    setDraftId(filter.id)
+    setDraftField(filter.field)
+  }
+
+  /** Every way out of the menu: "+ Filter" unmounts once every field is in use, so focus moves on. */
+  const closeMenu = () => {
+    setDraftField(null)
+    setMenuOpen(false)
+    restoreFocus()
   }
 
   const onOpenChange = (isOpen: boolean) => {
-    // Leaving the value step keeps what was picked so far, and drops a filter left without a value.
-    if (!isOpen && draft && !isFilterActive(draft)) setFilters(withoutDraft())
+    if (isOpen) {
+      setMenuOpen(true)
 
-    if (!isOpen) {
-      setDraftId(null)
-      // "+ Filter" unmounts once every field is in use; focus then moves to the last chip.
-      restoreFocus()
+      return
     }
 
-    setMenuOpen(isOpen)
+    // Leaving keeps what was picked so far, and drops a filter left without a value.
+    if (draft && !isFilterActive(draft)) {
+      setFilters(filters.filter((item) => item !== draft))
+    }
+
+    closeMenu()
   }
 
   const renderField = (field: FilterField) => {
@@ -1086,8 +991,8 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
                 <ButtonPrimitive
                   aria-label={messages.backToFields}
                   onPress={() => {
-                    setFilters(withoutDraft())
-                    setDraftId(null)
+                    setFilters(filters.filter((item) => item !== draft))
+                    setDraftField(null)
                   }}
                   className="flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground outline-hidden hover:bg-accent hover:text-foreground focus-visible:bg-accent"
                 >
@@ -1105,15 +1010,7 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
               </div>
               {isValuelessOperator(draft.operator) ? (
                 <div className="flex justify-end p-2">
-                  <Button
-                    size="sm"
-                    autoFocus
-                    onPress={() => {
-                      setDraftId(null)
-                      setMenuOpen(false)
-                      restoreFocus()
-                    }}
-                  >
+                  <Button size="sm" autoFocus onPress={closeMenu}>
                     {messages.addFilter}
                   </Button>
                 </div>
@@ -1122,7 +1019,10 @@ function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
                   filter={draft}
                   field={draftField}
                   onChange={(value) => updateDraft({ value })}
-                  onCommit={(value) => addAndClose({ ...draft, value })}
+                  onCommit={(value) => {
+                    updateDraft({ value })
+                    closeMenu()
+                  }}
                   onDone={() => onOpenChange(false)}
                 />
               )}
@@ -1193,25 +1093,8 @@ interface FilterChipProps {
 
 /** A filter as a chip. Render it inside `FilterBarChips`; its parts read the filter from there. */
 function FilterChip({ className, children }: FilterChipProps) {
-  const { field, isDraft, remove } = useFilterChip()
+  const { field, isDraft } = useFilterChip()
   const { messages } = useFilterBar()
-
-  // Backspace or Delete on a chip's button removes the chip, like a token in a text field.
-  const onKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== "Backspace" && event.key !== "Delete") return
-
-    // Keys from a value editor reach here through the React tree (its popover is portalled);
-    // only the chip's own buttons count.
-    if (
-      !(event.target instanceof HTMLButtonElement) ||
-      !event.currentTarget.contains(event.target)
-    ) {
-      return
-    }
-
-    event.preventDefault()
-    remove()
-  }
 
   return (
     <div
@@ -1221,7 +1104,6 @@ function FilterChip({ className, children }: FilterChipProps) {
       data-draft={isDraft || undefined}
       // The chip being added is edited in the "+ Filter" popover, not here.
       inert={isDraft}
-      onKeyDown={onKeyDown}
       className={twMerge(
         "inline-flex h-11 max-w-full min-w-0 items-stretch overflow-hidden rounded-lg border border-input bg-background text-base/6 sm:h-9 sm:text-sm/6",
         "has-focus-visible:border-ring/70 has-focus-visible:ring-3 has-focus-visible:ring-ring/20",
@@ -1281,7 +1163,7 @@ function FilterChipRemove({ className }: { className?: string }) {
 }
 
 /** "is any of" reads wrong with one value: say "is" / "is not" then. */
-function getOperatorLabel(filter: Filter, messages: FilterBarMessages) {
+function getOperatorLabel(filter: Filter, messages: FilterBarStrings) {
   const count = Array.isArray(filter.value) ? filter.value.length : 0
 
   if (count === 1 && filter.operator === "isAnyOf") return messages.operators.is
@@ -1605,36 +1487,26 @@ function TextEditor({
 }
 
 /** "12.5", "12,5" (decimal comma), "-3"; anything else is no value. */
-const decimalPattern = /^-?(?:\d+\.?\d*|\.\d+)$/
+/** What is typed, in the locale's digits and separators ("12,5" in sl-SI); "1e3" or "0x10" is no value. */
+function parseNumberInput(raw: string, locale: string) {
+  const parser = new NumberParser(locale)
 
-/** "12.5", "12,5" (decimal comma), "-3", "1." while typing; anything else ("1e3", "0x10") is no value. */
-function parseNumberInput(raw: string) {
-  const normalized = raw
-    .trim()
-    // Arabic-Indic (٠–٩) and Persian (۰–۹) digits, the Arabic decimal separator (٫) and a decimal comma.
-    .replace(/[\u0660-\u0669]/g, (digit) =>
-      String(digit.charCodeAt(0) - 0x0660)
-    )
-    .replace(/[\u06f0-\u06f9]/g, (digit) =>
-      String(digit.charCodeAt(0) - 0x06f0)
-    )
-    .replace(/[\u066b,]/, ".")
+  if (!raw.trim() || !parser.isValidPartialNumber(raw)) return null
 
-  if (!decimalPattern.test(normalized)) return null
-
-  const number = Number(normalized)
+  const number = parser.parse(raw)
 
   return Number.isFinite(number) ? number : null
 }
 
-/** Plain digits: `String(0.0000001)` is "1e-7", which the input would not read back. */
-const formatNumberInput = (value: number | null) =>
-  value === null || !Number.isFinite(value)
-    ? ""
-    : value.toLocaleString("en-US", {
-        useGrouping: false,
-        maximumFractionDigits: 20,
-      })
+/** In the locale's format, all digits: `String(0.0000001)` would be "1e-7". */
+function formatNumberInput(value: number | null, locale: string) {
+  if (value === null || !Number.isFinite(value)) return ""
+
+  return new NumberFormatter(locale, {
+    useGrouping: false,
+    maximumFractionDigits: 20,
+  }).format(value)
+}
 
 interface NumberInputProps {
   value: number | null
@@ -1649,19 +1521,18 @@ interface NumberInputProps {
  * whenever the two disagree (a parent that clamps, resets or rejects the number).
  */
 function NumberInput({ value, onChange, ...props }: NumberInputProps) {
-  const [raw, setRaw] = useState(() => formatNumberInput(value))
-
-  // The parent decides: when what is typed does not parse to its value (it clamped, reset or
-  // rejected the change), show the parent's value. Partial input that parses the same is kept.
-  // `!==`, not Object.is: -0 and 0 are the same number here.
-  // A NaN or Infinity passed in reads as no value, or the comparison would never settle.
+  const { locale } = useLocale()
+  const [raw, setRaw] = useState(() => formatNumberInput(value, locale))
+  // A NaN or Infinity passed in reads as no value, or the comparison below would never settle.
   const target = value !== null && Number.isFinite(value) ? value : null
+  const formatted = formatNumberInput(target, locale)
 
-  // Set once per disagreement: comparing the text too means a value the input cannot read back
-  // never re-renders forever.
-  const formatted = formatNumberInput(target)
-
-  if (parseNumberInput(raw) !== target && raw !== formatted) setRaw(formatted)
+  // The parent decides: when the text does not parse to its value (it clamped or reset it), show
+  // the parent's. Partial input that parses the same ("1.") stays. Comparing the text too keeps a
+  // value that cannot be read back from re-rendering forever.
+  if (parseNumberInput(raw, locale) !== target && raw !== formatted) {
+    setRaw(formatted)
+  }
 
   return (
     <Input
@@ -1672,7 +1543,7 @@ function NumberInput({ value, onChange, ...props }: NumberInputProps) {
       value={raw}
       onChange={(event) => {
         setRaw(event.target.value)
-        onChange(parseNumberInput(event.target.value))
+        onChange(parseNumberInput(event.target.value, locale))
       }}
     />
   )
@@ -1914,7 +1785,7 @@ interface FilterBarClearProps {
 }
 
 function FilterBarClear({ className, children }: FilterBarClearProps) {
-  const { filters, setFilters, setDraftId, messages, restoreFocus } =
+  const { filters, setFilters, setDraftField, messages, restoreFocus } =
     useFilterBar()
 
   if (!filters.length) return null
@@ -1927,7 +1798,7 @@ function FilterBarClear({ className, children }: FilterBarClearProps) {
         className
       )}
       onPress={() => {
-        setDraftId(null)
+        setDraftField(null)
         setFilters([])
         // Clear disappears with the filters; "Filter" takes the focus.
         restoreFocus()
@@ -1939,8 +1810,6 @@ function FilterBarClear({ className, children }: FilterBarClearProps) {
 }
 
 export {
-  createFilter,
-  defaultFilterBarMessages,
   FilterBar,
   FilterBarAdd,
   FilterBarChips,
@@ -1950,8 +1819,6 @@ export {
   FilterChipOperator,
   FilterChipRemove,
   FilterChipValue,
-  filterDatePresets,
-  getFilterOperators,
   isFilterActive,
   matchesFilter,
 }
@@ -1961,11 +1828,9 @@ export type {
   FilterBarAddProps,
   FilterBarChipsProps,
   FilterBarMessages,
-  FilterBarMessagesInput,
   FilterBarProps,
   FilterCellValue,
   FilterChipProps,
-  FilterDatePresetId,
   FilterDateRange,
   FilterField,
   FilterOperator,

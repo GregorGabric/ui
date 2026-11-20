@@ -45,7 +45,6 @@ export default function FilterBarBasicDemo() {
         fields={fields}
         defaultValue={[
           {
-            id: "status",
             field: "status",
             operator: "isAnyOf",
             value: ["open"],
@@ -53,7 +52,7 @@ export default function FilterBarBasicDemo() {
         ]}
       >
         <FilterBarChips />
-        <FilterBarAdd shortcut={false} />
+        <FilterBarAdd />
         <FilterBarClear />
       </FilterBar>
     </div>

@@ -13,55 +13,6 @@ import { ComponentSource } from "@/components/component-source"
   description="A vehicle list filtered by make, price, status and listing date."
 />
 
-## Basic
-
-Uncontrolled: the bar keeps its own filters. A field with `multiple: false` picks one value and
-closes.
-
-<ComponentPreview
-  name="filter-bar-basic-preskok-demo"
-  description="An issue list filtered by status, title and assignee."
-/>
-
-## Custom chips
-
-Build chips from their parts: here Status and Priority drop the operator and read as tags, and
-the field shows only as its icon.
-
-<ComponentPreview
-  name="filter-bar-custom-chips-preskok-demo"
-  description="Rounded tag-style chips without operators."
-/>
-
-## Overflow
-
-`max` keeps the row short: "+N more" shows the other chips in the row, and "Show less" hides
-them again.
-
-<ComponentPreview
-  name="filter-bar-overflow-preskok-demo"
-  description="Five filters, two shown in the row."
-/>
-
-## Translations
-
-Pass `messages` for the strings and an `I18nProvider` locale for numbers and dates.
-
-<ComponentPreview
-  name="filter-bar-messages-preskok-demo"
-  description="The bar in Slovenian."
-/>
-
-## Server filtering
-
-Send only the filters that narrow something. While a filter is being added it has no value yet,
-and `isFilterActive` leaves it out.
-
-<ComponentPreview
-  name="filter-bar-server-preskok-demo"
-  description="The active filters as a request URL."
-/>
-
 ## Installation
 
 <CodeTabs>
@@ -103,6 +54,8 @@ Copy and paste the following code into your project.
 ## Usage
 
 ```tsx
+import { useState } from "react"
+
 import {
   FilterBar,
   FilterBarAdd,
@@ -124,110 +77,102 @@ const fields: Array<FilterField> = [
     ],
   },
   { id: "price", label: "Price", variant: "number", unit: "€" },
-  { id: "listed", label: "Listed", variant: "date" },
+]
+
+const vehicles = [
+  { id: 1, name: "Volkswagen Golf", status: "available", price: 24900 },
+  { id: 2, name: "Tesla Model 3", status: "sold", price: 39500 },
 ]
 
 export function Vehicles() {
   const [filters, setFilters] = useState<Array<Filter>>([])
   const rows = vehicles.filter((vehicle) =>
-    filters.every((filter) => matchesFilter(vehicle[filter.field], filter))
+    filters.every((filter) => {
+      const field = fields.find((candidate) => candidate.id === filter.field)
+      const cell = filter.field === "price" ? vehicle.price : vehicle.status
+
+      return !field || matchesFilter(cell, filter, field)
+    })
   )
 
   return (
-    <FilterBar fields={fields} value={filters} onChange={setFilters}>
-      <FilterBarChips />
-      <FilterBarAdd />
-      <FilterBarClear />
-    </FilterBar>
+    <>
+      <FilterBar fields={fields} value={filters} onChange={setFilters}>
+        <FilterBarChips />
+        <FilterBarAdd />
+        <FilterBarClear />
+      </FilterBar>
+      <ul>
+        {rows.map((vehicle) => (
+          <li key={vehicle.id}>{vehicle.name}</li>
+        ))}
+      </ul>
+    </>
   )
 }
 ```
 
-`FilterBar` holds the state and lays out its children in a wrapping row, so a search field or a
-sort button can sit next to the chips. Its parts can go in any order:
-
-| Part             | Renders                                                                              |
-| ---------------- | ------------------------------------------------------------------------------------ |
-| `FilterBarChips` | One chip per filter, flowing in the bar's row; `max` hides the rest behind "+N more" |
-| `FilterBarAdd`   | "+ Filter" with its <kbd>F</kbd> shortcut (`shortcut` changes or disables it)        |
-| `FilterBarClear` | Removes every filter; hidden when there are none                                     |
-
-## Composing chips
-
-`FilterBarChips` renders `<FilterChip />` for each filter, made of `FilterChipField`,
-`FilterChipOperator`, `FilterChipValue` and `FilterChipRemove` (yes / no chips leave the operator
-out). Pass a function to compose your own:
-
-```tsx
-<FilterBarChips>
-  {({ field }) => (
-    <FilterChip>
-      <FilterChipField />
-      {field.id === "status" ? null : <FilterChipOperator />}
-      <FilterChipValue />
-      <FilterChipRemove />
-    </FilterChip>
-  )}
-</FilterBarChips>
-```
-
-The parts read their filter from `FilterBarChips`, so they only need a `className`.
+`FilterBar` holds the filters and lays its children out in a wrapping row, so a search field or a
+sort button can sit beside the chips. A filter is plain data, `{ field, operator, value }`, so it
+goes into a URL or a request body as it is. "+ Filter" adds the filter as soon as a field is
+picked and drops it if the popover closes without a value, so use `isFilterActive` to skip
+filters that narrow nothing yet.
 
 ## Fields and operators
 
-Each field's `variant` decides its operators and value editor. The first operator is the default;
-pass `operators` to restrict or reorder them.
+A field's `variant` sets its operators and value editor. The first operator is the default; pass
+`operators` to restrict or reorder them.
 
-| Variant   | Operators                                                                                      | Value editor                                                 |
-| --------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| `text`    | contains, does not contain, is, is not, is empty, is not empty                                 | Text input                                                   |
-| `number`  | is between, is, is not, is less than, is at most, is greater than, is at least, is (not) empty | Number input, two for `between`                              |
-| `select`  | is any of, is none of, is empty, is not empty                                                  | List; above 7 options, a search and the picked options first |
-| `boolean` | (none: the chip reads "Electric · Yes")                                                        | Yes / No list                                                |
-| `date`    | is between, is, is before, is after, is empty, is not empty                                    | Presets and a range calendar, or a calendar                  |
+| Variant   | Operators                                                                   | Value                               |
+| --------- | --------------------------------------------------------------------------- | ----------------------------------- |
+| `text`    | `contains`, `notContains`, `is`, `isNot`, `isEmpty`, `isNotEmpty`           | `string`                            |
+| `number`  | `between`, `is`, `isNot`, `lt`, `lte`, `gt`, `gte`, `isEmpty`, `isNotEmpty` | `number`, or `[min, max]`           |
+| `select`  | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                              | `string[]` of option values         |
+| `boolean` | `is`                                                                        | `boolean`                           |
+| `date`    | `between`, `is`, `before`, `after`, `isEmpty`, `isNotEmpty`                 | `"2026-11-20"`, or `{ start, end }` |
 
-Filter values are plain data, so they serialize to a URL or a request body as they are:
+## Examples
 
-```ts
-{ id: "price", field: "price", operator: "between", value: [10000, 25000] }
-{ id: "listed", field: "listed", operator: "between", value: { start: "2026-10-22", end: "2026-11-20" } }
-```
+### Basic
 
-Number fields can set `numberFormat` (e.g. `{ useGrouping: false }` for years) and `unit`.
+The bar keeps its own filters from `defaultValue`. A select with `multiple: false` closes on the
+first pick.
 
-"+ Filter" asks for the field, then its operator and value in the same popover. The filter goes
-into the list straight away as a dimmed chip and applies while values are picked, so `onChange`
-fires with filters that have no value yet; it is dropped if the popover closes without one.
-`isFilterActive` tells whether a filter narrows anything: filter on the server by sending the
-active filters, or on the client with `matchesFilter(cellValue, filter)`. Filters the bar creates
-carry the field's `variant`, so `matchesFilter` compares a date-shaped text value as text.
+<ComponentPreview
+  name="filter-bar-basic-preskok-demo"
+  description="An issue list filtered by status, title and assignee."
+/>
 
-## Translations
+### Custom chips
 
-Every string comes from `messages`; anything left out falls back to English
-(`defaultFilterBarMessages`).
+`FilterBarChips` renders `<FilterChip />` for each filter. Pass a function to build chips from
+`FilterChipField`, `FilterChipOperator`, `FilterChipValue` and `FilterChipRemove`.
 
-```tsx
-<FilterBar
-  fields={fields}
-  messages={{
-    addFilter: "Dodaj filter",
-    clear: "Počisti",
-    moreFilters: (count) => `+${count} več`,
-    operators: { isAnyOf: "je katerikoli od", between: "je med" },
-    datePresets: { "30d": "Zadnjih 30 dni" },
-  }}
->
-  …
-</FilterBar>
-```
+<ComponentPreview
+  name="filter-bar-custom-chips-preskok-demo"
+  description="Rounded tag-style chips without operators."
+/>
 
-Dates and numbers follow the locale from React Aria's `I18nProvider`.
+### Translations
+
+Pass `messages` for the strings; anything left out stays English. Numbers and dates follow the
+`I18nProvider` locale.
+
+<ComponentPreview
+  name="filter-bar-messages-preskok-demo"
+  description="The bar in Slovenian."
+/>
+
+### Server filtering
+
+Send the active filters with the request instead of filtering rows in the browser.
+
+<ComponentPreview
+  name="filter-bar-server-preskok-demo"
+  description="The active filters as a request URL."
+/>
 
 ## Keyboard
 
-| Key                  | Action                                                                        |
-| -------------------- | ----------------------------------------------------------------------------- |
-| <kbd>F</kbd>         | Opens "+ Filter" when no field is focused (`shortcut` changes or disables it) |
-| <kbd>Backspace</kbd> | Removes the chip whose button has focus                                       |
-| <kbd>Enter</kbd>     | Applies a text or number value and closes the editor                          |
+`<FilterBarAdd shortcut="f" />` opens "+ Filter" with <kbd>F</kbd> when no text field is focused.
+In a value editor, <kbd>Enter</kbd> applies the value and closes it.
