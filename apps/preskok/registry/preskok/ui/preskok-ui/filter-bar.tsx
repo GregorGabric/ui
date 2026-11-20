@@ -857,17 +857,20 @@ function FilterChip({ filter, field }: FilterChipProps) {
         <span className="truncate">{field.label}</span>
       </span>
 
-      <FilterOperatorSegment
-        filter={filter}
-        field={field}
-        operators={operators}
-        onChange={(operator) =>
-          update({
-            operator,
-            value: getInitialValue(field, operator, filter.value),
-          })
-        }
-      />
+      {/* Yes / no chips read "Electric · Yes"; an "is" before Yes or No reads oddly. */}
+      {field.variant === "boolean" ? null : (
+        <FilterOperatorSegment
+          filter={filter}
+          field={field}
+          operators={operators}
+          onChange={(operator) =>
+            update({
+              operator,
+              value: getInitialValue(field, operator, filter.value),
+            })
+          }
+        />
+      )}
 
       {isValuelessOperator(filter.operator) ? null : (
         <FilterValueSegment
