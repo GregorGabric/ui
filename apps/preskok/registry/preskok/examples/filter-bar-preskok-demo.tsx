@@ -15,8 +15,9 @@ import {
 import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import {
   FilterBar,
+  FilterBarAdd,
+  FilterBarChips,
   FilterBarClear,
-  FilterBarItems,
   matchesFilter,
   type Filter,
   type FilterField,
@@ -258,7 +259,8 @@ export default function FilterBarDemo() {
         >
           <SearchInput placeholder="Search" />
         </SearchField>
-        <FilterBarItems />
+        <FilterBarChips />
+        <FilterBarAdd />
         <FilterBarClear />
       </FilterBar>
 

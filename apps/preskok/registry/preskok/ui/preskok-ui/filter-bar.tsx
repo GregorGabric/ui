@@ -4,7 +4,6 @@ import {
   createContext,
   use,
   useEffect,
-  useEffectEvent,
   useRef,
   useState,
   type ComponentType,
@@ -465,8 +464,7 @@ interface FilterBarContextValue {
   fields: Array<FilterField>
   filters: Array<Filter>
   setFilters: (filters: Array<Filter>) => void
-  isMenuOpen: boolean
-  setMenuOpen: (isOpen: boolean) => void
+  /** "+ Filter", so removing a chip can hand focus back to it. */
   addButtonRef: React.RefObject<HTMLButtonElement | null>
 }
 
@@ -504,8 +502,6 @@ interface FilterBarProps {
   value?: Array<Filter>
   defaultValue?: Array<Filter>
   onChange?: (filters: Array<Filter>) => void
-  /** Key that opens the "+ Filter" menu from anywhere on the page. `false` turns it off. */
-  shortcut?: string | false
   className?: string
   children?: ReactNode
 }
@@ -513,20 +509,19 @@ interface FilterBarProps {
 const noFilters: Array<Filter> = []
 
 /**
- * A toolbar of filter chips. Compose it with `FilterBarItems` (the chips and "+ Filter") and
- * `FilterBarClear`, next to your own search field or sort button.
+ * Holds the filters and lays out its children in a wrapping row. Compose it from
+ * `FilterBarChips`, `FilterBarAdd` and `FilterBarClear`, next to your own search field or sort
+ * button.
  */
 function FilterBar({
   fields,
   value,
   defaultValue = noFilters,
   onChange,
-  shortcut = "f",
   className,
   children,
 }: FilterBarProps) {
   const [uncontrolledFilters, setUncontrolledFilters] = useState(defaultValue)
-  const [isMenuOpen, setMenuOpen] = useState(false)
   const addButtonRef = useRef<HTMLButtonElement>(null)
   const filters = value ?? uncontrolledFilters
 
@@ -535,33 +530,11 @@ function FilterBar({
     onChange?.(next)
   }
 
-  const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
-    if (!shortcut || !isShortcutEvent(event, shortcut)) return
-
-    event.preventDefault()
-    addButtonRef.current?.focus()
-    setMenuOpen(true)
-  })
-
-  useEffect(() => {
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [])
-
   return (
-    <FilterBarContext
-      value={{
-        fields,
-        filters,
-        setFilters,
-        isMenuOpen,
-        setMenuOpen,
-        addButtonRef,
-      }}
-    >
+    <FilterBarContext value={{ fields, filters, setFilters, addButtonRef }}>
       <div
         data-slot="filter-bar"
-        className={twMerge("flex flex-wrap items-start gap-2", className)}
+        className={twMerge("flex flex-wrap items-center gap-2", className)}
       >
         {children}
       </div>
@@ -570,35 +543,66 @@ function FilterBar({
 }
 
 /* -------------------------------------------------------------------------------------------------
- * FilterBarItems: the chips and "+ Filter"
+ * FilterBarChips
  * -----------------------------------------------------------------------------------------------*/
 
-interface FilterBarItemsProps {
-  className?: string
+interface FilterChipContextValue {
+  filter: Filter
+  field: FilterField
+  update: (next: Partial<Filter>) => void
+  remove: () => void
 }
 
-function FilterBarItems({ className }: FilterBarItemsProps) {
-  const { fields, filters } = useFilterBar()
+const FilterChipContext = createContext<FilterChipContextValue | null>(null)
 
-  return (
-    <div
-      data-slot="filter-bar-items"
-      role="list"
-      aria-label="Filters"
-      className={twMerge(
-        "flex min-w-0 flex-1 flex-wrap items-center gap-2 max-sm:basis-full",
-        className
-      )}
-    >
-      {filters.map((filter) => {
-        const field = fields.find((candidate) => candidate.id === filter.field)
-        return field ? (
-          <FilterChip key={filter.id} filter={filter} field={field} />
-        ) : null
-      })}
-      <FilterAddMenu />
-    </div>
-  )
+function useFilterChip() {
+  const context = use(FilterChipContext)
+  if (!context) {
+    throw new Error(
+      "FilterChip parts must be rendered inside <FilterBarChips>."
+    )
+  }
+  return context
+}
+
+interface FilterBarChipsProps {
+  /** Renders each chip. Defaults to `<FilterChip />` with its standard parts. */
+  children?: (chip: { filter: Filter; field: FilterField }) => ReactNode
+}
+
+/**
+ * One chip per filter. The chips join the bar's own row (no wrapper box), so "+ Filter" and
+ * Clear flow right after the last chip.
+ */
+function FilterBarChips({
+  children = () => <FilterChip />,
+}: FilterBarChipsProps) {
+  const { fields, filters, setFilters, addButtonRef } = useFilterBar()
+
+  return filters.map((filter) => {
+    const field = fields.find((candidate) => candidate.id === filter.field)
+    if (!field) return null
+
+    const update = (next: Partial<Filter>) =>
+      setFilters(
+        filters.map((item) =>
+          item.id === filter.id ? { ...item, ...next } : item
+        )
+      )
+    const remove = () => {
+      setFilters(filters.filter((item) => item.id !== filter.id))
+      addButtonRef.current?.focus()
+    }
+
+    return (
+      <FilterChipContext
+        key={filter.id}
+        value={{ filter, field, update, remove }}
+      >
+        {children({ filter, field })}
+      </FilterChipContext>
+    )
+  })
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -616,9 +620,15 @@ const booleanOptions = (field: FilterField): Array<FilterOption> =>
  * once it has a value, so the bar never shows an empty chip. Yes / No and date presets are picked
  * straight from submenus.
  */
-function FilterAddMenu() {
-  const { fields, filters, setFilters, isMenuOpen, setMenuOpen, addButtonRef } =
-    useFilterBar()
+interface FilterBarAddProps {
+  /** Key that opens the menu from anywhere on the page. `false` turns it off. */
+  shortcut?: string | false
+  className?: string
+}
+
+function FilterBarAdd({ shortcut = "f", className }: FilterBarAddProps) {
+  const { fields, filters, setFilters, addButtonRef } = useFilterBar()
+  const [isMenuOpen, setMenuOpen] = useState(false)
   const { contains } = useFilter({ sensitivity: "base" })
   /** The filter being set up in the value step; `null` while picking a field. */
   const [draft, setDraft] = useState<Filter | null>(null)
@@ -629,6 +639,23 @@ function FilterAddMenu() {
   const draftField = draft
     ? fields.find((field) => field.id === draft.field)
     : undefined
+
+  // A page-wide shortcut subscribes to `window`, which is what Effects are for; React Aria's
+  // `useKeyboard` only sees events on the element it is spread onto.
+  useEffect(() => {
+    if (!shortcut) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!isShortcutEvent(event, shortcut)) return
+
+      event.preventDefault()
+      addButtonRef.current?.focus()
+      setMenuOpen(true)
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [shortcut, addButtonRef])
 
   if (!addableFields.length && !isMenuOpen) return null
 
@@ -719,14 +746,16 @@ function FilterAddMenu() {
       <Button
         ref={addButtonRef}
         intent={filters.length ? "plain" : "outline"}
-        className="h-11 sm:h-9"
+        className={twMerge("h-11 sm:h-9", className)}
         data-slot="filter-bar-add"
       >
         <ListFilterIcon data-slot="icon" aria-hidden />
         {filters.length ? "Add filter" : "Filter"}
-        <Keyboard className="ms-0.5 h-5 items-center rounded border border-foreground/15 px-1 text-[0.7rem]/none text-muted-foreground lg:inline-flex">
-          F
-        </Keyboard>
+        {shortcut ? (
+          <Keyboard className="ms-0.5 h-5 items-center rounded border border-foreground/15 px-1 text-[0.7rem]/none text-muted-foreground lg:inline-flex">
+            {shortcut.toUpperCase()}
+          </Keyboard>
+        ) : null}
       </Button>
       <PopoverContent
         placement="bottom start"
@@ -808,27 +837,14 @@ const chipSegmentClassName =
   "flex h-full shrink-0 cursor-pointer items-center border-0 border-s border-input bg-transparent px-2 outline-hidden transition-colors hover:bg-accent focus-visible:bg-accent pressed:bg-accent"
 
 interface FilterChipProps {
-  filter: Filter
-  field: FilterField
+  className?: string
+  /** The chip's segments. Defaults to field, operator (not for yes / no), value and remove. */
+  children?: ReactNode
 }
 
-function FilterChip({ filter, field }: FilterChipProps) {
-  const { filters, setFilters, addButtonRef } = useFilterBar()
-  const [isEditing, setEditing] = useState(false)
-  const Icon = field.icon
-  const operators = getFilterOperators(field)
-
-  const update = (next: Partial<Filter>) =>
-    setFilters(
-      filters.map((item) =>
-        item.id === filter.id ? { ...item, ...next } : item
-      )
-    )
-
-  const remove = () => {
-    setFilters(filters.filter((item) => item.id !== filter.id))
-    addButtonRef.current?.focus()
-  }
+/** A filter as a chip. Render it inside `FilterBarChips`; its parts read the filter from there. */
+function FilterChip({ className, children }: FilterChipProps) {
+  const { field, remove } = useFilterChip()
 
   // Backspace or Delete on a chip's button removes the chip, like a token in a text field.
   const onKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
@@ -841,66 +857,63 @@ function FilterChip({ filter, field }: FilterChipProps) {
 
   return (
     <div
-      role="listitem"
+      role="group"
       aria-label={`${field.label} filter`}
       data-slot="filter-chip"
       onKeyDown={onKeyDown}
       className={twMerge(
         "inline-flex h-11 max-w-full min-w-0 items-stretch overflow-hidden rounded-lg border border-input bg-background text-base/6 sm:h-9 sm:text-sm/6",
         "has-focus-visible:border-ring/70 has-focus-visible:ring-3 has-focus-visible:ring-ring/20",
-        "animate-in fade-in-0 zoom-in-95 duration-150"
+        "animate-in fade-in-0 zoom-in-95 duration-150",
+        className
       )}
     >
-      {/* In a narrow chip the value truncates; the field name keeps up to 10rem. */}
-      <span className="flex max-w-40 shrink-0 items-center gap-1.5 ps-2.5 pe-2 text-muted-foreground">
-        {Icon ? <Icon className="size-4 shrink-0" aria-hidden /> : null}
-        <span className="truncate">{field.label}</span>
-      </span>
-
-      {/* Yes / no chips read "Electric · Yes"; an "is" before Yes or No reads oddly. */}
-      {field.variant === "boolean" ? null : (
-        <FilterOperatorSegment
-          filter={filter}
-          field={field}
-          operators={operators}
-          onChange={(operator) =>
-            update({
-              operator,
-              value: getInitialValue(field, operator, filter.value),
-            })
-          }
-        />
+      {children ?? (
+        <>
+          <FilterChipField />
+          {/* "Electric · Yes" reads better than "Electric is Yes". */}
+          {field.variant === "boolean" ? null : <FilterChipOperator />}
+          <FilterChipValue />
+          <FilterChipRemove />
+        </>
       )}
-
-      {isValuelessOperator(filter.operator) ? null : (
-        <FilterValueSegment
-          filter={filter}
-          field={field}
-          isOpen={isEditing}
-          onOpenChange={(isOpen) => {
-            setEditing(isOpen)
-            // A chip closed without a value narrows nothing: drop it.
-            if (!isOpen && !isFilterActive(filter)) remove()
-          }}
-          onChange={(value) => update({ value })}
-          onCommit={(value) => {
-            setEditing(false)
-            update({ value })
-          }}
-        />
-      )}
-
-      <ButtonPrimitive
-        aria-label={`Remove ${field.label} filter`}
-        onPress={remove}
-        className={twMerge(
-          chipSegmentClassName,
-          "w-9 justify-center px-0 text-muted-foreground hover:text-foreground sm:w-8"
-        )}
-      >
-        <XIcon className="size-4" aria-hidden />
-      </ButtonPrimitive>
     </div>
+  )
+}
+
+/** The field's icon and name. In a narrow chip the value truncates first; the name keeps 10rem. */
+function FilterChipField({ className }: { className?: string }) {
+  const { field } = useFilterChip()
+  const Icon = field.icon
+
+  return (
+    <span
+      className={twMerge(
+        "flex max-w-40 shrink-0 items-center gap-1.5 ps-2.5 pe-2 text-muted-foreground",
+        className
+      )}
+    >
+      {Icon ? <Icon className="size-4 shrink-0" aria-hidden /> : null}
+      <span className="truncate">{field.label}</span>
+    </span>
+  )
+}
+
+function FilterChipRemove({ className }: { className?: string }) {
+  const { field, remove } = useFilterChip()
+
+  return (
+    <ButtonPrimitive
+      aria-label={`Remove ${field.label} filter`}
+      onPress={remove}
+      className={twMerge(
+        chipSegmentClassName,
+        "w-9 justify-center px-0 text-muted-foreground hover:text-foreground sm:w-8",
+        className
+      )}
+    >
+      <XIcon className="size-4" aria-hidden />
+    </ButtonPrimitive>
   )
 }
 
@@ -915,24 +928,20 @@ function getOperatorLabel(filter: Filter) {
   return operatorLabels[filter.operator]
 }
 
-interface FilterOperatorSegmentProps {
-  filter: Filter
-  field: FilterField
-  operators: Array<FilterOperator>
-  onChange: (operator: FilterOperator) => void
-}
-
-function FilterOperatorSegment({
-  filter,
-  field,
-  operators,
-  onChange,
-}: FilterOperatorSegmentProps) {
+/** The operator: a menu when the field has several, plain text when it has one. */
+function FilterChipOperator({ className }: { className?: string }) {
+  const { filter, field, update } = useFilterChip()
+  const operators = getFilterOperators(field)
   const label = getOperatorLabel(filter)
 
   if (operators.length < 2) {
     return (
-      <span className="flex shrink-0 items-center border-s border-input px-2 text-muted-foreground">
+      <span
+        className={twMerge(
+          "flex shrink-0 items-center border-s border-input px-2 text-muted-foreground",
+          className
+        )}
+      >
         {label}
       </span>
     )
@@ -942,7 +951,11 @@ function FilterOperatorSegment({
     <Menu>
       <ButtonPrimitive
         aria-label={`${field.label} operator: ${label}`}
-        className={twMerge(chipSegmentClassName, "text-muted-foreground")}
+        className={twMerge(
+          chipSegmentClassName,
+          "text-muted-foreground",
+          className
+        )}
       >
         {label}
       </ButtonPrimitive>
@@ -952,7 +965,12 @@ function FilterOperatorSegment({
         selectedKeys={[filter.operator]}
         onAction={(key) => {
           const operator = operators.find((candidate) => candidate === key)
-          if (operator) onChange(operator)
+          if (operator) {
+            update({
+              operator,
+              value: getInitialValue(field, operator, filter.value),
+            })
+          }
         }}
         className="min-w-44"
       >
@@ -1050,33 +1068,29 @@ const valuePlaceholders: Record<FilterVariant, string> = {
 const numberInputClassName =
   "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
 
-interface FilterValueSegmentProps {
-  filter: Filter
-  field: FilterField
-  isOpen: boolean
-  onOpenChange: (isOpen: boolean) => void
-  onChange: (value: FilterValue) => void
-  /** Sets the value and closes the editor in one update, so closing never sees the old value. */
-  onCommit: (value: FilterValue) => void
-}
-
-function FilterValueSegment({
-  filter,
-  field,
-  isOpen,
-  onOpenChange,
-  onChange,
-  onCommit,
-}: FilterValueSegmentProps) {
+/** The value: opens the field's editor. Hidden for operators without a value (`is empty`). */
+function FilterChipValue({ className }: { className?: string }) {
+  const { filter, field, update, remove } = useFilterChip()
+  const [isOpen, setOpen] = useState(false)
   const label = useValueLabel(filter, field)
 
+  if (isValuelessOperator(filter.operator)) return null
+
   return (
-    <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
+    <DialogTrigger
+      isOpen={isOpen}
+      onOpenChange={(open) => {
+        setOpen(open)
+        // A chip whose value was cleared narrows nothing: drop it when its editor closes.
+        if (!open && !isFilterActive(filter)) remove()
+      }}
+    >
       <ButtonPrimitive
         aria-label={`${field.label} value: ${label ?? "not set"}`}
         className={twMerge(
           chipSegmentClassName,
-          "min-w-10 shrink font-medium text-foreground"
+          "min-w-10 shrink font-medium text-foreground",
+          className
         )}
       >
         <span
@@ -1100,8 +1114,12 @@ function FilterValueSegment({
             <FilterValueEditor
               filter={filter}
               field={field}
-              onChange={onChange}
-              onCommit={onCommit}
+              onChange={(value) => update({ value })}
+              onCommit={(value) => {
+                // Value and close in one update, so closing never sees the old value.
+                setOpen(false)
+                update({ value })
+              }}
               onDone={close}
             />
           )}
@@ -1395,8 +1413,14 @@ function FilterBarClear({
 export {
   createFilter,
   FilterBar,
+  FilterBarAdd,
+  FilterBarChips,
   FilterBarClear,
-  FilterBarItems,
+  FilterChip,
+  FilterChipField,
+  FilterChipOperator,
+  FilterChipRemove,
+  FilterChipValue,
   filterDatePresets,
   getFilterOperators,
   isFilterActive,
@@ -1405,7 +1429,10 @@ export {
 }
 export type {
   Filter,
+  FilterBarAddProps,
+  FilterBarChipsProps,
   FilterBarProps,
+  FilterChipProps,
   FilterDateRange,
   FilterField,
   FilterOperator,

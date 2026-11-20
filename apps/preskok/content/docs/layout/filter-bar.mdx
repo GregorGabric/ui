@@ -56,8 +56,9 @@ Copy and paste the following code into your project.
 ```tsx
 import {
   FilterBar,
+  FilterBarAdd,
+  FilterBarChips,
   FilterBarClear,
-  FilterBarItems,
   matchesFilter,
   type Filter,
   type FilterField,
@@ -85,7 +86,8 @@ export function Vehicles() {
 
   return (
     <FilterBar fields={fields} value={filters} onChange={setFilters}>
-      <FilterBarItems />
+      <FilterBarChips />
+      <FilterBarAdd />
       <FilterBarClear />
     </FilterBar>
   )
@@ -93,8 +95,34 @@ export function Vehicles() {
 ```
 
 `FilterBar` holds the state and lays out its children in a wrapping row, so a search field or a
-sort button can sit next to the chips. `FilterBarItems` renders the chips and the "+ Filter" menu;
-`FilterBarClear` removes every filter and hides itself when there are none.
+sort button can sit next to the chips. Its parts can go in any order:
+
+| Part             | Renders                                                                       |
+| ---------------- | ----------------------------------------------------------------------------- |
+| `FilterBarChips` | One chip per filter, flowing in the bar's row                                 |
+| `FilterBarAdd`   | "+ Filter" with its <kbd>F</kbd> shortcut (`shortcut` changes or disables it) |
+| `FilterBarClear` | Removes every filter; hidden when there are none                              |
+
+## Composing chips
+
+`FilterBarChips` renders `<FilterChip />` for each filter, made of `FilterChipField`,
+`FilterChipOperator`, `FilterChipValue` and `FilterChipRemove` (yes / no chips leave the operator
+out). Pass a function to compose your own:
+
+```tsx
+<FilterBarChips>
+  {({ field }) => (
+    <FilterChip>
+      <FilterChipField />
+      {field.id === "status" ? null : <FilterChipOperator />}
+      <FilterChipValue />
+      <FilterChipRemove />
+    </FilterChip>
+  )}
+</FilterBarChips>
+```
+
+The parts read their filter from `FilterBarChips`, so they only need a `className`.
 
 ## Fields and operators
 
