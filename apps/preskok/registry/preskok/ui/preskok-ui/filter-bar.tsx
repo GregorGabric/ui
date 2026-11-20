@@ -127,6 +127,8 @@ interface FilterField {
   placeholder?: string
   /** Shown after number values, e.g. `km` or `€`. */
   unit?: string
+  /** How number values read in the chip, e.g. `{ useGrouping: false }` so years show as 2019. */
+  numberFormat?: Intl.NumberFormatOptions
 }
 
 const operatorLabels: Record<FilterOperator, string> = {
@@ -1009,7 +1011,7 @@ function useValueLabel(filter: Filter, field: FilterField) {
   const formatNumber = (value: number | null) =>
     value === null
       ? "…"
-      : `${new Intl.NumberFormat(locale).format(value)}${field.unit ? ` ${field.unit}` : ""}`
+      : `${new Intl.NumberFormat(locale, field.numberFormat).format(value)}${field.unit ? ` ${field.unit}` : ""}`
 
   const { value } = filter
 
@@ -1052,7 +1054,8 @@ function useValueLabel(filter: Filter, field: FilterField) {
       return `${formatDay(value.start, !sameYear)} – ${formatDay(value.end)}`
     }
     case "text":
-      return `“${typeof value === "string" ? value : ""}”`
+      // Quoted when rendered; see FilterChipValue.
+      return typeof value === "string" ? value : ""
   }
 }
 
@@ -1099,7 +1102,18 @@ function FilterChipValue({ className }: { className?: string }) {
             label === null && "font-normal text-muted-foreground"
           )}
         >
-          {label ?? field.placeholder ?? valuePlaceholders[field.variant]}
+          {/* <bdi> keeps an RTL value from flipping the punctuation around it. */}
+          {label !== null && field.variant === "text" ? (
+            <>
+              “<bdi>{label}</bdi>”
+            </>
+          ) : null}
+          {label !== null && field.variant !== "text" ? (
+            <bdi>{label}</bdi>
+          ) : null}
+          {label === null
+            ? (field.placeholder ?? valuePlaceholders[field.variant])
+            : null}
         </span>
       </ButtonPrimitive>
       <PopoverContent

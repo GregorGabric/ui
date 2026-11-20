@@ -162,6 +162,7 @@ const fields: Array<FilterField> = [
     variant: "number",
     icon: HashIcon,
     group: "Vehicle",
+    numberFormat: { useGrouping: false },
   },
   {
     id: "electric",
