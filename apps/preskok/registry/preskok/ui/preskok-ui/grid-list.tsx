@@ -23,13 +23,22 @@ import { Checkbox } from "./checkbox"
 
 type GridListVariant = "card" | "bordered" | "plain"
 
-const GridListVariantContext = createContext<GridListVariant>("card")
+interface GridListVariantContextValue {
+  variant: GridListVariant
+  /** Set when `onAction` is on the list, so rows know a click runs an action. */
+  hasListAction: boolean
+}
+
+const GridListVariantContext = createContext<GridListVariantContextValue>({
+  variant: "card",
+  hasListAction: false,
+})
 
 /** Spacing and frame of the list itself; items read the variant from context. */
 const listVariantStyles: Record<GridListVariant, string> = {
   card: "gap-y-1 has-data-[slot=grid-list-section]:gap-y-6",
   bordered:
-    "inset-ring-border divide-border divide-y overflow-hidden rounded-lg inset-ring",
+    "divide-border divide-y overflow-hidden rounded-lg border border-border",
   plain: "gap-y-0.5 has-data-[slot=grid-list-section]:gap-y-4",
 }
 
@@ -47,7 +56,10 @@ const headerVariantStyles: Record<GridListVariant, string> = {
 
 const itemVariantStyles: Record<GridListVariant, string> = {
   card: "inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
-  bordered: "px-3 py-2.5",
+  // Rows touching the frame's corners take its inner radius, so their focus outline follows the
+  // curve instead of being clipped by the list's `overflow-hidden`.
+  bordered:
+    "px-3 py-2.5 [[data-slot=grid-list]>&:first-child]:rounded-t-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>&:last-child]:rounded-b-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>[data-slot=grid-list-section]:last-child>&:last-child]:rounded-b-[calc(var(--radius-lg)-1px)]",
   plain: "rounded-md px-2 py-2",
 }
 
@@ -64,7 +76,9 @@ const GridList = <T extends object>({
   className,
   ...props
 }: GridListRootProps<T>) => (
-  <GridListVariantContext value={variant}>
+  <GridListVariantContext
+    value={{ variant, hasListAction: Boolean(props.onAction) }}
+  >
     <GridListPrimitive
       data-slot="grid-list"
       data-variant={variant}
@@ -81,7 +95,7 @@ const GridListSection = <T extends object>({
   className,
   ...props
 }: React.ComponentProps<typeof GridListSectionPrimitive<T>>) => {
-  const variant = use(GridListVariantContext)
+  const { variant } = use(GridListVariantContext)
 
   return (
     <GridListSectionPrimitive
@@ -96,7 +110,7 @@ const GridListHeader = ({
   className,
   ...props
 }: React.ComponentProps<typeof GridListHeaderPrimitive>) => {
-  const variant = use(GridListVariantContext)
+  const { variant } = use(GridListVariantContext)
 
   return (
     <GridListHeaderPrimitive
@@ -112,7 +126,8 @@ const GridListHeader = ({
 }
 
 const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
-  const variant = use(GridListVariantContext)
+  const { variant, hasListAction } = use(GridListVariantContext)
+  const isLink = Boolean(props.href)
   const textValue = typeof children === "string" ? children : undefined
 
   return (
@@ -137,26 +152,35 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
           twMerge(
             "group",
             itemVariantStyles[variant],
-            "relative min-w-0 outline-hidden [--mr-icon:--spacing(2)]",
+            // `outline-0` rather than `outline-hidden`: in forced colors the latter turns into a
+            // visible outline on every row.
+            "relative min-w-0 outline-0 -outline-offset-2 [--mr-icon:--spacing(2)]",
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",
             "dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
             "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
             isHovered && "bg-accent/50",
             isPressed && "bg-accent/70",
+            // Forced colors drop box shadows and backgrounds, so selection and focus use outlines there.
             isSelected &&
-              "bg-accent text-accent-foreground forced-colors:inset-ring-2 forced-colors:inset-ring-[Highlight]",
-            // A 2px ring stays visible on top of the selected background and the card border.
-            isFocusVisible && "inset-ring-ring inset-ring-2",
+              "bg-accent text-accent-foreground forced-colors:outline-2 forced-colors:outline-[Highlight]",
+            // A 2px outline stays visible on top of the selected background and the card border. In
+            // forced colors it is dashed, and stays Highlight on a selected row, so focus and
+            // selection both read.
+            isFocusVisible &&
+              "outline-2 outline-ring forced-colors:outline-dashed forced-colors:outline-[CanvasText]",
+            isFocusVisible && isSelected && "forced-colors:outline-[Highlight]",
             // An inset ring, unlike a border, marks the drop target without shifting the row.
             isDropTarget && "inset-ring-primary inset-ring-2",
             isDisabled && "opacity-50 forced-colors:text-[GrayText]",
-            "href" in props && "cursor-pointer",
+            isLink && "cursor-pointer",
             // Rows that only reorder can be grabbed anywhere; rows that also select or act keep the
             // default cursor so a click doesn't read as "move", and only the handle shows the grab hand.
             allowsDragging &&
               selectionMode === "none" &&
-              !("href" in props) &&
+              !isDisabled &&
+              !isLink &&
               !props.onAction &&
+              !hasListAction &&
               "cursor-grab",
             className
           )
@@ -167,10 +191,15 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
           {values.allowsDragging && (
             // React Aria sets `pointer-events: none` on the drag button because the whole row starts a
             // mouse drag, so the grab cursor and hover colour live on this wrapper instead.
-            <span className="group/drag -m-1 flex cursor-grab p-1">
+            <span
+              className={twMerge(
+                "group/drag -m-1 flex p-1",
+                !values.isDisabled && "cursor-grab"
+              )}
+            >
               <Button
                 slot="drag"
-                className="rounded-sm text-muted-foreground outline-hidden group-hover/drag:text-foreground focus-visible:text-foreground"
+                className="rounded-sm text-muted-foreground outline-0 outline-offset-1 group-hover/drag:text-foreground focus-visible:text-foreground focus-visible:outline-2 focus-visible:outline-ring forced-colors:outline-[Highlight]"
               >
                 <svg
                   data-slot="drag-icon"

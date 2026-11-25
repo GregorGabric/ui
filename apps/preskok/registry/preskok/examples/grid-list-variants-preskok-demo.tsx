@@ -10,6 +10,7 @@ import {
   GridListHeader,
   GridListItem,
   GridListLabel,
+  GridListSection,
   GridListSpacer,
   GridListStart,
 } from "@/registry/preskok/ui/preskok-ui/grid-list"
@@ -40,21 +41,23 @@ function VariantList({ variant }: { variant: GridListVariant }) {
       selectedKeys={selectedKeys}
       onSelectionChange={setSelectedKeys}
     >
-      <GridListHeader>{variant}</GridListHeader>
-      {tasks.map((task) => (
-        <GridListItem key={task.id} id={task.id} textValue={task.name}>
-          <GridListStart>
-            <div>
-              <GridListLabel>{task.name}</GridListLabel>
-              <GridListDescription>{task.owner}</GridListDescription>
-            </div>
-          </GridListStart>
-          <GridListSpacer />
-          <span className="text-sm text-muted-foreground tabular-nums">
-            {task.due}
-          </span>
-        </GridListItem>
-      ))}
+      <GridListSection>
+        <GridListHeader>{variant}</GridListHeader>
+        {tasks.map((task) => (
+          <GridListItem key={task.id} id={task.id} textValue={task.name}>
+            <GridListStart>
+              <div>
+                <GridListLabel>{task.name}</GridListLabel>
+                <GridListDescription>{task.owner}</GridListDescription>
+              </div>
+            </GridListStart>
+            <GridListSpacer />
+            <span className="text-sm text-muted-foreground tabular-nums">
+              {task.due}
+            </span>
+          </GridListItem>
+        ))}
+      </GridListSection>
     </GridList>
   )
 }

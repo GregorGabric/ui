@@ -8,6 +8,7 @@ import {
   GridListHeader,
   GridListItem,
   GridListLabel,
+  GridListSection,
   GridListSpacer,
   GridListStart,
 } from "@/registry/preskok/ui/preskok-ui/grid-list"
@@ -54,34 +55,36 @@ export default function GridListControlsPreskokDemo() {
         }
       }}
     >
-      <GridListHeader>Official dealer</GridListHeader>
-      <GridListItem id={ALL_BRANDS_KEY} textValue="All brands">
-        <GridListStart>
-          <div>
-            <GridListLabel>All brands</GridListLabel>
-            <GridListDescription>
-              {officialBrands.size} of {brands.length} on
-            </GridListDescription>
-          </div>
-        </GridListStart>
-        <GridListSpacer />
-        <Switch
-          aria-label="Official dealer for all brands"
-          isSelected={isEveryBrandOfficial}
-          onChange={setEveryBrand}
-        />
-      </GridListItem>
-      {brands.map((brand) => (
-        <GridListItem key={brand} id={brand} textValue={brand}>
-          <GridListLabel className="font-normal">{brand}</GridListLabel>
+      <GridListSection>
+        <GridListHeader>Official dealer</GridListHeader>
+        <GridListItem id={ALL_BRANDS_KEY} textValue="All brands">
+          <GridListStart>
+            <div>
+              <GridListLabel>All brands</GridListLabel>
+              <GridListDescription>
+                {officialBrands.size} of {brands.length} on
+              </GridListDescription>
+            </div>
+          </GridListStart>
           <GridListSpacer />
           <Switch
-            aria-label={`Official dealer for ${brand}`}
-            isSelected={officialBrands.has(brand)}
-            onChange={(isOfficial) => setBrand(brand, isOfficial)}
+            aria-label="Official dealer for all brands"
+            isSelected={isEveryBrandOfficial}
+            onChange={setEveryBrand}
           />
         </GridListItem>
-      ))}
+        {brands.map((brand) => (
+          <GridListItem key={brand} id={brand} textValue={brand}>
+            <GridListLabel className="font-normal">{brand}</GridListLabel>
+            <GridListSpacer />
+            <Switch
+              aria-label={`Official dealer for ${brand}`}
+              isSelected={officialBrands.has(brand)}
+              onChange={(isOfficial) => setBrand(brand, isOfficial)}
+            />
+          </GridListItem>
+        ))}
+      </GridListSection>
     </GridList>
   )
 }
