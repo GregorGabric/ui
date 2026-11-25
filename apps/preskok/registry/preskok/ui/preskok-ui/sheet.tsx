@@ -283,9 +283,11 @@ const sheetStyles = tv({
       top: "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-bottom border-b [--sheet-stack-y:8px] min-[51rem]:border-x",
       bottom:
         "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-top border-t [--sheet-stack-y:-8px] min-[51rem]:border-x",
-      left: "h-full w-3/4 origin-right border-r [--sheet-stack-x:8px] sm:max-w-80",
+      // Side sheets are phone-width, so their footer keeps the phone layout: full-width buttons,
+      // stacked with the main action on top, instead of a row in the corner.
+      left: "h-full w-3/4 origin-right border-r [--sheet-stack-x:8px] sm:max-w-80 sm:**:data-[slot=dialog-footer]:flex-col-reverse",
       right:
-        "h-full w-3/4 origin-left border-l [--sheet-stack-x:-8px] sm:max-w-80",
+        "h-full w-3/4 origin-left border-l [--sheet-stack-x:-8px] sm:max-w-80 sm:**:data-[slot=dialog-footer]:flex-col-reverse",
       center:
         "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(8))] w-[calc(100%-2rem)] max-w-lg rounded-xl border",
     },
