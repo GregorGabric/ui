@@ -1,6 +1,15 @@
 "use client"
 
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import {
+  GridList,
+  GridListDescription,
+  GridListItem,
+  GridListLabel,
+  GridListSpacer,
+  GridListStart,
+} from "@/registry/preskok/ui/preskok-ui/grid-list"
 import {
   Sheet,
   SheetBody,
@@ -40,9 +49,26 @@ export default function SheetAnimationDemo() {
             Swipe the sheet slowly to watch it tilt away.
           </SheetDescription>
         </SheetHeader>
-        <SheetBody className="gap-2 text-sm">
-          <p>Peugeot 308 SW · Next service in 2,400 km</p>
-          <p>Toyota Yaris Hybrid · Tyres due in November</p>
+        <SheetBody>
+          <GridList aria-label="Vehicles" items={vehicles}>
+            {(vehicle) => (
+              <GridListItem id={vehicle.id} textValue={vehicle.name}>
+                <GridListStart>
+                  <div>
+                    <GridListLabel>{vehicle.name}</GridListLabel>
+                    <GridListDescription>{vehicle.plate}</GridListDescription>
+                  </div>
+                </GridListStart>
+                <GridListSpacer />
+                <Badge
+                  intent={vehicle.intent}
+                  className="shrink-0 whitespace-nowrap"
+                >
+                  {vehicle.status}
+                </Badge>
+              </GridListItem>
+            )}
+          </GridList>
         </SheetBody>
         <SheetFooter>
           <SheetClose>Close</SheetClose>
@@ -51,3 +77,27 @@ export default function SheetAnimationDemo() {
     </Sheet>
   )
 }
+
+const vehicles = [
+  {
+    id: "308",
+    name: "Peugeot 308 SW",
+    plate: "LJ 48-KTE",
+    status: "Service soon",
+    intent: "secondary",
+  },
+  {
+    id: "yaris",
+    name: "Toyota Yaris Hybrid",
+    plate: "KR 12-HJA",
+    status: "Tyres due",
+    intent: "warning",
+  },
+  {
+    id: "kangoo",
+    name: "Renault Kangoo",
+    plate: "MB 77-PLS",
+    status: "Up to date",
+    intent: "success",
+  },
+] as const

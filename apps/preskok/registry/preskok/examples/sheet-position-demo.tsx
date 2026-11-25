@@ -1,8 +1,18 @@
 "use client"
 
 import { useState } from "react"
+import { CheckIcon } from "lucide-react"
 
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
+import {
+  GridList,
+  GridListDescription,
+  GridListItem,
+  GridListLabel,
+  GridListSpacer,
+  GridListStart,
+} from "@/registry/preskok/ui/preskok-ui/grid-list"
 import {
   Sheet,
   SheetBody,
@@ -31,24 +41,19 @@ export default function SheetPositionDemo() {
             </Button>
             <SheetContent side={side} isFloat={isFloat}>
               <SheetHeader>
-                <SheetTitle className="first-letter:uppercase">
-                  {side} sheet
-                </SheetTitle>
+                <SheetTitle>Saved searches</SheetTitle>
                 <SheetDescription>
                   {side === "center"
                     ? "Swipe up or down to dismiss."
-                    : `Swipe toward the ${side} edge to dismiss.`}
+                    : `Opened from the ${side}. Swipe toward that edge to dismiss.`}
                 </SheetDescription>
               </SheetHeader>
               <SheetBody>
-                <p className="text-sm text-muted-foreground">
-                  Use the edge that matches where the content lives on the page.
-                  A bottom sheet suits phones, and a right sheet suits details
-                  next to a table.
-                </p>
+                <SavedSearches />
               </SheetBody>
               <SheetFooter>
-                <SheetClose intent="outline">Close</SheetClose>
+                <SheetClose>Close</SheetClose>
+                <SheetClose intent="primary">Show results</SheetClose>
               </SheetFooter>
             </SheetContent>
           </Sheet>
@@ -60,3 +65,61 @@ export default function SheetPositionDemo() {
     </div>
   )
 }
+
+function SavedSearches() {
+  return (
+    <GridList
+      aria-label="Saved searches"
+      selectionMode="single"
+      disallowEmptySelection
+      defaultSelectedKeys={["audi"]}
+      items={searches}
+    >
+      {(search) => (
+        <GridListItem id={search.id} textValue={search.name}>
+          {({ isSelected }) => (
+            <>
+              <GridListStart>
+                <div>
+                  <GridListLabel>{search.name}</GridListLabel>
+                  <GridListDescription>{search.filters}</GridListDescription>
+                </div>
+              </GridListStart>
+              <GridListSpacer />
+              {search.newCount > 0 && (
+                <Badge
+                  intent="secondary"
+                  className="shrink-0 whitespace-nowrap tabular-nums"
+                >
+                  {search.newCount} new
+                </Badge>
+              )}
+              {isSelected && <CheckIcon data-slot="icon" aria-hidden />}
+            </>
+          )}
+        </GridListItem>
+      )}
+    </GridList>
+  )
+}
+
+const searches = [
+  {
+    id: "audi",
+    name: "Audi A4 Avant",
+    filters: "Diesel · From 2019",
+    newCount: 12,
+  },
+  {
+    id: "golf",
+    name: "Volkswagen Golf",
+    filters: "Petrol · Under €18,000",
+    newCount: 4,
+  },
+  {
+    id: "vans",
+    name: "Delivery vans",
+    filters: "Trafic, Transit · Under 150k km",
+    newCount: 0,
+  },
+]

@@ -1,7 +1,16 @@
 "use client"
 
+import { Badge } from "@/registry/preskok/ui/preskok-ui/badge"
 import { Button } from "@/registry/preskok/ui/preskok-ui/button"
 import { Label } from "@/registry/preskok/ui/preskok-ui/field"
+import {
+  GridList,
+  GridListDescription,
+  GridListItem,
+  GridListLabel,
+  GridListSpacer,
+  GridListStart,
+} from "@/registry/preskok/ui/preskok-ui/grid-list"
 import { Input } from "@/registry/preskok/ui/preskok-ui/input"
 import { Radio, RadioGroup } from "@/registry/preskok/ui/preskok-ui/radio"
 import {
@@ -26,11 +35,31 @@ export default function SheetStackingDemo() {
           <SheetTitle>Audi A4 Avant 40 TDI</SheetTitle>
           <SheetDescription>Lot AU-3021 · Ends in 2h 14m</SheetDescription>
         </SheetHeader>
-        <SheetBody className="gap-3 text-sm">
-          <p className="text-muted-foreground">
-            Sold by Avtohiša Kranj. Inspected on 2 October with two minor
-            findings.
-          </p>
+        <SheetBody className="gap-4 text-sm">
+          <dl className="grid grid-cols-3 gap-3">
+            {lotFacts.map(([term, value]) => (
+              <div key={term}>
+                <dt className="text-muted-foreground">{term}</dt>
+                <dd className="font-medium tabular-nums">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <GridList aria-label="Inspection findings" items={findings}>
+            {(finding) => (
+              <GridListItem id={finding.id} textValue={finding.name}>
+                <GridListStart>
+                  <div>
+                    <GridListLabel>{finding.name}</GridListLabel>
+                    <GridListDescription>{finding.detail}</GridListDescription>
+                  </div>
+                </GridListStart>
+                <GridListSpacer />
+                <Badge intent="warning" className="shrink-0">
+                  Minor
+                </Badge>
+              </GridListItem>
+            )}
+          </GridList>
           <Sheet>
             <Button intent="outline">Contact seller</Button>
             <SheetContent side="bottom" isFloat={false} style={{ height: 480 }}>
@@ -90,3 +119,22 @@ export default function SheetStackingDemo() {
     </Sheet>
   )
 }
+
+const lotFacts = [
+  ["Current bid", "€21,400"],
+  ["Mileage", "88,200 km"],
+  ["Year", "2020"],
+]
+
+const findings = [
+  {
+    id: "bumper",
+    name: "Scratch on rear bumper",
+    detail: "Inspected 2 October",
+  },
+  {
+    id: "tyres",
+    name: "Front tyres at 3 mm",
+    detail: "Inspected 2 October",
+  },
+]

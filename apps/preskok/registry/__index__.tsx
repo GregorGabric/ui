@@ -4308,7 +4308,7 @@ import * as React from "react"
     name: "sheet-side-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["sheet","button"],
+    registryDependencies: ["sheet","button","avatar","badge"],
     files: [{
       path: "registry/preskok/examples/sheet-side-demo.tsx",
       type: "registry:example",
@@ -4344,7 +4344,7 @@ import * as React from "react"
     name: "sheet-position-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["sheet","button","switch"],
+    registryDependencies: ["sheet","button","switch","grid-list","badge"],
     files: [{
       path: "registry/preskok/examples/sheet-position-demo.tsx",
       type: "registry:example",
@@ -4380,7 +4380,7 @@ import * as React from "react"
     name: "sheet-stacking-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["sheet","button","radio","text-field","textarea"],
+    registryDependencies: ["sheet","button","radio","text-field","textarea","grid-list","badge"],
     files: [{
       path: "registry/preskok/examples/sheet-stacking-demo.tsx",
       type: "registry:example",
@@ -4416,7 +4416,7 @@ import * as React from "react"
     name: "sheet-animation-demo",
     description: "",
     type: "registry:example",
-    registryDependencies: ["sheet","button"],
+    registryDependencies: ["sheet","button","grid-list","badge"],
     files: [{
       path: "registry/preskok/examples/sheet-animation-demo.tsx",
       type: "registry:example",

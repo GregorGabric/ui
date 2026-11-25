@@ -1421,7 +1421,7 @@ export const examples: Registry["items"] = [
   {
     name: "sheet-side-demo",
     type: "registry:example",
-    registryDependencies: ["sheet", "button"],
+    registryDependencies: ["sheet", "button", "avatar", "badge"],
     files: [
       {
         path: "examples/sheet-side-demo.tsx",
@@ -1443,7 +1443,7 @@ export const examples: Registry["items"] = [
   {
     name: "sheet-position-demo",
     type: "registry:example",
-    registryDependencies: ["sheet", "button", "switch"],
+    registryDependencies: ["sheet", "button", "switch", "grid-list", "badge"],
     files: [
       {
         path: "examples/sheet-position-demo.tsx",
@@ -1471,6 +1471,8 @@ export const examples: Registry["items"] = [
       "radio",
       "text-field",
       "textarea",
+      "grid-list",
+      "badge",
     ],
     files: [
       {
@@ -1493,7 +1495,7 @@ export const examples: Registry["items"] = [
   {
     name: "sheet-animation-demo",
     type: "registry:example",
-    registryDependencies: ["sheet", "button"],
+    registryDependencies: ["sheet", "button", "grid-list", "badge"],
     files: [
       {
         path: "examples/sheet-animation-demo.tsx",
