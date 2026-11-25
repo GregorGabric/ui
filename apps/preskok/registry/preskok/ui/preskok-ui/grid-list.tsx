@@ -34,12 +34,17 @@ const GridListVariantContext = createContext<GridListVariantContextValue>({
   hasListAction: false,
 })
 
-/** Spacing and frame of the list itself; items read the variant from context. */
+/**
+ * Spacing and frame of the list itself; items read the variant from context. While dragging, React
+ * Aria adds a zero-height drop indicator between rows, which would add another gap each, so the
+ * indicators take a negative margin of half the gap on each side.
+ */
 const listVariantStyles: Record<GridListVariant, string> = {
-  card: "gap-y-1 has-data-[slot=grid-list-section]:gap-y-6",
+  card: "gap-y-1 has-data-[slot=grid-list-section]:gap-y-6 [&>.react-aria-DropIndicator]:-my-0.5",
   bordered:
     "divide-border divide-y overflow-hidden rounded-lg border border-border",
-  plain: "gap-y-0.5 has-data-[slot=grid-list-section]:gap-y-4",
+  plain:
+    "gap-y-0.5 has-data-[slot=grid-list-section]:gap-y-4 [&>.react-aria-DropIndicator]:-my-px",
 }
 
 const sectionVariantStyles: Record<GridListVariant, string> = {

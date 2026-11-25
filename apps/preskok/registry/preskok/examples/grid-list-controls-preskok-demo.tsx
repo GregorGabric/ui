@@ -69,6 +69,7 @@ export default function GridListControlsPreskokDemo() {
           <GridListSpacer />
           <Switch
             aria-label="Official dealer for all brands"
+            className="sm:*:data-[slot=indicator]:mt-0"
             isSelected={isEveryBrandOfficial}
             onChange={setEveryBrand}
           />
@@ -79,6 +80,7 @@ export default function GridListControlsPreskokDemo() {
             <GridListSpacer />
             <Switch
               aria-label={`Official dealer for ${brand}`}
+              className="sm:*:data-[slot=indicator]:mt-0"
               isSelected={officialBrands.has(brand)}
               onChange={(isOfficial) => setBrand(brand, isOfficial)}
             />

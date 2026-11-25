@@ -7,10 +7,8 @@ import type { GridListVariant } from "@/registry/preskok/ui/preskok-ui/grid-list
 import {
   GridList,
   GridListDescription,
-  GridListHeader,
   GridListItem,
   GridListLabel,
-  GridListSection,
   GridListSpacer,
   GridListStart,
 } from "@/registry/preskok/ui/preskok-ui/grid-list"
@@ -19,7 +17,7 @@ const variants: Array<GridListVariant> = ["card", "bordered", "plain"]
 
 export default function GridListVariantsPreskokDemo() {
   return (
-    <div className="grid w-full gap-8 lg:grid-cols-3">
+    <div className="grid w-208 max-w-full grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-x-6 gap-y-8">
       {variants.map((variant) => (
         <VariantList key={variant} variant={variant} />
       ))}
@@ -33,16 +31,16 @@ function VariantList({ variant }: { variant: GridListVariant }) {
   )
 
   return (
-    <GridList
-      variant={variant}
-      aria-label={`${variant} grid list`}
-      selectionMode="multiple"
-      selectionBehavior="toggle"
-      selectedKeys={selectedKeys}
-      onSelectionChange={setSelectedKeys}
-    >
-      <GridListSection>
-        <GridListHeader>{variant}</GridListHeader>
+    <div className="flex min-w-0 flex-col gap-2">
+      <p className="text-sm/6 font-medium capitalize">{variant}</p>
+      <GridList
+        variant={variant}
+        aria-label={`${variant} grid list`}
+        selectionMode="multiple"
+        selectionBehavior="toggle"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
+      >
         {tasks.map((task) => (
           <GridListItem key={task.id} id={task.id} textValue={task.name}>
             <GridListStart>
@@ -57,8 +55,8 @@ function VariantList({ variant }: { variant: GridListVariant }) {
             </span>
           </GridListItem>
         ))}
-      </GridListSection>
-    </GridList>
+      </GridList>
+    </div>
   )
 }
 
