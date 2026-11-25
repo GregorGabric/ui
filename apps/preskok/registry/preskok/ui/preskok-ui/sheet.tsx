@@ -17,6 +17,7 @@ import {
 } from "react-aria-components/Sheet"
 import { tv } from "tailwind-variants"
 
+import type { ButtonProps } from "./button"
 import {
   DialogBody,
   DialogClose,
@@ -455,7 +456,11 @@ const SheetHeader = DialogHeader
 const SheetTitle = DialogTitle
 const SheetDescription = DialogDescription
 const SheetBody = DialogBody
-const SheetClose = DialogClose
+// Outlined by default: sheet footers stack full-width on phones and in side sheets, where a
+// borderless button reads as loose text under the main action.
+const SheetClose = ({ intent = "outline", ...props }: ButtonProps) => (
+  <DialogClose intent={intent} {...props} />
+)
 
 export {
   Sheet,

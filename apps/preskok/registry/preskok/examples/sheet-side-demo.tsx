@@ -22,7 +22,11 @@ export default function SheetSideDemo() {
         </SheetHeader>
         <SheetBody className="gap-1">
           {links.map((link) => (
-            <SheetClose key={link} className="-mx-3 justify-start sm:-mx-2.5">
+            <SheetClose
+              key={link}
+              intent="plain"
+              className="-mx-3 justify-start sm:-mx-2.5"
+            >
               {link}
             </SheetClose>
           ))}
