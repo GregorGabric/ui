@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "grid-list-reorder-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/grid-list.json",
+    "https://ui-three-mu.vercel.app/r/checkbox.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/grid-list-reorder-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useDragAndDrop } from \"react-aria-components/useDragAndDrop\"\nimport { useListData } from \"react-stately\"\n\nimport {\n  GridList,\n  GridListDescription,\n  GridListItem,\n  GridListLabel,\n  GridListStart,\n} from \"@/components/ui/preskok-ui/grid-list\"\n\nexport default function GridListReorderPreskokDemo() {\n  const list = useListData({ initialItems: tasks })\n  const { dragAndDropHooks } = useDragAndDrop({\n    getItems: (keys) =>\n      [...keys].map((key) => ({\n        \"text/plain\": list.getItem(key)?.name ?? \"\",\n      })),\n    // Replaces the browser's translucent snapshot of the row. Dragging several selected rows\n    // shows how many are moving.\n    renderDragPreview: (items) => (\n      <div className=\"flex items-center gap-2 rounded-lg bg-overlay px-3 py-2 text-sm/6 font-medium text-overlay-foreground shadow-lg ring-1 ring-foreground/10\">\n        {items[0]?.[\"text/plain\"]}\n        {items.length > 1 && (\n          <span className=\"rounded-full bg-primary px-1.5 text-xs/5 text-primary-foreground tabular-nums\">\n            {items.length}\n          </span>\n        )}\n      </div>\n    ),\n    onReorder(e) {\n      if (e.target.dropPosition === \"before\") {\n        list.moveBefore(e.target.key, e.keys)\n      } else if (e.target.dropPosition === \"after\") {\n        list.moveAfter(e.target.key, e.keys)\n      }\n    },\n  })\n\n  return (\n    <GridList\n      aria-label=\"Reorder tasks\"\n      selectionMode=\"multiple\"\n      items={list.items}\n      dragAndDropHooks={dragAndDropHooks}\n      className=\"w-sm max-w-full\"\n    >\n      {(item) => (\n        <GridListItem id={item.id} textValue={item.name}>\n          <GridListStart>\n            <div>\n              <GridListLabel>{item.name}</GridListLabel>\n              <GridListDescription>{item.owner}</GridListDescription>\n            </div>\n          </GridListStart>\n        </GridListItem>\n      )}\n    </GridList>\n  )\n}\n\nconst tasks = [\n  { id: \"sync\", name: \"Sync staging data\", owner: \"Data\" },\n  { id: \"review\", name: \"Review accessibility\", owner: \"Design\" },\n  { id: \"flags\", name: \"Enable feature flags\", owner: \"Growth\" },\n  { id: \"docs\", name: \"Publish changelog\", owner: \"Docs\" },\n]\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

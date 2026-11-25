@@ -2997,6 +2997,20 @@
       "type": "registry:example"
     },
     {
+      "name": "grid-list-reorder-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/grid-list.json",
+        "https://ui-three-mu.vercel.app/r/checkbox.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/grid-list-reorder-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "grid-list-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/grid-list.json",
@@ -3005,6 +3019,34 @@
       "files": [
         {
           "path": "registry/preskok/examples/grid-list-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "grid-list-variants-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/grid-list.json",
+        "https://ui-three-mu.vercel.app/r/checkbox.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/grid-list-variants-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
+      "name": "grid-list-controls-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/grid-list.json",
+        "https://ui-three-mu.vercel.app/r/switch.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/grid-list-controls-preskok-demo.tsx",
           "type": "registry:example"
         }
       ],

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "grid-list-variants-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/grid-list.json",
+    "https://ui-three-mu.vercel.app/r/checkbox.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/grid-list-variants-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport type { Selection } from \"react-aria-components/GridList\"\n\nimport type { GridListVariant } from \"@/components/ui/preskok-ui/grid-list\"\nimport {\n  GridList,\n  GridListDescription,\n  GridListItem,\n  GridListLabel,\n  GridListSpacer,\n  GridListStart,\n} from \"@/components/ui/preskok-ui/grid-list\"\n\nconst variants: Array<GridListVariant> = [\"card\", \"bordered\", \"plain\"]\n\nexport default function GridListVariantsPreskokDemo() {\n  return (\n    <div className=\"grid w-208 max-w-full grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-x-6 gap-y-8\">\n      {variants.map((variant) => (\n        <VariantList key={variant} variant={variant} />\n      ))}\n    </div>\n  )\n}\n\nfunction VariantList({ variant }: { variant: GridListVariant }) {\n  const [selectedKeys, setSelectedKeys] = useState<Selection>(\n    new Set([\"review\"])\n  )\n\n  return (\n    <div className=\"flex min-w-0 flex-col gap-2\">\n      <p className=\"text-sm/6 font-medium capitalize\">{variant}</p>\n      <GridList\n        variant={variant}\n        aria-label={`${variant} grid list`}\n        selectionMode=\"multiple\"\n        selectionBehavior=\"toggle\"\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n      >\n        {tasks.map((task) => (\n          <GridListItem key={task.id} id={task.id} textValue={task.name}>\n            <GridListStart>\n              <div>\n                <GridListLabel>{task.name}</GridListLabel>\n                <GridListDescription>{task.owner}</GridListDescription>\n              </div>\n            </GridListStart>\n            <GridListSpacer />\n            <span className=\"text-sm text-muted-foreground tabular-nums\">\n              {task.due}\n            </span>\n          </GridListItem>\n        ))}\n      </GridList>\n    </div>\n  )\n}\n\nconst tasks = [\n  { id: \"sync\", name: \"Sync staging data\", owner: \"Data\", due: \"Mon\" },\n  { id: \"review\", name: \"Review accessibility\", owner: \"Design\", due: \"Tue\" },\n  { id: \"flags\", name: \"Enable feature flags\", owner: \"Growth\", due: \"Thu\" },\n]\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

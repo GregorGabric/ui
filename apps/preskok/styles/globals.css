@@ -426,9 +426,13 @@ html.dark .shiki span {
   background-color: var(--shiki-background) !important;
 }
 
-.react-aria-DropIndicator[data-drop-target] {
-  outline: 1px solid var(--primary);
-  transform: translateZ(0);
+/* Insertion line for components that don't draw their own (the table). In the base layer so a
+   component's own drop indicator styles override it. */
+@layer base {
+  .react-aria-DropIndicator[data-drop-target] {
+    outline: 1px solid var(--primary);
+    transform: translateZ(0);
+  }
 }
 
 @layer components {

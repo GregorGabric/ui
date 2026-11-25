@@ -12,6 +12,34 @@ import { ComponentSource } from "@/components/component-source"
   description="Grid list with multiple selection and checkboxes."
 />
 
+## Variants
+
+`card` (default) frames each row, `bordered` draws one frame with dividers, and `plain` drops the frame for menu-like rows.
+
+<ComponentPreview
+  name="grid-list-variants-preskok-demo"
+  previewClassName="max-h-none"
+  description="The card, bordered and plain variants."
+/>
+
+## Rows with controls
+
+Rows can hold their own controls, such as a switch per row. Use `bordered` for settings-style lists.
+
+<ComponentPreview
+  name="grid-list-controls-preskok-demo"
+  description="Bordered grid list with a switch in every row."
+/>
+
+## Reordering
+
+Pass `dragAndDropHooks` from `useDragAndDrop` to let people drag rows into a new order, with the mouse or by pressing Enter on a row's handle. A line marks where the rows will land. `renderDragPreview` replaces the browser's snapshot of the row and can show how many selected rows are moving.
+
+<ComponentPreview
+  name="grid-list-reorder-preskok-demo"
+  description="Grid list rows reordered by dragging."
+/>
+
 ## Installation
 
 ```bash
@@ -25,7 +53,7 @@ import { GridList, GridListItem } from "@/components/ui/preskok-ui/grid-list"
 
 export function Example() {
   return (
-    <GridList aria-label="Items">
+    <GridList aria-label="Items" variant="bordered">
       <GridListItem id="a">A</GridListItem>
       <GridListItem id="b">B</GridListItem>
     </GridList>
