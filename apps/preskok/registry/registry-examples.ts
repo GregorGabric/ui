@@ -299,6 +299,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "grid-list-reorder-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["grid-list", "checkbox"],
+    files: [
+      {
+        path: "examples/grid-list-reorder-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "grid-list-preskok-demo",
     type: "registry:example",
     registryDependencies: ["grid-list", "checkbox"],

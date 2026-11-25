@@ -2,8 +2,6 @@
 
 import { useState } from "react"
 import type { Selection } from "react-aria-components/GridList"
-import { useDragAndDrop } from "react-aria-components/useDragAndDrop"
-import { useListData } from "react-stately"
 
 import {
   GridList,
@@ -54,47 +52,7 @@ export function Component() {
       <p className="-mt-6 text-sm text-muted-foreground">
         Selected tasks: {formatSelection(selectedKeys)}
       </p>
-      <GridListDemo />
     </div>
-  )
-}
-
-function GridListDemo() {
-  const list = useListData({
-    initialItems: tasks,
-  })
-  const { dragAndDropHooks } = useDragAndDrop({
-    getItems: (keys) =>
-      [...keys].map((key) => ({
-        "text/plain": list.getItem(key)?.name ?? "",
-      })),
-    onReorder(e) {
-      if (e.target.dropPosition === "before") {
-        list.moveBefore(e.target.key, e.keys)
-      } else if (e.target.dropPosition === "after") {
-        list.moveAfter(e.target.key, e.keys)
-      }
-    },
-  })
-
-  return (
-    <GridList
-      aria-label="Reorder tasks"
-      selectionMode="multiple"
-      dragAndDropHooks={dragAndDropHooks}
-    >
-      <GridListHeader>Drag to reorder</GridListHeader>
-      {list.items.map((item) => (
-        <GridListItem key={item.id} id={item.id} textValue={item.name}>
-          <GridListStart>
-            <div>
-              <GridListLabel>{item.name}</GridListLabel>
-              <GridListDescription>{item.owner}</GridListDescription>
-            </div>
-          </GridListStart>
-        </GridListItem>
-      ))}
-    </GridList>
   )
 }
 

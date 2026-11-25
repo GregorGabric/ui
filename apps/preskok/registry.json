@@ -2905,6 +2905,20 @@
       "type": "registry:example"
     },
     {
+      "name": "grid-list-reorder-preskok-demo",
+      "registryDependencies": [
+        "https://ui-three-mu.vercel.app/r/grid-list.json",
+        "https://ui-three-mu.vercel.app/r/checkbox.json"
+      ],
+      "files": [
+        {
+          "path": "registry/preskok/examples/grid-list-reorder-preskok-demo.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "type": "registry:example"
+    },
+    {
       "name": "grid-list-preskok-demo",
       "registryDependencies": [
         "https://ui-three-mu.vercel.app/r/grid-list.json",

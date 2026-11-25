@@ -39,6 +39,17 @@ const GridListVariantContext = createContext<GridListVariantContextValue>({
  * Aria adds a zero-height drop indicator between rows, which would add another gap each, so the
  * indicators take a negative margin of half the gap on each side.
  */
+// Insertion marker between rows when reordering: a rounded 2px line centred on the indicator,
+// inset from the rows' rounded corners. Rows are positioned, so the active marker is lifted above
+// them or their dividers and backgrounds cover it. Forced colors repaint the line's background as
+// Canvas, so it is hidden there and an outline draws the line instead.
+const dropIndicatorStyles = [
+  "[&_.react-aria-DropIndicator]:border-0 [&_.react-aria-DropIndicator]:outline-0",
+  "[&_.react-aria-DropIndicator[data-drop-target]]:relative [&_.react-aria-DropIndicator[data-drop-target]]:z-10",
+  "[&_.react-aria-DropIndicator[data-drop-target]]:before:absolute [&_.react-aria-DropIndicator[data-drop-target]]:before:inset-x-1.5 [&_.react-aria-DropIndicator[data-drop-target]]:before:-top-px [&_.react-aria-DropIndicator[data-drop-target]]:before:h-0.5 [&_.react-aria-DropIndicator[data-drop-target]]:before:rounded-full [&_.react-aria-DropIndicator[data-drop-target]]:before:bg-primary",
+  "forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:outline forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:outline-[Highlight] forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:before:hidden",
+]
+
 const listVariantStyles: Record<GridListVariant, string> = {
   card: "gap-y-1 has-data-[slot=grid-list-section]:gap-y-6 [&>.react-aria-DropIndicator]:-my-0.5",
   bordered:
@@ -90,10 +101,7 @@ const GridList = <T extends object>({
       className={cx(
         [
           "relative flex flex-col sm:text-sm/6",
-          // Insertion markers between rows when reordering. An outline, not a border, so it shows in
-          // forced colors and doesn't pick up the bordered variant's dividers. Rows are positioned, so
-          // the active marker is lifted above them or their dividers and backgrounds cover it.
-          "[&_.react-aria-DropIndicator]:border-0 [&_.react-aria-DropIndicator[data-drop-target]]:relative [&_.react-aria-DropIndicator[data-drop-target]]:z-10 [&_.react-aria-DropIndicator[data-drop-target]]:outline [&_.react-aria-DropIndicator[data-drop-target]]:outline-primary forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:outline-[Highlight]",
+          dropIndicatorStyles,
           listVariantStyles[variant],
         ],
         className
@@ -168,7 +176,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
             // visible outline on every row.
             "relative min-w-0 outline-0 -outline-offset-2 [--mr-icon:--spacing(2)]",
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",
-            "dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
+            "dragging:opacity-50 dragging:**:[[slot=drag]]:text-foreground",
             "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
             isHovered && "bg-accent/50",
             isPressed && "bg-accent/70",
@@ -213,7 +221,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
             >
               <Button
                 slot="drag"
-                className="rounded-sm text-muted-foreground outline-0 outline-offset-1 group-hover/drag:text-foreground focus-visible:text-foreground focus-visible:outline-2 focus-visible:outline-ring forced-colors:outline-[Highlight]"
+                className="-m-0.5 rounded-sm p-0.5 text-muted-foreground outline-0 group-hover/drag:text-foreground focus-visible:text-foreground focus-visible:outline-2 focus-visible:outline-ring forced-colors:outline-[Highlight]"
               >
                 <svg
                   data-slot="drag-icon"

@@ -31,6 +31,15 @@ Rows can hold their own controls, such as a switch per row. Use `bordered` for s
   description="Bordered grid list with a switch in every row."
 />
 
+## Reordering
+
+Pass `dragAndDropHooks` from `useDragAndDrop` to let people drag rows into a new order, with the mouse or by pressing Enter on a row's handle. A line marks where the rows will land. `renderDragPreview` replaces the browser's snapshot of the row and can show how many selected rows are moving.
+
+<ComponentPreview
+  name="grid-list-reorder-preskok-demo"
+  description="Grid list rows reordered by dragging."
+/>
+
 ## Installation
 
 ```bash
