@@ -65,7 +65,9 @@ function BarList<T>({
             className={twJoin(
               "group w-full rounded-sm",
               "focus:inset-ring-ring focus:ring-ring/20 focus:ring-2 focus:inset-ring focus:outline-hidden",
-              onValueChange ? "hover:bg-secondary -m-0! cursor-pointer" : ""
+              onValueChange
+                ? "group/interactive hover:bg-secondary -m-0! cursor-pointer"
+                : ""
             )}
           >
             <div

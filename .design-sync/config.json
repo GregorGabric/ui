@@ -18,10 +18,6 @@
       "cardMode": "single",
       "primaryStory": "Open"
     },
-    "Drawer": {
-      "cardMode": "single",
-      "primaryStory": "BottomDrawer"
-    },
     "InputOTP": {
       "cardMode": "column"
     },

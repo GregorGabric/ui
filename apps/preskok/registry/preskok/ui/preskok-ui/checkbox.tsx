@@ -33,7 +33,13 @@ export function Checkbox({ className, children, ...props }: CheckboxProps) {
   return (
     <CheckboxPrimitive
       data-slot="control"
-      className={cx("group block disabled:opacity-50", className)}
+      className={composeRenderProps(className, (className, { isHovered }) =>
+        twMerge(
+          "group block disabled:opacity-50",
+          isHovered && "group/interactive",
+          className
+        )
+      )}
       {...props}
     >
       {composeRenderProps(

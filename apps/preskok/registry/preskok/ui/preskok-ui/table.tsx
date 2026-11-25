@@ -393,6 +393,7 @@ const TableRow = <T extends object>({
             isDragging,
             isDisabled,
             isFocusVisible,
+            isHovered,
           }
         ) =>
           twMerge(
@@ -411,6 +412,7 @@ const TableRow = <T extends object>({
               isFocusVisibleWithin &&
               "selected:bg-(--table-selected-background)/50 text-foreground bg-(--table-selected-background)/50",
             isDisabled && "opacity-50",
+            isHovered && "group/interactive",
             className
           )
       )}

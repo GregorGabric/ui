@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-prevent-dismissal-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/sheet.json",
+    "https://ui-three-mu.vercel.app/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/sheet-prevent-dismissal-demo.tsx",
+      "content": "\"use client\"\n\nimport { Button } from \"@/components/ui/preskok-ui/button\"\nimport {\n  Sheet,\n  SheetBody,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n} from \"@/components/ui/preskok-ui/sheet\"\n\nexport default function SheetPreventDismissalDemo() {\n  return (\n    <Sheet>\n      <Button intent=\"primary\">Place bid</Button>\n      <SheetContent side=\"bottom\" role=\"alertdialog\">\n        <SheetHeader>\n          <SheetTitle>Confirm your bid of €21,400?</SheetTitle>\n          <SheetDescription>\n            Bids are binding. If you win, the invoice is due within 3 working\n            days.\n          </SheetDescription>\n        </SheetHeader>\n        <SheetBody>\n          <dl className=\"grid grid-cols-2 gap-y-2 text-sm\">\n            <dt className=\"text-muted-foreground\">Your bid</dt>\n            <dd className=\"text-right tabular-nums\">€21,400</dd>\n            <dt className=\"text-muted-foreground\">Buyer fee</dt>\n            <dd className=\"text-right tabular-nums\">€390</dd>\n            <dt className=\"font-medium\">Total if you win</dt>\n            <dd className=\"text-right font-medium tabular-nums\">€21,790</dd>\n          </dl>\n        </SheetBody>\n        <SheetFooter>\n          <SheetClose intent=\"outline\">Cancel</SheetClose>\n          <SheetClose intent=\"primary\">Confirm bid</SheetClose>\n        </SheetFooter>\n      </SheetContent>\n    </Sheet>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

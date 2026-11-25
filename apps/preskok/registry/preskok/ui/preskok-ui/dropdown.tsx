@@ -82,7 +82,7 @@ const dropdownItemStyles = tv({
       true: "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
     },
     isHovered: {
-      true: "bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
+      true: "group/interactive bg-accent text-accent-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
     },
   },
 })

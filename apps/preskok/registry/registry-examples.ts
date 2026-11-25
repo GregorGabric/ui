@@ -24,6 +24,61 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "filter-bar-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["badge", "filter-bar", "search-field", "table"],
+    files: [
+      {
+        path: "examples/filter-bar-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-basic-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-basic-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-custom-chips-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-custom-chips-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-messages-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-messages-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "filter-bar-server-preskok-demo",
+    type: "registry:example",
+    registryDependencies: ["filter-bar"],
+    files: [
+      {
+        path: "examples/filter-bar-server-preskok-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "token-field-preskok-demo",
     type: "registry:example",
     registryDependencies: ["token-field"],
@@ -1122,17 +1177,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "drawer-preskok-demo",
-    type: "registry:example",
-    registryDependencies: ["drawer", "button"],
-    files: [
-      {
-        path: "examples/drawer-preskok-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "drop-zone-preskok-demo",
     type: "registry:example",
     registryDependencies: ["drop-zone"],
@@ -1403,6 +1447,113 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/tooltip-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-side-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button", "avatar", "badge"],
+    files: [
+      {
+        path: "examples/sheet-side-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-snap-points-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button"],
+    files: [
+      {
+        path: "examples/sheet-snap-points-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-position-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button", "switch", "grid-list", "badge"],
+    files: [
+      {
+        path: "examples/sheet-position-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-controlled-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button", "badge"],
+    files: [
+      {
+        path: "examples/sheet-controlled-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-stacking-demo",
+    type: "registry:example",
+    registryDependencies: [
+      "sheet",
+      "button",
+      "radio",
+      "text-field",
+      "textarea",
+      "grid-list",
+      "badge",
+    ],
+    files: [
+      {
+        path: "examples/sheet-stacking-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-prevent-dismissal-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button"],
+    files: [
+      {
+        path: "examples/sheet-prevent-dismissal-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-animation-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button", "grid-list", "badge"],
+    files: [
+      {
+        path: "examples/sheet-animation-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-scrollable-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button"],
+    files: [
+      {
+        path: "examples/sheet-scrollable-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "sheet-cart-demo",
+    type: "registry:example",
+    registryDependencies: ["sheet", "button", "separator"],
+    files: [
+      {
+        path: "examples/sheet-cart-demo.tsx",
         type: "registry:example",
       },
     ],

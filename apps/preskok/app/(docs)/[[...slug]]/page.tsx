@@ -72,17 +72,21 @@ type DocsPageProps = {
   params: Promise<{ slug?: Array<string> }>
 }
 
-export default function Page(props: DocsPageProps) {
+// Read params in the page segment itself, not in a Suspense child: Next
+// only records params read while the segment renders, and without that it
+// serves one prefetched page segment (the index) for every slug.
+export default async function Page(props: DocsPageProps) {
+  const { slug } = await props.params
+
   return (
     <Suspense fallback={null}>
-      <DocsPageContent {...props} />
+      <DocsPageContent slug={slug} />
     </Suspense>
   )
 }
 
-async function DocsPageContent(props: DocsPageProps) {
-  const params = await props.params
-  const page = source.getPage(params.slug)
+async function DocsPageContent({ slug }: { slug?: Array<string> }) {
+  const page = source.getPage(slug)
 
   if (!page) {
     notFound()
