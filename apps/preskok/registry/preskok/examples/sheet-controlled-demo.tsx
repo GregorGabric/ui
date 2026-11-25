@@ -63,7 +63,7 @@ export default function SheetControlledDemo() {
 
   return (
     <>
-      <ul className="w-full max-w-sm divide-y rounded-lg border">
+      <ul className="w-sm max-w-full divide-y overflow-hidden rounded-lg border">
         {vehicles.map((item) => (
           <li key={item.id}>
             <Button

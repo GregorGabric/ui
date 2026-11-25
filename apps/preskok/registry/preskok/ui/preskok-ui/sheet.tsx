@@ -263,7 +263,7 @@ const springScrollRefs = {
 
 // Only the bottom-most sheet in a stack dims the page behind it.
 const backdropStyles = tv({
-  base: "data-[stack-index='0']:bg-black/15",
+  base: "data-[stack-index='0']:bg-black/15 dark:data-[stack-index='0']:bg-black/50",
   variants: {
     isBlurred: {
       true: "data-[stack-index='0']:backdrop-blur-[1px]",
@@ -280,17 +280,17 @@ const sheetStyles = tv({
   base: "relative z-[1] box-content flex flex-col overflow-clip border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg outline-hidden will-change-transform dark:border-border forced-colors:bg-[Canvas]",
   variants: {
     position: {
-      top: "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-bottom border-b [--sheet-stack-y:8px]",
+      top: "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-bottom border-b [--sheet-stack-y:8px] min-[51rem]:border-x",
       bottom:
-        "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-top border-t [--sheet-stack-y:-8px]",
+        "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-top border-t [--sheet-stack-y:-8px] min-[51rem]:border-x",
       left: "h-full w-3/4 origin-right border-r [--sheet-stack-x:8px] sm:max-w-80",
       right:
         "h-full w-3/4 origin-left border-l [--sheet-stack-x:-8px] sm:max-w-80",
       center:
-        "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(8))] w-[calc(100%-2rem)] max-w-lg rounded-2xl border",
+        "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(8))] w-[calc(100%-2rem)] max-w-lg rounded-xl border",
     },
     isFloat: {
-      true: "rounded-lg border-0 ring-1 ring-foreground/5 dark:ring-border",
+      true: "rounded-xl border-0 ring-1 ring-foreground/5 dark:ring-border",
       false: "",
     },
   },

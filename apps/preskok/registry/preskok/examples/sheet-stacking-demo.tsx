@@ -33,7 +33,7 @@ export default function SheetStackingDemo() {
           </p>
           <Sheet>
             <Button intent="outline">Contact seller</Button>
-            <SheetContent side="bottom" isFloat={false} style={{ height: 440 }}>
+            <SheetContent side="bottom" isFloat={false} style={{ height: 480 }}>
               <SheetHeader>
                 <SheetTitle>Contact seller</SheetTitle>
                 <SheetDescription>
@@ -47,7 +47,10 @@ export default function SheetStackingDemo() {
                   <Radio value="viewing">Arrange a viewing</Radio>
                 </RadioGroup>
                 <Sheet>
-                  <Button intent="plain" className="self-start">
+                  <Button
+                    intent="plain"
+                    className="-ml-3 self-start sm:-ml-2.5"
+                  >
                     Add pickup details
                   </Button>
                   <SheetContent

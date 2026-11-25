@@ -22,8 +22,8 @@ export default function SheetPositionDemo() {
   const [isFloat, setIsFloat] = useState(true)
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-wrap justify-center gap-2">
+    <div className="flex flex-col items-start gap-4">
+      <div className="flex flex-wrap gap-2">
         {sides.map((side) => (
           <Sheet key={side}>
             <Button intent="outline" className="capitalize">
