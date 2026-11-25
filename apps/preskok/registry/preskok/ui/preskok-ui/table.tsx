@@ -393,6 +393,7 @@ const TableRow = <T extends object>({
             isDragging,
             isDisabled,
             isFocusVisible,
+            isHovered,
           }
         ) =>
           twMerge(
@@ -406,11 +407,12 @@ const TableRow = <T extends object>({
             striped && "even:bg-muted",
             !striped && "border-b last:border-b-0",
             (props.href || props.onAction || selectionMode === "multiple") &&
-              "group/interactive hover:text-foreground hover:bg-(--table-selected-background)",
+              "hover:text-foreground hover:bg-(--table-selected-background)",
             (props.href || props.onAction || selectionMode === "multiple") &&
               isFocusVisibleWithin &&
               "selected:bg-(--table-selected-background)/50 text-foreground bg-(--table-selected-background)/50",
             isDisabled && "opacity-50",
+            isHovered && "group/interactive",
             className
           )
       )}

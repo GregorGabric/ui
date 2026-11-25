@@ -93,7 +93,7 @@ const ChoiceBox = <T extends object>({
 
 const choiceBoxItemStyles = tv({
   base: [
-    "group group/interactive outline-hidden",
+    "group outline-hidden",
     "[--choice-box-foreground:var(--color-primary)] [--choice-box:var(--color-primary)]/5",
     "[--choice-box-selected-hovered:var(--color-primary)]/4",
     "rounded-lg p-(--gutter) inset-ring inset-ring-border **:data-[slot=label]:font-medium",
@@ -110,7 +110,7 @@ const choiceBoxItemStyles = tv({
       false: "cursor-default",
     },
     isHovered: {
-      true: "not-data-readonly:not-data-focus-visible:not-selected:inset-ring-muted-foreground/30",
+      true: "group/interactive not-data-readonly:not-data-focus-visible:not-selected:inset-ring-muted-foreground/30",
     },
     isFocused: {
       true: "invalid:ring-danger-subtle-foreground/20 ring-3 ring-(--choice-box-ring) inset-ring-(--choice-box-active-ring)",
@@ -161,6 +161,7 @@ const ChoiceBoxItem = ({
             ...renderProps,
             isOneColumn: columns === 1,
             isLink: "href" in props,
+            isHovered: !isReadOnly && renderProps.isHovered,
             isFocused: !isReadOnly && renderProps.isFocused,
             isActive: (!isReadOnly && isSelected) || isFocusVisible,
             className,

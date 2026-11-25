@@ -70,12 +70,12 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
         className,
         (className, { isHovered, isFocusVisible, isSelected }) =>
           twMerge(
-            "group group/interactive inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
+            "group inset-ring-border rounded-lg px-3 py-2.5 inset-ring",
             "relative min-w-0 outline-hidden [--mr-icon:--spacing(2)]",
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",
             "dragging:cursor-grab dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
             "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
-            isHovered && "bg-accent/50",
+            isHovered && "group/interactive bg-accent/50",
             isSelected && "bg-accent",
             isFocusVisible && "inset-ring-ring",
             "href" in props && "cursor-pointer",

@@ -9,7 +9,7 @@ import { tv, type VariantProps } from "tailwind-variants"
 const badgeIntents = {
   primary: [
     "[--badge-primary:color-mix(in_oklab,var(--color-primary)_10%,white_90%)] [--badge-primary-foreground:color-mix(in_oklab,var(--color-primary)_60%,white_40%)] bg-(--badge-primary)",
-    "dark:bg-primary/15 text-primary dark:text-(--badge-primary-foreground) dark:group-hover/interactive:bg-primary/25",
+    "dark:bg-primary/15 text-primary dark:text-(--badge-primary-foreground)",
     "group-hover/interactive:bg-[color-mix(in_oklab,var(--color-primary)_15%,white_85%)] dark:group-hover/interactive:bg-primary/20",
   ],
   secondary: [
