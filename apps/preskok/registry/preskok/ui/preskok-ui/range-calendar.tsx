@@ -91,7 +91,9 @@ export function RangeCalendar<T extends DateValue>({
               data-slot="range-calendar-month"
               key={id}
               offset={id >= 2 ? { months: id - 1 } : undefined}
-              className="[&_td]:border-collapse [&_td]:px-0 [&_td]:py-0.5"
+              // Below `sm` the day cells fill their column (`size-full`), so the month must take the
+              // calendar's width or the table shrinks to its content and the numbers run together.
+              className="max-sm:w-full [&_td]:border-collapse [&_td]:px-0 [&_td]:py-0.5"
             >
               <CalendarGridHeader />
               <CalendarGridBody>

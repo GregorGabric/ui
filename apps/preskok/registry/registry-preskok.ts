@@ -966,6 +966,36 @@ export const preskokUi: Registry["items"] = [
     ],
   },
   {
+    name: "filter-bar",
+    type: "registry:ui",
+    description:
+      "A toolbar of filter chips with operators, a searchable add menu and client-side matching",
+    dependencies: [
+      "@internationalized/date",
+      "@internationalized/number",
+      "lucide-react",
+      "react-aria-components@^1.20.0",
+      "cn@^0.2.4",
+    ],
+    registryDependencies: [
+      "button",
+      "calendar",
+      "input",
+      "keyboard",
+      "list-box",
+      "menu",
+      "popover",
+      "range-calendar",
+      "search-field",
+    ],
+    files: [
+      {
+        path: "ui/preskok-ui/filter-bar.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "token-field",
     type: "registry:ui",
     description: "A text field that supports editable inline tokens",

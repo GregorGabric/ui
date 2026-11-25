@@ -1,0 +1,181 @@
+---
+title: Filter Bar
+description: Filter a list with chips that read like a sentence, added from a searchable menu.
+status: new
+---
+
+import { CodeTabs } from "@/components/code-tabs"
+import { ComponentPreview } from "@/components/component-preview"
+import { ComponentSource } from "@/components/component-source"
+
+<ComponentPreview
+  name="filter-bar-preskok-demo"
+  description="A vehicle list filtered by make, price, status and listing date."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx shadcn@latest add @preskok/filter-bar
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>
+
+Copy and paste the following code into your project.
+
+<ComponentSource
+  name="filter-bar"
+  title="registry/preskok/ui/preskok-ui/filter-bar.tsx"
+/>
+
+</Step>
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { useState } from "react"
+
+import {
+  FilterBar,
+  FilterBarAdd,
+  FilterBarChips,
+  FilterBarClear,
+  matchesFilter,
+  type Filter,
+  type FilterField,
+} from "@/components/ui/preskok-ui/filter-bar"
+
+const fields: Array<FilterField> = [
+  {
+    id: "status",
+    label: "Status",
+    variant: "select",
+    options: [
+      { value: "available", label: "Available" },
+      { value: "sold", label: "Sold" },
+    ],
+  },
+  { id: "price", label: "Price", variant: "number", unit: "€" },
+]
+
+const vehicles = [
+  { id: 1, name: "Volkswagen Golf", status: "available", price: 24900 },
+  { id: 2, name: "Tesla Model 3", status: "sold", price: 39500 },
+]
+
+export function Vehicles() {
+  const [filters, setFilters] = useState<Array<Filter>>([])
+  const rows = vehicles.filter((vehicle) =>
+    filters.every((filter) =>
+      matchesFilter(
+        filter.field === "price" ? vehicle.price : vehicle.status,
+        filter
+      )
+    )
+  )
+
+  return (
+    <>
+      <FilterBar fields={fields} value={filters} onChange={setFilters}>
+        <FilterBarChips />
+        <FilterBarAdd />
+        <FilterBarClear />
+      </FilterBar>
+      <ul>
+        {rows.map((vehicle) => (
+          <li key={vehicle.id}>{vehicle.name}</li>
+        ))}
+      </ul>
+    </>
+  )
+}
+```
+
+`FilterBar` holds the filters and lays its children out in a wrapping row, so a search field or a
+sort button can sit beside the chips. A filter is plain data, `{ field, operator, value }` with a
+tagged `value` such as `{ type: "range", min: 10000, max: 25000 }`, so it goes into a URL or a
+request body as it is. "+ Filter" adds the filter as soon as a field is
+picked and drops it if the popover closes without a value, so use `isFilterActive` to skip
+filters that narrow nothing yet.
+
+## Fields and operators
+
+A field's `variant` sets its operators and value editor. The first operator is the default; pass
+`operators` to restrict or reorder them.
+
+| Variant   | Operators                                                                   | Value `type`                       |
+| --------- | --------------------------------------------------------------------------- | ---------------------------------- |
+| `text`    | `contains`, `notContains`, `is`, `isNot`, `isEmpty`, `isNotEmpty`           | `text` (`text`)                    |
+| `number`  | `between`, `is`, `isNot`, `lt`, `lte`, `gt`, `gte`, `isEmpty`, `isNotEmpty` | `range` (`min`, `max`) or `number` |
+| `select`  | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                              | `options` (`values`)               |
+| `boolean` | `is`                                                                        | `boolean` (`value`)                |
+| `date`    | `between`, `is`, `before`, `after`, `isEmpty`, `isNotEmpty`                 | `days` (`start`, `end`) or `day`   |
+
+`isEmpty` and `isNotEmpty` carry `{ type: "none" }`.
+
+## Examples
+
+### Basic
+
+The bar keeps its own filters from `defaultValue`. A select with `multiple: false` closes on the
+first pick.
+
+<ComponentPreview
+  name="filter-bar-basic-preskok-demo"
+  description="An issue list filtered by status, title and assignee."
+/>
+
+### Custom chips
+
+`FilterBarChips` renders `<FilterChip />` for each filter. Pass a function to build chips from
+`FilterChipField`, `FilterChipOperator`, `FilterChipValue` and `FilterChipRemove`.
+
+<ComponentPreview
+  name="filter-bar-custom-chips-preskok-demo"
+  description="Rounded tag-style chips without operators."
+/>
+
+### Translations
+
+Pass `messages` for the strings; anything left out stays English. Numbers and dates follow the
+`I18nProvider` locale.
+
+<ComponentPreview
+  name="filter-bar-messages-preskok-demo"
+  description="The bar in Slovenian."
+/>
+
+### Server filtering
+
+Send the active filters with the request instead of filtering rows in the browser.
+
+<ComponentPreview
+  name="filter-bar-server-preskok-demo"
+  description="The active filters as a request URL."
+/>
+
+## Keyboard
+
+`<FilterBarAdd shortcut="f" />` opens "+ Filter" with <kbd>F</kbd> when no text field is focused.
+In a value editor, <kbd>Enter</kbd> applies the value and closes it.

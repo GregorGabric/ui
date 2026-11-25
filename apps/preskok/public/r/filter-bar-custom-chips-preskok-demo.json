@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-bar-custom-chips-preskok-demo",
+  "registryDependencies": [
+    "https://ui-three-mu.vercel.app/r/filter-bar.json"
+  ],
+  "files": [
+    {
+      "path": "registry/preskok/examples/filter-bar-custom-chips-preskok-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  CalendarDaysIcon,\n  CircleDotIcon,\n  FlagIcon,\n  UserRoundIcon,\n} from \"lucide-react\"\n\nimport {\n  FilterBar,\n  FilterBarAdd,\n  FilterBarChips,\n  FilterBarClear,\n  FilterChip,\n  FilterChipField,\n  FilterChipOperator,\n  FilterChipRemove,\n  FilterChipValue,\n  type FilterField,\n} from \"@/components/ui/preskok-ui/filter-bar\"\n\nconst fields: Array<FilterField> = [\n  {\n    id: \"status\",\n    label: \"Status\",\n    variant: \"select\",\n    // The chip hides its operator, so allow only one: a hidden \"is none of\" would mislead.\n    operators: [\"isAnyOf\"],\n    icon: CircleDotIcon,\n    options: [\n      { value: \"open\", label: \"Open\" },\n      { value: \"in-progress\", label: \"In progress\" },\n      { value: \"done\", label: \"Done\" },\n    ],\n  },\n  {\n    id: \"priority\",\n    label: \"Priority\",\n    variant: \"select\",\n    // The chip hides its operator, so allow only one: a hidden \"is none of\" would mislead.\n    operators: [\"isAnyOf\"],\n    icon: FlagIcon,\n    options: [\n      { value: \"urgent\", label: \"Urgent\" },\n      { value: \"high\", label: \"High\" },\n      { value: \"low\", label: \"Low\" },\n    ],\n  },\n  { id: \"assignee\", label: \"Assignee\", variant: \"text\", icon: UserRoundIcon },\n  { id: \"due\", label: \"Due\", variant: \"date\", icon: CalendarDaysIcon },\n]\n\n/**\n * Chips built from their parts: Status and Priority skip the operator and read as a tag\n * (\"Status · Open\"), and the field name shows only as its icon.\n */\nexport default function FilterBarCustomChipsDemo() {\n  return (\n    <div className=\"w-2xl max-w-full\">\n      <FilterBar\n        fields={fields}\n        defaultValue={[\n          {\n            field: \"status\",\n            operator: \"isAnyOf\",\n            value: { type: \"options\", values: [\"open\", \"in-progress\"] },\n          },\n          {\n            field: \"priority\",\n            operator: \"isAnyOf\",\n            value: { type: \"options\", values: [\"urgent\"] },\n          },\n          {\n            field: \"assignee\",\n            operator: \"contains\",\n            value: { type: \"text\", text: \"ana\" },\n          },\n        ]}\n      >\n        <FilterBarChips>\n          {({ field }) => (\n            <FilterChip className=\"rounded-full\">\n              <FilterChipField className=\"ps-3 [&>span]:sr-only\" />\n              {field.id === \"assignee\" ? <FilterChipOperator /> : null}\n              <FilterChipValue />\n              <FilterChipRemove className=\"rounded-e-full\" />\n            </FilterChip>\n          )}\n        </FilterBarChips>\n        <FilterBarAdd />\n        <FilterBarClear />\n      </FilterBar>\n    </div>\n  )\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}
