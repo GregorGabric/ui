@@ -5,7 +5,7 @@ import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import type {
   SheetContentProps as SheetContentPrimitiveProps,
   SheetOverlayProps,
-  SheetProps,
+  SheetProps as SheetPrimitiveProps,
   SheetTriggerProps,
 } from "react-aria-components/Sheet"
 import {
@@ -30,7 +30,9 @@ import {
 
 type Sides = "top" | "bottom" | "left" | "right" | "start" | "end" | "center"
 
-const Sheet = (props: SheetTriggerProps) => <SheetTriggerPrimitive {...props} />
+type SheetProps = SheetTriggerProps
+
+const Sheet = (props: SheetProps) => <SheetTriggerPrimitive {...props} />
 
 interface Spring {
   stiffness: number
@@ -57,6 +59,9 @@ const springStep = {
 // React Aria opens and closes a sheet with a native smooth scroll, whose duration the browser
 // picks. This replaces only that scroll with a spring; swiping and snapping stay native.
 // Reduced motion is unaffected because React Aria scrolls instantly then.
+// It relies on React Aria 1.22 Sheet internals, so recheck them on upgrade: the sheet opens and
+// closes through `scrollTo({ top | left, behavior: "smooth" })` on `[data-sheet-scroll]`,
+// onEnter resolves on that element's `scrollend`, and onExit resolves once the sheet is out of view.
 function createSpringScrollRef(spring: Spring) {
   return (overlay: HTMLDivElement | null) => {
     const scroller = overlay?.querySelector<HTMLElement>("[data-sheet-scroll]")
@@ -65,18 +70,28 @@ function createSpringScrollRef(spring: Spring) {
   }
 }
 
-// The scroll travels a full viewport, but the sheet is off screen for most of it. Jump to where
-// the sheet starts to appear, so the spring spends its whole motion on screen.
-function skipHiddenTravel(
+type ScrollAxis = "scrollTop" | "scrollLeft"
+
+type ScrollToArgs = [options?: ScrollToOptions] | [x: number, y: number]
+
+interface SpringTarget {
+  axis: ScrollAxis
+  target: number
+}
+
+// The scroll travels a full viewport, but the sheet is off screen for most of it. Limit the
+// spring to the stretch where the sheet is visible, so it spends its whole motion on screen:
+// `from` is where the sheet starts to appear, `to` is where it has just left.
+function visibleTravel(
   scroller: HTMLElement,
-  axis: "scrollTop" | "scrollLeft",
+  axis: ScrollAxis,
   target: number
 ) {
   const current = scroller[axis]
   const sheet = scroller.querySelector("[data-sheet-content]")
 
   if (!sheet) {
-    return current
+    return { from: current, to: target }
   }
 
   const rect = sheet.getBoundingClientRect()
@@ -85,12 +100,18 @@ function skipHiddenTravel(
   const sheetEnd = isVertical ? rect.bottom : rect.right
   const viewportEnd = isVertical ? window.innerHeight : window.innerWidth
   const distance = target - current
-  // Scrolling forward brings the sheet in from the end edge, backward from the start edge.
+  // Scrolling forward moves the sheet toward the start edge: it comes in from the end edge and
+  // leaves past the start edge. Scrolling backward is the mirror image.
   const hidden = distance > 0 ? sheetStart - viewportEnd : -sheetEnd
+  const visible = distance > 0 ? sheetEnd : viewportEnd - sheetStart
 
-  const skip = Math.min(Math.max(hidden, 0), Math.abs(distance))
+  const clamp = (travel: number) =>
+    Math.min(Math.max(travel, 0), Math.abs(distance))
 
-  return current + Math.sign(distance) * skip
+  return {
+    from: current + Math.sign(distance) * clamp(hidden),
+    to: current + Math.sign(distance) * clamp(visible),
+  }
 }
 
 function springScroll(
@@ -100,8 +121,10 @@ function springScroll(
   const nativeScrollTo = scroller.scrollTo.bind(scroller)
   let frame = 0
   let snapType = ""
+  let running: SpringTarget = { axis: "scrollTop", target: 0 }
 
-  const settle = () => {
+  // Ends the spring where it is.
+  const stop = () => {
     if (!frame) {
       return
     }
@@ -113,6 +136,17 @@ function springScroll(
     scroller.dispatchEvent(new Event("scrollend"))
   }
 
+  // Ends the spring at React Aria's target. Stopping midway would let snapping pull a closing
+  // sheet back open, or an opening one shut.
+  const finish = () => {
+    if (!frame) {
+      return
+    }
+
+    scroller[running.axis] = running.target
+    stop()
+  }
+
   // Programmatic scrolls snap, so snapping is off while the spring runs.
   const suspendSnapping = () => {
     if (scroller.style.scrollSnapType !== "none") {
@@ -121,15 +155,17 @@ function springScroll(
     }
   }
 
-  const springTo = (axis: "scrollTop" | "scrollLeft", target: number) => {
-    settle()
+  const springTo = (axis: ScrollAxis, target: number) => {
+    stop()
     suspendSnapping()
 
-    let position = skipHiddenTravel(scroller, axis, target)
-    scroller[axis] = position
-
+    const { from, to } = visibleTravel(scroller, axis, target)
+    let position = from
     let velocity = 0
     let previous = performance.now()
+
+    running = { axis, target }
+    scroller[axis] = position
 
     const step = (now: number) => {
       const elapsed = Math.min(
@@ -140,7 +176,7 @@ function springScroll(
       previous = now
 
       for (let time = 0; time < elapsed; time += springStep.seconds) {
-        const force = -stiffness * (position - target) - damping * velocity
+        const force = -stiffness * (position - to) - damping * velocity
         velocity += (force / mass) * springStep.seconds
         position += velocity * springStep.seconds
       }
@@ -148,11 +184,10 @@ function springScroll(
       suspendSnapping()
 
       if (
-        Math.abs(position - target) < springStep.settleDistance &&
+        Math.abs(position - to) < springStep.settleDistance &&
         Math.abs(velocity) < springStep.settleVelocity
       ) {
-        scroller[axis] = target
-        settle()
+        finish()
 
         return
       }
@@ -164,11 +199,20 @@ function springScroll(
     frame = requestAnimationFrame(step)
   }
 
-  // React Aria always passes an options object. Defined on the instance, so removing it restores
-  // the prototype's scrollTo.
-  const springScrollTo = (options?: ScrollToOptions) => {
+  // React Aria passes an options object with `behavior: "smooth"`; any other call scrolls
+  // natively. Defined on the instance, so removing it restores the prototype's scrollTo.
+  const springScrollTo = (...args: ScrollToArgs) => {
+    if (args.length === 2) {
+      stop()
+      nativeScrollTo(...args)
+
+      return
+    }
+
+    const [options] = args
+
     if (options?.behavior !== "smooth") {
-      settle()
+      stop()
       nativeScrollTo(options)
 
       return
@@ -198,16 +242,16 @@ function springScroll(
   }
 
   scroller.addEventListener("scrollend", holdScrollEnd)
-  // A touch, click or wheel takes over from the spring.
-  scroller.addEventListener("pointerdown", settle)
-  scroller.addEventListener("wheel", settle, { passive: true })
+  // A touch, click or wheel jumps the spring to its target, then takes over from there.
+  scroller.addEventListener("pointerdown", finish)
+  scroller.addEventListener("wheel", finish, { passive: true })
 
   return () => {
-    settle()
+    stop()
     Reflect.deleteProperty(scroller, "scrollTo")
     scroller.removeEventListener("scrollend", holdScrollEnd)
-    scroller.removeEventListener("pointerdown", settle)
-    scroller.removeEventListener("wheel", settle)
+    scroller.removeEventListener("pointerdown", finish)
+    scroller.removeEventListener("wheel", finish)
   }
 }
 
@@ -229,16 +273,21 @@ const backdropStyles = tv({
 
 // `position` is the resolved edge: React Aria maps start/end to left/right for the locale.
 // The stack offsets nudge a parent sheet toward its edge while it scales back behind a child.
+// Sheets that size to their content stop short of the viewport's height, so `SheetBody` scrolls
+// instead of pushing the header off screen. The cap sits on the sheet, not the body, so the
+// height is right on the first frame, when React Aria measures the snap points.
 const sheetStyles = tv({
   base: "relative z-[1] box-content flex flex-col overflow-clip border-muted-foreground/20 bg-overlay text-overlay-foreground shadow-lg outline-hidden will-change-transform dark:border-border forced-colors:bg-[Canvas]",
   variants: {
     position: {
-      top: "w-full max-w-[800px] origin-bottom border-b [--sheet-stack-y:8px]",
-      bottom: "w-full max-w-[800px] origin-top border-t [--sheet-stack-y:-8px]",
+      top: "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-bottom border-b [--sheet-stack-y:8px]",
+      bottom:
+        "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(10))] w-full max-w-[800px] origin-top border-t [--sheet-stack-y:-8px]",
       left: "h-full w-3/4 origin-right border-r [--sheet-stack-x:8px] sm:max-w-80",
       right:
         "h-full w-3/4 origin-left border-l [--sheet-stack-x:-8px] sm:max-w-80",
-      center: "w-[calc(100%-2rem)] max-w-lg rounded-2xl border",
+      center:
+        "max-h-[calc(var(--visual-viewport-height,100dvh)---spacing(8))] w-[calc(100%-2rem)] max-w-lg rounded-2xl border",
     },
     isFloat: {
       true: "rounded-lg border-0 ring-1 ring-foreground/5 dark:ring-border",
@@ -296,7 +345,7 @@ interface SheetContentProps
       SheetContentPrimitiveProps,
       "aria-label" | "aria-labelledby" | "role" | "children"
     >,
-    Pick<SheetProps, "swipeAnimation" | "swipeAnimationRange"> {
+    Pick<SheetPrimitiveProps, "swipeAnimation" | "swipeAnimationRange"> {
   className?: string
   style?: React.CSSProperties
   /** The edge the sheet slides in from. `start` and `end` follow the locale direction; `center` swipes vertically. */
@@ -332,6 +381,7 @@ const SheetContent = ({
   ...props
 }: SheetContentProps) => {
   const { snapPoints } = props
+  const hasSnapPoints = Boolean(snapPoints?.length)
 
   return (
     <SheetOverlay
@@ -350,7 +400,7 @@ const SheetContent = ({
         className={backdropStyles({ isBlurred })}
         swipeAnimation="sheet-backdrop"
         swipeAnimationRange={
-          snapPoints ? { start: snapPoints.length - 1 } : undefined
+          snapPoints?.length ? { start: snapPoints.length - 1 } : undefined
         }
       />
       {/* A floating sheet is inset from the edge, so it must not appear to continue past it. */}
@@ -376,7 +426,7 @@ const SheetContent = ({
               role={role}
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledby}
-              className={contentStyles({ hasSnapPoints: Boolean(snapPoints) })}
+              className={contentStyles({ hasSnapPoints })}
             >
               {composeRenderProps(children, (resolvedChildren) => (
                 <>
@@ -416,4 +466,4 @@ export {
   SheetTitle,
   SheetTrigger,
 }
-export type { SheetContentProps, SheetTransition, Sides }
+export type { SheetContentProps, SheetProps, SheetTransition, Sides }
