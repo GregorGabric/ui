@@ -86,8 +86,9 @@ const GridList = <T extends object>({
         [
           "relative flex flex-col sm:text-sm/6",
           // Insertion markers between rows when reordering. An outline, not a border, so it shows in
-          // forced colors and doesn't pick up the bordered variant's dividers.
-          "[&_.react-aria-DropIndicator]:border-0 [&_.react-aria-DropIndicator[data-drop-target]]:outline [&_.react-aria-DropIndicator[data-drop-target]]:outline-primary forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:outline-[Highlight]",
+          // forced colors and doesn't pick up the bordered variant's dividers. Rows are positioned, so
+          // the active marker is lifted above them or their dividers and backgrounds cover it.
+          "[&_.react-aria-DropIndicator]:border-0 [&_.react-aria-DropIndicator[data-drop-target]]:relative [&_.react-aria-DropIndicator[data-drop-target]]:z-10 [&_.react-aria-DropIndicator[data-drop-target]]:outline [&_.react-aria-DropIndicator[data-drop-target]]:outline-primary forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:outline-[Highlight]",
           listVariantStyles[variant],
         ],
         className
