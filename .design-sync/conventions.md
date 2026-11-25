@@ -28,7 +28,7 @@ Never invent new hex colors or unrelated utility classes — every visual surfac
 ### Composition patterns worth knowing
 
 - **Compound components are separate exports.** e.g. `Card`/`CardHeader`/`CardContent`/`CardFooter`, `Dialog`/`DialogHeader`/`DialogBody`/`DialogFooter`/`DialogClose`, `Sheet`/`Modal`/`Popover` + their `*Trigger`/`*Body`/`*Close` parts. Compose the full family together rather than reaching for just the root export.
-- **Overlay components** (`Modal`, `Sheet`, `Drawer`, `Popover`, `Tooltip`, `Menu`, `CommandMenu`) are react-aria-components-based triggers with real open/close state — most accept `defaultOpen`/`isOpen` for a controlled open state. `ContextMenu` only opens from a real `onContextMenu` event (no forcing prop).
+- **Overlay components** (`Modal`, `Sheet`, `Popover`, `Tooltip`, `Menu`, `CommandMenu`) are react-aria-components-based triggers with real open/close state — most accept `defaultOpen`/`isOpen` for a controlled open state. `ContextMenu` only opens from a real `onContextMenu` event (no forcing prop).
 - **Icons** come from `lucide-react` throughout (`<SettingsIcon />`, `<PlusIcon />`, etc.) — pass them as children of `Button`, `MenuItem`, and similar slotted components rather than as a separate icon prop.
 - **Charts** (`AreaChart`, `BarChart`, `LineChart`, `PieChart`) are self-contained recharts wrappers — pass `data` and column keys directly; don't mix them with raw `recharts` imports in the same tree. The lower-level `Chart` primitive is meant to be composed with raw `recharts` children (`XAxis`, `YAxis`, `CartesianGrid`, etc. imported directly from `"recharts"`), not the DS's own chart sub-parts.
 
