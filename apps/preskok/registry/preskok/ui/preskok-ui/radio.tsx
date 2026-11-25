@@ -33,7 +33,13 @@ export function Radio({ className, children, ...props }: RadioProps) {
   return (
     <RadioPrimitive
       {...props}
-      className={cx("group/radio block disabled:opacity-50", className)}
+      className={composeRenderProps(className, (className, { isHovered }) =>
+        twMerge(
+          "group/radio block disabled:opacity-50",
+          isHovered && "group/interactive",
+          className
+        )
+      )}
     >
       {composeRenderProps(
         children,

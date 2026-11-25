@@ -1,12 +1,11 @@
 "use client"
 
 import { twJoin, twMerge } from "cn"
+import { composeRenderProps } from "react-aria-components/composeRenderProps"
 import {
   Switch as SwitchPrimitive,
   type SwitchProps,
 } from "react-aria-components/Switch"
-
-import { cx } from "@/registry/preskok/lib/primitive"
 
 import { Label } from "./field"
 
@@ -15,13 +14,14 @@ export function Switch({ children, className, ...props }: SwitchProps) {
     <SwitchPrimitive
       {...props}
       data-slot="control"
-      className={cx(
-        [
+      className={composeRenderProps(className, (className, { isHovered }) =>
+        twMerge(
           "[--switch-background-ring:var(--color-blue-700)]/90 [--switch-background:var(--color-blue-600)] dark:[--switch-background-ring:transparent]",
           "[--switch-ring:var(--color-blue-700)]/90 [--switch-shadow:var(--color-blue-900)]/20 [--switch:white]",
           "group relative grid cursor-default grid-cols-[1fr_auto] gap-x-6 gap-y-1 disabled:opacity-50 *:data-[slot=indicator]:col-start-2 *:data-[slot=indicator]:self-start *:data-[slot=label]:col-start-1 *:data-[slot=label]:row-start-1 has-[[slot=description]]:**:data-[slot=label]:font-medium sm:*:data-[slot=indicator]:mt-0.5 *:[[slot=description]]:col-start-1 *:[[slot=description]]:row-start-2",
-        ],
-        className
+          isHovered && "group/interactive",
+          className
+        )
       )}
       style={({ defaultStyle }) => ({
         ...defaultStyle,

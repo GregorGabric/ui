@@ -75,7 +75,7 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
             "flex min-w-0 cursor-default items-center gap-2 sm:gap-2.5",
             "dragging:cursor-grab dragging:opacity-70 dragging:**:[[slot=drag]]:text-foreground",
             "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:size-5 **:data-[slot=icon]:shrink-0 sm:**:data-[slot=icon]:size-4",
-            isHovered && "bg-accent/50",
+            isHovered && "group/interactive bg-accent/50",
             isSelected && "bg-accent",
             isFocusVisible && "inset-ring-ring",
             "href" in props && "cursor-pointer",
