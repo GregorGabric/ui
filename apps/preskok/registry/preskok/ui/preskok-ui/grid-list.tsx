@@ -59,7 +59,7 @@ const itemVariantStyles: Record<GridListVariant, string> = {
   // Rows touching the frame's corners take its inner radius, so their focus outline follows the
   // curve instead of being clipped by the list's `overflow-hidden`.
   bordered:
-    "px-3 py-2.5 [[data-slot=grid-list]>&:first-child]:rounded-t-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>&:last-child]:rounded-b-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>[data-slot=grid-list-section]:last-child>&:last-child]:rounded-b-[calc(var(--radius-lg)-1px)]",
+    "px-3 py-2.5 [[data-slot=grid-list]>&:first-child]:rounded-t-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>&:last-child]:rounded-b-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>[data-slot=grid-list-section]:first-child>&:first-child]:rounded-t-[calc(var(--radius-lg)-1px)] [[data-slot=grid-list]>[data-slot=grid-list-section]:last-child>&:last-child]:rounded-b-[calc(var(--radius-lg)-1px)]",
   plain: "rounded-md px-2 py-2",
 }
 
@@ -83,7 +83,13 @@ const GridList = <T extends object>({
       data-slot="grid-list"
       data-variant={variant}
       className={cx(
-        ["relative flex flex-col sm:text-sm/6", listVariantStyles[variant]],
+        [
+          "relative flex flex-col sm:text-sm/6",
+          // Insertion markers between rows when reordering. An outline, not a border, so it shows in
+          // forced colors and doesn't pick up the bordered variant's dividers.
+          "[&_.react-aria-DropIndicator]:border-0 [&_.react-aria-DropIndicator[data-drop-target]]:outline [&_.react-aria-DropIndicator[data-drop-target]]:outline-primary forced-colors:[&_.react-aria-DropIndicator[data-drop-target]]:outline-[Highlight]",
+          listVariantStyles[variant],
+        ],
         className
       )}
       {...props}
@@ -169,8 +175,10 @@ const GridListItem = ({ className, children, ...props }: GridListItemProps) => {
             isFocusVisible &&
               "outline-2 outline-ring forced-colors:outline-dashed forced-colors:outline-[CanvasText]",
             isFocusVisible && isSelected && "forced-colors:outline-[Highlight]",
-            // An inset ring, unlike a border, marks the drop target without shifting the row.
-            isDropTarget && "inset-ring-primary inset-ring-2",
+            // An inset ring, unlike a border, marks the drop target without shifting the row. Forced
+            // colors drop the ring, so an outline marks it there.
+            isDropTarget &&
+              "inset-ring-primary inset-ring-2 forced-colors:outline-2 forced-colors:outline-[Highlight]",
             isDisabled && "opacity-50 forced-colors:text-[GrayText]",
             isLink && "cursor-pointer",
             // Rows that only reorder can be grabbed anywhere; rows that also select or act keep the
